@@ -5,6 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "push-patch": "npm version patch && gpush",
+    "push-minor": "npm version minor && gpush",
+    "push-major": "npm version major && gpush",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
