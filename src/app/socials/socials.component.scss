@@ -1,0 +1,57 @@
+.social-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.social-buttons {
+    display: flex;
+}
+
+#twitter-logo {
+    height: 100px;
+    width: 100px;
+}
+
+#facebook-logo {
+    height: 100px;
+    width: 100px;
+}
+
+#instagram-logo {
+    margin: auto;
+    height: 60px;
+    width: 60px;
+}
+
+.insta-posts{
+    display: inline-flex;
+}
+
+#feeds {
+    display: inline-flex;
+}
+
+#instgram-feed {
+    display: flex;
+    height: 90vh;
+    width: 40vw;
+}
+
+#twitter-feed {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    width: 40vw;
+}
+
+#instagram-circle{
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background-color: antiquewhite;
+    border: 5px;
+    border-color: palevioletred;
+    
+}
