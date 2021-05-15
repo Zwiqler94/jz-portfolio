@@ -1,0 +1,24 @@
+#about-me-div {
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    // flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#about-me-header {
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    // flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#first-blurb {
+    max-width:50%;
+    flex: none;
+}
+
+
