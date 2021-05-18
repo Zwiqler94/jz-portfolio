@@ -13,6 +13,7 @@ import { HobbiesComponent } from './hobbies/hobbies.component';
 import { NewsComponent } from './news/news.component';
 import { SocialsComponent } from './socials/socials.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { FeedComponent } from './feed/feed.component';
 
 
 
@@ -23,7 +24,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     HobbiesComponent,
     NewsComponent,
     SocialsComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    FeedComponent
   ],
   imports: [
     BrowserModule,
