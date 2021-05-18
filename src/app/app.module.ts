@@ -14,6 +14,7 @@ import { NewsComponent } from './news/news.component';
 import { SocialsComponent } from './socials/socials.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { FeedComponent } from './feed/feed.component';
+import { MainFeedPageComponent } from './main-feed-page/main-feed-page.component';
 
 
 
@@ -25,7 +26,8 @@ import { FeedComponent } from './feed/feed.component';
     NewsComponent,
     SocialsComponent,
     ErrorPageComponent,
-    FeedComponent
+    FeedComponent,
+    MainFeedPageComponent
   ],
   imports: [
     BrowserModule,

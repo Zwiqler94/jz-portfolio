@@ -7,13 +7,14 @@ import { NewsComponent } from './news/news.component';
 import { SocialsComponent } from './socials/socials.component';
 import { ErrorPageComponent } from 'src/app/error-page/error-page.component';
 import { FeedComponent } from 'src/app/feed/feed.component';
+import { MainFeedPageComponent } from 'src/app/main-feed-page/main-feed-page.component';
 
 const routes: Routes = [
   { path: 'aboutme', component: AboutMeComponent },
   { path: 'hobbies', component: HobbiesComponent },
   { path: 'news', component: NewsComponent },
   { path: 'socials', component: SocialsComponent },
-  { path: '/', component: FeedComponent },
+  { path: '', component: MainFeedPageComponent },
   { path: '**', component: ErrorPageComponent }
 ];
 
