@@ -8,6 +8,7 @@
     "version-push": "func(){ npm version \"$1\" -m \"$2\" && git push --tags; }; func",
     "test": "ng test",
     "lint": "ng lint",
+    "lint-fix": "ng lint jz-portfolio --fix",
     "e2e": "ng e2e"
   },
   "private": true,

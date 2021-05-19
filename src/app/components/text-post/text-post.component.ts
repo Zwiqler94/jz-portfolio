@@ -1,18 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-text-post',
   templateUrl: './text-post.component.html',
-  styleUrls: ['./text-post.component.scss']
+  styleUrls: ['./text-post.component.scss'],
 })
 export class TextPostComponent implements OnInit {
 
-  currentFeedLocation: String;
-  post: Object;
-
-  constructor(private feedLocation: String) {
-    this.currentFeedLocation = feedLocation;
-    this.post = {title: "Hello", content: "World"};
+  @Input() postTitle: string;
+  @Input() postContent: string;
+  constructor() {
   }
 
   ngOnInit(): void {
