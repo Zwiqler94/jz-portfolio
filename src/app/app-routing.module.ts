@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { AboutMeComponent } from './about-me/about-me.component';
-import { HobbiesComponent } from './hobbies/hobbies.component';
-import { NewsComponent } from './news/news.component';
-import { SocialsComponent } from './socials/socials.component';
-import { ErrorPageComponent } from 'src/app/error-page/error-page.component';
-import { FeedComponent } from 'src/app/feed/feed.component';
-import { MainFeedPageComponent } from 'src/app/main-feed-page/main-feed-page.component';
+import { AboutMeComponent } from './pages/about-me/about-me.component';
+import { HobbiesComponent } from './pages/hobbies/hobbies.component';
+import { NewsComponent } from './pages/news/news.component';
+import { SocialsComponent } from './pages/socials/socials.component';
+import { ErrorPageComponent } from 'src/app/pages/error-page/error-page.component';
+import { FeedComponent } from 'src/app/components/feed/feed.component';
+import { MainFeedPageComponent } from 'src/app/pages/main-feed-page/main-feed-page.component';
 
 const routes: Routes = [
   { path: 'aboutme', component: AboutMeComponent },

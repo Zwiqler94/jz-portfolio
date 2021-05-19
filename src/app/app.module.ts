@@ -8,13 +8,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 import { AppComponent } from './app.component';
-import { AboutMeComponent } from './about-me/about-me.component';
-import { HobbiesComponent } from './hobbies/hobbies.component';
-import { NewsComponent } from './news/news.component';
-import { SocialsComponent } from './socials/socials.component';
-import { ErrorPageComponent } from './error-page/error-page.component';
-import { FeedComponent } from './feed/feed.component';
-import { MainFeedPageComponent } from './main-feed-page/main-feed-page.component';
+import { AboutMeComponent } from './pages/about-me/about-me.component';
+import { HobbiesComponent } from './pages/hobbies/hobbies.component';
+import { NewsComponent } from './pages/news/news.component';
+import { SocialsComponent } from './pages/socials/socials.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { FeedComponent } from './components/feed/feed.component';
+import { MainFeedPageComponent } from './pages/main-feed-page/main-feed-page.component';
+import { TextPostComponent } from './components/text-post/text-post.component';
 
 
 
@@ -27,7 +28,8 @@ import { MainFeedPageComponent } from './main-feed-page/main-feed-page.component
     SocialsComponent,
     ErrorPageComponent,
     FeedComponent,
-    MainFeedPageComponent
+    MainFeedPageComponent,
+    TextPostComponent
   ],
   imports: [
     BrowserModule,
