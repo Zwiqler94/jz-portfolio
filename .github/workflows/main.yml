@@ -26,12 +26,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Version
+        run: npm version patch
       - name: Install Dependencies
         run: npm install
       - name: Lint code and Fix Simple Issues
         run: npm run lint-fix
-      - name: Version
-        run: npm version patch
       - name: Build Project
         run: npm run build
       - name: Upload a Build Artifact
