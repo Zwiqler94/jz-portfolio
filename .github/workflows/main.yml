@@ -25,11 +25,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        with:
-          token: ${{secrets.PAT}}
+      
+      
+      - name: Setup User
+        run: git config --global user.email "jazwickler@gmail.com"
       
       - name: Version
-        run: git config --global user.email "jazwickler@gmail.com" && npm version patch
+        run: npm version patch
       - name: Install Dependencies
         run: npm install
       - name: Lint code and Fix Simple Issues
