@@ -30,6 +30,8 @@ jobs:
         run: npm install
       - name: Build Project
         run: npm run build
+      - name: Lint code and Fix Simple Issues
+        run: npm run lint-fix
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.3
         with:
