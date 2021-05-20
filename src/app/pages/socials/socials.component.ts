@@ -14,7 +14,7 @@ export class SocialsComponent implements OnInit, AfterViewInit {
   instagramScript: any;
   twitterScript: any;
 
-  constructor(private renderer2: Renderer2, @Inject(DOCUMENT) private DOMDocument: any, private router: Router) {
+  constructor(private renderer2: Renderer2, @Inject(DOCUMENT) private domDocument: any, private router: Router) {
     if (this.router.navigated === true) {
       location.reload();
     }
@@ -26,7 +26,7 @@ export class SocialsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.DOMDocument.body);
+    console.log(this.domDocument.body);
     try {
       this.loadScripts();
     } catch (error) {
@@ -65,8 +65,8 @@ export class SocialsComponent implements OnInit, AfterViewInit {
       this.instagramScript.onerror = () => {
         resolve({ success: 'false' });
       };
-      this.renderer2.appendChild(this.DOMDocument.body, this.instagramScript);
-      this.renderer2.appendChild(this.DOMDocument.body, this.twitterScript);
+      this.renderer2.appendChild(this.domDocument.body, this.instagramScript);
+      this.renderer2.appendChild(this.domDocument.body, this.twitterScript);
     }
     );
 
