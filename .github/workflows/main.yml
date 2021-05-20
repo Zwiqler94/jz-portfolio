@@ -28,7 +28,8 @@ jobs:
         with:
           token: ${{secrets.PAT}}
       
-
+      - name: Set Author
+        run: git config --global user.email "jazwickler@gmail.com"
       - name: Version
         run: npm version patch
       - name: Install Dependencies
