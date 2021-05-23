@@ -25,6 +25,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        env: 
+            GITHUB_TOKEN: ${{secrets.PAT}}
 
       - name: Install Dependencies
         run: npm install
@@ -32,8 +34,6 @@ jobs:
         run: npm run lint-fix
       - name: Version
         run: npm version patch
-        with: 
-          author: ${{GITHUB.ACTOR}}
       - name: Build Project
         run: npm run build
 
