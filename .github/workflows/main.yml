@@ -27,14 +27,15 @@ jobs:
       - uses: actions/checkout@v2
         env: 
             GITHUB_TOKEN: ${{secrets.PAT}}
-      - name: Lint code and Fix Simple Issues
-        run: npm run lint-fix
         
       - name: Version
         run: npm version patch
 
       - name: Install Dependencies
         run: npm install
+        
+      - name: Lint code and Fix Simple Issues
+        run: npm run lint-fix
         
       - name: Build Project
         run: npm run build
