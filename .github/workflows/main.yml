@@ -2,13 +2,13 @@
 
 name: CI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,18 +25,26 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+
       - name: Version
-        run: | 
-             git config --global user.name "Jacob Zwickler"
-             npm version patch
+        run: |
+          npm_version=$(npm version patch) 
+          echo "{PROJECT_VERSION}={$npm_version}" >> $GITHUB_ENV
+
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v7.2.1
+        with:
+          default_author: $GITHUB_ACTOR
+          message: "$PROJECT_VERSION"
 
       - name: Install Dependencies
         run: npm install
-        
+
       - name: Lint code and Fix Simple Issues
         run: npm run lint-fix
-        
+
       - name: Build Project
         run: npm run build
 
@@ -58,14 +66,11 @@ jobs:
       - name: Download a Build Artifact
         uses: actions/download-artifact@v2.0.9
         with:
-            name: dist
-            path: dist/jz-portfolio
+          name: dist
+          path: dist/jz-portfolio
       - name: Deploy To Firebase
         uses: w9jds/firebase-action@v2.0.0
         with:
-         args: deploy
+          args: deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        
-      
-        
