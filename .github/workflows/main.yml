@@ -34,13 +34,13 @@ jobs:
           git config --global user.name $GITHUB_ACTOR
           npm_version=$(npm version patch) 
           echo $npm_version
-          git fetch origin master
-          git merge origin master
+          git fetch origin $GITHUB_HEAD_REF
+          git merge origin $GITHUB_HEAD_REF
           git add .
           git commit -m '$npm_version'
           git push --tags
-          git push origin master
-          git push origin HEAD:$GITHUB_HEAD_REF
+          git push origin $GITHUB_HEAD_REF
+          # git push origin HEAD:$GITHUB_HEAD_REF
           
       - name: Version Push
         if: github.event_name == 'push'
