@@ -28,12 +28,25 @@ jobs:
         with:
           token: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Version
+      - name: Version Pull Request
+        if: github.event_name == 'pull_request'
+        run: |
+          git config --global user.name $GITHUB_ACTOR
+          git config pull.rebase false
+          git pull origin HEAD:$GITHUB_HEAD_REF
+          npm_version=$(npm version patch) 
+          echo $npm_version
+          git push --tags
+          git push origin HEAD:$GITHUB_HEAD_REF
+          
+      - name: Version Push
+        if: github.event_name == 'push'
         run: |
           git config --global user.name $GITHUB_ACTOR
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
+          git push origin HEAD:$GITHUB_REF#refs/heads/
         
 
       - name: Install Dependencies
