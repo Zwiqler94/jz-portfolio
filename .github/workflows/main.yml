@@ -33,7 +33,7 @@ jobs:
           git config --global user.name $GITHUB_ACTOR
           npm_version=$(npm version patch) 
           echo $npm_version
-          echo | ls -al
+          cat package.json
           git commit -m "$npm_version"
           git push --tags
         
