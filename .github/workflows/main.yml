@@ -34,7 +34,12 @@ jobs:
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
-        
+  
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v7.2.1
+        with:
+          default_author: github_actor
+          message: "$PROJECT_VERSION"
 
       - name: Install Dependencies
         run: npm install
