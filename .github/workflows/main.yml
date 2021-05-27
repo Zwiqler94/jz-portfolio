@@ -28,19 +28,23 @@ jobs:
         with:
           token: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-
-      - name: Version
+      - name: Version Pull Request
+        if: github.event_name == 'pull_request'
         run: |
           git config --global user.name $GITHUB_ACTOR
           npm_version=$(npm version patch) 
           echo $npm_version
-          echo ${{ steps.extract_branch.outputs.branch }}
           git push --tags
-          git push origin HEAD:${{ steps.extract_branch.outputs.branch }}
+          git push origin HEAD:$GITHUB_HEAD_REF
+          
+      - name: Version Push
+        if: github.event_name == 'push'
+        run: |
+          git config --global user.name $GITHUB_ACTOR
+          npm_version=$(npm version patch) 
+          echo $npm_version
+          git push --tags
+          git push origin HEAD:$GITHUB_REF#refs/heads/
   
 #       - name: Add & Commit
 #         uses: EndBug/add-and-commit@v7.2.1
