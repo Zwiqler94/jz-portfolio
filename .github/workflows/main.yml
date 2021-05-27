@@ -30,7 +30,9 @@ jobs:
 
       - name: Version
         run: |
+          git config --global user.name $GITHUB_ACTOR
           npm_version=$(npm version patch) 
+          echo $npm_version
           echo "{PROJECT_VERSION}={$npm_version}" >> $GITHUB_ENV
 
       - name: Add & Commit
