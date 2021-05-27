@@ -37,7 +37,6 @@ jobs:
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
-          
           git push origin HEAD:$GITHUB_HEAD_REF
           
       - name: Version Push
