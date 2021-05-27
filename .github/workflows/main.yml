@@ -37,6 +37,7 @@ jobs:
           git config --global user.name $GITHUB_ACTOR
           npm_version=$(npm version patch) 
           echo $npm_version
+          echo ${{ steps.extract_branch.outputs.branch }}
           git push --tags
           git push origin HEAD:${{ steps.extract_branch.outputs.branch }}
   
