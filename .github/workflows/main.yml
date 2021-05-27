@@ -28,14 +28,17 @@ jobs:
         with:
           token: ${{secrets.GITHUB_TOKEN}}
 
+      - name: Extract branch name
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
       - name: Version
         run: |
           git config --global user.name $GITHUB_ACTOR
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
-          git remote set-url --push origin https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git push
+          git push origin HEAD:${{ steps.extract_branch.outputs.branch }}
   
 #       - name: Add & Commit
 #         uses: EndBug/add-and-commit@v7.2.1
