@@ -39,7 +39,7 @@ jobs:
           git add .
           git commit -m '$npm_version'
           git push --tags
-          git push origin $GITHUB_HEAD_REF
+          git push origin $GITHUB_REF
           # git push origin HEAD:$GITHUB_HEAD_REF
           
       - name: Version Push
