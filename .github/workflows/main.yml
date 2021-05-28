@@ -36,8 +36,8 @@ jobs:
           echo $npm_version
           # git add .
           # git commit -m '$npm_version'
-          git push jz-portfolio HEAD:$GITHUB_HEAD_REF
-          # git push origin HEAD:$GITHUB_HEAD_REF
+          # git push jz-portfolio HEAD:$GITHUB_HEAD_REF
+          git push origin HEAD:$GITHUB_HEAD_REF
           
       - name: Version Push
         if: github.event_name == 'push'
