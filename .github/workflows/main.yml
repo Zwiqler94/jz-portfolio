@@ -32,11 +32,12 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           git config --global user.name $GITHUB_ACTOR
-          npm_version=$(npm version patch) 
-          echo $npm_version
+          # npm_version=$(npm version patch) 
+          # echo $npm_version
           # git add .
           # git commit -m '$npm_version'
           # git push jz-portfolio HEAD:$GITHUB_HEAD_REF
+          git fetch --all
           git push origin HEAD:$GITHUB_HEAD_REF
           
       - name: Version Push
