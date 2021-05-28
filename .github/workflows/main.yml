@@ -38,8 +38,11 @@ jobs:
           # git merge jz-portfolio $GITHUB_HEAD_REF
           git add .
           git commit -m '$npm_version'
+          gco -b temp
+          gco $GITHUB_HEAD_REF
+          git merge temp
           git push --tags
-          git push jz-portfolio $GITHUB_REF
+          git push jz-portfolio $GITHUB_HEAD_REF
           # git push origin HEAD:$GITHUB_HEAD_REF
           
       - name: Version Push
