@@ -38,7 +38,7 @@ jobs:
           # git commit -m '$npm_version'
           # git push jz-portfolio HEAD:$GITHUB_HEAD_REF
           git config pull.ff only
-          git pull origin HEAD:$GITHUB_HEAD_REF
+          git pull origin HEAD:$GITHUB_HEAD_REF --allow-unrelated-histories
           git push origin HEAD:$GITHUB_HEAD_REF
           
       - name: Version Push
