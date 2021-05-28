@@ -36,8 +36,8 @@ jobs:
           echo $npm_version
           # git pull jz-portfolio $GITHUB_HEAD_REF
           # git merge jz-portfolio $GITHUB_HEAD_REF
-          gco -b temp
-          gco $GITHUB_HEAD_REF
+          git checkout -b temp
+          git checkout $GITHUB_HEAD_REF
           git add .
           git commit -m '$npm_version'
           git merge temp
