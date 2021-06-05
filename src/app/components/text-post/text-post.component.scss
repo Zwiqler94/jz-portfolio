@@ -1,3 +1,10 @@
-mat-card{
+#post-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-card {
     margin: 15px;
+    max-width: 80%;
 }
