@@ -45,6 +45,7 @@ export const staticTextPosts: TextPost[] = [
         feedLocation: 'Main',
         postType: 'text',
         title: 'Welcome!',
-        content: 'Welcome to this wonderful site about my work and life. Made from scratch using Angular 12 and Node.JS. Hope you enjoy what you see!'
+        content: 'Welcome to this wonderful site about my work and life. Made from scratch using Angular 12 and Node.JS.\
+        Hope you enjoy what you see!'
     }
 ];
