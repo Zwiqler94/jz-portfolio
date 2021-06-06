@@ -1,4 +1,7 @@
 @use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+
+@include mat.core();
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -7,33 +10,49 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat.core();
+// @include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$jz-portfolio-primary: mat.define-palette(mat.$indigo-palette);
-$jz-portfolio-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+// $jz-portfolio-primary: mat.define-palette(mat.$indigo-palette);
+// $jz-portfolio-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$jz-portfolio-warn: mat.define-palette(mat.$red-palette);
+// $jz-portfolio-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$jz-portfolio-theme: mat.define-light-theme((
-  color: (
-    primary: $jz-portfolio-primary,
-    accent: $jz-portfolio-accent,
-    warn: $jz-portfolio-warn,
-  )
-));
+// $jz-portfolio-theme: mat.define-light-theme((
+//   color: (
+//     primary: $jz-portfolio-primary,
+//     accent: $jz-portfolio-accent,
+//     warn: $jz-portfolio-warn,
+//   )
+// ));
+
+// $jz-portfolio-theme2: mat.define-dark-theme((
+//   color: (
+//     primary: $jz-portfolio-primary,
+//     accent: $jz-portfolio-accent,
+//     warn: $jz-portfolio-warn,
+//   )
+// ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-component-themes($jz-portfolio-theme);
+// @include mat.all-component-themes($jz-portfolio-theme2);
 
+// ------------
+
+$primary: mat-palette($mat-pink);
+$accent: mat-palette($mat-red, 100, 500, A100);
+
+$my-theme: mat-dark-theme($primary, $accent);
+
+@include angular-material-theme($my-theme);
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%; background-color: mat.get-color-from-palette($mat-pink); }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

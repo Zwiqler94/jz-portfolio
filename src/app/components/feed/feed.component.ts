@@ -1,7 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ComponentFactory, ComponentFactoryResolver,
-   ComponentRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  AfterViewInit, ChangeDetectorRef, Component, ComponentFactory, ComponentFactoryResolver,
+  ComponentRef, Input, OnInit, ViewChild, ViewContainerRef
+} from '@angular/core';
 import { TextPostComponent } from 'src/app/components/text-post/text-post.component';
-import { testPosts } from '../../pages/testTextPost';
+import { TextPost } from '../models/text-post';
+import { staticTextPosts } from '../../pages/staticTextPosts';
 
 @Component({
   selector: 'app-feed',
@@ -31,15 +34,34 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   feedSwitch(feedSwitch: string): void {
     if (feedSwitch === 'Main') {
-      for (const testPost of testPosts) {
-        this.componentFactory = this.componentFactoryResovler.resolveComponentFactory(TextPostComponent);
-        this.componentRef = this.postTemplate.createComponent(this.componentFactory);
-        this.componentRef.instance.postTitle = testPost.title;
-        this.componentRef.instance.postContent = testPost.content;
+      for (const post of staticTextPosts) {
+        if (post.postType === 'text' && post.feedLocation === 'Main'){
+          this.generateTextPost(post);
+        }
       }
-      // console.log(this.componentRef);
-
+    }
+    else if(feedSwitch === 'Puppy' ){
+      for (const post of staticTextPosts) {
+        if (post.postType === 'text' && post.feedLocation === 'Puppy'){
+          this.generateTextPost(post);
+        }
+      }
     }
   }
+  generateTextPost(textPost: TextPost) {
+    this.componentFactory = this.componentFactoryResovler.resolveComponentFactory(TextPostComponent);
+    this.componentRef = this.postTemplate.createComponent(this.componentFactory);
+    this.componentRef.instance.postTitle = textPost.title;
+    this.componentRef.instance.postContent = textPost.content;
+  }
+  generateLinkPost() {
 
+  }
+  generateImagePost() {
+
+  }
+  generateVideoPost() {
+
+  }
 }
+

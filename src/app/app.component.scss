@@ -3,3 +3,16 @@
     width: 100vw;
     display: flex;
 }
+
+mat-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media(max-width: 43.438rem){
+    mat-toolbar {
+        justify-content: center;
+        align-items: center;
+        height: 10rem;
+    }
+}
