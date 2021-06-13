@@ -26,7 +26,6 @@ export class SocialsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.domDocument.body);
     try {
       this.loadScripts();
     } catch (error) {
