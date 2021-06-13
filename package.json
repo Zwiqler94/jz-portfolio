@@ -1,11 +1,11 @@
 {
   "name": "jz-portfolio",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-prod":"ng build --prod",
+    "build-prod": "ng build --prod",
     "version-push": "func(){ npm version \"$1\" && git push --tags && git push; }; func",
     "test": "ng test",
     "lint": "ng lint",
