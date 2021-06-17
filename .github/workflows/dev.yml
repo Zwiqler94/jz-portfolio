@@ -1,14 +1,14 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI - main
+name: CI - Dev
 
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [main]
+    branches: [devlopement]
   pull_request:
-    branches: [main]
+    branches: [development]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -81,6 +81,6 @@ jobs:
       - name: Deploy To Firebase
         uses: w9jds/firebase-action@v2.0.0
         with:
-          args: deploy --only hosting:jlz-portfolio
+          args: deploy --only hosting:jlz-portfolio-dev
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
