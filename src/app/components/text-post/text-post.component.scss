@@ -5,6 +5,13 @@
 }
 
 mat-card {
-    margin: 15px;
-    max-width: 80%;
+    margin: 0.938rem;
+    max-width: 42.5rem;
+}
+
+@media (max-width: 25.875rem) {
+    mat-card {
+        margin: 0.938rem;
+        max-width: 80%;
+    }
 }
