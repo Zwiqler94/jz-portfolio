@@ -38,7 +38,7 @@ jobs:
           echo $npm_version
           git push --tags
           git push origin HEAD:$GITHUB_HEAD_REF
-          
+
       - name: Version Push
         if: github.event_name == 'push'
         run: |
@@ -47,7 +47,6 @@ jobs:
           echo $npm_version
           git push --tags
           git push origin HEAD:$GITHUB_REF
-        
 
       - name: Install Dependencies
         run: npm install
@@ -81,6 +80,7 @@ jobs:
       - name: Deploy To Firebase
         uses: w9jds/firebase-action@v2.0.0
         with:
-          args: deploy --only hosting:jlz-portfolio
+          args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: jlz-portfolio
