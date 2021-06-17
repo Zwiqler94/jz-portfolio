@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "jlz-portfolio",
+      "site": "jlz-portfolio",
       "public": "dist/jz-portfolio",
       "rewrites": [
         {
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "target": "jlz-portfolio-dev",
+      "site": "jlz-portfolio-dev",
       "public": "dist/jz-portfolio",
       "rewrites": [
         {
