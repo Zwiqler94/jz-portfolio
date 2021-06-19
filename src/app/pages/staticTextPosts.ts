@@ -47,5 +47,11 @@ export const staticTextPosts: TextPost[] = [
         title: 'Welcome!',
         content: 'Welcome to this wonderful site about my work and life. Made from scratch using Angular 12 and Node.JS.\
         Hope you enjoy what you see!'
+    },
+    {
+        feedLocation: 'Main',
+        postType: 'link',
+        title: 'Test Link Preview!',
+        content: 'Test link https://www.google.com'
     }
 ];

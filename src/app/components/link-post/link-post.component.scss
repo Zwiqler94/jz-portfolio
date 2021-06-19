@@ -1,0 +1,17 @@
+#post-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-card {
+    margin: 0.938rem;
+    max-width: 42.5rem;
+}
+
+@media (max-width: 25.875rem) {
+    mat-card {
+        margin: 0.938rem;
+        max-width: 80%;
+    }
+}

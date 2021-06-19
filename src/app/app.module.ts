@@ -18,6 +18,7 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { MainFeedPageComponent } from './pages/main-feed-page/main-feed-page.component';
 import { TextPostComponent } from './components/text-post/text-post.component';
+import { LinkPostComponent } from './components/link-post/link-post.component';
 
 
 
@@ -31,7 +32,8 @@ import { TextPostComponent } from './components/text-post/text-post.component';
     ErrorPageComponent,
     FeedComponent,
     MainFeedPageComponent,
-    TextPostComponent
+    TextPostComponent,
+    LinkPostComponent
   ],
   imports: [
     BrowserModule,
