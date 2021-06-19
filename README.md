@@ -1,4 +1,4 @@
-[![CI - Dev](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/dev.yml/badge.svg?branch=development)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/dev.yml)
+[![CI - Dev](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/dev.yml/badge.svg?branch=development)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/dev.yml) [![CI - main](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main.yml)
 
 
 # JzPortfolio
