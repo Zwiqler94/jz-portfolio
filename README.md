@@ -1,3 +1,6 @@
+[![CI - Dev](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/dev.yml/badge.svg?branch=development)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/dev.yml)
+
+
 # JzPortfolio
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.10.
