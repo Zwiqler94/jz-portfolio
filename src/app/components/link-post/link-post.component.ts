@@ -30,7 +30,14 @@ export class LinkPostComponent implements OnInit {
         }
       });
     }
+  }
 
+  get getLinkPreviewData(){
+    return this.linkPreviewData;
+  }
+
+  get hasLinkPreviewData(){
+    return this.getLinkPreviewData !== undefined;
   }
 
 }
