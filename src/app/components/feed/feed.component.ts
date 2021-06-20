@@ -5,6 +5,8 @@ import {
 import { TextPostComponent } from 'src/app/components/text-post/text-post.component';
 import { TextPost } from '../models/text-post';
 import { staticTextPosts } from '../../pages/staticTextPosts';
+import { LinkPost } from 'src/app/components/models/link-post';
+import { LinkPostComponent } from 'src/app/components/link-post/link-post.component';
 
 @Component({
   selector: 'app-feed',
@@ -35,14 +37,16 @@ export class FeedComponent implements OnInit, AfterViewInit {
   feedSwitch(feedSwitch: string): void {
     if (feedSwitch === 'Main') {
       for (const post of staticTextPosts) {
-        if (post.postType === 'text' && post.feedLocation === 'Main'){
+        if (post.postType === 'text' && post.feedLocation === 'Main') {
           this.generateTextPost(post);
+        } else if (post.postType === 'link' && post.feedLocation === 'Main') {
+          this.generateLinkPost(post);
         }
       }
     }
-    else if(feedSwitch === 'Puppy' ){
+    else if (feedSwitch === 'Puppy') {
       for (const post of staticTextPosts) {
-        if (post.postType === 'text' && post.feedLocation === 'Puppy'){
+        if (post.postType === 'text' && post.feedLocation === 'Puppy') {
           this.generateTextPost(post);
         }
       }
@@ -54,8 +58,11 @@ export class FeedComponent implements OnInit, AfterViewInit {
     this.componentRef.instance.postTitle = textPost.title;
     this.componentRef.instance.postContent = textPost.content;
   }
-  generateLinkPost() {
-
+  generateLinkPost(linkPost: LinkPost) {
+    this.componentFactory = this.componentFactoryResovler.resolveComponentFactory(LinkPostComponent);
+    this.componentRef = this.postTemplate.createComponent(this.componentFactory);
+    this.componentRef.instance.postTitle = linkPost.title;
+    this.componentRef.instance.postContent = linkPost.content;
   }
   generateImagePost() {
 
