@@ -33,7 +33,7 @@ jobs:
         run: |
           git config --global user.name $GITHUB_ACTOR
           git config pull.rebase false
-          git pull origin HEAD:$GITHUB_HEAD_REF
+          git pull origin HEAD:$GITHUB_HEAD_REF --allow-unrelated-histories
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
