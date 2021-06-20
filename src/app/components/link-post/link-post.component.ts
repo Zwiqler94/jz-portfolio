@@ -22,7 +22,7 @@ export class LinkPostComponent implements OnInit {
   }
 
   getLinkPreview() {
-    let linkArray = this.postContent.match(/(http|https):\/\/www.[a-z]*.[a-z]*\/[a-zA-z0-9?=]*/);
+    const linkArray = this.postContent.match(/(http|https):\/\/www.[a-z]*.[a-z]*\/[a-zA-z0-9?=]*/);
     if (linkArray !== null) {
       this.linkPreviewService.getLinkPreview(String(linkArray[0])).subscribe((data: any)=>{
         {

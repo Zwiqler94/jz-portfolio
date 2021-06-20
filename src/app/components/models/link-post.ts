@@ -1,7 +1,7 @@
 export interface LinkPost {
-    feedLocation: string,
-    postType: string,
-    title: string,
-    content: string,
-    url?: string
+    feedLocation: string;
+    postType: string;
+    title: string;
+    content: string;
+    url?: string;
 }
