@@ -52,6 +52,6 @@ export const staticTextPosts: TextPost[] = [
         feedLocation: 'Main',
         postType: 'link',
         title: 'Test Link Preview!',
-        content: 'Test link https://www.google.com'
+        content: 'Test link https://www.youtube.com/watch?v=DUXuVkBFJ0M'
     }
 ];

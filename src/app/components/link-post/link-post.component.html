@@ -5,7 +5,13 @@
         </mat-card-header>
         <mat-card-content>
             <p>{{postContent}}</p>
-            
+            <a href="{{linkPreviewData.url}}"> 
+                <img mat-card-image src="{{linkPreviewData.image}}">
+                <div id="link-info">
+                    <h3>{{linkPreviewData.title}}</h3>
+                    <h4>{{linkPreviewData.description}}</h4>
+                </div>
+            </a>
         </mat-card-content>
     </mat-card>
 </div>
