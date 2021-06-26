@@ -34,6 +34,7 @@ jobs:
         run: |
           git config user.name jlzPortfolioServiceAccount
           git config user.email thezwick@gmail.com
+          git pull --rebase
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
