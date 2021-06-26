@@ -1,4 +1,4 @@
-[![CI - Dev](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/dev.yml/badge.svg?branch=development)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/dev.yml) [![CI - main](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main.yml) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 
 
