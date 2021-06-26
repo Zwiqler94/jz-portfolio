@@ -32,8 +32,8 @@ jobs:
       - name: Version on Pull Request
         if: github.event_name == 'pull_request'
         run: |
-          git config user.name github_actions
-          git config user.email github_action@github.com
+          git config user.name jlzPortfolioServiceAccount
+          git config user.email thezwick@gmail.com
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
@@ -43,7 +43,8 @@ jobs:
       - name: Version on Push
         if: github.event_name == 'push'
         run: |
-          git config user.name $GITHUB_ACTOR
+          git config user.name jlzPortfolioServiceAccount
+          git config user.email thezwick@gmail.com
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
