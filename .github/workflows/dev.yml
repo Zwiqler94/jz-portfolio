@@ -58,9 +58,11 @@ jobs:
         run: npm run lint-fix
 
       - name: Build Project
+        if: github.event_name == 'merge'
         run: npm run build-prod
 
       - name: Upload a Build Artifact
+        if: github.event_name == 'merge'
         uses: actions/upload-artifact@v2.2.3
         with:
           # Artifact name
@@ -71,6 +73,7 @@ jobs:
           if-no-files-found: error
   deploy:
     name: Deploy
+    if: github.event_name == 'merge'
     needs: build
     runs-on: ubuntu-latest
     steps:
