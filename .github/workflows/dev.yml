@@ -27,7 +27,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
-          token: ${{secrets.GITHUB_TOKEN}}
+          token: ${{secrets.GH_TOKEN}}
 
       - name: Version on Pull Request
         if: github.event_name == 'pull_request'
