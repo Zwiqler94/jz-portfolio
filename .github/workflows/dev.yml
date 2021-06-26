@@ -38,7 +38,7 @@ jobs:
           echo $npm_version
           git push --tags
           echo $GITHUB_HEAD_REF
-          git push HEAD:$GITHUB_HEAD_REF origin/$GITHUB_HEAD_REF
+          git push origin HEAD:$GITHUB_HEAD_REF
 
       - name: Version on Push
         if: github.event_name == 'push'
