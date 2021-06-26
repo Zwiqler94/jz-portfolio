@@ -62,6 +62,7 @@ jobs:
         run: npm run build-prod
 
       - name: Upload a Build Artifact
+        if: github.event_name == 'merge'
         uses: actions/upload-artifact@v2.2.3
         with:
           # Artifact name
