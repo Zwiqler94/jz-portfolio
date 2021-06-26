@@ -1,6 +1,6 @@
 {
   "name": "jz-portfolio",
-  "version": "0.3.123",
+  "version": "0.3.124",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
