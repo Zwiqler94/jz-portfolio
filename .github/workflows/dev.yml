@@ -33,11 +33,10 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           git config --global user.name $GITHUB_ACTOR
-          git pull --rebase origin HEAD:$GITHUB_HEAD_REF
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
-          git push origin HEAD:$GITHUB_HEAD_REF
+          git push
 
       - name: Version Push
         if: github.event_name == 'push'
