@@ -29,19 +29,20 @@ jobs:
         with:
           token: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Version Pull Request
+      - name: Version on Pull Request
         if: github.event_name == 'pull_request'
         run: |
-          git config --global user.name $GITHUB_ACTOR
+          git config user.name github_actions
+          git config user.email github_action@github.com
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
-          git push HEAD:$GITHUB_HEAD_REF HEAD:origin/$GITHUB_HEAD_REF
+          git push HEAD:origin/$GITHUB_HEAD_REF
 
-      - name: Version Push
+      - name: Version on Push
         if: github.event_name == 'push'
         run: |
-          git config --global user.name $GITHUB_ACTOR
+          git config user.name $GITHUB_ACTOR
           npm_version=$(npm version patch) 
           echo $npm_version
           git push --tags
