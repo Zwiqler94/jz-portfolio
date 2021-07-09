@@ -38,6 +38,7 @@ speed-measure-plugin*.json
 /libpeerconnection.log
 npm-debug.log
 firebase-debug.log
+.firebase/*
 yarn-error.log
 testem.log
 /typings

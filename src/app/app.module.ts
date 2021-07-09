@@ -21,6 +21,7 @@ import { FeedComponent } from './components/feed/feed.component';
 import { MainFeedPageComponent } from './pages/main-feed-page/main-feed-page.component';
 import { TextPostComponent } from './components/text-post/text-post.component';
 import { LinkPostComponent } from './components/link-post/link-post.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 
 
@@ -35,7 +36,8 @@ import { LinkPostComponent } from './components/link-post/link-post.component';
     FeedComponent,
     MainFeedPageComponent,
     TextPostComponent,
-    LinkPostComponent
+    LinkPostComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
