@@ -23,3 +23,18 @@ img {
 .nav-arrows:hover {
     background-color: ivory;
 }
+
+@media(max-width: 25.875rem) {
+    #img-div{
+        width: 15rem;
+    }
+    
+    img {
+        height: 10rem;
+    }
+    
+    .nav-arrows {
+        height: 2.5rem;
+        width: auto;
+    }
+}
