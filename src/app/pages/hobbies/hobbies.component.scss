@@ -36,22 +36,22 @@ $paragraph-div-height: calc($content-div-height - 2rem);
     justify-content: center;
 }
 
-.images{
+.images {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-figcaption{
+figcaption {
     margin-top: 0.5rem;
 }
 
-.jlpt-score, .japan {
+.jlpt-score,
+.japan {
     height: 20rem;
     width: auto;
 }
-
 
 video {
     margin: 1rem;
@@ -61,6 +61,6 @@ video {
     align-self: center;
 }
 
-mat-tab-group{
+mat-tab-group {
     width: 100vw;
 }

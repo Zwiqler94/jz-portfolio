@@ -30,73 +30,7 @@
                         Tokyo, Kyoto, and Hiroshima. Below you'll find various photos from all 3 prefectures. I got to
                         ride Shinkansen (Bullet Trains), see temples, and enjoy ordering Starbucks in Japanese! </p>
                 </div>
-                <app-carousel [slides]="slides"></app-carousel>
-                <!-- <div class="image-div">
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00001.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00002.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00003.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00004.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00005.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00006.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00007.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00008.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00009.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00010.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00011.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00012.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00013.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00014.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00015.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure class="images">
-                        <img class="japan" src="../../../assets/Japan00016.jpeg">
-                        <figcaption></figcaption>
-                    </figure>
-                </div> -->
+                <app-carousel [slides]="japanSlides"></app-carousel>
             </div>
 
         </mat-tab>
@@ -112,7 +46,7 @@
 
                     I'm going to treat this page as a sort of fitness journal.
 
-                    
+
                     <video controls>
                         <source src="../../../assets/IMG_7987.mp4" type="video/mp4">
                     </video>
@@ -122,6 +56,15 @@
         </mat-tab>
         <mat-tab label="Photography">
             <div class="content-div">
+                <div class="paragraph">
+                    <p>I love taking pictures, especially of cities, buildings, and nature. I have a separate Instagram for this
+                        hobby of mine, it's called <a href="https://instagram.com/by_natures_grace">By Nature's Grace</a>.
+                    </p>
+                    <app-carousel [slides]="photographySlides1"></app-carousel>
+                    <app-carousel [slides]="photographySlides2"></app-carousel>
+                    <app-carousel [slides]="photographySlides3"></app-carousel>
+                    <app-carousel [slides]="photographySlides4"></app-carousel>
+                </div>
             </div>
         </mat-tab>
         <mat-tab label="Starbucks">
