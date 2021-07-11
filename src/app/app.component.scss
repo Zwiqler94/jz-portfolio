@@ -11,6 +11,7 @@
 mat-toolbar {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     width: 100vw;
 }
 
@@ -24,7 +25,7 @@ mat-toolbar {
 
 @media (max-width: 20rem) {
     #toolbar-logo {
-        width: 20rem;
+        width: 19rem;
         height: auto;
     }
 }
