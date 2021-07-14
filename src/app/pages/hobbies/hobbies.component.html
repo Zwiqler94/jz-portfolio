@@ -57,8 +57,10 @@
         <mat-tab label="Photography">
             <div class="content-div">
                 <div class="paragraph">
-                    <p>I love taking pictures, especially of cities, buildings, and nature. I have a separate Instagram for this
-                        hobby of mine, it's called <a href="https://instagram.com/by_natures_grace">By Nature's Grace</a>.
+                    <p>I love taking pictures, especially of cities, buildings, and nature. I have a separate Instagram
+                        for this
+                        hobby of mine, it's called <a href="https://instagram.com/by_natures_grace">By Nature's
+                            Grace</a>.
                     </p>
                     <app-carousel [slides]="photographySlides1"></app-carousel>
                     <app-carousel [slides]="photographySlides2"></app-carousel>
@@ -69,6 +71,20 @@
         </mat-tab>
         <mat-tab label="Starbucks">
             <div class="content-div">
+                <div class="paragraph">
+                    <p> I'm a Starbucks addict. Here are my favorite drinks: </p>
+                    <div id="drink-div">
+                        <ng-container *ngFor="let drink of starbucksDrinks">
+                            <mat-card>
+                                <mat-card-header>
+                                    <mat-card-title>{{drink.drinkName}}</mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content><img class="starbucks-pics" mat-card-image [src]="drink.src">
+                                </mat-card-content>
+                            </mat-card>
+                        </ng-container>
+                    </div>
+                </div>
             </div>
         </mat-tab>
     </mat-tab-group>

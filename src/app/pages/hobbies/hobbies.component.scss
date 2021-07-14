@@ -27,6 +27,7 @@ $paragraph-div-height: calc($content-div-height - 2rem);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 80vw;
 }
 
@@ -63,4 +64,28 @@ video {
 
 mat-tab-group {
     width: 100vw;
+}
+
+mat-card {
+    margin: 0.938rem;
+    max-width: 42.5rem;
+}
+
+.mat-card-image:first-child {
+    margin-top: 0;
+}
+
+.starbucks-pics {
+    height: 18rem;
+    width: auto;
+    margin: 2rem;
+    border: lightblue;
+    border-style: solid;
+}
+
+#drink-div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 2;
+    width: 80vw;
 }
