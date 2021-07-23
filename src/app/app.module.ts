@@ -8,6 +8,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+//import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 
 
 
@@ -22,6 +24,7 @@ import { MainFeedPageComponent } from './pages/main-feed-page/main-feed-page.com
 import { TextPostComponent } from './components/text-post/text-post.component';
 import { LinkPostComponent } from './components/link-post/link-post.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -47,7 +50,9 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     MatToolbarModule,
     MatCardModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    // AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

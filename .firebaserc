@@ -5,10 +5,7 @@
   "targets": {
     "jlz-portfolio": {
       "hosting": {
-        "jlz-portfolio-dev": [
-          "jlz-portfolio-dev"
-        ],
-        "jlz-portfolio": [
+        "jz-portfolio": [
           "jlz-portfolio"
         ]
       }

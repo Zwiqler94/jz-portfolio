@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
+// import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs-compat';
+import { finalize } from 'rxjs/operators';
+
 
 
 @Component({
@@ -82,9 +86,9 @@ export class HobbiesComponent implements OnInit {
   ];
 
   starbucksDrinks = [
-    { drinkName: 'Ice Caffe Mocha', src: 'https://shorturl.at/OQU36' },
-    { drinkName: 'Caffe Mocha', src: 'https://shorturl.at/tBEU0' },
-    { drinkName: 'Iced Caramel Machiatto', src: 'https://shorturl.at/hHOUZ' }
+    // { drinkName: 'Ice Caffe Mocha', src: 'https://shorturl.at/OQU36' },
+    // { drinkName: 'Caffe Mocha', src: 'https://shorturl.at/tBEU0' },
+    // { drinkName: 'Iced Caramel Machiatto', src: 'https://shorturl.at/hHOUZ' }
     // {drinkName: , src:},
     // {drinkName: , src:},
     // {drinkName: , src:},
@@ -93,9 +97,14 @@ export class HobbiesComponent implements OnInit {
     // {drinkName: , src:},
   ];
 
-  constructor() { }
 
-  ngOnInit(): void {
+  video: Observable<string | null>;
+
+  constructor() {
   }
 
+  ngOnInit(): void {
+    // const storageRef = this.storage.ref(`/fitness/IMG_7987.mp4`);
+    // finalize(() => { this.video = storageRef.getDownloadURL(); });
+  }
 }

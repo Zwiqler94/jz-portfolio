@@ -48,7 +48,7 @@
 
 
                     <video controls>
-                        <source src="../../../assets/IMG_7987.mp4" type="video/mp4">
+                        <source [src]="video | async" type="video/mp4"/>
                     </video>
 
                 </div>
@@ -69,7 +69,7 @@
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="Starbucks">
+        <!-- <mat-tab label="Starbucks">
             <div class="content-div">
                 <div class="paragraph">
                     <p> I'm a Starbucks addict. Here are my favorite drinks: </p>
@@ -86,6 +86,6 @@
                     </div>
                 </div>
             </div>
-        </mat-tab>
+        </mat-tab> -->
     </mat-tab-group>
 </div>
