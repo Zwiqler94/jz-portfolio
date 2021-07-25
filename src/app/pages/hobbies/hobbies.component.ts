@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-// import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs-compat';
 import { finalize } from 'rxjs/operators';
 
@@ -100,11 +100,11 @@ export class HobbiesComponent implements OnInit {
 
   video: Observable<string | null>;
 
-  constructor() {
+  constructor(private storage: AngularFireStorage ) {
+     const storageRef = this.storage.ref(`/fitness/IMG_7987.mp4`);
+     this.video = storageRef.getDownloadURL();
   }
 
   ngOnInit(): void {
-    // const storageRef = this.storage.ref(`/fitness/IMG_7987.mp4`);
-    // finalize(() => { this.video = storageRef.getDownloadURL(); });
   }
 }

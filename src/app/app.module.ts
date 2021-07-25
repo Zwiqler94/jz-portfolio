@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
-//import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 
 
 
@@ -52,7 +52,7 @@ import { environment } from 'src/environments/environment';
     HttpClientModule,
     MatTabsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    // AngularFireStorageModule
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
