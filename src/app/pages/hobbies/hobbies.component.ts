@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { ListResult } from '@angular/fire/storage/interfaces';
 import { Observable } from 'rxjs-compat';
 import { finalize } from 'rxjs/operators';
 
@@ -13,24 +14,25 @@ import { finalize } from 'rxjs/operators';
 export class HobbiesComponent implements OnInit {
 
 
-  japanSlides = [
-    { src: '../../../assets/hobbies/japan/Japan00001.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00002.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00003.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00004.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00005.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00006.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00007.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00008.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00009.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00010.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00011.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00012.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00013.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00014.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00015.jpeg' },
-    { src: '../../../assets/hobbies/japan/Japan00016.jpeg' }
-  ];
+  japanSlides: any = [];
+  // = [
+  //   { src: '../../../assets/hobbies/japan/Japan00001.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00002.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00003.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00004.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00005.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00006.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00007.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00008.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00009.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00010.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00011.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00012.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00013.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00014.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00015.jpeg' },
+  //   { src: '../../../assets/hobbies/japan/Japan00016.jpeg' }
+  // ];
 
   photographySlides1 = [
     { src: '../../../assets/hobbies/photography/photo_set_01_1.jpeg' },
@@ -99,10 +101,26 @@ export class HobbiesComponent implements OnInit {
 
 
   video: Observable<string | null>;
+  japanPics: Observable<string | null>[] = [];
+  pics: Observable<string | null>[] = [];
 
-  constructor(private storage: AngularFireStorage ) {
-     const storageRef = this.storage.ref(`/fitness/IMG_7987.mp4`);
-     this.video = storageRef.getDownloadURL();
+  constructor(private storage: AngularFireStorage) {
+    const fitnessStorageRef = this.storage.ref('fitness').child('IMG_7987.mp4');
+    this.video = fitnessStorageRef.getDownloadURL();
+
+    this.storage.ref('hobbies').child('japan').listAll()
+      .subscribe((x: any) => {
+        x.items.forEach((itemRef: any) => {
+          this.japanPics.push(itemRef.getDownloadURL());
+        });
+      });
+
+      this.storage.ref('hobbies').child('photography').listAll()
+      .subscribe((x: any) => {
+        x.items.forEach((itemRef: any) => {
+          this.pics.push(itemRef.getDownloadURL());
+        });
+      });
   }
 
   ngOnInit(): void {

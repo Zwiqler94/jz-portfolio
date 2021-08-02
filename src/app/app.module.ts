@@ -25,6 +25,7 @@ import { TextPostComponent } from './components/text-post/text-post.component';
 import { LinkPostComponent } from './components/link-post/link-post.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { environment } from 'src/environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 
@@ -52,7 +53,13 @@ import { environment } from 'src/environments/environment';
     HttpClientModule,
     MatTabsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

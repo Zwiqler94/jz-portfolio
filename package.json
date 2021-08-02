@@ -26,6 +26,7 @@
     "@angular/platform-browser": "^12.1.1",
     "@angular/platform-browser-dynamic": "^12.1.1",
     "@angular/router": "^12.1.1",
+    "@angular/service-worker": "^12.1.1",
     "@firebase/util": "^1.1.0",
     "core-js": "^3.15.2",
     "cross-fetch": "^3.1.4",

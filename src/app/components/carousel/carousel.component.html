@@ -2,7 +2,7 @@
     <ng-container>
         <img class="nav-arrows" src="../../../assets/icons/noun_previous arrow_1407190.png" (click)="onPreviousClick()" />
         <div id="img-div">
-            <img [src]="currentSlide.src" />
+            <img [src]="currentSlide | async" />
         </div>
         <img class="nav-arrows" src="../../../assets/icons/noun_next arrow_3318610.png" (click)="onNextClick()" />
     </ng-container>

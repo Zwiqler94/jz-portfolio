@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
 import { problemImage } from 'src/assets/misc';
 
 @Component({
@@ -8,9 +9,9 @@ import { problemImage } from 'src/assets/misc';
 })
 export class CarouselComponent implements OnInit {
 
-  @Input() slides: any[];
+  @Input() slides: Observable<string | null>[];
   currentSlideIndex = 0;
-  currentSlide = problemImage;
+  currentSlide: Observable<string | null>;
 
   constructor() {
     this.loop();
@@ -20,20 +21,35 @@ export class CarouselComponent implements OnInit {
   }
 
   loop() {
+    let seed = Math.ceil(Math.random() * Math.random() * Math.random() * 100000);
+    while (seed < 1000 || seed > 10000) {
+      if (seed < 1000) {
+        seed = Math.ceil((seed * 10000) + (seed*2));
+      } else {
+        seed = Math.floor((seed / 2) - ((seed/4)));
+      }
+    }
+    console.log(seed);
     setInterval(() => {
-      this.currentSlideIndex = this.currentSlideIndex < this.slides.length - 1 ? this.currentSlideIndex + 1 : 0;
-      this.currentSlide = this.slides[this.currentSlideIndex];
-    }, 3000);
+      if (this.slides != null) {
+        this.currentSlideIndex = this.currentSlideIndex < this.slides.length - 1 ? this.currentSlideIndex + 1 : 0;
+        this.currentSlide = this.slides[this.currentSlideIndex];
+      }
+    }, seed);
   }
 
   onNextClick() {
-    this.currentSlideIndex = this.currentSlideIndex < this.slides.length - 1 ? this.currentSlideIndex + 1 : 0;
-    this.currentSlide = this.slides[this.currentSlideIndex];
+    if (this.slides != null) {
+      this.currentSlideIndex = this.currentSlideIndex < this.slides.length - 1 ? this.currentSlideIndex + 1 : 0;
+      this.currentSlide = this.slides[this.currentSlideIndex];
+    }
   }
 
   onPreviousClick() {
-    this.currentSlideIndex = this.currentSlideIndex > 0 ? this.currentSlideIndex - 1 : 15;
-    this.currentSlide = this.slides[this.currentSlideIndex];
+    if (this.slides != null) {
+      this.currentSlideIndex = this.currentSlideIndex > 0 ? this.currentSlideIndex - 1 : 15;
+      this.currentSlide = this.slides[this.currentSlideIndex];
+    }
   }
 
 }
