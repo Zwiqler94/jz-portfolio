@@ -9,11 +9,9 @@ import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-hobbies',
   templateUrl: './hobbies.component.html',
-  styleUrls: ['./hobbies.component.scss']
+  styleUrls: ['./hobbies.component.scss'],
 })
 export class HobbiesComponent implements OnInit {
-
-
   japanSlides: any = [];
   // = [
   //   { src: '../../../assets/hobbies/japan/Japan00001.jpeg' },
@@ -35,56 +33,69 @@ export class HobbiesComponent implements OnInit {
   // ];
 
   photographySlides1 = [
-    { src: '../../../assets/hobbies/photography/photo_set_01_1.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_01_2.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_01_3.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_01_4.jpeg' },
     { src: '../../../assets/hobbies/photography/photo_set_01_5.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_8.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_9.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_10.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_11.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_12.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_13.jpeg' },
     { src: '../../../assets/hobbies/photography/photo_set_01_6.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_01_7.jpeg' },
     { src: '../../../assets/hobbies/photography/photo_set_01_8.jpeg' },
     { src: '../../../assets/hobbies/photography/photo_set_01_9.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_01_10.jpeg' }
+    { src: '../../../assets/hobbies/photography/photo_set_01_10.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_01_11.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_01_12.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_01_13.jpeg' },
   ];
 
   photographySlides2 = [
     { src: '../../../assets/hobbies/photography/photo_set_02_1.jpeg' },
     { src: '../../../assets/hobbies/photography/photo_set_02_2.jpeg' },
     { src: '../../../assets/hobbies/photography/photo_set_02_3.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_02_4.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_02_5.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_02_6.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_02_7.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_02_8.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_02_9.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_02_10.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_02_11.jpeg' }
+    { src: '../../../assets/hobbies/photography/photo_set_01_3.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_01_4.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_03_5.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_03_6.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_14.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_15.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_16.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_4.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_8.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_9.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_03_3.jpeg' },
   ];
 
   photographySlides3 = [
     { src: '../../../assets/hobbies/photography/photo_set_03_1.jpeg' },
     { src: '../../../assets/hobbies/photography/photo_set_03_2.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_03_3.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_03_4.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_03_5.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_03_6.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_03_7.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_03_8.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_03_9.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_03_10.jpeg' }
+    { src: '../../../assets/hobbies/photography/photo_set_02_4.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_5.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_01_1.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_01_2.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_03_10.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_03_11.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_03_12.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_5.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_6.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_7.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_7.jpeg' },
   ];
 
   photographySlides4 = [
     { src: '../../../assets/hobbies/photography/photo_set_04_1.jpeg' },
     { src: '../../../assets/hobbies/photography/photo_set_04_2.jpeg' },
     { src: '../../../assets/hobbies/photography/photo_set_04_3.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_04_4.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_04_5.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_04_6.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_04_7.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_04_8.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_04_9.jpeg' },
-    { src: '../../../assets/hobbies/photography/photo_set_04_10.jpeg' }
+    { src: '../../../assets/hobbies/photography/photo_set_03_8.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_03_9.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_10.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_11.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_12.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_13.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_04_14.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_02_6.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_03_4.jpeg' },
+    { src: '../../../assets/hobbies/photography/photo_set_03_7.jpeg' },
   ];
 
   starbucksDrinks = [
@@ -99,7 +110,6 @@ export class HobbiesComponent implements OnInit {
     // {drinkName: , src:},
   ];
 
-
   video: Observable<string | null>;
   japanPics: Observable<string | null>[] = [];
   pics: Observable<string | null>[] = [];
@@ -108,14 +118,24 @@ export class HobbiesComponent implements OnInit {
     const fitnessStorageRef = this.storage.ref('fitness').child('IMG_7987.mp4');
     this.video = fitnessStorageRef.getDownloadURL();
 
-    this.storage.ref('hobbies').child('japan').listAll()
+    this.storage.upload('fitness/', this.video, {
+      cacheControl: 'public,max-age=31536000',
+    });
+
+    this.storage
+      .ref('hobbies')
+      .child('japan')
+      .listAll()
       .subscribe((x: any) => {
         x.items.forEach((itemRef: any) => {
           this.japanPics.push(itemRef.getDownloadURL());
         });
       });
 
-      this.storage.ref('hobbies').child('photography').listAll()
+    this.storage
+      .ref('hobbies')
+      .child('photography')
+      .listAll()
       .subscribe((x: any) => {
         x.items.forEach((itemRef: any) => {
           this.pics.push(itemRef.getDownloadURL());
@@ -123,6 +143,5 @@ export class HobbiesComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
