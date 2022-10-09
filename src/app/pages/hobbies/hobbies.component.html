@@ -83,8 +83,8 @@
           </p>
           <div id="image-div">
             <div class="image-columns">
-              <div class="image-frame" *ngFor="let item of photographySlides1">
-                <img src="{{ item.src }}" />
+              <div class="image-frame" *ngFor="let item of pics">
+                <img src= "{{item| async}}"/>
               </div>
             </div>
             <div class="image-frame" class="image-columns">

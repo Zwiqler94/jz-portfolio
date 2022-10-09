@@ -1,8 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { ListResult } from '@angular/fire/storage/interfaces';
-import { Observable } from 'rxjs-compat';
-import { finalize } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { ListResult } from '@angular/fire/compat/storage/interfaces';
+import { Observable } from 'rxjs';
+
 
 
 
@@ -141,6 +141,7 @@ export class HobbiesComponent implements OnInit {
           this.pics.push(itemRef.getDownloadURL());
         });
       });
+    console.log(this.pics);
   }
 
   ngOnInit(): void {}
