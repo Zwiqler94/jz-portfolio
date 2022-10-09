@@ -2,7 +2,9 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
     "analytics": false,
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -45,7 +47,12 @@
             "sourceMap": true,
             "optimization": false,
             "namedChunks": true,
-            "allowedCommonJsDependencies": ["firebase","@angular/fire","@firebase/storage", "@firebase/component"],
+            "allowedCommonJsDependencies": [
+              "firebase",
+              "@angular/fire",
+              "@firebase/storage",
+              "@firebase/component"
+            ],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
           },
@@ -142,6 +149,5 @@
         }
       }
     }
-  },
-  "defaultProject": "jz-portfolio"
+  }
 }
