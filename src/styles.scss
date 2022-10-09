@@ -1,5 +1,4 @@
-@use '~@angular/material' as mat;
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
 
 @include mat.core();
 
@@ -46,15 +45,18 @@
 
 // ------------
 
-$primary: mat-palette($mat-pink);
-$accent: mat-palette($mat-red, 100, 500, A100);
+$primary: mat.define-palette(mat.$pink-palette);
+$accent: mat.define-palette(mat.$red-palette);
 
-$my-theme: mat-dark-theme($primary, $accent);
+$my-theme: mat.define-dark-theme($primary, $accent);
 
-@include angular-material-theme($my-theme);
+@include mat.core-theme($my-theme);
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; background-color: mat.get-color-from-palette($mat-pink); }
+html, body { height: 100%; background-color: mat.get-color-from-palette(mat.$pink-palette); }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
+
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

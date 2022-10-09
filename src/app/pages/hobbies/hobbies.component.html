@@ -1,2 +1,132 @@
-<p>hobbies works!</p>
-<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6781298075852914688" height="343" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+<div id="hobby-div">
+  <mat-tab-group
+    color="primary"
+    backgroundColor="primary"
+    mat-align-tabs="center"
+  >
+    <mat-tab label="Japanese">
+      <div class="content-div">
+        <div class="paragraph">
+          <h1>Japanese and Me</h1>
+          <p>
+            From 2007 until 2013, I was self-taught in Japanese and passed the
+            <a href="https://www.jlpt.jp/e/faq/index.html">JLPT</a> N5 and N4
+            exams. Once I started college, I chose Japanese as a minor. In
+            December of 2015, I passed the JLPT N3 exams as part of a class I
+            took. The Japanese language and Culture has been a long time passion
+            of mine.
+          </p>
+        </div>
+        <div class="image-div">
+          <figure class="images">
+            <img
+              class="jlpt-score"
+              src="../../../assets/hobbies/jlpt/JLPTN5.jpeg"
+            />
+            <figcaption>Certificate of Passing JLPT N5</figcaption>
+          </figure>
+          <figure class="images">
+            <img
+              class="jlpt-score"
+              src="../../../assets/hobbies/jlpt/JLPTN4.jpeg"
+            />
+            <figcaption>Certificate of Passing JLPT N4</figcaption>
+          </figure>
+          <figure class="images">
+            <img
+              class="jlpt-score"
+              src="../../../assets/hobbies/jlpt/JLPTN3.jpeg"
+            />
+            <figcaption>Online Report of Passing JLPT N3</figcaption>
+          </figure>
+        </div>
+        <div class="paragraph">
+          <h1>2011 Trip To Japan</h1>
+          <p>
+            I've been to Japan once and it was an incredible adventure. I need
+            to go back! I traveled to Tokyo, Kyoto, and Hiroshima. Below you'll
+            find various photos from all 3 prefectures. I got to ride Shinkansen
+            (Bullet Trains), see temples, and enjoy ordering Starbucks in
+            Japanese!
+          </p>
+        </div>
+        <app-carousel [slides]="japanPics"></app-carousel>
+      </div>
+    </mat-tab>
+    <mat-tab label="Fitness">
+      <div class="content-div">
+        <div class="paragraph">
+          <h1>Fitness</h1>
+
+          I'm no body builder, but I enjoy working out a lot. My favorite kind
+          of exercise is traditional weight lifting. I like to do PPL (push day,
+          pull day, leg day), though recently I've been doing circuit training.
+          My main goal is to increase all around muscle mass. My favorite
+          protein shake is Core Power, it's yummy! I'm going to treat this page
+          as a sort of fitness journal.
+
+          <video controls>
+            <source [src]="video | async" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Photography">
+      <div class="content-div">
+        <div class="paragraph">
+          <p>
+            I love taking pictures, especially of cities, buildings, and nature.
+            I have a separate Instagram for this hobby of mine, it's called
+            <a href="https://instagram.com/by_natures_grace"
+              >By Nature's Grace</a
+            >.
+          </p>
+          <div id="image-div">
+            <div class="image-columns">
+              <div class="image-frame" *ngFor="let item of pics">
+                <img src= "{{item| async}}"/>
+              </div>
+            </div>
+            <div class="image-frame" class="image-columns">
+              <div class="image-frame" *ngFor="let item of photographySlides2">
+                <img src="{{ item.src }}" />
+              </div>
+            </div>
+            <div class="image-columns">
+              <div class="image-frame" *ngFor="let item of photographySlides3">
+                <img src="{{ item.src }}" />
+              </div>
+            </div>
+            <div class="image-columns">
+              <div class="image-frame" *ngFor="let item of photographySlides4">
+                <img src="{{ item.src }}" />
+              </div>
+            </div>
+          </div>
+          <!-- <app-carousel [slides]="pics"></app-carousel>
+                    <app-carousel [slides]="pics"></app-carousel>
+                    <app-carousel [slides]="pics"></app-carousel>
+                    <app-carousel [slides]="pics"></app-carousel> -->
+        </div>
+      </div>
+    </mat-tab>
+    <!-- <mat-tab label="Starbucks">
+            <div class="content-div">
+                <div class="paragraph">
+                    <p> I'm a Starbucks addict. Here are my favorite drinks: </p>
+                    <div id="drink-div">
+                        <ng-container *ngFor="let drink of starbucksDrinks">
+                            <mat-card>
+                                <mat-card-header>
+                                    <mat-card-title>{{drink.drinkName}}</mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content><img class="starbucks-pics" mat-card-image [src]="drink.src">
+                                </mat-card-content>
+                            </mat-card>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </mat-tab> -->
+  </mat-tab-group>
+</div>
