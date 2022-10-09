@@ -1,9 +1,10 @@
-[![CI - Dev](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/dev.yml/badge.svg?branch=development)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/dev.yml) [![CI - main](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main.yml)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
 
 
 # JzPortfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.10.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.10. (updated to 12.0.5)
 
 ## Development server
 
@@ -15,7 +16,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use `-c production` flag for a production build.
 
 ## Running unit tests
 
@@ -32,3 +33,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Author
 
 Jacob Zwickler
+
+<!-- remove me -->
