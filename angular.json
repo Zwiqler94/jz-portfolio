@@ -58,6 +58,7 @@
           },
           "configurations": {
             "production": {
+              "index": "src/index.prod.html",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -145,7 +146,20 @@
         },
         "deploy": {
           "builder": "@angular/fire:deploy",
-          "options": {}
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "jz-portfolio:build",
+            "firebaseProject": "jz-portfolio",
+            "firebaseHostingSite": "jlz-portfolio-dev"
+          },
+          "configurations": {
+            "production":{
+              "browserTarget": "jz-portfolio:build:production",
+              "firebaseProject": "jz-portfolio",
+              "firebaseHostingSite": "jlz-portfolio"
+            }
+          }
         }
       }
     }

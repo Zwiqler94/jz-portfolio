@@ -5,18 +5,19 @@
 }
 
 #img-div{
-    width: 30rem;
+    width: 30vw;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 img {
-    height: 20rem;
-    margin: 1rem;
+    max-height: 20vw;
+    margin: 0.5rem;
 }
 
 .nav-arrows {
-    height: 5rem;
+    max-height: 5vw;
     width: auto;
 }
 
@@ -26,15 +27,17 @@ img {
 
 @media(max-width: 25.875rem) {
     #img-div{
-        width: 15rem;
+        max-width: 15vw;
+        height: auto;
     }
     
     img {
-        height: 10rem;
+        max-height: 10vw;
+        width: auto;
     }
     
     .nav-arrows {
-        height: 2.5rem;
+        max-height: 2.5vw;
         width: auto;
     }
 }
