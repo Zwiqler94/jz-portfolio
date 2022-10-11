@@ -1,11 +1,14 @@
 {
   "projects": {
-    "default": "jlz-portfolio"
+    "default": "jz-portfolio"
   },
   "targets": {
     "jlz-portfolio": {
       "hosting": {
-        "jz-portfolio": [
+        "jlz-portfolio-dev": [
+          "jlz-portfolio-dev"
+        ],
+        "jlz-portfolio": [
           "jlz-portfolio"
         ]
       }

@@ -2,7 +2,9 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
     "analytics": false,
-    "schematicCollections": ["@angular-eslint/schematics"]
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -124,7 +126,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         },
         "e2e": {
@@ -141,7 +146,20 @@
         },
         "deploy": {
           "builder": "@angular/fire:deploy",
-          "options": {}
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "jz-portfolio:build",
+            "firebaseProject": "jz-portfolio",
+            "firebaseHostingSite": "jlz-portfolio-dev"
+          },
+          "configurations": {
+            "production":{
+              "browserTarget": "jz-portfolio:build:production",
+              "firebaseProject": "jz-portfolio",
+              "firebaseHostingSite": "jlz-portfolio"
+            }
+          }
         }
       }
     }

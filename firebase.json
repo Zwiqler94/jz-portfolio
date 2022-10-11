@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "site": "jlz-portfolio",
+      "target": "jlz-portfolio",
       "public": "dist/jz-portfolio",
       "rewrites": [
         {
@@ -9,10 +9,14 @@
           "destination": "/index.html"
         }
       ],
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
     },
     {
-      "site": "jlz-portfolio-dev",
+      "target": "jlz-portfolio-dev",
       "public": "dist/jz-portfolio",
       "rewrites": [
         {
@@ -20,7 +24,11 @@
           "destination": "/index.html"
         }
       ],
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
     }
   ]
 }
