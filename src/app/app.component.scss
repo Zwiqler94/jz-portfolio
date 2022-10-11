@@ -6,9 +6,13 @@
     align-items: center;
 }
 
+
+
 mat-toolbar {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    width: 100vw;
 }
 
 @media(max-width: 43.438rem){
@@ -16,5 +20,12 @@ mat-toolbar {
         justify-content: center;
         align-items: center;
         height: 10rem;
+    }
+}
+
+@media (max-width: 20rem) {
+    #toolbar-logo {
+        width: 19rem;
+        height: auto;
     }
 }

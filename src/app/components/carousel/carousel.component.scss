@@ -1,0 +1,43 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#img-div{
+    width: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    max-height: 20vw;
+    margin: 0.5rem;
+}
+
+.nav-arrows {
+    max-height: 5vw;
+    width: auto;
+}
+
+.nav-arrows:hover {
+    background-color: ivory;
+}
+
+@media(max-width: 25.875rem) {
+    #img-div{
+        max-width: 15vw;
+        height: auto;
+    }
+    
+    img {
+        max-height: 10vw;
+        width: auto;
+    }
+    
+    .nav-arrows {
+        max-height: 2.5vw;
+        width: auto;
+    }
+}

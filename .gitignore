@@ -38,6 +38,7 @@ speed-measure-plugin*.json
 /libpeerconnection.log
 npm-debug.log
 firebase-debug.log
+**/.firebase
 yarn-error.log
 testem.log
 /typings
@@ -46,3 +47,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

@@ -34,4 +34,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 Jacob Zwickler
 
-<!-- remove me -->
+## Image Citationa
+
+next arrow by Graphik Designz from the Noun Project
+previous arrow by Mohamad Arif Prasetyo from the Noun Project
