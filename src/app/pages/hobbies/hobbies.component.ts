@@ -1,10 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { ListResult } from '@angular/fire/compat/storage/interfaces';
+import { ListResult, Reference } from '@angular/fire/compat/storage/interfaces';
 import { Observable } from 'rxjs';
-
-
-
 
 @Component({
   selector: 'app-hobbies',
@@ -112,7 +109,11 @@ export class HobbiesComponent implements OnInit {
 
   video: Observable<string | null>;
   japanPics: Observable<string | null>[] = [];
-  pics: Observable<string | null>[] = [];
+  pics1: Observable<string | null>[] = [];
+  pics2: Observable<string | null>[] = [];
+  pics3: Observable<string | null>[] = [];
+  pics4: Observable<string | null>[] = [];
+  pics5: Observable<string | null>[] = [];
 
   constructor(private storage: AngularFireStorage) {
     const fitnessStorageRef = this.storage.ref('fitness').child('IMG_7987.mp4');
@@ -136,12 +137,41 @@ export class HobbiesComponent implements OnInit {
       .ref('hobbies')
       .child('photography')
       .listAll()
-      .subscribe((x: any) => {
-        x.items.forEach((itemRef: any) => {
-          this.pics.push(itemRef.getDownloadURL());
+      .subscribe((x: ListResult) => {
+        x.items.forEach((itemRef: Reference, index: number) => {
+          switch (index % 5) {
+            case 0:
+              this.pics1.push(
+                itemRef.getDownloadURL() as unknown as Observable<string | null>
+              );
+              break;
+            case 1:
+              this.pics2.push(
+                itemRef.getDownloadURL() as unknown as Observable<string | null>
+              );
+              break;
+            case 2:
+              this.pics3.push(
+                itemRef.getDownloadURL() as unknown as Observable<string | null>
+              );
+              break;
+            case 3:
+              this.pics4.push(
+                itemRef.getDownloadURL() as unknown as Observable<string | null>
+              );
+              break;
+            case 4:
+              this.pics5.push(
+                itemRef.getDownloadURL() as unknown as Observable<string | null>
+              );
+              break;
+            default:
+              this.pics5.push(
+                itemRef.getDownloadURL() as unknown as Observable<string | null>
+              );
+          }
         });
       });
-    console.log(this.pics);
   }
 
   ngOnInit(): void {}

@@ -1,9 +1,5 @@
 <div id="hobby-div">
-  <mat-tab-group
-    color="primary"
-    backgroundColor="primary"
-    mat-align-tabs="center"
-  >
+  <mat-tab-group color="primary" backgroundColor="primary" mat-align-tabs="center">
     <mat-tab label="Japanese">
       <div class="content-div">
         <div class="paragraph">
@@ -19,24 +15,15 @@
         </div>
         <div class="image-div">
           <figure class="images">
-            <img
-              class="jlpt-score"
-              src="../../../assets/hobbies/jlpt/JLPTN5.jpeg"
-            />
+            <img class="jlpt-score" src="../../../assets/hobbies/jlpt/JLPTN5.jpeg" />
             <figcaption>Certificate of Passing JLPT N5</figcaption>
           </figure>
           <figure class="images">
-            <img
-              class="jlpt-score"
-              src="../../../assets/hobbies/jlpt/JLPTN4.jpeg"
-            />
+            <img class="jlpt-score" src="../../../assets/hobbies/jlpt/JLPTN4.jpeg" />
             <figcaption>Certificate of Passing JLPT N4</figcaption>
           </figure>
           <figure class="images">
-            <img
-              class="jlpt-score"
-              src="../../../assets/hobbies/jlpt/JLPTN3.jpeg"
-            />
+            <img class="jlpt-score" src="../../../assets/hobbies/jlpt/JLPTN3.jpeg" />
             <figcaption>Online Report of Passing JLPT N3</figcaption>
           </figure>
         </div>
@@ -77,29 +64,32 @@
           <p>
             I love taking pictures, especially of cities, buildings, and nature.
             I have a separate Instagram for this hobby of mine, it's called
-            <a href="https://instagram.com/by_natures_grace"
-              >By Nature's Grace</a
-            >.
+            <a href="https://instagram.com/by_natures_grace">By Nature's Grace</a>.
           </p>
           <div id="image-div">
             <div class="image-columns">
-              <div class="image-frame" *ngFor="let item of pics">
-                <img src= "{{item| async}}"/>
+              <div class="image-frame" *ngFor="let item of pics1">
+                <img src="{{item | async}}" />
               </div>
             </div>
             <div class="image-frame" class="image-columns">
-              <div class="image-frame" *ngFor="let item of photographySlides2">
-                <img src="{{ item.src }}" />
+              <div class="image-frame" *ngFor="let item of pics2">
+                <img src="{{ item | async }}" />
               </div>
             </div>
             <div class="image-columns">
-              <div class="image-frame" *ngFor="let item of photographySlides3">
-                <img src="{{ item.src }}" />
+              <div class="image-frame" *ngFor="let item of pics3">
+                <img src="{{ item | async}}" />
               </div>
             </div>
             <div class="image-columns">
-              <div class="image-frame" *ngFor="let item of photographySlides4">
-                <img src="{{ item.src }}" />
+              <div class="image-frame" *ngFor="let item of pics4">
+                <img src="{{ item | async}}" />
+              </div>
+            </div>
+            <div class="image-columns">
+              <div class="image-frame" *ngFor="let item of pics5">
+                <img src="{{ item | async}}" />
               </div>
             </div>
           </div>
