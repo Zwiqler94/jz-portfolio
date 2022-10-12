@@ -45,16 +45,23 @@ export class HobbiesComponent implements OnInit {
       hobbyImageList.items.forEach(
         async (itemRef: StorageReference, index: number) => {
           console.log(itemRef.name);
-          const cacheResult: MediaCacheModel | undefined = cache.get(
+          const internalCacheResult: string | undefined = cache.get(
             itemRef.name
           );
-          console.log(cacheResult);
-          if (cacheResult === undefined) {
-            const url = await getDownloadURL(itemRef) as unknown as Observable<
-              string | null
-              >;
-            console.log(url);
-            cache.set(itemRef.name, { index, url } as MediaCacheModel);
+          const localCacheResult =
+            internalCacheResult !== undefined
+              ? internalCacheResult
+              : localStorage.getItem(itemRef.name);
+          console.log({ internalCacheResult, localCacheResult });
+          if (localCacheResult === null) {
+            const url = (await getDownloadURL(
+              itemRef
+            )) as unknown as Observable<string | null>;
+            localStorage.setItem(
+              itemRef.name,
+              JSON.stringify({ index, url })
+            );
+            cache.set(itemRef.name, JSON.stringify({ index, url }));
             switch (index % 5) {
               case 0:
                 this.pics1.push(url);
@@ -75,24 +82,27 @@ export class HobbiesComponent implements OnInit {
                 this.pics5.push(url);
             }
           } else {
-            switch (cacheResult.index % 5) {
-              case 0:
-                this.pics1.push(cacheResult.url);
-                break;
-              case 1:
-                this.pics2.push(cacheResult.url);
-                break;
-              case 2:
-                this.pics3.push(cacheResult.url);
-                break;
-              case 3:
-                this.pics4.push(cacheResult.url);
-                break;
-              case 4:
-                this.pics5.push(cacheResult.url);
-                break;
-              default:
-                this.pics5.push(cacheResult.url);
+            if (localCacheResult) {
+              const cacheResultObj = JSON.parse(localCacheResult);
+              switch (cacheResultObj.index % 5) {
+                case 0:
+                  this.pics1.push(cacheResultObj.url);
+                  break;
+                case 1:
+                  this.pics2.push(cacheResultObj.url);
+                  break;
+                case 2:
+                  this.pics3.push(cacheResultObj.url);
+                  break;
+                case 3:
+                  this.pics4.push(cacheResultObj.url);
+                  break;
+                case 4:
+                  this.pics5.push(cacheResultObj.url);
+                  break;
+                default:
+                  this.pics5.push(cacheResultObj.url);
+              }
             }
           }
         }
