@@ -1,11 +1,10 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
 import { listAll, ListResult, StorageReference } from 'firebase/storage';
-import NodeCache from 'node-cache';
 import { Observable } from 'rxjs';
+import { cache } from 'src/main';
 import { MediaCacheModel } from 'src/models/cache.model';
 
-const cache = new NodeCache();
 
 @Component({
   selector: 'app-hobbies',
@@ -22,6 +21,7 @@ export class HobbiesComponent implements OnInit {
   pics5: Observable<string | null>[] = [];
 
   constructor(private storage: Storage) {
+    console.log(cache.getStats());
     this.setupVideos();
     this.setUpCarouselImages();
     this.setUpPhotographyImages();
