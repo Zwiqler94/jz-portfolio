@@ -155,6 +155,7 @@
           },
           "configurations": {
             "production":{
+              "index": "src/index.prod.html",
               "browserTarget": "jz-portfolio:build:production",
               "firebaseProject": "jz-portfolio",
               "firebaseHostingSite": "jlz-portfolio"
