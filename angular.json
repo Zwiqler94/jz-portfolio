@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
     "analytics": false,
@@ -7,7 +8,6 @@
       "@angular-eslint/schematics"
     ]
   },
-  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "jz-portfolio": {
@@ -53,7 +53,8 @@
               "serviceWorker": true,
               "statsJson": true,
               "subresourceIntegrity": true,
-              "progress":true            }
+              "progress": true
+            }
           },
           "options": {
             "allowedCommonJsDependencies": [
@@ -71,8 +72,8 @@
             "extractLicenses": true,
             "index": "src/index.html",
             "main": "src/main.ts",
-            "ngswConfigPath": "ngsw-config.json",
             "namedChunks": true,
+            "ngswConfigPath": "ngsw-config.json",
             "optimization": false,
             "outputPath": "dist/jz-portfolio",
             "polyfills": "src/polyfills.ts",
