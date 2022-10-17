@@ -28,8 +28,11 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
+              "sourceMap": {
+                "scripts": true,
+                "styles": true
+              },
+              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -44,8 +47,13 @@
                   "maximumWarning": "2kb",
                   "maximumError": "4kb"
                 }
-              ]
-            }
+              ],
+              "aot": true,
+              "commonChunk": true,
+              "serviceWorker": true,
+              "statsJson": true,
+              "subresourceIntegrity": true,
+              "progress":true            }
           },
           "options": {
             "allowedCommonJsDependencies": [
