@@ -1,28 +1,42 @@
-import { Component, OnInit, Renderer2, Inject, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Renderer2,
+  Inject,
+  AfterViewInit,
+  ViewChild,
+} from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-
+import { FacebookLoginResponse } from 'src/models/fb-login-response.model';
 
 @Component({
   selector: 'app-socials',
   templateUrl: './socials.component.html',
-  styleUrls: ['./socials.component.scss']
+  styleUrls: ['./socials.component.scss'],
 })
 export class SocialsComponent implements OnInit, AfterViewInit {
-
-
   instagramScript: any;
   twitterScript: any;
+  isLoggedIn = true;
+  @ViewChild('')
 
-  constructor(private renderer2: Renderer2, @Inject(DOCUMENT) private domDocument: any, private router: Router) {
+  constructor(
+    private renderer2: Renderer2,
+    @Inject(DOCUMENT) private domDocument: any,
+    private router: Router
+  ) {
     if (this.router.navigated === true) {
       location.reload();
     }
   }
 
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-
+  handleLogin(loginInfo: FacebookLoginResponse) {
+    if (loginInfo.status !== 'connected') {
+      this.isLoggedIn = true;
+    }
   }
 
   ngAfterViewInit(): void {
@@ -36,9 +50,7 @@ export class SocialsComponent implements OnInit, AfterViewInit {
   }
 
   loadScripts(): Promise<any> {
-
     return new Promise((resolve, reject) => {
-
       this.twitterScript = this.renderer2.createElement('script');
       this.twitterScript.id = 'twitter-wjs';
       this.twitterScript.type = 'text/javascript';
@@ -66,9 +78,6 @@ export class SocialsComponent implements OnInit, AfterViewInit {
       };
       this.renderer2.appendChild(this.domDocument.body, this.instagramScript);
       this.renderer2.appendChild(this.domDocument.body, this.twitterScript);
-    }
-    );
-
+    });
   }
-
 }
