@@ -8,7 +8,9 @@ import {
 } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import { FacebookLoginResponse } from 'src/models/fb-login-response.model';
+import { FacebookLoginResponse, FacebookLoginStatus } from 'src/models/fb-login-response.model';
+
+declare const FB: any;
 
 @Component({
   selector: 'app-socials',
@@ -19,34 +21,29 @@ export class SocialsComponent implements OnInit, AfterViewInit {
   instagramScript: any;
   twitterScript: any;
   isLoggedIn = true;
-  @ViewChild('')
 
   constructor(
     private renderer2: Renderer2,
     @Inject(DOCUMENT) private domDocument: any,
     private router: Router
   ) {
-    if (this.router.navigated === true) {
-      location.reload();
-    }
+    // if (this.router.navigated === true) {
+    //   location.reload();
+    // }
+
+    this.initFacebook();
   }
 
   ngOnInit(): void {}
 
-  handleLogin(loginInfo: FacebookLoginResponse) {
-    if (loginInfo.status !== 'connected') {
-      this.isLoggedIn = true;
-    }
-  }
-
   ngAfterViewInit(): void {
-    try {
-      this.loadScripts();
-    } catch (error) {
-      console.log(error);
-    }
-    this.instagramScript.loaded = false;
-    this.twitterScript.loaded = false;
+    // try {
+    //   this.loadScripts();
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // this.instagramScript.loaded = false;
+    // this.twitterScript.loaded = false;
   }
 
   loadScripts(): Promise<any> {
@@ -79,5 +76,29 @@ export class SocialsComponent implements OnInit, AfterViewInit {
       this.renderer2.appendChild(this.domDocument.body, this.instagramScript);
       this.renderer2.appendChild(this.domDocument.body, this.twitterScript);
     });
+  }
+
+  initFacebook = () => {
+    new Promise((resolve) => {
+      // eslint-disable-next-line @typescript-eslint/dot-notation
+      Object.defineProperty(window, 'fbAsyncInit', () => {
+        FB.init({
+          appId: '1117880478849553',
+          cookie: true,
+          xfbml: true,
+          version: 'v2.7',
+        });
+
+        FB.getLoginStatus(this.handleLogin);
+      });
+    });
+  };
+
+  handleLogin(loginInfo: FacebookLoginResponse) {
+    console.log(loginInfo);
+    if (loginInfo.status !== 'connected') {
+      this.isLoggedIn = false;
+      FB.login();
+    }
   }
 }

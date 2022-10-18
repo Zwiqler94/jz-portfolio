@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+export type FacebookLoginStatus = 'connected' | 'not_authorized' | 'unknown';
+
 export interface FacebookLoginResponse {
-  status: string;
+  status: FacebookLoginStatus;
   authResponse?: {
     accessToken: string;
     expiresIn: string;
