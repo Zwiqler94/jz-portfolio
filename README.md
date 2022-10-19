@@ -1,10 +1,12 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
+[![angular version](https://img.shields.io/badge/Angular->%3D%20v14.2.6-red?logo=angular)](https://www.angular.io)
 
+[![node version](https://img.shields.io/badge/node->%3D%20v16-green?logo=nodedotjs)](https://www.angular.io)
 
-# JzPortfolio
+# Jake Zwickler's Portfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.10. (updated to 12.0.5)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11 and now uses: [![angular version](https://img.shields.io/badge/Angular->%3D%20v14.2.6-red?logo=angular)](https://www.angular.io)
 
 ## Development server
 
@@ -32,9 +34,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Author
 
-Jacob Zwickler
+Jake Zwickler
 
-## Image Citationa
+## Image Citations
 
-next arrow by Graphik Designz from the Noun Project
-previous arrow by Mohamad Arif Prasetyo from the Noun Project
+Next arrow by Graphik Designz from the Noun Project
+
+Previous arrow by Mohamad Arif Prasetyo from the Noun Project
