@@ -50,6 +50,10 @@ $accent: mat.define-palette(mat.$red-palette);
 
 $my-theme: mat.define-dark-theme($primary, $accent);
 
+$default-bg: gray !default;
+$default-text-color: white !default;
+.default-div { background-color: gray; color: white; height: 100vh; width: 100vw}
+
 @include mat.core-theme($my-theme);
 /* You can add global styles to this file, and also import other style files */
 
@@ -58,5 +62,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 
+
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
