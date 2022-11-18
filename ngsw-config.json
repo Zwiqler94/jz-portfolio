@@ -17,25 +17,18 @@
     },
     {
       "name": "assets",
-      "installMode": "lazy",
-      "updateMode": "prefetch",
+      "installMode": "prefetch",
       "resources": {
-        "files": [
-          "/assets/**",
-          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
-        ]
+        "files": ["/assets/**/*.(*)"]
       }
-    }
-  ],
-  "dataGroups": [
+    },
     {
       "name": "firestore",
-      "urls": [
-        "https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
-      ],
-      "cacheConfig": {
-        "maxSize": 500,
-        "maxAge": "3d"
+      "installMode": "prefetch",
+      "resources": {
+        "urls": [
+          "https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+        ]
       }
     }
   ]
