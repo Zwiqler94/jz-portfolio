@@ -100,7 +100,7 @@ export class HobbiesComponent implements OnInit {
   public get video(): string {
     return this.sw.video;
   }
- 
+
   public get japanPics(): string[] {
     return this.sw.japanPics;
   }
@@ -124,14 +124,15 @@ export class HobbiesComponent implements OnInit {
   public get pics5(): string[] {
     return this.sw.pics5;
   }
- 
+
 
   private async setUpCarouselImages() {
     try {
       const hobbyRef: StorageReference = ref(this.storage, 'hobbies/japan');
       const hobbyImageList: ListResult = await listAll(hobbyRef);
       hobbyImageList.items.forEach(async (itemRef: StorageReference) => {
-        this.sw.japanPics.push(await getDownloadURL(itemRef));
+        const x = await getDownloadURL(itemRef);
+        this.sw.japanPics.push(x);
       });
     } catch (error) {
       console.log('Carousel Images Cannot Be Displayed');
