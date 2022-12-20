@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'aboutme', component: AboutMeComponent },
   { path: 'hobbies', component: HobbiesComponent },
   { path: 'news', component: NewsComponent },
-  { path: 'socials', component: SocialsComponent },
+  // { path: 'socials', component: SocialsComponent },
   { path: '', component: MainFeedPageComponent },
   { path: '**', component: ErrorPageComponent }
 ];

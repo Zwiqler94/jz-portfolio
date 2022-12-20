@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LinkPreviewService } from 'src/app/services/link-preview.service';
+import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
 @Component({
   selector: 'app-link-post',

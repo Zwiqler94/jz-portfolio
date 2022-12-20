@@ -9,9 +9,9 @@ import { problemImage } from 'src/assets/misc';
 })
 export class CarouselComponent implements OnInit {
 
-  @Input() slides: Observable<string | null>[];
+  @Input() slides: string[];
   currentSlideIndex = 0;
-  currentSlide: Observable<string | null>;
+  currentSlide: string;
 
   constructor() {
     this.loop();
