@@ -28,14 +28,13 @@
     {
       "cacheConfig": {
         "maxAge": "3d",
-        "maxSize": 100,
-        "strategy": "freshness"
+        "maxSize": 200,
+        "strategy": "performance"
       },
       "name": "firestore",
       "urls": [
         "https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)"
       ]
     }
-  ],
-  "navigationRequestStrategy": "freshness"
+  ]
 }

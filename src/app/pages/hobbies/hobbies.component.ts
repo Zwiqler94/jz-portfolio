@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable no-underscore-dangle */
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
 import { listAll, ListResult, StorageReference } from 'firebase/storage';
 import { Observable } from 'rxjs';
+import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 // import { cache } from 'src/main';
 // import { MediaCacheModel } from 'src/models/cache.model';
 
@@ -11,15 +14,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./hobbies.component.scss'],
 })
 export class HobbiesComponent implements OnInit {
-  video: string;
-  japanPics: string[] = [];
-  pics1: string[] = [];
-  pics2: string[] = [];
-  pics3: string[] = [];
-  pics4: string[] = [];
-  pics5: string[] = [];
-
-  constructor(private storage: Storage) {
+  constructor(private storage: Storage, private sw: ServiceWorkerService) {
     this.setupVideos();
     this.setUpCarouselImages();
     this.setUpPhotographyImages();
@@ -50,25 +45,25 @@ export class HobbiesComponent implements OnInit {
           // if (localCacheResult === null) {
           const url = await getDownloadURL(itemRef);
           console.log({ url });
-          localStorage.setItem(itemRef.name, JSON.stringify({ index, url }));
+          // localStorage.setItem(itemRef.name, JSON.stringify({ index, url }));
           switch (index % 5) {
             case 0:
-              this.pics1.push(url);
+              this.sw.pics1.push(url);
               break;
             case 1:
-              this.pics2.push(url);
+              this.sw.pics2.push(url);
               break;
             case 2:
-              this.pics3.push(url);
+              this.sw.pics3.push(url);
               break;
             case 3:
-              this.pics4.push(url);
+              this.sw.pics4.push(url);
               break;
             case 4:
-              this.pics5.push(url);
+              this.sw.pics5.push(url);
               break;
             default:
-              this.pics5.push(url);
+              this.sw.pics5.push(url);
           }
           // } else {
           //   if (localCacheResult) {
@@ -102,12 +97,41 @@ export class HobbiesComponent implements OnInit {
     }
   }
 
+  public get video(): string {
+    return this.sw.video;
+  }
+ 
+  public get japanPics(): string[] {
+    return this.sw.japanPics;
+  }
+
+  public get pics1(): string[] {
+    return this.sw.pics1;
+  }
+
+  public get pics2(): string[] {
+    return this.sw.pics2;
+  }
+
+  public get pics3(): string[] {
+    return this.sw.pics3;
+  }
+
+  public get pics4(): string[] {
+    return this.sw.pics4;
+  }
+
+  public get pics5(): string[] {
+    return this.sw.pics5;
+  }
+ 
+
   private async setUpCarouselImages() {
     try {
       const hobbyRef: StorageReference = ref(this.storage, 'hobbies/japan');
       const hobbyImageList: ListResult = await listAll(hobbyRef);
       hobbyImageList.items.forEach(async (itemRef: StorageReference) => {
-        this.japanPics.push(await getDownloadURL(itemRef));
+        this.sw.japanPics.push(await getDownloadURL(itemRef));
       });
     } catch (error) {
       console.log('Carousel Images Cannot Be Displayed');
@@ -121,7 +145,7 @@ export class HobbiesComponent implements OnInit {
     fitnessVideoList.items
       .filter((video) => video.name === 'IMG_7987.mp4')
       .forEach(async (refItem: StorageReference) => {
-        this.video = await getDownloadURL(refItem);
+        this.sw.video = await getDownloadURL(refItem);
       });
   }
 }

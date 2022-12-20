@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable no-underscore-dangle */
 import { ApplicationRef, Injectable, OnInit } from '@angular/core';
 import { SwPush, SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { concat, filter, first, interval } from 'rxjs';
@@ -6,7 +8,16 @@ import { concat, filter, first, interval } from 'rxjs';
   providedIn: 'root',
 })
 export class ServiceWorkerService {
-  readonly publicKey ='BHr4Vvr3Uh3dsAj749pPSlkAbe-qknUpEypYYN1xvm9QN_DRzAo80b2gJSLxvui5cjdMB1FPKiGVHbxtj-dFDJQ';
+  readonly publicKey =
+    'BHr4Vvr3Uh3dsAj749pPSlkAbe-qknUpEypYYN1xvm9QN_DRzAo80b2gJSLxvui5cjdMB1FPKiGVHbxtj-dFDJQ';
+
+  private _video: string;
+  private _japanPics: string[] = [];
+  private _pics1: string[] = [];
+  private _pics2: string[] = [];
+  private _pics3: string[] = [];
+  private _pics4: string[] = [];
+  private _pics5: string[] = [];
 
   constructor(
     private updates: SwUpdate,
@@ -62,9 +73,51 @@ export class ServiceWorkerService {
       });
   }
 
+  public get video(): string {
+    return this._video;
+  }
+  public set video(value: string) {
+    this._video = value;
+  }
+  public get japanPics(): string[] {
+    return this._japanPics;
+  }
+  public set japanPics(value: string[]) {
+    this._japanPics = value;
+  }
+  public get pics1(): string[] {
+    return this._pics1;
+  }
+  public set pics1(value: string[]) {
+    this._pics1 = value;
+  }
+  public get pics2(): string[] {
+    return this._pics2;
+  }
+  public set pics2(value: string[]) {
+    this._pics2 = value;
+  }
+  public get pics3(): string[] {
+    return this._pics3;
+  }
+  public set pics3(value: string[]) {
+    this._pics3 = value;
+  }
+  public get pics4(): string[] {
+    return this._pics4;
+  }
+  public set pics4(value: string[]) {
+    this._pics4 = value;
+  }
+  public get pics5(): string[] {
+    return this._pics5;
+  }
+  public set pics5(value: string[]) {
+    this._pics5 = value;
+  }
+
   async setUpPushNotifications() {
     await this.push.requestSubscription({ serverPublicKey: this.publicKey });
     this.push.messages.subscribe((msg) => alert(msg));
   }
-
 }
