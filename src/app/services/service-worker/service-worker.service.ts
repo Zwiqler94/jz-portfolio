@@ -67,7 +67,6 @@ export class ServiceWorkerService {
         filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')
       )
       .subscribe((evt) => {
-        alert(evt);
         // Reload the page to update to the latest version.
         document.location.reload();
       });

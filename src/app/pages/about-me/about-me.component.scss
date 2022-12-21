@@ -1,31 +1,29 @@
-#about-me-div {
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+#about-div {
+  height: 100vh;
+  width: 80rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#about-me-content {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-}
-
-#about-me-header {
-    display: flex;
-    // flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 #first-blurb {
-    max-width: 50vw;
-    flex: none;
+  padding: 2rem;
+  width: 80rem;
 }
 
-#upe-pic {
-    height: 200px;
-    width: 350px;
+#about-tabs {
+  height: 80rem;
+  width: 80rem;
+}
+
+footer {
+  padding-top: 15vw;
 }
