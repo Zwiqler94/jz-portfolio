@@ -1,10 +1,16 @@
 #about-div {
   height: 100vh;
-  width: 80rem;
+  width: 90rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+mat-tab{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .about-content {
@@ -12,11 +18,8 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-}
-
-#first-blurb {
-  padding: 2rem;
-  width: 80rem;
+  padding: 10rem;
+  width: 50rem;
 }
 
 #about-tabs {
@@ -24,6 +27,16 @@
   width: 80rem;
 }
 
-footer {
-  padding-top: 15vw;
+div#footer>footer {
+  display: inline-flex;
+  justify-content: center;
+  width: 80rem;
+  padding-top: 4rem;
+}
+
+@media (max-width: 20rem) {
+  #about-tabs {
+    height: 40rem;
+    width: 40rem;
+  }
 }

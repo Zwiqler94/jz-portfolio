@@ -6,8 +6,16 @@
   align-items: center;
 }
 
-#toolbar-logo {
-  margin-right: 8rem;
+#button-container{
+    display: flex;
+    flex-direction: row;
+}
+
+#toolbar-logo,
+#toolbar-logo > img {
+  height: 3rem;
+  margin-top: 1rem;
+  margin-right: 5rem;
 }
 
 mat-toolbar {
@@ -15,6 +23,10 @@ mat-toolbar {
   flex-wrap: wrap;
   justify-content: center;
   width: 100vw;
+}
+
+.spacer{
+    width: 0.25rem;
 }
 
 @media (max-width: 43.438rem) {
