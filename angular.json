@@ -54,6 +54,40 @@
               "statsJson": true,
               "subresourceIntegrity": true,
               "progress": true
+            },
+            "development": {
+              "index": {
+                "input": "src/index.html",
+                "output": "index.html"
+              },
+              "optimization": true,
+              "outputHashing": "bundles",
+              "sourceMap": {
+                "scripts": true,
+                "styles": true
+              },
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "aot": true,
+              "commonChunk": true,
+              "serviceWorker": true,
+              "statsJson": true,
+              "subresourceIntegrity": false,
+              "progress": true
             }
           },
           "options": {

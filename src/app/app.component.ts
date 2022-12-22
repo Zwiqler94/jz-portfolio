@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 
 @Component({
@@ -8,6 +8,5 @@ import { ServiceWorkerService } from 'src/app/services/service-worker/service-wo
 })
 export class AppComponent {
   title = 'jz-portfolio';
-  constructor(private serviceWorker: ServiceWorkerService) {
-  }
+  constructor(private serviceWorker: ServiceWorkerService) {}
 }

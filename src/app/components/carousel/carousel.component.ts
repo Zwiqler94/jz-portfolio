@@ -29,7 +29,6 @@ export class CarouselComponent implements OnInit {
         seed = Math.floor((seed / 2) - ((seed/4)));
       }
     }
-    console.log(seed);
     setInterval(() => {
       if (this.slides != null) {
         this.currentSlideIndex = this.currentSlideIndex < this.slides.length - 1 ? this.currentSlideIndex + 1 : 0;

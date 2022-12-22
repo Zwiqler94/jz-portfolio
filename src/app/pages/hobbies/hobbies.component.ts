@@ -44,7 +44,7 @@ export class HobbiesComponent implements OnInit {
           // const localCacheResult = localStorage.getItem(itemRef.name);
           // if (localCacheResult === null) {
           const url = await getDownloadURL(itemRef);
-          console.log({ url });
+          // console.log({ url });
           // localStorage.setItem(itemRef.name, JSON.stringify({ index, url }));
           switch (index % 5) {
             case 0:

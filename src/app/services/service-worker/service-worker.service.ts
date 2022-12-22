@@ -2,12 +2,13 @@
 /* eslint-disable no-underscore-dangle */
 import { ApplicationRef, Injectable, OnInit } from '@angular/core';
 import { SwPush, SwUpdate, VersionReadyEvent } from '@angular/service-worker';
-import { concat, filter, first, interval } from 'rxjs';
+import { concat, filter, first, interval, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceWorkerService {
+
   readonly publicKey =
     'BHr4Vvr3Uh3dsAj749pPSlkAbe-qknUpEypYYN1xvm9QN_DRzAo80b2gJSLxvui5cjdMB1FPKiGVHbxtj-dFDJQ';
 
@@ -22,7 +23,7 @@ export class ServiceWorkerService {
   constructor(
     private updates: SwUpdate,
     private appRef: ApplicationRef,
-    private push: SwPush
+    private push: SwPush,
   ) {
     updates.versionUpdates.subscribe((event) => {
       switch (event.type) {
@@ -46,8 +47,11 @@ export class ServiceWorkerService {
     const appIsStable$ = appRef.isStable.pipe(
       first((isStable) => isStable === true)
     );
-    const everySixHours$ = interval(6 * 60 * 60 * 1000);
-    const everySixHoursOnceAppIsStable$ = concat(appIsStable$, everySixHours$);
+    const everySixMinutes$ = interval(60 * 1000);
+    const everySixHoursOnceAppIsStable$ = concat(
+      appIsStable$,
+      everySixMinutes$
+    );
 
     everySixHoursOnceAppIsStable$.subscribe(async () => {
       try {
@@ -62,15 +66,24 @@ export class ServiceWorkerService {
       }
     });
 
-    updates.versionUpdates
-      .pipe(
-        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')
-      )
-      .subscribe((evt) => {
-        // Reload the page to update to the latest version.
-        document.location.reload();
-      });
+    // updates.versionUpdates
+    //   .pipe(
+    //     filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')
+    //   )
+    //   .subscribe((evt) => {
+    //     // Reload the page to update to the latest version.
+    //     document.location.reload();
+    //     // this.openSnackbar('Update App?', 'Ok!');
+    //   });
   }
+
+   get swUpdates() {
+   return this.updates;
+  }
+
+  // openSnackbar(message: string, action: string) {
+  //   this._snackBar.open(message, action);
+  // }
 
   public get video(): string {
     return this._video;
