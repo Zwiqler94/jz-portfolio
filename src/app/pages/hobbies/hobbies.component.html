@@ -15,15 +15,15 @@
         </div>
         <div class="image-div">
           <figure class="images">
-            <img class="jlpt-score" src="../../../assets/hobbies/jlpt/JLPTN5.jpeg" />
+            <img class="jlpt-score" src="" />
             <figcaption>Certificate of Passing JLPT N5</figcaption>
           </figure>
           <figure class="images">
-            <img class="jlpt-score" src="../../../assets/hobbies/jlpt/JLPTN4.jpeg" />
+            <img class="jlpt-score" src="" />
             <figcaption>Certificate of Passing JLPT N4</figcaption>
           </figure>
           <figure class="images">
-            <img class="jlpt-score" src="../../../assets/hobbies/jlpt/JLPTN3.jpeg" />
+            <img class="jlpt-score" src="" />
             <figcaption>Online Report of Passing JLPT N3</figcaption>
           </figure>
         </div>
@@ -69,27 +69,27 @@
           <div id="image-div">
             <div class="image-columns">
               <div class="image-frame" *ngFor="let item of pics1">
-                <img src="{{item | async}}" />
+                <img [src]="item | async" />
               </div>
             </div>
             <div class="image-frame" class="image-columns">
               <div class="image-frame" *ngFor="let item of pics2">
-                <img src="{{ item | async }}" />
+                <img src="{{ item }}" />
               </div>
             </div>
             <div class="image-columns">
               <div class="image-frame" *ngFor="let item of pics3">
-                <img src="{{ item | async}}" />
+                <img src="{{ item }}" />
               </div>
             </div>
             <div class="image-columns">
               <div class="image-frame" *ngFor="let item of pics4">
-                <img src="{{ item | async}}" />
+                <img src="{{ item }}" />
               </div>
             </div>
             <div class="image-columns">
               <div class="image-frame" *ngFor="let item of pics5">
-                <img src="{{ item | async}}" />
+                <img src="{{ item }}" />
               </div>
             </div>
           </div>

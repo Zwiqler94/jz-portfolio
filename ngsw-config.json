@@ -18,12 +18,16 @@
     {
       "name": "assets",
       "installMode": "prefetch",
-      "updateMode": "prefetch",
       "resources": {
-        "files": [
-          "/assets/*",
-          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)",
-          "https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/*"
+        "files": ["/assets/**/*.(*)"]
+      }
+    },
+    {
+      "name": "firestore",
+      "installMode": "prefetch",
+      "resources": {
+        "urls": [
+          "https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }
     }
