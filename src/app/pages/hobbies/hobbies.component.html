@@ -69,7 +69,7 @@
           <div id="image-div">
             <div class="image-columns">
               <div class="image-frame" *ngFor="let item of pics1">
-                <img src="{{item}}" />
+                <img [src]="item | async" />
               </div>
             </div>
             <div class="image-frame" class="image-columns">

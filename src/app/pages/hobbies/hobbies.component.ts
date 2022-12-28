@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
 import { listAll, ListResult, StorageReference } from 'firebase/storage';
 import { Observable } from 'rxjs';
-import { cache } from 'src/main';
-import { MediaCacheModel } from 'src/models/cache.model';
+// import { cache } from 'src/main';
+// import { MediaCacheModel } from 'src/models/cache.model';
 
 @Component({
   selector: 'app-hobbies',
@@ -21,17 +21,15 @@ export class HobbiesComponent implements OnInit {
   pics5: Observable<string | null>[] = [];
 
   constructor(private storage: Storage) {
-    console.log(cache.getStats());
     this.setupVideos();
     this.setUpCarouselImages();
     this.setUpPhotographyImages();
-    this.setUpJLPTImages();
-    cache.on('set', () => {
-      console.log('Miss: media stored in cache');
-    });
-    cache.on('get', () => {
-      console.log('Hit: media retrieved in cache');
-    });
+    // cache.on('set', () => {
+    //   console.log('Miss: media stored in cache');
+    // });
+    // cache.on('get', () => {
+    //   console.log('Hit: media retrieved in cache');
+    // });
   }
 
   ngOnInit(): void {}
@@ -46,20 +44,19 @@ export class HobbiesComponent implements OnInit {
       hobbyImageList.items.forEach(
         async (itemRef: StorageReference, index: number) => {
           console.log(itemRef.name);
-          const internalCacheResult: string | undefined = cache.get(
-            itemRef.name
-          );
+          // const internalCacheResult: string | undefined = cache.get(
+          //   itemRef.name
+          // );
           const localCacheResult =
-            internalCacheResult !== undefined
-              ? internalCacheResult
-              : localStorage.getItem(itemRef.name);
-          console.log({ internalCacheResult, localCacheResult });
+            localStorage.getItem(itemRef.name);
           if (localCacheResult === null) {
             const url = (await getDownloadURL(
               itemRef
             )) as unknown as Observable<string | null>;
-            localStorage.setItem(itemRef.name, JSON.stringify({ index, url }));
-            cache.set(itemRef.name, JSON.stringify({ index, url }));
+            localStorage.setItem(
+              itemRef.name,
+              JSON.stringify({ index, url })
+            );
             switch (index % 5) {
               case 0:
                 this.pics1.push(url);

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatCard } from '@angular/material/card';
+import { MatLegacyCard as MatCard } from '@angular/material/legacy-card';
 
 
 @Component({
