@@ -1,14 +1,14 @@
 #main-view {
-  min-height: 100vh;
+  min-height: 90vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#button-container{
-    display: flex;
-    flex-direction: row;
+#button-container {
+  display: flex;
+  flex-direction: row;
 }
 
 #toolbar-logo,
@@ -25,19 +25,31 @@ mat-toolbar {
   width: 100vw;
 }
 
-.spacer{
-    width: 0.25rem;
+.spacer {
+  width: 0.25rem;
 }
 
-@media (max-width: 43.438rem) {
+@media (min-width: 43.438rem) {
+  #toolbar-logo,
+  #toolbar-logo > img {
+    margin-right: 0rem;
+  }
   mat-toolbar {
     justify-content: center;
     align-items: center;
-    height: 10rem;
+    height: 240px;
   }
 }
 
-@media (max-width: 20rem) {
+@media (min-width: 20rem) {
+  #toolbar-logo,
+  #toolbar-logo > img {
+    margin-right: 0rem;
+  }
+  mat-toolbar {
+    height: 240px;
+  }
+
   #toolbar-logo {
     margin-right: 0px;
     width: 19rem;

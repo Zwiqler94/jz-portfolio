@@ -100,7 +100,7 @@ export class HobbiesComponent implements OnInit {
   public get video(): string {
     return this.sw.video;
   }
- 
+
   public get japanPics(): string[] {
     return this.sw.japanPics;
   }
@@ -124,7 +124,7 @@ export class HobbiesComponent implements OnInit {
   public get pics5(): string[] {
     return this.sw.pics5;
   }
- 
+
 
   private async setUpCarouselImages() {
     try {

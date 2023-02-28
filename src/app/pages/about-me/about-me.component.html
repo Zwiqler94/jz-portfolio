@@ -1,5 +1,6 @@
 <div id="about-div">
-    <mat-tab-group id="about-tabs" dynamicHeight="true" color="primary" backgroundColor="primary" mat-align-tabs="center">
+    <mat-tab-group id="about-tabs" dynamicHeight="true" color="primary" backgroundColor="primary"
+        mat-align-tabs="center">
         <mat-tab label="About Me">
             <div class="about-content">
 
@@ -47,7 +48,37 @@
             </div>
 
         </mat-tab>
+        <mat-tab label="Projects">
+            <div class="project-content">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title> Username Generator </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form id="usr-form" [formGroup]="usernameForm" (ngSubmit)="onSubmit($event)">
+                            <mat-form-field>
+                                <mat-label> Words To Use </mat-label>
+                                <input matInput formControlName="words" type="text">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label> Special Characters To Use </mat-label>
+                                <input matInput formControlName="specialCharacters" type="text">
+                            </mat-form-field>
+                            <button mat-button-raised type="submit" class="g-recaptcha"
+                                data-sitekey="reCAPTCHA_site_key" data-callback='onSubmit' data-action='submit'>
+                                Generate Usernames </button>
+                        </form>
+                        <mat-chip-listbox *ngFor="let username of results|async">
+                            <mat-chip-option>{{username}} </mat-chip-option>
+                        </mat-chip-listbox>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+
+        </mat-tab>
     </mat-tab-group>
+
 
     <div id="footer">
         <footer>This site was originally built using Angular 12 and now uses Angular {{angularVersion.full}}, Angular

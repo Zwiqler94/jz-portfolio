@@ -26,12 +26,11 @@ export class MainFeedPageComponent implements OnInit {
           d.afterDismissed().subscribe((f: MatSnackBarDismiss) => {
             console.log(f.dismissedByAction);
             while (!f.dismissedByAction) {
-              console.log('waiting biocth');
+              this.snack.open('Hurry up and update!', 'UPDATE!');
             }
             document.location.reload();
           });
         }
       });
-    console.log('😬hehehehe😡');
   }
 }
