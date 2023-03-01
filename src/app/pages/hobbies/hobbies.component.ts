@@ -125,7 +125,6 @@ export class HobbiesComponent implements OnInit {
     return this.sw.pics5;
   }
 
-
   private async setUpCarouselImages() {
     try {
       const hobbyRef: StorageReference = ref(this.storage, 'hobbies/japan');

@@ -8,7 +8,6 @@ import { concat, filter, first, interval, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class ServiceWorkerService {
-
   readonly publicKey =
     'BHr4Vvr3Uh3dsAj749pPSlkAbe-qknUpEypYYN1xvm9QN_DRzAo80b2gJSLxvui5cjdMB1FPKiGVHbxtj-dFDJQ';
 
@@ -23,7 +22,7 @@ export class ServiceWorkerService {
   constructor(
     private updates: SwUpdate,
     private appRef: ApplicationRef,
-    private push: SwPush,
+    private push: SwPush
   ) {
     updates.versionUpdates.subscribe((event) => {
       switch (event.type) {
@@ -77,8 +76,8 @@ export class ServiceWorkerService {
     //   });
   }
 
-   get swUpdates() {
-   return this.updates;
+  get swUpdates() {
+    return this.updates;
   }
 
   // openSnackbar(message: string, action: string) {
