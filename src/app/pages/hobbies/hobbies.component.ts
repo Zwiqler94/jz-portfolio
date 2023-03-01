@@ -18,7 +18,7 @@ export class HobbiesComponent implements OnInit {
     this.setupVideos();
     this.setUpCarouselImages();
     this.setUpPhotographyImages();
-    //cache.on('set', () => {
+    // cache.on('set', () => {
     //   console.log('Miss: media stored in cache');
     // });
     // cache.on('get', () => {
