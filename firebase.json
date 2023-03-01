@@ -9,11 +9,7 @@
           "destination": "/index.html"
         }
       ],
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ]
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     },
     {
       "target": "jlz-portfolio-dev",
@@ -24,11 +20,7 @@
           "destination": "/index.html"
         }
       ],
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ]
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     }
   ]
 }

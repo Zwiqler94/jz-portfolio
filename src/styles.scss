@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 // TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
 //  The following line adds:
@@ -8,8 +8,8 @@
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
 //    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
+@include mat.all-component-typographies();
+@include mat.core();
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -57,15 +57,31 @@
 $primary: mat.define-palette(mat.$pink-palette);
 $accent: mat.define-palette(mat.$red-palette);
 
-$my-theme: mat.define-dark-theme($primary, $accent);
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+    ),
+  )
+);
 
-@include mat.legacy-core-theme($my-theme);
+@include mat.core-theme($my-theme);
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; background-color: mat.get-color-from-palette(mat.$pink-palette); }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
+html,
+body {
+  height: 100%;
+  background-color: mat.get-color-from-palette(mat.$pink-palette);
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-card {
+  color: aliceblue;
+}

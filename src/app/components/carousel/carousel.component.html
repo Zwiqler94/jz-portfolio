@@ -1,9 +1,17 @@
 <div class="container">
-    <ng-container>
-        <img class="nav-arrows" src="../../../assets/icons/noun_previous arrow_1407190.png" (click)="onPreviousClick()" />
-        <div id="img-div">
-            <img [src]="currentSlide | async" />
-        </div>
-        <img class="nav-arrows" src="../../../assets/icons/noun_next arrow_3318610.png" (click)="onNextClick()" />
-    </ng-container>
+  <ng-container>
+    <img
+      class="nav-arrows"
+      src="../../../assets/icons/noun_previous arrow_1407190.png"
+      (click)="onPreviousClick()"
+    />
+    <div id="img-div">
+      <img src="{{ currentSlide }}" width="100" height="200" />
+    </div>
+    <img
+      class="nav-arrows"
+      src="../../../assets/icons/noun_next arrow_3318610.png"
+      (click)="onNextClick()"
+    />
+  </ng-container>
 </div>

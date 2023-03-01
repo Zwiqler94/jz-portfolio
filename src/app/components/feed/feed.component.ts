@@ -1,6 +1,14 @@
 import {
-  AfterViewInit, ChangeDetectorRef, Component, ComponentFactory, ComponentFactoryResolver,
-  ComponentRef, Input, OnInit, ViewChild, ViewContainerRef
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { TextPostComponent } from 'src/app/components/text-post/text-post.component';
 import { TextPost } from '../models/text-post';
@@ -11,17 +19,15 @@ import { LinkPostComponent } from 'src/app/components/link-post/link-post.compon
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.scss']
+  styleUrls: ['./feed.component.scss'],
 })
 export class FeedComponent implements OnInit, AfterViewInit {
-
-
   @Input() feedLocation: string;
-  @ViewChild('posts', { read: ViewContainerRef }) postTemplate: ViewContainerRef;
-  componentFactory: ComponentFactory<TextPostComponent>;
+  @ViewChild('posts', { read: ViewContainerRef })
+  postTemplate: ViewContainerRef;
   componentRef: ComponentRef<TextPostComponent>;
 
-  constructor(private componentFactoryResovler: ComponentFactoryResolver, private changeDetector: ChangeDetectorRef) {
+  constructor(private changeDetector: ChangeDetectorRef) {
     this.feedLocation = 'Main';
   }
 
@@ -43,8 +49,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.generateLinkPost(post);
         }
       }
-    }
-    else if (feedSwitch === 'Puppy') {
+    } else if (feedSwitch === 'Puppy') {
       for (const post of staticTextPosts) {
         if (post.postType === 'text' && post.feedLocation === 'Puppy') {
           this.generateTextPost(post);
@@ -53,22 +58,15 @@ export class FeedComponent implements OnInit, AfterViewInit {
     }
   }
   generateTextPost(textPost: TextPost) {
-    this.componentFactory = this.componentFactoryResovler.resolveComponentFactory(TextPostComponent);
-    this.componentRef = this.postTemplate.createComponent(this.componentFactory);
+    this.componentRef = this.postTemplate.createComponent(TextPostComponent);
     this.componentRef.instance.postTitle = textPost.title;
     this.componentRef.instance.postContent = textPost.content;
   }
   generateLinkPost(linkPost: LinkPost) {
-    this.componentFactory = this.componentFactoryResovler.resolveComponentFactory(LinkPostComponent);
-    this.componentRef = this.postTemplate.createComponent(this.componentFactory);
+    this.componentRef = this.postTemplate.createComponent(LinkPostComponent);
     this.componentRef.instance.postTitle = linkPost.title;
     this.componentRef.instance.postContent = linkPost.content;
   }
-  generateImagePost() {
-
-  }
-  generateVideoPost() {
-
-  }
+  generateImagePost() {}
+  generateVideoPost() {}
 }
-
