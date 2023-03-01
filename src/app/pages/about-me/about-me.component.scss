@@ -5,7 +5,7 @@ $content-div-width: calc($about-div-width - 2.75rem);
 // $paragraph-div-height: calc($content-div-height - 2rem);
 
 #about-div {
-  display:flex;
+  display: flex;
   height: $about-div-height;
   width: $about-div-width;
   display: flex;
@@ -20,23 +20,34 @@ mat-tab {
   align-items: center;
 }
 
-mat-chip-listbox.mat-chip-listbox{
+mat-chip-listbox.mat-chip-listbox {
   overflow: auto;
 }
 
-.about-content,.project-content {
+#username-gen-card {
+  width: 20rem;
+  height: 20rem;
+}
+
+#username-gen-card {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.about-content,
+.project-content {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  height: $content-div-height;
-  width: $content-div-width;
+  max-height: $content-div-height;
+  max-width: $content-div-width;
 }
 
-// #about-tabs {
-//   height: 80rem;
-//   width: 80rem;
-// }
+#about-tabs {
+  width: 100vw;
+}
 
 div#footer > footer {
   display: inline-flex;
