@@ -1,3 +1,12 @@
+## [1.3.1](https://github.com/Zwiqler94/jz-portfolio/compare/v1.3.0...v1.3.1) (2023-03-04)
+
+
+### Bug Fixes
+
+* **changelog:** make change log style consistent ([67b0a39](https://github.com/Zwiqler94/jz-portfolio/commit/67b0a394926361039410255f95a47daa6eb88616))
+
+
+
 # [1.3.0](https://github.com/Zwiqler94/jz-portfolio/compare/v0.5.0...v1.3.0) (2023-03-04)
 
 
