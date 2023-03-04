@@ -10,8 +10,8 @@ import { Observable } from 'rxjs';
   templateUrl: './about-me.component.html',
   styleUrls: ['./about-me.component.scss'],
 })
-export class AboutMeComponent implements OnInit {
-  _result: Observable<string[]>;
+export class AboutMeComponent {
+  _result: string[] = [''];
 
   usernameForm: FormGroup = this.fb.group({
     words: [''],
@@ -28,7 +28,7 @@ export class AboutMeComponent implements OnInit {
     return this._result;
   }
 
-  set results(result) {
+  set results(result: string[]) {
     this._result = result;
   }
 
@@ -40,7 +40,7 @@ export class AboutMeComponent implements OnInit {
       ).split(','),
     };
     console.log(body);
-    this.results = this.httpClient.post<string[]>(
+    this.httpClient.post<string[]>(
       'https://us-central1-usernamegenerator.cloudfunctions.net/usernameGeneratorAPI/usernames',
       body,
       {
@@ -49,8 +49,9 @@ export class AboutMeComponent implements OnInit {
           'Content-Type': 'application/json',
         },
       }
-    );
+    ).subscribe((results) => {
+      this.results = results;
+    });
   }
 
-  ngOnInit(): void {}
 }

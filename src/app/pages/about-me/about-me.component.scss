@@ -28,11 +28,14 @@ mat-tab-group {
 
 mat-chip-listbox.mat-chip-listbox {
   overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #username-gen-card {
-  width: 50rem;
-  height: 50rem;
+  width: 40rem;
+  height: 40rem;
 }
 
 #username-gen-card {
