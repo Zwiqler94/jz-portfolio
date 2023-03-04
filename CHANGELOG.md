@@ -1,3 +1,26 @@
+# [1.3.0](https://github.com/Zwiqler94/jz-portfolio/compare/v0.5.0...v1.3.0) (2023-03-04)
+
+
+### Bug Fixes
+
+* mani ([1122f63](https://github.com/Zwiqler94/jz-portfolio/commit/1122f637ab36436d9d0003e7975f36c852a2bc46))
+* manifest file fix ([71f1b38](https://github.com/Zwiqler94/jz-portfolio/commit/71f1b38c9518b350efc24d16cea24f5062e6c1f8))
+* **scss:** adjust UNG design ([7890a6d](https://github.com/Zwiqler94/jz-portfolio/commit/7890a6dd83b540c461cb55156bf5b5168c2f3cdf))
+* **versioning:** change changelog location ([8fd8902](https://github.com/Zwiqler94/jz-portfolio/commit/8fd890208b6d2841c4697f575421f72e0223211e))
+
+
+### Features
+
+* release 0.5.0 ([1e35d25](https://github.com/Zwiqler94/jz-portfolio/commit/1e35d2523add100224b99f01cd308b0986e72e83))
+* release 0.8.0 ([def372f](https://github.com/Zwiqler94/jz-portfolio/commit/def372f2e47a982f6b97ce8b889dde6e0f098e6c))
+
+
+### Reverts
+
+* "style: test" ([66c7909](https://github.com/Zwiqler94/jz-portfolio/commit/66c790903a9d323fe02d81c0f4992bb9947a7887))
+
+
+
 # Changelog
 
 ## [1.2.0](https://github.com/Zwiqler94/jz-portfolio/compare/jz-portfolio-v1.1.0...jz-portfolio-v1.2.0) (2023-03-01)
