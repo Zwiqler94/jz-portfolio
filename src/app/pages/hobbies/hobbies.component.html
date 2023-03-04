@@ -1,5 +1,9 @@
 <div id="hobby-div">
-  <mat-tab-group color="primary" backgroundColor="primary" mat-align-tabs="center">
+  <mat-tab-group
+    color="primary"
+    backgroundColor="primary"
+    mat-align-tabs="center"
+  >
     <mat-tab label="Japanese">
       <div class="content-div">
         <div class="paragraph">
@@ -53,7 +57,7 @@
           as a sort of fitness journal.
 
           <video controls>
-            <source [src]="video | async" type="video/mp4" />
+            <source [src]="video" type="video/mp4" />
           </video>
         </div>
       </div>
@@ -64,32 +68,34 @@
           <p>
             I love taking pictures, especially of cities, buildings, and nature.
             I have a separate Instagram for this hobby of mine, it's called
-            <a href="https://instagram.com/by_natures_grace">By Nature's Grace</a>.
+            <a href="https://instagram.com/by_natures_grace"
+              >By Nature's Grace</a
+            >.
           </p>
           <div id="image-div">
-            <div class="image-columns">
+            <div class="image-columns" id="col1">
               <div class="image-frame" *ngFor="let item of pics1">
-                <img [src]="item | async" />
+                <img [src]="item" />
               </div>
             </div>
-            <div class="image-frame" class="image-columns">
+            <div class="image-columns" id="col2">
               <div class="image-frame" *ngFor="let item of pics2">
-                <img src="{{ item }}" />
+                <img [src]="item" />
               </div>
             </div>
-            <div class="image-columns">
+            <div class="image-columns" id="col3">
               <div class="image-frame" *ngFor="let item of pics3">
-                <img src="{{ item }}" />
+                <img [src]="item" />
               </div>
             </div>
-            <div class="image-columns">
+            <div class="image-columns" id="col4">
               <div class="image-frame" *ngFor="let item of pics4">
-                <img src="{{ item }}" />
+                <img [src]="item" />
               </div>
             </div>
-            <div class="image-columns">
-              <div class="image-frame" *ngFor="let item of pics5">
-                <img src="{{ item }}" />
+            <div class="image-columns" id="col5">
+              <div class="image-frame" *ngFor="let item of pics5" #x>
+                <img [src]="item" />
               </div>
             </div>
           </div>

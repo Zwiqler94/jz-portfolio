@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LinkPreviewService } from 'src/app/services/link-preview.service';
+import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
 @Component({
   selector: 'app-link-post',
@@ -27,7 +27,7 @@ export class LinkPostComponent implements OnInit {
 
   getLinkPreview() {
     const linkArray = this.postContent.match(
-      /(http|https):\/\/www.[a-z]*.[a-z]*\/[a-z0-9?=]*/
+      /(http|https):\/\/www.[a-z]*.[a-z]*\/[a-zA-Z0-9?=]*/
     );
     if (linkArray !== null) {
       this.linkPreviewService
