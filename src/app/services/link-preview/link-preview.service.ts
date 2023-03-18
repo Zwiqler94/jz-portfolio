@@ -14,7 +14,7 @@ export class LinkPreviewService {
   private baseUrl = 'https://api.linkpreview.net/';
   private apiKey = 'cc4eae4652214d3001c57dbcf92670c8';
   private params: HttpParams = new HttpParams().set('key', this.apiKey);
-  private headers: HttpHeaders = new HttpHeaders().set('Origin', '*.web.app');
+  private headers: HttpHeaders = new HttpHeaders().set('Origin', 'https://*.web.app');
 
   constructor(private httpClient: HttpClient) {}
 
