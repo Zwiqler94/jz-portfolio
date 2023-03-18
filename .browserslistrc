@@ -8,4 +8,4 @@
 # You can see what browsers were selected by your queries by running:
 #   npx browserslist
 
-last 2 major versions and >0.2%, not dead
+last 10 major versions and >0.2%, not dead
