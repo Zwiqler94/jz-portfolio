@@ -11,7 +11,7 @@
     "jz-portfolio": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "configurations": {
             "production": {
               "index": {
@@ -89,6 +89,9 @@
             }
           },
           "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.ts"
+            },
             "allowedCommonJsDependencies": [
               "firebase",
               "@angular/fire",

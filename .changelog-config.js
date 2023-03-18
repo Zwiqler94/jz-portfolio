@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 module.exports = {
   types: [
@@ -8,7 +8,7 @@ module.exports = {
     { type: "perf", section: "Performance Improvements" },
     { type: "revert", section: "Reverts" },
     { type: "docs", section: "Documentation" },
-    { type: "style", section: "Styles"},
+    { type: "style", section: "Styles" },
     { type: "chore", section: "Miscellaneous Chores" },
     { type: "refactor", section: "Code Refactoring" },
     { type: "test", section: "Tests" },

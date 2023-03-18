@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpParams,
-} from '@angular/common/http';
-import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
+import { HttpClient, HttpParams } from '@angular/common/http';
+// import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 
 @Injectable({
   providedIn: 'root',
@@ -18,24 +15,24 @@ export class LinkPreviewService {
   private params: HttpParams = new HttpParams().set('key', this.apiKey);
 
   constructor(private httpClient: HttpClient) {
-    this.getAPIKey().then().catch();
+    // this.getAPIKey().then().catch();
   }
 
-   get apiKey() {
+  get apiKey() {
     return this._apiKey;
   }
-   set apiKey(value) {
+  set apiKey(value) {
     this._apiKey = value;
   }
 
-  async getAPIKey() {
-    const [apiKeyVersion] =
-      await new SecretManagerServiceClient().accessSecretVersion({
-        name: this.secretName,
-      });
-    this.apiKey = apiKeyVersion.payload!.data!.toString();
-    console.log(this.apiKey);
-  }
+  // async getAPIKey() {
+  //   const [apiKeyVersion] =
+  //     await new SecretManagerServiceClient().accessSecretVersion({
+  //       name: this.secretName,
+  //     });
+  //   this.apiKey = apiKeyVersion.payload!.data!.toString();
+  //   console.log(this.apiKey);
+  // }
 
   getLinkPreview(url: string) {
     this.params = this.params.set('q', url);
