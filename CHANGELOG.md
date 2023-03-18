@@ -1,3 +1,12 @@
+## [1.3.3](https://github.com/Zwiqler94/jz-portfolio/compare/v1.3.2...v1.3.3) (2023-03-18)
+
+
+### Bug Fixes
+
+* **security:** update origin with full url ([d9eeeef](https://github.com/Zwiqler94/jz-portfolio/commit/d9eeeef8a4ca8b45782568c2f281fba9010b35d6))
+
+
+
 ## [1.3.2](https://github.com/Zwiqler94/jz-portfolio/compare/v0.4.0...v1.3.2) (2023-03-18)
 
 
