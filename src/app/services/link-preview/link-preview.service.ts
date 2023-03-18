@@ -1,27 +1,45 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LinkPreviewService {
   private baseUrl = 'https://api.linkpreview.net/';
-  private apiKey = 'cc4eae4652214d3001c57dbcf92670c8';
+  private secretName =
+    'projects/518070660509/secrets/LINK_PREVIEW_DEV/versions/latest';
+  private _apiKey = '';
   private params: HttpParams = new HttpParams().set('key', this.apiKey);
-  private headers: HttpHeaders = new HttpHeaders().set('Origin', 'https://*.web.app');
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    this.getAPIKey().then().catch();
+  }
+
+   get apiKey() {
+    return this._apiKey;
+  }
+   set apiKey(value) {
+    this._apiKey = value;
+  }
+
+  async getAPIKey() {
+    const [apiKeyVersion] =
+      await new SecretManagerServiceClient().accessSecretVersion({
+        name: this.secretName,
+      });
+    this.apiKey = apiKeyVersion.payload!.data!.toString();
+    console.log(this.apiKey);
+  }
 
   getLinkPreview(url: string) {
     this.params = this.params.set('q', url);
     return this.httpClient.get(this.baseUrl, {
-      headers: this.headers,
       params: this.params,
     });
   }
