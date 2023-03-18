@@ -1,3 +1,19 @@
+## [1.3.2](https://github.com/Zwiqler94/jz-portfolio/compare/v0.4.0...v1.3.2) (2023-03-18)
+
+
+### Bug Fixes
+
+* manifest file fix ([71f1b38](https://github.com/Zwiqler94/jz-portfolio/commit/71f1b38c9518b350efc24d16cea24f5062e6c1f8))
+* **security:** add origin header to linkpreview api call ([3bd8f2e](https://github.com/Zwiqler94/jz-portfolio/commit/3bd8f2e0035d7d3b4902388f5cb5c151fdec9f1c))
+* **security:** fix overly permissive regular expression range ([3abb7e0](https://github.com/Zwiqler94/jz-portfolio/commit/3abb7e08c221b0c4bebdf63bda659344526391be))
+
+
+### Reverts
+
+* "style: test" ([66c7909](https://github.com/Zwiqler94/jz-portfolio/commit/66c790903a9d323fe02d81c0f4992bb9947a7887))
+
+
+
 ## [1.3.1](https://github.com/Zwiqler94/jz-portfolio/compare/v1.3.0...v1.3.1) (2023-03-04)
 
 
