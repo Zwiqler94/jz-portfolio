@@ -1,5 +1,11 @@
+## 1.11.0 (2023-03-19)
+
+
+
+
 ## 1.10.0 (2023-03-19)
 
+* chore(release): 1.10.0 :tada: ([eba5fe1](https://github.com/Zwiqler94/jz-portfolio/commit/eba5fe1))
 
 
 
