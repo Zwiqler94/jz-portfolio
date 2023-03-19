@@ -40,18 +40,19 @@ export class AboutMeComponent {
       ).split(','),
     };
     console.log(body);
-    this.httpClient.post<string[]>(
-      'https://us-central1-usernamegenerator.cloudfunctions.net/usernameGeneratorAPI/usernames',
-      body,
-      {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
-        },
-      }
-    ).subscribe((results) => {
-      this.results = results;
-    });
+    this.httpClient
+      .post<string[]>(
+        'https://us-central1-usernamegenerator.cloudfunctions.net/usernameGeneratorAPI/usernames',
+        body,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .subscribe((results) => {
+        this.results = results;
+      });
   }
-
 }

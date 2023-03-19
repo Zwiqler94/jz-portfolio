@@ -1,27 +1,42 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpParams,
-} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { lastValueFrom } from 'rxjs';
+// import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LinkPreviewService {
   private baseUrl = 'https://api.linkpreview.net/';
-  private apiKey = 'cc4eae4652214d3001c57dbcf92670c8';
-  private params: HttpParams = new HttpParams().set('key', this.apiKey);
-  private headers: HttpHeaders = new HttpHeaders().set('Origin', 'https://*.web.app');
+  private _apiKey!: string;
+  private params: HttpParams = new HttpParams();
 
   constructor(private httpClient: HttpClient) {}
 
-  getLinkPreview(url: string) {
-    this.params = this.params.set('q', url);
+  get apiKey() {
+    return this._apiKey;
+  }
+  set apiKey(value) {
+    this._apiKey = value;
+  }
+
+  getAPIKey() {
+    return this.httpClient.get(
+      'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService'
+    );
+  }
+
+  async getLinkPreview(url: string) {
+    const apiKey: any = await lastValueFrom(this.getAPIKey());
+
+    console.log({ jsndjcksdnc: apiKey.k });
+    this.params = this.params.set('key', apiKey.k).set('q', url);
+
+    console.log({ nsjjsn: this.params });
     return this.httpClient.get(this.baseUrl, {
-      headers: this.headers,
       params: this.params,
     });
   }

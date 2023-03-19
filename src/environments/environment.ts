@@ -3,6 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  appUrl: 'jlz-portfolio-dev.web.app',
+  secretService:
+    'https://us-central1-jlz-portfolio.cloudfunctions.net/secretService',
+  secretServiceLocal:
+    'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService',
   production: false,
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   firebaseConfig: {
