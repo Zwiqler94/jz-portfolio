@@ -1,5 +1,11 @@
+## 1.10.0 (2023-03-19)
+
+
+
+
 ## 1.9.0 (2023-03-19)
 
+* chore(release): 1.9.0 :tada: ([b5f0d63](https://github.com/Zwiqler94/jz-portfolio/commit/b5f0d63))
 
 
 
