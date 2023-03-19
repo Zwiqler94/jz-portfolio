@@ -1,6 +1,6 @@
 {
   "name": "jz-portfolio",
-  "version": "1.7.14",
+  "version": "1.7.13",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -14,7 +14,8 @@
     "lint": "ng lint",
     "lint:fix": "prettier --write ./ && ng lint jz-portfolio --fix",
     "e2e": "ng e2",
-    "version": "export HUSKY=0 && conventional-changelog -p angular -i CHANGELOG.md -s -n .changelog-config.js -r 0 && git add CHANGELOG.md"
+    "preversion": "export HUSKY=0",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -n .changelog-config.js -r 0 && git add CHANGELOG.md"
   },
   "private": true,
   "dependencies": {
