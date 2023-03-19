@@ -13,8 +13,15 @@
           "destination": "/index.html"
         }
       ],
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "predeploy": ["npm run lint:fix", "npm run build:prod"]
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "predeploy": [
+        "npm run lint:fix",
+        "npm run build:prod"
+      ]
     },
     {
       "target": "jlz-portfolio-dev",
@@ -29,8 +36,15 @@
           "destination": "/index.html"
         }
       ],
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "predeploy": ["npm run lint:fix", "npm run build:dev"]
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "predeploy": [
+        "npm run lint:fix",
+        "npm run build:dev"
+      ]
     }
   ],
   "functions": [
