@@ -1,5 +1,11 @@
+## 1.9.0 (2023-03-19)
+
+
+
+
 ## 1.8.0 (2023-03-19)
 
+* chore(release): 1.8.0 :tada: ([811476e](https://github.com/Zwiqler94/jz-portfolio/commit/811476e))
 * chore(versioning): delete excessive tags ([dce697a](https://github.com/Zwiqler94/jz-portfolio/commit/dce697a))
 
 
