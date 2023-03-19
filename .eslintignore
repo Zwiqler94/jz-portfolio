@@ -4,3 +4,4 @@ dist/*
 .github/**/*
 .vscode/**/*
 e2e/**/*
+functions/lib/*

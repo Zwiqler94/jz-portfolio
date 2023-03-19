@@ -5,22 +5,32 @@
       "public": "dist/jz-portfolio",
       "rewrites": [
         {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ],
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
-    },
-    {
-      "target": "jlz-portfolio-dev",
-      "public": "dist/jz-portfolio",
-      "rewrites": [
+          "source": "/secrets/**",
+          "destination": "secretService"
+        },
         {
           "source": "**",
           "destination": "/index.html"
         }
       ],
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "predeploy": ["npm run lint:fix", "npm run build:prod"]
+    },
+    {
+      "target": "jlz-portfolio-dev",
+      "public": "dist/jz-portfolio-dev",
+      "rewrites": [
+        {
+          "source": "/secrets",
+          "function": "secretService"
+        },
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "predeploy": ["npm run lint:fix", "npm run build:dev"]
     }
   ],
   "functions": [
@@ -34,6 +44,7 @@
         "firebase-debug.*.log"
       ],
       "predeploy": [
+        "rm -r $RESOURCE_DIR/lib",
         "npm --prefix \"$RESOURCE_DIR\" run lint",
         "npm --prefix \"$RESOURCE_DIR\" run build"
       ]
@@ -41,10 +52,10 @@
   ],
   "emulators": {
     "functions": {
-      "port": 5001
+      "port": 4001
     },
     "hosting": {
-      "port": 5000
+      "port": 4002
     },
     "ui": {
       "enabled": true

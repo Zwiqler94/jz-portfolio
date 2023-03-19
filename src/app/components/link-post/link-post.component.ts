@@ -21,22 +21,22 @@ export class LinkPostComponent implements OnInit {
     return this.getLinkPreviewData !== undefined;
   }
 
-  ngOnInit(): void {
-    this.getLinkPreview();
+  async ngOnInit() {
+    await this.getLinkPreview();
   }
 
-  getLinkPreview() {
+  async getLinkPreview() {
     const linkArray = this.postContent.match(
       /(http|https):\/\/www.[a-z]*.[a-z]*\/[a-zA-Z0-9?=]*/
     );
     if (linkArray !== null) {
-      this.linkPreviewService
-        .getLinkPreview(String(linkArray[0]))
-        .subscribe((data: any) => {
-          {
-            this.linkPreviewData = data;
-          }
-        });
+      (
+        await this.linkPreviewService.getLinkPreview(String(linkArray[0]))
+      ).subscribe((data: any) => {
+        {
+          this.linkPreviewData = data;
+        }
+      });
     }
   }
 }
