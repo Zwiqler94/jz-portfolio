@@ -26,12 +26,12 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "bundles",
               "sourceMap": {
                 "scripts": true,
                 "styles": true
               },
-              "namedChunks": true,
+              "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": true,
               "buildOptimizer": true,
@@ -170,6 +170,9 @@
             }
           },
           "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.ts"
+            },
             "allowedCommonJsDependencies": [
               "firebase",
               "@angular/fire",
