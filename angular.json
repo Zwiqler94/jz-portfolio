@@ -11,9 +11,10 @@
     "jz-portfolio": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "configurations": {
             "production": {
+              "outputPath": "dist/jz-portfolio",
               "index": {
                 "input": "src/index.prod.html",
                 "output": "index.html"
@@ -25,12 +26,12 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "bundles",
               "sourceMap": {
                 "scripts": true,
                 "styles": true
               },
-              "namedChunks": true,
+              "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -54,18 +55,15 @@
               "progress": true
             },
             "development": {
+              "outputPath": "dist/jz-portfolio-dev",
               "index": {
                 "input": "src/index.html",
                 "output": "index.html"
               },
               "optimization": true,
               "outputHashing": "bundles",
-              "sourceMap": {
-                "scripts": true,
-                "styles": true
-              },
+              "sourceMap": true,
               "namedChunks": true,
-              "extractLicenses": true,
               "vendorChunk": true,
               "buildOptimizer": true,
               "budgets": [
@@ -89,6 +87,9 @@
             }
           },
           "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.ts"
+            },
             "allowedCommonJsDependencies": [
               "firebase",
               "@angular/fire",
@@ -107,7 +108,6 @@
             "namedChunks": true,
             "ngswConfigPath": "ngsw-config.json",
             "optimization": false,
-            "outputPath": "dist/jz-portfolio",
             "polyfills": "src/polyfills.ts",
             "scripts": [],
             "serviceWorker": true,
