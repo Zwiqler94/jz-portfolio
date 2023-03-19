@@ -8,7 +8,8 @@
 /bazel-out
 
 # dependencies
-/node_modules
+node_modules
+functions/node_modules
 
 # profiling files
 chrome-profiler-events*.json
@@ -30,6 +31,7 @@ speed-measure-plugin*.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+settings.json
 
 # misc
 /.sass-cache
@@ -52,3 +54,10 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# Compiled JavaScript files
+**/lib/**/*.js
+**/lib/**/*.js.map
+
+# TypeScript v1 declaration files
+**/typings

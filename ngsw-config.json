@@ -1,5 +1,5 @@
 {
-  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "$schema": "Users/jacobzwickler/Documents/GitHub/jz-portfolio/node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
   "assetGroups": [
     {
@@ -17,26 +17,24 @@
     },
     {
       "name": "assets",
-      "installMode": "lazy",
+      "installMode": "prefetch",
       "updateMode": "prefetch",
       "resources": {
-        "files": [
-          "/assets/**",
-          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
-        ]
+        "files": ["/assets/**/*"]
       }
     }
   ],
   "dataGroups": [
     {
+      "cacheConfig": {
+        "maxAge": "3d",
+        "maxSize": 200,
+        "strategy": "performance"
+      },
       "name": "firestore",
       "urls": [
-        "https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
-      ],
-      "cacheConfig": {
-        "maxSize": 500,
-        "maxAge": "3d"
-      }
+        "https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)"
+      ]
     }
   ]
 }

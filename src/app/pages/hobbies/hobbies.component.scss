@@ -43,7 +43,6 @@ $paragraph-div-height: calc($content-div-height - 2rem);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 }
 
 figcaption {
@@ -110,9 +109,9 @@ mat-tab-group {
 }
 
 .image-frame {
-    border-style: solid;
-    border-color: wheat;
-    margin: 2vw;
+  border-style: solid;
+  border-color: wheat;
+  margin: 2vw;
 }
 
 // app-carousel {

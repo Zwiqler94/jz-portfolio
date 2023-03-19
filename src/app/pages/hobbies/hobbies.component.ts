@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable no-underscore-dangle */
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
 import { listAll, ListResult, StorageReference } from 'firebase/storage';
 import { Observable } from 'rxjs';
-import { cache } from 'src/main';
-import { MediaCacheModel } from 'src/models/cache.model';
+import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
+// import { cache } from 'src/main';
+// import { MediaCacheModel } from 'src/models/cache.model';
 
 @Component({
   selector: 'app-hobbies',
@@ -11,27 +14,16 @@ import { MediaCacheModel } from 'src/models/cache.model';
   styleUrls: ['./hobbies.component.scss'],
 })
 export class HobbiesComponent implements OnInit {
-  video: Observable<string | null>;
-  japanPics: Observable<string | null>[] = [];
-  jlptPics: Observable<string | null>[] = [];
-  pics1: Observable<string | null>[] = [];
-  pics2: Observable<string | null>[] = [];
-  pics3: Observable<string | null>[] = [];
-  pics4: Observable<string | null>[] = [];
-  pics5: Observable<string | null>[] = [];
-
-  constructor(private storage: Storage) {
-    console.log(cache.getStats());
+  constructor(private storage: Storage, private sw: ServiceWorkerService) {
     this.setupVideos();
     this.setUpCarouselImages();
     this.setUpPhotographyImages();
-    this.setUpJLPTImages();
-    cache.on('set', () => {
-      console.log('Miss: media stored in cache');
-    });
-    cache.on('get', () => {
-      console.log('Hit: media retrieved in cache');
-    });
+    // cache.on('set', () => {
+    //   console.log('Miss: media stored in cache');
+    // });
+    // cache.on('get', () => {
+    //   console.log('Hit: media retrieved in cache');
+    // });
   }
 
   ngOnInit(): void {}
@@ -45,64 +37,58 @@ export class HobbiesComponent implements OnInit {
       const hobbyImageList: ListResult = await listAll(hobbyRef);
       hobbyImageList.items.forEach(
         async (itemRef: StorageReference, index: number) => {
-          console.log(itemRef.name);
-          const internalCacheResult: string | undefined = cache.get(
-            itemRef.name
-          );
-          const localCacheResult =
-            internalCacheResult !== undefined
-              ? internalCacheResult
-              : localStorage.getItem(itemRef.name);
-          console.log({ internalCacheResult, localCacheResult });
-          if (localCacheResult === null) {
-            const url = (await getDownloadURL(
-              itemRef
-            )) as unknown as Observable<string | null>;
-            localStorage.setItem(itemRef.name, JSON.stringify({ index, url }));
-            cache.set(itemRef.name, JSON.stringify({ index, url }));
-            switch (index % 5) {
-              case 0:
-                this.pics1.push(url);
-                break;
-              case 1:
-                this.pics2.push(url);
-                break;
-              case 2:
-                this.pics3.push(url);
-                break;
-              case 3:
-                this.pics4.push(url);
-                break;
-              case 4:
-                this.pics5.push(url);
-                break;
-              default:
-                this.pics5.push(url);
-            }
-          } else {
-            if (localCacheResult) {
-              const cacheResultObj = JSON.parse(localCacheResult);
-              switch (cacheResultObj.index % 5) {
-                case 0:
-                  this.pics1.push(cacheResultObj.url);
-                  break;
-                case 1:
-                  this.pics2.push(cacheResultObj.url);
-                  break;
-                case 2:
-                  this.pics3.push(cacheResultObj.url);
-                  break;
-                case 3:
-                  this.pics4.push(cacheResultObj.url);
-                  break;
-                case 4:
-                  this.pics5.push(cacheResultObj.url);
-                  break;
-                default:
-                  this.pics5.push(cacheResultObj.url);
-              }
-            }
+          // console.log(itemRef);
+          // const internalCacheResult: string | undefined = cache.get(
+          //   itemRef.name
+          // );
+          // const localCacheResult = localStorage.getItem(itemRef.name);
+          // if (localCacheResult === null) {
+          const url = await getDownloadURL(itemRef);
+          // console.log({ url });
+          // localStorage.setItem(itemRef.name, JSON.stringify({ index, url }));
+          switch (index % 5) {
+            case 0:
+              this.sw.pics1.push(url);
+              break;
+            case 1:
+              this.sw.pics2.push(url);
+              break;
+            case 2:
+              this.sw.pics3.push(url);
+              break;
+            case 3:
+              this.sw.pics4.push(url);
+              break;
+            case 4:
+              this.sw.pics5.push(url);
+              break;
+            default:
+              this.sw.pics5.push(url);
           }
+          // } else {
+          //   if (localCacheResult) {
+          //     const cacheResultObj = JSON.parse(localCacheResult);
+          //     switch (cacheResultObj.index % 5) {
+          //       case 0:
+          //         this.pics1.push(cacheResultObj.url);
+          //         break;
+          //       case 1:
+          //         this.pics2.push(cacheResultObj.url);
+          //         break;
+          //       case 2:
+          //         this.pics3.push(cacheResultObj.url);
+          //         break;
+          //       case 3:
+          //         this.pics4.push(cacheResultObj.url);
+          //         break;
+          //       case 4:
+          //         this.pics5.push(cacheResultObj.url);
+          //         break;
+          //       default:
+          //         this.pics5.push(cacheResultObj.url);
+          //     }
+          //   }
+          // }
         }
       );
     } catch (error) {
@@ -111,14 +97,40 @@ export class HobbiesComponent implements OnInit {
     }
   }
 
+  public get video(): string {
+    return this.sw.video;
+  }
+
+  public get japanPics(): string[] {
+    return this.sw.japanPics;
+  }
+
+  public get pics1(): string[] {
+    return this.sw.pics1;
+  }
+
+  public get pics2(): string[] {
+    return this.sw.pics2;
+  }
+
+  public get pics3(): string[] {
+    return this.sw.pics3;
+  }
+
+  public get pics4(): string[] {
+    return this.sw.pics4;
+  }
+
+  public get pics5(): string[] {
+    return this.sw.pics5;
+  }
+
   private async setUpCarouselImages() {
     try {
       const hobbyRef: StorageReference = ref(this.storage, 'hobbies/japan');
       const hobbyImageList: ListResult = await listAll(hobbyRef);
-      hobbyImageList.items.forEach((itemRef: StorageReference) => {
-        this.japanPics.push(
-          getDownloadURL(itemRef) as unknown as Observable<string | null>
-        );
+      hobbyImageList.items.forEach(async (itemRef: StorageReference) => {
+        this.sw.japanPics.push(await getDownloadURL(itemRef));
       });
     } catch (error) {
       console.log('Carousel Images Cannot Be Displayed');
@@ -146,10 +158,8 @@ export class HobbiesComponent implements OnInit {
     const fitnessVideoList: ListResult = await listAll(fitnessStorageRef);
     fitnessVideoList.items
       .filter((video) => video.name === 'IMG_7987.mp4')
-      .forEach((refItem: StorageReference) => {
-        this.video = getDownloadURL(refItem) as unknown as Observable<
-          string | null
-        >;
+      .forEach(async (refItem: StorageReference) => {
+        this.sw.video = await getDownloadURL(refItem);
       });
   }
 }

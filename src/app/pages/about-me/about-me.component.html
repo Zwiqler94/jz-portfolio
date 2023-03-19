@@ -1,50 +1,116 @@
-<div id="about-me-div" class="default-div">
-    <div id="about-me-header">
-        <h2>About Jacob Zwickler</h2>
-    </div>
-    <div id="about-me-content">
-        <div id="first-blurb">
-            <p>
-                Mr. Jacob Zwickler is a Blockchain Technology Consultant within IBM’s Global Business
-                Services. Mr. Zwickler graduated from Binghamton University with a Bachelor of
-                Science in Computer Science and a minor in Japanese. Through his studies and work
-                experiences, he has developed a proficiency across a range of development languages
-                and platforms. Mr. Zwickler has worked on projects including the OpenIDL, Responsible Sourcing
-                Blockchain
-                Network, and the NY State Excelsior Pass.
-            </p>
+<div id="about-div">
+  <mat-tab-group
+    id="about-tabs"
+    color="primary"
+    backgroundColor="primary"
+    mat-align-tabs="center"
+  >
+    <mat-tab label="About Me">
+      <div class="about-content">
+        <p>
+          Jake Zwickler is a Blockchain Technology Consultant within IBM’s
+          Global Business Services. Mr. Zwickler graduated from Binghamton
+          University with a Bachelor of Science in Computer Science and a minor
+          in Japanese. Through his studies and work experiences, he has
+          developed a proficiency across a range of development languages and
+          platforms. Mr. Zwickler has worked on projects including the OpenIDL,
+          Responsible Sourcing Blockchain Network, and the NY State Excelsior
+          Pass.
+        </p>
+      </div>
+    </mat-tab>
+    <mat-tab label="Skills">
+      <div class="about-content">
+        <ul>
+          <li>
+            <strong>Programming languages: </strong> C, C++, Java, JavaScript,
+            Node.JS, Python, Typescript, Go familiar with Ruby, Haskell, and
+            Prolog
+          </li>
+          <li>
+            <strong>Methodologies: </strong> Agile Software Development,
+            Test-Driven Development
+          </li>
+          <li>
+            <strong>Tools:</strong> Angular, Chai, Docker, Express, Git, Github,
+            Hyperledger Fabric, IBM Cloud, IBM Carbon Design System, Jenkins,
+            Jira, Kubernetes, Mocha, MongoDB, Supertest, Swagger/OpenAPI 3,
+            Cloud Foundry, Cloudant, Hyperledger Indy (IBM Verify Credentials)
+          </li>
+        </ul>
+      </div>
+    </mat-tab>
+    <mat-tab label="Credentials">
+      <div class="about-content">
+        <ul>
+          <li>
+            <a href="https://www.credly.com/users/jacob-zwickler/badges">
+              Badges
+            </a>
+          </li>
+          <li>
+            <a href="https://meritpages.com/Jacob-Zwickler/1787255">
+              College Deans List
+            </a>
+          </li>
+          <li>
+            <a href="http://harvey.binghamton.edu/~upe/news.html">
+              Upsilon Pi Epsilon Member</a
+            >
+          </li>
+        </ul>
+      </div>
+    </mat-tab>
+    <mat-tab label="Projects">
+      <div class="project-content">
+        <mat-card id="username-gen-card">
+          <mat-card-header>
+            <mat-card-title> Username Generator </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <form
+              id="usr-form"
+              [formGroup]="usernameForm"
+              (ngSubmit)="onSubmit($event)"
+            >
+              <mat-form-field>
+                <mat-label> Words To Use </mat-label>
+                <input matInput formControlName="words" type="text" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label> Special Characters To Use </mat-label>
+                <input
+                  matInput
+                  formControlName="specialCharacters"
+                  type="text"
+                />
+              </mat-form-field>
+              <button
+                mat-raised-button
+                type="submit"
+                class="g-recaptcha"
+                data-sitekey="reCAPTCHA_site_key"
+                data-callback="onSubmit"
+                data-action="submit"
+              >
+                Generate Usernames
+              </button>
+            </form>
+            <ng-container *ngIf="results.length > 1">
+              <mat-chip-listbox *ngFor="let username of results">
+                <mat-chip-option>{{ username }} </mat-chip-option>
+              </mat-chip-listbox>
+            </ng-container>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 
-
-            <ul>
-                <li>
-                    <strong>Programming languages: </strong> C, C++, Java, JavaScript, Node.JS, Python, Typescript, Go
-                    familiar with Ruby, Haskell, and Prolog
-                </li>
-                <li>
-                    <strong>Methodologies: </strong> Agile Software Development, Test-Driven Development
-                </li>
-                <li>
-                    <strong>Tools:</strong> Angular, Chai, Docker, Express, Git, Github, Hyperledger Fabric, IBM Cloud,
-                    IBM
-                    Carbon Design System, Jenkins, Jira, Kubernetes, Mocha, MongoDB, Supertest, Swagger/OpenAPI 3, Cloud
-                    Foundry, Cloudant, Hyperledger Indy (IBM Verify Credentials)
-                </li>
-            </ul>
-
-
-
-        </div>
-        <div>
-            <ul>
-                <li><a href="https://www.credly.com/users/jacob-zwickler/badges"> Badges </a></li>
-                <li><a href="https://meritpages.com/Jacob-Zwickler/1787255"> College Deans List </a> </li>
-                <li><a href="http://harvey.binghamton.edu/~upe/news.html"> Upsilon Pi Epsilon Member</a> </li>
-            </ul>
-
-        </div>
-
-    </div>
-    <div>
-        <p>This site was built using Angular 12, Angular Material, Node.JS, and TypeScript. </p>
-    </div>
+  <div id="footer">
+    <footer>
+      This site was originally built using Angular 12 and now uses Angular
+      {{ angularVersion.full }}, Angular Material, Node.JS, and TypeScript.
+    </footer>
+  </div>
 </div>

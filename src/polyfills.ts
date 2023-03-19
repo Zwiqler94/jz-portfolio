@@ -26,7 +26,6 @@ import 'cross-fetch/polyfill';
 import 'core-js';
 import 'globalthis';
 
-
 /**
  * IE11 requires the following for NgClass support on SVG elements
  */
@@ -66,8 +65,7 @@ import 'globalthis';
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js';  // Included with Angular CLI.
-
+import 'zone.js'; // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS

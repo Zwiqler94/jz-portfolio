@@ -11,9 +11,10 @@
     "jz-portfolio": {
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "configurations": {
             "production": {
+              "outputPath": "dist/jz-portfolio",
               "index": {
                 "input": "src/index.prod.html",
                 "output": "index.html"
@@ -25,12 +26,12 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "bundles",
               "sourceMap": {
                 "scripts": true,
                 "styles": true
               },
-              "namedChunks": true,
+              "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -52,9 +53,43 @@
               "statsJson": true,
               "subresourceIntegrity": true,
               "progress": true
+            },
+            "development": {
+              "outputPath": "dist/jz-portfolio-dev",
+              "index": {
+                "input": "src/index.html",
+                "output": "index.html"
+              },
+              "optimization": true,
+              "outputHashing": "bundles",
+              "sourceMap": true,
+              "namedChunks": true,
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "aot": true,
+              "commonChunk": true,
+              "serviceWorker": true,
+              "statsJson": true,
+              "subresourceIntegrity": false,
+              "progress": true
             }
           },
           "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.ts"
+            },
             "allowedCommonJsDependencies": [
               "firebase",
               "@angular/fire",
@@ -73,7 +108,6 @@
             "namedChunks": true,
             "ngswConfigPath": "ngsw-config.json",
             "optimization": false,
-            "outputPath": "dist/jz-portfolio",
             "polyfills": "src/polyfills.ts",
             "scripts": [],
             "serviceWorker": true,
@@ -171,6 +205,14 @@
         }
       },
       "sourceRoot": "src"
+    }
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
     }
   }
 }

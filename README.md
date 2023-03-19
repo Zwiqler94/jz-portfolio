@@ -1,10 +1,6 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-[![angular version](https://img.shields.io/badge/Angular->%3D%20v14.2.6-red?logo=angular)](https://www.angular.io)
-
-[![node version](https://img.shields.io/badge/node->%3D%20v16-green?logo=nodedotjs)](https://www.angular.io)
-
-# Jake Zwickler's Portfolio
+# JzPortfolio
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11 and now uses: [![angular version](https://img.shields.io/badge/Angular->%3D%20v14.2.6-red?logo=angular)](https://www.angular.io)
 

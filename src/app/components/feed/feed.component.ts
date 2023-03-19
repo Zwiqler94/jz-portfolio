@@ -2,6 +2,8 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
   ComponentRef,
   Input,
   OnInit,

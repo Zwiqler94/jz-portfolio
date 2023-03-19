@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatCard } from '@angular/material/card';
-
+import { MatLegacyCard as MatCard } from '@angular/material/legacy-card';
 
 @Component({
   selector: 'app-text-post',
@@ -8,13 +7,9 @@ import { MatCard } from '@angular/material/card';
   styleUrls: ['./text-post.component.scss'],
 })
 export class TextPostComponent implements OnInit {
-
   @Input() postTitle: string;
   @Input() postContent: string;
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
