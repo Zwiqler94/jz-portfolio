@@ -1,3 +1,7 @@
+# [1.7.0](https://github.com/Zwiqler94/jz-portfolio/compare/v1.6.0...v1.7.0) (2023-03-19)
+
+
+
 # [1.6.0](https://github.com/Zwiqler94/jz-portfolio/compare/v1.3.3...v1.6.0) (2023-03-19)
 
 
