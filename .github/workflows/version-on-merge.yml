@@ -16,7 +16,7 @@ jobs:
           cache: 'npm'
       - name: version
         if: startsWith(fromJSON(env.patchCommitTypes), env.commitMsg)
-        run: 'npm i && npm version'
+        run: 'echo $commitMsg && echo $patchCommitTypes && npm i && npm version'
     env:
       patchCommitTypes: '[ "fix","perf","revert","docs","style","chore","refactor","test","build","ci"]'
   
