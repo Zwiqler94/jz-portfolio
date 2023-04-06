@@ -21,7 +21,7 @@
       "public": "dist/jz-portfolio-dev",
       "rewrites": [
         {
-          "source": "/secrets",
+          "source": "/secrets/**",
           "function": "secretService"
         },
         {
