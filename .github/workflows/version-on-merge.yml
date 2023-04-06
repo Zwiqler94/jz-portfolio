@@ -18,7 +18,7 @@ jobs:
       commitMsg: $ {{ github.event.commits.message}}
       patchCommitTypes: '[ "fix","perf","revert","docs","style","chore","refactor","test","build","ci"]'
   version-minor:
-    if: ${{ startsWith(fromJSON(env.minorCommitTypes), env.commitMsg) }}) }}
+    if: startsWith(fromJSON($minorCommitTypes), $commitMsg)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -32,7 +32,7 @@ jobs:
       commitMsg: $ {{ github.event.commits.message}}
       minorCommitTypes: "['feat']"
   version-major:
-    if: contains(fromJSON($env.majorCommitTypes), $env.commitMsg)
+    if: contains(fromJSON($majorCommitTypes), $commitMsg)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
