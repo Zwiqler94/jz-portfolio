@@ -2,9 +2,10 @@ name: Version On Merge
 'on':
   push:
     branches: ['*']
+env:
+  commitMsg: $ {{ github.event.commits[0].message}}
 jobs:
   version-patch:
-    if: startsWith(fromJSON($patchCommitTypes), $commitMsg)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,38 +14,11 @@ jobs:
         with: 
           version: 18
           cache: 'npm'
-      - run: npm i
+      - name: version
+        if: startsWith(fromJSON(env.patchCommitTypes), env.commitMsg)
+        run: 'npm i && npm version'
     env:
-      commitMsg: $ {{ github.event.commits.message}}
       patchCommitTypes: '[ "fix","perf","revert","docs","style","chore","refactor","test","build","ci"]'
-  version-minor:
-    if: startsWith(fromJSON($minorCommitTypes), $commitMsg)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
-        with: 
-          version: 18
-          cache: 'npm'
-      - run: npm i
-    env:
-      commitMsg: $ {{ github.event.commits.message}}
-      minorCommitTypes: "['feat']"
-  version-major:
-    if: contains(fromJSON($majorCommitTypes), $commitMsg)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
-        with: 
-          version: 18
-          cache: 'npm'
-      - run: npm i
-    env:
-      commitMsg: $ {{ github.event.commits.message}}
-      majorCommitTypes: '[ "!", "BREAKING"]'
   
     
           
