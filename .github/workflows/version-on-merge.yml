@@ -18,7 +18,7 @@ jobs:
           version: 18
           cache: 'npm'
       - name: version
-        if: contains(env.commitMsg, $types)
+        if: contains(env.commitMsg, ${{ types }})
         run: 'npm i && npm version patch'  
     
           
