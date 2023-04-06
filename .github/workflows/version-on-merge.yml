@@ -19,7 +19,7 @@ jobs:
           cache: 'npm'
       - name: version
         if: contains(env.commitMsg, ${{ matrix.types }})
-        run: 'npm i && npm version patch'  
+        run: 'npm i && npm version patch'
     
           
         
