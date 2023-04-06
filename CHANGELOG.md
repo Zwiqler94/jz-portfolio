@@ -1,5 +1,26 @@
+## <small>1.11.3 (2023-04-06)</small>
+
+* build(versioning): update versioning scripts ([4d546aa](https://github.com/Zwiqler94/jz-portfolio/commit/4d546aa))
+
+
+
+## <small>1.11.2 (2023-04-06)</small>
+
+* chore(release): 1.11.2 :tada: ([25363df](https://github.com/Zwiqler94/jz-portfolio/commit/25363df))
+
+
+
+## <small>1.11.1 (2023-04-06)</small>
+
+* chore(release): 1.11.1 :tada: ([fb59c2d](https://github.com/Zwiqler94/jz-portfolio/commit/fb59c2d))
+* ci(github): fix github actions to work on their specified branches ([c6dd15a](https://github.com/Zwiqler94/jz-portfolio/commit/c6dd15a))
+* build(deps): update deps ([aaa87a8](https://github.com/Zwiqler94/jz-portfolio/commit/aaa87a8))
+
+
+
 ## 1.11.0 (2023-03-19)
 
+* chore(release): 1.11.0 :tada: ([32eb8aa](https://github.com/Zwiqler94/jz-portfolio/commit/32eb8aa))
 
 
 
