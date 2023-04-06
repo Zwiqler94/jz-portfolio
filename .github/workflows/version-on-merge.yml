@@ -18,7 +18,7 @@ jobs:
         if: startsWith(fromJSON(env.patchCommitTypes), env.commitMsg)
         run: 'npm i && npm version'
     env:
-      patchCommitTypes: '[ "fix","perf","revert","docs","style","chore","refactor","test","build","ci"]'
+      patchCommitTypes: ${{ '[ "fix","perf","revert","docs","style","chore","refactor","test","build","ci"]' }}
   
     
           
