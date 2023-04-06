@@ -1,5 +1,12 @@
+## <small>1.11.3 (2023-04-06)</small>
+
+* build(versioning): update versioning scripts ([4d546aa](https://github.com/Zwiqler94/jz-portfolio/commit/4d546aa))
+
+
+
 ## <small>1.11.2 (2023-04-06)</small>
 
+* chore(release): 1.11.2 :tada: ([25363df](https://github.com/Zwiqler94/jz-portfolio/commit/25363df))
 
 
 
