@@ -4,7 +4,7 @@ name: Version On Merge
     branches: ['*']
 jobs:
   version-patch:
-    if: ${{ startsWith(fromJSON(patchCommitTypes), commitMsg) }}
+    if: startsWith(fromJSON($patchCommitTypes), $commitMsg)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
