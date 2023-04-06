@@ -5,7 +5,7 @@ name: Version On Merge
       - development
 jobs:
   version-patch:
-    if: $ {{ startsWith(fromJSON(env.patchCommitTypes), env.commitMsg) }}
+    if: ${{ startsWith(fromJSON(env.patchCommitTypes), env.commitMsg) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
