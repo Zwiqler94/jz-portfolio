@@ -1,5 +1,11 @@
+## <small>1.11.2 (2023-04-06)</small>
+
+
+
+
 ## <small>1.11.1 (2023-04-06)</small>
 
+* chore(release): 1.11.1 :tada: ([fb59c2d](https://github.com/Zwiqler94/jz-portfolio/commit/fb59c2d))
 * ci(github): fix github actions to work on their specified branches ([c6dd15a](https://github.com/Zwiqler94/jz-portfolio/commit/c6dd15a))
 * build(deps): update deps ([aaa87a8](https://github.com/Zwiqler94/jz-portfolio/commit/aaa87a8))
 
