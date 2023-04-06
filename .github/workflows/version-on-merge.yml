@@ -3,7 +3,7 @@ name: Version On Merge
   push:
     branches: ['*']
 env:
-  commitMsg: $ {{ github.event.commits[0].message}}
+  commitMsg: ${{ github.event.commits[0].message }}
 jobs:
   version-patch:
     runs-on: ubuntu-latest
