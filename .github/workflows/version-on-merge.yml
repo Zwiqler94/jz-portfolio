@@ -6,6 +6,9 @@ env:
   commitMsg: ${{ github.event.commits[0].message }}
 jobs:
   version-patch:
+    strategy:
+      matrix: 
+       types: ["fix(","perf(","revert(","docs(","style(","chore(","refactor(","test(","build(","ci("]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,11 +18,8 @@ jobs:
           version: 18
           cache: 'npm'
       - name: version
-        if: contains(fromJSON(env.patchCommitTypes), env.commitMsg)
-        run: 'npm i && npm version'
-    env:
-      patchCommitTypes: ${{ '[ "fix(","perf(","revert(","docs(","style(","chore(","refactor(","test(","build(","ci("]' }}
-  
+        if: contains(env.commitMsg, types)
+        run: 'npm i && npm version patch'  
     
           
         
