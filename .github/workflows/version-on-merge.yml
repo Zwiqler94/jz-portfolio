@@ -1,11 +1,10 @@
 name: Version On Merge
 'on':
   push:
-    branches:
-      - development
+    branches: ['*']
 jobs:
   version-patch:
-    if: ${{ startsWith(fromJSON(env.patchCommitTypes), env.commitMsg) }}
+    if: ${{ startsWith(fromJSON(patchCommitTypes), commitMsg) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
