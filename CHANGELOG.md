@@ -1,3 +1,9 @@
+## <small>1.11.5 (2023-04-07)</small>
+
+* ci(versioning): finalize versioning through GH Actions (#108) ([04af1f2](https://github.com/Zwiqler94/jz-portfolio/commit/04af1f2)), closes [#108](https://github.com/Zwiqler94/jz-portfolio/issues/108) [#107](https://github.com/Zwiqler94/jz-portfolio/issues/107)
+
+
+
 ## <small>1.11.4 (2023-04-07)</small>
 
 * ci(versioning): update version-on-merge.yml ([1303793](https://github.com/Zwiqler94/jz-portfolio/commit/1303793))
