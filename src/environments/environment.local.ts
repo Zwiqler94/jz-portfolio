@@ -12,7 +12,7 @@ export const environment = {
     projectId: 'jlz-portfolio',
     storageBucket: 'jlz-portfolio.appspot.com',
     messagingSenderId: '518070660509',
-    appId: '1:518070660509:web:3c14202d7467504157d374',
+    appId: '1:518070660509:web:9d2511d1a027342457d374',
     measurementId: 'G-YSKMGT15LP',
   },
   recaptchaSiteKey: '6LdV5L8jAAAAAK1GaBQkmOq37fdxVQszw5x_iIV3',

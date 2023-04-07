@@ -12,10 +12,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import {
   CustomProvider,
+  ReCaptchaV3Provider,
   initializeAppCheck,
   provideAppCheck,
 } from '@angular/fire/app-check';
@@ -92,15 +93,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     FormsModule,
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    // provideAppCheck(() => {
-    //   const provider = new CustomProvider({
-    //     getToken: () => appCheckToken,
-    //   });
-    //   return initializeAppCheck(undefined, {
-    //     provider,
-    //     isTokenAutoRefreshEnabled: false,
-    //   });
-    // }),
+    provideAppCheck(() =>
+      initializeAppCheck(getApp(), {
+        provider: new ReCaptchaV3Provider(
+          '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool'
+        ),
+        isTokenAutoRefreshEnabled: true,
+      })
+    ),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     ServiceWorkerModule.register('ngsw-worker.js', {
