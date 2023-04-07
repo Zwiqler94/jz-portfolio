@@ -1,3 +1,9 @@
+## <small>1.11.4 (2023-04-07)</small>
+
+* ci(versioning): update version-on-merge.yml ([1303793](https://github.com/Zwiqler94/jz-portfolio/commit/1303793))
+
+
+
 ## <small>1.11.3 (2023-04-06)</small>
 
 * build(versioning): update versioning scripts ([4d546aa](https://github.com/Zwiqler94/jz-portfolio/commit/4d546aa))
