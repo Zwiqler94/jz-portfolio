@@ -14,16 +14,16 @@ jobs:
       - name: check 1
         run: 'echo "${{ matrix.types }}" && echo $commitMsg'
       - name: checkout
-        if: contains(env.commitMsg, ${{ matrix.types }})
+        if: contains(env.commitMsg, "${{ matrix.types }}")
         uses: actions/checkout@v3
       - name: Use Node.js 18
-        if: contains(env.commitMsg, ${{ matrix.types }})
+        if: contains(env.commitMsg, "${{ matrix.types }}")
         uses: actions/setup-node@v3
         with: 
           version: 18
           cache: 'npm'
       - name: version
-        if: contains(env.commitMsg, ${{ matrix.types }})
+        if: contains(env.commitMsg, "${{ matrix.types }}")
         run: 'npm i && npm version patch'
     
           
