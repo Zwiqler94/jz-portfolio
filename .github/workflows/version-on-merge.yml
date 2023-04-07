@@ -1,4 +1,7 @@
 name: Version On Merge
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 'on':
   push:
     branches: ['development']
@@ -31,6 +34,7 @@ jobs:
              git push --tags
              git push
   version-minor:
+    needs: version-patch
     strategy:
       matrix: 
        types: ["feat"]
@@ -57,6 +61,7 @@ jobs:
              git push
     
   version-major:
+    needs: version-minor
     strategy:
       matrix: 
        types: ["BREAKING CHANGE", "!:"]
