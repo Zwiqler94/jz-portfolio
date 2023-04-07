@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check 1
-        run: 'echo "${{ matrix.types }}" && echo $commitMsg'
+        run: 'echo "${{ matrix.types }}" && echo ${{ contains(env.commitMsg, "matrix.types") }}'
       - name: checkout
         if: contains(env.commitMsg, "${{ matrix.types }}")
         uses: actions/checkout@v3
