@@ -1,3 +1,9 @@
+## <small>1.11.6 (2023-04-07)</small>
+
+* ci(github): update to use checkout v3 ([2f7a304](https://github.com/Zwiqler94/jz-portfolio/commit/2f7a304))
+
+
+
 ## <small>1.11.5 (2023-04-07)</small>
 
 * ci(versioning): finalize versioning through GH Actions (#108) ([04af1f2](https://github.com/Zwiqler94/jz-portfolio/commit/04af1f2)), closes [#108](https://github.com/Zwiqler94/jz-portfolio/issues/108) [#107](https://github.com/Zwiqler94/jz-portfolio/issues/107)
