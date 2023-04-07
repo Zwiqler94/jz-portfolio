@@ -29,7 +29,7 @@ jobs:
         run: |
              git pull --tags
              git config --local user.name 'github-actions[bot]'
-             git config --local user.email 'github-actions[bot]@users.noreply.github.com'
+             git config --local user.email 'github-action-367654125@jlz-portfolio.iam.gserviceaccount.com'
              npm i
              npm version patch
              git push --tags
