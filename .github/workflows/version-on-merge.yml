@@ -24,7 +24,11 @@ jobs:
           cache: 'npm'
       - name: version
         if: contains(env.commitMsg,  matrix.types)
-        run: 'npm i && npm version patch'
+        run: |
+             git config --local user.name 'github-actions[bot]'
+             git config --local user.email 'github-actions[bot]@users.noreply.github.com'
+             npm i
+             npm version patch
     
           
         
