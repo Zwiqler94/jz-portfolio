@@ -16,7 +16,7 @@
     "lint": "ng lint",
     "lint:fix": "prettier --write ./ && ng lint jz-portfolio --fix",
     "e2e": "ng e2",
-    "version": "./node_modules/.bin/conventional-changelog -i CHANGELOG.md -s -n .changelog-config.js && git add CHANGELOG.md"
+    "version": "./node_modules/.bin/conventional-changelog -i CHANGELOG.md -s -n .changelog-config.js"
   },
   "private": true,
   "dependencies": {
