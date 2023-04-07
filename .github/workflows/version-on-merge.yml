@@ -11,6 +11,8 @@ jobs:
        types: ["fix(","perf(","revert(","docs(","style(","chore(","refactor(","test(","build(","ci("]
     runs-on: ubuntu-latest
     steps:
+      - name: check 1
+        run: 'echo ${{ matrix.types }} && echo $commitMsg'
       - name: checkout
         if: contains(env.commitMsg, ${{ matrix.types }})
         uses: actions/checkout@v3
