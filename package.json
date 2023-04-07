@@ -1,6 +1,6 @@
 {
   "name": "jz-portfolio",
-  "version": "1.11.3",
+  "version": "1.11.4",
   "scripts": {
     "ng": "ng",
     "start:dev": "http-server --cors  -p 8080 -c-1 dist/jz-portfolio-dev",
