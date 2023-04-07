@@ -1,7 +1,7 @@
 name: Version On Merge
 'on':
   push:
-    branches: ['*']
+    branches: ['development']
 env:
   commitMsg: ${{ github.event.commits[0].message }}
 jobs:
@@ -11,8 +11,6 @@ jobs:
        types: ["fix(","perf(","revert(","docs(","style(","chore(","refactor(","test(","build(","ci("]
     runs-on: ubuntu-latest
     steps:
-      - name: check 1
-        run: 'echo "${{ matrix.types }} x" && echo ${{ contains(env.commitMsg, matrix.types) }}'
       - name: checkout
         if: contains(env.commitMsg, matrix.types)
         uses: actions/checkout@v3
@@ -32,7 +30,56 @@ jobs:
              npm version patch
              git push --tags
              git push
+  version-minor:
+    strategy:
+      matrix: 
+       types: ["feat"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        if: contains(env.commitMsg, matrix.types)
+        uses: actions/checkout@v3
+      - name: Use Node.js 18
+        if: contains(env.commitMsg, matrix.types)
+        uses: actions/setup-node@v3
+        with: 
+          version: 18
+          cache: 'npm'
+      - name: version
+        if: contains(env.commitMsg,  matrix.types)
+        run: |
+             git pull --tags
+             git config --local user.name 'github-actions[bot]'
+             git config --local user.email 'github-actions[bot]@users.noreply.github.com'
+             npm i
+             npm version minor
+             git push --tags
+             git push
     
-          
+  version-major:
+    strategy:
+      matrix: 
+       types: ["BREAKING CHANGE", "!:"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        if: contains(env.commitMsg, matrix.types)
+        uses: actions/checkout@v3
+      - name: Use Node.js 18
+        if: contains(env.commitMsg, matrix.types)
+        uses: actions/setup-node@v3
+        with: 
+          version: 18
+          cache: 'npm'
+      - name: version
+        if: contains(env.commitMsg,  matrix.types)
+        run: |
+             git pull --tags
+             git config --local user.name 'github-actions[bot]'
+             git config --local user.email 'github-actions[bot]@users.noreply.github.com'
+             npm i
+             npm version major
+             git push --tags
+             git push       
         
   
