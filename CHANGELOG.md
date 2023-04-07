@@ -1,3 +1,16 @@
+## <small>1.11.6 (2023-04-07)</small>
+
+* ci(github): update permissions ([357dae5](https://github.com/Zwiqler94/jz-portfolio/commit/357dae5))
+* ci(github): update to use checkout v3 ([2f7a304](https://github.com/Zwiqler94/jz-portfolio/commit/2f7a304))
+* ci(versioning): update version-on-merge.yml ([79f0cce](https://github.com/Zwiqler94/jz-portfolio/commit/79f0cce))
+* Update codeql-analysis2.yml ([8b749df](https://github.com/Zwiqler94/jz-portfolio/commit/8b749df))
+* Update firebase-hosting-merge-development.yml ([b4484ea](https://github.com/Zwiqler94/jz-portfolio/commit/b4484ea))
+* Update firebase-hosting-merge.yml ([ccd73a2](https://github.com/Zwiqler94/jz-portfolio/commit/ccd73a2))
+* Update firebase-hosting-pull-request-development.yml ([aa3be7e](https://github.com/Zwiqler94/jz-portfolio/commit/aa3be7e))
+* Update firebase-hosting-pull-request.yml ([cc105bc](https://github.com/Zwiqler94/jz-portfolio/commit/cc105bc))
+
+
+
 ## <small>1.11.5 (2023-04-07)</small>
 
 * ci(versioning): finalize versioning through GH Actions (#108) ([04af1f2](https://github.com/Zwiqler94/jz-portfolio/commit/04af1f2)), closes [#108](https://github.com/Zwiqler94/jz-portfolio/issues/108) [#107](https://github.com/Zwiqler94/jz-portfolio/issues/107)
