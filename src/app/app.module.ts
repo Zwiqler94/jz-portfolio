@@ -12,13 +12,15 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import {
   CustomProvider,
+  ReCaptchaV3Provider,
   initializeAppCheck,
   provideAppCheck,
 } from '@angular/fire/app-check';
+import { provideAnalytics, initializeAnalytics } from '@angular/fire/analytics';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,30 +39,15 @@ import { LinkPostComponent } from './components/link-post/link-post.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
-// import {
-//   app,
-//   initializeApp as adminInitializeApp,
-//   credential,
-// } from 'firebase-admin';
 
-// export const FIREBASE_ADMIN = new InjectionToken<app.App>('firebase-admin');
-// declare global {
-//   // eslint-disable-next-line no-var
-//   var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
-// }
 
-// self.FIREBASE_APPCHECK_DEBUG_TOKEN = 'true';
+declare global {
+  // eslint-disable-next-line no-var
+  var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
+}
 
-// const firebaseAdminApp = adminInitializeApp({credential: credential.applicationDefault()});
-// const appCheckToken = firebaseAdminApp
-//   .appCheck()
-//   .createToken(environment.firebaseConfig.appId, {
-//     ttlMillis: 604_800_000,
-//   })
-//   .then(({ token, ttlMillis: expireTimeMillis }) => ({
-//     token,
-//     expireTimeMillis,
-//   }));
+self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,17 +79,15 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     FormsModule,
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    // provideAppCheck(() => {
-    //   const provider = new CustomProvider({
-    //     getToken: () => appCheckToken,
-    //   });
-    //   return initializeAppCheck(undefined, {
-    //     provider,
-    //     isTokenAutoRefreshEnabled: false,
-    //   });
-    // }),
+    provideAppCheck(() => initializeAppCheck(getApp(), {
+        provider: new ReCaptchaV3Provider(
+          '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool'
+        ),
+        isTokenAutoRefreshEnabled: true,
+      })),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
+    provideAnalytics(() => initializeAnalytics(getApp())),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: true,
       // Register the ServiceWorker as soon as the application is stable

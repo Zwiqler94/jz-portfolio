@@ -1,9 +1,10 @@
 export const environment = {
   appUrl: 'jlz-portfolio.web.app',
+  appCheckDebug: 'fad3c643-0c7e-47b8-97d0-288be444aad3',
   secretService:
-    'https://us-central1-jlz-portfolio.cloudfunctions.net/secretService',
+    'https://us-central1-jlz-portfolio.cloudfunctions.net/secretService/api/v1/secrets',
   secretServiceLocal:
-    'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService',
+    'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService/api/v1/secrets',
   production: false,
   local: true,
   firebaseConfig: {

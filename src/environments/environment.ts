@@ -4,10 +4,11 @@
 
 export const environment = {
   appUrl: 'jlz-portfolio-dev.web.app',
+  appCheckDebug: false,
   secretService:
-    'https://us-central1-jlz-portfolio.cloudfunctions.net/secretService',
+    'https://us-central1-jlz-portfolio.cloudfunctions.net/secretService/api/v1/secrets',
   secretServiceLocal:
-    'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService',
+    'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService/api/v1/secrets',
   production: false,
   local: false,
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
