@@ -22,7 +22,7 @@ jobs:
         if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
         with: 
-          version: 18
+          node-version: 18
           cache: 'npm'
       - name: version
         if: contains(env.commitMsg,  matrix.types)
@@ -48,7 +48,7 @@ jobs:
         if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
         with: 
-          version: 18
+          node-version: 18
           cache: 'npm'
       - name: version
         if: contains(env.commitMsg,  matrix.types)
@@ -75,7 +75,7 @@ jobs:
         if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
         with: 
-          version: 18
+          node-version: 18
           cache: 'npm'
       - name: version
         if: contains(env.commitMsg,  matrix.types)
