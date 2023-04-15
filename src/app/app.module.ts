@@ -1,4 +1,4 @@
-import { InjectionToken, NgModule } from '@angular/core';
+import { InjectionToken, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -78,13 +78,17 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     MatChipsModule,
     FormsModule,
     ReactiveFormsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideAppCheck(() => initializeAppCheck(getApp(), {
+    provideFirebaseApp((injector: Injector) =>
+      initializeApp(environment.firebaseConfig)
+    ),
+    provideAppCheck((injector: Injector) =>
+      initializeAppCheck(undefined, {
         provider: new ReCaptchaV3Provider(
           '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool'
         ),
         isTokenAutoRefreshEnabled: true,
-      })),
+      })
+    ),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     provideAnalytics(() => initializeAnalytics(getApp())),

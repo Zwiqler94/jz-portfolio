@@ -46,6 +46,7 @@
     "globalthis": "^1.0.3",
     "https-browserify": "^1.0.0",
     "jose": "^4.13.1",
+    "luxon": "^3.3.0",
     "net": "^1.0.2",
     "node-cache": "^5.1.2",
     "node-polyfill-webpack-plugin": "^2.0.1",

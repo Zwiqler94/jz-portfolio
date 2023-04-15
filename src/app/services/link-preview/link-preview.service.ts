@@ -6,18 +6,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppCheckTokenResult } from 'firebase/app-check';
-import {
-  generateKeyPair,
-  exportJWK,
-  SignJWT,
-  KeyLike,
-  importJWK,
-  exportPKCS8,
-  exportSPKI,
-} from 'jose';
-import exp from 'constants';
-import { writeFile } from 'fs/promises';
-import { blob } from 'stream/consumers';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +17,9 @@ export class LinkPreviewService {
   private appCheck: AppCheck = inject(AppCheck);
   private tokenResult: any;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    localStorage.setItem('DEBUG_TOKEN_INFO',JSON.stringify({tokenVal: environment.appCheckDebug, created_at: Date.now()}))
+  }
 
   get apiKey() {
     return this._apiKey;
@@ -63,12 +53,10 @@ export class LinkPreviewService {
       this.tokenResult
     );
     const params = new HttpParams().set('prod', environment.production);
-    return this.httpClient.get(
-      environment.local
-        ? environment.secretServiceLocal
-        : environment.secretService,
-      { params, headers }
-    );
+    const secretsUrl = environment.local
+      ? environment.secretServiceLocal
+      : environment.secretService;
+    return this.httpClient.get(secretsUrl, { params, headers });
   }
 
   async getLinkPreview(url: string) {
@@ -80,26 +68,8 @@ export class LinkPreviewService {
     });
   }
 
-  private async getDebugToken(publickKey: any, privateKey: any) {
-    const b = new Blob([JSON.stringify(await exportSPKI(publickKey))], {
-      type: 'application/json',
-    });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(b);
-    link.download = 'key';
-    link.click();
-    document.body.appendChild(link);
-    return await new SignJWT({
-      aud: 'projects/jlz-portfolio',
-      token: environment.appCheckDebug as unknown as string,
-    })
-      .setProtectedHeader({
-        alg: 'RS256',
-        kid: 'fB7E6w',
-      })
-      .setIssuer('https://firebaseappcheck.googleapis.com/')
-      .setAudience(['projects/jlz-portfolio'])
-      .setSubject('jazwickler@gmail.com')
-      .sign(privateKey);
+  private async getDebugToken() {
+  
+    if(localStorage.getItem(''))
   }
 }
