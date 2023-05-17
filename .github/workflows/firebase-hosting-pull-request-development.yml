@@ -3,7 +3,7 @@
 
 name: Deploy to Firebase Hosting on Dev PR
 concurrency: 
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-dev-pr
   cancel-in-progress: true
 'on': 
   pull_request:

@@ -8,8 +8,7 @@ env:
 jobs:
   version-patch:
     concurrency: 
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: false
+      group: ${{ github.workflow }}-${{ github.ref }}-versioning
     strategy:
       matrix: 
        types: ["fix(","perf(","revert(","docs(","style(","chore(","refactor(","test(","build(","ci("]
