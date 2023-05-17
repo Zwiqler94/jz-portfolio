@@ -6,70 +6,79 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppCheckTokenResult } from 'firebase/app-check';
+import { error, info } from 'console';
+// import { DateTime, Duration } from 'luxon';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LinkPreviewService {
+  private _appCheck: AppCheck;
   private baseUrl = 'https://api.linkpreview.net/';
   private _apiKey!: string;
   private params: HttpParams = new HttpParams().set('key', this.apiKey);
-  private appCheck: AppCheck = inject(AppCheck);
   private tokenResult: any;
 
   constructor(private httpClient: HttpClient) {
-    localStorage.setItem('DEBUG_TOKEN_INFO',JSON.stringify({tokenVal: environment.appCheckDebug, created_at: Date.now()}))
+    try {
+      this.appCheck = inject(AppCheck);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
+  get appCheck() {
+    return this._appCheck;
+  }
+
+  set appCheck(x) {
+    this._appCheck = x;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   get apiKey() {
     return this._apiKey;
   }
+
   set apiKey(value) {
     this._apiKey = value;
   }
 
   async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
-    console.log('hdhdhdh');
-    // const { publicKey, privateKey } = await generateKeyPair('RS256',{extractable:true});
-    // console.log(publicKey, privateKey);
-    const isOnDebugMode: boolean | string = environment.appCheckDebug;
-    this.tokenResult = { token: isOnDebugMode };
     try {
-      if (isOnDebugMode) {
-        this.tokenResult = { token: isOnDebugMode };
-      } else {
-        this.tokenResult = await getToken(this.appCheck);
-      }
-      return this.tokenResult.token;
-    } catch (error) {
-      console.log(error);
-      throw new Error(JSON.stringify(error));
+      info(this.appCheck);
+      this.tokenResult = (await getToken(this.appCheck)).token;
+      info(this.tokenResult);
+    } catch (err) {
+      error(err);
     }
+    return this.tokenResult;
   }
 
   getAPIKey() {
-    const headers = new HttpHeaders().set(
-      'X-Firebase-AppCheck',
-      this.tokenResult
-    );
+    const headers = new HttpHeaders()
+      .set('X-Firebase-AppCheck-Debug', this.tokenResult)
     const params = new HttpParams().set('prod', environment.production);
     const secretsUrl = environment.local
       ? environment.secretServiceLocal
       : environment.secretService;
+    info(secretsUrl);
     return this.httpClient.get(secretsUrl, { params, headers });
   }
 
   async getLinkPreview(url: string) {
-    await this.getAppCheckToken();
-    const apiKey: any = await lastValueFrom(this.getAPIKey());
-    this.params = this.params.set('key', apiKey.k).set('q', url);
-    return this.httpClient.get(this.baseUrl, {
-      params: this.params,
-    });
-  }
-
-  private async getDebugToken() {
-  
-    if(localStorage.getItem(''))
+    info(url)
+    try {
+      await this.getAppCheckToken();
+      const apiKey: any = await lastValueFrom(this.getAPIKey());
+      info(apiKey);
+      this.params = this.params.set('key', apiKey.k).set('q', url);
+      return this.httpClient.get(this.baseUrl, {
+        params: this.params,
+      });
+    } catch (err) {
+      error(err);
+      throw Error(JSON.stringify(err));
+    }
   }
 }
