@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 import * as fbAdmin from 'firebase-admin';
-import {onRequest} from 'firebase-functions/v2/https';
+import { onRequest } from 'firebase-functions/v2/https';
 import { error, debug } from 'firebase-functions/logger';
 import * as express from 'express';
 import { Request, Response, NextFunction } from 'express';
@@ -18,9 +18,8 @@ const fbAdminApp = fbAdmin.initializeApp({
   }),
 });
 
-const secretNameDev = defineSecret('LINK_PREVIEW_DEV')
+const secretNameDev = defineSecret('LINK_PREVIEW_DEV');
 const secretNameProd = defineSecret('LINK_PREVIEW_PROD');
-  
 
 const secretsApp = express();
 const secretRouter = express.Router();
@@ -29,7 +28,9 @@ secretsApp.use(cors());
 
 const getSecret = async (req: Request, res: Response) => {
   try {
-    const apiKey = req.params.prod ? secretNameProd.value() : secretNameDev.value();
+    const apiKey = req.params.prod
+      ? secretNameProd.value()
+      : secretNameDev.value();
     debug({ k: apiKey });
     res.status(200).json({ k: apiKey });
   } catch (err) {
@@ -53,10 +54,9 @@ const appCheckGaurd = async (
   }
 
   try {
-    
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const result = await fbAdminApp.appCheck().verifyToken(tokenToCheck);
-    debug({ a:result.token });
+    debug({ a: result.token });
     return next();
   } catch (err) {
     error(err);
@@ -69,5 +69,7 @@ secretRouter.get('/secrets', getSecret);
 
 secretsApp.use('/api/v2', appCheckGaurd, secretRouter);
 
-export const secretService2ndGen = onRequest({ cors: true, secrets: [secretNameDev, secretNameProd] }, secretsApp);
-
+export const secretService2ndGen = onRequest(
+  { cors: true, secrets: [secretNameDev, secretNameProd] },
+  secretsApp
+);

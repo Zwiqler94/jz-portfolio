@@ -56,8 +56,10 @@ export class LinkPreviewService {
   }
 
   getAPIKey() {
-    const headers = new HttpHeaders()
-      .set('X-Firebase-AppCheck-Debug', this.tokenResult)
+    const headers = new HttpHeaders().set(
+      'X-Firebase-AppCheck-Debug',
+      this.tokenResult
+    );
     const params = new HttpParams().set('prod', environment.production);
     const secretsUrl = environment.local
       ? environment.secretServiceLocal
@@ -67,7 +69,7 @@ export class LinkPreviewService {
   }
 
   async getLinkPreview(url: string) {
-    info(url)
+    info(url);
     try {
       await this.getAppCheckToken();
       const apiKey: any = await lastValueFrom(this.getAPIKey());
