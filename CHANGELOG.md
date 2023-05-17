@@ -1,3 +1,9 @@
+## 1.13.0 (2023-05-17)
+
+* build(versioning): update versioning script ([220489a](https://github.com/Zwiqler94/jz-portfolio/commit/220489a))
+
+
+
 ## 1.12.0 (2023-05-17)
 
 * ci(github actions): make sure to use `npm ci` in workflows for cache ([b0e9bcc](https://github.com/Zwiqler94/jz-portfolio/commit/b0e9bcc))
