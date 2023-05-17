@@ -70,7 +70,7 @@ const appCheckGaurd = async (
 
 secretRouter.get('/secrets', getSecret);
 
-secretsApp.use('/api/v2', rateLimit,s appCheckGaurd, secretRouter);
+secretsApp.use('/api/v2', rateLimit,appCheckGaurd, secretRouter);
 
 export const secretService2ndGen = onRequest(
   { cors: true, secrets: [secretNameDev, secretNameProd] },
