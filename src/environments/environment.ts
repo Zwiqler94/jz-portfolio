@@ -10,7 +10,7 @@ export const environment = {
   secretServiceLocal:
     'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService2ndGen/api/v2/secrets',
   production: false,
-  local: true,
+  local: false,
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   firebaseConfig: {
     apiKey: 'AIzaSyDuG6ojn89_8rvp4pSVpcmBwvT6D1zunQY',
