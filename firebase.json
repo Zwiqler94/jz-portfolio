@@ -29,8 +29,7 @@
           "destination": "/index.html"
         }
       ],
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "predeploy": ["npm run lint:fix", "npm run build:dev"]
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     }
   ],
   "functions": [
@@ -60,6 +59,9 @@
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true
+    "singleProjectMode": true,
+    "auth": {
+      "port": 9099
+    }
   }
 }

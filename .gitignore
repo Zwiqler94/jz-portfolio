@@ -64,4 +64,5 @@ Thumbs.db
 **/typings
 
 
-certs
+# Firebase
+credentials.json

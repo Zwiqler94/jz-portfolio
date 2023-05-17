@@ -1,5 +1,6 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnInit } from '@angular/core';
-import { MatLegacyCard as MatCard } from '@angular/material/legacy-card';
 
 @Component({
   selector: 'app-text-post',
