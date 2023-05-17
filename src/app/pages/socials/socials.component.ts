@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   Component,
   OnInit,
@@ -5,7 +7,7 @@ import {
   Inject,
   AfterViewInit,
 } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
 @Component({

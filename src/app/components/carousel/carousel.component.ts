@@ -1,13 +1,11 @@
-import { Component, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
-import { problemImage } from 'src/assets/misc';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent {
   @Input() slides: string[];
   currentSlideIndex = 0;
   currentSlide: string;
@@ -15,8 +13,6 @@ export class CarouselComponent implements OnInit {
   constructor() {
     this.loop();
   }
-
-  ngOnInit(): void {}
 
   loop() {
     let seed = Math.ceil(

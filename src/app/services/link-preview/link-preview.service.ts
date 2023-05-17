@@ -9,6 +9,11 @@ import { AppCheckTokenResult } from 'firebase/app-check';
 import { error, info } from 'console';
 // import { DateTime, Duration } from 'luxon';
 
+
+interface SecretResponse {
+  k: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +22,7 @@ export class LinkPreviewService {
   private baseUrl = 'https://api.linkpreview.net/';
   private _apiKey!: string;
   private params: HttpParams = new HttpParams().set('key', this.apiKey);
-  private tokenResult: any;
+  private tokenResult: string;
 
   constructor(private httpClient: HttpClient) {
     try {
@@ -65,14 +70,14 @@ export class LinkPreviewService {
       ? environment.secretServiceLocal
       : environment.secretService;
     info(secretsUrl);
-    return this.httpClient.get(secretsUrl, { params, headers });
+    return this.httpClient.get<SecretResponse>(secretsUrl, { params, headers });
   }
 
   async getLinkPreview(url: string) {
     info(url);
     try {
       await this.getAppCheckToken();
-      const apiKey: any = await lastValueFrom(this.getAPIKey());
+      const apiKey: SecretResponse = await lastValueFrom(this.getAPIKey());
       info(apiKey);
       this.params = this.params.set('key', apiKey.k).set('q', url);
       return this.httpClient.get(this.baseUrl, {

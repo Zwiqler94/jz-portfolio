@@ -1,4 +1,4 @@
-import { InjectionToken, Injector, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import {
-  AppCheck,
   ReCaptchaV3Provider,
   initializeAppCheck,
   provideAppCheck,
@@ -47,6 +46,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { signInWithPopup } from 'firebase/auth';
+import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -68,6 +68,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     TextPostComponent,
     LinkPostComponent,
     CarouselComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,21 +98,6 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     provideAnalytics(() => initializeAnalytics(getApp())),
     provideAuth(() => {
       const auth = getAuth();
-      const googleProvider = new GoogleAuthProvider();
-
-      signInWithPopup(auth, googleProvider)
-        .then((result) => {
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential?.accessToken;
-          const user = result.user;
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMsg = error.message;
-          const user = error.customData.email;
-          const credential = GoogleAuthProvider.credentialFromError(error);
-          console.error({ errorCode, errorMsg, user, credential });
-        });
 
       if (environment.local) {
         connectAuthEmulator(auth, 'http://localhost:9099', {
