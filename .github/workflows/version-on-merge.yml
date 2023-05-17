@@ -1,7 +1,7 @@
 name: Version On Merge
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 'on':
   push:
     branches: ['development']
@@ -10,6 +10,9 @@ env:
   commitMsg: ${{ github.event.commits[0].message }}
 jobs:
   version-patch:
+    concurrency: 
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
     strategy:
       matrix: 
        types: ["fix(","perf(","revert(","docs(","style(","chore(","refactor(","test(","build(","ci("]
@@ -22,7 +25,7 @@ jobs:
         if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
         with: 
-          version: 18
+          node-version: 18
           cache: 'npm'
       - name: version
         if: contains(env.commitMsg,  matrix.types)
@@ -48,7 +51,7 @@ jobs:
         if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
         with: 
-          version: 18
+          node-version: 18
           cache: 'npm'
       - name: version
         if: contains(env.commitMsg,  matrix.types)
@@ -62,7 +65,7 @@ jobs:
              git push
     
   version-major:
-    needs: version-minor
+    needs: [version-minor, version-patch]
     strategy:
       matrix: 
        types: ["BREAKING CHANGE", "!:"]
@@ -75,7 +78,7 @@ jobs:
         if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
         with: 
-          version: 18
+          node-version: 18
           cache: 'npm'
       - name: version
         if: contains(env.commitMsg,  matrix.types)
