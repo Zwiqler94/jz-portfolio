@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { LinkPreview } from 'src/app/components/models/link-post';
 import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.s
 export class LinkPostComponent implements OnInit {
   @Input() postTitle: string;
   @Input() postContent: string;
-  linkPreviewData: any;
+  linkPreviewData: LinkPreview;
 
   constructor(private linkPreviewService: LinkPreviewService) {}
 
@@ -32,9 +33,9 @@ export class LinkPostComponent implements OnInit {
     if (linkArray !== null) {
       (
         await this.linkPreviewService.getLinkPreview(String(linkArray[0]))
-      ).subscribe((data: any) => {
+      ).subscribe((data: unknown) => {
         {
-          this.linkPreviewData = data;
+          this.linkPreviewData = data as LinkPreview;
         }
       });
     }

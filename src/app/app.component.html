@@ -1,6 +1,6 @@
 <mat-toolbar color="accent">
   <div id="logo">
-    <a routerLink="" id="toolbar-logo" routerLinkActive="active">
+    <a routerLink="/home" id="toolbar-logo" routerLinkActive="active">
       <img src="../assets/toolbar-logo.png" />
     </a>
   </div>
@@ -32,8 +32,10 @@
       News
     </button>
     <div class="spacer"></div>
+    <button mat-raised-button (click)="logout()">LOGOUT!</button>
     <!-- <button color="primary" mat-raised-button routerLink="/socials" routerLinkActive="active">Socials</button> -->
   </div>
+ 
 </mat-toolbar>
 <div id="main-view">
   <router-outlet></router-outlet>

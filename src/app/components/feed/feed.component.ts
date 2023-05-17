@@ -67,6 +67,6 @@ export class FeedComponent implements OnInit, AfterViewInit {
     this.componentRef.instance.postTitle = linkPost.title;
     this.componentRef.instance.postContent = linkPost.content;
   }
-  generateImagePost() {}
-  generateVideoPost() {}
+  // generateImagePost() {}
+  // generateVideoPost() {}
 }

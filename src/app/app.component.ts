@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 
 @Component({
@@ -7,6 +9,11 @@ import { ServiceWorkerService } from 'src/app/services/service-worker/service-wo
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'jz-portfolio';
-  constructor(private serviceWorker: ServiceWorkerService) {}
+  title = 'jlz-portfolio';
+
+  constructor(private serviceWorker: ServiceWorkerService, private auth: AuthService) { }
+  
+  logout() {
+    this.auth.logout();
+  }
 }
