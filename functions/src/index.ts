@@ -5,7 +5,6 @@ import {onRequest} from 'firebase-functions/v2/https';
 import { error, debug } from 'firebase-functions/logger';
 import * as express from 'express';
 import { Request, Response, NextFunction } from 'express';
-import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import * as cors from 'cors';
 // import { applicationDefault } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
@@ -30,7 +29,7 @@ secretsApp.use(cors());
 
 const getSecret = async (req: Request, res: Response) => {
   try {
-    const apiKey = req.params.prod ? secretNameProd : secretNameDev;
+    const apiKey = req.params.prod ? secretNameProd.value() : secretNameDev.value();
     debug({ k: apiKey });
     res.status(200).json({ k: apiKey });
   } catch (err) {
@@ -69,8 +68,6 @@ const appCheckGaurd = async (
 secretRouter.get('/secrets', getSecret);
 
 secretsApp.use('/api/v2', appCheckGaurd, secretRouter);
-
-const link
 
 export const secretService2ndGen = onRequest({ cors: true, secrets: [secretNameDev, secretNameProd] }, secretsApp);
 
