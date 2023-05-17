@@ -55,7 +55,7 @@ jobs:
              git pull --tags
              git config --local user.name 'Zwiqler94'
              git config --local user.email 'Zwiqler94@users.noreply.github.com'
-             npm i
+             npm ci
              npm version minor
              git push --tags
              git push
@@ -82,7 +82,7 @@ jobs:
              git pull --tags
              git config --local user.name 'Zwiqler94'
              git config --local user.email 'Zwiqler94@users.noreply.github.com'
-             npm i
+             npm ci
              npm version major
              git push --tags
              git push       
