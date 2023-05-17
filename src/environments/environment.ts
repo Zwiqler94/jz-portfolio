@@ -6,7 +6,7 @@ export const environment = {
   appUrl: 'jlz-portfolio-dev.web.app',
   appCheckDebug: '4ad6c24e-aab2-40b5-9cd2-f7fe4291db01',
   secretService:
-    'https://us-central1-jlz-portfolio.cloudfunctions.net/secretService2ndGen/api/v2/secrets',
+    'https://secretservice2ndgen-wa22s5z3va-uc.a.run.app/api/v2/secrets',
   secretServiceLocal:
     'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService2ndGen/api/v2/secrets',
   production: false,
