@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'hobbies', component: HobbiesComponent, canActivate: [AuthGuard] },
   { path: 'news', component: NewsComponent, canActivate: [AuthGuard] },
   // { path: 'socials', component: SocialsComponent, canActivate: [AuthGuard] },
+  { path: 'error', component: ErrorPageComponent },
   { path: '**', component: ErrorPageComponent },
 ];
 

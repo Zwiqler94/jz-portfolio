@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, GoogleAuthProvider } from '@angular/fire/auth';
+import { Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -19,7 +19,12 @@ export class AuthService {
   }
 
   canActivate() {
-    return this.userToken ? true : false;
+    if (this.userToken) {
+      return true;
+    } else {
+      this.router.navigateByUrl('error');
+      return false;
+    }
   }
 
   logout() {
