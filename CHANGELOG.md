@@ -1,3 +1,36 @@
+## 1.12.0 (2023-05-17)
+
+* ci(github actions): make sure to use `npm ci` in workflows for cache ([b0e9bcc](https://github.com/Zwiqler94/jz-portfolio/commit/b0e9bcc))
+* ci(github actions): make workflow groups more specific ([dff26a2](https://github.com/Zwiqler94/jz-portfolio/commit/dff26a2))
+* ci(github actions): place concurrency back at workflow level ([dbe80b9](https://github.com/Zwiqler94/jz-portfolio/commit/dbe80b9))
+* ci(github actions): replace public profile email with private github email ([6feaad1](https://github.com/Zwiqler94/jz-portfolio/commit/6feaad1))
+* ci(github): update action steps with proper inputs (#113) ([d4bcec3](https://github.com/Zwiqler94/jz-portfolio/commit/d4bcec3)), closes [#113](https://github.com/Zwiqler94/jz-portfolio/issues/113)
+* ci(github): update firebase-hosting-merge-development.yml ([4a76f70](https://github.com/Zwiqler94/jz-portfolio/commit/4a76f70))
+* ci(github): update firebase-hosting-pull-request-development.yml (#112) ([81763d1](https://github.com/Zwiqler94/jz-portfolio/commit/81763d1)), closes [#112](https://github.com/Zwiqler94/jz-portfolio/issues/112)
+* ci(versioning): fix version-on-merge.yml ([fdb4529](https://github.com/Zwiqler94/jz-portfolio/commit/fdb4529))
+* Angular CLI update for packages - @angular/cli@*, @angular/core@* ([4a05e53](https://github.com/Zwiqler94/jz-portfolio/commit/4a05e53))
+* Angular CLI update for packages - @angular/cli@*, @angular/core@*, @angular/cdk@*, @angular/material ([becf210](https://github.com/Zwiqler94/jz-portfolio/commit/becf210))
+* Create dependabot.yml (#118) ([026e9a3](https://github.com/Zwiqler94/jz-portfolio/commit/026e9a3)), closes [#118](https://github.com/Zwiqler94/jz-portfolio/issues/118)
+* Secret Service v2 (#116) ([f656121](https://github.com/Zwiqler94/jz-portfolio/commit/f656121)), closes [#116](https://github.com/Zwiqler94/jz-portfolio/issues/116) [#114](https://github.com/Zwiqler94/jz-portfolio/issues/114) [#114](https://github.com/Zwiqler94/jz-portfolio/issues/114)
+* feat(app check): add firebase app check to properly protect resources ([d86d4cf](https://github.com/Zwiqler94/jz-portfolio/commit/d86d4cf)), closes [#110](https://github.com/Zwiqler94/jz-portfolio/issues/110)
+
+
+### BREAKING CHANGE
+
+* Previous app versions won't work, due to app check enforcement
+* refer to
+https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
+
+* fix(cloud functions): add .value to secret params
+
+* refactor(cloud functions): update code to match secret service changes
+
+* style(lint): add lint fixes
+
+* feat(auth): add foundation for auth service
+* users will only be able to use certain features when authenticated
+
+
 ## <small>1.11.7 (2023-04-07)</small>
 
 - chore(release): 1.11.6 :tada: ([ce98dd0](https://github.com/Zwiqler94/jz-portfolio/commit/ce98dd0))
