@@ -1,4 +1,6 @@
 name: Version On Merge
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}-versioning
 'on':
   push:
     branches: ['development']
@@ -7,8 +9,6 @@ env:
   commitMsg: ${{ github.event.commits[0].message }}
 jobs:
   version-patch:
-    concurrency: 
-      group: ${{ github.workflow }}-${{ github.ref }}-versioning
     strategy:
       matrix: 
        types: ["fix(","perf(","revert(","docs(","style(","chore(","refactor(","test(","build(","ci("]
@@ -29,7 +29,7 @@ jobs:
              git pull --tags
              git config --local user.name 'github-actions[bot]'
              git config --local user.email 'github-actions[bot]@users.noreply.github.com'
-             npm i
+             npm ci
              npm version patch
              git push --tags
              git push
