@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { Auth, GoogleAuthProvider } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
-
 @Injectable({
   providedIn: 'root',
 })

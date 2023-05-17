@@ -11,8 +11,11 @@ import { ServiceWorkerService } from 'src/app/services/service-worker/service-wo
 export class AppComponent {
   title = 'jlz-portfolio';
 
-  constructor(private serviceWorker: ServiceWorkerService, private auth: AuthService) { }
-  
+  constructor(
+    private serviceWorker: ServiceWorkerService,
+    private auth: AuthService
+  ) {}
+
   logout() {
     this.auth.logout();
   }

@@ -10,9 +10,9 @@ import { MainFeedPageComponent } from 'src/app/pages/main-feed-page/main-feed-pa
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 
-const AuthGuard: CanActivateFn = (route, state)=>{
+const AuthGuard: CanActivateFn = (route, state) => {
   return inject(AuthService).canActivate();
-}
+};
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },

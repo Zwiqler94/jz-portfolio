@@ -1,9 +1,8 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  ComponentFactory,
-  ComponentFactoryResolver,
   ComponentRef,
   Input,
   OnInit,

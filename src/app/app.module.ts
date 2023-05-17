@@ -48,7 +48,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { signInWithPopup } from 'firebase/auth';
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
 
-
 declare global {
   // eslint-disable-next-line no-var
   var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
