@@ -4,8 +4,7 @@ concurrency:
 "on":
   push:
     branches: ["development"]
-permissions:
-  pull-requests: write
+permissions: write-all
 env:
   commitMsg: ${{ github.event.commits[0].message }}
 jobs:
@@ -13,7 +12,7 @@ jobs:
     strategy:
       matrix:
         types:
-          [
+        [
             "fix(",
             "perf(",
             "revert(",
