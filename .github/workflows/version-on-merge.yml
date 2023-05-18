@@ -1,16 +1,30 @@
 name: Version On Merge
-concurrency: 
+concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-versioning
-'on':
+"on":
   push:
-    branches: ['development']
+    branches: ["development"]
+permissions:
+  pull-requests: write
 env:
   commitMsg: ${{ github.event.commits[0].message }}
 jobs:
   version-patch:
     strategy:
-      matrix: 
-       types: ["fix(","perf(","revert(","docs(","style(","chore(","refactor(","test(","build(","ci("]
+      matrix:
+        types:
+          [
+            "fix(",
+            "perf(",
+            "revert(",
+            "docs(",
+            "style(",
+            "chore(",
+            "refactor(",
+            "test(",
+            "build(",
+            "ci(",
+          ]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -19,24 +33,35 @@ jobs:
       - name: Use Node.js 18
         if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
-        with: 
+        with:
           node-version: 18
-          cache: 'npm'
+          cache: "npm"
+      - name: pull tags
+        if: contains(env.commitMsg,  matrix.types)
+        run: git pull --tags
+      - name: set email
+        if: contains(env.commitMsg,  matrix.types)
+        run: git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
+      - name: set username
+        if: contains(env.commitMsg,  matrix.types)
+        run: git config --local user.name 'Zwiqler94'
+      - name: npm install
+        if: contains(env.commitMsg,  matrix.types)
+        run: npm ci
       - name: version
         if: contains(env.commitMsg,  matrix.types)
-        run: |
-             git pull --tags
-             git config --local user.name 'Zwiqler94'
-             git config --local user.email 'Zwiqler94@users.noreply.github.com'
-             npm ci
-             npm version patch
-             git push --tags
-             git push
+        run: npm version patch
+      - name: push tags
+        if: contains(env.commitMsg,  matrix.types)
+        run: git push --tags
+      - name: push code
+        if: contains(env.commitMsg,  matrix.types)
+        run: git push
   version-minor:
     needs: version-patch
     strategy:
-      matrix: 
-       types: ["feat"]
+      matrix:
+        types: ["feat"]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -45,25 +70,25 @@ jobs:
       - name: Use Node.js 18
         if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
-        with: 
+        with:
           node-version: 18
-          cache: 'npm'
+          cache: "npm"
       - name: version
         if: contains(env.commitMsg,  matrix.types)
         run: |
-             git pull --tags
-             git config --local user.name 'Zwiqler94'
-             git config --local user.email 'Zwiqler94@users.noreply.github.com'
-             npm ci
-             npm version minor
-             git push --tags
-             git push
-    
+          git pull --tags
+          git config --local user.name 'Zwiqler94'
+          git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
+          npm ci
+          npm version minor
+          git push --tags
+          git push
+
   version-major:
     needs: [version-minor, version-patch]
     strategy:
-      matrix: 
-       types: ["BREAKING CHANGE", "!:"]
+      matrix:
+        types: ["BREAKING CHANGE", "!:"]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -72,18 +97,16 @@ jobs:
       - name: Use Node.js 18
         if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
-        with: 
+        with:
           node-version: 18
-          cache: 'npm'
+          cache: "npm"
       - name: version
         if: contains(env.commitMsg,  matrix.types)
         run: |
-             git pull --tags
-             git config --local user.name 'Zwiqler94'
-             git config --local user.email 'Zwiqler94@users.noreply.github.com'
-             npm ci
-             npm version major
-             git push --tags
-             git push       
-        
-  
+          git pull --tags
+          git config --local user.name 'Zwiqler94'
+          git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
+          npm ci
+          npm version major
+          git push --tags
+          git push
