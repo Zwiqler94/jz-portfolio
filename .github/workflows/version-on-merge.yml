@@ -4,7 +4,6 @@ concurrency:
 'on':
   push:
     branches: ['development']
-permissions: read-all
 env:
   commitMsg: ${{ github.event.commits[0].message }}
 jobs:
