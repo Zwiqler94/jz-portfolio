@@ -11,19 +11,7 @@ jobs:
   version-patch:
     strategy:
       matrix:
-        types:
-        [
-            "fix(",
-            "perf(",
-            "revert(",
-            "docs(",
-            "style(",
-            "chore(",
-            "refactor(",
-            "test(",
-            "build(",
-            "ci(",
-          ]
+        types: [ "fix(", "perf(", "revert(", "docs(", "style(", "chore(", "refactor(","test(","build(","ci(",]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
