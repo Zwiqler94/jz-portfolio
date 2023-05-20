@@ -1,8 +1,7 @@
 name: changelog
-on: pull_request
+on: [pull_request, push]
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
-  commitMsg: ${{ github.event }}
 jobs:
   changelog:
     strategy:
@@ -11,5 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check event
-        run: echo "$commitMsg"
+        run: echo "${{ github.event }}"
 
