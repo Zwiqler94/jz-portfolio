@@ -14,7 +14,7 @@ jobs:
                 echo "yup"
                 exit 0
              else
-                echo "no"
+                echo "$commitMsg"
                 exit 1
              fi
       - name: 🔍 GH_TOKEN
