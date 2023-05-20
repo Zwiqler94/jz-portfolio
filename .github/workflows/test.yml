@@ -11,5 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check event
-        run: echo ${{ commitMsg }}
+        run: echo "$commitMsg"
 
