@@ -16,10 +16,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
       - name: checkout
-        if: contains(env.commitMsg, matrix.types)
         uses: actions/checkout@v3
       - name: Use Node.js 18
-        if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
         with:
           node-version: 18
