@@ -1,13 +1,10 @@
-name: changelog
+name: Version Test
 on: [pull_request, push]
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
   commitMsg: ${{ github.event.commits }}
 jobs:
-  changelog:
-    strategy:
-      matrix:
-        types: [ "fix(", "perf(", "revert(", "docs(", "style(", "chore(", "refactor(","test(","build(","ci(",]
+  VERSION:
     runs-on: ubuntu-latest
     steps:
       - name: check event
