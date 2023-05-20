@@ -1,12 +1,14 @@
 name: Version Test
-on: [push]
+'on':
+  - push
 env:
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
-  commitMsg: ${{ github.event.commits }}
+  GH_TOKEN: '${{ secrets.GH_TOKEN }}'
+  commitMsg: '${{ github.event.commits }}'
 jobs:
   VERSION:
     runs-on: ubuntu-latest
     steps:
       - name: check event
         run: echo "$commitMsg"
+
 
