@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: check commit
         run: |
-             if [[ $commitMsg =~ ^\A(fix\(.+\)|perf\(.+\)|revert\(.+\)|docs\(.+\)|style\(.+\)|chore\(.+\)|refactor\(.+\)|test\(.+\)|build\(.+\)|ci\(.+\)):(.|\s)+$ ]]; then
+             if [[ $commitMsg =~ ^(fix\(.+\)|perf\(.+\)|revert\(.+\)|docs\(.+\)|style\(.+\)|chore\(.+\)|refactor\(.+\)|test\(.+\)|build\(.+\)|ci\(.+\)):(.|\s)+$ ]]; then
                 echo "yup"
                 exit 0
              else
