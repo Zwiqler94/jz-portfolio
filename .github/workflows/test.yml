@@ -3,7 +3,7 @@ name: Version Test
   - push
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
-  commitMsg: '${{ github.event.commits }}'
+  commitMsg: '${{ github.event.commits[0].message }}'
 jobs:
   VERSION:
     runs-on: ubuntu-latest
