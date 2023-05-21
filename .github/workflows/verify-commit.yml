@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "$commitMsg"
-      - run: echo "env.GITHUB_ENV"
+      - run: echo "${{ env.GITHUB_ENV }}"
         
   VERIFY:
     runs-on: ubuntu-latest
