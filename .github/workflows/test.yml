@@ -8,16 +8,18 @@ jobs:
   VERIFY_COMMIT:
     runs-on: ubuntu-latest
     outputs:
-      version-type: ${{ steps.verifyCommit.ouputs.version-type }}
+      version-type: ${{ steps.verifyCommit.ouputs.versionType }}
     steps:
       - name: check commit
         id: verifyCommit
         run: |
             if [[ $commitMsg =~ (BREAKING CHANGE|^(.|\s)+(\(.|\s\))?!:(.|\s)+$) ]]; then
-                echo "version-type=major" >> "$GITHUB_OUTPUT"
+                echo "versionType=major" >> "$GITHUB_OUTPUT"
+                echo "versionType=major"
                 exit 0
             elif [[ $commitMsg =~ ^(fix(\(.+\))?|perf(\(.+\))?|revert(\(.+\))?|docs(\(.+\))?|style(\(.+\))?|chore(\(.+\))?|refactor(\(.+\))?|test(\(.+\))?|build(\(.+\))?|ci(\(.+\))?):(.|\s)+$ ]]; then
-                echo "version-type=minor" >> "$GITHUB_OUTPUT"
+                echo "versionType=minor" >> "$GITHUB_OUTPUT"
+                echo "versionType=minor"
                 exit 0
             else
                 exit 1
@@ -27,7 +29,7 @@ jobs:
     needs: VERIFY_COMMIT
     steps:
       - env:
-          val: ${{ needs.VERIFY_COMMIT.outputs.version-type }}
+          val: ${{ needs.VERIFY_COMMIT.outputs.versionType }}
         run: echo "$val"
   
 
