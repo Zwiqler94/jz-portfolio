@@ -1,4 +1,4 @@
-name: Version Test
+name: Version On Push
 'on':
   - push
 env:
