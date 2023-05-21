@@ -62,7 +62,6 @@ jobs:
           npm version minor
           git push --tags
           git push
-
   version-major:
     needs: call-verify-commit
     if: ${{ needs.call-verify-commit.outputs.versionType }} == 'patch'
