@@ -7,8 +7,13 @@ on:
         value: ${{ jobs.VERIFY.outputs.versionType }}
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
-  commitMsg: '${{ github.event.commits[0].message }}'
+  commitMsg: '${{ github.event.squash_merge_commit_message }}'
 jobs:
+  GET-COMMIT:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "$commitMsg"
+        
   VERIFY:
     runs-on: ubuntu-latest
     outputs:
