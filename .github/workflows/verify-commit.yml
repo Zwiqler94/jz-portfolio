@@ -1,0 +1,43 @@
+name: Verify Version Type From Commit
+on:
+  workflow_call:
+    outputs: 
+      versionType:
+        description: "the version increment type (major, minor, or patch)"
+        value: ${{ jobs.VERIFY.outputs.versionType }}
+env:
+  GH_TOKEN: '${{ secrets.GH_TOKEN }}'
+  commitMsg: '${{ github.event.squash_merge_commit_message }}'
+jobs:
+  GET-COMMIT:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "$commitMsg"
+        
+  VERIFY:
+    runs-on: ubuntu-latest
+    outputs:
+      versionType: ${{ steps.verifyCommit.outputs.versionType }}
+    steps:
+      - name: check commit
+        id: verifyCommit
+        run: |
+            if [[ $commitMsg =~ (BREAKING CHANGE|^(.|\s)+(\(.|\s\))?!:(.|\s)+$) ]]; then
+                echo "versionType=major" >> "$GITHUB_OUTPUT"
+                echo "versionType=major" 
+                exit 0
+            elif [[ $commitMsg =~ ^feat(\(.+\))?:(.|\s)+$ ]]; then
+                echo "versionType=minor" >> "$GITHUB_OUTPUT"
+                echo "versionType=minor"
+                exit 0
+            elif [[ $commitMsg =~ ^(fix(\(.+\))?|perf(\(.+\))?|revert(\(.+\))?|docs(\(.+\))?|style(\(.+\))?|chore(\(.+\))?|refactor(\(.+\))?|test(\(.+\))?|build(\(.+\))?|ci(\(.+\))?):(.|\s)+$ ]]; then
+                echo "versionType=patch" >> "$GITHUB_OUTPUT"
+                echo "versionType=patch"
+                exit 0
+            else
+                echo "Can't determine version from commit!!!"
+                exit 1
+            fi
+
+  
+
