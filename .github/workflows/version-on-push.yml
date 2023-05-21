@@ -35,6 +35,6 @@ jobs:
     env:
       A: ${{ needs.VERIFY.outputs.versionType }}
     steps:
-        - run: echo "$A"
+        - run: echo "$A "
   
 
