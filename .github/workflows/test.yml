@@ -5,10 +5,10 @@ env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
   commitMsg: '${{ github.event.commits[0].message }}'
 jobs:
-  VERIFY_COMMIT:
+  VERIFY:
     runs-on: ubuntu-latest
     outputs:
-      version-type: ${{ steps.verifyCommit.ouputs.versionType }}
+      versionType: ${{ steps.verifyCommit.ouputs.versionType }}
     steps:
       - name: check commit
         id: verifyCommit
@@ -26,10 +26,10 @@ jobs:
             fi
   VERSION:
     runs-on: ubuntu-latest
-    needs: VERIFY_COMMIT
+    needs: VERIFY
     steps:
       - env:
-          val: ${{ needs.VERIFY_COMMIT.outputs.versionType }}
+          val: ${{ needs.VERIFY.outputs.versionType }}
         run: echo "$val"
   
 
