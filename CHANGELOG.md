@@ -1,3 +1,9 @@
+## <small>1.13.1 (2023-05-21)</small>
+
+* ci(github actions): fix verify-commit.yml output ([fbfa9fd](https://github.com/Zwiqler94/jz-portfolio/commit/fbfa9fd))
+
+
+
 ## 3.0.0 (2023-05-21)
 
 * ci(github actions): fix conditional statements ([5b26c91](https://github.com/Zwiqler94/jz-portfolio/commit/5b26c91))
