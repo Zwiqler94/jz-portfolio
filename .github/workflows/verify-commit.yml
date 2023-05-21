@@ -7,7 +7,7 @@ on:
         value: ${{ jobs.VERIFY.outputs.versionType }}
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
-  commitMsg: '${{ github.event.squash_merge_commit_message }}'
+  commitMsg: '${{ toJSON(github.event) }}'
 jobs:
   GET-COMMIT:
     runs-on: ubuntu-latest
