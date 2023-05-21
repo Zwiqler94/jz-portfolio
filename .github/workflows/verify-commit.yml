@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "$commitMsg"
+      - run: echo "$GIHUB_ENV"
         
   VERIFY:
     runs-on: ubuntu-latest
