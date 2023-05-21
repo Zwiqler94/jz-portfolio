@@ -39,6 +39,3 @@ jobs:
                 echo "Can't determine version from commit!!!"
                 exit 1
             fi
-
-  
-
