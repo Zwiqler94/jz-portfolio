@@ -7,14 +7,12 @@ on:
         value: ${{ jobs.VERIFY.outputs.versionType }}
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
-  commitMsg: '${{ toJSON(github.events) }}'
+  commitSHA: '${{ github.event.base.sha }}'
 jobs:
   GET-COMMIT:
     runs-on: ubuntu-latest
     steps:
       - run: echo "$commitMsg"
-      - run: env
-        
   VERIFY:
     runs-on: ubuntu-latest
     outputs:
