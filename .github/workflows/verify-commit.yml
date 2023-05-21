@@ -9,7 +9,7 @@ permissions: read-all
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
   commitSHA: '${{ github.event.pull_request.base.sha }}'
-  commitURL: '${{ github.event.pull_request.base.repo.commit_url }}'
+  commitURL: '${{ github.event.pull_request.base.repo.commits_url }}'
 jobs:
   GET-COMMIT:
     runs-on: ubuntu-latest
