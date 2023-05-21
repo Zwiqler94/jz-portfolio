@@ -4,7 +4,7 @@ on:
     outputs: 
       versionType:
         description: "the version increment type (major, minor, or patch)"
-        value: ${{ jobs.verifyCommit.outputs.versionType }}
+        value: ${{ jobs.VERIFY.outputs.versionType }}
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
   commitMsg: '${{ github.event.commits[0].message }}'
