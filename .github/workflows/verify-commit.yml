@@ -1,6 +1,10 @@
-name: Version On Push
-'on':
-  - push
+name: Verify Version Type From Commit
+on:
+  workflow_call:
+    outputs: 
+      versionType:
+        description: "the version increment type (major, minor, or patch)"
+        value: ${{ jobs.verifyCommit.outputs.versionType }}
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
   commitMsg: '${{ github.event.commits[0].message }}'
@@ -29,12 +33,6 @@ jobs:
                 echo "Can't determine version from commit!!!"
                 exit 1
             fi
-  VERSION:
-    runs-on: ubuntu-latest
-    needs: VERIFY
-    env:
-      A: ${{ needs.VERIFY.outputs.versionType }}
-    steps:
-        - run: echo "$A "
+
   
 
