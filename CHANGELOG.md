@@ -1,3 +1,9 @@
+## 2.0.0 (2023-05-21)
+
+* ci(github actions): update version-on-merge.yml ([ebc73e3](https://github.com/Zwiqler94/jz-portfolio/commit/ebc73e3))
+
+
+
 ## 1.13.0 (2023-05-17)
 
 * build(versioning): update versioning script ([220489a](https://github.com/Zwiqler94/jz-portfolio/commit/220489a))
