@@ -43,7 +43,7 @@ jobs:
         run: git push
   version-minor:
     needs: call-verify-commit
-    if: ${{ needs.call-verify-commit.outputs.versionType }} == 'patch'
+    if: ${{ needs.call-verify-commit.outputs.versionType }} == 'minor'
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -64,7 +64,7 @@ jobs:
           git push
   version-major:
     needs: call-verify-commit
-    if: ${{ needs.call-verify-commit.outputs.versionType }} == 'patch'
+    if: ${{ needs.call-verify-commit.outputs.versionType }} == 'major'
     runs-on: ubuntu-latest
     steps:
       - name: checkout
