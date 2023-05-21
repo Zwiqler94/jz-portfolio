@@ -5,10 +5,11 @@ on:
       versionType:
         description: "the version increment type (major, minor, or patch)"
         value: ${{ jobs.VERIFY.outputs.versionType }}
+permissions: read-all
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
-  commitSHA: '${{ github.event.base.sha }}'
-  commitURL: '${{ github.event.base.repo.commit_url }}'
+  commitSHA: '${{ github.event.pull_request.base.sha }}'
+  commitURL: '${{ github.event.pull_request.base.repo.commit_url }}'
 jobs:
   GET-COMMIT:
     runs-on: ubuntu-latest
