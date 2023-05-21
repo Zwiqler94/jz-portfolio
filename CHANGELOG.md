@@ -1,3 +1,9 @@
+## 3.0.0 (2023-05-21)
+
+* ci(github actions): fix conditional statements ([5b26c91](https://github.com/Zwiqler94/jz-portfolio/commit/5b26c91))
+
+
+
 ## 2.0.0 (2023-05-21)
 
 * ci(github actions): update version-on-merge.yml ([ebc73e3](https://github.com/Zwiqler94/jz-portfolio/commit/ebc73e3))
