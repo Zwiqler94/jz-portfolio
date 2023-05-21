@@ -15,9 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       replaceMe: '{/sha}'
+
     steps:
       - run: echo "$commitSHA"
-      - run: echo "moose=${commitURL/$replaceMe/$commitSHA}" >> $GITHUB_ENV
+      - run: echo "moose=${commitURL/$replaceMe/"/$commitSHA"}" >> $GITHUB_ENV
       - run: echo "$moose"
   VERIFY:
     runs-on: ubuntu-latest
