@@ -11,49 +11,46 @@ jobs:
   version-patch:
     needs: call-verify-commit
     runs-on: ubuntu-latest
-    if: ${{ needs.call-verify-commit.outputs.versionType }} == 'patch'
     steps:
-      - name: checkout 
+      - name: checkout
+        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'patch'
         uses: actions/checkout@v3
       - name: Use Node.js 18
+        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'patch'
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
-      - name: pull tags
-        run: git pull --tags
-      - name: set email
-        run: git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
-      - name: set username
-        run: git config --local user.name 'Zwiqler94'
-      - name: npm install
-        run: npm ci
       - name: version
-        run: npm version patch
-      - name: approve pr
-        run: | # approve the pull request
-         curl --request POST \
-         --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
-         --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-         --header 'content-type: application/json' \
-         -d '{"event":"APPROVE"}'
-      - name: push tags
-        run: git push --tags
-      - name: push code
-        run: git push
+        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'patch'
+        run: |
+          git pull --tags
+          git config --local user.name 'Zwiqler94'
+          git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
+          npm ci
+          npm version patch
+          git push --tags
+          curl --request POST \
+          --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          -d '{"event":"APPROVE"}'
+          git push
   version-minor:
     needs: call-verify-commit
-    if: ${{ needs.call-verify-commit.outputs.versionType }} == 'minor'
     runs-on: ubuntu-latest
     steps:
       - name: checkout
+        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'minor'
         uses: actions/checkout@v3
       - name: Use Node.js 18
+        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'minor'
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
       - name: version
+        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'minor'
         run: |
           git pull --tags
           git config --local user.name 'Zwiqler94'
@@ -61,23 +58,27 @@ jobs:
           npm ci
           npm version minor
           git push --tags
+          curl --request POST \
+          --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          -d '{"event":"APPROVE"}'
           git push
   version-major:
     needs: call-verify-commit
-    if: ${{ needs.call-verify-commit.outputs.versionType }} == 'major'
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        if: contains(env.commitMsg, matrix.types)
+        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'major'
         uses: actions/checkout@v3
       - name: Use Node.js 18
-        if: contains(env.commitMsg, matrix.types)
+        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'major'
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
       - name: version
-        if: contains(env.commitMsg,  matrix.types)
+        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'major'
         run: |
           git pull --tags
           git config --local user.name 'Zwiqler94'
@@ -85,4 +86,9 @@ jobs:
           npm ci
           npm version major
           git push --tags
+          curl --request POST \
+          --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          -d '{"event":"APPROVE"}'          
           git push
