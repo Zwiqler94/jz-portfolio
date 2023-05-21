@@ -7,14 +7,14 @@ on:
         value: ${{ jobs.VERIFY.outputs.versionType }}
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
-  commitMsg: '${{ toJSON(github.events) }}'
+  commitSHA: '${{ github.event.base.sha }}'
+  commitURL: '${{ github.event.base.repo.commit_url }}'
 jobs:
   GET-COMMIT:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "$commitMsg"
-      - run: env
-        
+      - run: echo "$commitSHA"
+      - run: echo "moose=${commitURL/{/sha}/$commitSHA}" >> $GITHUB_ENV && echo "$moose"
   VERIFY:
     runs-on: ubuntu-latest
     outputs:
