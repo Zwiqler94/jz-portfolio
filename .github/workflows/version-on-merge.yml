@@ -13,16 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'patch'
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
         uses: actions/checkout@v3
       - name: Use Node.js 18
-        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'patch'
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
       - name: version
-        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'patch'
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
         run: |
           git pull --tags
           git config --local user.name 'Zwiqler94'
@@ -41,16 +41,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'minor'
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
         uses: actions/checkout@v3
       - name: Use Node.js 18
-        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'minor'
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
       - name: version
-        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'minor'
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
         run: |
           git pull --tags
           git config --local user.name 'Zwiqler94'
@@ -69,16 +69,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'major'
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
         uses: actions/checkout@v3
       - name: Use Node.js 18
-        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'major'
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
       - name: version
-        if: ${{ needs.call-verify-commit.outputs.versionType }} == 'major'
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
         run: |
           git pull --tags
           git config --local user.name 'Zwiqler94'
