@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: VERIFY
     env:
-      A: ${{ needs.verifyCommit.outputs.versionType }}
+      A: ${{ needs.VERIFY.outputs.versionType }}
     steps:
         - run: echo "$A"
   
