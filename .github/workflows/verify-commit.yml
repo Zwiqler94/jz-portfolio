@@ -8,11 +8,13 @@ on:
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
   commitSHA: '${{ github.event.base.sha }}'
+  commitURL: '${{ github.event.base.repo.commit_url }}'
 jobs:
   GET-COMMIT:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "$commitMsg"
+      - run: echo "$commitSHA"
+      - run: echo "moose=${commitURL/{/sha}/$commitSHA}" >> $GITHUB_ENV && echo "$moose"
   VERIFY:
     runs-on: ubuntu-latest
     outputs:
