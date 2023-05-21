@@ -8,7 +8,7 @@ jobs:
   VERIFY:
     runs-on: ubuntu-latest
     outputs:
-      versionType: ${{ steps.verifyCommit.ouputs.versionType }}
+      versionType: ${{ steps.verifyCommit.outputs.versionType }}
     steps:
       - name: check commit
         id: verifyCommit
