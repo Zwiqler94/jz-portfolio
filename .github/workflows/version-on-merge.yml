@@ -1,56 +1,67 @@
 name: Version On Merge
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-versioning
-on: push
+"on":
+  push:
+    branches: ["development"]
 permissions: write-all
 env:
   commitMsg: ${{ github.event.commits[0].message }}
 jobs:
-  call-verify-commit:
-    uses: ./.github/workflows/verify-commit.yml
   version-patch:
-    needs: call-verify-commit
+    strategy:
+      matrix:
+        types: [ "fix(", "perf(", "revert(", "docs(", "style(", "chore(", "refactor(","test(","build(","ci(",]
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
+      - name: checkout 
+        if: contains(env.commitMsg, matrix.types)
         uses: actions/checkout@v3
       - name: Use Node.js 18
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
+        if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
+      - name: pull tags
+        if: contains(env.commitMsg,  matrix.types)
+        run: git pull --tags
+      - name: set email
+        if: contains(env.commitMsg,  matrix.types)
+        run: git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
+      - name: set username
+        if: contains(env.commitMsg,  matrix.types)
+        run: git config --local user.name 'Zwiqler94'
+      - name: npm install
+        if: contains(env.commitMsg,  matrix.types)
+        run: npm ci
       - name: version
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
-        run: |
-          git pull --tags
-          git config --local user.name 'Zwiqler94'
-          git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
-          npm ci
-          npm version patch
-          git push --tags
-          curl --request POST \
-          --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' \
-          -d '{"event":"APPROVE"}'
-          git push
+        if: contains(env.commitMsg,  matrix.types)
+        run: npm version patch
+      - name: push tags
+        if: contains(env.commitMsg,  matrix.types)
+        run: git push --tags
+      - name: push code
+        if: contains(env.commitMsg,  matrix.types)
+        run: git push
   version-minor:
-    needs: call-verify-commit
+    needs: version-patch
+    strategy:
+      matrix:
+        types: ["feat"]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
+        if: contains(env.commitMsg, matrix.types)
         uses: actions/checkout@v3
       - name: Use Node.js 18
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
+        if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
       - name: version
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
+        if: contains(env.commitMsg,  matrix.types)
         run: |
           git pull --tags
           git config --local user.name 'Zwiqler94'
@@ -58,27 +69,26 @@ jobs:
           npm ci
           npm version minor
           git push --tags
-          curl --request POST \
-          --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' \
-          -d '{"event":"APPROVE"}'
           git push
+
   version-major:
-    needs: call-verify-commit
+    needs: [version-minor, version-patch]
+    strategy:
+      matrix:
+        types: ["BREAKING CHANGE", "!:"]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
+        if: contains(env.commitMsg, matrix.types)
         uses: actions/checkout@v3
       - name: Use Node.js 18
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
+        if: contains(env.commitMsg, matrix.types)
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
       - name: version
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
+        if: contains(env.commitMsg,  matrix.types)
         run: |
           git pull --tags
           git config --local user.name 'Zwiqler94'
@@ -86,9 +96,4 @@ jobs:
           npm ci
           npm version major
           git push --tags
-          curl --request POST \
-          --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' \
-          -d '{"event":"APPROVE"}'          
           git push
