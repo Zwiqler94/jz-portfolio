@@ -29,7 +29,7 @@ jobs:
     needs: VERIFY
     steps:
       - env:
-          val: ${{ needs.VERIFY.outputs.versionType }}
-        run: echo "$val"
+          A: ${{ needs.VERIFY.outputs.versionType }}
+        run: echo "$A"
   
 
