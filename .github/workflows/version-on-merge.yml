@@ -1,14 +1,19 @@
 name: Version On Merge
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-versioning
-on: push
+on: 
+  pull_request:
+    types:
+      - closed
 permissions: write-all
 env:
   commitMsg: ${{ github.event.commits[0].message }}
 jobs:
   call-verify-commit:
+    if: ${{ github.event.pull_request.merged == true }}
     uses: ./.github/workflows/verify-commit.yml
   version-patch:
+    if: ${{ github.event.pull_request.merged == true }}
     needs: call-verify-commit
     runs-on: ubuntu-latest
     steps:
@@ -37,6 +42,7 @@ jobs:
           -d '{"event":"APPROVE"}'
           git push
   version-minor:
+    if: ${{ github.event.pull_request.merged == true }}
     needs: call-verify-commit
     runs-on: ubuntu-latest
     steps:
@@ -65,6 +71,7 @@ jobs:
           -d '{"event":"APPROVE"}'
           git push
   version-major:
+    if: ${{ github.event.pull_request.merged == true }}
     needs: call-verify-commit
     runs-on: ubuntu-latest
     steps:
