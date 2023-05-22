@@ -23,10 +23,13 @@ jobs:
       - run: echo "commitURLWithSHA=${commitURL/$replaceMe/"/$sha"}" >> $GITHUB_ENV
       - run: echo "$commitURLWithSHA"
       - run: |
-             EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-             echo "commitMsg << $EOF" >> "$GITHUB_ENV"
-             curl $commitURLWithSHA | jq -r '.commit.message') >> "$GITHUB_ENV"
-             echo "$EOF" >> "$GITHUB_ENV"
+          echo "val=$(gh api -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          repos/${{ env.owner }}/${{ env.repo }}/pulls/${{ env.prID }})" >> $GITHUB_ENV
+      - run: echo "$val"
+      - run: echo "moose=${commitURL/$replaceMe/"/$commitSHA"}" >> $GITHUB_ENV
+      - run: echo "$moose"
+      - run: echo "$eventInfo"
   VERIFY:
     runs-on: ubuntu-latest
     outputs:
