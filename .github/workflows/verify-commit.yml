@@ -1,31 +1,30 @@
 name: Verify Version Type From Commit
 on:
   workflow_call:
-    outputs: 
+    outputs:
       versionType:
         description: "the version increment type (major, minor, or patch)"
         value: ${{ jobs.VERIFY.outputs.versionType }}
 permissions: read-all
 env:
-  GH_TOKEN: '${{ secrets.GH_TOKEN }}'
-  prID: '${{ github.event.pull_request.id }}'
-  commitSHA: '${{ github.event.pull_request.base.sha }}'
-  commitURL: '${{ github.event.pull_request.base.repo.commits_url }}'
-  eventInfo: '${{ toJson(github.event.pull_request) }}'
+  GH_TOKEN: "${{ secrets.GH_TOKEN }}"
+  prID: "${{ github.event.pull_request.id }}"
+  commitSHA: "${{ github.event.pull_request.base.sha }}"
+  commitURL: "${{ github.event.pull_request.base.repo.commits_url }}"
+  eventInfo: "${{ toJson(github.event.pull_request) }}"
 jobs:
   GET-COMMIT:
     runs-on: ubuntu-latest
     env:
-      replaceMe: '{/sha}'
-      owner: 'Zwiqler94'
-      repo: 'jz-portfolio'
+      replaceMe: "{/sha}"
+      owner: "Zwiqler94"
+      repo: "jz-portfolio"
     steps:
       - run: |
-           echo "val="gh api \
-           -H "Accept: application/vnd.github+json" \
-           -H "X-GitHub-Api-Version: 2022-11-28" \
-           /repos/${owner}/${repo}/pulls/${prID}""" >> $GITHUB_ENV
-      - run: echo "$val"
+          val=$(gh api -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /repos/${owner}/${repo}/pulls/${prID})
+      - run: echo "${val}" >> $GITHUB_ENV
       - run: echo "moose=${commitURL/$replaceMe/"/$commitSHA"}" >> $GITHUB_ENV
       - run: echo "$moose"
       - run: echo "$eventInfo"
@@ -37,19 +36,19 @@ jobs:
       - name: check commit
         id: verifyCommit
         run: |
-            if [[ $commitMsg =~ (BREAKING CHANGE|^(.|\s)+(\(.|\s\))?!:(.|\s)+$) ]]; then
-                echo "versionType=major" >> "$GITHUB_OUTPUT"
-                echo "versionType=major" 
-                exit 0
-            elif [[ $commitMsg =~ ^feat(\(.+\))?:(.|\s)+$ ]]; then
-                echo "versionType=minor" >> "$GITHUB_OUTPUT"
-                echo "versionType=minor"
-                exit 0
-            elif [[ $commitMsg =~ ^(fix(\(.+\))?|perf(\(.+\))?|revert(\(.+\))?|docs(\(.+\))?|style(\(.+\))?|chore(\(.+\))?|refactor(\(.+\))?|test(\(.+\))?|build(\(.+\))?|ci(\(.+\))?):(.|\s)+$ ]]; then
-                echo "versionType=patch" >> "$GITHUB_OUTPUT"
-                echo "versionType=patch"
-                exit 0
-            else
-                echo "Can't determine version from commit!!!"
-                exit 1
-            fi
+          if [[ $commitMsg =~ (BREAKING CHANGE|^(.|\s)+(\(.|\s\))?!:(.|\s)+$) ]]; then
+              echo "versionType=major" >> "$GITHUB_OUTPUT"
+              echo "versionType=major" 
+              exit 0
+          elif [[ $commitMsg =~ ^feat(\(.+\))?:(.|\s)+$ ]]; then
+              echo "versionType=minor" >> "$GITHUB_OUTPUT"
+              echo "versionType=minor"
+              exit 0
+          elif [[ $commitMsg =~ ^(fix(\(.+\))?|perf(\(.+\))?|revert(\(.+\))?|docs(\(.+\))?|style(\(.+\))?|chore(\(.+\))?|refactor(\(.+\))?|test(\(.+\))?|build(\(.+\))?|ci(\(.+\))?):(.|\s)+$ ]]; then
+              echo "versionType=patch" >> "$GITHUB_OUTPUT"
+              echo "versionType=patch"
+              exit 0
+          else
+              echo "Can't determine version from commit!!!"
+              exit 1
+          fi
