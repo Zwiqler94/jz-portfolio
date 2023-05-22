@@ -7,7 +7,7 @@ on:
         value: ${{ jobs.VERIFY.outputs.versionType }}
 permissions: read-all
 env:
-  GH_TOKEN: "${{ secrets.GH_TOKEN }}"
+  GH_TOKEN: "${{ github.token }}"
   prID: "${{ github.event.pull_request.id }}"
   commitSHA: "${{ github.event.pull_request.base.sha }}"
   commitURL: "${{ github.event.pull_request.base.repo.commits_url }}"
