@@ -8,7 +8,7 @@ on:
 permissions: read-all
 env:
   GH_TOKEN: "${{ github.token }}"
-  prID: "${{ github.event.pull_request.id }}"
+  prNumber: "${{ github.event.pull_request.number }}"
   commitSHA: "${{ github.event.pull_request.base.sha }}"
   commitURL: "${{ github.event.pull_request.base.repo.commits_url }}"
   # eventInfo: "${{ toJson(github.event.pull_request) }}"
@@ -22,8 +22,7 @@ jobs:
     steps:
       - run: |
           echo "val=$(gh api -H "Accept: application/vnd.github+json" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          repos/${{ env.owner }}/${{ env.repo }}/pulls/${{ env.prID }})" >> $GITHUB_ENV
+          repos/${{ env.owner }}/${{ env.repo }}/pulls/${{ env.prNumber }})" >> $GITHUB_ENV
       - run: echo "$val"
       - run: echo "moose=${commitURL/$replaceMe/"/$commitSHA"}" >> $GITHUB_ENV
       - run: echo "$moose"
