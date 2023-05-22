@@ -23,7 +23,7 @@ import '@angular/localize/init';
  */
 
 import 'cross-fetch/polyfill';
-import 'core-js';
+import 'core-js/stable';
 import 'globalthis';
 
 /**

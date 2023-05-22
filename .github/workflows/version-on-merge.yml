@@ -1,0 +1,102 @@
+name: Version On Merge
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-versioning
+on: 
+  pull_request_target:
+    types:
+      - closed
+permissions: write-all
+env:
+  commitMsg: ''
+jobs:
+  call-verify-commit:
+    if: ${{ github.event.pull_request.merged == true }}
+    uses: ./.github/workflows/verify-commit.yml
+  version-patch:
+    if: ${{ github.event.pull_request.merged == true }}
+    needs: call-verify-commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
+        uses: actions/checkout@v3
+      - name: Use Node.js 18
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - name: version
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
+        run: |
+          git pull --tags
+          git config --local user.name 'Zwiqler94'
+          git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
+          npm ci
+          npm version patch
+          git push --tags
+          curl --request POST \
+          --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          -d '{"event":"APPROVE"}'
+          git push
+  version-minor:
+    if: ${{ github.event.pull_request.merged == true }}
+    needs: call-verify-commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
+        uses: actions/checkout@v3
+      - name: Use Node.js 18
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - name: version
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
+        run: |
+          git pull --tags
+          git config --local user.name 'Zwiqler94'
+          git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
+          npm ci
+          npm version minor
+          git push --tags
+          curl --request POST \
+          --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          -d '{"event":"APPROVE"}'
+          git push
+  version-major:
+    if: ${{ github.event.pull_request.merged == true }}
+    needs: call-verify-commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
+        uses: actions/checkout@v3
+      - name: Use Node.js 18
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - name: version
+        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
+        run: |
+          git pull --tags
+          git config --local user.name 'Zwiqler94'
+          git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
+          npm ci
+          npm version major
+          git push --tags
+          curl --request POST \
+          --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          -d '{"event":"APPROVE"}'          
+          git push
+

@@ -62,3 +62,7 @@ Thumbs.db
 
 # TypeScript v1 declaration files
 **/typings
+
+
+# Firebase
+credentials.json
