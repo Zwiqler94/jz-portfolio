@@ -24,8 +24,7 @@ jobs:
       - run: echo "$commitURLWithSHA"
       - run: |
           echo "val=$(gh api -H "Accept: application/vnd.github+json" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          repos/${{ env.owner }}/${{ env.repo }}/pulls/${{ env.prID }})" >> $GITHUB_ENV
+          repos/${{ env.owner }}/${{ env.repo }}/pulls/${{ env.prNumber }})" >> $GITHUB_ENV
       - run: echo "$val"
       - run: echo "moose=${commitURL/$replaceMe/"/$commitSHA"}" >> $GITHUB_ENV
       - run: echo "$moose"
