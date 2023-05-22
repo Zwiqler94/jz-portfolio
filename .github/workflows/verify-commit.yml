@@ -10,6 +10,7 @@ env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
   commitSHA: '${{ github.event.pull_request.base.sha }}'
   commitURL: '${{ github.event.pull_request.base.repo.commits_url }}'
+  eventInfo: '${{ toJson(github.event.pull_request) }}'
 jobs:
   GET-COMMIT:
     runs-on: ubuntu-latest
@@ -19,6 +20,7 @@ jobs:
       - run: echo "$commitSHA"
       - run: echo "moose=${commitURL/$replaceMe/"/$commitSHA"}" >> $GITHUB_ENV
       - run: echo "$moose"
+      - run: echo "$eventInfo"
   VERIFY:
     runs-on: ubuntu-latest
     outputs:
