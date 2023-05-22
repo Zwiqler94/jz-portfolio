@@ -23,10 +23,8 @@ jobs:
       - run: echo "commitURLWithSHA=${commitURL/$replaceMe/"/$sha"}" >> $GITHUB_ENV
       - run: echo "$commitURLWithSHA"
       - run: |
-          echo "val=$(gh api -H "Accept: application/vnd.github+json" \
-          repos/${{ env.owner }}/${{ env.repo }}/pulls/${{ env.prNumber }})" >> $GITHUB_ENV
-      - run: echo "$val.merge_commit_sha"
-      - run: echo "moose=${commitURL/$replaceMe/"/$val.merge_commit_sha"}" >> $GITHUB_ENV
+          echo "sha=gh api repos/${{ env.owner }}/${{ env.repo }}/pulls/${{ env.prNumber }}) | jq -r '.merge_commit_sha'" >> $GITHUB_ENV
+      - run: echo "moose=${commitURL/$replaceMe/"/$sha"}" >> $GITHUB_ENV
       - run: echo "$moose"
       - run: echo "$eventInfo"
   VERIFY:
