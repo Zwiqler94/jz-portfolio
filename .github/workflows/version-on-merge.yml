@@ -1,7 +1,6 @@
 name: Version On Merge
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-versioning
-
 on: 
   pull_request_target:
     types:
