@@ -20,7 +20,7 @@ jobs:
       owner: "Zwiqler94"
       repo: "jz-portfolio"
     steps:
-      - run: echo "sha="$(gh api repos/Zwiqler94/jz-portfolio/pulls/169 | jq -r '.merge_commit_sha')"" >> $GITHUB_ENV
+      - run: echo "sha="$(gh api repos/${{ env.owner }}/${{env.repo}}/pulls/${{ env.prNumber }} | jq -r '.merge_commit_sha')"" >> $GITHUB_ENV
       - run: echo "moose=${commitURL/$replaceMe/"/$sha"}" >> $GITHUB_ENV
       - run: echo "$moose"
       - run: echo "$eventInfo"
