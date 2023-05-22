@@ -8,6 +8,7 @@ on:
 permissions: read-all
 env:
   GH_TOKEN: '${{ secrets.GH_TOKEN }}'
+  prID: '${{ github.event.pull_request.id }}'
   commitSHA: '${{ github.event.pull_request.base.sha }}'
   commitURL: '${{ github.event.pull_request.base.repo.commits_url }}'
   eventInfo: '${{ toJson(github.event.pull_request) }}'
@@ -16,8 +17,17 @@ jobs:
     runs-on: ubuntu-latest
     env:
       replaceMe: '{/sha}'
+      owner: 'Zwiqler94'
+      repo: 'jz-portfolio'
     steps:
+      - run: |
+           echo "val="gh api \
+           -H "Accept: application/vnd.github+json" \
+           -H "X-GitHub-Api-Version: 2022-11-28" \
+           /repos/${owner}/${repo}/pulls/${prID}""" >> $GITHUB_ENV
+      - run: echo "$val"
       - run: echo "$commitSHA"
+
       - run: echo "moose=${commitURL/$replaceMe/"/$commitSHA"}" >> $GITHUB_ENV
       - run: echo "$moose"
       - run: echo "$eventInfo"
