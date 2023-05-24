@@ -19,7 +19,7 @@ jobs:
       owner: "Zwiqler94"
       repo: "jz-portfolio"
     steps:
-      - run: echo "sha='$(gh api repos/${{ env.owner }}/${{env.repo}}/pulls/${{ env.prNumber }} | jq -r '.merge_commit_sha')'" >> $GITHUB_ENV
+      - run: echo "sha=$(gh api repos/${{ env.owner }}/${{env.repo}}/pulls/${{ env.prNumber }} | jq -r '.merge_commit_sha')" >> $GITHUB_ENV
       - run: echo "commitURLWithSHA=${commitURL/$replaceMe/"/$sha"}" >> $GITHUB_ENV
       - run: echo "$commitURLWithSHA"
       - run: echo "commitMsg=$(curl $commitURLWithSHA | jq -r '.commit.message')" >> $GITHUB_ENV
