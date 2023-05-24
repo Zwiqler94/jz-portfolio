@@ -25,7 +25,7 @@ jobs:
       - run: |
              EOF="$(dd if=/dev/urandom bs=15 count=1 status=none | base64)"
              echo "commitMsg << $EOF" >> "$GITHUB_ENV"
-             curl $commitURLWithSHA | jq -r '.commit.message') >> "$GITHUB_ENV"
+             curl $commitURLWithSHA | jq -r '.commit.message' >> "$GITHUB_ENV"
              echo "$EOF" >> "$GITHUB_ENV"
   VERIFY:
     runs-on: ubuntu-latest
