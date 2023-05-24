@@ -27,9 +27,9 @@ jobs:
       - id: commitResponse
         run: |
           EOF="$(dd if=/dev/urandom bs=15 count=1 status=none | base64)"
-          echo "commitMsg<<$EOF" >> "$GITHUB_ENV"
-          curl $commitURLWithSHA | jq -r '.commit.message' >> "$GITHUB_ENV"
-          echo "$EOF" >> "$GITHUB_ENV"
+          echo "commitMsg<<$EOF" >> "$GITHUB_OUTPUT"
+          curl $commitURLWithSHA | jq -r '.commit.message' >> "$GITHUB_OUTPUT"
+          echo "$EOF" >> "$GITHUB_OUTPUT"
   VERIFY:
     runs-on: ubuntu-latest
     outputs:
