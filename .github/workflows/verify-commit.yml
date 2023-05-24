@@ -1,4 +1,4 @@
-name: Verify Version Type From Commit 
+name: Verify Version Type From Commit
 on:
   workflow_call:
     outputs:
@@ -9,7 +9,6 @@ permissions: read-all
 env:
   GH_TOKEN: "${{ github.token }}"
   prNumber: "${{ github.event.pull_request.number }}"
-  commitSHA: "${{ github.event.pull_request.base.sha }}"
   commitURL: "${{ github.event.pull_request.base.repo.commits_url }}"
   # eventInfo: "${{ toJson(github.event.pull_request) }}"
 jobs:
@@ -20,10 +19,10 @@ jobs:
       owner: "Zwiqler94"
       repo: "jz-portfolio"
     steps:
-      - run: echo "sha="$(gh api repos/${{ env.owner }}/${{env.repo}}/pulls/${{ env.prNumber }} | jq -r '.merge_commit_sha')"" >> $GITHUB_ENV
+      - run: echo "sha='$(gh api repos/${{ env.owner }}/${{env.repo}}/pulls/${{ env.prNumber }} | jq -r '.merge_commit_sha')'" >> $GITHUB_ENV
       - run: echo "moose=${commitURL/$replaceMe/"/$sha"}" >> $GITHUB_ENV
       - run: echo "$moose"
-      - run: echo "$eventInfo"
+      - run: echo "commitMsg=$(curl $moose | jq -r '.commit.message')" >> $GITHUB_ENV
   VERIFY:
     runs-on: ubuntu-latest
     outputs:
