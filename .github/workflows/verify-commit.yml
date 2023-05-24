@@ -9,6 +9,7 @@ permissions: read-all
 env:
   GH_TOKEN: "${{ github.token }}"
   prNumber: "${{ github.event.pull_request.number }}"
+  commitSHA: "${{ github.event.pull_request.base.sha }}"
   commitURL: "${{ github.event.pull_request.base.repo.commits_url }}"
   # eventInfo: "${{ toJson(github.event.pull_request) }}"
 jobs:
@@ -23,7 +24,7 @@ jobs:
       - run: echo "commitURLWithSHA=${commitURL/$replaceMe/"/$sha"}" >> $GITHUB_ENV
       - run: echo "$commitURLWithSHA"
       - run: |
-             EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+             EOF="$(dd if=/dev/urandom bs=15 count=1 status=none | base64)"
              echo "commitMsg << $EOF" >> "$GITHUB_ENV"
              curl $commitURLWithSHA | jq -r '.commit.message' >> "$GITHUB_ENV"
              echo "$EOF" >> "$GITHUB_ENV"
