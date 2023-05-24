@@ -1,3 +1,15 @@
+## <small>1.13.3 (2023-05-24)</small>
+
+* build(deps): update deps ([e3a9ae0](https://github.com/Zwiqler94/jz-portfolio/commit/e3a9ae0))
+
+
+
+## <small>1.13.2 (2023-05-24)</small>
+
+* build(deps): bump socket.io-parser from 4.2.2 to 4.2.3 ([2915513](https://github.com/Zwiqler94/jz-portfolio/commit/2915513))
+
+
+
 ## <small>1.13.1 (2023-05-21)</small>
 
 * ci(github actions): fix verify-commit.yml output ([fbfa9fd](https://github.com/Zwiqler94/jz-portfolio/commit/fbfa9fd))
