@@ -29,7 +29,7 @@ jobs:
       - run: echo "deploy prod preview!"
   deploy-dev:
     needs: ["analyze-code"]
-    if: ${{ github.event_name == 'push'  && github.ref_name == 'development' }}
+    if: ${{ github.event_name == 'push'  && github.ref_name == 'development'}}
     runs-on: ubuntu-latest
     steps:
       - run: echo "deploy dev!!"
