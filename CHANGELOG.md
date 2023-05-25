@@ -1,9 +1,3 @@
-## <small>1.13.5 (2023-05-26)</small>
-
-* ci: test (#194) ([929bfb3](https://github.com/Zwiqler94/jz-portfolio/commit/929bfb3)), closes [#194](https://github.com/Zwiqler94/jz-portfolio/issues/194)
-
-
-
 ## <small>1.13.3 (2023-05-25)</small>
 
 * ci: 🤪🤪🤪🤪 ([e3fadfb](https://github.com/Zwiqler94/jz-portfolio/commit/e3fadfb))

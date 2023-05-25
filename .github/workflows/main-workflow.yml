@@ -3,36 +3,39 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-orchestrator
   cancel-in-progress: true
 on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["*"]
   pull_request_target:
     types:
       - closed
-      - synchronize
 jobs:
   analyze-code:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "analyze! ${{ github.base_ref }} ${{ github.event.action == 'synchronize' }} ${{ github.event_name == 'pull_request' }}  ${{ github.base_ref == 'main' }}"
+      - run: echo "analyze! ${{ github.base_ref }}"
   deploy-dev-pr-preview:
     runs-on: ubuntu-latest
     needs: ["analyze-code"]
-    if: ${{ github.event.action == 'synchronize'  && github.base_ref == 'development' }}
+    if: ${{ github.event_name == 'pull_request' && github.base_ref == 'development' }}
     steps:
       - run: echo "deploy dev preview!"
   deploy-prod-pr-preview:
     needs: ["analyze-code"]
-    if: ${{ github.event.action == 'synchronize' && github.base_ref == 'main' }}
+    if: ${{ github.event_name == 'pull_request' && github.base_ref == 'main' }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "deploy prod preview!"
   deploy-dev:
     needs: ["analyze-code"]
-    if: ${{ github.event.action == 'synchronize'  && github.ref_name == 'development'}}
+    if: ${{ github.event_name == 'push'  && github.ref_name == 'development' }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "deploy dev!!"
   deploy-prod:
     needs: ["analyze-code"]
-    if: ${{ github.event.action == 'synchronize' && github.ref_name == 'main' }}
+    if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "deploy prod!"
@@ -58,7 +61,7 @@ jobs:
           fi
   version:
     needs: ["analyze-code", "check-deploy-job"]
-    if: ${{github.event.action == 'closed' }}
+    if: ${{ github.event_name == 'pull_request_target' }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo "version! "
+      - run: echo "version!"
