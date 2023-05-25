@@ -1,0 +1,67 @@
+name: Workflow Orchestrator
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-orchestrator
+  cancel-in-progress: true
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["*"]
+  pull_request_target:
+    types:
+      - closed
+jobs:
+  analyze-code:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "analyze! ${{ github.base_ref }}"
+  deploy-dev-pr-preview:
+    runs-on: ubuntu-latest
+    needs: ["analyze-code"]
+    if: ${{ github.event_name == 'pull_request' && github.base_ref == 'development' }}
+    steps:
+      - run: echo "deploy dev preview!"
+  deploy-prod-pr-preview:
+    needs: ["analyze-code"]
+    if: ${{ github.event_name == 'pull_request' && github.base_ref == 'main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "deploy prod preview!"
+  deploy-dev:
+    needs: ["analyze-code"]
+    if: ${{ github.event_name == 'push'  && github.ref_name == 'development' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "deploy dev!!"
+  deploy-prod:
+    needs: ["analyze-code"]
+    if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "deploy prod!"
+  check-deploy-job:
+    runs-on: ubuntu-latest
+    needs:
+      [
+        "deploy-dev-pr-preview",
+        "deploy-prod-pr-preview",
+        "deploy-dev",
+        "deploy-prod",
+      ]
+    if: ${{ always() }}
+    steps:
+      - run: |
+          if [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'failure' && '${{ needs.deploy-prod-pr-preview.result }}' == 'failure' && '${{ needs.deploy-dev.result }}' == 'failure' && '${{ needs.deploy-prod.result }}' == 'failure' ]]; then
+             echo "Deploy Failed"
+             exit 1
+          elif [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'success' || '${{ needs.deploy-prod-pr-preview.result }}' == 'success' || '${{ needs.deploy-dev.result }}' == 'success' || '${{ needs.deploy-prod.result }}' == 'success' ]]; then
+             exit 0
+          else
+            exit 1
+          fi
+  version:
+    needs: ["analyze-code", "check-deploy-job"]
+    if: ${{ github.event_name == 'pull_request_target' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "version!"
