@@ -1,13 +1,13 @@
 name: Version On Merge
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-versioning
-on: 
+on:
   pull_request_target:
     types:
       - closed
 permissions: write-all
 env:
-  commitMsg: ''
+  commitMsg: ""
 jobs:
   call-verify-commit:
     if: ${{ github.event.pull_request.merged == true }}
@@ -99,4 +99,3 @@ jobs:
           --header 'content-type: application/json' \
           -d '{"event":"APPROVE"}'          
           git push
-
