@@ -5,6 +5,7 @@ concurrency:
 on:
   push:
     branches: ["main", "development"]
+
   pull_request:
     branches: ["*"]
   pull_request_target:
