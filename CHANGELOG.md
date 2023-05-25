@@ -1,3 +1,9 @@
+## 2.0.0 (2023-05-25)
+
+* Dev prev gha test 2 (#189) ([34fd479](https://github.com/Zwiqler94/jz-portfolio/commit/34fd479)), closes [#189](https://github.com/Zwiqler94/jz-portfolio/issues/189) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+
+
+
 ## <small>1.13.3 (2023-05-25)</small>
 
 * ci: 🤪🤪🤪🤪 ([e3fadfb](https://github.com/Zwiqler94/jz-portfolio/commit/e3fadfb))
