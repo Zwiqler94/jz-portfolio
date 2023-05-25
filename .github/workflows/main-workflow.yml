@@ -51,10 +51,10 @@ jobs:
     if: ${{ always() }}
     steps:
       - run: |
-          if [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'failure' && '${{ needs.deploy-prod-pr-preview.result }}' == 'failure' && '${{ needs.deploy-dev.result }}' == 'failure' && '${{ needs.deploy-prod.result }}' == 'failure']]; then
+          if [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'failure' && '${{ needs.deploy-prod-pr-preview.result }}' == 'failure' && '${{ needs.deploy-dev.result }}' == 'failure' && '${{ needs.deploy-prod.result }}' == 'failure' ]]; then
              echo "Deploy Failed"
              exit 1
-          elif [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'success' || '${{ needs.deploy-prod-pr-preview.result }}' == 'success' || '${{ needs.deploy-dev.result }}' == 'success' || '${{ needs.deploy-prod.result }}' == 'success']]; then
+          elif [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'success' || '${{ needs.deploy-prod-pr-preview.result }}' == 'success' || '${{ needs.deploy-dev.result }}' == 'success' || '${{ needs.deploy-prod.result }}' == 'success' ]]; then
              exit 0
           else
             exit 1
