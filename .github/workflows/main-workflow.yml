@@ -56,6 +56,8 @@ jobs:
              exit 1
           elif [[ ${{ needs.deploy-dev-pr-preview.result }} == 'success' || ${{ needs.deploy-prod-pr-preview.result }} == 'success' || ${{ needs.deploy-dev.result }} == 'success' || ${{ needs.deploy-prod.result }} == 'success']]; then
              exit 0
+          else
+            exit 1
           fi
   version:
     needs: ["analyze-code", "check-deploy-job"]
