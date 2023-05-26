@@ -61,4 +61,4 @@ jobs:
     if: ${{github.event.action == 'closed' }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo "version!"
+      - run: echo "version! "
