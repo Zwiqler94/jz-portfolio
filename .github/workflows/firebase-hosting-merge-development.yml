@@ -6,7 +6,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-dev-merge
   cancel-in-progress: true
 on:
-  push:
+  pull_request_target:
+    types:
+      - closed
     branches:
       - development
 jobs:

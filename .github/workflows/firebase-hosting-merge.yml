@@ -5,8 +5,10 @@ name: Deploy to Firebase Hosting on Production Merge
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref }}-prod-merge
   cancel-in-progress: true
-'on':
-  push:
+on:
+  pull_request_target:
+    types:
+      - closed
     branches:
       - main
 jobs:
