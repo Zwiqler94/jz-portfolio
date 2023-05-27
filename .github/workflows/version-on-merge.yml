@@ -97,3 +97,9 @@ jobs:
           --header 'content-type: application/json' \
           -d '{"event":"APPROVE"}'          
           git push
+  skip-no-deploy:
+      runs-on: ubuntu-latest
+      if: ${{ github.event.action == "opened" || github.event.action == "synchronized" }}
+      steps: 
+        - run: exit 0
+    
