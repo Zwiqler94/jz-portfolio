@@ -9,7 +9,7 @@ on:
   workflow_call:
 jobs:
   build_and_preview:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    if: "${{ github.event.pull_request.head.repo.full_name == github.repository && (github.event.action == 'opened' || github.event.action == 'synchronize') }}"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
