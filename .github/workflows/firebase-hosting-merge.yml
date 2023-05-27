@@ -6,11 +6,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-prod-merge
   cancel-in-progress: true
 on:
-  pull_request_target:
-    types:
-      - closed
-    branches:
-      - main
+  workflow_call:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
