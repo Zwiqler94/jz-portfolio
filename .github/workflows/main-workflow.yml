@@ -26,13 +26,13 @@ jobs:
       - run: echo "deploy prod preview!"
   deploy-dev:
     needs: ["analyze-code"]
-    if: ${{ github.event.action == 'synchronize'  && github.ref_name == 'development'}}
+    if: ${{ github.event.action == 'synchronize'  && github.base_ref == 'development'}}
     runs-on: ubuntu-latest
     steps:
       - run: echo "deploy dev!!"
   deploy-prod:
     needs: ["analyze-code"]
-    if: ${{ github.event.action == 'synchronize' && github.ref_name == 'main' }}
+    if: ${{ github.event.action == 'synchronize' && github.base_ref == 'main' }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "deploy prod!"
