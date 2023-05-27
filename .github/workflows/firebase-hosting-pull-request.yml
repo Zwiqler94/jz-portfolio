@@ -2,22 +2,20 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting Preview Site on Prod PR
-concurrency: 
+concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-prod-pr
   cancel-in-progress: true
-'on': 
-  pull_request:
-    branches:
-      - main
+on:
+  workflow_call:
 jobs:
   build_and_preview:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: 'npm i && npm run lint:fix && npm run build:prod'
+      - run: "npm i && npm run lint:fix && npm run build:prod"
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JLZ_PORTFOLIO }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_JLZ_PORTFOLIO }}"
           projectId: jlz-portfolio

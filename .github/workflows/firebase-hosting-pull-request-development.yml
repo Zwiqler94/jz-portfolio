@@ -6,9 +6,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-dev-pr
   cancel-in-progress: true
 on: 
-  pull_request:
-    branches: 
-      - development
+  workflow_call:
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
