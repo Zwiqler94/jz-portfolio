@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: a
-        uses: Zwiqler94/GH-Actions
+        uses: Zwiqler94/GH-Actions@v0.1.0
     
   # analyze-code:
   #   uses: ./.github/workflows/codeql-analysis2.yml
