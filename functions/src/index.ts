@@ -9,6 +9,7 @@ import * as cors from 'cors';
 // import { applicationDefault } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
 import { defineSecret } from 'firebase-functions/params';
+import { rateLimit } from 'express-rate-limit';
 
 const fbAdminApp = fbAdmin.initializeApp({
   credential: fbAdmin.credential.cert({
@@ -23,6 +24,8 @@ const secretNameProd = defineSecret('LINK_PREVIEW_PROD');
 
 const secretsApp = express();
 const secretRouter = express.Router();
+
+const limiter = rateLimit({ max: 100, windowMs: 15 * 60 * 1000 });
 
 secretsApp.use(cors());
 
@@ -67,7 +70,7 @@ const appCheckGaurd = async (
 
 secretRouter.get('/secrets', getSecret);
 
-secretsApp.use('/api/v2', appCheckGaurd, secretRouter);
+secretsApp.use('/api/v2', rateLimit,appCheckGaurd, secretRouter);
 
 export const secretService2ndGen = onRequest(
   { cors: true, secrets: [secretNameDev, secretNameProd] },

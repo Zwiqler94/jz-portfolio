@@ -1,0 +1,60 @@
+name: Verify Version Type From Commit
+on:
+  workflow_call:
+    outputs:
+      versionType:
+        description: "the version increment type (major, minor, or patch)"
+        value: ${{ jobs.VERIFY.outputs.versionType }}
+permissions: read-all
+env:
+  GH_TOKEN: "${{ github.token }}"
+  prNumber: "${{ github.event.pull_request.number }}"
+  commitSHA: "${{ github.event.pull_request.base.sha }}"
+  commitURL: "${{ github.event.pull_request.base.repo.commits_url }}"
+  # eventInfo: "${{ toJson(github.event.pull_request) }}"
+jobs:
+  GET-COMMIT:
+    outputs:
+      commitMsg: ${{ steps.commitResponse.outputs.commitMsg }}
+    runs-on: ubuntu-latest
+    env:
+      replaceMe: "{/sha}"
+      owner: "Zwiqler94"
+      repo: "jz-portfolio"
+    steps:
+      - run: echo "sha=$(gh api repos/${{ env.owner }}/${{env.repo}}/pulls/${{ env.prNumber }} | jq -r '.merge_commit_sha')" >> $GITHUB_ENV
+      - run: echo "commitURLWithSHA=${commitURL/$replaceMe/"/$sha"}" >> $GITHUB_ENV
+      - run: echo "$commitURLWithSHA"
+      - id: commitResponse
+        run: |
+          EOF="$(dd if=/dev/urandom bs=15 count=1 status=none | base64)"
+          echo "commitMsg<<$EOF" >> "$GITHUB_OUTPUT"
+          curl $commitURLWithSHA | jq -r '.commit.message' >> "$GITHUB_OUTPUT"
+          echo "$EOF" >> "$GITHUB_OUTPUT"
+  VERIFY:
+    runs-on: ubuntu-latest
+    outputs:
+      versionType: ${{ steps.verifyCommit.outputs.versionType }}
+    needs: GET-COMMIT
+    env:
+      commitMsg: ${{ needs.GET-COMMIT.outputs.commitMsg }}
+    steps:
+      - name: check commit
+        id: verifyCommit
+        run: |
+          if [[ $commitMsg =~ (BREAKING CHANGE|^(.|\s)+(\(.|\s\))?!:(.|\s)+$) ]]; then
+              echo "versionType=major" >> "$GITHUB_OUTPUT"
+              echo "versionType=major" 
+              exit 0
+          elif [[ $commitMsg =~ ^feat(\(.+\))?:(.|\s)+$ ]]; then
+              echo "versionType=minor" >> "$GITHUB_OUTPUT"
+              echo "versionType=minor"
+              exit 0
+          elif [[ $commitMsg =~ ^(fix(\(.+\))?|perf(\(.+\))?|revert(\(.+\))?|docs(\(.+\))?|style(\(.+\))?|chore(\(.+\))?|refactor(\(.+\))?|test(\(.+\))?|build(\(.+\))?|ci(\(.+\))?):(.|\s)+$ ]]; then
+              echo "versionType=patch" >> "$GITHUB_OUTPUT"
+              echo "versionType=patch"
+              exit 0
+          else
+              echo "Can't determine version from commit!!!"
+              exit 1
+          fi

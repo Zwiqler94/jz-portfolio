@@ -1,8 +1,10 @@
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) 
+[![Dev Build Status](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow.yml/badge.svg?branch=development)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow.yml)
+[![Prod Build Status](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow.yml/badge.svg?branch=main)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow.yml)
 
 # JzPortfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11. (updated to v15)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11 (updated to v15).
 
 ## Development server
 
