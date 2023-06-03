@@ -16,7 +16,8 @@
     "lint": "ng lint",
     "lint:fix": "prettier --write ./ && ng lint jz-portfolio --fix",
     "e2e": "ng e2",
-    "version": "./node_modules/.bin/conventional-changelog -i CHANGELOG.md -s -n ./.changelog-config.js && git add CHANGELOG.md"
+    "prepare": "ncc build .github/workflows/refreshToken.js -o lsk --source-map --license licenses.txt",
+    "version": "conventional-changelog -i CHANGELOG.md -s -n ./.changelog-config.js && git add CHANGELOG.md"
   },
   "private": true,
   "dependencies": {
