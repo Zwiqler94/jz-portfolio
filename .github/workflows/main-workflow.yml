@@ -10,6 +10,7 @@ on:
       - opened
       - closed
       - synchronize
+permissions: write-all
 jobs:
   test:
     name: mm
