@@ -55,7 +55,6 @@ jobs:
       - run: curl --request POST "${{ env.APPROVAL_URL }}"  -H "content-type:application/json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.userToken }}' -d '{"event":"APPROVE"}'
       - run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
       - run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.appToken }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
-
   version-minor:
     if: ${{ github.event.pull_request.merged == true }}
     needs: [call-verify-commit, check-tokens]
@@ -96,7 +95,6 @@ jobs:
       - run: curl --request POST "${{ env.APPROVAL_URL }}"  -H "content-type:application/json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.userToken }}' -d '{"event":"APPROVE"}'
       - run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
       - run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.appToken }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
-
   version-major:
     if: ${{ github.event.pull_request.merged == true }}
     needs: [call-verify-commit, check-tokens]
@@ -137,21 +135,6 @@ jobs:
       - run: curl --request POST "${{ env.APPROVAL_URL }}"  -H "content-type:application/json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.userToken }}' -d '{"event":"APPROVE"}'
       - run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
       - run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.appToken }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
-
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
-        run: |
-          git pull --tags
-          git config --local user.name 'Zwiqler94'
-          git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
-          npm ci
-          npm version major
-          git push --tags
-          curl --request POST \
-          --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
-          --header 'authorization: Bearer ${{ secrets.GH_TOKEN }}' \
-          --header 'content-type: application/json' \
-          -d '{"event":"APPROVE"}'          
-          git push
   skip-no-deploy:
     runs-on: ubuntu-latest
     if: ${{ github.event.action == 'opened' || github.event.action == 'synchronize'}}
