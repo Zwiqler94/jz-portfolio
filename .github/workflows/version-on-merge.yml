@@ -10,8 +10,12 @@ env:
 jobs:
   check-tokens:
     runs-on: ubuntu-latest
+    outputs:
+      appToken: ${{ steps.checkToken.outputs.appToken }}
+      userToken: ${{ steps.checkToken.outputs.userToken }}
     steps:
-      - uses: Zwiqler94/GH-Actions@v0.3.2
+      - id: checkToken
+        uses: Zwiqler94/GH-Actions@v0.3.2
         with:
           token: ${{ secrets.USER_ACCESS_TOKEN }}
           appId: ${{ secrets.APP_ID }}
