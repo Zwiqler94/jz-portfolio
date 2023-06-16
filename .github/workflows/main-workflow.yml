@@ -9,10 +9,7 @@ on:
       - opened
       - closed
       - synchronize
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+permissions: write-all
 jobs:
   version:
     uses: ./.github/workflows/version-on-merge.yml
