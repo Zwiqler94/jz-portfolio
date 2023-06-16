@@ -1,4 +1,4 @@
-name: Version On Merge
+name: Version On Merge v2
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-versioning
 on:
