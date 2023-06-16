@@ -1,4 +1,4 @@
-name: Version On Merge 
+name: Version On Merge
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-versioning
 on:
@@ -7,17 +7,23 @@ permissions: write-all
 env:
   commitMsg: ""
 jobs:
+  check-tokens:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Zwiqler94/GH-Actions@v0.3.2
   call-verify-commit:
     if: ${{ github.event.pull_request.merged == true }}
     uses: ./.github/workflows/verify-commit.yml
   version-patch:
     if: ${{ github.event.pull_request.merged == true }}
-    needs: call-verify-commit
+    needs: [call-verify-commit, check-tokens]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
         if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
         uses: actions/checkout@v3
+        with:
+          token: ${{ needs.check-tokens.outputs.appToken }}
       - name: Use Node.js 18
         if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
         uses: actions/setup-node@v3
@@ -27,11 +33,16 @@ jobs:
       - name: version
         if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
         run: |
+          git remote set-url origin https://github-actions:${{ needs.check-tokens.outputs.appToken }}@github.com/Zwiqler94/GH-Actions.git
           git pull --tags
-          git config --local user.name 'Zwiqler94'
-          git config --local user.email '10226084+Zwiqler94@users.noreply.github.com'
+          git config --local user.name 'github-actions'
+          git config --local user.email 'github-actions@github.com'
+          git config --local push.autoSetupRemote true
+          git checkout -b "${{ github.repository.head_ref }}"
           npm ci
           npm version patch
+          git add .
+          git commit -m
           git push --tags
           curl --request POST \
           --url https://api.github.com/repos/${{github.repository}}/pulls/${{github.event.number}}/reviews \
@@ -41,7 +52,7 @@ jobs:
           git push
   version-minor:
     if: ${{ github.event.pull_request.merged == true }}
-    needs: call-verify-commit
+    needs: [call-verify-commit, check-tokens]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -70,7 +81,7 @@ jobs:
           git push
   version-major:
     if: ${{ github.event.pull_request.merged == true }}
-    needs: call-verify-commit
+    needs: [call-verify-commit, check-tokens]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
