@@ -12,6 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: Zwiqler94/GH-Actions@v0.3.2
+        with:
+          token: ${{ secrets.USER_ACCESS_TOKEN }}
+          appId: ${{ secrets.APP_ID }}
+          privateKey: ${{ secrets.APP_PRIVATE_KEY }}
+          clientId: ${{ secrets.APP_CLIENT_ID }}
+          clientSecret: ${{ secrets.APP_CLIENT_SECRET }}
+          userRefreshToken: ${{ secrets.USER_REFRESH_TOKEN }}
   call-verify-commit:
     if: ${{ github.event.pull_request.merged == true }}
     uses: ./.github/workflows/verify-commit.yml
