@@ -46,7 +46,7 @@ jobs:
       - name: version
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
         run: |
-          git remote set-url origin https://github-actions[bot]:${{ secrets.APP_ACCESS_TOKEN }}@github.com/Zwiqler94/GH-Actions.git
+          git remote set-url origin https://github-actions[bot]:${{ secrets.APP_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git
           git pull --tags
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
@@ -106,7 +106,7 @@ jobs:
       - name: version
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
         run: |
-          git remote set-url origin https://github-actions[bot]:${{ secrets.APP_ACCESS_TOKEN }}@github.com/Zwiqler94/GH-Actions.git
+          git remote set-url origin https://github-actions[bot]:${{ secrets.APP_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git
           git pull --tags
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
@@ -166,7 +166,7 @@ jobs:
       - name: version
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
         run: |
-          git remote set-url origin https://github-actions[bot]:${{ secrets.APP_ACCESS_TOKEN }}@github.com/Zwiqler94/GH-Actions.git
+          git remote set-url origin https://github-actions[bot]:${{ secrets.APP_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git
           git pull --tags
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
