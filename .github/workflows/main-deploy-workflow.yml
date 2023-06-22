@@ -3,10 +3,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-deployment
   cancel-in-progress: true
 on: 
-  workflow_run:
-    workflows: [Version]
-    types:
-      - completed
+  workflow_call:
 jobs:
     deploy-dev-pr-preview:
       if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened')  && github.base_ref == 'development' }}
@@ -40,6 +37,7 @@ jobs:
               echo "Deploy Failed"
               exit 1
             elif [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'success' || '${{ needs.deploy-prod-pr-preview.result }}' == 'success' || '${{ needs.deploy-dev.result }}' == 'success' || '${{ needs.deploy-prod.result }}' == 'success' ]]; then
+              echo "Deployed Successfully"
               exit 0
             else
               exit 1
