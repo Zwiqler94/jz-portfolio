@@ -1,0 +1,57 @@
+name: Workflow Orchestrator v3
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-orchestrator
+  cancel-in-progress: true
+on:
+  pull_request_target:
+    branches: ["*", "development", "main"]
+    types:
+      - opened
+      - closed
+      - synchronize
+permissions: write-all
+jobs:
+  version:
+    uses: ./.github/workflows/version-on-merge.yml
+    secrets: inherit
+  deploy-dev-pr-preview:
+    needs: ["version"]
+    if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened')  && github.base_ref == 'development' }}
+    uses: ./.github/workflows/firebase-hosting-pull-request-development.yml
+    secrets: inherit
+  deploy-prod-pr-preview:
+    needs: ["version"]
+    if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened') && github.base_ref == 'main' }}
+    uses: ./.github/workflows/firebase-hosting-pull-request.yml
+    secrets: inherit
+  deploy-dev:
+    needs: ["version"]
+    if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened')  && github.base_ref == 'development'}}
+    uses: ./.github/workflows/firebase-hosting-merge-development.yml
+    secrets: inherit
+  deploy-prod:
+    needs: ["version"]
+    if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened') && github.base_ref == 'main' }}
+    uses: ./.github/workflows/firebase-hosting-merge.yml
+    secrets: inherit
+  check-deploy-job:
+    runs-on: ubuntu-latest
+    needs:
+      [
+        "version",
+        "deploy-dev-pr-preview",
+        "deploy-prod-pr-preview",
+        "deploy-dev",
+        "deploy-prod",
+      ]
+    if: ${{ always() }}
+    steps:
+      - run: |
+          if [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'failure' && '${{ needs.deploy-prod-pr-preview.result }}' == 'failure' && '${{ needs.deploy-dev.result }}' == 'failure' && '${{ needs.deploy-prod.result }}' == 'failure' ]]; then
+             echo "Deploy Failed"
+             exit 1
+          elif [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'success' || '${{ needs.deploy-prod-pr-preview.result }}' == 'success' || '${{ needs.deploy-dev.result }}' == 'success' || '${{ needs.deploy-prod.result }}' == 'success' ]]; then
+             exit 0
+          else
+            exit 1
+          fi

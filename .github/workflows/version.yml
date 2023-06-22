@@ -1,0 +1,179 @@
+name: Version
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-versioning
+on:
+  workflow_call:
+permissions: write-all
+env:
+  commitMsg: ""
+  REPO_URL: "https://api.github.com/repos/${{ github.repository }}"
+jobs:
+  check-tokens:
+    runs-on: ubuntu-latest
+    outputs:
+      appToken: ${{ steps.checkToken.outputs.appToken }}
+      userToken: ${{ steps.checkToken.outputs.userToken }}
+    steps:
+      - id: checkToken
+        uses: Zwiqler94/GH-Actions@v0.4.0
+        with:
+          token: ${{ secrets.USER_ACCESS_TOKEN }}
+          appId: ${{ secrets.APP_ID }}
+          privateKey: ${{ secrets.APP_PRIVATE_KEY }}
+          clientId: ${{ secrets.APP_CLIENT_ID }}
+          clientSecret: ${{ secrets.APP_CLIENT_SECRET }}
+          userRefreshToken: ${{ secrets.USER_REFRESH_TOKEN }}
+  verify-commit:
+    if: ${{ github.event.pull_request.merged == true }}
+    needs: [check-tokens]
+    uses: ./.github/workflows/verify-commit.yml
+  version-patch:
+    if: ${{ github.event.pull_request.merged == true }}
+    needs: [verify-commit, check-tokens]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.APP_ACCESS_TOKEN }}
+      - name: Use Node.js 18
+        if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - name: version
+        if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
+        run: |
+          git remote set-url origin https://github-actions:${{ secrets.APP_ACCESS_TOKEN }}@github.com/Zwiqler94/GH-Actions.git
+          git pull --tags
+          git config --local user.name 'github-actions'
+          git config --local user.email 'github-actions@github.com'
+          git config --local push.autoSetupRemote true
+          git checkout -b "${{ github.repository.head_ref }}"
+          npm ci
+          npm version patch
+          git commit -m "version"
+          git push
+          git push --tags
+      - run: echo "PULL_URL="${{ env.REPO_URL }}/pulls"" >> "$GITHUB_ENV"
+      - run: echo "-URL-> ${{ env.PULL_URL }}"
+      - run: echo "JSON="{\"title\":\"Amazing new feature 3\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.repository.head_ref }}"\",\"base\":\"main\"}"" >> "$GITHUB_ENV"
+      - run: echo "-JSON-> ${{ env.JSON }}"
+      - run: echo "PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" -H "Accept:application/vnd.github+json" -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}"  -H "X-GitHub-Api-Version:2022-11-28"  -d ${{ toJson(env.JSON) }} | jq -r '.number')" >> "$GITHUB_ENV"
+      - run: echo "-Curl-> ${{ env.PR_NUM }}"
+      - run: echo "APPROVAL_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/reviews"" >> "$GITHUB_ENV"
+      - run: curl --request POST "${{ env.APPROVAL_URL }}"  -H "content-type:application/json" -H 'Authorization:Bearer ${{ secrets.USER_ACCESS_TOKEN }}' -d '{"event":"APPROVE"}'
+      - run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
+      - run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
+  version-minor:
+    if: ${{ github.event.pull_request.merged == true }}
+    needs: [verify-commit, check-tokens]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
+        uses: actions/checkout@v3
+        with:
+          token: ${{ needs.check-tokens.outputs.appToken }}
+      - name: Use Node.js 18
+        if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - name: version
+        if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
+        run: |
+          git remote set-url origin https://github-actions:${{ needs.check-tokens.outputs.appToken }}@github.com/Zwiqler94/GH-Actions.git
+          git pull --tags
+          git config --local user.name 'github-actions'
+          git config --local user.email 'github-actions@github.com'
+          git config --local push.autoSetupRemote true
+          git checkout -b "${{ github.repository.head_ref }}"
+          npm ci
+          npm version patch
+          git commit -m "version"
+          git push
+          git push --tags
+      - run: echo "PULL_URL="${{ env.REPO_URL }}/pulls"" >> "$GITHUB_ENV"
+      - run: echo "-URL-> ${{ env.PULL_URL }}"
+      - run: echo "JSON="{\"title\":\"Amazing new feature 3\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.repository.head_ref }}"\",\"base\":\"main\"}"" >> "$GITHUB_ENV"
+      - run: echo "-JSON-> ${{ env.JSON }}"
+      - run: echo "PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" -H "Accept:application/vnd.github+json" -H "Authorization:Bearer ${{ needs.check-tokens.outputs.appToken }}"  -H "X-GitHub-Api-Version:2022-11-28"  -d ${{ toJson(env.JSON) }} | jq -r '.number')" >> "$GITHUB_ENV"
+      - run: echo "-Curl-> ${{ env.PR_NUM }}"
+      - run: echo "APPROVAL_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/reviews"" >> "$GITHUB_ENV"
+      - run: curl --request POST "${{ env.APPROVAL_URL }}"  -H "content-type:application/json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.userToken }}' -d '{"event":"APPROVE"}'
+      - run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
+      - run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.appToken }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
+  version-major:
+    if: ${{ github.event.pull_request.merged == true }}
+    needs: [verify-commit, check-tokens]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
+        uses: actions/checkout@v3
+        with:
+          token: ${{ needs.check-tokens.outputs.appToken }}
+      - name: Use Node.js 18
+        if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - name: version
+        if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
+        run: |
+          git remote set-url origin https://github-actions:${{ needs.check-tokens.outputs.appToken }}@github.com/Zwiqler94/GH-Actions.git
+          git pull --tags
+          git config --local user.name 'github-actions'
+          git config --local user.email 'github-actions@github.com'
+          git config --local push.autoSetupRemote true
+          git checkout -b "${{ github.repository.head_ref }}"
+          npm ci
+          npm version patch
+          git commit -m "version"
+          git push
+          git push --tags
+      - run: echo "PULL_URL="${{ env.REPO_URL }}/pulls"" >> "$GITHUB_ENV"
+      - run: echo "-URL-> ${{ env.PULL_URL }}"
+      - run: echo "JSON="{\"title\":\"Amazing new feature 3\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.repository.head_ref }}"\",\"base\":\"main\"}"" >> "$GITHUB_ENV"
+      - run: echo "-JSON-> ${{ env.JSON }}"
+      - run: echo "PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" -H "Accept:application/vnd.github+json" -H "Authorization:Bearer ${{ needs.check-tokens.outputs.appToken }}"  -H "X-GitHub-Api-Version:2022-11-28"  -d ${{ toJson(env.JSON) }} | jq -r '.number')" >> "$GITHUB_ENV"
+      - run: echo "-Curl-> ${{ env.PR_NUM }}"
+      - run: echo "APPROVAL_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/reviews"" >> "$GITHUB_ENV"
+      - run: curl --request POST "${{ env.APPROVAL_URL }}"  -H "content-type:application/json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.userToken }}' -d '{"event":"APPROVE"}'
+      - run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
+      - run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.appToken }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
+  skip-no-deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.action == 'opened' || github.event.action == 'synchronize'}}
+    steps:
+      - run: |
+          echo "::notice:: skip versioning because we are not deploying"
+          exit 0
+  check-version-job:
+    runs-on: ubuntu-latest
+    needs:
+      [
+        check-tokens,
+        verify-commit,
+        version-patch,
+        version-minor,
+        version-major,
+        skip-no-deploy,
+      ]
+    if: ${{ always() }}
+    steps:
+      - run: |
+          if [[ '${{ needs.check-tokens.result }}' == 'failure' && '${{ needs.veriy-commit.result }}' == 'failure' && '${{ needs.version-patch.result }}' == 'failure' && '${{ needs.version-minor.result }}' == 'failure' && '${{ needs.version-major.result }}' == 'failure' && '${{ needs.skip-no-deploy.result }}' == 'failure' ]]; then
+            echo "Version Failed"
+            exit 1
+          elif [[ '${{ needs.version-patch.result }}' == 'success' || '${{ needs.version-minor.result }}' == 'success' || '${{ needs.version-major.result }}' == 'success' || '${{ needs.skip-no-deploy.result }}' == 'success' ]]; then
+            echo "Version Succeeded"
+            exit 0
+          else
+            exit 1
+          fi
