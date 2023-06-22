@@ -3,25 +3,24 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-deployment
   cancel-in-progress: true
 on: 
-  workflow_call:
+  workflow_run:
+    workflows: [Version]
+    types:
+      - completed
 jobs:
     deploy-dev-pr-preview:
-      needs: ["version"]
       if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened')  && github.base_ref == 'development' }}
       uses: ./.github/workflows/deploy/firebase-hosting-pull-request-development.yml
       secrets: inherit
     deploy-prod-pr-preview:
-      needs: ["version"]
       if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened') && github.base_ref == 'main' }}
       uses: ./.github/workflows/deploy/firebase-hosting-pull-request.yml
       secrets: inherit
     deploy-dev:
-      needs: ["version"]
       if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened')  && github.base_ref == 'development'}}
       uses: ./.github/workflows/deploy/firebase-hosting-merge-development.yml
       secrets: inherit
     deploy-prod:
-      needs: ["version"]
       if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened') && github.base_ref == 'main' }}
       uses: ./.github/workflows/deploy/firebase-hosting-merge.yml
       secrets: inherit
@@ -29,7 +28,6 @@ jobs:
       runs-on: ubuntu-latest
       needs:
         [
-          "version",
           "deploy-dev-pr-preview",
           "deploy-prod-pr-preview",
           "deploy-dev",
