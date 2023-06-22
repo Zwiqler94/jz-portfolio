@@ -26,25 +26,25 @@ jobs:
   verify-commit:
     if: ${{ github.event.pull_request.merged == true }}
     needs: [check-tokens]
-    uses: ./.github/workflows/version/verify-commit.yml
+    uses: ./.github/workflows/verify-commit.yml
   version-patch:
     if: ${{ github.event.pull_request.merged == true }}
-    needs: [call-verify-commit, check-tokens]
+    needs: [verify-commit, check-tokens]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
+        if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 18
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
+        if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
       - name: version
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'patch' }}
+        if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
         run: |
           git remote set-url origin https://github-actions:${{ secrets.APP_ACCESS_TOKEN }}@github.com/Zwiqler94/GH-Actions.git
           git pull --tags
@@ -69,22 +69,22 @@ jobs:
       - run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
   version-minor:
     if: ${{ github.event.pull_request.merged == true }}
-    needs: [call-verify-commit, check-tokens]
+    needs: [verify-commit, check-tokens]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
+        if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
         uses: actions/checkout@v3
         with:
           token: ${{ needs.check-tokens.outputs.appToken }}
       - name: Use Node.js 18
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
+        if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
       - name: version
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'minor' }}
+        if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
         run: |
           git remote set-url origin https://github-actions:${{ needs.check-tokens.outputs.appToken }}@github.com/Zwiqler94/GH-Actions.git
           git pull --tags
@@ -109,22 +109,22 @@ jobs:
       - run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ needs.check-tokens.outputs.appToken }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
   version-major:
     if: ${{ github.event.pull_request.merged == true }}
-    needs: [call-verify-commit, check-tokens]
+    needs: [verify-commit, check-tokens]
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
+        if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
         uses: actions/checkout@v3
         with:
           token: ${{ needs.check-tokens.outputs.appToken }}
       - name: Use Node.js 18
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
+        if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "npm"
       - name: version
-        if: ${{ needs.call-verify-commit.outputs.versionType  == 'major' }}
+        if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
         run: |
           git remote set-url origin https://github-actions:${{ needs.check-tokens.outputs.appToken }}@github.com/Zwiqler94/GH-Actions.git
           git pull --tags

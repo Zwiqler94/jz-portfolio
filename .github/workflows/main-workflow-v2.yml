@@ -12,8 +12,5 @@ on:
 permissions: write-all
 jobs:
   version:
-    uses: ./.github/workflows/version/version.yml
+    uses: ./.github/workflows/version.yml
     secrets: inherit
-  # deploy:
-  #   uses: ./.github/workflows/deploy/main-deploy-workflow.yml
-  #   secrets: inherit

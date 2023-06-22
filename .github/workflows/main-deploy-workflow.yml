@@ -10,19 +10,19 @@ on:
 jobs:
     deploy-dev-pr-preview:
       if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened')  && github.base_ref == 'development' }}
-      uses: ./.github/workflows/deploy/firebase-hosting-pull-request-development.yml
+      uses: ./.github/workflows/firebase-hosting-pull-request-development.yml
       secrets: inherit
     deploy-prod-pr-preview:
       if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened') && github.base_ref == 'main' }}
-      uses: ./.github/workflows/deploy/firebase-hosting-pull-request.yml
+      uses: ./.github/workflows/firebase-hosting-pull-request.yml
       secrets: inherit
     deploy-dev:
       if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened')  && github.base_ref == 'development'}}
-      uses: ./.github/workflows/deploy/firebase-hosting-merge-development.yml
+      uses: ./.github/workflows/firebase-hosting-merge-development.yml
       secrets: inherit
     deploy-prod:
       if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened') && github.base_ref == 'main' }}
-      uses: ./.github/workflows/deploy/firebase-hosting-merge.yml
+      uses: ./.github/workflows/firebase-hosting-merge.yml
       secrets: inherit
     check-deploy-job:
       runs-on: ubuntu-latest
