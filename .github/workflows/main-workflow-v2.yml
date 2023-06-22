@@ -14,3 +14,6 @@ jobs:
   version:
     uses: ./.github/workflows/version.yml
     secrets: inherit
+  deploy:
+    uses: ./.github/workflows/main-deploy-workflow.yml
+    secrets: inherit
