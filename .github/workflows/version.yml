@@ -51,7 +51,7 @@ jobs:
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
           git config --local push.autoSetupRemote true
-          git checkout -b "${{ github.repository.head_ref }}"
+          git checkout -b "${{github.head_ref }}"
           npm ci
           npm version patch
           git commit -m "version"
@@ -65,7 +65,7 @@ jobs:
         run: echo "-URL-> ${{ env.PULL_URL }}"
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
-        run: echo "JSON="{\"title\":\"Amazing new feature patch\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.repository.head_ref }}"\",\"base\":\"main\"}"" >> "$GITHUB_ENV"
+        run: echo "JSON="{\"title\":\"Amazing new feature patch\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.head_ref }}"\",\"base\":\"main\"}"" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
         run: echo "-JSON-> ${{ env.JSON }}"
@@ -111,7 +111,7 @@ jobs:
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
           git config --local push.autoSetupRemote true
-          git checkout -b "${{ github.repository.head_ref }}"
+          git checkout -b "${{github.head_ref }}"
           npm ci
           npm version minor
           git commit -m "version"
@@ -125,7 +125,7 @@ jobs:
         run: echo "-URL-> ${{ env.PULL_URL }}"
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
-        run: echo "JSON="{\"title\":\"Amazing new feature minor\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.repository.head_ref }}"\",\"base\":\"main\"}"" >> "$GITHUB_ENV"
+        run: echo "JSON="{\"title\":\"Amazing new feature minor\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{github.head_ref }}"\",\"base\":\"main\"}"" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
         run: echo "-JSON-> ${{ env.JSON }}"
@@ -171,7 +171,7 @@ jobs:
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
           git config --local push.autoSetupRemote true
-          git checkout -b "${{ github.repository.head_ref }}"
+          git checkout -b "${{github.head_ref }}"
           npm ci
           npm version major
           git commit -m "version"
@@ -185,7 +185,7 @@ jobs:
         run: echo "-URL-> ${{ env.PULL_URL }}"
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
-        run: echo "JSON="{\"title\":\"Amazing new feature major\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.repository.head_ref }}"\",\"base\":\"main\"}"" >> "$GITHUB_ENV"
+        run: echo "JSON="{\"title\":\"Amazing new feature major\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{github.head_ref }}"\",\"base\":\"main\"}"" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
         run: echo "-JSON-> ${{ env.JSON }}"
