@@ -1,3 +1,8 @@
+## <small>2.1.1 (2023-06-23)</small>
+
+
+
+
 ## 2.1.0 (2023-06-23)
 
 * ci: add back auth ([c7bd645](https://github.com/Zwiqler94/jz-portfolio/commit/c7bd645))
