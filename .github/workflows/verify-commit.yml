@@ -54,7 +54,7 @@ jobs:
               echo "versionType=patch" >> "$GITHUB_OUTPUT"
               echo "versionType=patch"
               exit 0
-          elif [[ $commitMsg =~ ^version(.|\s)+$ ]]
+          elif [[ $commitMsg =~ ^version(.|\s)+$ ]]; then
               echo "versionType=stop" >> "$GITHUB_OUTPUT"
               echo "already versioned"
               exit 0
