@@ -1,4 +1,4 @@
-name: Workflow Orchestrator v3
+name: Workflow Orchestrator v2
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-orchestrator
   cancel-in-progress: true
