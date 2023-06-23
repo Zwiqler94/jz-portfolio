@@ -85,7 +85,7 @@ jobs:
         run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
       - name: request Merge
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
-        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
+        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"version","commit_message":"Add a new value to the merge_method enum"}'
   version-minor:
     if: ${{ github.event.pull_request.merged == true }}
     needs: [verify-commit, check-tokens]
@@ -144,7 +144,7 @@ jobs:
         run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
       - name: request Merge
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
-        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
+        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"version","commit_message":"Add a new value to the merge_method enum"}'
   version-major:
     if: ${{ github.event.pull_request.merged == true }}
     needs: [verify-commit, check-tokens]
@@ -203,7 +203,7 @@ jobs:
         run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
       - name: request Merge
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
-        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
+        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"version","commit_message":"Add a new value to the merge_method enum"}'
   skip-no-deploy:
     runs-on: ubuntu-latest
     if: ${{ github.event.action == 'opened' || github.event.action == 'synchronize'}}
@@ -211,6 +211,14 @@ jobs:
       - run: |
           echo "::notice:: skip versioning because we are not deploying"
           exit 0
+  skip-already-versioned:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.merged == true }}
+    steps:
+      - if: ${{ needs.verify-commit.outputs.versionType  == 'stop' }}
+        run: |
+            echo "::notice:: skip versioning because been there done that"
+            exit 0
   check-version-job:
     runs-on: ubuntu-latest
     needs:
@@ -221,15 +229,19 @@ jobs:
         version-minor,
         version-major,
         skip-no-deploy,
+        skip-already-versioned,
       ]
     if: ${{ always() }}
     steps:
       - run: |
-          if [[ '${{ needs.check-tokens.result }}' == 'failure' && '${{ needs.veriy-commit.result }}' == 'failure' && '${{ needs.version-patch.result }}' == 'failure' && '${{ needs.version-minor.result }}' == 'failure' && '${{ needs.version-major.result }}' == 'failure' && '${{ needs.skip-no-deploy.result }}' == 'failure' ]]; then
+          if [[ '${{ needs.check-tokens.result }}' == 'failure' && '${{ needs.verify-commit.result }}' == 'failure' && '${{ needs.version-patch.result }}' == 'failure' && '${{ needs.version-minor.result }}' == 'failure' && '${{ needs.version-major.result }}' == 'failure' && '${{ needs.skip-no-deploy.result }}' == 'failure' && '${{ needs.skip-already-versioned.result }}' == 'failure' ]]; then
             echo "Version Failed"
             exit 1
-          elif [[ '${{ needs.version-patch.result }}' == 'success' || '${{ needs.version-minor.result }}' == 'success' || '${{ needs.version-major.result }}' == 'success' || '${{ needs.skip-no-deploy.result }}' == 'success' ]]; then
+          elif [[ '${{ needs.version-patch.result }}' == 'success' || '${{ needs.version-minor.result }}' == 'success' || '${{ needs.version-major.result }}' == 'success' ]]; then
             echo "Version Succeeded"
+            exit 0
+          elif [[ '${{ needs.skip-no-deploy.result }}' == 'success' || '${{ needs.skip-already-versioned.result }}' == 'success' ]]; then
+            echo "Version Skipped"
             exit 0
           else
             exit 1
