@@ -1,0 +1,43 @@
+name: Deployment Orchestrator
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-deployment
+on: 
+  workflow_call:
+jobs:
+    deploy-dev-pr-preview:
+      if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened')  && github.base_ref == 'development' }}
+      uses: ./.github/workflows/firebase-hosting-pull-request-development.yml
+      secrets: inherit
+    deploy-prod-pr-preview:
+      if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened') && github.base_ref == 'main' }}
+      uses: ./.github/workflows/firebase-hosting-pull-request.yml
+      secrets: inherit
+    deploy-dev:
+      if: ${{ github.event.pull_request.merged == true  && github.base_ref == 'development'}}
+      uses: ./.github/workflows/firebase-hosting-merge-development.yml
+      secrets: inherit
+    deploy-prod:
+      if: ${{ github.event.pull_request.merged == true && github.base_ref == 'main' }}
+      uses: ./.github/workflows/firebase-hosting-merge.yml
+      secrets: inherit
+    check-deploy-job:
+      runs-on: ubuntu-latest
+      needs:
+        [
+          "deploy-dev-pr-preview",
+          "deploy-prod-pr-preview",
+          "deploy-dev",
+          "deploy-prod",
+        ]
+      if: ${{ always() }}
+      steps:
+        - run: |
+            if [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'failure' && '${{ needs.deploy-prod-pr-preview.result }}' == 'failure' && '${{ needs.deploy-dev.result }}' == 'failure' && '${{ needs.deploy-prod.result }}' == 'failure' ]]; then
+              echo "Deploy Failed"
+              exit 1
+            elif [[ '${{ needs.deploy-dev-pr-preview.result }}' == 'success' || '${{ needs.deploy-prod-pr-preview.result }}' == 'success' || '${{ needs.deploy-dev.result }}' == 'success' || '${{ needs.deploy-prod.result }}' == 'success' ]]; then
+              echo "Deployed Successfully"
+              exit 0
+            else
+              exit 1
+            fi

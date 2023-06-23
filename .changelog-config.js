@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = {
   types: [
     { type: "feat", section: "Features" },

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable no-underscore-dangle */
-import { ApplicationRef, Injectable, OnInit } from '@angular/core';
-import { SwPush, SwUpdate, VersionReadyEvent } from '@angular/service-worker';
-import { concat, filter, first, interval, Subject } from 'rxjs';
+import { ApplicationRef, Injectable } from '@angular/core';
+import { SwPush, SwUpdate } from '@angular/service-worker';
+import { concat, first, interval } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

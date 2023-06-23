@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "jz-portfolio"
+    "default": "jlz-portfolio"
   },
   "targets": {
     "jlz-portfolio": {

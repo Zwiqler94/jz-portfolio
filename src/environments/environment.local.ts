@@ -1,12 +1,12 @@
 export const environment = {
   appUrl: 'jlz-portfolio.web.app',
-  appCheckDebug: false,
+  appCheckDebug: '4ad6c24e-aab2-40b5-9cd2-f7fe4291db01',
   secretService:
     'https://secretservice2ndgen-wa22s5z3va-uc.a.run.app/api/v2/secrets',
   secretServiceLocal:
     'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService2ndGen/api/v2/secrets',
-  production: true,
-  local: false,
+  production: false,
+  local: true,
   firebaseConfig: {
     apiKey: 'AIzaSyDuG6ojn89_8rvp4pSVpcmBwvT6D1zunQY',
     authDomain: 'jlz-portfolio.firebaseapp.com',
@@ -18,3 +18,12 @@ export const environment = {
   },
   recaptchaSiteKey: '6LdV5L8jAAAAAK1GaBQkmOq37fdxVQszw5x_iIV3',
 };
+
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+import 'zone.js/plugins/zone-error'; // Included with Angular CLI.

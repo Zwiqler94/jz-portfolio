@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable no-underscore-dangle */
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
 import { listAll, ListResult, StorageReference } from 'firebase/storage';
-import { Observable } from 'rxjs';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 // import { cache } from 'src/main';
 // import { MediaCacheModel } from 'src/models/cache.model';
@@ -13,7 +12,7 @@ import { ServiceWorkerService } from 'src/app/services/service-worker/service-wo
   templateUrl: './hobbies.component.html',
   styleUrls: ['./hobbies.component.scss'],
 })
-export class HobbiesComponent implements OnInit {
+export class HobbiesComponent {
   constructor(private storage: Storage, private sw: ServiceWorkerService) {
     this.setupVideos();
     this.setUpCarouselImages();
@@ -25,8 +24,6 @@ export class HobbiesComponent implements OnInit {
     //   console.log('Hit: media retrieved in cache');
     // });
   }
-
-  ngOnInit(): void {}
 
   private async setUpPhotographyImages() {
     try {
