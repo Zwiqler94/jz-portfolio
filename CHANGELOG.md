@@ -1,3 +1,9 @@
+## <small>2.0.5 (2023-06-23)</small>
+
+* chore: ughhghg (#255) ([25ec2cd](https://github.com/Zwiqler94/jz-portfolio/commit/25ec2cd)), closes [#255](https://github.com/Zwiqler94/jz-portfolio/issues/255) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249) [#252](https://github.com/Zwiqler94/jz-portfolio/issues/252) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249)
+
+
+
 ## <small>2.0.4 (2023-06-23)</small>
 
 * ci: update main-workflow-v2.yml ([7ce8d54](https://github.com/Zwiqler94/jz-portfolio/commit/7ce8d54))
