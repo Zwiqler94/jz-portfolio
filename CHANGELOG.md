@@ -1,3 +1,9 @@
+## <small>2.0.4 (2023-06-23)</small>
+
+* ci: update main-workflow-v2.yml ([7ce8d54](https://github.com/Zwiqler94/jz-portfolio/commit/7ce8d54))
+
+
+
 ## <small>2.0.3 (2023-06-23)</small>
 
 * chore: last test hopefully (#252) ([52899ec](https://github.com/Zwiqler94/jz-portfolio/commit/52899ec)), closes [#252](https://github.com/Zwiqler94/jz-portfolio/issues/252) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249)
