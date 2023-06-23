@@ -1,3 +1,94 @@
+## 2.1.0 (2023-06-23)
+
+* ci: add back auth ([c7bd645](https://github.com/Zwiqler94/jz-portfolio/commit/c7bd645))
+* ci: add missing outputs ([01593ca](https://github.com/Zwiqler94/jz-portfolio/commit/01593ca))
+* ci: Finalize Github Actions (#196) ([dcb8a46](https://github.com/Zwiqler94/jz-portfolio/commit/dcb8a46)), closes [#196](https://github.com/Zwiqler94/jz-portfolio/issues/196) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+* ci: Finalize Github Actions (#196) ([de33eef](https://github.com/Zwiqler94/jz-portfolio/commit/de33eef)), closes [#196](https://github.com/Zwiqler94/jz-portfolio/issues/196) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+* ci: Test 3 Million (#209) ([f214083](https://github.com/Zwiqler94/jz-portfolio/commit/f214083)), closes [#209](https://github.com/Zwiqler94/jz-portfolio/issues/209)
+* ci: Test 3 Million (#209) ([bd5cfd0](https://github.com/Zwiqler94/jz-portfolio/commit/bd5cfd0)), closes [#209](https://github.com/Zwiqler94/jz-portfolio/issues/209)
+* ci: test new workflow (#237) ([56d5df7](https://github.com/Zwiqler94/jz-portfolio/commit/56d5df7)), closes [#237](https://github.com/Zwiqler94/jz-portfolio/issues/237)
+* ci: test new workflow (#240) ([3fa129d](https://github.com/Zwiqler94/jz-portfolio/commit/3fa129d)), closes [#240](https://github.com/Zwiqler94/jz-portfolio/issues/240)
+* ci: test new workflow (#242) ([86b65de](https://github.com/Zwiqler94/jz-portfolio/commit/86b65de)), closes [#242](https://github.com/Zwiqler94/jz-portfolio/issues/242)
+* ci: test new workflow (#243) ([7e6896a](https://github.com/Zwiqler94/jz-portfolio/commit/7e6896a)), closes [#243](https://github.com/Zwiqler94/jz-portfolio/issues/243)
+* ci: test workflow  (#233) ([b2ecdaa](https://github.com/Zwiqler94/jz-portfolio/commit/b2ecdaa)), closes [#233](https://github.com/Zwiqler94/jz-portfolio/issues/233)
+* ci: test workflow (#232) ([5caa3bc](https://github.com/Zwiqler94/jz-portfolio/commit/5caa3bc)), closes [#232](https://github.com/Zwiqler94/jz-portfolio/issues/232)
+* ci: update version-on-merge.yml ([9717a65](https://github.com/Zwiqler94/jz-portfolio/commit/9717a65))
+* ci: update version-on-merge.yml ([84ed98a](https://github.com/Zwiqler94/jz-portfolio/commit/84ed98a))
+* ci: workflow test 1000000000000 (#234) ([c45a6b9](https://github.com/Zwiqler94/jz-portfolio/commit/c45a6b9)), closes [#234](https://github.com/Zwiqler94/jz-portfolio/issues/234)
+* ci: Zwiqler94 readme (#207) ([7488af9](https://github.com/Zwiqler94/jz-portfolio/commit/7488af9)), closes [#207](https://github.com/Zwiqler94/jz-portfolio/issues/207)
+* ci: Zwiqler94 readme (#207) ([a99df97](https://github.com/Zwiqler94/jz-portfolio/commit/a99df97)), closes [#207](https://github.com/Zwiqler94/jz-portfolio/issues/207)
+* ci: Zwiqler94 readme (#208) ([e40a2f9](https://github.com/Zwiqler94/jz-portfolio/commit/e40a2f9)), closes [#208](https://github.com/Zwiqler94/jz-portfolio/issues/208)
+* ci: Zwiqler94 readme (#208) ([e035169](https://github.com/Zwiqler94/jz-portfolio/commit/e035169)), closes [#208](https://github.com/Zwiqler94/jz-portfolio/issues/208)
+* ci(github actions): consolidate workflows ([2570111](https://github.com/Zwiqler94/jz-portfolio/commit/2570111))
+* ci(github actions): consolidate workflows pt.2 ([5f6aae4](https://github.com/Zwiqler94/jz-portfolio/commit/5f6aae4))
+* ci(github actions): fix deploy job ([f8a972b](https://github.com/Zwiqler94/jz-portfolio/commit/f8a972b))
+* ci(github actions): fix file paths ([076ef1d](https://github.com/Zwiqler94/jz-portfolio/commit/076ef1d))
+* ci(github actions): make deploy job dependent on version job ([9e2fb33](https://github.com/Zwiqler94/jz-portfolio/commit/9e2fb33))
+* ci(github actions): move files out of subdirectories ([aeb3d5f](https://github.com/Zwiqler94/jz-portfolio/commit/aeb3d5f))
+* ci(github actions): one last fix (#202) ([b592377](https://github.com/Zwiqler94/jz-portfolio/commit/b592377)), closes [#202](https://github.com/Zwiqler94/jz-portfolio/issues/202) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+* ci(github actions): one last fix (#202) ([e16c152](https://github.com/Zwiqler94/jz-portfolio/commit/e16c152)), closes [#202](https://github.com/Zwiqler94/jz-portfolio/issues/202) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+* ci(github actions): push to test actions (#227) ([898d6a8](https://github.com/Zwiqler94/jz-portfolio/commit/898d6a8)), closes [#227](https://github.com/Zwiqler94/jz-portfolio/issues/227)
+* ci(github actions): test again (#228) ([c56f7e9](https://github.com/Zwiqler94/jz-portfolio/commit/c56f7e9)), closes [#228](https://github.com/Zwiqler94/jz-portfolio/issues/228)
+* revert: "New Workflow Test 2 (#230)" (#231) ([904938f](https://github.com/Zwiqler94/jz-portfolio/commit/904938f)), closes [#230](https://github.com/Zwiqler94/jz-portfolio/issues/230) [#231](https://github.com/Zwiqler94/jz-portfolio/issues/231)
+* revert: "Test new workflow (#235)" (#236) ([1bde5ed](https://github.com/Zwiqler94/jz-portfolio/commit/1bde5ed)), closes [#235](https://github.com/Zwiqler94/jz-portfolio/issues/235) [#236](https://github.com/Zwiqler94/jz-portfolio/issues/236)
+* revert: "Test new workflow (#238)" (#239) ([c9f5f9b](https://github.com/Zwiqler94/jz-portfolio/commit/c9f5f9b)), closes [#238](https://github.com/Zwiqler94/jz-portfolio/issues/238) [#239](https://github.com/Zwiqler94/jz-portfolio/issues/239)
+* add inputs ([1128548](https://github.com/Zwiqler94/jz-portfolio/commit/1128548))
+* add permissions to main-workflow ([c73e6ab](https://github.com/Zwiqler94/jz-portfolio/commit/c73e6ab))
+* Auth service new (#218) ([50569c6](https://github.com/Zwiqler94/jz-portfolio/commit/50569c6)), closes [#218](https://github.com/Zwiqler94/jz-portfolio/issues/218) [#114](https://github.com/Zwiqler94/jz-portfolio/issues/114) [#114](https://github.com/Zwiqler94/jz-portfolio/issues/114)
+* Auth service new2 (#220) ([305ddc8](https://github.com/Zwiqler94/jz-portfolio/commit/305ddc8)), closes [#220](https://github.com/Zwiqler94/jz-portfolio/issues/220)
+* Auth service new2 (#221) ([b865647](https://github.com/Zwiqler94/jz-portfolio/commit/b865647)), closes [#221](https://github.com/Zwiqler94/jz-portfolio/issues/221)
+* Custom action test (#211) ([a7b8e16](https://github.com/Zwiqler94/jz-portfolio/commit/a7b8e16)), closes [#211](https://github.com/Zwiqler94/jz-portfolio/issues/211)
+* Dev prev gha test (#191) ([a7561cd](https://github.com/Zwiqler94/jz-portfolio/commit/a7561cd)), closes [#191](https://github.com/Zwiqler94/jz-portfolio/issues/191) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+* Dev prev gha test (#191) ([ffaec7c](https://github.com/Zwiqler94/jz-portfolio/commit/ffaec7c)), closes [#191](https://github.com/Zwiqler94/jz-portfolio/issues/191) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+* Dev prev gha test 2 (#189) ([29b5c97](https://github.com/Zwiqler94/jz-portfolio/commit/29b5c97)), closes [#189](https://github.com/Zwiqler94/jz-portfolio/issues/189) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+* Dev prev gha test 2 (#189) ([34fd479](https://github.com/Zwiqler94/jz-portfolio/commit/34fd479)), closes [#189](https://github.com/Zwiqler94/jz-portfolio/issues/189) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+* Dev prev gha test 3 (#190) ([72a8c88](https://github.com/Zwiqler94/jz-portfolio/commit/72a8c88)), closes [#190](https://github.com/Zwiqler94/jz-portfolio/issues/190) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+* Dev prev gha test 3 (#190) ([1a7a244](https://github.com/Zwiqler94/jz-portfolio/commit/1a7a244)), closes [#190](https://github.com/Zwiqler94/jz-portfolio/issues/190) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+* New workflow test (#229) ([872e02c](https://github.com/Zwiqler94/jz-portfolio/commit/872e02c)), closes [#229](https://github.com/Zwiqler94/jz-portfolio/issues/229)
+* New Workflow Test 2 (#230) ([6fb219d](https://github.com/Zwiqler94/jz-portfolio/commit/6fb219d)), closes [#230](https://github.com/Zwiqler94/jz-portfolio/issues/230)
+* Test new workflow (#235) ([08e5ad4](https://github.com/Zwiqler94/jz-portfolio/commit/08e5ad4)), closes [#235](https://github.com/Zwiqler94/jz-portfolio/issues/235)
+* Test new workflow (#238) ([aaf313e](https://github.com/Zwiqler94/jz-portfolio/commit/aaf313e)), closes [#238](https://github.com/Zwiqler94/jz-portfolio/issues/238)
+* Token Action (#224) ([5e53f79](https://github.com/Zwiqler94/jz-portfolio/commit/5e53f79)), closes [#224](https://github.com/Zwiqler94/jz-portfolio/issues/224) [#114](https://github.com/Zwiqler94/jz-portfolio/issues/114) [#114](https://github.com/Zwiqler94/jz-portfolio/issues/114) [#111](https://github.com/Zwiqler94/jz-portfolio/issues/111) [#111](https://github.com/Zwiqler94/jz-portfolio/issues/111)
+* Workflow Orchestrator Test 1 (#193) ([d29a3d1](https://github.com/Zwiqler94/jz-portfolio/commit/d29a3d1)), closes [#193](https://github.com/Zwiqler94/jz-portfolio/issues/193)
+* Workflow Orchestrator Test 1 (#193) ([373ce2b](https://github.com/Zwiqler94/jz-portfolio/commit/373ce2b)), closes [#193](https://github.com/Zwiqler94/jz-portfolio/issues/193)
+* Zwiqler94 readme (#206) ([3ab8de2](https://github.com/Zwiqler94/jz-portfolio/commit/3ab8de2)), closes [#206](https://github.com/Zwiqler94/jz-portfolio/issues/206)
+* Zwiqler94 readme (#206) ([08f55c7](https://github.com/Zwiqler94/jz-portfolio/commit/08f55c7)), closes [#206](https://github.com/Zwiqler94/jz-portfolio/issues/206)
+* fix(github actions): switch to codeql to default mode ([aa00fe1](https://github.com/Zwiqler94/jz-portfolio/commit/aa00fe1))
+* chore: merge main ([e4ef7f2](https://github.com/Zwiqler94/jz-portfolio/commit/e4ef7f2))
+* chore: test 4 million (#210) ([a323eb9](https://github.com/Zwiqler94/jz-portfolio/commit/a323eb9)), closes [#210](https://github.com/Zwiqler94/jz-portfolio/issues/210)
+* feat: fr ([95b1304](https://github.com/Zwiqler94/jz-portfolio/commit/95b1304))
+* docs: update readme (#205) ([101ee30](https://github.com/Zwiqler94/jz-portfolio/commit/101ee30)), closes [#205](https://github.com/Zwiqler94/jz-portfolio/issues/205)
+* docs: update readme (#205) ([bb4c556](https://github.com/Zwiqler94/jz-portfolio/commit/bb4c556)), closes [#205](https://github.com/Zwiqler94/jz-portfolio/issues/205)
+* docs: update README.md (#204) ([e3cd080](https://github.com/Zwiqler94/jz-portfolio/commit/e3cd080)), closes [#204](https://github.com/Zwiqler94/jz-portfolio/issues/204)
+* docs: update README.md (#204) ([e1c52ca](https://github.com/Zwiqler94/jz-portfolio/commit/e1c52ca)), closes [#204](https://github.com/Zwiqler94/jz-portfolio/issues/204)
+
+
+### BREAKING CHANGE
+
+* refer to
+https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
+
+* fix(cloud functions): add .value to secret params
+
+* refactor(cloud functions): update code to match secret service changes
+
+* style(lint): add lint fixes
+
+* feat(auth): add foundation for auth service
+* refer to
+https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
+
+* fix(cloud functions): add .value to secret params
+
+* refactor(cloud functions): update code to match secret service changes
+
+* style(lint): add lint fixes
+
+* feat(auth): add foundation for auth service
+* users will only be able to use certain features when authenticated
+* users will only be able to use certain features when authenticated
+
+
 ## <small>1.13.3 (2023-05-25)</small>
 
 * ci: 🤪🤪🤪🤪 ([e3fadfb](https://github.com/Zwiqler94/jz-portfolio/commit/e3fadfb))
