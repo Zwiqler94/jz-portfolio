@@ -51,7 +51,7 @@ jobs:
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
           git config --local push.autoSetupRemote true
-          git checkout -b "${{ github.repository.head_ref }}"
+          git checkout -b "${{ github.head_ref }}"
           npm ci
           npm version patch
           git commit -m "version"
@@ -111,7 +111,7 @@ jobs:
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
           git config --local push.autoSetupRemote true
-          git checkout -b "${{ github.repository.head_ref }}"
+          git checkout -b "${{ github.head_ref }}"
           npm ci
           npm version minor
           git commit -m "version"
@@ -171,7 +171,7 @@ jobs:
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
           git config --local push.autoSetupRemote true
-          git checkout -b "${{ github.repository.head_ref }}"
+          git checkout -b "${{ github.head_ref }}"
           npm ci
           npm version major
           git commit -m "version"
