@@ -10,7 +10,7 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.merged == true }}
+    if: ${{ (github.event.action == 'closed' && github.event.pull_request.merged == true) }}
     steps:
       - uses: actions/checkout@v3
       - run: 'npm i && npm run lint:fix && npm run build:prod'
