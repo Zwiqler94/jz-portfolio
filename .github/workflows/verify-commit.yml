@@ -54,6 +54,10 @@ jobs:
               echo "versionType=patch" >> "$GITHUB_OUTPUT"
               echo "versionType=patch"
               exit 0
+          elif [[ $commitMsg =~ ^version(.|\s)+$ ]]; then
+              echo "versionType=stop" >> "$GITHUB_OUTPUT"
+              echo "already versioned"
+              exit 0
           else
               echo "Can't determine version from commit!!!"
               exit 1
