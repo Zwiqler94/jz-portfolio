@@ -1,3 +1,9 @@
+## <small>2.0.2 (2023-06-23)</small>
+
+* chore(release): 2.0.1 :tada: (#249) ([98e67d3](https://github.com/Zwiqler94/jz-portfolio/commit/98e67d3)), closes [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249)
+
+
+
 ## <small>2.0.1 (2023-06-23)</small>
 
 * ci(github actions): fix gha again (#247) ([0c50c0f](https://github.com/Zwiqler94/jz-portfolio/commit/0c50c0f)), closes [#247](https://github.com/Zwiqler94/jz-portfolio/issues/247)
