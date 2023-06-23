@@ -1,7 +1,6 @@
 name: Deployment Orchestrator
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-deployment
-  cancel-in-progress: true
 on: 
   workflow_call:
 jobs:
@@ -14,11 +13,11 @@ jobs:
       uses: ./.github/workflows/firebase-hosting-pull-request.yml
       secrets: inherit
     deploy-dev:
-      if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened')  && github.base_ref == 'development'}}
+      if: ${{ github.event.pull_request.merged == true  && github.base_ref == 'development'}}
       uses: ./.github/workflows/firebase-hosting-merge-development.yml
       secrets: inherit
     deploy-prod:
-      if: ${{ (github.event.action == 'synchronize' || github.event.action == 'opened') && github.base_ref == 'main' }}
+      if: ${{ github.event.pull_request.merged == true && github.base_ref == 'main' }}
       uses: ./.github/workflows/firebase-hosting-merge.yml
       secrets: inherit
     check-deploy-job:

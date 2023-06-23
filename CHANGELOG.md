@@ -1,3 +1,45 @@
+## <small>2.0.5 (2023-06-23)</small>
+
+* chore: ughhghg (#255) ([25ec2cd](https://github.com/Zwiqler94/jz-portfolio/commit/25ec2cd)), closes [#255](https://github.com/Zwiqler94/jz-portfolio/issues/255) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249) [#252](https://github.com/Zwiqler94/jz-portfolio/issues/252) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249)
+
+
+
+## <small>2.0.4 (2023-06-23)</small>
+
+* ci: update main-workflow-v2.yml ([7ce8d54](https://github.com/Zwiqler94/jz-portfolio/commit/7ce8d54))
+
+
+
+## <small>2.0.3 (2023-06-23)</small>
+
+* chore: last test hopefully (#252) ([52899ec](https://github.com/Zwiqler94/jz-portfolio/commit/52899ec)), closes [#252](https://github.com/Zwiqler94/jz-portfolio/issues/252) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249)
+
+
+
+## <small>2.0.2 (2023-06-23)</small>
+
+* chore(release): 2.0.1 :tada: (#249) ([98e67d3](https://github.com/Zwiqler94/jz-portfolio/commit/98e67d3)), closes [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249)
+
+
+
+## <small>2.0.1 (2023-06-23)</small>
+
+* ci(github actions): fix gha again (#247) ([0c50c0f](https://github.com/Zwiqler94/jz-portfolio/commit/0c50c0f)), closes [#247](https://github.com/Zwiqler94/jz-portfolio/issues/247)
+
+
+
+## 2.0.0 (2023-06-23)
+
+* build: fix version in pkg.json ([f0797fb](https://github.com/Zwiqler94/jz-portfolio/commit/f0797fb))
+* ci: new workflow test (#244) ([caa1949](https://github.com/Zwiqler94/jz-portfolio/commit/caa1949)), closes [#244](https://github.com/Zwiqler94/jz-portfolio/issues/244)
+* ci: new workflow test 40 (#245) ([6dfa963](https://github.com/Zwiqler94/jz-portfolio/commit/6dfa963)), closes [#245](https://github.com/Zwiqler94/jz-portfolio/issues/245)
+* ci: remove commit after changelog ([4d7857c](https://github.com/Zwiqler94/jz-portfolio/commit/4d7857c))
+* ci(github actions): fix gha again (#246) ([173f284](https://github.com/Zwiqler94/jz-portfolio/commit/173f284)), closes [#246](https://github.com/Zwiqler94/jz-portfolio/issues/246)
+* revert: "chore(release): 2.1.0 :tada:" ([7c1c76a](https://github.com/Zwiqler94/jz-portfolio/commit/7c1c76a))
+* Revert "ci: test new workflow (#243)" ([5ec70e1](https://github.com/Zwiqler94/jz-portfolio/commit/5ec70e1)), closes [#243](https://github.com/Zwiqler94/jz-portfolio/issues/243)
+
+
+
 ## <small>1.13.3 (2023-05-25)</small>
 
 * ci: 🤪🤪🤪🤪 ([e3fadfb](https://github.com/Zwiqler94/jz-portfolio/commit/e3fadfb))
