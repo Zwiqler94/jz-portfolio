@@ -1,3 +1,9 @@
+## <small>2.0.1 (2023-06-23)</small>
+
+* ci(github actions): fix gha again (#247) ([0c50c0f](https://github.com/Zwiqler94/jz-portfolio/commit/0c50c0f)), closes [#247](https://github.com/Zwiqler94/jz-portfolio/issues/247)
+
+
+
 ## 2.0.0 (2023-06-23)
 
 * build: fix version in pkg.json ([f0797fb](https://github.com/Zwiqler94/jz-portfolio/commit/f0797fb))
