@@ -9,7 +9,6 @@ import { AppCheckTokenResult } from 'firebase/app-check';
 import { error, info } from 'console';
 // import { DateTime, Duration } from 'luxon';
 
-
 interface SecretResponse {
   k: string;
 }

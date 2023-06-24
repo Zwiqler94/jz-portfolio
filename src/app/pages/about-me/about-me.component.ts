@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, VERSION } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-
+import { AfterContentInit, Component, OnInit, VERSION } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 @Component({
   selector: 'app-about-me',
   templateUrl: './about-me.component.html',
@@ -19,6 +18,30 @@ export class AboutMeComponent {
   });
 
   constructor(private fb: FormBuilder, private httpClient: HttpClient) {}
+
+  // ngAfterContentInit(): void {
+  //   const targeto: HTMLDivElement = document.getElementById(
+  //     'creds'
+  //   ) as HTMLDivElement;
+  //   const scriptEl = document.createElement('script');
+  //   scriptEl.src = 'https://cdn.credly.com/assets/utilities/embed.js';
+  //   scriptEl.async = true;
+  //   scriptEl.type = 'text/javascript';
+  //   targeto.appendChild(scriptEl);
+  // }
+
+  onTabChange($event: MatTabChangeEvent) {
+    if ($event.tab.textLabel === 'Credentials') {
+      const scriptEl = document.createElement('script');
+      scriptEl.src = 'https://cdn.credly.com/assets/utilities/embed.js';
+      scriptEl.async = true;
+      scriptEl.type = 'text/javascript';
+      const targeto = document.querySelector(
+        '#credential-div'
+      ) as HTMLDivElement;
+      targeto.append(scriptEl);
+    }
+  }
 
   get angularVersion() {
     return VERSION;
