@@ -56,6 +56,27 @@ export class FeedComponent implements OnInit, AfterViewInit {
       }
     }
   }
+
+  feedSwitchv2(feedSwitch: string): void {
+    const postLimit = 10;
+    if (feedSwitch === 'Main') {
+      
+      for (const post of staticTextPosts) {
+        if (post.postType === 'text' && post.feedLocation === 'Main') {
+          this.generateTextPost(post);
+        } else if (post.postType === 'link' && post.feedLocation === 'Main') {
+          this.generateLinkPost(post);
+        }
+      }
+    } else if (feedSwitch === 'Puppy') {
+      for (const post of staticTextPosts) {
+        if (post.postType === 'text' && post.feedLocation === 'Puppy') {
+          this.generateTextPost(post);
+        }
+      }
+    }
+  }
+
   generateTextPost(textPost: TextPost) {
     this.componentRef = this.postTemplate.createComponent(TextPostComponent);
     this.componentRef.instance.postTitle = textPost.title;
