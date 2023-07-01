@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LinkPreview } from 'src/app/components/models/link-post';
+import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
 @Component({
@@ -7,12 +8,13 @@ import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.s
   templateUrl: './link-post.component.html',
   styleUrls: ['./link-post.component.scss'],
 })
-export class LinkPostComponent implements OnInit {
-  @Input() postTitle: string;
-  @Input() postContent: string;
+export class LinkPostComponent extends PostBaseComponent implements OnInit {
+
   linkPreviewData: LinkPreview;
 
-  constructor(private linkPreviewService: LinkPreviewService) {}
+  constructor(private linkPreviewService: LinkPreviewService) {
+    super();
+  }
 
   get getLinkPreviewData() {
     return this.linkPreviewData;

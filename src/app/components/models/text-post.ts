@@ -1,9 +1,8 @@
-export interface TextPost {
-  feedLocation: string;
-  postType: string;
+export interface Post {
+  type: string;
   title: string;
   content: string;
-  url?: string;
+  uri?: string;
   video?: string;
   image?: string;
 }

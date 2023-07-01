@@ -2,9 +2,9 @@ export const environment = {
   appUrl: 'jlz-portfolio.web.app',
   appCheckDebug: false,
   secretService:
-    'https://secretservice2ndgen-wa22s5z3va-uc.a.run.app/api/v2/secrets',
+    'https://jzportfolioapp-wa22s5z3va-uc.a.run.app/api/v3/secrets',
   secretServiceLocal:
-    'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService2ndGen/api/v2/secrets',
+    'http://127.0.0.1:4001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/secrets',
   production: true,
   local: false,
   firebaseConfig: {
