@@ -77,14 +77,23 @@ export class FeedComponent implements OnInit, AfterViewInit {
         }
       });
     } else if (feedSwitch === 'Puppy') {
-       const posts: Post[] = await lastValueFrom(this.dbService.puppyPosts);
-       posts.forEach((post) => {
-         if (post.type === 'text') {
-           this.generateTextPost(post);
-         } else if (post.type === 'link') {
-           this.generateLinkPost(post);
-         }
-       });
+      const posts: Post[] = await lastValueFrom(this.dbService.puppyPosts);
+      posts.forEach((post) => {
+        if (post.type === 'text') {
+          this.generateTextPost(post);
+        } else if (post.type === 'link') {
+          this.generateLinkPost(post);
+        }
+      });
+    } else if (feedSwitch === 'Articles') {
+      const posts: Post[] = await lastValueFrom(this.dbService.articlePosts);
+      posts.forEach((post) => {
+        if (post.type === 'text') {
+          this.generateTextPost(post);
+        } else if (post.type === 'link') {
+          this.generateLinkPost(post);
+        }
+      });
     }
   }
 

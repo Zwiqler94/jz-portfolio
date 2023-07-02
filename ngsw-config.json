@@ -10,8 +10,9 @@
           "/favicon.ico",
           "/index.html",
           "/manifest.webmanifest",
-          "/*.css",
-          "/*.js"
+          "/**/*.css",
+          "/**/*.js",
+          "/**/*.html"
         ]
       }
     },
@@ -27,14 +28,25 @@
   "dataGroups": [
     {
       "cacheConfig": {
-        "maxAge": "3d",
-        "maxSize": 200,
+        "maxAge": "7d",
+        "maxSize": 300,
         "strategy": "performance"
       },
       "name": "firestore",
       "urls": [
         "https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)"
       ]
-    }
+    },
+        {
+          "cacheConfig": {
+            "maxAge": "7d",
+            "maxSize": 300,
+            "strategy": "performance"
+          },
+          "name": "linkpreview",
+          "urls": [
+            "https://api.linkpreview.net/**/*"
+          ]
+        }
   ]
 }

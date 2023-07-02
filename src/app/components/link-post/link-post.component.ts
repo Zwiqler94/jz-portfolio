@@ -30,7 +30,7 @@ export class LinkPostComponent extends PostBaseComponent implements OnInit {
 
   async getLinkPreview() {
     const linkArray = this.postContent.match(
-      /(http|https):\/\/www.[a-z]*.[a-z]*\/[a-zA-Z0-9?=]*/
+      /(http|https):\/\/www.[a-z]*.[a-z]*\/[a-zA-Z0-9?=-]*/
     );
     if (linkArray !== null) {
       (

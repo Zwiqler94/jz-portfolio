@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 export class DatabaseService {
   mainPosts;
   puppyPosts;
+  articlePosts;
+
   postUrl = environment.production
     ? environment.postService
     : environment.postServiceLocal;
@@ -17,5 +19,6 @@ export class DatabaseService {
   constructor(private httpClient: HttpClient) {
     this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main`);
     this.puppyPosts = this.httpClient.get<Post[]>(`${this.postUrl}/puppy`);
+    this.articlePosts = this.httpClient.get<Post[]>(`${this.postUrl}/articles`);
   }
 }
