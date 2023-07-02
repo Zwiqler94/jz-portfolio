@@ -9,6 +9,9 @@ export const environment = {
     'https://jzportfolioapp-wa22s5z3va-uc.a.run.app/api/v3/secrets',
   secretServiceLocal:
     'http://127.0.0.1:4001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/secrets',
+  postServiceLocal:
+    'http://127.0.0.1:4001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/posts',
+  postService: 'https://jzportfolioapp-wa22s5z3va-uc.a.run.app/api/v3/posts',
   production: false,
   local: false,
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional

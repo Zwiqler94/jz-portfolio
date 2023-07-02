@@ -67,5 +67,4 @@ Thumbs.db
 # Firebase
 credentials.json
 
-# Secrets
-db-config
+db-config/

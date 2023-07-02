@@ -1,31 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Pool, ClientConfig } from 'pg';
-import { lastValueFrom } from 'rxjs';
 import { Post } from 'src/app/components/models/text-post';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DatabaseService {
-  pool: Pool;
   mainPosts;
   puppyPosts;
+  postUrl = environment.production
+    ? environment.postService
+    : environment.postServiceLocal;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(private httpClient: HttpClient) {
-    this.mainPosts = this.httpClient.get<Post[]>(
-      'http://127.0.0.1:4001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/posts/main'
-    );
-     this.puppyPosts = this.httpClient.get<Post[]>(
-       'http://127.0.0.1:4001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/posts/puppy'
-     );
-   
+    this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main`);
+    this.puppyPosts = this.httpClient.get<Post[]>(`${this.postUrl}/puppy`);
   }
-
-
-  // dbQuery(text: string, params?: any) {
-    
-  //   // return this.pool.query(text, params);
-  // }
 }
