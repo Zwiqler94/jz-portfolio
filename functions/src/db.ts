@@ -5,10 +5,10 @@ import { Pool, ClientConfig } from 'pg';
 export const postRouter = express.Router();
 
 const dbConfig: ClientConfig = {
-  database: 'jz-local',
-  user: 'postgres',
-  password: 'r9Ptp.hhwk-.c.748F!6',
-  host: 'localhost',
+  database: process.env.DATABASE,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  host: process.env.HOST,
   ssl: false,
 };
 
