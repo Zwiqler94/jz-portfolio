@@ -94,6 +94,55 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.generateLinkPost(post);
         }
       });
+    } else if (feedSwitch === 'Apple') {
+      const posts: Post[] = await lastValueFrom(this.dbService.applePosts);
+      posts.forEach((post) => {
+        if (post.type === 'text') {
+          this.generateTextPost(post);
+        } else if (post.type === 'link') {
+          this.generateLinkPost(post);
+        }
+      });
+    }
+    // else if (feedSwitch === 'Social') {
+    //   const posts: Post[] = await lastValueFrom(this.dbService.social);
+    //   posts.forEach((post) => {
+    //     if (post.type === 'text') {
+    //       this.generateTextPost(post);
+    //     } else if (post.type === 'link') {
+    //       this.generateLinkPost(post);
+    //     }
+    //   });
+    // }
+    else if (feedSwitch === 'Anime') {
+      const posts: Post[] = await lastValueFrom(this.dbService.animePosts);
+      posts.forEach((post) => {
+        if (post.type === 'text') {
+          this.generateTextPost(post);
+        } else if (post.type === 'link') {
+          this.generateLinkPost(post);
+        }
+      });
+    }
+    // else if (feedSwitch === 'Projects') {
+    //   const posts: Post[] = await lastValueFrom(this.dbService.projects);
+    //   posts.forEach((post) => {
+    //     if (post.type === 'text') {
+    //       this.generateTextPost(post);
+    //     } else if (post.type === 'link') {
+    //       this.generateLinkPost(post);
+    //     }
+    //   });
+    // }
+    else if (feedSwitch === 'Blockchain') {
+      const posts: Post[] = await lastValueFrom(this.dbService.blockchainPosts);
+      posts.forEach((post) => {
+        if (post.type === 'text') {
+          this.generateTextPost(post);
+        } else if (post.type === 'link') {
+          this.generateLinkPost(post);
+        }
+      });
     }
   }
 

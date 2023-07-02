@@ -10,6 +10,9 @@ export class DatabaseService {
   mainPosts;
   puppyPosts;
   articlePosts;
+  applePosts;
+  animePosts;
+  blockchainPosts;
 
   postUrl = environment.production
     ? environment.postService
@@ -20,5 +23,8 @@ export class DatabaseService {
     this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main`);
     this.puppyPosts = this.httpClient.get<Post[]>(`${this.postUrl}/puppy`);
     this.articlePosts = this.httpClient.get<Post[]>(`${this.postUrl}/articles`);
+    this.applePosts = this.httpClient.get<Post[]>(`${this.postUrl}/apple`);
+    this.animePosts = this.httpClient.get<Post[]>(`${this.postUrl}/anime`);
+    this.blockchainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/blockchain`);
   }
 }
