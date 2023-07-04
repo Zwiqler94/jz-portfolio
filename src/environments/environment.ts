@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  nasaAPIKey: 'vnfZmI8NbIb44DmpbbSAvlMhFz7Ipnyc1tq6xNLb',
   appUrl: 'jlz-portfolio-dev.web.app',
   appCheckDebug: '4ad6c24e-aab2-40b5-9cd2-f7fe4291db01',
   secretService:

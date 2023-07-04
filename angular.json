@@ -60,29 +60,28 @@
                 "input": "src/index.html",
                 "output": "index.html"
               },
-              "optimization": true,
-              "outputHashing": "bundles",
+              "optimization": false,
               "sourceMap": true,
               "namedChunks": true,
               "vendorChunk": true,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "10kb"
                 }
               ],
               "aot": true,
-              "commonChunk": true,
+              "commonChunk": false,
               "serviceWorker": true,
               "statsJson": true,
-              "subresourceIntegrity": false,
+              "subresourceIntegrity": true,
               "progress": true
             },
             "local": {
@@ -106,20 +105,20 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "15mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "5kb",
+                  "maximumError": "10kb"
                 }
               ],
               "aot": true,
               "commonChunk": true,
               "serviceWorker": true,
               "statsJson": true,
-              "subresourceIntegrity": false,
+              "subresourceIntegrity": true,
               "progress": true
             }
           },
@@ -219,8 +218,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [

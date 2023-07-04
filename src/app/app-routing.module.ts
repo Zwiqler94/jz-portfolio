@@ -16,11 +16,11 @@ const AuthGuard: CanActivateFn = (route, state) => {
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
-  { path: 'home', component: MainFeedPageComponent, canActivate: [AuthGuard] },
-  { path: 'aboutme', component: AboutMeComponent, canActivate: [AuthGuard] },
-  { path: 'hobbies', component: HobbiesComponent, canActivate: [AuthGuard] },
-  { path: 'news', component: NewsComponent, canActivate: [AuthGuard] },
-  // { path: 'socials', component: SocialsComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: MainFeedPageComponent },
+  { path: 'aboutme', component: AboutMeComponent },
+  { path: 'hobbies', component: HobbiesComponent },
+  { path: 'news', component: NewsComponent },
+  // { path: 'socials', component: SocialsComponent },
   { path: 'error', component: ErrorPageComponent },
   { path: '**', component: ErrorPageComponent },
 ];
