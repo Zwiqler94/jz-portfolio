@@ -67,6 +67,7 @@ Thumbs.db
 # Firebase
 credentials.json
 
+
 db-config/
 .env 
 .env.*
