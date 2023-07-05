@@ -25,7 +25,7 @@ jobs:
       - run: |
             gcloud config set artifacts/repository everything-lib
             gcloud config set artifacts/location us-central1
-            gcloud gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
+            gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
             npx google-artifactregistry-auth
       - uses: actions/setup-node@v3
         with:
