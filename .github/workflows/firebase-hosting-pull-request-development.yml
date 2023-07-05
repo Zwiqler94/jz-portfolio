@@ -23,8 +23,6 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1.1.1
       - run: echo " ${{ github.head_ref }} "
       - run: |
-            gcloud init
-            gcloud config set jlz-portfolio
             gcloud config set artifacts/repository everything-lib
             gcloud config set artifacts/location us-central1
             gcloud gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
