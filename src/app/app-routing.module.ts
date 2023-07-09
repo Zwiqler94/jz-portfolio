@@ -9,6 +9,7 @@ import { ErrorPageComponent } from 'src/app/pages/error-page/error-page.componen
 import { MainFeedPageComponent } from 'src/app/pages/main-feed-page/main-feed-page.component';
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { SocialsComponent } from 'src/app/pages/socials/socials.component';
 
 const AuthGuard: CanActivateFn = (route, state) => {
   return inject(AuthService).canActivate();
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'aboutme', component: AboutMeComponent, canActivate: [AuthGuard] },
   { path: 'hobbies', component: HobbiesComponent, canActivate: [AuthGuard] },
   { path: 'news', component: NewsComponent, canActivate: [AuthGuard] },
-  // { path: 'socials', component: SocialsComponent, canActivate: [AuthGuard] },
+  { path: 'socials', component: SocialsComponent },
   { path: 'error', component: ErrorPageComponent },
   { path: '**', component: ErrorPageComponent },
 ];
