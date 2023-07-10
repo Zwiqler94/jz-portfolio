@@ -101,7 +101,7 @@
     "eslint-plugin-import": "latest",
     "eslint-plugin-jsdoc": "latest",
     "eslint-plugin-prefer-arrow": "latest",
-    "firebase-tools": "^12.4.2",
+    "firebase-tools": "^12.4.3",
     "husky": "^8.0.3",
     "inquirer": "^9.2.7",
     "inquirer-autocomplete-prompt": "^3.0.0",
