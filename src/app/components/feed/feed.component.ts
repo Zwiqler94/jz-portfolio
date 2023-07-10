@@ -43,7 +43,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.feedSwitchv2(this.feedLocation);
+    if(!environment.production){this.feedSwitchv2(this.feedLocation);}
     this.changeDetector.detectChanges();
   }
 
