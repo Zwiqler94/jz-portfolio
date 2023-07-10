@@ -15,6 +15,7 @@ import { LinkPost } from 'src/app/components/models/link-post';
 import { LinkPostComponent } from 'src/app/components/link-post/link-post.component';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { lastValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-feed',
