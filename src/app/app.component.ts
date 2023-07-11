@@ -13,7 +13,7 @@ export class AppComponent {
 
   constructor(
     private serviceWorker: ServiceWorkerService,
-    private auth: AuthService
+    private auth: AuthService,
   ) {}
 
   logout() {

@@ -7,7 +7,7 @@ import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.s
   templateUrl: './post-base.component.html',
   styleUrls: ['./post-base.component.scss'],
 })
-export class PostBaseComponent{
+export class PostBaseComponent {
   @Input() postTitle: string;
   @Input() postContent: string;
 }

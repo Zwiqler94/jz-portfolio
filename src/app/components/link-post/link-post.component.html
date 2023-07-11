@@ -4,7 +4,9 @@
       <mat-card-title> {{ postTitle }} </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <h1  *ngIf="hasLinkPreviewData">{{ getLinkPreviewData.title }}</h1>
+      <h1 *ngIf="hasLinkPreviewData">
+        {{ getLinkPreviewData.title }}
+      </h1>
       <a *ngIf="hasLinkPreviewData" href="{{ getLinkPreviewData.url }}">
         <img mat-card-image src="{{ getLinkPreviewData.image }}" />
 

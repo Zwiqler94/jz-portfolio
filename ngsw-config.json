@@ -44,9 +44,7 @@
         "strategy": "performance"
       },
       "name": "linkpreview",
-      "urls": [
-        "https://api.linkpreview.net/**/*"
-      ]
+      "urls": ["https://api.linkpreview.net/**/*"]
     }
   ]
 }

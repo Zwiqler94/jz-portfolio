@@ -152,7 +152,7 @@
             "serviceWorker": true,
             "sourceMap": true,
             "styles": ["src/styles.scss"],
-            "stylePreprocessorOptions":{ "includePaths":["src/style_vars"] },
+            "stylePreprocessorOptions": { "includePaths": ["src/style_vars"] },
             "tsConfig": "tsconfig.app.json"
           }
         },

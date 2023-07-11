@@ -12,7 +12,10 @@ export class LoginPageComponent {
   private fbAuth: Auth = inject(Auth);
   private googleProvider = new GoogleAuthProvider();
 
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+  ) {}
 
   signIn() {
     signInWithPopup(this.fbAuth, this.googleProvider)

@@ -13,7 +13,10 @@ import { ServiceWorkerService } from 'src/app/services/service-worker/service-wo
   styleUrls: ['./hobbies.component.scss'],
 })
 export class HobbiesComponent {
-  constructor(private storage: Storage, private sw: ServiceWorkerService) {
+  constructor(
+    private storage: Storage,
+    private sw: ServiceWorkerService,
+  ) {
     this.setupVideos();
     this.setUpCarouselImages();
     this.setUpPhotographyImages();
@@ -29,7 +32,7 @@ export class HobbiesComponent {
     try {
       const hobbyRef: StorageReference = ref(
         this.storage,
-        'hobbies/photography'
+        'hobbies/photography',
       );
       const hobbyImageList: ListResult = await listAll(hobbyRef);
       hobbyImageList.items.forEach(
@@ -86,7 +89,7 @@ export class HobbiesComponent {
           //     }
           //   }
           // }
-        }
+        },
       );
     } catch (error) {
       console.log('Photography Tab Images Cannot Be Displayed');

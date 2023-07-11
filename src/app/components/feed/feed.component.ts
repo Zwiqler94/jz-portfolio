@@ -30,7 +30,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private dbService: DatabaseService
+    private dbService: DatabaseService,
   ) {
     this.feedLocation = 'Main';
     this.dbService.mainPosts.subscribe((post) => {

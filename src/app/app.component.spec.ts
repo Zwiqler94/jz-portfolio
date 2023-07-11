@@ -27,7 +27,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain(
-      'jz-portfolio app is running!'
+      'jz-portfolio app is running!',
     );
   });
 });

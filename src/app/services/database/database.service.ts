@@ -25,6 +25,8 @@ export class DatabaseService {
     this.articlePosts = this.httpClient.get<Post[]>(`${this.postUrl}/articles`);
     this.applePosts = this.httpClient.get<Post[]>(`${this.postUrl}/apple`);
     this.animePosts = this.httpClient.get<Post[]>(`${this.postUrl}/anime`);
-    this.blockchainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/blockchain`);
+    this.blockchainPosts = this.httpClient.get<Post[]>(
+      `${this.postUrl}/blockchain`,
+    );
   }
 }

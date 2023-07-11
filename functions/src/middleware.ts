@@ -15,7 +15,7 @@ const fbAdminApp = fbAdmin.initializeApp({
 export const appCheckGaurd = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const appCheckToken = req.header('X-Firebase-AppCheck');
   const appCheckDebugToken = req.header('X-Firebase-AppCheck-Debug');
@@ -37,6 +37,5 @@ export const appCheckGaurd = async (
     return next('unauthorized B');
   }
 };
-
 
 export const limiter = rateLimit({ max: 100, windowMs: 15 * 60 * 1000 });

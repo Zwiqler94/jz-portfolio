@@ -93,7 +93,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       initializeAppCheck(getApp(), {
         provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
         isTokenAutoRefreshEnabled: true,
-      })
+      }),
     ),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),

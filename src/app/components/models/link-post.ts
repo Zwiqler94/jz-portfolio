@@ -1,4 +1,4 @@
-import { Post } from "src/app/components/models/text-post";
+import { Post } from 'src/app/components/models/text-post';
 
 export type LinkPost = Post;
 

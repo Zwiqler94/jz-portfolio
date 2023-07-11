@@ -9,7 +9,6 @@ import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.s
   styleUrls: ['./link-post.component.scss'],
 })
 export class LinkPostComponent extends PostBaseComponent implements OnInit {
-
   linkPreviewData: LinkPreview;
 
   constructor(private linkPreviewService: LinkPreviewService) {
@@ -30,7 +29,7 @@ export class LinkPostComponent extends PostBaseComponent implements OnInit {
 
   async getLinkPreview() {
     const linkArray = this.postContent.match(
-      /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9/\-.,&?=%#();:~]*/
+      /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9/\-.,&?=%#();:~]*/,
     );
     if (linkArray !== null) {
       (

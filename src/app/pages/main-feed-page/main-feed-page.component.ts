@@ -10,18 +10,21 @@ import { ServiceWorkerService } from 'src/app/services/service-worker/service-wo
   styleUrls: ['./main-feed-page.component.scss'],
 })
 export class MainFeedPageComponent implements OnInit {
-  constructor(private snack: MatSnackBar, private sw: ServiceWorkerService) {}
+  constructor(
+    private snack: MatSnackBar,
+    private sw: ServiceWorkerService,
+  ) {}
 
   ngOnInit() {
     this.sw.swUpdates.versionUpdates
       .pipe(
-        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')
+        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
       )
       .subscribe((x) => {
         if (x) {
           const d = this.snack.open(
             'New App Version Detected, Update?',
-            'Yup!'
+            'Yup!',
           );
           d.afterDismissed().subscribe((f: MatSnackBarDismiss) => {
             console.log(f.dismissedByAction);

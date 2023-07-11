@@ -48,7 +48,7 @@ const getSecret = async (req: Request, res: Response) => {
       if (secret.name === req.params.name) {
         debug(secretNameProd.value());
         return true;
-      } 
+      }
       return false;
     });
 
