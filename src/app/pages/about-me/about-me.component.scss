@@ -45,6 +45,7 @@ mat-chip-listbox.mat-chip-listbox {
 
 .about-content,
 .project-content {
+  margin: 4rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -53,11 +54,17 @@ mat-chip-listbox.mat-chip-listbox {
   max-width: $about-div-width;
 }
 
+.testy1 {
+  width: 60rem;
+  padding: 0.8rem;
+  height: fit-content;
+}
+
 #about-tabs {
   width: 100vw;
 }
 
-div#footer > footer {
+div#footer>footer {
   display: inline-flex;
   justify-content: center;
   width: 80rem;
@@ -72,7 +79,8 @@ mat-form-field {
 #badge-div {
   display: flex;
   flex-direction: row;
-  width: 90rem;
+  justify-content: center;
+  align-items: center;
 }
 
 // @media (max-width: 20rem) {
