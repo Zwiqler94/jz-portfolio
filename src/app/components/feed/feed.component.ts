@@ -30,7 +30,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private dbService: DatabaseService,
+    private dbService: DatabaseService
   ) {
     this.feedLocation = 'Main';
     this.dbService.mainPosts.subscribe((post) => {
@@ -44,7 +44,9 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if(!environment.production){this.feedSwitchv2(this.feedLocation);}
+    if (!environment.production) {
+      this.feedSwitchv2(this.feedLocation);
+    }
     this.changeDetector.detectChanges();
   }
 
