@@ -1,4 +1,5 @@
 export const environment = {
+  nasaAPIKey: 'vnfZmI8NbIb44DmpbbSAvlMhFz7Ipnyc1tq6xNLb',
   appUrl: 'jlz-portfolio.web.app',
   appCheckDebug: '4ad6c24e-aab2-40b5-9cd2-f7fe4291db01',
   secretService:

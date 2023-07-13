@@ -4,15 +4,17 @@ import { HttpClient } from '@angular/common/http';
 import { AfterContentInit, Component, OnInit, VERSION } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-about-me',
   templateUrl: './about-me.component.html',
   styleUrls: ['./about-me.component.scss'],
 })
 export class AboutMeComponent {
-  _result: string[] = [''];
+  _result = [''];
 
-  usernameForm: FormGroup = this.fb.group({
+  usernameFormInApp: FormGroup = this.fb.group({
     words: [''],
     specialCharacters: [''],
   });
@@ -50,6 +52,10 @@ export class AboutMeComponent {
     return VERSION;
   }
 
+  get nasaApiKey() {
+    return environment.nasaAPIKey;
+  }
+
   get results() {
     return this._result;
   }
@@ -60,9 +66,9 @@ export class AboutMeComponent {
 
   onSubmit(token: any) {
     const body = {
-      words: (this.usernameForm.get('words')?.value as string).split(','),
+      words: (this.usernameFormInApp.get('words')?.value as string).split(','),
       specials: (
-        this.usernameForm.get('specialCharacters')?.value as string
+        this.usernameFormInApp.get('specialCharacters')?.value as string
       ).split(','),
     };
     console.log(body);

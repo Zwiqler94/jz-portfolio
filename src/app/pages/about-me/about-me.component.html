@@ -93,32 +93,11 @@
     </mat-tab>
     <mat-tab label="Projects">
       <div class="project-content">
-        <mat-card id="username-gen-card">
-          <mat-card-header>
-            <mat-card-title> Username Generator </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <form id="usr-form" [formGroup]="usernameForm" (ngSubmit)="onSubmit($event)">
-              <mat-form-field>
-                <mat-label> Words To Use </mat-label>
-                <input matInput formControlName="words" type="text" />
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label> Special Characters To Use </mat-label>
-                <input matInput formControlName="specialCharacters" type="text" />
-              </mat-form-field>
-              <button mat-raised-button type="submit" class="g-recaptcha" data-sitekey="reCAPTCHA_site_key"
-                data-callback="onSubmit" data-action="submit">
-                Generate Usernames
-              </button>
-            </form>
-            <ng-container *ngIf="results.length > 1">
-              <mat-chip-listbox *ngFor="let username of results">
-                <mat-chip-option>{{ username }} </mat-chip-option>
-              </mat-chip-listbox>
-            </ng-container>
-          </mat-card-content>
-        </mat-card>
+        <lib-username-generator class="project-content-item" [(usernameForm)]="usernameFormInApp" [(result)]="_result"></lib-username-generator>
+        <lib-nasa class="project-content-item" [apiKey]="nasaApiKey"></lib-nasa>
+        <lib-pokemon class="project-content-item" ></lib-pokemon>
+        <lib-boredom-solver class="project-content-item" ></lib-boredom-solver>
+        <lib-age-by-name class="project-content-item" ></lib-age-by-name>
       </div>
     </mat-tab>
   </mat-tab-group>

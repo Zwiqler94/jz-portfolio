@@ -8,6 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { EverythingLibModule } from '@zwiqler94/everything-lib';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
@@ -23,7 +24,6 @@ import {
   connectAuthEmulator,
   getAuth,
   provideAuth,
-  GoogleAuthProvider,
 } from '@angular/fire/auth';
 
 import { provideAnalytics, initializeAnalytics } from '@angular/fire/analytics';
@@ -46,7 +46,6 @@ import { LinkPostComponent } from './components/link-post/link-post.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { signInWithPopup } from 'firebase/auth';
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 
@@ -116,6 +115,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    EverythingLibModule
   ],
   providers: [],
   bootstrap: [AppComponent],

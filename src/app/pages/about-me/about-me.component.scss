@@ -25,24 +25,6 @@ mat-tab-group {
   width: $about-div-width;
 }
 
-mat-chip-listbox.mat-chip-listbox {
-  overflow: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#username-gen-card {
-  width: 40rem;
-  height: 40rem;
-}
-
-#username-gen-card {
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-}
-
 .about-content,
 .project-content {
   margin: 4rem;
@@ -50,8 +32,12 @@ mat-chip-listbox.mat-chip-listbox {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  max-height: $about-div-height;
-  max-width: $about-div-width;
+  max-height: $content-div-height;
+  max-width: $content-div-width;
+}
+
+.project-content-item{
+  margin: 1rem;
 }
 
 .testy1 {
