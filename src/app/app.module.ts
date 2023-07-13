@@ -31,6 +31,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AppComponent } from './app.component';
 import { AboutMeComponent } from './pages/about-me/about-me.component';
@@ -88,6 +89,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     MatChipsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSidenavModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAppCheck(() =>
       initializeAppCheck(getApp(), {

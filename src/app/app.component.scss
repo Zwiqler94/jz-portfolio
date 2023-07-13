@@ -9,6 +9,13 @@
 #button-container {
   display: flex;
   flex-direction: row;
+  width: 50vw;
+  justify-content: flex-end;
+}
+
+#button-container-column {
+  display: flex;
+  flex-direction: column;
 }
 
 #toolbar-logo,
@@ -24,6 +31,13 @@ mat-toolbar {
   justify-content: center;
   width: 100vw;
 }
+
+#logo{
+  width: 44vw;
+  display: flex;
+  justify-content: flex-start;
+}
+
 
 .spacer {
   width: 0.25rem;

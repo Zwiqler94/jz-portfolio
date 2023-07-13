@@ -3,6 +3,10 @@
 
 @include mat.core();
 
+body {
+  margin: 0;
+}
+
 // Define a dark theme
 $dark-theme: mat.define-dark-theme((color: (primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
         accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
