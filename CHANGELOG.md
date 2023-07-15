@@ -1,3 +1,9 @@
+## <small>2.0.7 (2023-07-15)</small>
+
+* chore: updates check (#283) ([1027673](https://github.com/Zwiqler94/jz-portfolio/commit/1027673)), closes [#283](https://github.com/Zwiqler94/jz-portfolio/issues/283)
+
+
+
 ## <small>2.0.6 (2023-06-23)</small>
 
 - fix(secrets): fix secrets service rate limiter ([2d5d305](https://github.com/Zwiqler94/jz-portfolio/commit/2d5d305))
