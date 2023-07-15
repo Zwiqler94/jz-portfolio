@@ -45,7 +45,7 @@ const getSecret = async (req: Request, res: Response) => {
 const appCheckGaurd = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const appCheckToken = req.header('X-Firebase-AppCheck');
   const appCheckDebugToken = req.header('X-Firebase-AppCheck-Debug');
@@ -70,9 +70,9 @@ const appCheckGaurd = async (
 
 secretRouter.get('/secrets', getSecret);
 
-secretsApp.use('/api/v2', limiter , appCheckGaurd, secretRouter);
+secretsApp.use('/api/v2', limiter, appCheckGaurd, secretRouter);
 
 export const secretService2ndGen = onRequest(
   { cors: true, secrets: [secretNameDev, secretNameProd] },
-  secretsApp
+  secretsApp,
 );

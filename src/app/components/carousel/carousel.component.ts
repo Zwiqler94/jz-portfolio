@@ -16,7 +16,7 @@ export class CarouselComponent {
 
   loop() {
     let seed = Math.ceil(
-      Math.random() * Math.random() * Math.random() * 100000
+      Math.random() * Math.random() * Math.random() * 100000,
     );
     while (seed < 1000 || seed > 10000) {
       if (seed < 1000) {

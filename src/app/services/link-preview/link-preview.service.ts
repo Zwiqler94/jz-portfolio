@@ -9,7 +9,6 @@ import { AppCheckTokenResult } from 'firebase/app-check';
 import { error, info } from 'console';
 // import { DateTime, Duration } from 'luxon';
 
-
 interface SecretResponse {
   k: string;
 }
@@ -51,7 +50,7 @@ export class LinkPreviewService {
 
   async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
     try {
-     console.info(this.appCheck);
+      console.info(this.appCheck);
       this.tokenResult = (await getToken(this.appCheck)).token;
       console.info(this.tokenResult);
     } catch (err) {
@@ -63,7 +62,7 @@ export class LinkPreviewService {
   getAPIKey() {
     const headers = new HttpHeaders().set(
       'X-Firebase-AppCheck-Debug',
-      this.tokenResult
+      this.tokenResult,
     );
     const params = new HttpParams().set('prod', environment.production);
     const secretsUrl = environment.local

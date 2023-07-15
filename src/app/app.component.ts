@@ -1,5 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 
@@ -13,7 +12,7 @@ export class AppComponent {
 
   constructor(
     private serviceWorker: ServiceWorkerService,
-    private auth: AuthService
+    private auth: AuthService,
   ) {}
 
   logout() {
