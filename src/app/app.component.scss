@@ -9,7 +9,7 @@
 #button-container {
   display: flex;
   flex-direction: row;
-  width: 50vw;
+  width: 48vw;
   justify-content: flex-end;
 }
 
@@ -20,20 +20,27 @@
 
 #toolbar-logo,
 #toolbar-logo > img {
-  height: 15rem;
-  width: 31.25rem;
+  height: 8rem;
+  width: 19.25rem;
   margin-right: 5rem;
 }
 
 mat-toolbar {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  // justify-content: center;
   width: 100vw;
+  height: 7.75rem;
+
+}
+
+#menu {
+  width: 2vw;
 }
 
 #logo{
-  width: 44vw;
+  width: 46vw;
   display: flex;
   justify-content: flex-start;
 }
@@ -43,16 +50,20 @@ mat-toolbar {
   width: 0.25rem;
 }
 
-@media (min-width: 43.438rem) {
-  mat-toolbar {
-    justify-content: center;
-    align-items: center;
-    height: 240px;
-  }
+.vert-spacer{
+  height: 0.25rem;
 }
 
-@media (min-width: 20rem) {
-  mat-toolbar {
-    height: 240px;
-  }
-}
+// @media (min-width: 43.438rem) {
+//   mat-toolbar {
+//     justify-content: center;
+//     align-items: center;
+//     height: 240px;
+//   }
+// }
+
+// // @media (min-width: 20rem) {
+//   mat-toolbar {
+//     height: 240px;
+//   }
+// // }

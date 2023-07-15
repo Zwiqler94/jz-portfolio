@@ -1,59 +1,73 @@
+<mat-toolbar color="accent">
+  <div id="logo">
+    <a routerLink="/home" id="toolbar-logo" routerLinkActive="active">
+      <img src="../assets/JLZ-banner.png" />
+    </a>
+  </div>
+  <div id="button-container">
+    <button color="primary" mat-flat-button routerLink="/aboutme" routerLinkActive="active">
+      About Me
+    </button>
+    <div class="spacer"></div>
+    <button color="primary" mat-flat-button routerLink="/hobbies" routerLinkActive="active">
+      Hobbies
+    </button>
+    <div class="spacer"></div>
+    <button color="primary" mat-flat-button routerLink="/news" routerLinkActive="active">
+      News
+    </button>
+    <div class="spacer"></div>
+    <button color="primary" mat-flat-button routerLink="/socials" routerLinkActive="active">
+      Socials
+    </button>
+    <div class="spacer"></div>
+    <button mat-flat-button color="warn" (click)="logout()">LOGOUT!</button>
+  </div>
+<div id="menu">
+  <button mat-fab type="button" color="primary" (click)="drawer.toggle()">
+    <mat-icon>
+      menu
+    </mat-icon>
+  </button>
+</div>
+</mat-toolbar>
 <mat-sidenav-container autosize>
-  <mat-sidenav #drawer mode="over">
+  <mat-sidenav #drawer mode="over" position="end">
     <div id="button-container-column">
-      <button color="primary" mat-button routerLink="/aboutme" routerLinkActive="active">
+      <button color="primary" mat-raised-button routerLink="/aboutme" routerLinkActive="active" extended>
+        <mat-icon>person</mat-icon>
         About Me
       </button>
-      <div class="spacer"></div>
-      <button color="primary" mat-button routerLink="/hobbies" routerLinkActive="active">
+      <div class="vert-spacer"></div>
+      <button color="primary" mat-raised-button routerLink="/hobbies" routerLinkActive="active" extended>
+        <mat-icon>sports_handball</mat-icon>
         Hobbies
       </button>
-      <div class="spacer"></div>
-      <button color="primary" mat-button routerLink="/news" routerLinkActive="active">
+      <div class="vert-spacer"></div>
+      <button color="primary" mat-raised-button routerLink="/news" routerLinkActive="active" extended>
+        <mat-icon>newspaper</mat-icon>
         News
       </button>
-      <div class="spacer"></div>
-      <button color="primary" mat-button routerLink="/socials" routerLinkActive="active">
+      <div class="vert-spacer"></div>
+      <button color="primary" mat-raised-button routerLink="/socials" routerLinkActive="active" extended>
+        <mat-icon>groups</mat-icon>
         Socials
       </button>
-
-      <div class="spacer"></div>
-      <button mat-flat-button color="warn" (click)="logout()">LOGOUT!</button>
+      <div class="vert-spacer"></div>
+      <button color="primary" mat-flat-button routerLink="/contact" routerLinkActive="active">
+        Contact Me
+      </button>
+      <div class="vert-spacer"></div>
+      <div class="vert-spacer"></div>
+      <button mat-raised-button color="warn" (click)="logout()" extended>
+        <mat-icon>logout</mat-icon>
+        LOGOUT!
+      </button>
     </div>
 
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar color="accent">
-     
-        <button mat-flat-button type="button" color="warn" (click)="drawer.toggle()">Menu</button>
-        <div id="logo">
-          <a routerLink="/home" id="toolbar-logo" routerLinkActive="active">
-            <img src="../assets/JLZ-banner.png" />
-          </a>
-        </div>
-        <div id="button-container">
-          <button color="primary" mat-flat-button routerLink="/aboutme" routerLinkActive="active">
-            About Me
-          </button>
-          <div class="spacer"></div>
-          <button color="primary" mat-flat-button routerLink="/hobbies" routerLinkActive="active">
-            Hobbies
-          </button>
-          <div class="spacer"></div>
-          <button color="primary" mat-flat-button routerLink="/news" routerLinkActive="active">
-            News
-          </button>
-          <div class="spacer"></div>
-          <button color="primary" mat-flat-button routerLink="/socials" routerLinkActive="active">
-            Socials
-          </button>
-
-          <div class="spacer"></div>
-          <button mat-flat-button color="warn" (click)="logout()">LOGOUT!</button>
-        </div>
-     
-    </mat-toolbar>
     <div id="main-view">
       <router-outlet></router-outlet>
     </div>

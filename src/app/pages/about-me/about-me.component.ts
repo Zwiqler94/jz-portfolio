@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 import { HttpClient } from '@angular/common/http';
-import { AfterContentInit, Component, OnInit, VERSION } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, VERSION } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-about-me',
@@ -64,7 +63,8 @@ export class AboutMeComponent {
     this._result = result;
   }
 
-  onSubmit(token: any) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onSubmit(_token: unknown) {
     const body = {
       words: (this.usernameFormInApp.get('words')?.value as string).split(','),
       specials: (
