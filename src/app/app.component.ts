@@ -8,7 +8,6 @@ import {
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
-import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 
 @Component({
   selector: 'app-root',
