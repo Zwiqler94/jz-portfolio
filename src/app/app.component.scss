@@ -9,8 +9,9 @@
 #button-container {
   display: flex;
   flex-direction: row;
-  width: 48vw;
+  width: 44vw;
   justify-content: flex-end;
+  flex-shrink: 1;
 }
 
 #button-container-column {
@@ -19,7 +20,7 @@
 }
 
 #toolbar-logo,
-#toolbar-logo > img {
+#toolbar-logo>img {
   height: 8rem;
   width: 19.25rem;
   margin-right: 5rem;
@@ -32,17 +33,20 @@ mat-toolbar {
   // justify-content: center;
   width: 100vw;
   height: 7.75rem;
-
+  flex-basis: auto;
 }
 
 #menu {
-  width: 2vw;
+  width: 8vw;
+  margin-left: 4rem;
+  flex-shrink: 3;
 }
 
-#logo{
-  width: 46vw;
+#logo {
+  width: 40vw;
   display: flex;
   justify-content: flex-start;
+  flex-shrink: 2;
 }
 
 
@@ -50,9 +54,22 @@ mat-toolbar {
   width: 0.25rem;
 }
 
-.vert-spacer{
+.vert-spacer {
   height: 0.25rem;
 }
+
+#button-container-column>button {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  width: 12rem;
+  justify-content: flex-start;
+
+  mat-icon {
+    margin: 0.5rem;
+  }
+}
+
+
 
 // @media (min-width: 43.438rem) {
 //   mat-toolbar {

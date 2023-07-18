@@ -1,6 +1,5 @@
-<form [formGroup]="contactForm" (submit)="onSubmit()">
+<form id="contact-form" [formGroup]="contactForm" (submit)="onSubmit()">
     <input type="hidden" formControlName="access_key" value="">
-
     <mat-form-field>
         <mat-label>Name</mat-label>
         <input matInput type="text" formControlName="name" placeholder="Your name" required>
