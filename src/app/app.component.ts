@@ -10,7 +10,6 @@ export class AppComponent {
   title = 'jlz-portfolio';
 
   constructor(
-    private serviceWorker: ServiceWorkerService,
     private auth: AuthService,
   ) {}
 
