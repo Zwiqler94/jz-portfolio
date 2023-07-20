@@ -1,4 +1,4 @@
-$about-div-height: 100vh;
+$about-div-height: 80vh;
 $content-div-height: calc($about-div-height - 2.75rem);
 $about-div-width: 100vw;
 $content-div-width: calc($about-div-width - 2.75rem);
@@ -32,19 +32,15 @@ mat-tab-group {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  max-height: $content-div-height;
-  max-width: $content-div-width;
+  height: $content-div-height;
+  width: $content-div-width;
 }
 
 .project-content-item{
   margin: 1rem;
 }
 
-.testy1 {
-  width: 60rem;
-  padding: 0.8rem;
-  height: fit-content;
-}
+
 
 #about-tabs {
   width: 100vw;
@@ -53,8 +49,9 @@ mat-tab-group {
 div#footer>footer {
   display: inline-flex;
   justify-content: center;
-  width: 80rem;
-  padding-top: 4rem;
+  flex-wrap: wrap;
+  max-width: 70vw;
+  padding: 2rem;
 }
 
 mat-form-field {
@@ -67,6 +64,12 @@ mat-form-field {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+mat-card{
+  padding: 0.25rem;
+  max-width: 80vw;
+  min-width: 65vw;
 }
 
 // @media (max-width: 20rem) {

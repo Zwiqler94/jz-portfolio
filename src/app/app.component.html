@@ -34,33 +34,33 @@
 <mat-sidenav-container autosize>
   <mat-sidenav #drawer mode="over" position="end">
     <div id="button-container-column">
-      <button color="primary" mat-raised-button routerLink="/aboutme" routerLinkActive="active" extended>
+      <button color="primary" mat-raised-button routerLink="/aboutme" routerLinkActive="active" extended (click)="drawer.toggle()">
         <mat-icon>person</mat-icon>
         <p>About Me</p>
       </button>
       <div class="vert-spacer"></div>
-      <button color="primary" mat-raised-button routerLink="/hobbies" routerLinkActive="active" extended>
+      <button color="primary" mat-raised-button routerLink="/hobbies" routerLinkActive="active" extended (click)="drawer.toggle()">
         <mat-icon>sports_handball</mat-icon>
         <p>Hobbies</p>
       </button>
       <div class="vert-spacer"></div>
-      <button color="primary" mat-raised-button routerLink="/news" routerLinkActive="active" extended>
+      <button color="primary" mat-raised-button routerLink="/news" routerLinkActive="active" extended (click)="drawer.toggle()">
         <mat-icon>newspaper</mat-icon>
         <p>News</p>
       </button>
       <div class="vert-spacer"></div>
-      <button color="primary" mat-raised-button routerLink="/socials" routerLinkActive="active" extended>
+      <button color="primary" mat-raised-button routerLink="/socials" routerLinkActive="active" extended (click)="drawer.toggle()">
         <mat-icon>groups</mat-icon>
         <p>Socials</p>
       </button>
       <div class="vert-spacer"></div>
-      <button color="primary" mat-flat-button routerLink="/contact" routerLinkActive="active">
+      <button color="primary" mat-flat-button routerLink="/contact" routerLinkActive="active" (click)="drawer.toggle()">
         <mat-icon>contact_mail</mat-icon>
         <p>Contact Me</p>
       </button>
       <div class="vert-spacer"></div>
       <div class="vert-spacer"></div>
-      <button mat-raised-button color="warn" (click)="logout()" extended>
+      <button mat-raised-button color="warn" (click)="logout()" extended (click)="drawer.toggle()">
         <mat-icon>logout</mat-icon>
         <p>LOGOUT!</p>
       </button>

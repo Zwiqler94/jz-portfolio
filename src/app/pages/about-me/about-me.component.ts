@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./about-me.component.scss'],
 })
 export class AboutMeComponent {
+  private _badgeHeight = '18.75rem';
+  private _badgeWidth = '12.5rem';
   _result = [''];
 
   usernameFormInApp: FormGroup = this.fb.group({
@@ -18,10 +20,7 @@ export class AboutMeComponent {
     specialCharacters: [''],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private httpClient: HttpClient,
-  ) {}
+  constructor(private fb: FormBuilder, private httpClient: HttpClient) {}
 
   // ngAfterContentInit(): void {
   //   const targeto: HTMLDivElement = document.getElementById(
@@ -41,7 +40,7 @@ export class AboutMeComponent {
       scriptEl.async = true;
       scriptEl.type = 'text/javascript';
       const targeto = document.querySelector(
-        '#credential-div',
+        '#credential-div'
       ) as HTMLDivElement;
       targeto.append(scriptEl);
     }
@@ -63,6 +62,19 @@ export class AboutMeComponent {
     this._result = result;
   }
 
+  public get badgeHeight() {
+    return this._badgeHeight;
+  }
+  public set badgeHeight(value) {
+    this._badgeHeight = value;
+  }
+  public get badgeWidth() {
+    return this._badgeWidth;
+  }
+  public set badgeWidth(value) {
+    this._badgeWidth = value;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onSubmit(_token: unknown) {
     const body = {
@@ -81,7 +93,7 @@ export class AboutMeComponent {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
           },
-        },
+        }
       )
       .subscribe((results) => {
         this.results = results;

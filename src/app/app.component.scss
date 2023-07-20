@@ -17,12 +17,13 @@
 #button-container-column {
   display: flex;
   flex-direction: column;
+
 }
 
 #toolbar-logo,
 #toolbar-logo>img {
   height: 8rem;
-  width: 19.25rem;
+  width: auto;
   margin-right: 5rem;
 }
 
@@ -30,14 +31,13 @@ mat-toolbar {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  // justify-content: center;
+  align-items: center;
   width: 100vw;
-  height: 7.75rem;
+  height: 8rem;
   flex-basis: auto;
 }
 
 #menu {
-  width: 8vw;
   margin-left: 4rem;
   flex-shrink: 3;
 }
@@ -69,6 +69,43 @@ mat-toolbar {
   }
 }
 
+
+@media (max-width: 1080px) {
+  #button-container {
+    display: none;
+  }
+
+  #menu {
+    width: 50vw;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 0;
+    flex-shrink: 1;
+  }
+
+  mat-toolbar {
+    width: 100vw;
+    height: 5rem;
+    flex-basis: auto;
+  }
+
+  #toolbar-logo,
+  #toolbar-logo>img {
+    height: 5rem;
+    width: auto;
+  }
+
+  #logo {
+    width: 40vw;
+    display: flex;
+    justify-content: flex-start;
+    flex-shrink: 2;
+  }
+
+    #button-container-column>button {
+      width: 10rem;
+    }
+}
 
 
 // @media (min-width: 43.438rem) {
