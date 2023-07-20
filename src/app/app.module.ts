@@ -19,12 +19,7 @@ import {
   initializeAppCheck,
   provideAppCheck,
 } from '@angular/fire/app-check';
-import {
-  connectAuthEmulator,
-  getAuth,
-  provideAuth,
-  GoogleAuthProvider,
-} from '@angular/fire/auth';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 
 import { provideAnalytics, initializeAnalytics } from '@angular/fire/analytics';
 import { getStorage, provideStorage } from '@angular/fire/storage';
@@ -45,7 +40,6 @@ import { LinkPostComponent } from './components/link-post/link-post.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { signInWithPopup } from 'firebase/auth';
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
 
 declare global {
@@ -91,7 +85,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       initializeAppCheck(getApp(), {
         provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
         isTokenAutoRefreshEnabled: true,
-      })
+      }),
     ),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
@@ -107,7 +101,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       return auth;
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: true,
+      enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',

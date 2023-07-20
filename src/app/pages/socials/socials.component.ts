@@ -22,7 +22,7 @@ export class SocialsComponent implements OnInit, AfterViewInit {
   constructor(
     private renderer2: Renderer2,
     @Inject(DOCUMENT) private domDocument: any,
-    private router: Router
+    private router: Router,
   ) {
     // if (this.router.navigated === true) {
     //   location.reload();

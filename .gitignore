@@ -69,5 +69,6 @@ credentials.json
 
 db-config/
 
-.env
+# Environment Files
 .env.*
+.env

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NgModule, inject } from '@angular/core';
 import { CanActivateFn, RouterModule, Routes } from '@angular/router';
 import { AboutMeComponent } from './pages/about-me/about-me.component';
