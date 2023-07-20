@@ -2,9 +2,12 @@ export const environment = {
   appUrl: 'jlz-portfolio.web.app',
   appCheckDebug: '4ad6c24e-aab2-40b5-9cd2-f7fe4291db01',
   secretService:
-    'https://secretservice2ndgen-wa22s5z3va-uc.a.run.app/api/v2/secrets',
+    'https://jzportfolioapp-wa22s5z3va-uc.a.run.app/api/v3/secrets',
   secretServiceLocal:
-    'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService2ndGen/api/v2/secrets',
+    'http://127.0.0.1:4001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/secrets',
+  postServiceLocal:
+    'http://127.0.0.1:4001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/posts',
+  postService: 'https://jzportfolioapp-wa22s5z3va-uc.a.run.app/api/v3/posts',
   production: false,
   local: true,
   firebaseConfig: {
@@ -14,7 +17,7 @@ export const environment = {
     storageBucket: 'jlz-portfolio.appspot.com',
     messagingSenderId: '518070660509',
     appId: '1:518070660509:web:3c14202d7467504157d374',
-    measurementId: 'G-YSKMGT15LP',
+    measurementId: 'G-CNT03XSD81',
   },
   recaptchaSiteKey: '6LdV5L8jAAAAAK1GaBQkmOq37fdxVQszw5x_iIV3',
 };

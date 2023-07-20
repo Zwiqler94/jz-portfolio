@@ -3,20 +3,17 @@
     <h2>News About Me</h2>
     <div>
       <h3>Articles About Me</h3>
-      <ul>
+      <app-feed id="article-feed" [feedLocation]="'Articles'"></app-feed>
+      <!-- <ul>
         <li>
           <a
-            href="https://www.insider.com/facebook-coming-out-feature-national-coming-out-day-2018-10?render-embed=video"
-          >
-            Facebook's Coming Out Feature</a
-          >
+            href="https://www.insider.com/facebook-coming-out-feature-national-coming-out-day-2018-10?render-embed=video">
+            Facebook's Coming Out Feature</a>
         </li>
         <li>
-          <a href="https://www.thejewishstar.com/stories/HAFTR-Highlights,3038"
-            >High School Highlight</a
-          >
+          <a href="https://www.thejewishstar.com/stories/HAFTR-Highlights,3038">High School Highlight</a>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
   <div>
@@ -28,18 +25,15 @@
     <h2>News About Things That Interest Me</h2>
     <div>
       <h3>Apple News</h3>
-      <app-feed id="apple-feed" [feedLocation]="'Apple News'"></app-feed>
+      <app-feed id="apple-feed" [feedLocation]="'Apple'"></app-feed>
     </div>
     <div>
       <h3>Anime News</h3>
-      <app-feed id="anime-feed" [feedLocation]="'Anime News'"></app-feed>
+      <app-feed id="anime-feed" [feedLocation]="'Anime'"></app-feed>
     </div>
     <div>
       <h3>Blockchain News</h3>
-      <app-feed
-        id="blockchain-feed"
-        [feedLocation]="'Blockchain News'"
-      ></app-feed>
+      <app-feed id="blockchain-feed" [feedLocation]="'Blockchain'"></app-feed>
     </div>
   </div>
 </div>

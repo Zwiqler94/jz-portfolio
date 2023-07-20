@@ -1,0 +1,318 @@
+// Theme A
+/* Color Theme Swatches in Hex */
+$JLZ-Portfolio-Theme-A-1-hex: #a1710a;
+$JLZ-Portfolio-Theme-A-2-hex: #ffc13b;
+$JLZ-Portfolio-Theme-A-3-hex: #ef9b31;
+$JLZ-Portfolio-Theme-A-4-hex: #0039a1;
+$JLZ-Portfolio-Theme-A-5-hex: #1f68ed;
+
+/* Color Theme Swatches in RGBA */
+$JLZ-Portfolio-Theme-A-1-rgba: rgba(161, 113, 10, 1);
+$JLZ-Portfolio-Theme-A-2-rgba: rgba(255, 193, 59, 1);
+$JLZ-Portfolio-Theme-A-3-rgba: rgba(239, 155, 49, 1);
+$JLZ-Portfolio-Theme-A-4-rgba: rgba(0, 57, 161, 1);
+$JLZ-Portfolio-Theme-A-5-rgba: rgba(31, 104, 237, 1);
+
+/* Color Theme Swatches in HSLA */
+$JLZ-Portfolio-Theme-A-1-hsla: hsla(40, 88, 33, 1);
+$JLZ-Portfolio-Theme-A-2-hsla: hsla(41, 100, 61, 1);
+$JLZ-Portfolio-Theme-A-3-hsla: hsla(33, 85, 56, 1);
+$JLZ-Portfolio-Theme-A-4-hsla: hsla(218, 100, 31, 1);
+$JLZ-Portfolio-Theme-A-5-hsla: hsla(218, 85, 52, 1);
+
+$md-A-1-primary: (
+  50: #fffde9,
+  100: #fff8c8,
+  200: #fef3a5,
+  300: #feef83,
+  400: #fcea69,
+  500: #fae452,
+  600: #fbd650,
+  700: #f8db16,
+  800: #f2a841,
+  900: #ea8334,
+  A100: #ffffff,
+  A200: #fffce6,
+  A400: #ffee80,
+  A700: #ffeb67,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$md-A-1-secondary: (
+  50: #e4f3ff,
+  100: #bfdfff,
+  200: #97ccff,
+  300: #6fb8ff,
+  400: #55a8ff,
+  500: #4399ff,
+  600: #418bf2,
+  700: #3d78de,
+  800: #3a67cb,
+  900: #3347ac,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #ceddff,
+  A700: #b4cbff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$md-A-1-complementary: (
+  50: #e4f3ff,
+  100: #bde1ff,
+  200: #91d0ff,
+  300: #61bcff,
+  400: #3badff,
+  500: #149eff,
+  600: #1e8fff,
+  700: #227cf2,
+  800: #246ae0,
+  900: #254ac0,
+  A100: #c8deff,
+  A200: #8bbaff,
+  A400: #71abff,
+  A700: #62a2ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$md-A-1-analagous1: (
+  50: #fdeae8,
+  100: #fbcbc6,
+  200: #f9a8a0,
+  300: #f6857a,
+  400: #f46a5e,
+  500: #f25041,
+  600: #f0493b,
+  700: #ee4032,
+  800: #ec372a,
+  900: #e8271c,
+  A100: #fff1f2,
+  A200: #ffb3bb,
+  A400: #ff9aa4,
+  A700: #ff8b96,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$md-A-1-analogous2: (
+  50: #fbfde0,
+  100: #f5fab3,
+  200: #eef780,
+  300: #e7f34d,
+  400: #e2f126,
+  500: #ddee00,
+  600: #d9ec00,
+  700: #d4e900,
+  800: #cfe700,
+  900: #c7e200,
+  A100: #fffccb,
+  A200: #fff98e,
+  A400: #fff874,
+  A700: #fff765,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$md-A-1-triadic1: (
+  50: #eefde0,
+  100: #d4fab3,
+  200: #b8f780,
+  300: #9bf34d,
+  400: #85f126,
+  500: #70ee00,
+  600: #68ec00,
+  700: #5de900,
+  800: #53e700,
+  900: #41e200,
+  A100: #d2ffb4,
+  A200: #aeff76,
+  A400: #9fff5d,
+  A700: #96ff4e,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$md-A-1-triadic2: (
+  50: #e0fcf0,
+  100: #b3f7d9,
+  200: #80f2bf,
+  300: #4deda5,
+  400: #26e992,
+  500: #00e57f,
+  600: #00e277,
+  700: #00de6c,
+  800: #00da62,
+  900: #00d34f,
+  A100: #e7ffea,
+  A200: #aaffb4,
+  A400: #90ff9d,
+  A700: #81ff90,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+// Theme B
+/* Color Theme Swatches in Hex */
+$JZ-Portfolio-Theme-B-1-hex: #3e7bef;
+$JZ-Portfolio-Theme-B-2-hex: #edac1e;
+$JZ-Portfolio-Theme-B-3-hex: #2c2c2c;
+$JZ-Portfolio-Theme-B-4-hex: #f0ce47;
+$JZ-Portfolio-Theme-B-5-hex: #f48e49;
+
+/* Color Theme Swatches in RGBA */
+$JZ-Portfolio-Theme-B-1-rgba: rgba(62, 123, 239, 1);
+$JZ-Portfolio-Theme-B-2-rgba: rgba(237, 172, 30, 1);
+$JZ-Portfolio-Theme-B-3-rgba: rgba(44, 44, 44, 1);
+$JZ-Portfolio-Theme-B-4-rgba: rgba(240, 206, 71, 1);
+$JZ-Portfolio-Theme-B-5-rgba: rgba(244, 142, 73, 1);
+
+/* Color Theme Swatches in HSLA */
+$JZ-Portfolio-Theme-B-1-hsla: hsla(219, 84, 59, 1);
+$JZ-Portfolio-Theme-B-2-hsla: hsla(41, 85, 52, 1);
+$JZ-Portfolio-Theme-B-3-hsla: hsla(0, 0, 17, 1);
+$JZ-Portfolio-Theme-B-4-hsla: hsla(47, 84, 60, 1);
+$JZ-Portfolio-Theme-B-5-hsla: hsla(24, 88, 62, 1);
+
+// Theme C
+/* Color Theme Swatches in Hex */
+$JZ-Portfolio-Theme-C-1-hex: #227cf2;
+$JZ-Portfolio-Theme-C-2-hex: #a67212;
+$JZ-Portfolio-Theme-C-3-hex: #f2a922;
+$JZ-Portfolio-Theme-C-4-hex: #f2f2f2;
+$JZ-Portfolio-Theme-C-5-hex: #0d0d0d;
+
+/* Color Theme Swatches in RGBA */
+$JZ-Portfolio-Theme-C-1-rgba: rgba(34, 124, 242, 1);
+$JZ-Portfolio-Theme-C-2-rgba: rgba(166, 114, 18, 1);
+$JZ-Portfolio-Theme-C-3-rgba: rgba(242, 169, 34, 1);
+$JZ-Portfolio-Theme-C-4-rgba: rgba(242, 242, 242, 1);
+$JZ-Portfolio-Theme-C-5-rgba: rgba(13, 13, 13, 1);
+
+/* Color Theme Swatches in HSLA */
+$JZ-Portfolio-Theme-C-1-hsla: hsla(214, 88, 54, 1);
+$JZ-Portfolio-Theme-C-2-hsla: hsla(38, 80, 36, 1);
+$JZ-Portfolio-Theme-C-3-hsla: hsla(38, 88, 54, 1);
+$JZ-Portfolio-Theme-C-4-hsla: hsla(0, 0, 94, 1);
+$JZ-Portfolio-Theme-C-5-hsla: hsla(0, 0, 5, 1);
+
+// Theme D
+/* Color Theme Swatches in Hex */
+$JZ-Portfolio-Theme-D-1-hex: #5079f2;
+$JZ-Portfolio-Theme-D-2-hex: #035aa6;
+$JZ-Portfolio-Theme-D-3-hex: #000000;
+$JZ-Portfolio-Theme-D-4-hex: #f2ac57;
+$JZ-Portfolio-Theme-D-5-hex: #f20505;
+
+/* Color Theme Swatches in RGBA */
+$JZ-Portfolio-Theme-D-1-rgba: rgba(80, 121, 242, 1);
+$JZ-Portfolio-Theme-D-2-rgba: rgba(3, 90, 166, 1);
+$JZ-Portfolio-Theme-D-3-rgba: rgba(0, 0, 0, 1);
+$JZ-Portfolio-Theme-D-4-rgba: rgba(242, 172, 87, 1);
+$JZ-Portfolio-Theme-D-5-rgba: rgba(242, 5, 5, 1);
+
+/* Color Theme Swatches in HSLA */
+$JZ-Portfolio-Theme-D-1-hsla: hsla(224, 86, 63, 1);
+$JZ-Portfolio-Theme-D-2-hsla: hsla(207, 96, 33, 1);
+$JZ-Portfolio-Theme-D-3-hsla: hsla(0, 0, 0, 1);
+$JZ-Portfolio-Theme-D-4-hsla: hsla(32, 85, 64, 1);
+$JZ-Portfolio-Theme-D-5-hsla: hsla(0, 95, 48, 1);

@@ -16,7 +16,8 @@
     "lint": "ng lint",
     "lint:fix": "prettier --write ./ && ng lint jz-portfolio --fix",
     "e2e": "ng e2",
-    "version": "conventional-changelog -i CHANGELOG.md -s -n ./.changelog-config.js && git add CHANGELOG.md"
+    "version": "conventional-changelog -i CHANGELOG.md -s -n ./.changelog-config.js && git add CHANGELOG.md",
+    "seed": "node dist/db-config/scripts/seed.ts"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +44,9 @@
     "jose": "^4.14.4",
     "luxon": "^3.3.0",
     "nodemon": "^3.0.1",
+    "object-hash": "^3.0.0",
+    "pg": "^8.11.1",
+    "pg-format": "^1.0.4",
     "promise-polyfill": "^8.3.0",
     "punycode": "^2.3.0",
     "querystring-es3": "^0.2.1",
@@ -87,7 +91,10 @@
     "@types/luxon": "^3.3.0",
     "@types/node": "^20.4.2",
     "@types/nodemon": "^1.19.2",
+    "@types/object-hash": "^3.0.2",
     "@types/path-browserify": "^1.0.0",
+    "@types/pg": "^8.10.2",
+    "@types/pg-format": "^1.0.2",
     "@types/prettier": "^2.7.3",
     "@types/promise-polyfill": "^6.0.4",
     "@types/punycode": "^2.1.0",

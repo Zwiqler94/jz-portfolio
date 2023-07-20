@@ -13,8 +13,8 @@
 
 #toolbar-logo,
 #toolbar-logo > img {
-  height: 3rem;
-  margin-top: 1rem;
+  height: 15rem;
+  width: 31.25rem;
   margin-right: 5rem;
 }
 
@@ -30,10 +30,6 @@ mat-toolbar {
 }
 
 @media (min-width: 43.438rem) {
-  #toolbar-logo,
-  #toolbar-logo > img {
-    margin-right: 0rem;
-  }
   mat-toolbar {
     justify-content: center;
     align-items: center;
@@ -42,17 +38,7 @@ mat-toolbar {
 }
 
 @media (min-width: 20rem) {
-  #toolbar-logo,
-  #toolbar-logo > img {
-    margin-right: 0rem;
-  }
   mat-toolbar {
     height: 240px;
-  }
-
-  #toolbar-logo {
-    margin-right: 0px;
-    width: 19rem;
-    height: auto;
   }
 }

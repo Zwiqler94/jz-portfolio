@@ -6,8 +6,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppCheckTokenResult } from 'firebase/app-check';
-import { error, info } from 'console';
-// import { DateTime, Duration } from 'luxon';
 
 interface SecretResponse {
   k: string;
@@ -65,9 +63,10 @@ export class LinkPreviewService {
       this.tokenResult,
     );
     const params = new HttpParams().set('prod', environment.production);
-    const secretsUrl = environment.local
+    let secretsUrl = environment.local
       ? environment.secretServiceLocal
       : environment.secretService;
+    secretsUrl += '/link-previews';
     console.info(secretsUrl);
     return this.httpClient.get<SecretResponse>(secretsUrl, { params, headers });
   }

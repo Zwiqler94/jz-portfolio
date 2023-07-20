@@ -1,26 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable max-len */
-import * as fbAdmin from 'firebase-admin';
+import cors = require('cors');
+import express = require('express');
 import { onRequest } from 'firebase-functions/v2/https';
-import { error, debug } from 'firebase-functions/logger';
-import * as express from 'express';
-import { Request, Response, NextFunction } from 'express';
-import * as cors from 'cors';
-// import { applicationDefault } from 'firebase-admin/app';
-import * as creds from '../credentials.json';
-import { defineSecret } from 'firebase-functions/params';
-import { rateLimit } from 'express-rate-limit';
+// import { appCheckGaurd,  } from "./middleware";
+import {
+  clientCert,
+  clientKey,
+  secretNameDev,
+  secretNameProd,
+  secretRouter,
+  serverCA,
+} from './secrets';
+import { limiter } from './middleware';
+import { postRouter } from './db';
 
-const fbAdminApp = fbAdmin.initializeApp({
-  credential: fbAdmin.credential.cert({
-    clientEmail: creds.client_email,
-    privateKey: creds.private_key,
-    projectId: creds.project_id,
-  }),
-});
+const app = express();
+app.use(cors());
+const jzPortfolioBackendExpressApp = express.Router();
 
-const secretNameDev = defineSecret('LINK_PREVIEW_DEV');
-const secretNameProd = defineSecret('LINK_PREVIEW_PROD');
+app.use('/api/v3', limiter, jzPortfolioBackendExpressApp);
+jzPortfolioBackendExpressApp.use(secretRouter);
+jzPortfolioBackendExpressApp.use('/posts', postRouter);
 
 const secretsApp = express();
 const secretRouter = express.Router();

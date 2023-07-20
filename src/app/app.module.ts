@@ -41,6 +41,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
+import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -61,6 +62,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     MainFeedPageComponent,
     TextPostComponent,
     LinkPostComponent,
+    PostBaseComponent,
     CarouselComponent,
     LoginPageComponent,
   ],
