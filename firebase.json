@@ -5,10 +5,6 @@
       "public": "dist/jz-portfolio",
       "rewrites": [
         {
-          "source": "/secrets/**",
-          "destination": "secretService"
-        },
-        {
           "source": "**",
           "destination": "/index.html"
         }
@@ -20,10 +16,6 @@
       "target": "jlz-portfolio-dev",
       "public": "dist/jz-portfolio-dev",
       "rewrites": [
-        {
-          "source": "/secrets/**",
-          "function": "secretService"
-        },
         {
           "source": "**",
           "destination": "/index.html"
@@ -43,7 +35,7 @@
         "firebase-debug.*.log"
       ],
       "predeploy": [
-        "rm -r $RESOURCE_DIR/lib",
+        "rm -rf $RESOURCE_DIR/lib",
         "npm --prefix \"$RESOURCE_DIR\" run lint",
         "npm --prefix \"$RESOURCE_DIR\" run build"
       ]
