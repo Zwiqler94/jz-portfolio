@@ -21,23 +21,65 @@
       <div class="about-content">
         <mat-card class="testy1">
           <mat-card-content>
-            <ul>
-              <li>
-                <strong>Programming languages: </strong> C, C++, Java, JavaScript,
-                Node.JS, Python, Typescript, Go familiar with Ruby, Haskell, and
-                Prolog
-              </li>
-              <li>
-                <strong>Methodologies: </strong> Agile Software Development,
-                Test-Driven Development
-              </li>
-              <li>
-                <strong>Tools:</strong> Angular, Chai, Docker, Express, Git, Github,
-                Hyperledger Fabric, IBM Cloud, IBM Carbon Design System, Jenkins,
-                Jira, Kubernetes, Mocha, MongoDB, Supertest, Swagger/OpenAPI 3,
-                Cloud Foundry, Cloudant, Hyperledger Indy (IBM Verify Credentials)
-              </li>
-            </ul>
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+
+                  <mat-panel-title>Programming languages: </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                  <mat-list-item>C</mat-list-item>
+                  <mat-list-item>C++</mat-list-item>
+                  <mat-list-item>Java</mat-list-item>
+                  <mat-list-item>JavaScript</mat-list-item>
+                  <mat-list-item>Node.JS</mat-list-item>
+                  <mat-list-item>Python</mat-list-item>
+                  <mat-list-item>Typescript</mat-list-item>
+                  <mat-list-item>Go </mat-list-item>
+                  <mat-list-item> Ruby</mat-list-item>
+                  <mat-list-item>Haskell</mat-list-item>
+                  <mat-list-item>Prolog</mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Methodologies: </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                  <mat-list-item>Agile Software Development</mat-list-item>
+                  <mat-list-item>Test-Driven Development</mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Tools:</mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                  <mat-list-item> Angular</mat-list-item>
+                  <mat-list-item>Chai</mat-list-item>
+                  <mat-list-item>Docker</mat-list-item>
+                  <mat-list-item>Express</mat-list-item>
+                  <mat-list-item>Git</mat-list-item>
+                  <mat-list-item>Github</mat-list-item>
+                  <mat-list-item>Hyperledger Fabric</mat-list-item>
+                  <mat-list-item>IBM Cloud </mat-list-item>
+                  <mat-list-item> IBM Carbon Design System</mat-list-item>
+                  <mat-list-item>Jenkins</mat-list-item>
+                  <mat-list-item>Jira</mat-list-item>
+                  <mat-list-item>Kubernetes</mat-list-item>
+                  <mat-list-item>Mocha</mat-list-item>
+                  <mat-list-item>MongoDB</mat-list-item>
+                  <mat-list-item>Supertest</mat-list-item>
+                  <mat-list-item>Swagger/OpenAPI 3</mat-list-item>
+
+                  <mat-list-item>Cloud Foundry</mat-list-item>
+                  <mat-list-item> Cloudant</mat-list-item>
+                  <mat-list-item>Hyperledger Indy (IBM Verify Credentials)</mat-list-item>
+                </mat-list>
+
+              </mat-expansion-panel>
+
+            </mat-accordion>
           </mat-card-content>
         </mat-card>
       </div>
@@ -93,32 +135,12 @@
     </mat-tab>
     <mat-tab label="Projects">
       <div class="project-content">
-        <mat-card id="username-gen-card">
-          <mat-card-header>
-            <mat-card-title> Username Generator </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <form id="usr-form" [formGroup]="usernameForm" (ngSubmit)="onSubmit($event)">
-              <mat-form-field>
-                <mat-label> Words To Use </mat-label>
-                <input matInput formControlName="words" type="text" />
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label> Special Characters To Use </mat-label>
-                <input matInput formControlName="specialCharacters" type="text" />
-              </mat-form-field>
-              <button mat-raised-button type="submit" class="g-recaptcha" data-sitekey="reCAPTCHA_site_key"
-                data-callback="onSubmit" data-action="submit">
-                Generate Usernames
-              </button>
-            </form>
-            <ng-container *ngIf="results.length > 1">
-              <mat-chip-listbox *ngFor="let username of results">
-                <mat-chip-option>{{ username }} </mat-chip-option>
-              </mat-chip-listbox>
-            </ng-container>
-          </mat-card-content>
-        </mat-card>
+        <lib-username-generator class="project-content-item" [(usernameForm)]="usernameFormInApp"
+          [(result)]="_result"></lib-username-generator>
+        <lib-nasa class="project-content-item" [apiKey]="nasaApiKey"></lib-nasa>
+        <lib-pokemon class="project-content-item"></lib-pokemon>
+        <lib-boredom-solver class="project-content-item"></lib-boredom-solver>
+        <lib-age-by-name class="project-content-item"></lib-age-by-name>
       </div>
     </mat-tab>
   </mat-tab-group>

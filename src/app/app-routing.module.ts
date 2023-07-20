@@ -11,8 +11,10 @@ import { MainFeedPageComponent } from 'src/app/pages/main-feed-page/main-feed-pa
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { SocialsComponent } from 'src/app/pages/socials/socials.component';
+import { ContactMeComponent } from 'src/app/pages/contact-me/contact-me/contact-me.component';
 
-const AuthGuard: CanActivateFn = (route, state) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const AuthGuard: CanActivateFn = (_route, _state) => {
   return inject(AuthService).canActivate();
 };
 
@@ -23,6 +25,7 @@ const routes: Routes = [
   { path: 'hobbies', component: HobbiesComponent, canActivate: [AuthGuard] },
   { path: 'news', component: NewsComponent, canActivate: [AuthGuard] },
   { path: 'socials', component: SocialsComponent },
+  { path: 'contact', component: ContactMeComponent },
   { path: 'error', component: ErrorPageComponent },
   { path: '**', component: ErrorPageComponent },
 ];

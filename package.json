@@ -3,7 +3,7 @@
   "version": "2.0.8",
   "scripts": {
     "ng": "ng",
-    "start:dev": "http-server --cors  -p 8080 -c-1 dist/jz-portfolio-dev",
+    "start:dev": "http-server --cors  -p 8085 -c-1 dist/jz-portfolio-dev",
     "start:prod": "http-server --cors  -p 8080 -c-1 dist/jz-portfolio",
     "start:local": "http-server --cors  -p 8080 -c-1 dist/jz-portfolio-dev-local",
     "build:secretService": "npm --prefix 'functions/' run build",
@@ -36,6 +36,7 @@
     "@angular/service-worker": "^16.1.5",
     "@firebase/util": "^1.9.3",
     "@google-cloud/secret-manager": "^4.2.2",
+    "@zwiqler94/everything-lib": "^0.1.4",
     "core-js": "^3.31.1",
     "cross-fetch": "^4.0.0",
     "firebase": "^10.0.0",

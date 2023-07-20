@@ -8,6 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { EverythingLibModule } from '@zwiqler94/everything-lib';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
@@ -19,13 +20,21 @@ import {
   initializeAppCheck,
   provideAppCheck,
 } from '@angular/fire/app-check';
-import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import {
+  connectAuthEmulator,
+  getAuth,
+  provideAuth,
+} from '@angular/fire/auth';
 
 import { provideAnalytics, initializeAnalytics } from '@angular/fire/analytics';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+
 
 import { AppComponent } from './app.component';
 import { AboutMeComponent } from './pages/about-me/about-me.component';
@@ -42,6 +51,7 @@ import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
+import { ContactMeComponent } from 'src/app/pages/contact-me/contact-me/contact-me.component';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -65,6 +75,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     PostBaseComponent,
     CarouselComponent,
     LoginPageComponent,
+    ContactMeComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +93,9 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     MatChipsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatIconModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAppCheck(() =>
       initializeAppCheck(getApp(), {
@@ -108,6 +122,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    EverythingLibModule
   ],
   providers: [],
   bootstrap: [AppComponent],
