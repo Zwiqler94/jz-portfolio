@@ -20,11 +20,7 @@ import {
   initializeAppCheck,
   provideAppCheck,
 } from '@angular/fire/app-check';
-import {
-  connectAuthEmulator,
-  getAuth,
-  provideAuth,
-} from '@angular/fire/auth';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 
 import { provideAnalytics, initializeAnalytics } from '@angular/fire/analytics';
 import { getStorage, provideStorage } from '@angular/fire/storage';
@@ -34,7 +30,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-
 
 import { AppComponent } from './app.component';
 import { AboutMeComponent } from './pages/about-me/about-me.component';
@@ -117,12 +112,12 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       return auth;
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
+      enabled: environment.production || environment.deployable,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    EverythingLibModule
+    EverythingLibModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

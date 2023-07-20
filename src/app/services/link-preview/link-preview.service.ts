@@ -63,9 +63,7 @@ export class LinkPreviewService {
       this.tokenResult,
     );
     const params = new HttpParams().set('prod', environment.production);
-    let secretsUrl = environment.local
-      ? environment.secretServiceLocal
-      : environment.secretService;
+    let secretsUrl = environment.serviceOptions.secretService;
     secretsUrl += '/link-previews';
     console.info(secretsUrl);
     return this.httpClient.get<SecretResponse>(secretsUrl, { params, headers });

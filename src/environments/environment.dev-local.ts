@@ -1,6 +1,10 @@
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+
 export const environment = {
   appCheckDebug: '4ad6c24e-aab2-40b5-9cd2-f7fe4291db01',
-  appUrl: 'jlz-portfolio.web.app',
+  appUrl: 'jlz-portfolio-dev.web.app',
   deployable: false,
   firebaseConfig: {
     apiKey: 'AIzaSyDuG6ojn89_8rvp4pSVpcmBwvT6D1zunQY',
@@ -8,7 +12,7 @@ export const environment = {
     projectId: 'jlz-portfolio',
     storageBucket: 'jlz-portfolio.appspot.com',
     messagingSenderId: '518070660509',
-    appId: '1:518070660509:web:3c14202d7467504157d374',
+    appId: '1:518070660509:web:9d2511d1a027342457d374',
     measurementId: 'G-CNT03XSD81',
   },
   local: true,
@@ -17,11 +21,10 @@ export const environment = {
   recaptchaSiteKey: '6LdV5L8jAAAAAK1GaBQkmOq37fdxVQszw5x_iIV3',
   serviceOptions: {
     userServiceWorker: false,
-    productionServices: false,
-    postService:
-      'http://127.0.0.1:4001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/posts',
+    productionServices: true,
+    postService: 'https://jzportfolioapp-wa22s5z3va-uc.a.run.app/api/v3/posts',
     secretService:
-      'http://127.0.0.1:4001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/secrets',
+      'https://jzportfolioapp-wa22s5z3va-uc.a.run.app/api/v3/secrets',
   },
 };
 

@@ -14,9 +14,7 @@ export class DatabaseService {
   animePosts;
   blockchainPosts;
 
-  postUrl = environment.production
-    ? environment.postService
-    : environment.postServiceLocal;
+  postUrl = environment.serviceOptions.postService;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(private httpClient: HttpClient) {

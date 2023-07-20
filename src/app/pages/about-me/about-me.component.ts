@@ -20,7 +20,10 @@ export class AboutMeComponent {
     specialCharacters: [''],
   });
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClient) {}
+  constructor(
+    private fb: FormBuilder,
+    private httpClient: HttpClient,
+  ) {}
 
   // ngAfterContentInit(): void {
   //   const targeto: HTMLDivElement = document.getElementById(
@@ -40,7 +43,7 @@ export class AboutMeComponent {
       scriptEl.async = true;
       scriptEl.type = 'text/javascript';
       const targeto = document.querySelector(
-        '#credential-div'
+        '#credential-div',
       ) as HTMLDivElement;
       targeto.append(scriptEl);
     }
@@ -93,7 +96,7 @@ export class AboutMeComponent {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
           },
-        }
+        },
       )
       .subscribe((results) => {
         this.results = results;

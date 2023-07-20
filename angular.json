@@ -31,9 +31,9 @@
                 "scripts": true,
                 "styles": true
               },
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true,
               "budgets": [
                 {
@@ -65,7 +65,7 @@
               "sourceMap": true,
               "namedChunks": true,
               "vendorChunk": true,
-              "buildOptimizer": false,
+              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -79,15 +79,55 @@
                 }
               ],
               "aot": true,
-              "commonChunk": false,
+              "commonChunk": true,
               "serviceWorker": true,
               "statsJson": true,
               "subresourceIntegrity": true,
               "progress": true,
               "extractLicenses": false
             },
-            "local": {
+            "dev-local": {
               "outputPath": "dist/jz-portfolio-dev-local",
+              "index": {
+                "input": "src/index.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev-local.ts"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "15mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "5kb",
+                  "maximumError": "10kb"
+                }
+              ],
+
+              "aot": true,
+              "commonChunk": true,
+              "serviceWorker": false,
+              "statsJson": true,
+              "subresourceIntegrity": false,
+              "progress": true,
+              "verbose": true,
+              "extractLicenses": false
+            },
+            "local": {
+              "outputPath": "dist/jz-portfolio-local",
               "index": {
                 "input": "src/index.html",
                 "output": "index.html"
@@ -119,7 +159,7 @@
 
               "aot": true,
               "commonChunk": true,
-              "serviceWorker": true,
+              "serviceWorker": false,
               "statsJson": true,
               "subresourceIntegrity": false,
               "progress": true,
@@ -212,6 +252,9 @@
             },
             "development": {
               "browserTarget": "jz-portfolio:build:development"
+            },
+            "dev-local": {
+              "browserTarget": "jz-portfolio:build:dev-local"
             },
             "local": {
               "browserTarget": "jz-portfolio:build:local"

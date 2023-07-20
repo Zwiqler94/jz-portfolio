@@ -25,7 +25,10 @@ export class ContactMeComponent {
     this._x = value;
   }
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {}
+  constructor(
+    private http: HttpClient,
+    private fb: FormBuilder,
+  ) {}
 
   async onSubmit() {
     this.http
@@ -37,7 +40,7 @@ export class ContactMeComponent {
             'Content-Type': 'application/json',
             Accept: '*/*',
           },
-        }
+        },
       )
       .subscribe((val) => console.log(val));
   }
@@ -51,12 +54,12 @@ export class ContactMeComponent {
       // The response body may contain clues as to what went wrong.
       console.error(
         `Backend returned code ${error.status}, body was: `,
-        error.error
+        error.error,
       );
     }
     // Return an observable with a user-facing error message.
     return throwError(
-      () => new Error('Something bad happened; please try again later.')
+      () => new Error('Something bad happened; please try again later.'),
     );
   };
 

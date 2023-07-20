@@ -17,11 +17,10 @@
 #button-container-column {
   display: flex;
   flex-direction: column;
-
 }
 
 #toolbar-logo,
-#toolbar-logo>img {
+#toolbar-logo > img {
   height: 8rem;
   width: auto;
   margin-right: 5rem;
@@ -49,7 +48,6 @@ mat-toolbar {
   flex-shrink: 2;
 }
 
-
 .spacer {
   width: 0.25rem;
 }
@@ -58,7 +56,7 @@ mat-toolbar {
   height: 0.25rem;
 }
 
-#button-container-column>button {
+#button-container-column > button {
   display: inline-flex;
   flex-direction: row-reverse;
   width: 12rem;
@@ -68,7 +66,6 @@ mat-toolbar {
     margin: 0.5rem;
   }
 }
-
 
 @media (max-width: 1080px) {
   #button-container {
@@ -90,7 +87,7 @@ mat-toolbar {
   }
 
   #toolbar-logo,
-  #toolbar-logo>img {
+  #toolbar-logo > img {
     height: 5rem;
     width: auto;
   }
@@ -102,11 +99,10 @@ mat-toolbar {
     flex-shrink: 2;
   }
 
-    #button-container-column>button {
-      width: 10rem;
-    }
+  #button-container-column > button {
+    width: 10rem;
+  }
 }
-
 
 // @media (min-width: 43.438rem) {
 //   mat-toolbar {
