@@ -30,7 +30,7 @@
     "@angular/localize": "^16.1.5",
     "@angular/material": "^16.1.5",
     "@angular/platform-browser": "^16.1.5",
-    "@angular/platform-browser-dynamic": "^16.1.5",
+    "@angular/platform-browser-dynamic": "^16.1.6",
     "@angular/router": "^16.1.5",
     "@angular/service-worker": "^16.1.5",
     "@firebase/util": "^1.9.3",
