@@ -9,8 +9,15 @@
           "destination": "/index.html"
         }
       ],
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "predeploy": ["npm run lint:fix", "npm run build:prod"]
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "predeploy": [
+        "npm run lint:fix",
+        "npm run build:prod"
+      ]
     },
     {
       "target": "jlz-portfolio-dev",
@@ -21,7 +28,11 @@
           "destination": "/index.html"
         }
       ],
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
     }
   ],
   "functions": [
@@ -43,10 +54,10 @@
   ],
   "emulators": {
     "functions": {
-      "port": 4001
+      "port": 5001
     },
     "hosting": {
-      "port": 4002
+      "port": 5000
     },
     "ui": {
       "enabled": true

@@ -24,21 +24,32 @@ export class LinkPostComponent extends PostBaseComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.getLinkPreview();
+    try {
+      await this.getLinkPreview();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   async getLinkPreview() {
     const linkArray = this.postContent.match(
-      /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9/\-.,&?=%#();:~]*/,
+      /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9/\-.,&?=%#();:~]*/
     );
     if (linkArray !== null) {
-      (
-        await this.linkPreviewService.getLinkPreview(String(linkArray[0]))
-      ).subscribe((data: unknown) => {
-        {
-          this.linkPreviewData = data as LinkPreview;
-        }
-      });
+      try {
+        (
+          await this.linkPreviewService.getLinkPreview(String(linkArray[0]))
+        ).subscribe({
+          next: (data: unknown) => {
+            {
+              this.linkPreviewData = data as LinkPreview;
+            }
+          },
+          error: (err) => { throw new Error(JSON.stringify(err)) },
+        });
+      } catch (err: any) {
+        throw new Error(err);
+      }
     }
   }
 }

@@ -16,7 +16,7 @@ export const environment = {
   production: true,
   recaptchaSiteKey: '6LdV5L8jAAAAAK1GaBQkmOq37fdxVQszw5x_iIV3',
   serviceOptions: {
-    userServiceWorker: true,
+    useServiceWorker: true,
     productionServices: true,
     postService: 'https://jzportfolioapp-wa22s5z3va-uc.a.run.app/api/v3/posts',
     secretService:

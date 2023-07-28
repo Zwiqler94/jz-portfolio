@@ -1,5 +1,10 @@
+$toolbar-height: 8rem;
+$main-view-height: 62rem;
+$sidenav-height: calc($main-view-height - $toolbar-height);
+
+
 #main-view {
-  min-height: 90vh;
+  height: $main-view-height;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -20,10 +25,14 @@
 }
 
 #toolbar-logo,
-#toolbar-logo > img {
-  height: 8rem;
+#toolbar-logo>img {
+  height: $toolbar-height;
   width: auto;
   margin-right: 5rem;
+}
+
+mat-sidenav-content {
+  height: $sidenav-height;
 }
 
 mat-toolbar {
@@ -32,7 +41,7 @@ mat-toolbar {
   flex-wrap: wrap;
   align-items: center;
   width: 100vw;
-  height: 8rem;
+  height: $toolbar-height;
   flex-basis: auto;
 }
 
@@ -56,7 +65,7 @@ mat-toolbar {
   height: 0.25rem;
 }
 
-#button-container-column > button {
+#button-container-column>button {
   display: inline-flex;
   flex-direction: row-reverse;
   width: 12rem;
@@ -66,6 +75,11 @@ mat-toolbar {
     margin: 0.5rem;
   }
 }
+
+ #dividy {
+   border-top-color: black;
+   border-top-width: 0.15rem;
+ }
 
 @media (max-width: 1080px) {
   #button-container {
@@ -87,7 +101,7 @@ mat-toolbar {
   }
 
   #toolbar-logo,
-  #toolbar-logo > img {
+  #toolbar-logo>img {
     height: 5rem;
     width: auto;
   }
@@ -99,7 +113,7 @@ mat-toolbar {
     flex-shrink: 2;
   }
 
-  #button-container-column > button {
+  #button-container-column>button {
     width: 10rem;
   }
 }

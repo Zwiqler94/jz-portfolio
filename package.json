@@ -44,7 +44,8 @@
     "core-js": "^3.31.1",
     "cross-fetch": "^4.0.0",
     "firebase": "^9.23.0",
-    "firebase-admin": "^11.10.1",
+    "firebase-admin": "11.10",
+    "firebase-functions": "^4.4.1",
     "globalthis": "^1.0.3",
     "jose": "^4.14.4",
     "luxon": "^3.3.0",
@@ -66,14 +67,14 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "16.0.0",
-    "@angular-devkit/architect": "0.1601.4",
-    "@angular-devkit/build-angular": "^16.1.4",
+    "@angular-devkit/architect": "0.1601.5",
+    "@angular-devkit/build-angular": "^16.1.5",
     "@angular-eslint/builder": "16.1.0",
     "@angular-eslint/eslint-plugin": "16.1.0",
     "@angular-eslint/eslint-plugin-template": "16.1.0",
     "@angular-eslint/schematics": "16.1.0",
     "@angular-eslint/template-parser": "16.1.0",
-    "@angular/cli": "^16.1.4",
+    "@angular/cli": "^16.1.5",
     "@angular/compiler-cli": "^16.1.6",
     "@babel/core": "^7.22.9",
     "@babel/node": "^7.22.6",
@@ -93,8 +94,8 @@
     "@types/karma-coverage": "~2.0.1",
     "@types/karma-jasmine": "~4.0.2",
     "@types/karma-jasmine-html-reporter": "^1.7.0",
-    "@types/luxon": "^3.3.0",
-    "@types/node": "^20.4.2",
+    "@types/luxon": "^3.3.1",
+    "@types/node": "^20.4.4",
     "@types/nodemon": "^1.19.2",
     "@types/object-hash": "^3.0.2",
     "@types/path-browserify": "^1.0.0",
@@ -117,14 +118,14 @@
     "husky": "^8.0.3",
     "inquirer": "^9.2.8",
     "inquirer-autocomplete-prompt": "^3.0.0",
-    "jasmine-core": "~5.0.1",
+    "jasmine-core": "~5.1.0",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
-    "postcss": "^8.4.26",
+    "postcss": "^8.4.27",
     "prettier": "^3.0.0",
     "ts-node": "~10.9.1",
     "typescript": "^5.1"
@@ -133,9 +134,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "overrides": {
-    "semver": ">=7.5.2",
-    "word-wrap": "npm:@aashutoshrathi/word-wrap"
   }
 }

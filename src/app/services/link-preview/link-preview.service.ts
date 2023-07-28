@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppCheckTokenResult } from 'firebase/app-check';
+import { LinkPreview } from 'src/app/components/models/link-post';
 
 interface SecretResponse {
   k: string;
@@ -76,7 +77,7 @@ export class LinkPreviewService {
       const apiKey: SecretResponse = await lastValueFrom(this.getAPIKey());
       console.info(apiKey);
       this.params = this.params.set('key', apiKey.k).set('q', url);
-      return this.httpClient.get(this.baseUrl, {
+      return this.httpClient.get<LinkPreview>(this.baseUrl, {
         params: this.params,
       });
     } catch (err) {

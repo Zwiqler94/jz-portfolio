@@ -22,48 +22,50 @@ export class ServiceWorkerService {
   constructor(
     private updates: SwUpdate,
     private appRef: ApplicationRef,
-    private push: SwPush,
+    private push: SwPush
   ) {
-    updates.versionUpdates.subscribe((event) => {
-      switch (event.type) {
-        case 'VERSION_DETECTED':
-          console.log(`Downloading new app version: ${event.version.hash}`);
-          break;
-        case 'VERSION_READY':
-          console.log(`Current app version: ${event.currentVersion.hash}`);
-          console.log(
-            `New app version ready for use: ${event.latestVersion.hash}`,
-          );
-          break;
-        case 'VERSION_INSTALLATION_FAILED':
-          console.log(
-            `Failed to install app version '${event.version.hash}': ${event.error}`,
-          );
-          break;
-      }
-    });
+    if (this.swUpdates.isEnabled) {
+      updates.versionUpdates.subscribe((event) => {
+        switch (event.type) {
+          case 'VERSION_DETECTED':
+            console.log(`Downloading new app version: ${event.version.hash}`);
+            break;
+          case 'VERSION_READY':
+            console.log(`Current app version: ${event.currentVersion.hash}`);
+            console.log(
+              `New app version ready for use: ${event.latestVersion.hash}`
+            );
+            break;
+          case 'VERSION_INSTALLATION_FAILED':
+            console.log(
+              `Failed to install app version '${event.version.hash}': ${event.error}`
+            );
+            break;
+        }
+      });
 
-    const appIsStable$ = appRef.isStable.pipe(
-      first((isStable) => isStable === true),
-    );
-    const everySixMinutes$ = interval(60 * 1000);
-    const everySixHoursOnceAppIsStable$ = concat(
-      appIsStable$,
-      everySixMinutes$,
-    );
+      const appIsStable$ = appRef.isStable.pipe(
+        first((isStable) => isStable === true)
+      );
+      const everySixMinutes$ = interval(60 * 1000);
+      const everySixHoursOnceAppIsStable$ = concat(
+        appIsStable$,
+        everySixMinutes$
+      );
 
-    everySixHoursOnceAppIsStable$.subscribe(async () => {
-      try {
-        const updateFound = await updates.checkForUpdate();
-        console.log(
-          updateFound
-            ? 'A new version is available.'
-            : 'Already on the latest version.',
-        );
-      } catch (err) {
-        console.error('Failed to check for updates:', err);
-      }
-    });
+      everySixHoursOnceAppIsStable$.subscribe(async () => {
+        try {
+          const updateFound = await updates.checkForUpdate();
+          console.log(
+            updateFound
+              ? 'A new version is available.'
+              : 'Already on the latest version.'
+          );
+        } catch (err) {
+          console.error('Failed to check for updates:', err);
+        }
+      });
+    }
 
     // updates.versionUpdates
     //   .pipe(

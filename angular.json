@@ -98,7 +98,10 @@
                   "with": "src/environments/environment.dev-local.ts"
                 }
               ],
-              "optimization": false,
+              "optimization": {
+                "styles":false,
+                "fonts": true
+              },
               "outputHashing": "all",
               "sourceMap": true,
               "namedChunks": true,

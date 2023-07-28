@@ -30,7 +30,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private dbService: DatabaseService,
+    private dbService: DatabaseService
   ) {
     this.feedLocation = 'Main';
     this.dbService.mainPosts.subscribe((post) => {
@@ -44,9 +44,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (!environment.production) {
-      this.feedSwitchv2(this.feedLocation);
-    }
+    this.feedSwitchv2(this.feedLocation);
     this.changeDetector.detectChanges();
   }
 
@@ -73,23 +71,49 @@ export class FeedComponent implements OnInit, AfterViewInit {
     if (feedSwitch === 'Main') {
       const posts: Post[] = await lastValueFrom(this.dbService.mainPosts);
       posts.forEach((post) => {
-        if (post.type === 'text') {
-          this.generateTextPost(post);
-        } else if (post.type === 'link') {
-          this.generateLinkPost(post);
-        }
+        setTimeout(() => {
+          if (post.type === 'text') {
+            this.generateTextPost(post);
+          } else if (post.type === 'link') {
+            this.generateLinkPost(post);
+          }
+        }, 10000);
       });
     } else if (feedSwitch === 'Puppy') {
       const posts: Post[] = await lastValueFrom(this.dbService.puppyPosts);
       posts.forEach((post) => {
-        if (post.type === 'text') {
-          this.generateTextPost(post);
-        } else if (post.type === 'link') {
-          this.generateLinkPost(post);
-        }
+        setTimeout(() => {
+          if (post.type === 'text') {
+            this.generateTextPost(post);
+          } else if (post.type === 'link') {
+            this.generateLinkPost(post);
+          }
+        }, 20000);
       });
     } else if (feedSwitch === 'Articles') {
       const posts: Post[] = await lastValueFrom(this.dbService.articlePosts);
+      posts.forEach((post) => {
+        setTimeout(() => {
+          if (post.type === 'text') {
+            this.generateTextPost(post);
+          } else if (post.type === 'link') {
+            this.generateLinkPost(post);
+          }
+        }, 30000);
+      });
+    } else if (feedSwitch === 'Apple') {
+      const posts: Post[] = await lastValueFrom(this.dbService.applePosts);
+      posts.forEach((post) => {
+        setTimeout(() => {
+          if (post.type === 'text') {
+            this.generateTextPost(post);
+          } else if (post.type === 'link') {
+            this.generateLinkPost(post);
+          }
+        }, 40000);
+      });
+    } else if (feedSwitch === 'Anime') {
+      const posts: Post[] = await lastValueFrom(this.dbService.animePosts);
       posts.forEach((post) => {
         if (post.type === 'text') {
           this.generateTextPost(post);
@@ -97,8 +121,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.generateLinkPost(post);
         }
       });
-    } else if (feedSwitch === 'Apple') {
-      const posts: Post[] = await lastValueFrom(this.dbService.applePosts);
+    } else if (feedSwitch === 'Blockchain') {
+      const posts: Post[] = await lastValueFrom(this.dbService.blockchainPosts);
       posts.forEach((post) => {
         if (post.type === 'text') {
           this.generateTextPost(post);
@@ -117,16 +141,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
     //     }
     //   });
     // }
-    else if (feedSwitch === 'Anime') {
-      const posts: Post[] = await lastValueFrom(this.dbService.animePosts);
-      posts.forEach((post) => {
-        if (post.type === 'text') {
-          this.generateTextPost(post);
-        } else if (post.type === 'link') {
-          this.generateLinkPost(post);
-        }
-      });
-    }
+
     // else if (feedSwitch === 'Projects') {
     //   const posts: Post[] = await lastValueFrom(this.dbService.projects);
     //   posts.forEach((post) => {
@@ -137,16 +152,6 @@ export class FeedComponent implements OnInit, AfterViewInit {
     //     }
     //   });
     // }
-    else if (feedSwitch === 'Blockchain') {
-      const posts: Post[] = await lastValueFrom(this.dbService.blockchainPosts);
-      posts.forEach((post) => {
-        if (post.type === 'text') {
-          this.generateTextPost(post);
-        } else if (post.type === 'link') {
-          this.generateLinkPost(post);
-        }
-      });
-    }
   }
 
   generateTextPost(textPost: Post) {

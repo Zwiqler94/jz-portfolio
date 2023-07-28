@@ -20,11 +20,12 @@ export const environment = {
   production: false,
   recaptchaSiteKey: '6LdV5L8jAAAAAK1GaBQkmOq37fdxVQszw5x_iIV3',
   serviceOptions: {
-    userServiceWorker: true,
+    useServiceWorker: true,
     productionServices: true,
     secretService:
-      'https://jzportfolioapp-wa22s5z3va-uc.a.run.app/api/v3/secrets',
-    postService: 'https://jzportfolioapp-wa22s5z3va-uc.a.run.app/api/v3/posts',
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/secrets',
+    postService:
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts',
   },
 };
 
