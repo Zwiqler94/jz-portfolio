@@ -44,7 +44,7 @@
         "strategy": "performance"
       },
       "name": "linkpreview",
-      "urls": ["https://api.linkpreview.net/**/*"]
+      "urls": ["https://api.linkpreview.net/**/*", "https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts/*"]
     }
   ]
 }
