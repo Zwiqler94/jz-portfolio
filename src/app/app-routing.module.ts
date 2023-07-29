@@ -12,18 +12,21 @@ import { LoginPageComponent } from 'src/app/pages/login-page/login-page.componen
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { SocialsComponent } from 'src/app/pages/socials/socials.component';
 import { ContactMeComponent } from 'src/app/pages/contact-me/contact-me/contact-me.component';
+import { environment } from 'src/environments/environment';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AuthGuard: CanActivateFn = (_route, _state) => {
   return inject(AuthService).canActivate();
 };
 
+const envAuthGaurd = environment.deployable ? [AuthGuard] : undefined;
+
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
-  { path: 'home', component: MainFeedPageComponent }, // canActivate: [AuthGuard] },
-  { path: 'aboutme', component: AboutMeComponent }, // , canActivate: [AuthGuard] },
-  { path: 'hobbies', component: HobbiesComponent }, // , canActivate: [AuthGuard] },
-  { path: 'news', component: NewsComponent }, // , canActivate: [AuthGuard] },
+  { path: 'home', component: MainFeedPageComponent , canActivate: envAuthGaurd },
+  { path: 'aboutme', component: AboutMeComponent  , canActivate: envAuthGaurd },
+  { path: 'hobbies', component: HobbiesComponent  , canActivate: envAuthGaurd },
+  { path: 'news', component: NewsComponent  , canActivate: envAuthGaurd },
   { path: 'socials', component: SocialsComponent },
   { path: 'contact', component: ContactMeComponent },
   { path: 'error', component: ErrorPageComponent },
