@@ -121,9 +121,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "overrides": {
-    "semver": ">=7.5.2",
-    "word-wrap": "npm:@aashutoshrathi/word-wrap"
   }
 }
