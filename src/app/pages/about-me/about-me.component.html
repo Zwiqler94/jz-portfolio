@@ -27,9 +27,11 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>Programming languages: </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-chip-set *ngFor="let skill of skillList">
+                <mat-chip-set>
+                  <ng-container  *ngFor="let skill of skillList">
                   <mat-chip color="accent" highlighted> {{skill}}
                   </mat-chip>
+                </ng-container>
                 </mat-chip-set>
               </mat-expansion-panel>
               <mat-expansion-panel id="pdpdp">

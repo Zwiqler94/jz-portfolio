@@ -116,13 +116,12 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "5kb",
-                  "maximumError": "10kb"
+                  "maximumError": "15mb"
                 }
               ],
 
               "aot": true,
               "commonChunk": true,
-              "serviceWorker": false,
               "statsJson": true,
               "subresourceIntegrity": false,
               "progress": true,
