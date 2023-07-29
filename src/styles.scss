@@ -46,3 +46,16 @@ $light-theme: mat.define-light-theme(
   // typography and density styles.
   @include mat.all-component-colors($light-theme);
 }
+
+mat-card.base {
+  max-width: 80vw;
+  width: 10rem;
+  min-width: 45vw;
+  height: 28rem;
+}
+
+.mat-mdc-standard-chip .mdc-evolution-chip__cell--primary,
+.mat-mdc-standard-chip .mdc-evolution-chip__action--primary,
+.mat-mdc-standard-chip .mat-mdc-chip-action-label {
+  white-space: normal;
+}

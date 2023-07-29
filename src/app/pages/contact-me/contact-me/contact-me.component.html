@@ -1,56 +1,37 @@
-<mat-card>
-  <mat-card-header>
-    <h1>Say Hey!</h1>
-  </mat-card-header>
-  <mat-card-content>
-    <form id="contact-form" [formGroup]="contactForm" (submit)="onSubmit()">
-      <input type="hidden" formControlName="access_key" value="" />
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="name"
-          placeholder="Your name"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input
-          matInput
-          type="email"
-          formControlName="email"
-          placeholder="Your email"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Message</mat-label>
-        <textarea
-          matInput
-          formControlName="message"
-          placeholder="Enter your message here"
-          required
-        >
+<div id="contact-div">
+  <mat-card>
+    <mat-card-header>
+      <h1>Say Hey!</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <form id="contact-form" [formGroup]="contactForm" (submit)="onSubmit()">
+        <input type="hidden" formControlName="access_key" value="" />
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="name" placeholder="Your name" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="Your email" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Message</mat-label>
+          <textarea matInput formControlName="message" placeholder="Enter your message here" required>
         </textarea>
-      </mat-form-field>
-      <input
-        type="hidden"
-        formControlName="redirect"
-        value="https://web3forms.com/success"
-      />
+        </mat-form-field>
+        <input type="hidden" formControlName="redirect" value="https://web3forms.com/success" />
 
-      <!-- <input type="file" formControlName="file" placeholder="Attachments (optional)"> -->
+        <!-- <input type="file" formControlName="file" placeholder="Attachments (optional)"> -->
 
-      <!-- <input type="hidden" formControlName="_subject" value="Contact form submitted"> -->
-      <!-- <input type="hidden" formControlName="_honeypot" value=""> -->
+        <!-- <input type="hidden" formControlName="_subject" value="Contact form submitted"> -->
+        <!-- <input type="hidden" formControlName="_honeypot" value=""> -->
 
-      <!-- <input type="hidden" formControlName="_after" value="https://mailthis.to/confirm"> -->
+        <!-- <input type="hidden" formControlName="_after" value="https://mailthis.to/confirm"> -->
 
-      <button mat-raised-button color="accent" type="submit">
-        <mat-icon>contact_mail</mat-icon> Send Message
-      </button>
-    </form>
-  </mat-card-content>
-</mat-card>
+        <button mat-raised-button color="accent" type="submit">
+          <mat-icon>contact_mail</mat-icon> Send Message
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

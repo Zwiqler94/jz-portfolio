@@ -9,25 +9,22 @@ $paragraph-div-height: calc($content-div-height - 2rem);
   background-color: gray;
   justify-content: center;
   align-items: center;
-  font-size: 1.5vw;
 }
 
 .content-div {
   height: $content-div-height;
-  width: 100vw;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   color: white;
 }
 
 .paragraph {
-  margin: 4rem;
   height: $paragraph-div-height;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80vw;
 }
 
 .image-div {
@@ -35,7 +32,7 @@ $paragraph-div-height: calc($content-div-height - 2rem);
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 80vw;
+  width: 80vw;
 }
 
 .images {
@@ -67,6 +64,12 @@ mat-tab-group {
   width: 100vw;
 }
 
+mat-card {
+  max-width: 80vw;
+  width: 18.75rem;
+  min-width: 45vw;
+}
+
 // mat-card {
 //   margin: 0.938rem;
 //   max-width: 42.5rem;
@@ -96,6 +99,7 @@ mat-tab-group {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
   .image-columns {
     display: flex;
     flex-direction: column;
@@ -104,7 +108,9 @@ mat-tab-group {
   }
 
   img {
-    max-width: 20vw;
+    max-width: 18.75rem;
+    width: auto;
+    min-width: 2rem;
   }
 }
 
@@ -114,6 +120,13 @@ mat-tab-group {
   margin: 2vw;
 }
 
-// app-carousel {
-//   max-height: 10vh;
-// }
+.testy2{
+  width: 15rem;
+  min-width: 10rem;
+  height: 20rem;
+  margin: 1rem;
+}
+
+app-carousel {
+  margin: 3rem;
+}

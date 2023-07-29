@@ -5,25 +5,33 @@
 }
 
 #img-div {
-  width: 30vw;
+  height: auto;
+  width: auto;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 img {
-  max-height: 20vw;
+  max-width: 18.75rem;
+  width: auto;
+  height: auto;
+  min-width: 2rem;
   margin: 0.5rem;
 }
 
 .nav-arrows {
-  max-height: 5vw;
+  padding: 0.25rem;
+  max-height: 3rem;
+  border-radius: 100%;
   width: auto;
 }
 
 .nav-arrows:hover {
   background-color: ivory;
 }
+
+
 
 @media (max-width: 25.875rem) {
   #img-div {

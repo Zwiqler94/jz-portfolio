@@ -1,4 +1,4 @@
-$about-div-height: 70vh;
+$about-div-height: 52rem;
 $content-div-height: calc($about-div-height - 2rem);
 $about-div-width: 100vw;
 $content-div-width: calc($about-div-width - 2.75rem);
@@ -6,11 +6,10 @@ $content-div-width: calc($about-div-width - 2.75rem);
 
 #about-div {
   display: flex;
-  height: $about-div-height;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: $about-div-width;
 }
 
 mat-tab {
@@ -21,12 +20,12 @@ mat-tab {
 
 .about-content,
 .project-content {
+  position: relative;
   margin: 4rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  height: $content-div-height;
 }
 
 .project-content-item {
@@ -34,15 +33,7 @@ mat-tab {
 }
 
 #about-tabs {
-  width: 98vw;
-}
-
-div#footer > footer {
-  display: inline-flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 72vw;
-  padding: 1rem;
+  width: 100vw;
 }
 
 mat-form-field {
@@ -50,17 +41,22 @@ mat-form-field {
   width: 30rem;
 }
 
-#badge-div {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
+// #badge-div {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
+// }
 
 mat-card {
   padding: 0.25rem;
-  max-width: 80vw;
-  min-width: 65vw;
+  max-width: 95vw;
+  width: 59rem;
+  min-width: 45vw;
+}
+
+mat-chip {
+  height: 2.5rem;
 }
 
 // @media (max-width: 20rem) {

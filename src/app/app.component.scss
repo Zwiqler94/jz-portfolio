@@ -1,5 +1,5 @@
 $toolbar-height: 8rem;
-$main-view-height: 62rem;
+$main-view-height: 45rem;
 $sidenav-height: calc($main-view-height - $toolbar-height);
 
 
@@ -7,7 +7,7 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
   height: $main-view-height;
   width: 100vw;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -31,8 +31,12 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
   margin-right: 5rem;
 }
 
-mat-sidenav-content {
-  height: $sidenav-height;
+// mat-sidenav-content {
+//   height: $sidenav-height;
+// }
+
+.mat-drawer-container{
+  margin-bottom: -0.8125rem;
 }
 
 mat-toolbar {
@@ -79,6 +83,14 @@ mat-toolbar {
  #dividy {
    border-top-color: black;
    border-top-width: 0.15rem;
+ }
+
+ #footer-sidenav {
+  width: 100vw;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
  }
 
 @media (max-width: 1080px) {

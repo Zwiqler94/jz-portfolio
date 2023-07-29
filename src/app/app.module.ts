@@ -47,6 +47,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 import { ContactMeComponent } from 'src/app/pages/contact-me/contact-me/contact-me.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -71,6 +72,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     CarouselComponent,
     LoginPageComponent,
     ContactMeComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

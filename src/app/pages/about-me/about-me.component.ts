@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 import { HttpClient } from '@angular/common/http';
-import { Component, VERSION } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { environment } from 'src/environments/environment';
@@ -13,6 +13,20 @@ import { environment } from 'src/environments/environment';
 export class AboutMeComponent {
   private _badgeHeight = '18.75rem';
   private _badgeWidth = '12.5rem';
+  private _skillList = [
+    'C',
+    'C++',
+    'Java',
+    'JavaScript',
+    'Node.JS',
+    'Python',
+    'Typescript',
+    'Go',
+    'Ruby',
+    'Haskell',
+    'Prolog',
+  ];
+
   _result = [''];
 
   usernameFormInApp: FormGroup = this.fb.group({
@@ -20,10 +34,7 @@ export class AboutMeComponent {
     specialCharacters: [''],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private httpClient: HttpClient,
-  ) {}
+  constructor(private fb: FormBuilder, private httpClient: HttpClient) {}
 
   // ngAfterContentInit(): void {
   //   const targeto: HTMLDivElement = document.getElementById(
@@ -43,14 +54,10 @@ export class AboutMeComponent {
       scriptEl.async = true;
       scriptEl.type = 'text/javascript';
       const targeto = document.querySelector(
-        '#credential-div',
+        '#credential-div'
       ) as HTMLDivElement;
       targeto.append(scriptEl);
     }
-  }
-
-  get angularVersion() {
-    return VERSION;
   }
 
   get nasaApiKey() {
@@ -78,6 +85,13 @@ export class AboutMeComponent {
     this._badgeWidth = value;
   }
 
+  public get skillList() {
+    return this._skillList;
+  }
+  public set skillList(value) {
+    this._skillList = value;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onSubmit(_token: unknown) {
     const body = {
@@ -96,7 +110,7 @@ export class AboutMeComponent {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
           },
-        },
+        }
       )
       .subscribe((results) => {
         this.results = results;
