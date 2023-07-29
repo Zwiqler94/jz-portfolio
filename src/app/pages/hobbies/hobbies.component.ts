@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable no-underscore-dangle */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
 import { listAll, ListResult, StorageReference } from 'firebase/storage';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';

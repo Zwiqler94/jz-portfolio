@@ -23,6 +23,7 @@ export class LoginPageComponent {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         this.auth.userToken = credential?.accessToken;
         const user = result.user;
+        console.log(user);
         this.router.navigateByUrl('/home');
       })
       .catch((error) => {

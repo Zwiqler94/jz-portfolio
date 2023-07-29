@@ -1,16 +1,22 @@
-## <small>2.0.6 (2023-06-23)</small>
+## <small>2.0.8 (2023-07-18)</small>
 
-- fix(secrets): fix secrets service rate limiter ([2d5d305](https://github.com/Zwiqler94/jz-portfolio/commit/2d5d305))
+* fix(secrets): fix secrets service rate limiter ([2d5d305](https://github.com/Zwiqler94/jz-portfolio/commit/2d5d305))
+
+
+
+## <small>2.0.7 (2023-07-15)</small>
+
+* chore: ughhghg (#255) ([25ec2cd](https://github.com/Zwiqler94/jz-portfolio/commit/25ec2cd)), closes [#255](https://github.com/Zwiqler94/jz-portfolio/issues/255) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249) [#252](https://github.com/Zwiqler94/jz-portfolio/issues/252) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249)
+* chore(release): 2.0.5 :tada: ([21b4a17](https://github.com/Zwiqler94/jz-portfolio/commit/21b4a17))
+
+
 
 ## <small>2.0.5 (2023-06-23)</small>
 
-- chore: ughhghg (#255) ([25ec2cd](https://github.com/Zwiqler94/jz-portfolio/commit/25ec2cd)), closes [#255](https://github.com/Zwiqler94/jz-portfolio/issues/255) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249) [#252](https://github.com/Zwiqler94/jz-portfolio/issues/252) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249)
-- chore(release): 2.0.5 :tada: ([21b4a17](https://github.com/Zwiqler94/jz-portfolio/commit/21b4a17))
+* chore(release): 2.0.4 :tada: ([0abeafa](https://github.com/Zwiqler94/jz-portfolio/commit/0abeafa))
+* ci: update main-workflow-v2.yml ([7ce8d54](https://github.com/Zwiqler94/jz-portfolio/commit/7ce8d54))
 
-## <small>2.0.4 (2023-06-23)</small>
 
-- chore(release): 2.0.4 :tada: ([0abeafa](https://github.com/Zwiqler94/jz-portfolio/commit/0abeafa))
-- ci: update main-workflow-v2.yml ([7ce8d54](https://github.com/Zwiqler94/jz-portfolio/commit/7ce8d54))
 
 ## <small>2.0.3 (2023-06-23)</small>
 
@@ -106,8 +112,8 @@
 
 ### BREAKING CHANGE
 
-- refer to
-  https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
+* refer to
+https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
 
 - fix(cloud functions): add .value to secret params
 
@@ -115,9 +121,9 @@
 
 - style(lint): add lint fixes
 
-- feat(auth): add foundation for auth service
-- refer to
-  https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
+* feat(auth): add foundation for auth service
+* refer to
+https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
 
 - fix(cloud functions): add .value to secret params
 
@@ -423,9 +429,9 @@ Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 
 ### BREAKING CHANGE
 
-- Previous app versions won't work, due to app check enforcement
-- refer to
-  https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
+* Previous app versions won't work, due to app check enforcement
+* refer to
+https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
 
 - fix(cloud functions): add .value to secret params
 
@@ -1139,9 +1145,9 @@ Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 
 ### BREAKING CHANGE
 
-- Previous app versions won't work, due to app check enforcement
-- refer to
-  https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
+* Previous app versions won't work, due to app check enforcement
+* refer to
+https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
 
 - fix(cloud functions): add .value to secret params
 

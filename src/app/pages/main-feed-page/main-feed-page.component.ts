@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
-import { VersionEvent, VersionReadyEvent } from '@angular/service-worker';
+import { VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 
