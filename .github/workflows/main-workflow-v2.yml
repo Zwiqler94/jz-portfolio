@@ -10,10 +10,15 @@ on:
       - synchronize
 permissions: write-all
 jobs:
-  version:
+  versionDev:
+    if: ${{ github.base_ref != 'main' }}
     uses: ./.github/workflows/version.yml
     secrets: inherit
-  deploy:
-    needs: [version]
+  deployDev:
+    needs: [versionDev]
     uses: ./.github/workflows/main-deploy-workflow.yml
     secrets: inherit
+  deployProd:
+    uses: ./.github/workflows/main-deploy-workflow.yml
+    secrets: inherit
+  
