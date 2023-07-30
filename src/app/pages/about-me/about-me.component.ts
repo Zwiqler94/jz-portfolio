@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, VERSION } from '@angular/core';
+import { Component, VERSION } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-about-me',
@@ -18,7 +17,10 @@ export class AboutMeComponent {
     specialCharacters: [''],
   });
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClient) {}
+  constructor(
+    private fb: FormBuilder,
+    private httpClient: HttpClient,
+  ) {}
 
   get angularVersion() {
     return VERSION;
@@ -32,7 +34,7 @@ export class AboutMeComponent {
     this._result = result;
   }
 
-  onSubmit(token: any) {
+  onSubmit(_token: any) {
     const body = {
       words: (this.usernameForm.get('words')?.value as string).split(','),
       specials: (
@@ -49,7 +51,7 @@ export class AboutMeComponent {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
           },
-        }
+        },
       )
       .subscribe((results) => {
         this.results = results;

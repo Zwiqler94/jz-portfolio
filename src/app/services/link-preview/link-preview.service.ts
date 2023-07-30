@@ -9,7 +9,6 @@ import { AppCheckTokenResult } from 'firebase/app-check';
 import { error, info } from 'console';
 // import { DateTime, Duration } from 'luxon';
 
-
 interface SecretResponse {
   k: string;
 }
@@ -51,11 +50,11 @@ export class LinkPreviewService {
 
   async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
     try {
-      info(this.appCheck);
+      console.info(this.appCheck);
       this.tokenResult = (await getToken(this.appCheck)).token;
-      info(this.tokenResult);
+      console.info(this.tokenResult);
     } catch (err) {
-      error(err);
+      console.error(err);
     }
     return this.tokenResult;
   }
@@ -63,28 +62,28 @@ export class LinkPreviewService {
   getAPIKey() {
     const headers = new HttpHeaders().set(
       'X-Firebase-AppCheck-Debug',
-      this.tokenResult
+      this.tokenResult,
     );
     const params = new HttpParams().set('prod', environment.production);
     const secretsUrl = environment.local
       ? environment.secretServiceLocal
       : environment.secretService;
-    info(secretsUrl);
+    console.info(secretsUrl);
     return this.httpClient.get<SecretResponse>(secretsUrl, { params, headers });
   }
 
   async getLinkPreview(url: string) {
-    info(url);
+    console.info(url);
     try {
       await this.getAppCheckToken();
       const apiKey: SecretResponse = await lastValueFrom(this.getAPIKey());
-      info(apiKey);
+      console.info(apiKey);
       this.params = this.params.set('key', apiKey.k).set('q', url);
       return this.httpClient.get(this.baseUrl, {
         params: this.params,
       });
     } catch (err) {
-      error(err);
+      console.error(err);
       throw Error(JSON.stringify(err));
     }
   }

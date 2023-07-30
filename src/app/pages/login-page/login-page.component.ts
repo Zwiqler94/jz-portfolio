@@ -12,7 +12,10 @@ export class LoginPageComponent {
   private fbAuth: Auth = inject(Auth);
   private googleProvider = new GoogleAuthProvider();
 
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+  ) {}
 
   signIn() {
     signInWithPopup(this.fbAuth, this.googleProvider)
@@ -20,6 +23,7 @@ export class LoginPageComponent {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         this.auth.userToken = credential?.accessToken;
         const user = result.user;
+        console.log(user);
         this.router.navigateByUrl('/home');
       })
       .catch((error) => {
