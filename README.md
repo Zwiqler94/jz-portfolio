@@ -1,5 +1,6 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![Workflow Orchestrator v3 Dev](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow-v3.yml/badge.svg?event=pull_request_target)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow-v3.yml)[![Prod Build Status](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow.yml/badge.svg?branch=main)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow.yml)
+[![Workflow Orchestrator v3 Dev](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow-v3.yml/badge.svg?event=pull_request_target)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow-v3.yml)
+[![Workflow Orchestrator v3 Prod](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow-v3.yml/badge.svg?branch=main&event=pull_request_target)](https://github.com/Zwiqler94/jz-portfolio/actions/workflows/main-workflow-v3.yml)
 
 # JzPortfolio
 
