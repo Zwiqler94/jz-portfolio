@@ -27,8 +27,8 @@ const routes: Routes = [
   { path: 'aboutme', component: AboutMeComponent, canActivate: envAuthGaurd },
   { path: 'hobbies', component: HobbiesComponent, canActivate: envAuthGaurd },
   { path: 'news', component: NewsComponent, canActivate: envAuthGaurd },
-  { path: 'socials', component: SocialsComponent, canActivate: envAuthGaurd  },
-  { path: 'contact', component: ContactMeComponent, canActivate: envAuthGaurd  },
+  { path: 'socials', component: SocialsComponent, canActivate: envAuthGaurd },
+  { path: 'contact', component: ContactMeComponent, canActivate: envAuthGaurd },
   { path: 'error', component: ErrorPageComponent },
   { path: '**', component: ErrorPageComponent },
 ];
