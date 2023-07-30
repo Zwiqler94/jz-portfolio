@@ -1,0 +1,19 @@
+#contact-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+}
+
+mat-form-field {
+  width: 50vw;
+}
+
+#contact-div {
+  display: flex;
+  align-items: center;
+  height: 72vh;
+  width: 100%;
+  justify-content: center;
+}

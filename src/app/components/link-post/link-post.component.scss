@@ -1,3 +1,5 @@
+@use "themes";
+
 #post-div {
   display: flex;
   justify-content: center;
@@ -20,7 +22,7 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: gray;
+  background-color: map-get(themes.$md-A-1-complementary, 700);
   margin-left: -16px;
   margin-right: -16px;
 }
@@ -29,6 +31,7 @@ img {
 #link-description {
   margin-left: 2rem;
   margin-right: 2rem;
+  word-break: break-all;
 }
 
 a {
@@ -42,9 +45,9 @@ a {
 @media (max-width: 25.875rem) {
   mat-card {
     margin: 0.938rem;
-    max-width: 80%;
+    width: 22rem;
   }
   img {
-    min-width: 100%;
+    width: 19.5rem;
   }
 }

@@ -1,10 +1,6 @@
-export interface LinkPost {
-  feedLocation: string;
-  postType: string;
-  title: string;
-  content: string;
-  url?: string;
-}
+import { Post } from 'src/app/components/models/post.model';
+
+export type LinkPost = Post;
 
 export interface LinkPreview {
   title: string;

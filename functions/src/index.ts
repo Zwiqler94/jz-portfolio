@@ -1,78 +1,67 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable max-len */
-import * as fbAdmin from 'firebase-admin';
+/* eslint-disable new-cap */
 import { onRequest } from 'firebase-functions/v2/https';
-import { error, debug } from 'firebase-functions/logger';
-import * as express from 'express';
-import { Request, Response, NextFunction } from 'express';
+import {
+  clientCert,
+  clientKey,
+  dbPassDev,
+  dbPassProd,
+  secretNameDev,
+  secretNameProd,
+  secretRouter,
+  serverCA,
+} from './secrets';
+import { limiter } from './middleware';
+import { postRouter } from './db';
 import * as cors from 'cors';
-// import { applicationDefault } from 'firebase-admin/app';
+import * as express from 'express';
+// import {getFunctions, connectFunctionsEmulator} from "firebase/functions";
+import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
-import { defineSecret } from 'firebase-functions/params';
-import { rateLimit } from 'express-rate-limit';
 
-const fbAdminApp = fbAdmin.initializeApp({
-  credential: fbAdmin.credential.cert({
+// import {getAuth, connectAuthEmulator} from "firebase/auth";
+
+// const auth = getAuth();
+// connectAuthEmulator(auth, "http://127.0.0.1:9099");
+
+// const functions = getFunctions();
+
+// connectFunctionsEmulator(functions, "http://127.0.0.1", 5001);
+
+// This is from MEGA-FEATURE-BRANCH
+
+export const fbAdminApp = initializeApp({
+  credential: cert({
     clientEmail: creds.client_email,
     privateKey: creds.private_key,
     projectId: creds.project_id,
   }),
 });
 
-const secretNameDev = defineSecret('LINK_PREVIEW_DEV');
-const secretNameProd = defineSecret('LINK_PREVIEW_PROD');
+const app = express();
+app.use(cors());
+// app.enable('trust proxy');
+const jzPortfolioBackendExpressApp = express.Router();
 
-const secretsApp = express();
-const secretRouter = express.Router();
+app.use('/api/v3', limiter, jzPortfolioBackendExpressApp);
+jzPortfolioBackendExpressApp.use(secretRouter);
+jzPortfolioBackendExpressApp.use('/posts', postRouter);
+jzPortfolioBackendExpressApp.use('/health', (req, res) =>
+  res.send("I'm alive!"),
+);
 
-const limiter = rateLimit({ max: 100, windowMs: 15 * 60 * 1000 });
-
-secretsApp.use(cors());
-
-const getSecret = async (req: Request, res: Response) => {
-  try {
-    const apiKey = req.params.prod
-      ? secretNameProd.value()
-      : secretNameDev.value();
-    debug({ k: apiKey });
-    res.status(200).json({ k: apiKey });
-  } catch (err) {
-    error(err);
-    res.status(400);
-  }
-};
-
-const appCheckGaurd = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  const appCheckToken = req.header('X-Firebase-AppCheck');
-  const appCheckDebugToken = req.header('X-Firebase-AppCheck-Debug');
-  const tokenToCheck = appCheckToken ? appCheckToken : appCheckDebugToken;
-  debug({ tokenToCheck, creds, fbAdminApp });
-  if (!tokenToCheck) {
-    res.status(401);
-    return next('unauthorized A');
-  }
-
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const result = await fbAdminApp.appCheck().verifyToken(tokenToCheck);
-    debug({ a: result.token });
-    return next();
-  } catch (err) {
-    error(err);
-    res.status(401);
-    return next('unauthorized B');
-  }
-};
-
-secretRouter.get('/secrets', getSecret);
-
-secretsApp.use('/api/v2', limiter, appCheckGaurd, secretRouter);
-
-export const secretService2ndGen = onRequest(
-  { cors: true, secrets: [secretNameDev, secretNameProd] },
-  secretsApp,
+export const jzPortfolioApp = onRequest(
+  {
+    serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
+    cors: true,
+    secrets: [
+      secretNameDev,
+      secretNameProd,
+      clientCert,
+      clientKey,
+      serverCA,
+      dbPassDev,
+      dbPassProd,
+    ],
+  },
+  app,
 );

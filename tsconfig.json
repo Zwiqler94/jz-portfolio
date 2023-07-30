@@ -18,7 +18,9 @@
     "target": "ES2022",
     "module": "es2020",
     "lib": ["es2018", "dom"],
-    "paths": {},
+    "paths": {
+      "@angular/*": ["./node_modules/@angular/*"]
+    },
     "strictPropertyInitialization": false,
     "useDefineForClassFields": false
   },

@@ -1,6 +1,10 @@
 .social-div {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90vw;
+  height: 90vh;
 }
 
 .social-buttons {
@@ -23,19 +27,31 @@
   width: 60px;
 }
 
-.insta-posts {
-  display: inline-flex;
+#insta-posts1,
+#insta-posts2,
+#insta-posts3,
+#insta-posts4 {
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+  height: 5500px;
+  max-width: 65rem;
+  margin: 0.5rem;
 }
 
 #feeds {
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+  margin: 1rem;
 }
 
-#instgram-feed {
-  display: inline-flex;
-  height: 90vh;
-  width: 40vw;
+#instagram-feed {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 80vh;
+  width: 100vw;
 }
 
 #twitter-feed {
