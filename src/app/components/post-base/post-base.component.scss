@@ -1,0 +1,51 @@
+#post-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card {
+  margin: 0.938rem;
+  min-width: 40vw;
+  max-width: 42.5rem;
+}
+
+img {
+  height: auto;
+  width: 40rem;
+  margin-bottom: 0.8rem;
+  margin-left: 0.3rem;
+}
+
+#link-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: gray;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+
+#link-title,
+#link-description {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+a {
+  margin-top: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  justify-self: auto;
+}
+
+@media (max-width: 390px) {
+  mat-card {
+    margin: 0.938rem;
+    width: 22rem;
+  }
+  img {
+    min-width: 100%;
+  }
+}

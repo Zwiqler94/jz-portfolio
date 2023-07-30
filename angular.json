@@ -1,6 +1,6 @@
 {
-  "version": 1,
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
   "cli": {
     "analytics": false,
     "packageManager": "npm",
@@ -33,7 +33,7 @@
               },
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true,
               "budgets": [
                 {
@@ -50,7 +50,7 @@
               "aot": true,
               "commonChunk": true,
               "serviceWorker": true,
-              "statsJson": true,
+              "statsJson": false,
               "subresourceIntegrity": true,
               "progress": true
             },
@@ -61,7 +61,7 @@
                 "output": "index.html"
               },
               "optimization": true,
-              "outputHashing": "bundles",
+              "outputHashing": "all",
               "sourceMap": true,
               "namedChunks": true,
               "vendorChunk": true,
@@ -69,24 +69,67 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "15mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "5kb",
+                  "maximumError": "10kb"
                 }
               ],
               "aot": true,
               "commonChunk": true,
               "serviceWorker": true,
               "statsJson": true,
+              "subresourceIntegrity": true,
+              "progress": true,
+              "extractLicenses": false
+            },
+            "dev-local": {
+              "outputPath": "dist/jz-portfolio-dev-local",
+              "index": {
+                "input": "src/index.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev-local.ts"
+                }
+              ],
+              "optimization": {
+                "styles": false,
+                "fonts": true
+              },
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "15mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "5kb",
+                  "maximumError": "15mb"
+                }
+              ],
+
+              "aot": true,
+              "commonChunk": true,
+              "statsJson": true,
               "subresourceIntegrity": false,
-              "progress": true
+              "progress": true,
+              "verbose": true,
+              "extractLicenses": false
             },
             "local": {
-              "outputPath": "dist/jz-portfolio-dev-local",
+              "outputPath": "dist/jz-portfolio-local",
               "index": {
                 "input": "src/index.html",
                 "output": "index.html"
@@ -97,30 +140,33 @@
                   "with": "src/environments/environment.local.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "bundles",
+              "optimization": false,
+              "outputHashing": "all",
               "sourceMap": true,
               "namedChunks": true,
               "vendorChunk": true,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "15mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "5kb",
+                  "maximumError": "15mb"
                 }
               ],
+
               "aot": true,
               "commonChunk": true,
-              "serviceWorker": true,
+              "serviceWorker": false,
               "statsJson": true,
               "subresourceIntegrity": false,
-              "progress": true
+              "progress": true,
+              "verbose": true,
+              "extractLicenses": false
             }
           },
           "options": {
@@ -140,18 +186,16 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "namedChunks": true,
+            "vendorChunk": true,
             "ngswConfigPath": "ngsw-config.json",
             "optimization": false,
             "polyfills": "src/polyfills.ts",
             "scripts": [],
             "serviceWorker": true,
             "sourceMap": true,
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "src/styles.scss"
-            ],
-            "tsConfig": "tsconfig.app.json",
-            "vendorChunk": true
+            "styles": ["src/styles.scss"],
+            "stylePreprocessorOptions": { "includePaths": ["src/style_vars"] },
+            "tsConfig": "tsconfig.app.json"
           }
         },
         "deploy": {
@@ -207,6 +251,15 @@
           "configurations": {
             "production": {
               "browserTarget": "jz-portfolio:build:production"
+            },
+            "development": {
+              "browserTarget": "jz-portfolio:build:development"
+            },
+            "dev-local": {
+              "browserTarget": "jz-portfolio:build:dev-local"
+            },
+            "local": {
+              "browserTarget": "jz-portfolio:build:local"
             }
           },
           "options": {
@@ -216,8 +269,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
@@ -225,10 +277,7 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         }

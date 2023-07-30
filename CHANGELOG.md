@@ -1,8 +1,6 @@
 ## <small>2.0.8 (2023-07-18)</small>
 
-* ci(github actions): update deps for ci (#286) ([dc9c9a1](https://github.com/Zwiqler94/jz-portfolio/commit/dc9c9a1)), closes [#286](https://github.com/Zwiqler94/jz-portfolio/issues/286)
-
-
+- ci(github actions): update deps for ci (#286) ([dc9c9a1](https://github.com/Zwiqler94/jz-portfolio/commit/dc9c9a1)), closes [#286](https://github.com/Zwiqler94/jz-portfolio/issues/286)
 
 ## <small>2.0.7 (2023-07-15)</small>
 

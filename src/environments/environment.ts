@@ -3,15 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  appCheckDebug: false,
   appUrl: 'jlz-portfolio-dev.web.app',
-  appCheckDebug: '4ad6c24e-aab2-40b5-9cd2-f7fe4291db01',
-  secretService:
-    'https://secretservice2ndgen-wa22s5z3va-uc.a.run.app/api/v2/secrets',
-  secretServiceLocal:
-    'http://127.0.0.1:4001/jlz-portfolio/us-central1/secretService2ndGen/api/v2/secrets',
-  production: false,
-  local: false,
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  deployable: true,
   firebaseConfig: {
     apiKey: 'AIzaSyDuG6ojn89_8rvp4pSVpcmBwvT6D1zunQY',
     authDomain: 'jlz-portfolio.firebaseapp.com',
@@ -21,7 +15,18 @@ export const environment = {
     appId: '1:518070660509:web:9d2511d1a027342457d374',
     measurementId: 'G-CNT03XSD81',
   },
+  local: false,
+  nasaAPIKey: 'vnfZmI8NbIb44DmpbbSAvlMhFz7Ipnyc1tq6xNLb',
+  production: false,
   recaptchaSiteKey: '6LdV5L8jAAAAAK1GaBQkmOq37fdxVQszw5x_iIV3',
+  serviceOptions: {
+    useServiceWorker: true,
+    productionServices: true,
+    secretService:
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/secrets',
+    postService:
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts',
+  },
 };
 
 /*
