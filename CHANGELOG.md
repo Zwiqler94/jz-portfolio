@@ -1,3 +1,37 @@
+## 3.0.0 (2023-07-30)
+
+* Mega Feature Branch (#299) ([a0e98c7](https://github.com/Zwiqler94/jz-portfolio/commit/a0e98c7)), closes [#299](https://github.com/Zwiqler94/jz-portfolio/issues/299) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#265](https://github.com/Zwiqler94/jz-portfolio/issues/265) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#73](https://github.com/Zwiqler94/jz-portfolio/issues/73) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#JLZP-51](https://github.com/Zwiqler94/jz-portfolio/issues/JLZP-51) [#72](https://github.com/Zwiqler94/jz-portfolio/issues/72) [#101](https://github.com/Zwiqler94/jz-portfolio/issues/101) [#102](https://github.com/Zwiqler94/jz-portfolio/issues/102)
+
+
+### BREAKING CHANGE
+
+* change secret routes for v3
+
+* chore(release): 2.0.5 :tada:
+
+fix(secrets): fix secrets service rate limiter
+
+* chore(release): 2.0.6 :tada:
+
+Angular CLI update for packages - @angular/cli@*, @angular/core@*, @angular-eslint/schematics@*, @angular/material@*, @angular/cdk@*
+
+@angular-eslint/schematics migration - update-16-0-0
+
+Updates @angular-eslint to v16
+
+chore(angular): migrate to v16
+
+* Angular CLI update for packages - @angular/cli@*, @angular/core@*, @angular/material@*, @angular/cdk@*
+
+* build(deps): update deps
+
+* feat(posts): switch from using static posts file to use pg db
+
+- switched main and puppy feed
+* new routes and auth reqs
+* no longer uses staticTextpost file
+
+
 ## <small>2.0.8 (2023-07-18)</small>
 
 - ci(github actions): update deps for ci (#286) ([dc9c9a1](https://github.com/Zwiqler94/jz-portfolio/commit/dc9c9a1)), closes [#286](https://github.com/Zwiqler94/jz-portfolio/issues/286)
