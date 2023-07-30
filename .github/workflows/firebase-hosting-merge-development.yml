@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1.1.1
         with: 
