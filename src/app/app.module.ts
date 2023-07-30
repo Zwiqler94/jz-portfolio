@@ -105,7 +105,6 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     provideAnalytics(() => initializeAnalytics(getApp())),
     provideAuth(() => {
       const auth = getAuth();
-
       if (environment.local) {
         connectAuthEmulator(auth, 'http://localhost:9099', {
           disableWarnings: true,
@@ -117,7 +116,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       enabled: environment.serviceOptions.useServiceWorker,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000',
+      registrationStrategy: 'registerWhenStable:20000',
     }),
     EverythingLibModule,
   ],
