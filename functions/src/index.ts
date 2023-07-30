@@ -1,5 +1,5 @@
 /* eslint-disable new-cap */
-import {onRequest} from "firebase-functions/v2/https";
+import { onRequest } from 'firebase-functions/v2/https';
 import {
   clientCert,
   clientKey,
@@ -9,15 +9,14 @@ import {
   secretNameProd,
   secretRouter,
   serverCA,
-} from "./secrets";
-import {limiter} from "./middleware";
-import {postRouter} from "./db";
-import * as cors from "cors";
-import * as express from "express";
+} from './secrets';
+import { limiter } from './middleware';
+import { postRouter } from './db';
+import * as cors from 'cors';
+import * as express from 'express';
 // import {getFunctions, connectFunctionsEmulator} from "firebase/functions";
-import {cert, initializeApp} from "firebase-admin/app";
-import * as creds from "../credentials.json";
-
+import { cert, initializeApp } from 'firebase-admin/app';
+import * as creds from '../credentials.json';
 
 // import {getAuth, connectAuthEmulator} from "firebase/auth";
 
@@ -27,7 +26,6 @@ import * as creds from "../credentials.json";
 // const functions = getFunctions();
 
 // connectFunctionsEmulator(functions, "http://127.0.0.1", 5001);
-
 
 // This is from MEGA-FEATURE-BRANCH
 
@@ -44,14 +42,16 @@ app.use(cors());
 // app.enable('trust proxy');
 const jzPortfolioBackendExpressApp = express.Router();
 
-app.use("/api/v3", limiter, jzPortfolioBackendExpressApp);
+app.use('/api/v3', limiter, jzPortfolioBackendExpressApp);
 jzPortfolioBackendExpressApp.use(secretRouter);
-jzPortfolioBackendExpressApp.use("/posts", postRouter);
-jzPortfolioBackendExpressApp.use("/health", (req, res)=>res.send("I'm alive!"))
+jzPortfolioBackendExpressApp.use('/posts', postRouter);
+jzPortfolioBackendExpressApp.use('/health', (req, res) =>
+  res.send("I'm alive!"),
+);
 
 export const jzPortfolioApp = onRequest(
   {
-    serviceAccount: "jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com",
+    serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
     secrets: [
       secretNameDev,
@@ -63,7 +63,5 @@ export const jzPortfolioApp = onRequest(
       dbPassProd,
     ],
   },
-  app
+  app,
 );
-
-

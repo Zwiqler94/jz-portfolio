@@ -1,16 +1,17 @@
-#footer, footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
+#footer,
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
 }
 
 #footer-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 50vw;
-    width: 120rem;
-    max-width: 100vw;
-    height: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 50vw;
+  width: 120rem;
+  max-width: 100vw;
+  height: 4rem;
 }

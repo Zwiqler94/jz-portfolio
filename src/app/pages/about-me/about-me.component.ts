@@ -26,6 +26,8 @@ export class AboutMeComponent {
     'Haskell',
     'Prolog',
   ];
+  _profileImage =
+    './assets/about-me/me.jpeg';
 
   _result = [''];
 

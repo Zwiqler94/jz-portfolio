@@ -23,12 +23,12 @@ const envAuthGaurd = environment.deployable ? [AuthGuard] : undefined;
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
-  { path: 'home', component: MainFeedPageComponent , canActivate: envAuthGaurd },
-  { path: 'aboutme', component: AboutMeComponent  , canActivate: envAuthGaurd },
-  { path: 'hobbies', component: HobbiesComponent  , canActivate: envAuthGaurd },
-  { path: 'news', component: NewsComponent  , canActivate: envAuthGaurd },
-  { path: 'socials', component: SocialsComponent },
-  { path: 'contact', component: ContactMeComponent },
+  { path: 'home', component: MainFeedPageComponent, canActivate: envAuthGaurd },
+  { path: 'aboutme', component: AboutMeComponent, canActivate: envAuthGaurd },
+  { path: 'hobbies', component: HobbiesComponent, canActivate: envAuthGaurd },
+  { path: 'news', component: NewsComponent, canActivate: envAuthGaurd },
+  { path: 'socials', component: SocialsComponent, canActivate: envAuthGaurd  },
+  { path: 'contact', component: ContactMeComponent, canActivate: envAuthGaurd  },
   { path: 'error', component: ErrorPageComponent },
   { path: '**', component: ErrorPageComponent },
 ];

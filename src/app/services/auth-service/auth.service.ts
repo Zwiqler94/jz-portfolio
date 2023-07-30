@@ -22,7 +22,7 @@ export class AuthService {
     if (this.userToken) {
       return true;
     } else {
-      this.router.navigateByUrl('error');
+      this.router.navigateByUrl('');
       return false;
     }
   }

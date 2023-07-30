@@ -33,7 +33,7 @@ export class LinkPostComponent extends PostBaseComponent implements OnInit {
 
   async getLinkPreview() {
     const linkArray = this.postContent.match(
-      /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9/\-.,&?=%#();:~]*/
+      /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9/\-.,&?=%#();:~]*/,
     );
     if (linkArray !== null) {
       try {
@@ -45,7 +45,9 @@ export class LinkPostComponent extends PostBaseComponent implements OnInit {
               this.linkPreviewData = data as LinkPreview;
             }
           },
-          error: (err) => { throw new Error(JSON.stringify(err)) },
+          error: (err) => {
+            throw new Error(JSON.stringify(err));
+          },
         });
       } catch (err: any) {
         throw new Error(err);

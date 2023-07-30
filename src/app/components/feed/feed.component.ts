@@ -10,7 +10,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { TextPostComponent } from 'src/app/components/text-post/text-post.component';
-import { Post } from '../models/text-post';
+import { Post } from '../models/post.model';
 import { LinkPost } from 'src/app/components/models/link-post';
 import { LinkPostComponent } from 'src/app/components/link-post/link-post.component';
 import { DatabaseService } from 'src/app/services/database/database.service';
@@ -23,6 +23,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./feed.component.scss'],
 })
 export class FeedComponent implements OnInit, AfterViewInit {
+  @Input() direction: 'H' | 'V' = 'V';
   @Input() feedLocation: string;
   @ViewChild('posts', { read: ViewContainerRef })
   postTemplate: ViewContainerRef;
@@ -30,7 +31,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private dbService: DatabaseService
+    private dbService: DatabaseService,
   ) {
     this.feedLocation = 'Main';
     this.dbService.mainPosts.subscribe((post) => {
@@ -68,7 +69,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   async feedSwitchv2(feedSwitch: string) {
     const postLimit = 10;
-    if (feedSwitch === 'Main') {
+    feedSwitch = feedSwitch.toLowerCase();
+    if (feedSwitch === 'main') {
       const posts: Post[] = await lastValueFrom(this.dbService.mainPosts);
       posts.forEach((post) => {
         setTimeout(() => {
@@ -79,7 +81,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
           }
         }, 10000);
       });
-    } else if (feedSwitch === 'Puppy') {
+    } else if (feedSwitch === 'puppy') {
       const posts: Post[] = await lastValueFrom(this.dbService.puppyPosts);
       posts.forEach((post) => {
         setTimeout(() => {
@@ -90,7 +92,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
           }
         }, 20000);
       });
-    } else if (feedSwitch === 'Articles') {
+    } else if (feedSwitch === 'articles') {
       const posts: Post[] = await lastValueFrom(this.dbService.articlePosts);
       posts.forEach((post) => {
         setTimeout(() => {
@@ -101,7 +103,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
           }
         }, 30000);
       });
-    } else if (feedSwitch === 'Apple') {
+    } else if (feedSwitch === 'apple') {
       const posts: Post[] = await lastValueFrom(this.dbService.applePosts);
       posts.forEach((post) => {
         setTimeout(() => {
@@ -112,7 +114,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
           }
         }, 40000);
       });
-    } else if (feedSwitch === 'Anime') {
+    } else if (feedSwitch === 'anime') {
       const posts: Post[] = await lastValueFrom(this.dbService.animePosts);
       posts.forEach((post) => {
         if (post.type === 'text') {
@@ -121,8 +123,17 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.generateLinkPost(post);
         }
       });
-    } else if (feedSwitch === 'Blockchain') {
+    } else if (feedSwitch === 'blockchain') {
       const posts: Post[] = await lastValueFrom(this.dbService.blockchainPosts);
+      posts.forEach((post) => {
+        if (post.type === 'text') {
+          this.generateTextPost(post);
+        } else if (post.type === 'link') {
+          this.generateLinkPost(post);
+        }
+      });
+    } else if (feedSwitch === 'about') {
+      const posts: Post[] = [] // await lastValueFrom(this.dbService.blockchainPosts);
       posts.forEach((post) => {
         if (post.type === 'text') {
           this.generateTextPost(post);
@@ -166,4 +177,12 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
   // generateImagePost() {}
   // generateVideoPost() {}
+
+  public get isHorizontal() {
+    return this.direction === 'H' ? true : false;
+  }
+
+  public get isVertical() {
+    return this.direction === 'V' ? true : false;
+  }
 }

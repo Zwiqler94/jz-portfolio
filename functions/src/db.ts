@@ -7,13 +7,13 @@ import { Pool, ClientConfig, QueryResult } from 'pg';
 export const postRouter = Router();
 
 const dbConfig: ClientConfig = {
-  database:process.env.DB_NAME ,
+  database: process.env.DB_NAME,
   user: process.env.DB_USER,
   password:
     process.env.NODE_ENV === 'prod'
       ? process.env.DB_PASS_PROD
       : process.env.DB_PASS_DEV,
-  host:process.env.DB_HOST,
+  host: process.env.DB_HOST,
   // ssl: {
   //   rejectUnauthorized: false,
   //   ca: process.env.JLZ_APP_SERVER_CA,
@@ -33,7 +33,7 @@ const query = async (text: string, params?: any) => pool.query(text, params);
 const getMainPosts = async (req: Request, res: Response) => {
   try {
     const mainPosts: QueryResult<any> | void = await query(
-      'select post_list.id, post_list.type from post_list inner join main_feed on main_feed.post_id=post_list.id'
+      'select post_list.id, post_list.type from post_list inner join main_feed on main_feed.post_id=post_list.id',
     ).catch((err) => console.log(err));
     if (mainPosts) {
       const fullPostArray: any[] = [];
@@ -42,12 +42,12 @@ const getMainPosts = async (req: Request, res: Response) => {
         if (row.type === 'text') {
           result = await query(
             'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-            [row.id]
+            [row.id],
           );
         } else {
           result = await query(
             'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-            [row.id]
+            [row.id],
           );
         }
         fullPostArray.push(result.rows[0]);
@@ -67,7 +67,7 @@ const getMainPosts = async (req: Request, res: Response) => {
 const getPuppyPosts = async (req: Request, res: Response) => {
   try {
     const mainPosts = await query(
-      'select post_list.id, post_list.type from post_list inner join puppy_feed on puppy_feed.post_id=post_list.id'
+      'select post_list.id, post_list.type from post_list inner join puppy_feed on puppy_feed.post_id=post_list.id',
     );
     const fullPostArray: any[] = [];
     for (const row of mainPosts.rows) {
@@ -75,12 +75,12 @@ const getPuppyPosts = async (req: Request, res: Response) => {
       if (row.type === 'text') {
         result = await query(
           'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-          [row.id]
+          [row.id],
         );
       } else {
         result = await query(
           'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-          [row.id]
+          [row.id],
         );
       }
       fullPostArray.push(result.rows[0]);
@@ -99,7 +99,7 @@ const getPuppyPosts = async (req: Request, res: Response) => {
 const getArticlePosts = async (req: Request, res: Response) => {
   try {
     const mainPosts = await query(
-      'select post_list.id, post_list.type from post_list inner join articles_feed on articles_feed.post_id=post_list.id'
+      'select post_list.id, post_list.type from post_list inner join articles_feed on articles_feed.post_id=post_list.id',
     );
     const fullPostArray: any[] = [];
     for (const row of mainPosts.rows) {
@@ -107,12 +107,12 @@ const getArticlePosts = async (req: Request, res: Response) => {
       if (row.type === 'text') {
         result = await query(
           'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-          [row.id]
+          [row.id],
         );
       } else {
         result = await query(
           'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-          [row.id]
+          [row.id],
         );
       }
       fullPostArray.push(result.rows[0]);
@@ -131,7 +131,7 @@ const getArticlePosts = async (req: Request, res: Response) => {
 const getApplePosts = async (req: Request, res: Response) => {
   try {
     const mainPosts = await query(
-      'select post_list.id, post_list.type from post_list inner join apple_feed on apple_feed.post_id=post_list.id'
+      'select post_list.id, post_list.type from post_list inner join apple_feed on apple_feed.post_id=post_list.id',
     );
     const fullPostArray: any[] = [];
     for (const row of mainPosts.rows) {
@@ -139,12 +139,12 @@ const getApplePosts = async (req: Request, res: Response) => {
       if (row.type === 'text') {
         result = await query(
           'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-          [row.id]
+          [row.id],
         );
       } else {
         result = await query(
           'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-          [row.id]
+          [row.id],
         );
       }
       fullPostArray.push(result.rows[0]);
@@ -163,7 +163,7 @@ const getApplePosts = async (req: Request, res: Response) => {
 const getBlockchainPosts = async (req: Request, res: Response) => {
   try {
     const mainPosts = await query(
-      'select post_list.id, post_list.type from post_list inner join blockchain_feed on blockchain_feed.post_id=post_list.id'
+      'select post_list.id, post_list.type from post_list inner join blockchain_feed on blockchain_feed.post_id=post_list.id',
     );
     const fullPostArray: any[] = [];
     for (const row of mainPosts.rows) {
@@ -171,12 +171,12 @@ const getBlockchainPosts = async (req: Request, res: Response) => {
       if (row.type === 'text') {
         result = await query(
           'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-          [row.id]
+          [row.id],
         );
       } else {
         result = await query(
           'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-          [row.id]
+          [row.id],
         );
       }
       fullPostArray.push(result.rows[0]);
@@ -195,7 +195,7 @@ const getBlockchainPosts = async (req: Request, res: Response) => {
 const getAnimePosts = async (req: Request, res: Response) => {
   try {
     const mainPosts = await query(
-      'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id'
+      'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id',
     );
     const fullPostArray: any[] = [];
     for (const row of mainPosts.rows) {
@@ -203,12 +203,12 @@ const getAnimePosts = async (req: Request, res: Response) => {
       if (row.type === 'text') {
         result = await query(
           'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-          [row.id]
+          [row.id],
         );
       } else {
         result = await query(
           'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-          [row.id]
+          [row.id],
         );
       }
       fullPostArray.push(result.rows[0]);

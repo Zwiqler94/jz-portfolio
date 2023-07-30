@@ -41,14 +41,12 @@ export class SocialsComponent implements OnInit, AfterViewInit {
     // this.twitterScript.loaded = false;
   }
 
-  loadScripts(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const scriptEl = document.createElement('script');
-      scriptEl.src = 'https://www.instagram.com/embed.js';
-      scriptEl.async = true;
-      scriptEl.type = 'text/javascript';
-      const targeto = document.querySelectorAll<HTMLDivElement>('.insta-posts');
-      targeto.forEach((node: HTMLDivElement) => node.append(scriptEl));
-    });
+  loadScripts() {
+    const scriptEl = document.createElement('script');
+    scriptEl.src = 'https://www.instagram.com/embed.js';
+    scriptEl.async = true;
+    scriptEl.type = 'text/javascript';
+    const targeto = document.querySelectorAll<HTMLDivElement>('.insta-posts');
+    targeto.forEach((node: HTMLDivElement) => node.append(scriptEl));
   }
 }

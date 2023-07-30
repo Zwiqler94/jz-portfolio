@@ -1,6 +1,19 @@
-#feed-div {
+@use "themes";
+
+.feed-div-v {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.feed-div-h {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#under-construction {
+  background-color: map-get(themes.$md-A-1-analagous1, 500);
 }

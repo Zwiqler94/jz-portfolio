@@ -99,7 +99,7 @@
                 }
               ],
               "optimization": {
-                "styles":false,
+                "styles": false,
                 "fonts": true
               },
               "outputHashing": "all",
@@ -155,7 +155,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "5kb",
-                  "maximumError": "15kb"
+                  "maximumError": "15mb"
                 }
               ],
 

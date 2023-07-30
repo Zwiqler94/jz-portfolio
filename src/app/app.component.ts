@@ -27,20 +27,23 @@ export class AppComponent implements OnInit {
             (evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY',
           ),
         )
-        .subscribe((x) => {
-          if (x) {
-            const d = this.snack.open(
-              'New App Version Detected, Update?',
-              'Yup!',
-            );
-            d.afterDismissed().subscribe((f: MatSnackBarDismiss) => {
-              console.log(f.dismissedByAction);
-              while (!f.dismissedByAction) {
-                this.snack.open('Hurry up and update!', 'UPDATE!');
-              }
-              document.location.reload();
-            });
-          }
+        .subscribe({
+          next: (x) => {
+            if (x) {
+              const swUpdateSnack = this.snack.open(
+                'New App Version Detected, Update?',
+                'Yup!',
+              );
+              swUpdateSnack
+                .afterDismissed()
+                .subscribe((dismiss: MatSnackBarDismiss) => {
+                  if (dismiss.dismissedByAction) {
+                    document.location.reload();
+                  }
+                });
+            }
+          },
+          error: (err) => console.error(err),
         });
     }
   }

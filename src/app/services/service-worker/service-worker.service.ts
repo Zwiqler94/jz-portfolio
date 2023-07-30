@@ -22,7 +22,7 @@ export class ServiceWorkerService {
   constructor(
     private updates: SwUpdate,
     private appRef: ApplicationRef,
-    private push: SwPush
+    private push: SwPush,
   ) {
     if (this.swUpdates.isEnabled) {
       updates.versionUpdates.subscribe((event) => {
@@ -33,24 +33,24 @@ export class ServiceWorkerService {
           case 'VERSION_READY':
             console.log(`Current app version: ${event.currentVersion.hash}`);
             console.log(
-              `New app version ready for use: ${event.latestVersion.hash}`
+              `New app version ready for use: ${event.latestVersion.hash}`,
             );
             break;
           case 'VERSION_INSTALLATION_FAILED':
             console.log(
-              `Failed to install app version '${event.version.hash}': ${event.error}`
+              `Failed to install app version '${event.version.hash}': ${event.error}`,
             );
             break;
         }
       });
 
       const appIsStable$ = appRef.isStable.pipe(
-        first((isStable) => isStable === true)
+        first((isStable) => isStable === true),
       );
       const everySixMinutes$ = interval(60 * 1000);
       const everySixHoursOnceAppIsStable$ = concat(
         appIsStable$,
-        everySixMinutes$
+        everySixMinutes$,
       );
 
       everySixHoursOnceAppIsStable$.subscribe(async () => {
@@ -59,7 +59,7 @@ export class ServiceWorkerService {
           console.log(
             updateFound
               ? 'A new version is available.'
-              : 'Already on the latest version.'
+              : 'Already on the latest version.',
           );
         } catch (err) {
           console.error('Failed to check for updates:', err);

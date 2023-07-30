@@ -1,22 +1,28 @@
 <div id="about-div">
-
-  <mat-tab-group (selectedTabChange)="onTabChange($event)" id="about-tabs" color="primary" backgroundColor="primary"
-    mat-align-tabs="center">
+  <mat-tab-group
+    (selectedTabChange)="onTabChange($event)"
+    id="about-tabs"
+    color="primary"
+    backgroundColor="primary"
+    mat-align-tabs="center"
+  >
     <mat-tab label="About Me">
       <div class="about-content">
         <mat-card class="testy1">
+          <img mat-card-image [src]="_profileImage" alt="a pic of me" />
           <mat-card-content>
-            Jake Zwickler is a Blockchain Technology Consultant within IBM’s
-            Global Business Services. Mr. Zwickler graduated from Binghamton
-            University with a Bachelor of Science in Computer Science and a
-            minor in Japanese. Through his studies and work experiences, he has
-            developed a proficiency across a range of development languages and
-            platforms. Mr. Zwickler has worked on projects including the
-            OpenIDL, Responsible Sourcing Blockchain Network, and the NY State
-            Excelsior Pass.
+           <caption >Jake Zwickler is a Blockchain Technology Consultant within IBM's
+          Global Business Services. Mr. Zwickler graduated from Binghamton
+          University with a Bachelor of Science in Computer Science and a
+          minor in Japanese. Through his studies and work experiences, he has
+          developed a proficiency across a range of development languages and
+          platforms. Mr. Zwickler has worked on projects including the
+          OpenIDL, Responsible Sourcing Blockchain Network, and the NY State
+          Excelsior Pass.</caption>
           </mat-card-content>
         </mat-card>
       </div>
+      <app-feed [direction]="'H'" [feedLocation]="'about'"></app-feed>
     </mat-tab>
     <mat-tab label="Skills">
       <div class="about-content">
@@ -28,10 +34,11 @@
                   <mat-panel-title>Programming languages: </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-chip-set>
-                  <ng-container  *ngFor="let skill of skillList">
-                  <mat-chip color="accent" highlighted> {{skill}}
-                  </mat-chip>
-                </ng-container>
+                  <ng-container *ngFor="let skill of skillList">
+                    <mat-chip color="accent" highlighted>
+                      {{ skill }}
+                    </mat-chip>
+                  </ng-container>
                 </mat-chip-set>
               </mat-expansion-panel>
               <mat-expansion-panel id="pdpdp">
@@ -39,8 +46,12 @@
                   <mat-panel-title>Methodologies: </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-chip-set id="ffff">
-                  <mat-chip color="accent" highlighted id="cccc">Agile Software Development</mat-chip>
-                  <mat-chip color="accent" highlighted>Test-Driven Development</mat-chip>
+                  <mat-chip color="accent" highlighted id="cccc"
+                    >Agile Software Development</mat-chip
+                  >
+                  <mat-chip color="accent" highlighted
+                    >Test-Driven Development</mat-chip
+                  >
                 </mat-chip-set>
               </mat-expansion-panel>
               <mat-expansion-panel>
@@ -54,19 +65,27 @@
                   <mat-chip highlighted color="accent">Express</mat-chip>
                   <mat-chip highlighted color="accent">Git</mat-chip>
                   <mat-chip highlighted color="accent">Github</mat-chip>
-                  <mat-chip highlighted color="accent">Hyperledger Fabric</mat-chip>
+                  <mat-chip highlighted color="accent"
+                    >Hyperledger Fabric</mat-chip
+                  >
                   <mat-chip highlighted color="accent">IBM Cloud </mat-chip>
-                  <mat-chip highlighted color="accent"> IBM Carbon Design System</mat-chip>
+                  <mat-chip highlighted color="accent">
+                    IBM Carbon Design System</mat-chip
+                  >
                   <mat-chip highlighted color="accent">Jenkins</mat-chip>
                   <mat-chip highlighted color="accent">Jira</mat-chip>
                   <mat-chip highlighted color="accent">Kubernetes</mat-chip>
                   <mat-chip highlighted color="accent">Mocha</mat-chip>
                   <mat-chip highlighted color="accent">MongoDB</mat-chip>
                   <mat-chip highlighted color="accent">Supertest</mat-chip>
-                  <mat-chip highlighted color="accent">Swagger/OpenAPI 3</mat-chip>
+                  <mat-chip highlighted color="accent"
+                    >Swagger/OpenAPI 3</mat-chip
+                  >
                   <mat-chip highlighted color="accent">Cloud Foundry</mat-chip>
                   <mat-chip highlighted color="accent"> Cloudant</mat-chip>
-                  <mat-chip highlighted color="accent">Hyperledger Indy (IBM Verify Credentials)</mat-chip>
+                  <mat-chip highlighted color="accent"
+                    >Hyperledger Indy (IBM Verify Credentials)</mat-chip
+                  >
                 </mat-chip-set>
               </mat-expansion-panel>
             </mat-accordion>
@@ -75,38 +94,62 @@
       </div>
     </mat-tab>
     <mat-tab label="Credentials">
-
       <div class="about-content" id="credential-div">
         <mat-card class="testy1">
           <mat-card-content>
-            <div class="badges" data-iframe-width="250" data-iframe-height="270"
-              data-share-badge-id="de13c140-19b0-48a4-a4a2-102ae76a1a9f" data-share-badge-host="https://www.credly.com">
-            </div>
-            <div class="badges" data-iframe-width="250" data-iframe-height="270"
-              data-share-badge-id="cf233590-0d5d-439e-8250-699a65a96d64" data-share-badge-host="https://www.credly.com">
-            </div>
-            <div class="badges" data-iframe-width="250" data-iframe-height="270"
-              data-share-badge-id="646fd56b-5b42-49d3-ab4e-55deeb252fcc" data-share-badge-host="https://www.credly.com">
-            </div>
-            <div class="badges" data-iframe-width="250" data-iframe-height="270"
-              data-share-badge-id="006da363-74b6-4f70-a2f1-1d89448ca9af" data-share-badge-host="https://www.credly.com">
-            </div>
-            <div class="badges" data-iframe-width="250" data-iframe-height="270"
-              data-share-badge-id="b94419ca-c4f1-416c-9886-e79f15dbc462" data-share-badge-host="https://www.credly.com">
-            </div>
-            <div class="badges" data-iframe-width="250" data-iframe-height="270"
-              data-share-badge-id="2af07c6c-dc9d-45ef-b6e9-9596fab38b30" data-share-badge-host="https://www.credly.com">
-            </div>
+            <div
+              class="badges"
+              data-iframe-width="250"
+              data-iframe-height="270"
+              data-share-badge-id="de13c140-19b0-48a4-a4a2-102ae76a1a9f"
+              data-share-badge-host="https://www.credly.com"
+            ></div>
+            <div
+              class="badges"
+              data-iframe-width="250"
+              data-iframe-height="270"
+              data-share-badge-id="cf233590-0d5d-439e-8250-699a65a96d64"
+              data-share-badge-host="https://www.credly.com"
+            ></div>
+            <div
+              class="badges"
+              data-iframe-width="250"
+              data-iframe-height="270"
+              data-share-badge-id="646fd56b-5b42-49d3-ab4e-55deeb252fcc"
+              data-share-badge-host="https://www.credly.com"
+            ></div>
+            <div
+              class="badges"
+              data-iframe-width="250"
+              data-iframe-height="270"
+              data-share-badge-id="006da363-74b6-4f70-a2f1-1d89448ca9af"
+              data-share-badge-host="https://www.credly.com"
+            ></div>
+            <div
+              class="badges"
+              data-iframe-width="250"
+              data-iframe-height="270"
+              data-share-badge-id="b94419ca-c4f1-416c-9886-e79f15dbc462"
+              data-share-badge-host="https://www.credly.com"
+            ></div>
+            <div
+              class="badges"
+              data-iframe-width="250"
+              data-iframe-height="270"
+              data-share-badge-id="2af07c6c-dc9d-45ef-b6e9-9596fab38b30"
+              data-share-badge-host="https://www.credly.com"
+            ></div>
           </mat-card-content>
         </mat-card>
       </div>
-
-
     </mat-tab>
     <mat-tab label="Projects">
       <div class="project-content">
-        <lib-username-generator class="project-content-item" [(usernameForm)]="usernameFormInApp"
-          [(result)]="_result"></lib-username-generator>
+        <lib-username-generator
+          class="project-content-item"
+          [(usernameForm)]="usernameFormInApp"
+          [(result)]="_result"
+        ></lib-username-generator>
         <lib-nasa class="project-content-item" [apiKey]="nasaApiKey"></lib-nasa>
         <lib-pokemon class="project-content-item"></lib-pokemon>
         <lib-boredom-solver class="project-content-item"></lib-boredom-solver>
