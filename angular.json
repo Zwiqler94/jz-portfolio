@@ -170,9 +170,6 @@
             }
           },
           "options": {
-            "customWebpackConfig": {
-              "path": "./webpack.config.ts"
-            },
             "allowedCommonJsDependencies": [
               "firebase",
               "@angular/fire",
