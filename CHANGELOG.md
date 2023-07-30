@@ -1,3 +1,9 @@
+## <small>3.0.1 (2023-07-30)</small>
+
+* ci: fix more workflow issues (#318) ([eefcee2](https://github.com/Zwiqler94/jz-portfolio/commit/eefcee2)), closes [#318](https://github.com/Zwiqler94/jz-portfolio/issues/318)
+
+
+
 ## 3.0.0 (2023-07-30)
 
 * Mega Feature Branch (#299) ([a0e98c7](https://github.com/Zwiqler94/jz-portfolio/commit/a0e98c7)), closes [#299](https://github.com/Zwiqler94/jz-portfolio/issues/299) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#265](https://github.com/Zwiqler94/jz-portfolio/issues/265) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#73](https://github.com/Zwiqler94/jz-portfolio/issues/73) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#JLZP-51](https://github.com/Zwiqler94/jz-portfolio/issues/JLZP-51) [#72](https://github.com/Zwiqler94/jz-portfolio/issues/72) [#101](https://github.com/Zwiqler94/jz-portfolio/issues/101) [#102](https://github.com/Zwiqler94/jz-portfolio/issues/102)
