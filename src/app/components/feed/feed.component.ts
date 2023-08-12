@@ -133,7 +133,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
         }
       });
     } else if (feedSwitch === 'about') {
-      const posts: Post[] = [] // await lastValueFrom(this.dbService.blockchainPosts);
+      const posts: Post[] = []; // await lastValueFrom(this.dbService.blockchainPosts);
       posts.forEach((post) => {
         if (post.type === 'text') {
           this.generateTextPost(post);
