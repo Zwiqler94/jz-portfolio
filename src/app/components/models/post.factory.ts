@@ -1,7 +1,7 @@
 import { Post } from 'src/app/components/models/post.model';
 
 abstract class PostFactory {
-  abstract createPost(): Post;
+  abstract createPost(): void;
 }
 
 class LinkPostFactory extends PostFactory {
