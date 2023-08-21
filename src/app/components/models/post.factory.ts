@@ -5,7 +5,7 @@ abstract class PostFactory {
 }
 
 class LinkPostFactory extends PostFactory {
-  createPost() {
+  createPost(): Post {
     return;
   }
 }

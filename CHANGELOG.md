@@ -1,8 +1,6 @@
 ## <small>3.0.1 (2023-07-30)</small>
 
-* ci: fix more workflow issues (#318) ([eefcee2](https://github.com/Zwiqler94/jz-portfolio/commit/eefcee2)), closes [#318](https://github.com/Zwiqler94/jz-portfolio/issues/318)
-
-
+- ci: fix more workflow issues (#318) ([eefcee2](https://github.com/Zwiqler94/jz-portfolio/commit/eefcee2)), closes [#318](https://github.com/Zwiqler94/jz-portfolio/issues/318)
 
 ## 3.0.0 (2023-07-30)
 
