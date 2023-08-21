@@ -13,6 +13,10 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { SocialsComponent } from 'src/app/pages/socials/socials.component';
 import { ContactMeComponent } from 'src/app/pages/contact-me/contact-me/contact-me.component';
 import { environment } from 'src/environments/environment';
+import { AboutMeMainComponent } from 'src/app/pages/about-me/about-me-main/about-me-main.component';
+import { SkillsComponent } from 'src/app/pages/about-me/skills/skills.component';
+import { CredentialsComponent } from 'src/app/pages/about-me/credentials/credentials.component';
+import { ProjectsComponent } from 'src/app/pages/about-me/projects/projects.component';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AuthGuard: CanActivateFn = (_route, _state) => {
@@ -24,7 +28,17 @@ const envAuthGaurd = environment.deployable ? [AuthGuard] : undefined;
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
   { path: 'home', component: MainFeedPageComponent, canActivate: envAuthGaurd },
-  { path: 'aboutme', component: AboutMeComponent, canActivate: envAuthGaurd },
+  {
+    path: 'aboutme',
+    component: AboutMeComponent,
+    canActivate: envAuthGaurd,
+    children: [
+      { path: '', component: AboutMeMainComponent },
+      { path: 'projects', component: ProjectsComponent },
+      { path: 'credentials', component: CredentialsComponent },
+      { path: 'skills', component: SkillsComponent },
+    ],
+  },
   { path: 'hobbies', component: HobbiesComponent, canActivate: envAuthGaurd },
   { path: 'news', component: NewsComponent, canActivate: envAuthGaurd },
   { path: 'socials', component: SocialsComponent, canActivate: envAuthGaurd },

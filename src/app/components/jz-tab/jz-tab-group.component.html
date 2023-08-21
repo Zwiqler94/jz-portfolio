@@ -1,0 +1,15 @@
+<nav mat-tab-nav-bar
+  id="about-tabs"
+  color="primary"
+  backgroundColor="primary"
+  mat-align-tabs="center"
+  [tabPanel]="panel"
+>
+  <a mat-tab-link  *ngFor="let tab of tabComponentList" (click)="a = tab.title" [active]="a === tab.title" [routerLink]="['/aboutme/' + tab.title]"> 
+    {{tab.title}}
+  </a>
+
+</nav>
+<mat-tab-nav-panel #panel>
+  <app-jz-tab-item [tabComponentList]="tabComponentList" [tab]="a"></app-jz-tab-item>
+</mat-tab-nav-panel>

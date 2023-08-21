@@ -1,0 +1,23 @@
+#profile-image {
+    height: 30rem;
+    aspect-ratio: 3/4;
+    border-radius: 0.25rem;
+}
+
+mat-card {
+    padding: 0.25rem;
+    max-width: 95vw;
+    width: 26.25rem;
+    height: 45rem;
+    min-width: 45vw;
+}
+
+.about-content,
+.project-content {
+    position: relative;
+    margin: 4rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,44 +1,44 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { environment } from 'src/environments/environment';
+import { Tabs } from 'src/app/interfaces/tabs.model';
+import { CredentialsComponent } from 'src/app/pages/about-me/credentials/credentials.component';
+import { AboutMeMainComponent } from 'src/app/pages/about-me/about-me-main/about-me-main.component';
+import { ProjectsComponent } from 'src/app/pages/about-me/projects/projects.component';
+import { SkillsComponent } from 'src/app/pages/about-me/skills/skills.component';
+import { Route, Router } from '@angular/router';
 @Component({
   selector: 'app-about-me',
   templateUrl: './about-me.component.html',
   styleUrls: ['./about-me.component.scss'],
 })
-export class AboutMeComponent {
+export class AboutMeComponent implements Tabs {
+  @Input() tabTitle: string;
+  // @ViewChild(TabsDirective, { static: true }) appTabs!: TabsDirective;
+
   private _badgeHeight = '18.75rem';
   private _badgeWidth = '12.5rem';
-  private _skillList = [
-    'C',
-    'C++',
-    'Java',
-    'JavaScript',
-    'Node.JS',
-    'Python',
-    'Typescript',
-    'Go',
-    'Ruby',
-    'Haskell',
-    'Prolog',
+  private _tabTitleList: string[] = [
+    'About Me',
+    'Credentials',
+    'Skills',
+    'Projects',
   ];
-  _profileImage = './assets/about-me/me.jpeg';
 
-  _result = [''];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // private tabComponentRefList: ComponentRef<JzTabComponent>[] = [];
+  public tabComponentList = [
+    { component: AboutMeMainComponent, title: 'About Me' },
+    { component: CredentialsComponent, title: 'Credentials' },
+    { component: SkillsComponent, title: 'Skills' },
+    { component: ProjectsComponent, title: 'Projects' },
+  ];
 
-  usernameFormInApp: FormGroup = this.fb.group({
-    words: [''],
-    specialCharacters: [''],
-  });
-
-  constructor(
-    private fb: FormBuilder,
-    private httpClient: HttpClient,
-  ) {}
+  constructor(protected router: Router) {}
 
   // ngAfterContentInit(): void {
   //   const targeto: HTMLDivElement = document.getElementById(
@@ -51,8 +51,9 @@ export class AboutMeComponent {
   //   targeto.appendChild(scriptEl);
   // }
 
-  onTabChange($event: MatTabChangeEvent) {
+  onTabChange($event: MatTabChangeEvent, router: Router) {
     if ($event.tab.textLabel === 'Credentials') {
+      console.log('xxx');
       const scriptEl = document.createElement('script');
       scriptEl.src = 'https://cdn.credly.com/assets/utilities/embed.js';
       scriptEl.async = true;
@@ -61,19 +62,9 @@ export class AboutMeComponent {
         '#credential-div',
       ) as HTMLDivElement;
       targeto.append(scriptEl);
+      router.navigateByUrl('/aboutme')
+      
     }
-  }
-
-  get nasaApiKey() {
-    return environment.nasaAPIKey;
-  }
-
-  get results() {
-    return this._result;
-  }
-
-  set results(result: string[]) {
-    this._result = result;
   }
 
   public get badgeHeight() {
@@ -82,6 +73,7 @@ export class AboutMeComponent {
   public set badgeHeight(value) {
     this._badgeHeight = value;
   }
+
   public get badgeWidth() {
     return this._badgeWidth;
   }
@@ -89,35 +81,10 @@ export class AboutMeComponent {
     this._badgeWidth = value;
   }
 
-  public get skillList() {
-    return this._skillList;
+  public get tabTitleList(): string[] {
+    return this._tabTitleList;
   }
-  public set skillList(value) {
-    this._skillList = value;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onSubmit(_token: unknown) {
-    const body = {
-      words: (this.usernameFormInApp.get('words')?.value as string).split(','),
-      specials: (
-        this.usernameFormInApp.get('specialCharacters')?.value as string
-      ).split(','),
-    };
-    console.log(body);
-    this.httpClient
-      .post<string[]>(
-        'https://us-central1-usernamegenerator.cloudfunctions.net/usernameGeneratorAPI/usernames',
-        body,
-        {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-      .subscribe((results) => {
-        this.results = results;
-      });
+  public set tabTitleList(value: string[]) {
+    this._tabTitleList = value;
   }
 }

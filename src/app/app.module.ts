@@ -48,6 +48,12 @@ import { LoginPageComponent } from 'src/app/pages/login-page/login-page.componen
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 import { ContactMeComponent } from 'src/app/pages/contact-me/contact-me/contact-me.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AboutMeMainComponent } from './pages/about-me/about-me-main/about-me-main.component';
+import { ProjectsComponent } from './pages/about-me/projects/projects.component';
+import { SkillsComponent } from './pages/about-me/skills/skills.component';
+import { CredentialsComponent } from './pages/about-me/credentials/credentials.component';
+import { JzTabGroupComponent } from './components/jz-tab/jz-tab-group.component';
+import { JzTabItemComponent } from './components/jz-tab-item/jz-tab-item.component';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -73,6 +79,12 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     LoginPageComponent,
     ContactMeComponent,
     FooterComponent,
+    AboutMeMainComponent,
+    ProjectsComponent,
+    SkillsComponent,
+    CredentialsComponent,
+    JzTabGroupComponent,
+    JzTabItemComponent,
   ],
   imports: [
     BrowserModule,

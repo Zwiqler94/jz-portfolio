@@ -1,0 +1,21 @@
+mat-chip {
+    height: 2.5rem;
+}
+
+.about-content {
+    position: relative;
+    margin: 4rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 34.375rem;
+    justify-content: center;
+}
+
+mat-card {
+    padding: 0.25rem;
+    max-width: 95vw;
+    width: 40rem;
+    height: 12rem;
+    min-width: 45vw;
+}
