@@ -15,51 +15,44 @@ import { AboutMeMainComponent } from 'src/app/pages/about-me/about-me-main/about
 import { ProjectsComponent } from 'src/app/pages/about-me/projects/projects.component';
 import { SkillsComponent } from 'src/app/pages/about-me/skills/skills.component';
 import { ActivatedRoute, Router } from '@angular/router';
-// type TabTypes =
-//   & CredentialsComponent
-//   & AboutMeMainComponent
-//   & ProjectsComponent
-//   & SkillsComponent;
+import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 
 @Component({
   selector: 'app-jz-tab-group',
   templateUrl: './jz-tab-group.component.html',
   styleUrls: ['./jz-tab-group.component.scss'],
 })
-export class JzTabGroupComponent implements OnInit, Tabs, AfterViewInit, OnChanges {
+export class JzTabGroupComponent
+  implements OnInit, Tabs, AfterViewInit, OnChanges
+{
   @Input() tabTitle = '';
   @Input() router: Router;
   @ViewChild('tabTemplate', { read: ViewContainerRef })
   component: any;
-  a = '';
+  currentTab = '';
 
-  public tabComponentList: { component: any; title: string }[] = [
-    { component: AboutMeMainComponent, title: '' },
-    {
-      component: CredentialsComponent,
-      title: 'credentials',
-    },
-    { component: SkillsComponent, title: 'skills' },
-    { component: ProjectsComponent, title: 'projects' },
-  ];
+  @Input() tabComponentList: TabNavModel[] = [];
 
-  constructor(private changeDetector: ChangeDetectorRef, public r: ActivatedRoute) {}
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    public route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    this.r.children[0].url.subscribe((x)=> this.a = x[0].path)
+    this.route.children[0].url.subscribe((x) => (this.currentTab = x[0].path));
   }
 
   ngAfterViewInit() {
-    // this.loadTabs();
-
     this.changeDetector.detectChanges();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['a']) {
-       this.component = this.tabComponentList.filter(
-        (x) => x.title === this.a
+    if (changes['currentTab']) {
+      this.component = this.tabComponentList.filter(
+        (x) => x.link === this.currentTab,
       )[0].component;
+
+      console.log(this.currentTab);
     }
   }
 }

@@ -8,6 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { EverythingLibModule } from '@zwiqler94/everything-lib';
 
 import { MatTabsModule } from '@angular/material/tabs';
@@ -131,6 +132,8 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       registrationStrategy: 'registerWhenStable:20000',
     }),
     EverythingLibModule,
+    CdkDrag,
+    CdkDragHandle,
   ],
   providers: [],
   bootstrap: [AppComponent],

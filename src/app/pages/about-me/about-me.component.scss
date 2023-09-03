@@ -21,7 +21,7 @@ mat-tab {
 .about-content,
 .project-content {
   position: relative;
-  margin: 4rem;
+  margin: 2rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -31,7 +31,6 @@ mat-tab {
 .project-content-item {
   margin: 1rem;
 }
-
 
 // #badge-div {
 //   display: flex;
@@ -47,7 +46,6 @@ mat-card {
   height: 45rem;
   min-width: 45vw;
 }
-
 
 // @media (max-width: 20rem) {
 //   #about-tabs {

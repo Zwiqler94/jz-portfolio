@@ -33,7 +33,7 @@ const routes: Routes = [
     component: AboutMeComponent,
     canActivate: envAuthGaurd,
     children: [
-      { path: '', component: AboutMeMainComponent },
+      { path: 'main', component: AboutMeMainComponent },
       { path: 'projects', component: ProjectsComponent },
       { path: 'credentials', component: CredentialsComponent },
       { path: 'skills', component: SkillsComponent },

@@ -9,6 +9,8 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { Router } from '@angular/router';
+import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 // type TabTypes =
 //   | CredentialsComponent
 //   | AboutMeMainComponent
@@ -25,27 +27,34 @@ export class JzTabItemComponent implements AfterViewInit, OnChanges {
   @ViewChild('tabTemplate', { read: ViewContainerRef })
   tabTemplate: ViewContainerRef;
 
+  @Input() tabComponentList: TabNavModel[] = [];
 
-  @Input() tabComponentList: { component: any; title: string }[] = [];
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
-  constructor(private changeDetector: ChangeDetectorRef) {
-  }
-
-  ngAfterViewInit(): void{
-     const component = this.tabComponentList.filter(
-       (x) => x.title === this.tab
-     )[0].component;
-     const componentRef =
-       this.tabTemplate.createComponent<typeof component>(component);
+  ngAfterViewInit(): void {
+    const component = this.getComponentFromTabList();
+    const componentRef =
+      this.tabTemplate.createComponent<typeof component>(component);
     componentRef.instance.tabTitle = this.tab.title;
     this.changeDetector.detectChanges();
+  }
+
+  getComponentFromTabList(): any {
+    const tabItem = this.tabComponentList.filter((x) => x.link === this.tab)[0];
+    return tabItem ? tabItem.component : undefined;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tab']) {
       this.tabTemplate.clear();
-      const component = this.tabComponentList.filter((x) => x.title === this.tab)[0].component;
-      const componentRef = this.tabTemplate.createComponent<typeof component>(component);
+      const component = this.tabComponentList.filter(
+        (x) => x.link === this.tab
+      )[0].component;
+      const componentRef =
+        this.tabTemplate.createComponent<typeof component>(component);
       componentRef.instance.tabTitle = this.tab.title;
     }
   }

@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Component, Input } from '@angular/core';
 import { Tabs } from 'src/app/interfaces/tabs.model';
-import { CredentialsComponent } from 'src/app/pages/about-me/credentials/credentials.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AboutMeMainComponent } from 'src/app/pages/about-me/about-me-main/about-me-main.component';
+import { CredentialsComponent } from 'src/app/pages/about-me/credentials/credentials.component';
 import { ProjectsComponent } from 'src/app/pages/about-me/projects/projects.component';
 import { SkillsComponent } from 'src/app/pages/about-me/skills/skills.component';
-import { Route, Router } from '@angular/router';
+import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 @Component({
   selector: 'app-about-me',
   templateUrl: './about-me.component.html',
@@ -22,50 +19,27 @@ export class AboutMeComponent implements Tabs {
 
   private _badgeHeight = '18.75rem';
   private _badgeWidth = '12.5rem';
-  private _tabTitleList: string[] = [
-    'About Me',
-    'Credentials',
-    'Skills',
-    'Projects',
+
+  private _tabComponentList: TabNavModel[] = [
+    { component: AboutMeMainComponent, title: 'About Me', link: 'main' },
+    {
+      component: CredentialsComponent,
+      title: 'Credentials',
+      link: 'credentials',
+    },
+    { component: SkillsComponent, title: 'Skills', link: 'skills' },
+    { component: ProjectsComponent, title: 'Projects', link: 'projects' },
   ];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // private tabComponentRefList: ComponentRef<JzTabComponent>[] = [];
-  public tabComponentList = [
-    { component: AboutMeMainComponent, title: 'About Me' },
-    { component: CredentialsComponent, title: 'Credentials' },
-    { component: SkillsComponent, title: 'Skills' },
-    { component: ProjectsComponent, title: 'Projects' },
-  ];
-
-  constructor(protected router: Router) {}
-
-  // ngAfterContentInit(): void {
-  //   const targeto: HTMLDivElement = document.getElementById(
-  //     'creds'
-  //   ) as HTMLDivElement;
-  //   const scriptEl = document.createElement('script');
-  //   scriptEl.src = 'https://cdn.credly.com/assets/utilities/embed.js';
-  //   scriptEl.async = true;
-  //   scriptEl.type = 'text/javascript';
-  //   targeto.appendChild(scriptEl);
-  // }
-
-  onTabChange($event: MatTabChangeEvent, router: Router) {
-    if ($event.tab.textLabel === 'Credentials') {
-      console.log('xxx');
-      const scriptEl = document.createElement('script');
-      scriptEl.src = 'https://cdn.credly.com/assets/utilities/embed.js';
-      scriptEl.async = true;
-      scriptEl.type = 'text/javascript';
-      const targeto = document.querySelector(
-        '#credential-div',
-      ) as HTMLDivElement;
-      targeto.append(scriptEl);
-      router.navigateByUrl('/aboutme')
-      
-    }
+  constructor(
+    protected router: Router,
+  ) {
+    const currentPagePath = location.pathname.split('/').pop();
+    const result = this.tabComponentList.filter(tabItem => tabItem.link === currentPagePath )
+    if(result.length <= 0) this.router.navigateByUrl('/aboutme/main', {skipLocationChange: true});
   }
+
+
 
   public get badgeHeight() {
     return this._badgeHeight;
@@ -81,10 +55,10 @@ export class AboutMeComponent implements Tabs {
     this._badgeWidth = value;
   }
 
-  public get tabTitleList(): string[] {
-    return this._tabTitleList;
+  public get tabComponentList(): TabNavModel[] {
+    return this._tabComponentList;
   }
-  public set tabTitleList(value: string[]) {
-    this._tabTitleList = value;
+  public set tabComponentList(value: TabNavModel[]) {
+    this._tabComponentList = value;
   }
 }
