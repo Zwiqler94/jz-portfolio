@@ -1,0 +1,105 @@
+mat-form-field {
+  margin: 1rem;
+  width: 30rem;
+}
+
+lib-username-generator {
+  // height: 35rem;
+  width: 50rem;
+}
+
+%drag-common {
+  box-sizing: border-box;
+  border: solid 1px #ccc;
+  // color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow:
+    0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.dragA {
+  height: 15rem;
+  width: 48rem;
+  @extend %drag-common;
+}
+
+.dragB {
+  height: 50rem;
+  width: 48rem;
+  @extend %drag-common;
+}
+
+.dragC {
+  height: 30rem;
+  width: 30rem;
+  @extend %drag-common;
+}
+
+.dragD {
+  height: 5rem;
+  width: 25rem;
+  @extend %drag-common;
+}
+
+.dragE {
+  height: 15rem;
+  width: 20rem;
+  @extend %drag-common;
+}
+
+.drag:active {
+  box-shadow:
+    0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+%common-handle {
+  position: absolute;
+  color: lightgray;
+  cursor: move;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 1rem;
+  z-index: 2;
+}
+
+.handleA {
+  top: -2.25rem;
+  right: -0.375rem;
+  @extend %common-handle;
+}
+
+.handleB {
+  top: -8.65rem;
+  right: -2.475rem;
+  @extend %common-handle;
+}
+
+.handleC {
+  top: -2.65rem;
+  right: -3rem;
+  @extend %common-handle;
+}
+
+.handleD {
+  top: -0.25rem;
+  right: -0.375rem;
+  @extend %common-handle;
+}
+
+.handleE {
+  top: -0.25rem;
+  right: -0.375rem;
+  @extend %common-handle;
+}

@@ -1,0 +1,62 @@
+@use 'themes';
+
+
+#error-div {
+  height: 80vh;
+  width: 100vw;
+  background-color: map-get(themes.$md-A-1-primary , 500);
+}
+
+.mainbox {
+  background-color: map-get(themes.$md-A-1-primary , 500);
+  margin: auto;
+  height: 600px;
+  width: 600px;
+  position: relative;
+}
+
+.err {
+  color: map-get(themes.$md-A-1-secondary , 900);
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 11rem;
+  position: absolute;
+  left: 20%;
+  top: 8%;
+}
+
+.far {
+  position: absolute;
+  font-size: 8.5rem;
+  left: 42%;
+  top: 15%;
+  color: map-get(themes.$md-A-1-secondary , 900);
+}
+
+.err2 {
+  color: map-get(themes.$md-A-1-secondary , 900);
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 11rem;
+  position: absolute;
+  left: 68%;
+  top: 8%;
+}
+
+.msg {
+color: map-get(themes.$md-A-1-secondary , 500);
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.6rem;
+  position: absolute;
+  left: 16%;
+  top: 45%;
+  width: 75%;
+}
+
+a {
+  text-decoration: none;
+  color:map-get(themes.$md-A-1-secondary , 700);
+}
+
+a:hover {
+  text-decoration: underline;
+}

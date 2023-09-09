@@ -1,0 +1,57 @@
+<div class="project-content">
+  <div class="dragA drag" cdkDrag [cdkDragFreeDragPosition]="{x:20,y:38}">
+    <div class="handleA" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-username-generator
+      class="project-content-item"
+      [(usernameForm)]="usernameFormInApp"
+      [(result)]="_result"
+    >
+    </lib-username-generator>
+  </div>
+  <div class="dragB drag" cdkDrag [cdkDragFreeDragPosition]="{x:896,y:176}">
+    <div class="handleB" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-nasa id="" [apiKey]="nasaApiKey"></lib-nasa>
+  </div>
+  <div class="dragC drag" cdkDrag [cdkDragFreeDragPosition]="{x:62,y:-665}">
+    <div class="handleC" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-pokemon
+      [height]="'35'"
+      [width]="'35'"
+      class="project-content-item"
+    ></lib-pokemon>
+  </div>
+  <div class="dragD drag" cdkDrag [cdkDragFreeDragPosition]="{x:1149,y:-1498}">
+    <div class="handleD" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-boredom-solver
+      [height]="'5'"
+      [width]="'25'"
+      class="project-content-item"
+    ></lib-boredom-solver>
+  </div>
+  <div class="dragE drag" cdkDrag [cdkDragFreeDragPosition]="{x:1575,y:-1571}">
+    <div class="handleE" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-age-by-name
+      [height]="'15'"
+      [width]="'20'"
+      class="project-content-item"
+    ></lib-age-by-name>
+  </div>
+  <div class="dragE drag" cdkDrag [cdkDragFreeDragPosition]="{x:804,y:-1818}">
+    <div class="handleE" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <mat-card>
+      <mat-card-header><h1>More Widgets Coming Soon!</h1></mat-card-header>
+    </mat-card>
+  </div>
+</div>
