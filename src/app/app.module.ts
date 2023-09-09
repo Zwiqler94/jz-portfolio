@@ -15,7 +15,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import {
   ReCaptchaV3Provider,
   initializeAppCheck,
@@ -113,7 +112,6 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
         isTokenAutoRefreshEnabled: true,
       }),
     ),
-    provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     provideAnalytics(() => initializeAnalytics(getApp())),
     provideAuth(() => {
@@ -131,9 +129,9 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:20000',
     }),
-    EverythingLibModule,
     CdkDrag,
     CdkDragHandle,
+    EverythingLibModule
   ],
   providers: [],
   bootstrap: [AppComponent],
