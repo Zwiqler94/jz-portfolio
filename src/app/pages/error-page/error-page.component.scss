@@ -41,7 +41,7 @@
 }
 
 .msg {
-  color: map-get(themes.$md-A-1-secondary, 500);
+color: map-get(themes.$md-A-1-secondary , 500);
   text-align: center;
   font-family: "Nunito Sans", sans-serif;
   font-size: 1.6rem;
