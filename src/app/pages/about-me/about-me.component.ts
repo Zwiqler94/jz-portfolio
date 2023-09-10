@@ -31,15 +31,14 @@ export class AboutMeComponent implements Tabs {
     { component: ProjectsComponent, title: 'Projects', link: 'projects' },
   ];
 
-  constructor(
-    protected router: Router,
-  ) {
+  constructor(protected router: Router) {
     const currentPagePath = location.pathname.split('/').pop();
-    const result = this.tabComponentList.filter(tabItem => tabItem.link === currentPagePath )
-    if(result.length <= 0) this.router.navigateByUrl('/aboutme/main', {skipLocationChange: true});
+    const result = this.tabComponentList.filter(
+      (tabItem) => tabItem.link === currentPagePath,
+    );
+    if (result.length <= 0)
+      this.router.navigateByUrl('/aboutme/main', { skipLocationChange: true });
   }
-
-
 
   public get badgeHeight() {
     return this._badgeHeight;

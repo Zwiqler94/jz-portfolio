@@ -3,8 +3,29 @@
 /* eslint-disable new-cap */
 import { Router, Request, Response } from 'express';
 import { Pool, ClientConfig, QueryResult } from 'pg';
+import { error, debug, info } from 'firebase-functions/logger';
+import { ConnectionOptions } from 'tls';
+// import { Connector, IpAddressTypes } from '@google-cloud/cloud-sql-connector';
+
+// const connector = new Connector();
+// // let clientOpts: any;
+// const clientOpts = await connector.getOptions({
+//   instanceConnectionName: (process.env.NODE_ENV === 'prod'
+//     ? process.env.DB_HOST_PROD
+//     : process.env.DB_HOST_DEV) as string,
+//   ipType: IpAddressTypes.PUBLIC,
+// });
+
+// getClientOpts().then().catch();
 
 export const postRouter = Router();
+
+const sslConectionOptions: ConnectionOptions = {
+  rejectUnauthorized: false,
+  ca: process.env.JLZ_APP_SERVER_CA,
+  key: process.env.JLZ_APP_CLIENT_KEY,
+  cert: process.env.JLZ_APP_CLIENT_CERT,
+};
 
 const dbConfig: ClientConfig = {
   database: process.env.DB_NAME,
@@ -13,27 +34,31 @@ const dbConfig: ClientConfig = {
     process.env.NODE_ENV === 'prod'
       ? process.env.DB_PASS_PROD
       : process.env.DB_PASS_DEV,
-  host: process.env.DB_HOST,
-  // ssl: {
-  //   rejectUnauthorized: false,
-  //   ca: process.env.JLZ_APP_SERVER_CA,
-  //   key: process.env.JLZ_APP_CLIENT_KEY,
-  //   cert: process.env.JLZ_APP_CLIENT_CERT,
-  // },
+  host: (process.env.NODE_ENV === 'prod'
+    ? process.env.DB_HOST_PROD
+    : process.env.DB_HOST_DEV) as string,
+  ssl: process.env.NODE_ENV === 'prod' ? sslConectionOptions : false,
 };
 
+debug({ dbConfig });
+
 const pool: Pool = new Pool(dbConfig);
+
 pool.on('connect', () => {
-  console.log('connected');
-  console.log({ isSSL: dbConfig.ssl ? true : false });
+  info(`connected to ${dbConfig.host} as ${dbConfig.user}`);
+  info({ isSSL: dbConfig.ssl ? true : false });
 });
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const query = async (text: string, params?: any) => pool.query(text, params);
+const query = async (text: string, params?: any) => {
+  info(`Executed query: ${text}`);
+  return pool.query(text, params);
+};
 
 const getMainPosts = async (req: Request, res: Response) => {
   try {
     const mainPosts: QueryResult<any> | void = await query(
-      'select post_list.id, post_list.type from post_list inner join main_feed on main_feed.post_id=post_list.id',
+      'select post_list.id, post_list.type from post_list inner join main_feed on main_feed.post_id=post_list.id'
     ).catch((err) => console.log(err));
     if (mainPosts) {
       const fullPostArray: any[] = [];
@@ -42,12 +67,12 @@ const getMainPosts = async (req: Request, res: Response) => {
         if (row.type === 'text') {
           result = await query(
             'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-            [row.id],
+            [row.id]
           );
         } else {
           result = await query(
             'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-            [row.id],
+            [row.id]
           );
         }
         fullPostArray.push(result.rows[0]);
@@ -59,15 +84,15 @@ const getMainPosts = async (req: Request, res: Response) => {
       res.status(200).json(fullPostArray);
     }
   } catch (err) {
-    console.log(err);
-    res.status(400);
+    error(err);
+    res.status(400).json(err);
   }
 };
 
 const getPuppyPosts = async (req: Request, res: Response) => {
   try {
     const mainPosts = await query(
-      'select post_list.id, post_list.type from post_list inner join puppy_feed on puppy_feed.post_id=post_list.id',
+      'select post_list.id, post_list.type from post_list inner join puppy_feed on puppy_feed.post_id=post_list.id'
     );
     const fullPostArray: any[] = [];
     for (const row of mainPosts.rows) {
@@ -75,31 +100,28 @@ const getPuppyPosts = async (req: Request, res: Response) => {
       if (row.type === 'text') {
         result = await query(
           'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-          [row.id],
+          [row.id]
         );
       } else {
         result = await query(
           'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-          [row.id],
+          [row.id]
         );
       }
       fullPostArray.push(result.rows[0]);
     }
-    // mainPosts.rows.forEach((row) => {
-    //   const result = query('select * from post_list where id=$1', [row.post_id]);
-    //   fullPostArray.push(result);
-    // })
+
     res.status(200).json(fullPostArray);
   } catch (err) {
-    console.log(err);
-    res.status(400);
+    error(err);
+    res.status(400).json(err);
   }
 };
 
 const getArticlePosts = async (req: Request, res: Response) => {
   try {
     const mainPosts = await query(
-      'select post_list.id, post_list.type from post_list inner join articles_feed on articles_feed.post_id=post_list.id',
+      'select post_list.id, post_list.type from post_list inner join articles_feed on articles_feed.post_id=post_list.id'
     );
     const fullPostArray: any[] = [];
     for (const row of mainPosts.rows) {
@@ -107,31 +129,28 @@ const getArticlePosts = async (req: Request, res: Response) => {
       if (row.type === 'text') {
         result = await query(
           'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-          [row.id],
+          [row.id]
         );
       } else {
         result = await query(
           'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-          [row.id],
+          [row.id]
         );
       }
       fullPostArray.push(result.rows[0]);
     }
-    // mainPosts.rows.forEach((row) => {
-    //   const result = query('select * from post_list where id=$1', [row.post_id]);
-    //   fullPostArray.push(result);
-    // })
+
     res.status(200).json(fullPostArray);
   } catch (err) {
-    console.log(err);
-    res.status(400);
+    error(err);
+    res.status(400).json(err);
   }
 };
 
 const getApplePosts = async (req: Request, res: Response) => {
   try {
     const mainPosts = await query(
-      'select post_list.id, post_list.type from post_list inner join apple_feed on apple_feed.post_id=post_list.id',
+      'select post_list.id, post_list.type from post_list inner join apple_feed on apple_feed.post_id=post_list.id'
     );
     const fullPostArray: any[] = [];
     for (const row of mainPosts.rows) {
@@ -139,31 +158,28 @@ const getApplePosts = async (req: Request, res: Response) => {
       if (row.type === 'text') {
         result = await query(
           'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-          [row.id],
+          [row.id]
         );
       } else {
         result = await query(
           'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-          [row.id],
+          [row.id]
         );
       }
       fullPostArray.push(result.rows[0]);
     }
-    // mainPosts.rows.forEach((row) => {
-    //   const result = query('select * from post_list where id=$1', [row.post_id]);
-    //   fullPostArray.push(result);
-    // })
+
     res.status(200).json(fullPostArray);
   } catch (err) {
-    console.log(err);
-    res.status(400);
+    error(err);
+    res.status(400).json(err);
   }
 };
 
 const getBlockchainPosts = async (req: Request, res: Response) => {
   try {
     const mainPosts = await query(
-      'select post_list.id, post_list.type from post_list inner join blockchain_feed on blockchain_feed.post_id=post_list.id',
+      'select post_list.id, post_list.type from post_list inner join blockchain_feed on blockchain_feed.post_id=post_list.id'
     );
     const fullPostArray: any[] = [];
     for (const row of mainPosts.rows) {
@@ -171,31 +187,28 @@ const getBlockchainPosts = async (req: Request, res: Response) => {
       if (row.type === 'text') {
         result = await query(
           'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-          [row.id],
+          [row.id]
         );
       } else {
         result = await query(
           'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-          [row.id],
+          [row.id]
         );
       }
       fullPostArray.push(result.rows[0]);
     }
-    // mainPosts.rows.forEach((row) => {
-    //   const result = query('select * from post_list where id=$1', [row.post_id]);
-    //   fullPostArray.push(result);
-    // })
+
     res.status(200).json(fullPostArray);
   } catch (err) {
-    console.log(err);
-    res.status(400);
+    error(err);
+    res.status(400).json(err);
   }
 };
 
 const getAnimePosts = async (req: Request, res: Response) => {
   try {
     const mainPosts = await query(
-      'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id',
+      'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id'
     );
     const fullPostArray: any[] = [];
     for (const row of mainPosts.rows) {
@@ -203,24 +216,21 @@ const getAnimePosts = async (req: Request, res: Response) => {
       if (row.type === 'text') {
         result = await query(
           'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-          [row.id],
+          [row.id]
         );
       } else {
         result = await query(
           'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-          [row.id],
+          [row.id]
         );
       }
       fullPostArray.push(result.rows[0]);
     }
-    // mainPosts.rows.forEach((row) => {
-    //   const result = query('select * from post_list where id=$1', [row.post_id]);
-    //   fullPostArray.push(result);
-    // })
+
     res.status(200).json(fullPostArray);
   } catch (err) {
-    console.log(err);
-    res.status(400);
+    error(err);
+    res.status(400).json(err);
   }
 };
 

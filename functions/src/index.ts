@@ -3,6 +3,8 @@ import { onRequest } from 'firebase-functions/v2/https';
 import {
   clientCert,
   clientKey,
+  dbHostDev,
+  dbHostProd,
   dbPassDev,
   dbPassProd,
   secretNameDev,
@@ -49,6 +51,7 @@ jzPortfolioBackendExpressApp.use('/health', (req, res) =>
   res.send("I'm alive!"),
 );
 
+
 export const jzPortfolioApp = onRequest(
   {
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
@@ -61,6 +64,8 @@ export const jzPortfolioApp = onRequest(
       serverCA,
       dbPassDev,
       dbPassProd,
+      dbHostDev,
+      dbHostProd,
     ],
   },
   app,

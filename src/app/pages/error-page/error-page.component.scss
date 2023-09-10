@@ -1,14 +1,13 @@
-@use 'themes';
-
+@use "themes";
 
 #error-div {
   height: 80vh;
   width: 100vw;
-  background-color: map-get(themes.$md-A-1-primary , 500);
+  background-color: map-get(themes.$md-A-1-primary, 500);
 }
 
 .mainbox {
-  background-color: map-get(themes.$md-A-1-primary , 500);
+  background-color: map-get(themes.$md-A-1-primary, 500);
   margin: auto;
   height: 600px;
   width: 600px;
@@ -16,7 +15,7 @@
 }
 
 .err {
-  color: map-get(themes.$md-A-1-secondary , 900);
+  color: map-get(themes.$md-A-1-secondary, 900);
   font-family: "Nunito Sans", sans-serif;
   font-size: 11rem;
   position: absolute;
@@ -29,11 +28,11 @@
   font-size: 8.5rem;
   left: 42%;
   top: 15%;
-  color: map-get(themes.$md-A-1-secondary , 900);
+  color: map-get(themes.$md-A-1-secondary, 900);
 }
 
 .err2 {
-  color: map-get(themes.$md-A-1-secondary , 900);
+  color: map-get(themes.$md-A-1-secondary, 900);
   font-family: "Nunito Sans", sans-serif;
   font-size: 11rem;
   position: absolute;
@@ -42,7 +41,7 @@
 }
 
 .msg {
-color: map-get(themes.$md-A-1-secondary , 500);
+  color: map-get(themes.$md-A-1-secondary, 500);
   text-align: center;
   font-family: "Nunito Sans", sans-serif;
   font-size: 1.6rem;
@@ -54,7 +53,7 @@ color: map-get(themes.$md-A-1-secondary , 500);
 
 a {
   text-decoration: none;
-  color:map-get(themes.$md-A-1-secondary , 700);
+  color: map-get(themes.$md-A-1-secondary, 700);
 }
 
 a:hover {

@@ -131,7 +131,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     }),
     CdkDrag,
     CdkDragHandle,
-    EverythingLibModule
+    EverythingLibModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

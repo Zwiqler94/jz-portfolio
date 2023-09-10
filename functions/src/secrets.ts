@@ -10,6 +10,8 @@ export const clientCert = defineSecret('JLZ_APP_CLIENT_CERT');
 export const clientKey = defineSecret('JLZ_APP_CLIENT_KEY');
 export const dbPassDev = defineSecret('DB_PASS_DEV');
 export const dbPassProd = defineSecret('DB_PASS_PROD');
+export const dbHostDev = defineSecret('DB_HOST_DEV');
+export const dbHostProd = defineSecret('DB_HOST_PROD');
 export const secretNameDev = defineSecret('LINK_PREVIEW_DEV');
 export const secretNameProd = defineSecret('LINK_PREVIEW_PROD');
 export const serverCA = defineSecret('JLZ_APP_SERVER_CA');
@@ -21,6 +23,8 @@ export const secretArray: SecretParam[] = [
   clientKey,
   dbPassDev,
   dbPassProd,
+  dbHostDev,
+  dbHostProd,
   secretNameDev,
   secretNameProd,
   serverCA,
