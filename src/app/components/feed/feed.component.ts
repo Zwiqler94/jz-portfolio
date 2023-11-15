@@ -14,7 +14,7 @@ import { Post } from '../models/post.model';
 import { LinkPost } from 'src/app/components/models/link-post';
 import { LinkPostComponent } from 'src/app/components/link-post/link-post.component';
 import { DatabaseService } from 'src/app/services/database/database.service';
-import { lastValueFrom } from 'rxjs';
+import { delay, from, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -71,16 +71,19 @@ export class FeedComponent implements OnInit, AfterViewInit {
     const postLimit = 10;
     feedSwitch = feedSwitch.toLowerCase();
     if (feedSwitch === 'main') {
-      const posts: Post[] = await lastValueFrom(this.dbService.mainPosts);
-      posts.forEach((post) => {
-        setTimeout(() => {
-          if (post.type === 'text') {
-            this.generateTextPost(post);
-          } else if (post.type === 'link') {
-            this.generateLinkPost(post);
-          }
-        }, 10000);
-      });
+      this.dbService.mainPosts.subscribe(
+        {next:(posts) => {
+        from(posts).pipe(delay(10000)).forEach((post) => {
+         if (post.type === 'text') {
+           this.generateTextPost(post);
+         } else if (post.type === 'link') {
+           this.generateLinkPost(post);
+         }
+      })
+        },
+        error: (error)=>console.log(error)}
+      )
+   
     } else if (feedSwitch === 'puppy') {
       const posts: Post[] = await lastValueFrom(this.dbService.puppyPosts);
       posts.forEach((post) => {

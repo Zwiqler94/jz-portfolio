@@ -4,7 +4,7 @@ import { error, debug } from 'firebase-functions/logger';
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { defineSecret } from 'firebase-functions/params';
-import { SecretParam } from 'firebase-functions/lib/params/types';
+// import { SecretParam } from 'firebase-functions/lib/params/types';
 
 export const clientCert = defineSecret('JLZ_APP_CLIENT_CERT');
 export const clientKey = defineSecret('JLZ_APP_CLIENT_KEY');
@@ -18,7 +18,7 @@ export const serverCA = defineSecret('JLZ_APP_SERVER_CA');
 
 export const secretRouter = express.Router();
 
-export const secretArray: SecretParam[] = [
+export const secretArray: any[] = [
   clientCert,
   clientKey,
   dbPassDev,

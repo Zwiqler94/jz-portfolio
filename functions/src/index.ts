@@ -12,10 +12,10 @@ import {
   secretRouter,
   serverCA,
 } from './secrets';
-import { limiter } from './middleware';
+// import { limiter } from './middleware';
 import { postRouter } from './db';
-import * as cors from 'cors';
-import * as express from 'express';
+import  cors = require('cors');
+import  express = require('express');
 // import {getFunctions, connectFunctionsEmulator} from "firebase/functions";
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
@@ -44,7 +44,7 @@ app.use(cors());
 // app.enable('trust proxy');
 const jzPortfolioBackendExpressApp = express.Router();
 
-app.use('/api/v3', limiter, jzPortfolioBackendExpressApp);
+app.use('/api/v3', jzPortfolioBackendExpressApp);
 jzPortfolioBackendExpressApp.use(secretRouter);
 jzPortfolioBackendExpressApp.use('/posts', postRouter);
 jzPortfolioBackendExpressApp.use('/health', (req, res) =>
@@ -54,6 +54,8 @@ jzPortfolioBackendExpressApp.use('/health', (req, res) =>
 
 export const jzPortfolioApp = onRequest(
   {
+    maxInstances: 5,
+    timeoutSeconds: 36000,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
     secrets: [
