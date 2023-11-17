@@ -1,20 +1,15 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "target": "es2022",
-    "verbatimModuleSyntax": true,
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    "module": "ES2022",
+    "module": "CommonJS",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
+    "target": "ES2022",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true
   },
-
   "compileOnSave": true,
   "include": ["src"]
 }

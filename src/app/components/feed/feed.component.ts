@@ -31,12 +31,12 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private dbService: DatabaseService,
+    private dbService: DatabaseService
   ) {
     this.feedLocation = 'Main';
-    this.dbService.mainPosts.subscribe((post) => {
-      console.log(post);
-    });
+    // this.dbService.mainPosts.subscribe((post) => {
+    //   console.log(post);
+    // });
   }
 
   ngOnInit(): void {
@@ -71,19 +71,20 @@ export class FeedComponent implements OnInit, AfterViewInit {
     const postLimit = 10;
     feedSwitch = feedSwitch.toLowerCase();
     if (feedSwitch === 'main') {
-      this.dbService.mainPosts.subscribe(
-        {next:(posts) => {
-        from(posts).pipe(delay(10000)).forEach((post) => {
-         if (post.type === 'text') {
-           this.generateTextPost(post);
-         } else if (post.type === 'link') {
-           this.generateLinkPost(post);
-         }
-      })
+      this.dbService.mainPosts.subscribe({
+        next: (posts) => {
+          from(posts)
+            .pipe(delay(10000))
+            .forEach((post) => {
+              if (post.type === 'text') {
+                this.generateTextPost(post);
+              } else if (post.type === 'link') {
+                this.generateLinkPost(post);
+              }
+            });
         },
-        error: (error)=>console.log(error)}
-      )
-   
+        error: (error) => console.log(error),
+      });
     } else if (feedSwitch === 'puppy') {
       const posts: Post[] = await lastValueFrom(this.dbService.puppyPosts);
       posts.forEach((post) => {

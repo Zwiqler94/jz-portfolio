@@ -54,6 +54,7 @@ import { SkillsComponent } from './pages/about-me/skills/skills.component';
 import { CredentialsComponent } from './pages/about-me/credentials/credentials.component';
 import { JzTabGroupComponent } from './components/jz-tab/jz-tab-group.component';
 import { JzTabItemComponent } from './components/jz-tab-item/jz-tab-item.component';
+import { EditorPageComponent } from './pages/editor-page/editor-page.component';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -85,6 +86,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     CredentialsComponent,
     JzTabGroupComponent,
     JzTabItemComponent,
+    EditorPageComponent,
   ],
   imports: [
     BrowserModule,
