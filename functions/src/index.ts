@@ -54,7 +54,7 @@ jzPortfolioBackendExpressApp.use('/health', (req, res) =>
 export const jzPortfolioApp = onRequest(
   {
     maxInstances: 5,
-    timeoutSeconds: 36000,
+    timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
     secrets: [
