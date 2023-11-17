@@ -14,8 +14,8 @@ import {
 } from './secrets';
 // import { limiter } from './middleware';
 import { postRouter } from './db';
-import  cors = require('cors');
-import  express = require('express');
+import cors = require('cors');
+import express = require('express');
 // import {getFunctions, connectFunctionsEmulator} from "firebase/functions";
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
@@ -50,7 +50,6 @@ jzPortfolioBackendExpressApp.use('/posts', postRouter);
 jzPortfolioBackendExpressApp.use('/health', (req, res) =>
   res.send("I'm alive!"),
 );
-
 
 export const jzPortfolioApp = onRequest(
   {

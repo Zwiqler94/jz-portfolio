@@ -8,7 +8,7 @@ describe('EditorPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EditorPageComponent]
+      declarations: [EditorPageComponent],
     });
     fixture = TestBed.createComponent(EditorPageComponent);
     component = fixture.componentInstance;
