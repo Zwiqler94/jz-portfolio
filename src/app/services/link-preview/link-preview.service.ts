@@ -21,7 +21,7 @@ export class LinkPreviewService {
   private _apiKey!: string;
   private params: HttpParams = new HttpParams().set('key', this.apiKey);
   private tokenResult: string;
-  headers: HttpHeaders;
+  headers: HttpHeaders = new HttpHeaders();
 
   constructor(private httpClient: HttpClient) {
     try {

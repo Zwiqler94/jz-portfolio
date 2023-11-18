@@ -24,7 +24,7 @@ export class DatabaseService {
   _appCheck: any;
   tokenResult: string;
 
-  headers: HttpHeaders;
+  headers: HttpHeaders = new HttpHeaders();
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(private httpClient: HttpClient) {
