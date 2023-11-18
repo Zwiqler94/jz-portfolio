@@ -68,15 +68,15 @@ class AWSDBManager {
     );
 
     AWSDBManager.password = password;
-    this.username = username;
+    AWSDBManager.username = username;
 
     const caCert = Buffer.from(await getSecretValue('caSSLCert'));
 
     // if (!this.pool) {
       this.pool = new Pool({
         host: 'jz-portfolio.cj0jeurehhtj.us-east-2.rds.amazonaws.com',
-        user: this.username,
-        password: this.password,
+        user: AWSDBManager.username,
+        password: AWSDBManager.password,
         database: 'jz_dev',
         ssl: {
           ca: caCert,

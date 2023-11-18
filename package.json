@@ -59,7 +59,7 @@
     "tslib": "^2.6.2",
     "uuid": "^9.0.1",
     "webpack": "^5.89.0",
-    "zone.js": "~0.13.0"
+    "zone.js": "^0.13.3"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^16.0.1",
@@ -91,7 +91,7 @@
     "@types/karma-jasmine": "~4.0.5",
     "@types/karma-jasmine-html-reporter": "^1.7.3",
     "@types/luxon": "^3.3.4",
-    "@types/node": "^20.9.0",
+    "@types/node": "^20.9.2",
     "@types/nodemon": "^1.19.5",
     "@types/object-hash": "^3.0.6",
     "@types/path-browserify": "^1.0.2",
@@ -103,7 +103,7 @@
     "@typescript-eslint/parser": "^6.11.0",
     "conventional-changelog-cli": "^4.1.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.53.0",
+    "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "latest",
     "eslint-plugin-jsdoc": "latest",
