@@ -14,11 +14,11 @@ import {
 } from '@aws-sdk/client-secrets-manager';
 
 export const getSecretValue = async (secretName = 'SECRET_NAME') => {
-  const client = new SecretsManagerClient();
+  const client = new SecretsManagerClient({ region: 'us-east-2' });
   const response = await client.send(
     new GetSecretValueCommand({
       SecretId: secretName,
-    }),
+    })
   );
   // console.log(response);
   // {
@@ -58,9 +58,13 @@ class AWSDBManager {
   private static password: string;
   private static pool: Pool;
 
+  static async closeDB() {
+    await this.pool.end();
+  }
+
   static async connectDB() {
     const { username, password } = JSON.parse(
-      await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5'),
+      await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5')
     );
 
     AWSDBManager.password = password;
@@ -68,7 +72,7 @@ class AWSDBManager {
 
     const caCert = Buffer.from(await getSecretValue('caSSLCert'));
 
-    if (!this.pool) {
+    // if (!this.pool) {
       this.pool = new Pool({
         host: 'jz-portfolio.cj0jeurehhtj.us-east-2.rds.amazonaws.com',
         user: this.username,
@@ -78,14 +82,14 @@ class AWSDBManager {
           ca: caCert,
         },
       });
-    }
+    // }
   }
 
   async getPuppyPosts(req: Request, res: Response) {
     try {
       await AWSDBManager.connectDB();
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join puppy_feed on puppy_feed.post_id=post_list.id',
+        'select post_list.id, post_list.type from post_list inner join puppy_feed on puppy_feed.post_id=post_list.id'
       );
 
       if (mainPosts) {
@@ -95,12 +99,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -110,20 +114,20 @@ class AWSDBManager {
         //   fullPostArray.push(result);
         // })
         console.table(fullPostArray);
-        await AWSDBManager.pool.end();
+        // await AWSDBManager.pool.end();
 
         res.status(200).json(fullPostArray);
       }
     } catch (err) {
       console.error(err);
       res.status(500).json(err);
-    }
+    } 
   }
   async getArticlePosts(req: Request, res: Response) {
     try {
       await AWSDBManager.connectDB();
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join articles_feed on articles_feed.post_id=post_list.id',
+        'select post_list.id, post_list.type from post_list inner join articles_feed on articles_feed.post_id=post_list.id'
       );
 
       if (mainPosts) {
@@ -133,12 +137,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -148,20 +152,20 @@ class AWSDBManager {
         //   fullPostArray.push(result);
         // })
         console.table(fullPostArray);
-        await AWSDBManager.pool.end();
+        // await AWSDBManager.pool.end();
 
         res.status(200).json(fullPostArray);
       }
     } catch (err) {
       console.error(err);
       res.status(500).json(err);
-    }
+    } 
   }
   async getApplePosts(req: Request, res: Response) {
     try {
       await AWSDBManager.connectDB();
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join apple_feed on apple_feed.post_id=post_list.id',
+        'select post_list.id, post_list.type from post_list inner join apple_feed on apple_feed.post_id=post_list.id'
       );
 
       if (mainPosts) {
@@ -171,12 +175,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -186,21 +190,21 @@ class AWSDBManager {
         //   fullPostArray.push(result);
         // })
         console.table(fullPostArray);
-        await AWSDBManager.pool.end();
+        // await AWSDBManager.pool.end();
 
         res.status(200).json(fullPostArray);
       }
     } catch (err) {
       console.error(err);
       res.status(500).json(err);
-    }
+    } 
   }
 
   async getBlockchainPosts(req: Request, res: Response) {
     try {
       await AWSDBManager.connectDB();
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join blockchain_feed on blockchain_feed.post_id=post_list.id',
+        'select post_list.id, post_list.type from post_list inner join blockchain_feed on blockchain_feed.post_id=post_list.id'
       );
 
       if (mainPosts) {
@@ -210,12 +214,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -225,21 +229,21 @@ class AWSDBManager {
         //   fullPostArray.push(result);
         // })
         console.table(fullPostArray);
-        await AWSDBManager.pool.end();
+        // await AWSDBManager.pool.end();
 
         res.status(200).json(fullPostArray);
       }
     } catch (err) {
       console.error(err);
       res.status(500).json(err);
-    }
+    } 
   }
 
   async getAnimePosts(req: Request, res: Response) {
     try {
       await AWSDBManager.connectDB();
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id',
+        'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id'
       );
 
       if (mainPosts) {
@@ -249,12 +253,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -264,21 +268,21 @@ class AWSDBManager {
         //   fullPostArray.push(result);
         // })
         console.table(fullPostArray);
-        await AWSDBManager.pool.end();
+        // await AWSDBManager.pool.end();
 
         res.status(200).json(fullPostArray);
       }
     } catch (err) {
       console.error(err);
       res.status(500).json(err);
-    }
+    } 
   }
 
   async getMainPosts(req: Request, res: Response) {
     try {
       await AWSDBManager.connectDB();
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join main_feed on main_feed.post_id=post_list.id',
+        'select post_list.id, post_list.type from post_list inner join main_feed on main_feed.post_id=post_list.id'
       );
 
       if (mainPosts) {
@@ -288,12 +292,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id],
+              [row.id]
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -303,14 +307,14 @@ class AWSDBManager {
         //   fullPostArray.push(result);
         // })
         console.table(fullPostArray);
-        await AWSDBManager.pool.end();
+        // await AWSDBManager.pool.end();
 
         res.status(200).json(fullPostArray);
       }
     } catch (err) {
       console.error(err);
       res.status(500).json(err);
-    }
+    } 
   }
 }
 

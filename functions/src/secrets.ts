@@ -15,6 +15,8 @@ export const dbHostProd = defineSecret('DB_HOST_PROD');
 export const secretNameDev = defineSecret('LINK_PREVIEW_DEV');
 export const secretNameProd = defineSecret('LINK_PREVIEW_PROD');
 export const serverCA = defineSecret('JLZ_APP_SERVER_CA');
+export const awsAccessKey = defineSecret('AWS_ACCESS_KEY_ID');
+export const awsSecretKey = defineSecret('AWS_SECRET_ACCESS_KEY');
 
 export const secretRouter = express.Router();
 

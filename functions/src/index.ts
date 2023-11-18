@@ -1,6 +1,8 @@
 /* eslint-disable new-cap */
 import { onRequest } from 'firebase-functions/v2/https';
 import {
+  awsAccessKey,
+  awsSecretKey,
   clientCert,
   clientKey,
   dbHostDev,
@@ -48,11 +50,12 @@ app.use('/api/v3', jzPortfolioBackendExpressApp);
 jzPortfolioBackendExpressApp.use(secretRouter);
 jzPortfolioBackendExpressApp.use('/posts', postRouter);
 jzPortfolioBackendExpressApp.use('/health', (req, res) =>
-  res.send("I'm alive!"),
+  res.send("I'm alive!")
 );
 
 export const jzPortfolioApp = onRequest(
   {
+    enforceAppCheck: true,
     maxInstances: 5,
     timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
@@ -67,7 +70,9 @@ export const jzPortfolioApp = onRequest(
       dbPassProd,
       dbHostDev,
       dbHostProd,
+      awsAccessKey,
+      awsSecretKey,
     ],
   },
-  app,
+  app
 );
