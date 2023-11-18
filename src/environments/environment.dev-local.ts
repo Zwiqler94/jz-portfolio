@@ -18,7 +18,7 @@ export const environment = {
   local: false,
   nasaAPIKey: 'vnfZmI8NbIb44DmpbbSAvlMhFz7Ipnyc1tq6xNLb',
   production: false,
-  recaptchaSiteKey: '6LdV5L8jAAAAAK1GaBQkmOq37fdxVQszw5x_iIV3',
+  recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
     useServiceWorker: false,
     productionServices: true,
