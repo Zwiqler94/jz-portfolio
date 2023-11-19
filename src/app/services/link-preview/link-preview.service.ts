@@ -86,6 +86,7 @@ export class LinkPreviewService {
   }
 
   async getLinkPreview(url: string) {
+    await this.getAppCheckToken();
     console.info(url);
     this.params = new HttpParams();
     if (!environment.local)

@@ -42,6 +42,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    console.info(this.dbService.appCheck);
     // this.dbService.canI();
     // this.feedSwitch(this.feedLocation);
   }
