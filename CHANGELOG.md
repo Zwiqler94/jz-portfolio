@@ -1,3 +1,9 @@
+## 5.0.0 (2023-11-19)
+
+* Latest Changes (#343) ([87f3cf3](https://github.com/Zwiqler94/jz-portfolio/commit/87f3cf3)), closes [#343](https://github.com/Zwiqler94/jz-portfolio/issues/343) [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
+
+
+
 ## <small>4.0.1 (2023-11-15)</small>
 
 - Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular/cdk@\*, @angular/material ([d0e7511](https://github.com/Zwiqler94/jz-portfolio/commit/d0e7511))
