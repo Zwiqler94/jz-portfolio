@@ -56,7 +56,7 @@ export class LinkPreviewService {
 
   async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
     try {
-      if (!environment.local) {
+      if (!environment.local && this.appCheck) {
         console.info(this.appCheck);
         this.tokenResult = (await getToken(this.appCheck)).token;
         console.info(this.tokenResult);
@@ -74,12 +74,12 @@ export class LinkPreviewService {
     if (!environment.local)
       this.headers = this.headers.set('X-Firebase-AppCheck', this.tokenResult);
     console.log(this.headers);
-    const params = new HttpParams().set('prod', environment.production);
+    this.params = this.params.set('prod', environment.production);
     let secretsUrl = environment.serviceOptions.secretService;
     secretsUrl += '/link-previews';
     console.info(secretsUrl);
     return this.httpClient.get<SecretResponse>(secretsUrl, {
-      params,
+      params: this.params,
       headers: this.headers,
     });
   }
