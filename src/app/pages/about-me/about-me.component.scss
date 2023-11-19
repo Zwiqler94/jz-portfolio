@@ -47,9 +47,8 @@ mat-card {
   min-width: 45vw;
 }
 
-// @media (max-width: 20rem) {
-//   #about-tabs {
-//     height: 40rem;
-//     width: 40rem;
-//   }
-// }
+app-jz-tab-group {
+  width: 100vw;
+  height: 95vh;
+}
+
