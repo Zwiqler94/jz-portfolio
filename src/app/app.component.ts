@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { AppCheck } from '@angular/fire/app-check';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +18,12 @@ export class AppComponent implements OnInit {
     private swUpdate: SwUpdate,
     private auth: AuthService,
     private snack: MatSnackBar,
+    private dbService: DatabaseService,
   ) {}
 
   ngOnInit(): void {
+    this.dbService.appCheck = inject(AppCheck);
+
     if (this.swUpdate.isEnabled) {
       console.log('Service Worker Enabled');
       this.swUpdate.versionUpdates

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   AppCheck,
   AppCheckTokenResult,
@@ -33,7 +33,7 @@ export class DatabaseService {
       if (environment.local && typeof environment.appCheckDebug === 'string') {
         this.headers = new HttpHeaders().set(
           'X-Firebase-AppCheck-Debug',
-          environment.appCheckDebug
+          environment.appCheckDebug,
         );
       }
     } catch (err) {
@@ -76,7 +76,7 @@ export class DatabaseService {
     });
     this.articlePosts = this.httpClient.get<Post[]>(
       `${this.postUrl}/articles`,
-      { headers: this.headers }
+      { headers: this.headers },
     );
     this.applePosts = this.httpClient.get<Post[]>(`${this.postUrl}/apple`, {
       headers: this.headers,
@@ -86,7 +86,7 @@ export class DatabaseService {
     });
     this.blockchainPosts = this.httpClient.get<Post[]>(
       `${this.postUrl}/blockchain`,
-      { headers: this.headers }
+      { headers: this.headers },
     );
   }
 }

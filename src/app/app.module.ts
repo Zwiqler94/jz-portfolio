@@ -1,4 +1,4 @@
-import { NgModule, OnInit, inject } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +16,6 @@ import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import {
-  AppCheck,
   ReCaptchaV3Provider,
   initializeAppCheck,
   provideAppCheck,
@@ -56,7 +55,6 @@ import { CredentialsComponent } from './pages/about-me/credentials/credentials.c
 import { JzTabGroupComponent } from './components/jz-tab/jz-tab-group.component';
 import { JzTabItemComponent } from './components/jz-tab-item/jz-tab-item.component';
 import { EditorPageComponent } from './pages/editor-page/editor-page.component';
-import { DatabaseService } from 'src/app/services/database/database.service';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -114,7 +112,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       initializeAppCheck(getApp(), {
         provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
         isTokenAutoRefreshEnabled: true,
-      })
+      }),
     ),
     provideStorage(() => getStorage()),
     provideAnalytics(() => initializeAnalytics(getApp())),
@@ -140,11 +138,4 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule implements OnInit{
-  constructor(private dbService: DatabaseService) {
-   
-  }
-  ngOnInit(): void {
-     this.dbService.appCheck = inject(AppCheck);
-  }
-}
+export class AppModule {}

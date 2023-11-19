@@ -1,13 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { JzTabGroupComponent } from 'src/app/components/jz-tab/jz-tab-group.component';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
 
