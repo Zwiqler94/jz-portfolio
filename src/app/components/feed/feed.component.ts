@@ -77,7 +77,6 @@ export class FeedComponent implements OnInit, AfterViewInit {
       this.dbService.mainPosts.subscribe({
         next: (posts) => {
           from(posts)
-            .pipe(delay(10000))
             .forEach((post) => {
               if (post.type === 'text') {
                 this.generateTextPost(post);

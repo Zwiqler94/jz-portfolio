@@ -1,4 +1,4 @@
-import { NgModule, inject } from '@angular/core';
+import { NgModule, OnInit, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -140,8 +140,11 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {
+export class AppModule implements OnInit{
   constructor(private dbService: DatabaseService) {
-    this.dbService.appCheck = inject(AppCheck);
+   
+  }
+  ngOnInit(): void {
+     this.dbService.appCheck = inject(AppCheck);
   }
 }
