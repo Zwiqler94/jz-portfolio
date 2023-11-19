@@ -21,7 +21,7 @@ export class DatabaseService {
   blockchainPosts: Observable<Post[]>;
 
   postUrl = environment.serviceOptions.postService;
-  _appCheck: any;
+  _appCheck: AppCheck|undefined;
   tokenResult: string;
 
   headers: HttpHeaders = new HttpHeaders();
@@ -52,7 +52,7 @@ export class DatabaseService {
 
   async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
     try {
-      if (!environment.local) {
+      if (!environment.local && this.appCheck) {
         console.info(this.appCheck);
         this.tokenResult = (await getToken(this.appCheck)).token;
         console.info(this.tokenResult);
