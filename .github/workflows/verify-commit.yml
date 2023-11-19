@@ -43,12 +43,12 @@ jobs:
         id: verifyCommit
         run: |
           if [[ $commitMsg =~ (BREAKING CHANGE|^(.|\s)+(\(.|\s\))?!:(.|\s)+$) ]]; then
-              echo "versionType=minor" >> "$GITHUB_OUTPUT"
-              echo "versionType=minor" 
+              echo "versionType=major" >> "$GITHUB_OUTPUT"
+              echo "versionType=major" 
               exit 0
           elif [[ $commitMsg =~ ^feat(\(.+\))?:(.|\s)+$ ]]; then
-              echo "versionType=patch" >> "$GITHUB_OUTPUT"
-              echo "versionType=patch"
+              echo "versionType=minor" >> "$GITHUB_OUTPUT"
+              echo "versionType=minor"
               exit 0
           elif [[ $commitMsg =~ ^(fix(\(.+\))?|perf(\(.+\))?|revert(\(.+\))?|docs(\(.+\))?|style(\(.+\))?|chore(\(.+\))?|refactor(\(.+\))?|test(\(.+\))?|build(\(.+\))?|ci(\(.+\))?):(.|\s)+$ ]]; then
               echo "versionType=patch" >> "$GITHUB_OUTPUT"

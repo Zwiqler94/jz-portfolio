@@ -38,7 +38,3 @@ Jacob Zwickler
 
 next arrow by Graphik Designz from the Noun Project
 previous arrow by Mohamad Arif Prasetyo from the Noun Project
-
-## Versioning
-
-From v5 until a stable milestone reached, breaking changes will be minor version updates and all other changes will be patches.
