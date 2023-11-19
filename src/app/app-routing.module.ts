@@ -17,6 +17,7 @@ import { AboutMeMainComponent } from 'src/app/pages/about-me/about-me-main/about
 import { SkillsComponent } from 'src/app/pages/about-me/skills/skills.component';
 import { CredentialsComponent } from 'src/app/pages/about-me/credentials/credentials.component';
 import { ProjectsComponent } from 'src/app/pages/about-me/projects/projects.component';
+import { EditorPageComponent } from 'src/app/pages/editor-page/editor-page.component';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AuthGuard: CanActivateFn = (_route, _state) => {
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'news', component: NewsComponent, canActivate: envAuthGaurd },
   { path: 'socials', component: SocialsComponent, canActivate: envAuthGaurd },
   { path: 'contact', component: ContactMeComponent, canActivate: envAuthGaurd },
+  { path: 'editor', component: EditorPageComponent, canActivate: envAuthGaurd },
   { path: 'error', component: ErrorPageComponent },
   { path: '**', component: ErrorPageComponent },
 ];

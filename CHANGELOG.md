@@ -1,8 +1,69 @@
+## <small>4.0.1 (2023-11-15)</small>
+
+- Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular/cdk@\*, @angular/material ([d0e7511](https://github.com/Zwiqler94/jz-portfolio/commit/d0e7511))
+- Angular CLI update for packages - @angular/cli@16, @angular/core@16, @angular/cdk@16, @angular/mater ([ed6639c](https://github.com/Zwiqler94/jz-portfolio/commit/ed6639c))
+- Angular CLI update for packages - @angular/core@_, @angular/cdk@_, @angular/material@\* ([57f13a3](https://github.com/Zwiqler94/jz-portfolio/commit/57f13a3))
+- Angular CLI update for packages - @angular/core@_, @angular/cdk@_, @angular/material@\* ([9cea663](https://github.com/Zwiqler94/jz-portfolio/commit/9cea663))
+- Prod Push 7/30 (#311) ([c6f72c8](https://github.com/Zwiqler94/jz-portfolio/commit/c6f72c8)), closes [#311](https://github.com/Zwiqler94/jz-portfolio/issues/311) [#273](https://github.com/Zwiqler94/jz-portfolio/issues/273)
+- Prod Push!! (#320) ([1f3beaf](https://github.com/Zwiqler94/jz-portfolio/commit/1f3beaf)), closes [#320](https://github.com/Zwiqler94/jz-portfolio/issues/320) [#299](https://github.com/Zwiqler94/jz-portfolio/issues/299) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#265](https://github.com/Zwiqler94/jz-portfolio/issues/265) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#73](https://github.com/Zwiqler94/jz-portfolio/issues/73) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#JLZP-51](https://github.com/Zwiqler94/jz-portfolio/issues/JLZP-51) [#72](https://github.com/Zwiqler94/jz-portfolio/issues/72) [#101](https://github.com/Zwiqler94/jz-portfolio/issues/101) [#102](https://github.com/Zwiqler94/jz-portfolio/issues/102)
+- fix: everything-lib update ([1887a52](https://github.com/Zwiqler94/jz-portfolio/commit/1887a52))
+- fix(deps): fix everything lib deps ([953baf0](https://github.com/Zwiqler94/jz-portfolio/commit/953baf0))
+- fix(deps): fix mismatch deps ([99535b1](https://github.com/Zwiqler94/jz-portfolio/commit/99535b1))
+- fix(deps): fix mismatch deps ([fa7fc93](https://github.com/Zwiqler94/jz-portfolio/commit/fa7fc93))
+- fix(deps): remove firestore because of interface issues ([b7a5900](https://github.com/Zwiqler94/jz-portfolio/commit/b7a5900))
+- fix(functions): add ssl options back ([08f7255](https://github.com/Zwiqler94/jz-portfolio/commit/08f7255))
+- fix(style): push login button up ([71aec48](https://github.com/Zwiqler94/jz-portfolio/commit/71aec48))
+- build(deps): fix angular fire deps ([c01863d](https://github.com/Zwiqler94/jz-portfolio/commit/c01863d))
+- build(deps): update deps ([3284734](https://github.com/Zwiqler94/jz-portfolio/commit/3284734))
+- build(deps): update deps ([e01c93d](https://github.com/Zwiqler94/jz-portfolio/commit/e01c93d))
+- build(deps): update to latest everything lib ([4c2db18](https://github.com/Zwiqler94/jz-portfolio/commit/4c2db18))
+- feat(about-me): add more functionality to about me tabs ([8834c33](https://github.com/Zwiqler94/jz-portfolio/commit/8834c33))
+- feat(components): add custom tabs with linking ([2fdfdc7](https://github.com/Zwiqler94/jz-portfolio/commit/2fdfdc7))
+- chore: Dep Updates (#329) ([0bc3417](https://github.com/Zwiqler94/jz-portfolio/commit/0bc3417)), closes [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
+- chore: Dep Updates (#329) ([89e4903](https://github.com/Zwiqler94/jz-portfolio/commit/89e4903)), closes [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
+- chore: update deps ([cce74e2](https://github.com/Zwiqler94/jz-portfolio/commit/cce74e2))
+- chore: update deps ([c66def1](https://github.com/Zwiqler94/jz-portfolio/commit/c66def1))
+- chore(deps): fix deps again ([e3a9f0b](https://github.com/Zwiqler94/jz-portfolio/commit/e3a9f0b))
+- chore(deps): update angular deps ([d2d7d8d](https://github.com/Zwiqler94/jz-portfolio/commit/d2d7d8d))
+- chore(deps): update angular deps ([99e562f](https://github.com/Zwiqler94/jz-portfolio/commit/99e562f))
+- chore(deps): update deps ([89c6cee](https://github.com/Zwiqler94/jz-portfolio/commit/89c6cee))
+- chore(deps): update deps ([6c18221](https://github.com/Zwiqler94/jz-portfolio/commit/6c18221))
+- chore(deps): update deps ([761b7bb](https://github.com/Zwiqler94/jz-portfolio/commit/761b7bb))
+- chore(deps): update deps ([b1647e8](https://github.com/Zwiqler94/jz-portfolio/commit/b1647e8))
+
+### BREAKING CHANGE
+
+- change secret routes for v3
+
+- chore(release): 2.0.5 :tada:
+
+fix(secrets): fix secrets service rate limiter
+
+- chore(release): 2.0.6 :tada:
+
+Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular-eslint/schematics@_, @angular/material@_, @angular/cdk@\*
+
+@angular-eslint/schematics migration - update-16-0-0
+
+Updates @angular-eslint to v16
+
+chore(angular): migrate to v16
+
+- Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular/material@_, @angular/cdk@_
+
+- build(deps): update deps
+
+- feat(posts): switch from using static posts file to use pg db
+
+* switched main and puppy feed
+
+- new about page requires new tab components
+- new routes and auth reqs
+- no longer uses staticTextpost file
+
 ## 4.0.0 (2023-09-09)
 
-* feat: custom tabs (#330) ([37aa64e](https://github.com/Zwiqler94/jz-portfolio/commit/37aa64e)), closes [#330](https://github.com/Zwiqler94/jz-portfolio/issues/330) [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
-
-
+- feat: custom tabs (#330) ([37aa64e](https://github.com/Zwiqler94/jz-portfolio/commit/37aa64e)), closes [#330](https://github.com/Zwiqler94/jz-portfolio/issues/330) [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
 
 ## <small>3.0.1 (2023-07-30)</small>
 

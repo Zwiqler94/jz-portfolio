@@ -10,13 +10,14 @@ mat-card {
   height: 82rem;
 }
 
-div#center-about-div>mat-card {
+div#center-about-div > mat-card {
   padding: 0.25rem;
   width: 35rem;
   height: 88rem;
 }
 
-#right-about-div, #left-about-div{
+#right-about-div,
+#left-about-div {
   width: 8vw;
   display: flex;
   flex-direction: column;
@@ -32,7 +33,7 @@ div#center-about-div>mat-card {
   justify-content: center;
 }
 
-#center-about-div{
+#center-about-div {
   width: 78vw;
   display: flex;
   align-items: center;
@@ -50,12 +51,11 @@ div#center-about-div>mat-card {
   height: 17.15rem;
 }
 
-
-#right-about-div>mat-card:not(:last-child){
-margin-bottom: 1rem;
+#right-about-div > mat-card:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
-#left-about-div>mat-card:not(:last-child) {
+#left-about-div > mat-card:not(:last-child) {
   margin-bottom: 1rem;
 }
 

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import {
+  AppCheck,
   ReCaptchaV3Provider,
   initializeAppCheck,
   provideAppCheck,
@@ -54,6 +55,8 @@ import { SkillsComponent } from './pages/about-me/skills/skills.component';
 import { CredentialsComponent } from './pages/about-me/credentials/credentials.component';
 import { JzTabGroupComponent } from './components/jz-tab/jz-tab-group.component';
 import { JzTabItemComponent } from './components/jz-tab-item/jz-tab-item.component';
+import { EditorPageComponent } from './pages/editor-page/editor-page.component';
+import { DatabaseService } from 'src/app/services/database/database.service';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -85,6 +88,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     CredentialsComponent,
     JzTabGroupComponent,
     JzTabItemComponent,
+    EditorPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -110,7 +114,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       initializeAppCheck(getApp(), {
         provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
         isTokenAutoRefreshEnabled: true,
-      }),
+      })
     ),
     provideStorage(() => getStorage()),
     provideAnalytics(() => initializeAnalytics(getApp())),
@@ -131,9 +135,13 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     }),
     CdkDrag,
     CdkDragHandle,
-    EverythingLibModule
+    EverythingLibModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dbService: DatabaseService) {
+    this.dbService.appCheck = inject(AppCheck);
+  }
+}
