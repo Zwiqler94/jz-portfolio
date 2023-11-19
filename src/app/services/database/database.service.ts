@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit, inject } from '@angular/core';
 import {
   AppCheck,
   AppCheckTokenResult,
@@ -28,6 +28,7 @@ export class DatabaseService {
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(private httpClient: HttpClient) {
+    this.appCheck = inject(AppCheck)
     this.setDBUrls();
     try {
       if (environment.local && typeof environment.appCheckDebug === 'string') {
@@ -40,6 +41,7 @@ export class DatabaseService {
       console.log(err);
     }
   }
+
 
   get appCheck() {
     return this._appCheck;
