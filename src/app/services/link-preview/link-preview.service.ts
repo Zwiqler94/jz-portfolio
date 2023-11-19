@@ -7,6 +7,7 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppCheckTokenResult } from 'firebase/app-check';
 import { LinkPreview } from 'src/app/components/models/link-post';
+import { appCheck } from 'firebase-admin';
 
 interface SecretResponse {
   k: string;
@@ -23,9 +24,9 @@ export class LinkPreviewService {
   private tokenResult: string;
   headers: HttpHeaders = new HttpHeaders();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, appCheck: AppCheck) {
     try {
-      this.appCheck = inject(AppCheck);
+      this.appCheck = appCheck;
       if (environment.local && typeof environment.appCheckDebug === 'string') {
         this.headers = new HttpHeaders().set(
           'X-Firebase-AppCheck-Debug',

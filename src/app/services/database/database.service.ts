@@ -21,7 +21,7 @@ export class DatabaseService {
   blockchainPosts: Observable<Post[]>;
 
   postUrl = environment.serviceOptions.postService;
-  _appCheck: AppCheck|undefined;
+  _appCheck: AppCheck | undefined;
   tokenResult: string;
 
   headers: HttpHeaders = new HttpHeaders();
@@ -30,7 +30,6 @@ export class DatabaseService {
   constructor(private httpClient: HttpClient) {
     this.setDBUrls();
     try {
-      this.appCheck = inject(AppCheck);
       if (environment.local && typeof environment.appCheckDebug === 'string') {
         this.headers = new HttpHeaders().set(
           'X-Firebase-AppCheck-Debug',

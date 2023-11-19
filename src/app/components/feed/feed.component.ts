@@ -8,6 +8,7 @@ import {
   OnInit,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { TextPostComponent } from 'src/app/components/text-post/text-post.component';
 import { Post } from '../models/post.model';
@@ -16,6 +17,7 @@ import { LinkPostComponent } from 'src/app/components/link-post/link-post.compon
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { delay, from, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AppCheck } from '@angular/fire/app-check';
 
 @Component({
   selector: 'app-feed',
