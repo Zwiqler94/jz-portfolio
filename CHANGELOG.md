@@ -1,3 +1,9 @@
+## <small>5.0.1 (2023-11-19)</small>
+
+* ci(semver): update versioning process until stable (#360) ([6403ce5](https://github.com/Zwiqler94/jz-portfolio/commit/6403ce5)), closes [#360](https://github.com/Zwiqler94/jz-portfolio/issues/360)
+
+
+
 ## 5.0.0 (2023-11-19)
 
 * Latest Changes (#343) ([87f3cf3](https://github.com/Zwiqler94/jz-portfolio/commit/87f3cf3)), closes [#343](https://github.com/Zwiqler94/jz-portfolio/issues/343) [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
