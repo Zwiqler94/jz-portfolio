@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,14 +8,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { EverythingLibModule } from '@zwiqler94/everything-lib';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import {
+  AppCheck,
   ReCaptchaV3Provider,
   initializeAppCheck,
   provideAppCheck,
@@ -48,6 +49,14 @@ import { LoginPageComponent } from 'src/app/pages/login-page/login-page.componen
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 import { ContactMeComponent } from 'src/app/pages/contact-me/contact-me/contact-me.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AboutMeMainComponent } from './pages/about-me/about-me-main/about-me-main.component';
+import { ProjectsComponent } from './pages/about-me/projects/projects.component';
+import { SkillsComponent } from './pages/about-me/skills/skills.component';
+import { CredentialsComponent } from './pages/about-me/credentials/credentials.component';
+import { JzTabGroupComponent } from './components/jz-tab/jz-tab-group.component';
+import { JzTabItemComponent } from './components/jz-tab-item/jz-tab-item.component';
+import { EditorPageComponent } from './pages/editor-page/editor-page.component';
+import { DatabaseService } from 'src/app/services/database/database.service';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -73,6 +82,13 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     LoginPageComponent,
     ContactMeComponent,
     FooterComponent,
+    AboutMeMainComponent,
+    ProjectsComponent,
+    SkillsComponent,
+    CredentialsComponent,
+    JzTabGroupComponent,
+    JzTabItemComponent,
+    EditorPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,9 +114,8 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       initializeAppCheck(getApp(), {
         provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
         isTokenAutoRefreshEnabled: true,
-      }),
+      })
     ),
-    provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     provideAnalytics(() => initializeAnalytics(getApp())),
     provideAuth(() => {
@@ -118,9 +133,15 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:20000',
     }),
+    CdkDrag,
+    CdkDragHandle,
     EverythingLibModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dbService: DatabaseService) {
+    this.dbService.appCheck = inject(AppCheck);
+  }
+}

@@ -1,0 +1,63 @@
+<div class="about-content">
+  <mat-card class="testy1">
+    <mat-card-content>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Programming languages: </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            <ng-container *ngFor="let skill of skillList">
+              <mat-chip color="accent" highlighted>
+                {{ skill }}
+              </mat-chip>
+            </ng-container>
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel id="pdpdp">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Methodologies: </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set id="ffff">
+            <mat-chip color="accent" highlighted id="cccc"
+              >Agile Software Development</mat-chip
+            >
+            <mat-chip color="accent" highlighted
+              >Test-Driven Development</mat-chip
+            >
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Tools:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            <mat-chip highlighted color="accent"> Angular</mat-chip>
+            <mat-chip highlighted color="accent">Chai</mat-chip>
+            <mat-chip highlighted color="accent">Docker</mat-chip>
+            <mat-chip highlighted color="accent">Express</mat-chip>
+            <mat-chip highlighted color="accent">Git</mat-chip>
+            <mat-chip highlighted color="accent">Github</mat-chip>
+            <mat-chip highlighted color="accent">Hyperledger Fabric</mat-chip>
+            <mat-chip highlighted color="accent">IBM Cloud </mat-chip>
+            <mat-chip highlighted color="accent">
+              IBM Carbon Design System</mat-chip
+            >
+            <mat-chip highlighted color="accent">Jenkins</mat-chip>
+            <mat-chip highlighted color="accent">Jira</mat-chip>
+            <mat-chip highlighted color="accent">Kubernetes</mat-chip>
+            <mat-chip highlighted color="accent">Mocha</mat-chip>
+            <mat-chip highlighted color="accent">MongoDB</mat-chip>
+            <mat-chip highlighted color="accent">Supertest</mat-chip>
+            <mat-chip highlighted color="accent">Swagger/OpenAPI 3</mat-chip>
+            <mat-chip highlighted color="accent">Cloud Foundry</mat-chip>
+            <mat-chip highlighted color="accent"> Cloudant</mat-chip>
+            <mat-chip highlighted color="accent"
+              >Hyperledger Indy (IBM Verify Credentials)</mat-chip
+            >
+          </mat-chip-set>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+</div>

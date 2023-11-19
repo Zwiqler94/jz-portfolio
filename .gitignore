@@ -73,3 +73,7 @@ db-config/
 # Environment Files
 .env.*
 .env
+cli-envs
+
+# Amazon
+.aws

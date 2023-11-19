@@ -1,8 +1,12 @@
 /* eslint-disable new-cap */
 import { onRequest } from 'firebase-functions/v2/https';
 import {
+  awsAccessKey,
+  awsSecretKey,
   clientCert,
   clientKey,
+  dbHostDev,
+  dbHostProd,
   dbPassDev,
   dbPassProd,
   secretNameDev,
@@ -10,10 +14,10 @@ import {
   secretRouter,
   serverCA,
 } from './secrets';
-import { limiter } from './middleware';
+// import { limiter } from './middleware';
 import { postRouter } from './db';
-import * as cors from 'cors';
-import * as express from 'express';
+import cors = require('cors');
+import express = require('express');
 // import {getFunctions, connectFunctionsEmulator} from "firebase/functions";
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
@@ -42,15 +46,18 @@ app.use(cors());
 // app.enable('trust proxy');
 const jzPortfolioBackendExpressApp = express.Router();
 
-app.use('/api/v3', limiter, jzPortfolioBackendExpressApp);
+app.use('/api/v3', jzPortfolioBackendExpressApp);
 jzPortfolioBackendExpressApp.use(secretRouter);
 jzPortfolioBackendExpressApp.use('/posts', postRouter);
 jzPortfolioBackendExpressApp.use('/health', (req, res) =>
-  res.send("I'm alive!"),
+  res.send("I'm alive!")
 );
 
 export const jzPortfolioApp = onRequest(
   {
+    enforceAppCheck: true,
+    maxInstances: 5,
+    timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
     secrets: [
@@ -61,7 +68,11 @@ export const jzPortfolioApp = onRequest(
       serverCA,
       dbPassDev,
       dbPassProd,
+      dbHostDev,
+      dbHostProd,
+      awsAccessKey,
+      awsSecretKey,
     ],
   },
-  app,
+  app
 );

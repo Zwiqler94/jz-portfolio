@@ -21,7 +21,7 @@ mat-tab {
 .about-content,
 .project-content {
   position: relative;
-  margin: 4rem;
+  margin: 2rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -30,15 +30,6 @@ mat-tab {
 
 .project-content-item {
   margin: 1rem;
-}
-
-#about-tabs {
-  width: 100vw;
-}
-
-mat-form-field {
-  margin: 1rem;
-  width: 30rem;
 }
 
 // #badge-div {
@@ -54,10 +45,6 @@ mat-card {
   width: 26.25rem;
   height: 45rem;
   min-width: 45vw;
-}
-
-mat-chip {
-  height: 2.5rem;
 }
 
 // @media (max-width: 20rem) {
