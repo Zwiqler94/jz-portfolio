@@ -18,6 +18,9 @@ import { SkillsComponent } from 'src/app/pages/about-me/skills/skills.component'
 import { CredentialsComponent } from 'src/app/pages/about-me/credentials/credentials.component';
 import { ProjectsComponent } from 'src/app/pages/about-me/projects/projects.component';
 import { EditorPageComponent } from 'src/app/pages/editor-page/editor-page.component';
+import { PhotographyTabComponent } from 'src/app/pages/hobbies/photography-tab/photography-tab.component';
+import { FitnessTabComponent } from 'src/app/pages/hobbies/fitness-tab/fitness-tab.component';
+import { JapaneseTabComponent } from 'src/app/pages/hobbies/japanese-tab/japanese-tab.component';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AuthGuard: CanActivateFn = (_route, _state) => {
@@ -40,7 +43,16 @@ const routes: Routes = [
       { path: 'skills', component: SkillsComponent },
     ],
   },
-  { path: 'hobbies', component: HobbiesComponent, canActivate: envAuthGaurd },
+  {
+    path: 'hobbies',
+    component: HobbiesComponent,
+    canActivate: envAuthGaurd,
+    children: [
+      { path: 'photos', component: PhotographyTabComponent },
+      { path: 'fitness', component: FitnessTabComponent },
+      { path: 'japanese', component: JapaneseTabComponent },
+    ],
+  },
   { path: 'news', component: NewsComponent, canActivate: envAuthGaurd },
   { path: 'socials', component: SocialsComponent, canActivate: envAuthGaurd },
   { path: 'contact', component: ContactMeComponent, canActivate: envAuthGaurd },

@@ -10,7 +10,7 @@ mat-card {
   height: 82rem;
 }
 
-div#center-about-div>mat-card {
+div#center-about-div > mat-card {
   padding: 0.25rem;
   width: 35rem;
   height: 88rem;
@@ -52,11 +52,11 @@ div#center-about-div>mat-card {
   height: 17.15rem;
 }
 
-#right-about-div>mat-card:not(:last-child) {
+#right-about-div > mat-card:not(:last-child) {
   margin-bottom: 1rem;
 }
 
-#left-about-div>mat-card:not(:last-child) {
+#left-about-div > mat-card:not(:last-child) {
   margin-bottom: 1rem;
 }
 
@@ -90,8 +90,29 @@ div#center-about-div>mat-card {
   .side-image {
     display: none;
   }
+}
 
+@media (min-width: 701px) and (max-width: 1180px) {
   .about-content:not(:last-child) mat-card {
     margin-right: 0rem;
+  }
+}
+
+@media (min-width: 531px) and (max-width: 700px) {
+  mat-card {
+    margin: 0;
+    max-width: 30.5rem;
+  }
+
+  img {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 530px) {
+  mat-card {
+    margin-right: 5rem;
+    margin-left: 5rem;
+    max-width: 24.5rem;
   }
 }

@@ -28,7 +28,7 @@ export class DatabaseService {
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(private httpClient: HttpClient) {
-    this.appCheck = inject(AppCheck)
+    this.appCheck = inject(AppCheck);
     this.setDBUrls();
     try {
       if (environment.local && typeof environment.appCheckDebug === 'string') {
@@ -41,7 +41,6 @@ export class DatabaseService {
       console.log(err);
     }
   }
-
 
   get appCheck() {
     return this._appCheck;

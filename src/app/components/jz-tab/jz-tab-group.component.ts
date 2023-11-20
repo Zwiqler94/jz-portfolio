@@ -26,6 +26,7 @@ export class JzTabGroupComponent
   @ViewChild('tabTemplate', { read: ViewContainerRef })
   component: any;
   currentTab = '';
+  currentPage = '';
 
   @Input() tabComponentList: TabNavModel[] = [];
 

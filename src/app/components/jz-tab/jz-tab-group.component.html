@@ -11,7 +11,7 @@
     *ngFor="let tab of tabComponentList"
     (click)="currentTab = tab.link"
     [active]="currentTab === tab.link"
-    [routerLink]="['/aboutme/' + tab.link]"
+    [routerLink]="[tab.link]"
   >
     {{ tab.title }}
   </a>
