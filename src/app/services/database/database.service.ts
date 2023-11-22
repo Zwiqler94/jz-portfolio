@@ -54,7 +54,7 @@ export class DatabaseService {
     try {
       if (!environment.local && this.appCheck) {
         this.tokenResult = (await getToken(this.appCheck)).token;
-        console.info(this.tokenResult);
+        // console.debug(this.tokenResult);
       } else {
         return '';
       }

@@ -1,5 +1,5 @@
 {
-  "$schema": "Users/jacobzwickler/Documents/GitHub/jz-portfolio/node_modules/@angular/service-worker/config/schema.json",
+  "$schema": "/Users/jacobzwickler/Documents/GitHub/jz-portfolio/node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
   "assetGroups": [
     {
@@ -47,6 +47,20 @@
       "urls": [
         "https://api.linkpreview.net/**/*",
         "https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts/*"
+      ]
+    },
+    {
+      "cacheConfig": {
+        "maxAge": "3d",
+        "maxSize": 500,
+        "strategy": "performance"
+      },
+      "name": "misc",
+      "urls": [
+        "https://cdn.credly.com/assets/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4|js|css|html)",
+        "https://i.ytimg.com/vi/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4|js|css|html)",
+        "https://storage.googleapis.com/iipa-static/**/*"
+
       ]
     }
   ]

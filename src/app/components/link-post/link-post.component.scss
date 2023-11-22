@@ -42,8 +42,6 @@ a {
   justify-self: auto;
 }
 
-
-
 @media (min-width: 531px) and (max-width: 700px) {
   mat-card {
     margin: 0.938rem;
@@ -61,13 +59,12 @@ a {
     max-width: 24.5rem;
   }
 
-    img {
-      width: 22rem;
-    }
-
+  img {
+    width: 22rem;
+  }
 }
 
-@media  (max-width: 409px) {
+@media (max-width: 409px) {
   mat-card {
     margin: 0.938rem;
     max-width: 24rem;
