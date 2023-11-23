@@ -20,7 +20,7 @@ export const environment = {
   production: false,
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
-    useServiceWorker: true,
+    useServiceWorker: false,
     productionServices: true,
     postService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts',

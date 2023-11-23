@@ -50,7 +50,7 @@ app.use('/api/v3', jzPortfolioBackendExpressApp);
 jzPortfolioBackendExpressApp.use(secretRouter);
 jzPortfolioBackendExpressApp.use('/posts', postRouter);
 jzPortfolioBackendExpressApp.use('/health', (req, res) =>
-  res.send("I'm alive!"),
+  res.send("I'm alive!")
 );
 
 export const jzPortfolioApp = onRequest(
@@ -74,5 +74,5 @@ export const jzPortfolioApp = onRequest(
       awsSecretKey,
     ],
   },
-  app,
+  app
 );

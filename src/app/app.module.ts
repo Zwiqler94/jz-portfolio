@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import {
+  AppCheck,
   ReCaptchaV3Provider,
   initializeAppCheck,
   provideAppCheck,
@@ -118,7 +119,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
       initializeAppCheck(getApp(), {
         provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
         isTokenAutoRefreshEnabled: true,
-      }),
+      })
     ),
     provideStorage(() => getStorage()),
     provideAnalytics(() => initializeAnalytics(getApp())),
@@ -144,4 +145,8 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dbService: DatabaseService) {
+    this.dbService.appCheck = inject(AppCheck);
+  }
+}

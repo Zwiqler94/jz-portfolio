@@ -8,6 +8,7 @@ import {
   OnInit,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { TextPostComponent } from 'src/app/components/text-post/text-post.component';
 import { Post } from '../models/post.model';

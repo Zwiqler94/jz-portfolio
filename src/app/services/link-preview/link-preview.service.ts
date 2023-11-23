@@ -7,6 +7,7 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppCheckTokenResult } from 'firebase/app-check';
 import { LinkPreview } from 'src/app/components/models/link-post';
+import { appCheck } from 'firebase-admin';
 
 interface SecretResponse {
   k: string;
