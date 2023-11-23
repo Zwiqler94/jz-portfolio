@@ -1,0 +1,37 @@
+// $hobby-div-height: 52rem;
+// $content-div-height: calc($hobby-div-height - 2rem);
+// $paragraph-div-height: calc($content-div-height - 2rem);
+// $hobby-div-width: 100vw;
+// $content-div-width: calc($hobby-div-width - 2.75rem);
+
+mat-card {
+  max-width: 80vw;
+  width: 26.25rem;
+  min-width: 45vw;
+  margin: 2rem;
+}
+
+.jlpt-score {
+  max-width: 72vw;
+  min-width: 20vw;
+}
+
+caption {
+  max-width: 100vw;
+  width: 17rem;
+  min-width: 10vw;
+}
+
+.content-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// @media (max-width: 430px) {
+//     .jlpt-score {
+//         max-width: 75vw;
+//         min-width: 20vw;
+//     }
+// }

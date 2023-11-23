@@ -10,10 +10,6 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Tabs } from 'src/app/interfaces/tabs.model';
-import { CredentialsComponent } from 'src/app/pages/about-me/credentials/credentials.component';
-import { AboutMeMainComponent } from 'src/app/pages/about-me/about-me-main/about-me-main.component';
-import { ProjectsComponent } from 'src/app/pages/about-me/projects/projects.component';
-import { SkillsComponent } from 'src/app/pages/about-me/skills/skills.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 
@@ -30,6 +26,7 @@ export class JzTabGroupComponent
   @ViewChild('tabTemplate', { read: ViewContainerRef })
   component: any;
   currentTab = '';
+  currentPage = '';
 
   @Input() tabComponentList: TabNavModel[] = [];
 

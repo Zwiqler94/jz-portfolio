@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LinkPreview } from 'src/app/components/models/link-post';
+import {
+  LinkPreview,
+  MissingLinkPreviewData,
+} from 'src/app/components/models/link-post';
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
@@ -46,6 +49,9 @@ export class LinkPostComponent extends PostBaseComponent implements OnInit {
             }
           },
           error: (err) => {
+            MissingLinkPreviewData.title = linkArray[0];
+            MissingLinkPreviewData.url = linkArray[0];
+            this.linkPreviewData = MissingLinkPreviewData;
             throw new Error(JSON.stringify(err));
           },
         });

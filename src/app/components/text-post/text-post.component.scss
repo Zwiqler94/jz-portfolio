@@ -9,9 +9,9 @@ mat-card {
   max-width: 42.5rem;
 }
 
-@media (max-width: 25.875rem) {
+@media (max-width: 430px) {
   mat-card {
     margin: 0.938rem;
-    width: 22rem;
+    max-width: 24.5rem;
   }
 }

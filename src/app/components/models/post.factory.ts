@@ -6,7 +6,7 @@ abstract class PostFactory {
 
 class LinkPostFactory extends PostFactory {
   createPost(): Post {
-    return;
+    throw new Error('Method not implemented.');
   }
 }
 

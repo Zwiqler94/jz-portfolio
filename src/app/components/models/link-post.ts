@@ -8,3 +8,10 @@ export interface LinkPreview {
   url: string;
   image: string;
 }
+
+export const MissingLinkPreviewData: LinkPreview = {
+  title: 'Link Preview Unavailable',
+  image: '',
+  url: '',
+  description: 'Link Preview Unavailable',
+};
