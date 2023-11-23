@@ -1,3 +1,9 @@
+## <small>5.0.2 (2023-11-23)</small>
+
+* fix(appcheck): fix appcheck once more (#363) ([07f49dc](https://github.com/Zwiqler94/jz-portfolio/commit/07f49dc)), closes [#363](https://github.com/Zwiqler94/jz-portfolio/issues/363) [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87) [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87)
+
+
+
 ## <small>5.0.1 (2023-11-19)</small>
 
 - ci(semver): update versioning process until stable (#360) ([6403ce5](https://github.com/Zwiqler94/jz-portfolio/commit/6403ce5)), closes [#360](https://github.com/Zwiqler94/jz-portfolio/issues/360)
