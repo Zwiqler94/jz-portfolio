@@ -1,6 +1,6 @@
 {
   "name": "jz-portfolio",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "scripts": {
     "ng": "ng",
     "build:dev-local:watch": "npm run build:dev-local -- --watch",
