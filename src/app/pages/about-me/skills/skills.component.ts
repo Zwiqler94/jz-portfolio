@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { JzTabGroupComponent } from 'src/app/components/jz-tab/jz-tab-group.component';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 
 @Component({

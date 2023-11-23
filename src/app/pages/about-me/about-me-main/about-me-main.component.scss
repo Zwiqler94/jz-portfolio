@@ -37,6 +37,7 @@ div#center-about-div > mat-card {
   width: 78vw;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
 }
 
@@ -82,5 +83,36 @@ div#center-about-div > mat-card {
 @media (max-width: 1280px) {
   .about-content:not(:last-child) mat-card {
     margin-right: 8rem;
+  }
+}
+
+@media (max-width: 1180px) {
+  .side-image {
+    display: none;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1180px) {
+  .about-content:not(:last-child) mat-card {
+    margin-right: 0rem;
+  }
+}
+
+@media (min-width: 531px) and (max-width: 700px) {
+  mat-card {
+    margin: 0;
+    max-width: 30.5rem;
+  }
+
+  img {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 530px) {
+  mat-card {
+    margin-right: 5rem;
+    margin-left: 5rem;
+    max-width: 24.5rem;
   }
 }

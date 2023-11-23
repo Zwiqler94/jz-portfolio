@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { LinkPreview } from 'src/app/components/models/link-post';
-import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-post-base',

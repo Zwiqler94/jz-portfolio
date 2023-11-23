@@ -40,10 +40,10 @@ a {
   justify-self: auto;
 }
 
-@media (max-width: 390px) {
+@media (max-width: 430px) {
   mat-card {
     margin: 0.938rem;
-    width: 22rem;
+    max-width: 24.5rem;
   }
   img {
     min-width: 100%;

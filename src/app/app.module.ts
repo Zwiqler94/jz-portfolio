@@ -56,7 +56,9 @@ import { CredentialsComponent } from './pages/about-me/credentials/credentials.c
 import { JzTabGroupComponent } from './components/jz-tab/jz-tab-group.component';
 import { JzTabItemComponent } from './components/jz-tab-item/jz-tab-item.component';
 import { EditorPageComponent } from './pages/editor-page/editor-page.component';
-import { DatabaseService } from 'src/app/services/database/database.service';
+import { JapaneseTabComponent } from './pages/hobbies/japanese-tab/japanese-tab.component';
+import { PhotographyTabComponent } from './pages/hobbies/photography-tab/photography-tab.component';
+import { FitnessTabComponent } from './pages/hobbies/fitness-tab/fitness-tab.component';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -89,6 +91,9 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     JzTabGroupComponent,
     JzTabItemComponent,
     EditorPageComponent,
+    JapaneseTabComponent,
+    PhotographyTabComponent,
+    FitnessTabComponent,
   ],
   imports: [
     BrowserModule,

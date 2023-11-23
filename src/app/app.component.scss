@@ -36,6 +36,7 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
 
 .mat-drawer-container {
   margin-bottom: -0.8125rem;
+  height: 88vh;
 }
 
 mat-toolbar {

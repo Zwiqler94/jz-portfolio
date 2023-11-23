@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-underscore-dangle */
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AppCheck, getToken } from '@angular/fire/app-check';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
@@ -24,13 +24,16 @@ export class LinkPreviewService {
   private tokenResult: string;
   headers: HttpHeaders = new HttpHeaders();
 
-  constructor(private httpClient: HttpClient, appCheck: AppCheck) {
+  constructor(
+    private httpClient: HttpClient,
+    appCheck: AppCheck,
+  ) {
     try {
       this.appCheck = appCheck;
       if (environment.local && typeof environment.appCheckDebug === 'string') {
         this.headers = new HttpHeaders().set(
           'X-Firebase-AppCheck-Debug',
-          environment.appCheckDebug
+          environment.appCheckDebug,
         );
       }
     } catch (err) {
