@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 import { Component, Input } from '@angular/core';
 import { Tabs } from 'src/app/interfaces/tabs.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AboutMeMainComponent } from 'src/app/pages/about-me/about-me-main/about-me-main.component';
 import { CredentialsComponent } from 'src/app/pages/about-me/credentials/credentials.component';
 import { ProjectsComponent } from 'src/app/pages/about-me/projects/projects.component';

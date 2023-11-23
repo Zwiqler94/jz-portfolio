@@ -1,5 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { AppCheck } from '@angular/fire/app-check';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
@@ -18,7 +17,6 @@ export class AppComponent implements OnInit {
     private swUpdate: SwUpdate,
     private auth: AuthService,
     private snack: MatSnackBar,
-    private dbService: DatabaseService,
   ) {}
 
   ngOnInit(): void {

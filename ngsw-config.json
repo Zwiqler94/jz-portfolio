@@ -60,7 +60,6 @@
         "https://cdn.credly.com/assets/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4|js|css|html)",
         "https://i.ytimg.com/vi/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4|js|css|html)",
         "https://storage.googleapis.com/iipa-static/**/*"
-
       ]
     }
   ]

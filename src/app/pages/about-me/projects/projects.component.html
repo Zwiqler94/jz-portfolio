@@ -1,38 +1,83 @@
 <div class="project-content">
-
-  <div class="dragA drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 1000, y: 0 }">
+  <div
+    class="dragA drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 1000, y: 0 }"
+  >
     <div class="handleA" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-username-generator class="project-content-item" [(usernameForm)]="usernameFormInApp" [(result)]="_result">
+    <lib-username-generator
+      class="project-content-item"
+      [(usernameForm)]="usernameFormInApp"
+      [(result)]="_result"
+    >
     </lib-username-generator>
   </div>
 
-  <div class="dragB drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: 0 }">
+  <div
+    class="dragB drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 0 }"
+  >
     <div class="handleB" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
     <lib-nasa id="" [apiKey]="nasaApiKey"></lib-nasa>
   </div>
-  <div class="dragC drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: -100 }">
+  <div
+    class="dragC drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: -100 }"
+  >
     <div class="handleC" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-pokemon [height]="'35'" [width]="'35'" class="project-content-item"></lib-pokemon>
+    <lib-pokemon
+      [height]="'35'"
+      [width]="'35'"
+      class="project-content-item"
+    ></lib-pokemon>
   </div>
-  <div class="dragD drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: -300 }">
+  <div
+    class="dragD drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: -300 }"
+  >
     <div class="handleD" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-boredom-solver [height]="'5'" [width]="'25'" class="project-content-item"></lib-boredom-solver>
+    <lib-boredom-solver
+      [height]="'5'"
+      [width]="'25'"
+      class="project-content-item"
+    ></lib-boredom-solver>
   </div>
-  <div class="dragE drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: -600 }">
+  <div
+    class="dragE drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: -600 }"
+  >
     <div class="handleE" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-age-by-name [height]="'15'" [width]="'20'" class="project-content-item"></lib-age-by-name>
+    <lib-age-by-name
+      [height]="'15'"
+      [width]="'20'"
+      class="project-content-item"
+    ></lib-age-by-name>
   </div>
-  <div class="dragE drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: -900 }">
+  <div
+    class="dragE drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: -900 }"
+  >
     <div class="handleE" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
@@ -42,23 +87,45 @@
       </mat-card-header>
     </mat-card>
   </div>
-  <div class="dragF drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: -1200 }">
+  <div
+    class="dragF drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: -1200 }"
+  >
     <div class="handleF" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
     <mat-card>
-      <iframe [frameBorder]="0" class="project-content-item" style="background-color: aliceblue" height="600"
-        width="500" src="https://iipa-xcevg3qtsa-uc.a.run.app/ratings">
+      <iframe
+        [frameBorder]="0"
+        class="project-content-item"
+        style="background-color: aliceblue"
+        height="600"
+        width="500"
+        src="https://iipa-xcevg3qtsa-uc.a.run.app/ratings"
+      >
       </iframe>
     </mat-card>
   </div>
-  <div class="dragF drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: -1500 }">
+  <div
+    class="dragF drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: -1500 }"
+  >
     <div class="handleF" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
     <mat-card>
-      <iframe [frameBorder]="0" class="project-content-item" style="background-color: aliceblue" height="600"
-        width="500" src="https://lotto-beast.web.app/v2">
+      <iframe
+        [frameBorder]="0"
+        class="project-content-item"
+        style="background-color: aliceblue"
+        height="600"
+        width="500"
+        src="https://lotto-beast.web.app/v2"
+      >
       </iframe>
     </mat-card>
   </div>
