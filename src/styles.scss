@@ -52,11 +52,26 @@ $light-theme: mat.define-light-theme(
 // Apply the dark theme by default
 @include mat.all-component-themes($dark-theme);
 
+#editor > ngx-editor-menu > div.NgxEditor__MenuBar {
+  background-color: black;
+}
+
+.NgxEditor__MenuBar {
+  border-radius: 10px 10px 0px 0px;
+}
+
+div.NgxEditor.NgxEditor {
+  border-radius: 0px 0px 8px 8px;
+}
+
 // Apply the light theme only when the user prefers light themes.
 @media (prefers-color-scheme: light) {
   // Use the `-color` mixins to only apply color styles without reapplying the same
   // typography and density styles.
   @include mat.all-component-colors($light-theme);
+  #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
+    background-color: orange;
+  }
 }
 
 mat-card.base {

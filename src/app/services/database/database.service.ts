@@ -5,7 +5,8 @@ import {
   AppCheckTokenResult,
   getToken,
 } from '@angular/fire/app-check';
-import { Observable } from 'rxjs';
+import { staticTextPosts } from 'db-config/content/posts';
+import { Observable, of } from 'rxjs';
 import { Post } from 'src/app/components/models/post.model';
 import { environment } from 'src/environments/environment';
 
@@ -66,28 +67,100 @@ export class DatabaseService {
 
   private async setDBUrls() {
     await this.getAppCheckToken();
-    if (!environment.local)
-      this.headers = this.headers.set('X-Firebase-AppCheck', this.tokenResult);
-    console.log(this.headers);
-    this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main`, {
+    if (!environment.local) {
+      this.headers = this.headers
+        .set('X-Firebase-AppCheck', this.tokenResult)
+        .set('Accepts', 'application/json');
+      console.log(this.headers);
+      this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main`, {
+        headers: this.headers,
+      });
+      this.puppyPosts = this.httpClient.get<Post[]>(`${this.postUrl}/puppy`, {
+        headers: this.headers,
+      });
+      this.articlePosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/articles`,
+        { headers: this.headers },
+      );
+      this.applePosts = this.httpClient.get<Post[]>(`${this.postUrl}/apple`, {
+        headers: this.headers,
+      });
+      this.animePosts = this.httpClient.get<Post[]>(`${this.postUrl}/anime`, {
+        headers: this.headers,
+      });
+      this.blockchainPosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/blockchain`,
+        { headers: this.headers },
+      );
+    } else if (environment.local) {
+      this.headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json');
+      this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main`, {
+        headers: this.headers,
+        params: { local: true },
+      });
+      this.puppyPosts = this.httpClient.get<Post[]>(`${this.postUrl}/puppy`, {
+        headers: this.headers,
+        params: { local: true },
+      });
+      this.articlePosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/articles`,
+        { headers: this.headers, params: { local: true } },
+      );
+      this.applePosts = this.httpClient.get<Post[]>(`${this.postUrl}/apple`, {
+        headers: this.headers,
+        params: { local: true },
+      });
+      this.animePosts = this.httpClient.get<Post[]>(`${this.postUrl}/anime`, {
+        headers: this.headers,
+        params: { local: true },
+      });
+      this.blockchainPosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/blockchain`,
+        { headers: this.headers, params: { local: true } },
+      );
+    } else {
+      this.mainPosts = of(
+        staticTextPosts.filter(
+          (post) => post.location.toLowerCase() === 'main',
+        ),
+      );
+      this.puppyPosts = of(
+        staticTextPosts.filter(
+          (post) => post.location.toLowerCase() === 'puppy',
+        ),
+      );
+      this.articlePosts = of(
+        staticTextPosts.filter(
+          (post) => post.location.toLowerCase() === 'article',
+        ),
+      );
+      this.applePosts = of(
+        staticTextPosts.filter(
+          (post) => post.location.toLowerCase() === 'apple',
+        ),
+      );
+      this.animePosts = of(
+        staticTextPosts.filter(
+          (post) => post.location.toLowerCase() === 'anime',
+        ),
+      );
+      this.blockchainPosts = of(
+        staticTextPosts.filter(
+          (post) => post.location.toLowerCase() === 'blockchain',
+        ),
+      );
+    }
+  }
+
+  createPost(post: any) {
+    this.headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json');
+    return this.httpClient.post(`${this.postUrl}`, post, {
       headers: this.headers,
+      params: { local: true },
     });
-    this.puppyPosts = this.httpClient.get<Post[]>(`${this.postUrl}/puppy`, {
-      headers: this.headers,
-    });
-    this.articlePosts = this.httpClient.get<Post[]>(
-      `${this.postUrl}/articles`,
-      { headers: this.headers },
-    );
-    this.applePosts = this.httpClient.get<Post[]>(`${this.postUrl}/apple`, {
-      headers: this.headers,
-    });
-    this.animePosts = this.httpClient.get<Post[]>(`${this.postUrl}/anime`, {
-      headers: this.headers,
-    });
-    this.blockchainPosts = this.httpClient.get<Post[]>(
-      `${this.postUrl}/blockchain`,
-      { headers: this.headers },
-    );
   }
 }
