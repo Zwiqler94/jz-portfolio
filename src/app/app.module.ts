@@ -59,6 +59,7 @@ import { EditorPageComponent } from './pages/editor-page/editor-page.component';
 import { JapaneseTabComponent } from './pages/hobbies/japanese-tab/japanese-tab.component';
 import { PhotographyTabComponent } from './pages/hobbies/photography-tab/photography-tab.component';
 import { FitnessTabComponent } from './pages/hobbies/fitness-tab/fitness-tab.component';
+import { DatabaseService } from 'src/app/services/database/database.service';
 
 declare global {
   // eslint-disable-next-line no-var
