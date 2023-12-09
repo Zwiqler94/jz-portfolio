@@ -420,6 +420,7 @@ class AWSDBManager {
       // }
       // else {
       //   this.connectLocalDB();
+      //   AWSDBManager.connectLocalDB();
       //   mainPosts = await this.query(queryText);
       //   if (mainPosts) {
       //     const fullPostArray: any[] = [];
