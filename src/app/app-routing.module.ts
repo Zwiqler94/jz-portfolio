@@ -30,7 +30,7 @@ const AuthGuard: CanActivateFn = (_route, _state) => {
 const envAuthGaurd = environment.deployable ? [AuthGuard] : undefined;
 
 const routes: Routes = [
-  { path: '', component: LoginPageComponent },
+  { path: 'login', component: LoginPageComponent },
   { path: 'home', component: MainFeedPageComponent, canActivate: envAuthGaurd },
   {
     path: 'aboutme',

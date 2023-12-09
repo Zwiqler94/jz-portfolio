@@ -1,3 +1,7 @@
-<div>
+<div id="main-feed-div">
+  <div *ngIf="isUserAdmin()" id="create-post-div">
+    <button mat-raised-button color="primary" (click)="openNewPostDialog()">Create Post</button>
+  </div>
+
   <app-feed feedLocation="Main"></app-feed>
 </div>
