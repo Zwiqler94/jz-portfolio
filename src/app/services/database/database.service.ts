@@ -5,7 +5,6 @@ import {
   AppCheckTokenResult,
   getToken,
 } from '@angular/fire/app-check';
-
 import { Observable, of } from 'rxjs';
 import { Post } from 'src/app/components/models/post.model';
 import { staticTextPosts } from 'src/app/services/database/posts';
