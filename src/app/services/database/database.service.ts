@@ -5,9 +5,10 @@ import {
   AppCheckTokenResult,
   getToken,
 } from '@angular/fire/app-check';
-import { staticTextPosts } from 'db-config/content/posts';
+
 import { Observable, of } from 'rxjs';
 import { Post } from 'src/app/components/models/post.model';
+import { staticTextPosts } from 'src/app/services/database/posts';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
