@@ -17,7 +17,7 @@ export const getSecretValue = async (secretName = 'SECRET_NAME') => {
   const response = await client.send(
     new GetSecretValueCommand({
       SecretId: secretName,
-    })
+    }),
   );
 
   if (response.SecretString) {
@@ -39,7 +39,7 @@ class AWSDBManager {
 
   static async connectDB() {
     const { username, password } = JSON.parse(
-      await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5')
+      await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5'),
     );
 
     AWSDBManager.password = password;
@@ -101,12 +101,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -149,12 +149,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -197,12 +197,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -246,12 +246,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -295,12 +295,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -356,8 +356,6 @@ class AWSDBManager {
           fullPostArray.push(result.rows[0]);
         }
 
-
-
         console.table(fullPostArray);
         res.status(200).json(fullPostArray);
       }
@@ -388,52 +386,58 @@ class AWSDBManager {
   }
 
   async createPost(req: Request, res: Response) {
-   try{ await AWSDBManager.connectLocalDB();
+    try {
+      await AWSDBManager.connectLocalDB();
 
-    debug({test:req.body.content});
+      debug({ test: req.body.content });
 
-    const post_hash_result = (
+      const post_hash_result = (
+        await AWSDBManager.query(
+          `select hash_post('${req.body.location}', '${req.body.type}', '${
+            req.body.status
+          }', '${req.body.content.replace('\\', '')}') as post_hash`,
+          true,
+        )
+      ).rows[0].post_hash;
+
+      const resultPostList = await AWSDBManager.query(
+        `insert into public.post_list(location, status, content, post_hash) select '${
+          req.body.location
+        }', '${req.body.status}', '${req.body.content.replace(
+          '\\',
+          '',
+        )}', '${post_hash_result}' where not exists (select id from public.post_list where post_hash = '${post_hash_result}') returning id`,
+        true,
+      );
+
+      if (resultPostList.rows.length < 1)
+        return res.status(400).json({ error: 'Post Already Exists' });
+
+      // const locationId = await AWSDBManager.query(
+      //   ` select feed_name_to_id('${req.body.location}') as feed_id`,
+      //   true
+      // );
+
       await AWSDBManager.query(
-        `select hash_post('${req.body.location}', '${req.body.type}', '${
-          req.body.status
-        }', '${req.body.content.replace('\\', '')}') as post_hash`,
-        true
-      )
-    ).rows[0].post_hash;
+        `update public.text_post set title = '${req.body.title}' where post_hash = '${post_hash_result}';`,
+        true,
+      );
+      // const resultFeed = await AWSDBManager.query(
+      //   `insert into public.main_feed(list_id, post_id, from_sub_feed, post_hash) values ('${
+      //     locationId.rows[0].feed_id
+      //   }', '${
+      //     resultPostList.rows[0].id
+      //   }', '${false}', '${post_hash_result}') returning list_id, post_id`,
+      //   true
+      // );
 
-    const resultPostList = await AWSDBManager.query(
-      `insert into public.post_list(location, status, content, post_hash) select '${req.body.location}', '${req.body.status}', '${req.body.content.replace("\\","")}', '${post_hash_result}' where not exists (select id from public.post_list where post_hash = '${post_hash_result}') returning id`,
-      true
-    );
-
-    if (resultPostList.rows.length < 1)
-      return res.status(400).json({ error: 'Post Already Exists' });
-
-    // const locationId = await AWSDBManager.query(
-    //   ` select feed_name_to_id('${req.body.location}') as feed_id`,
-    //   true
-    // );
-
-    await AWSDBManager.query(
-      `update public.text_post set title = '${req.body.title}' where post_hash = '${post_hash_result}';`,
-      true
-    );
-    // const resultFeed = await AWSDBManager.query(
-    //   `insert into public.main_feed(list_id, post_id, from_sub_feed, post_hash) values ('${
-    //     locationId.rows[0].feed_id
-    //   }', '${
-    //     resultPostList.rows[0].id
-    //   }', '${false}', '${post_hash_result}') returning list_id, post_id`,
-    //   true
-    // );
-
-    return res.status(201).json({
-      list: req.body.location,
-      post: resultPostList.rows[0].id,
-    });
-   } catch (err) {
-     error(err)
-     return res.status(400).json({err});
+      return res.status(201).json({
+        list: req.body.location,
+        post: resultPostList.rows[0].id,
+      });
+    } catch (err) {
+      error(err);
+      return res.status(400).json({ err });
     }
   }
 
@@ -452,7 +456,7 @@ class AWSDBManager {
 
     const result = AWSDBManager.query(
       `select hash_post('${req.body.location}', '${req.body.type}', '${req.body.status}', '${req.body.content}') as post_hash`,
-      true
+      true,
     );
     return res.status(200).json((await result).rows[0].post_hash);
   }

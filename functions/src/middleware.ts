@@ -9,7 +9,7 @@ import { validationResult } from 'express-validator';
 export const appCheckGaurd = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const appCheckToken = req.header('X-Firebase-AppCheck');
   const appCheckDebugToken = req.header('X-Firebase-AppCheck-Debug');
@@ -37,7 +37,7 @@ export const limiter = rateLimit({ max: 100, windowMs: 15 * 60 * 1000 });
 export const validator = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const result = validationResult(req);
   if (result.isEmpty()) {
