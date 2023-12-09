@@ -18,19 +18,19 @@ export class MainFeedPageComponent implements OnInit {
     private snack: MatSnackBar,
     private sw: ServiceWorkerService,
     private dialog: MatDialog,
-    private auth: AuthService
+    private auth: AuthService,
   ) {}
 
   ngOnInit() {
     this.sw.swUpdates.versionUpdates
       .pipe(
-        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')
+        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
       )
       .subscribe((x) => {
         if (x) {
           const d = this.snack.open(
             'New App Version Detected, Update?',
-            'Yup!'
+            'Yup!',
           );
           d.afterDismissed().subscribe((f: MatSnackBarDismiss) => {
             console.log(f.dismissedByAction);
@@ -48,6 +48,6 @@ export class MainFeedPageComponent implements OnInit {
   }
 
   isUserAdmin() {
-   return this.auth.uid === 'vsKhoiQqEzOQjk699NnCDtdu30Z2';
+    return this.auth.uid === 'vsKhoiQqEzOQjk699NnCDtdu30Z2';
   }
 }

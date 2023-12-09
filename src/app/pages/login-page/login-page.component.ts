@@ -18,7 +18,10 @@ export class LoginPageComponent implements OnInit {
   private fbAuth: Auth = inject(Auth);
   private googleProvider = new GoogleAuthProvider().addScope('profile');
 
-  constructor(private router: Router, private auth: AuthService) {
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+  ) {
     this.fbAuth.setPersistence(browserSessionPersistence);
   }
 
