@@ -4,9 +4,16 @@
   align-items: center;
 }
 
+#post-content {
+  width: fit-content;
+  padding: 0.5rem;
+}
+
 mat-card {
   margin: 0.938rem;
-  max-width: 42.5rem;
+  max-width: 50.5rem;
+  min-height: 24.5rem;
+  min-width: 24.5rem;
 }
 
 @media (max-width: 430px) {
