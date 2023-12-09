@@ -4,11 +4,12 @@ import { error, debug } from 'firebase-functions/logger';
 import { rateLimit } from 'express-rate-limit';
 import * as creds from '../credentials.json';
 import { fbAdminApp } from '.';
+import { validationResult } from 'express-validator';
 
 export const appCheckGaurd = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   const appCheckToken = req.header('X-Firebase-AppCheck');
   const appCheckDebugToken = req.header('X-Firebase-AppCheck-Debug');
@@ -16,7 +17,7 @@ export const appCheckGaurd = async (
   debug({ tokenToCheck, creds });
   if (!tokenToCheck) {
     res.status(401);
-    return next('unauthorized A');
+    return next('Unauthorized Code: A');
   }
 
   try {
@@ -32,3 +33,17 @@ export const appCheckGaurd = async (
 };
 
 export const limiter = rateLimit({ max: 100, windowMs: 15 * 60 * 1000 });
+
+export const validator = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const result = validationResult(req);
+  if (result.isEmpty()) {
+    return next();
+  } else {
+    error(result.array);
+    return res.status(400).json({ errors: result.array() });
+  }
+};
