@@ -70,6 +70,7 @@ div.NgxEditor.NgxEditor {
   // Use the `-color` mixins to only apply color styles without reapplying the same
   // typography and density styles.
   @include mat.all-component-colors($light-theme);
+
   #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
     background-color: orange;
   }
