@@ -27,12 +27,13 @@ export class AuthService {
   }
 
   canActivate() {
-    if (this.uid) {
-      return true;
-    } else {
-      this.router.navigateByUrl('/login');
-      return false;
-    }
+    return true
+    // if (this.uid) {
+    //   return true;
+    // } else {
+    //   this.router.navigateByUrl('/login');
+    //   return false;
+    // }
   }
 
   logout() {
