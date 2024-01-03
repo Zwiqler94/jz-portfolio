@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewPostDialogComponent } from 'src/app/components/new-post-dialog/new-post-dialog.component';
 import { Editor } from 'ngx-editor';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-feed-page',
@@ -48,6 +49,8 @@ export class MainFeedPageComponent implements OnInit {
   }
 
   isUserAdmin() {
-    return this.auth.uid === 'vsKhoiQqEzOQjk699NnCDtdu30Z2';
+    return (
+      this.auth.uid === 'vsKhoiQqEzOQjk699NnCDtdu30Z2' || environment.local
+    );
   }
 }

@@ -5,6 +5,7 @@
 
 @import "https://fonts.googleapis.com/icon?family=Material+Icons+Round";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+
 body {
   margin: 0;
   font-family:
@@ -69,6 +70,7 @@ div.NgxEditor.NgxEditor {
   // Use the `-color` mixins to only apply color styles without reapplying the same
   // typography and density styles.
   @include mat.all-component-colors($light-theme);
+
   #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
     background-color: orange;
   }
@@ -85,4 +87,16 @@ mat-card.base {
 .mat-mdc-standard-chip .mdc-evolution-chip__action--primary,
 .mat-mdc-standard-chip .mat-mdc-chip-action-label {
   white-space: normal;
+}
+
+#editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
+  height: 350px;
+}
+
+#editor .preview{
+  padding: 0;
+}
+
+.app-color-picker .preview {
+  box-shadow: none;
 }

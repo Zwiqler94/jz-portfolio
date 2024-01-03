@@ -1,5 +1,4 @@
-import { Post } from "src/app/components/models/post.model";
-
+import { Post } from 'src/app/components/models/post.model';
 
 export const testPosts: Post[] = [
   {
