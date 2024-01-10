@@ -1,3 +1,9 @@
+## <small>5.0.3 (2024-01-06)</small>
+
+* fix(projects): update links to live projects (#386) ([70492b4](https://github.com/Zwiqler94/jz-portfolio/commit/70492b4)), closes [#386](https://github.com/Zwiqler94/jz-portfolio/issues/386)
+
+
+
 ## <small>5.0.2 (2023-11-23)</small>
 
 - fix(appcheck): fix appcheck once more (#363) ([07f49dc](https://github.com/Zwiqler94/jz-portfolio/commit/07f49dc)), closes [#363](https://github.com/Zwiqler94/jz-portfolio/issues/363) [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87) [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87)
