@@ -18,7 +18,7 @@ export const getSecretValue = async (secretName = 'SECRET_NAME') => {
   const response = await client.send(
     new GetSecretValueCommand({
       SecretId: secretName,
-    })
+    }),
   );
   // console.log(response);
   // {
@@ -65,7 +65,7 @@ class AWSDBManager {
   static async connectDB(useLocalDb: boolean) {
     if (!useLocalDb) {
       const { username, password } = JSON.parse(
-        await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5')
+        await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5'),
       );
 
       AWSDBManager.password = password;
@@ -83,13 +83,13 @@ class AWSDBManager {
         },
       });
     } else {
-      console.log(process.env.DB_PASS)
+      console.log(process.env.DB_PASS);
       this.pool = new Pool({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
         database: 'jz-local',
-        port: 5433
+        port: 5433,
       });
     }
   }
@@ -99,7 +99,7 @@ class AWSDBManager {
       const useLocalDb = Boolean(req.query.local);
       await AWSDBManager.connectDB(useLocalDb);
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join puppy_feed on puppy_feed.post_id=post_list.id'
+        'select post_list.id, post_list.type from post_list inner join puppy_feed on puppy_feed.post_id=post_list.id',
       );
 
       if (mainPosts) {
@@ -109,12 +109,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -138,7 +138,7 @@ class AWSDBManager {
       const useLocalDb = Boolean(req.query.local);
       await AWSDBManager.connectDB(useLocalDb);
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join articles_feed on articles_feed.post_id=post_list.id'
+        'select post_list.id, post_list.type from post_list inner join articles_feed on articles_feed.post_id=post_list.id',
       );
 
       if (mainPosts) {
@@ -148,12 +148,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -177,7 +177,7 @@ class AWSDBManager {
       const useLocalDb = Boolean(req.query.local);
       await AWSDBManager.connectDB(useLocalDb);
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join apple_feed on apple_feed.post_id=post_list.id'
+        'select post_list.id, post_list.type from post_list inner join apple_feed on apple_feed.post_id=post_list.id',
       );
 
       if (mainPosts) {
@@ -187,12 +187,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -216,30 +216,27 @@ class AWSDBManager {
     try {
       const useLocalDb = Boolean(req.query.local);
       await AWSDBManager.connectDB(useLocalDb);
-      console.log(useLocalDb)
+      console.log(useLocalDb);
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join blockchain_feed on blockchain_feed.post_id=post_list.id'
+        'select post_list.id, post_list.type from post_list inner join blockchain_feed on blockchain_feed.post_id=post_list.id',
       );
-
-
-
 
       if (mainPosts) {
         const fullPostArray: any[] = [];
         for (const row of mainPosts.rows) {
-          console.log({ row })
+          console.log({ row });
           // moose
           let result;
           if (row.type === 'text') {
-            console.log({ID:row.id})
+            console.log({ ID: row.id });
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -264,7 +261,7 @@ class AWSDBManager {
       const useLocalDb = Boolean(req.query.local);
       await AWSDBManager.connectDB(useLocalDb);
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id'
+        'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id',
       );
 
       if (mainPosts) {
@@ -274,12 +271,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);
@@ -301,10 +298,11 @@ class AWSDBManager {
 
   async getMainPosts(req: Request, res: Response) {
     try {
-      const useLocalDb = Boolean(req.query.local);
+      const useLocalDb = /^true$/i.test(<string>req.query.local);
+      console.log({ useLocalDb, q: req.query });
       await AWSDBManager.connectDB(useLocalDb);
       const mainPosts = await AWSDBManager.pool.query(
-        'select post_list.id, post_list.type from post_list inner join main_feed on main_feed.post_id=post_list.id'
+        'select post_list.id, post_list.type from post_list inner join main_feed on main_feed.post_id=post_list.id',
       );
 
       if (mainPosts) {
@@ -314,12 +312,12 @@ class AWSDBManager {
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           } else {
             result = await AWSDBManager.pool.query(
               'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-              [row.id]
+              [row.id],
             );
           }
           fullPostArray.push(result.rows[0]);

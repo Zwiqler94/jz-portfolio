@@ -67,29 +67,40 @@ export class DatabaseService {
   private async setDBUrls() {
     await this.getAppCheckToken();
     let useLocalDb = true;
-    if (!environment.local)
-    {
+    if (!environment.local) {
       this.headers = this.headers.set('X-Firebase-AppCheck', this.tokenResult);
       useLocalDb = false;
     }
 
     console.log(this.headers);
-    this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main?local=${useLocalDb}`, {
-      headers: this.headers,
-    });
-    this.puppyPosts = this.httpClient.get<Post[]>(`${this.postUrl}/puppy?local=${useLocalDb}`, {
-      headers: this.headers,
-    });
+    this.mainPosts = this.httpClient.get<Post[]>(
+      `${this.postUrl}/main?local=${useLocalDb}`,
+      {
+        headers: this.headers,
+      },
+    );
+    this.puppyPosts = this.httpClient.get<Post[]>(
+      `${this.postUrl}/puppy?local=${useLocalDb}`,
+      {
+        headers: this.headers,
+      },
+    );
     this.articlePosts = this.httpClient.get<Post[]>(
       `${this.postUrl}/articles?local=${useLocalDb}`,
       { headers: this.headers },
     );
-    this.applePosts = this.httpClient.get<Post[]>(`${this.postUrl}/apple?local=${useLocalDb}`, {
-      headers: this.headers,
-    });
-    this.animePosts = this.httpClient.get<Post[]>(`${this.postUrl}/anime?local=${useLocalDb}`, {
-      headers: this.headers,
-    });
+    this.applePosts = this.httpClient.get<Post[]>(
+      `${this.postUrl}/apple?local=${useLocalDb}`,
+      {
+        headers: this.headers,
+      },
+    );
+    this.animePosts = this.httpClient.get<Post[]>(
+      `${this.postUrl}/anime?local=${useLocalDb}`,
+      {
+        headers: this.headers,
+      },
+    );
     this.blockchainPosts = this.httpClient.get<Post[]>(
       `${this.postUrl}/blockchain?local=${useLocalDb}`,
       { headers: this.headers },
