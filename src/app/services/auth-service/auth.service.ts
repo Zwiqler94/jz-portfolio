@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private fbAuth: Auth = inject(Auth);
   private _userToken: string | undefined;
+  private _uid: string | undefined;
 
   constructor(private router: Router) {}
 
@@ -18,18 +19,27 @@ export class AuthService {
     this._userToken = value;
   }
 
+  public get uid(): string | undefined {
+    return this._uid;
+  }
+  public set uid(value: string | undefined) {
+    this._uid = value;
+  }
+
   canActivate() {
-    if (this.userToken) {
-      return true;
-    } else {
-      this.router.navigateByUrl('');
-      return false;
-    }
+    return true;
+    // if (this.uid) {
+    //   return true;
+    // } else {
+    //   this.router.navigateByUrl('/login');
+    //   return false;
+    // }
   }
 
   logout() {
     this.fbAuth.signOut();
+    this.uid = undefined;
     this.userToken = undefined;
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('/login');
   }
 }

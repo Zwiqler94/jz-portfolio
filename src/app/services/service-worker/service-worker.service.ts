@@ -21,7 +21,7 @@ export class ServiceWorkerService {
 
   constructor(
     private updates: SwUpdate,
-    private appRef: ApplicationRef,
+    appRef: ApplicationRef,
     private push: SwPush,
   ) {
     if (this.swUpdates.isEnabled) {

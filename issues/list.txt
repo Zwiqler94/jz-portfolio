@@ -1,0 +1,30 @@
+358	CLOSED	App Check Not Working	bug, BLOCKER	2023-11-19T05:11:48Z
+337	OPEN	Add Dock/Minimize to Projects Page	enhancement	2023-11-18T19:33:59Z
+306	OPEN	Breakpoints Everything Lib		2023-09-09T21:34:33Z
+305	OPEN	Breakpoints		2023-07-28T23:13:49Z
+298	OPEN	Photo Tab		2023-09-09T21:34:32Z
+297	OPEN	Fitness Tab		2023-09-09T21:34:32Z
+296	OPEN	Japanese Tab		2023-09-09T21:34:32Z
+295	OPEN	Hobbies Page		2023-07-18T05:41:00Z
+294	OPEN	Style Social Page		2023-07-18T05:35:47Z
+293	CLOSED	Re-add social page		2023-07-18T05:35:18Z
+292	CLOSED	Add Styling		2023-08-31T01:18:36Z
+291	CLOSED	Add Page		2023-08-31T01:20:50Z
+290	CLOSED	add ability to pull post from static source in deployed versions	invalid	2023-11-17T01:23:31Z
+289	CLOSED	Setup DB to manage posts in app	Content, BLOCKER	2023-11-19T05:14:52Z
+288	OPEN	Add Breakpoints for LG, XL, non-standard screen sizes	style	2023-11-19T05:57:43Z
+282	CLOSED	Contact Me Page		2023-08-31T01:18:30Z
+269	CLOSED	Try New Color Pallette	enhancement, style	2023-07-28T22:47:44Z
+265	OPEN	Migrate to DB to Retrieve Post Info from	enhancement, Content	2023-11-19T05:14:53Z
+257	OPEN	Update Language In CI/CD and Versioning Workflows (#111 Enhancements)	enhancement, automation	2023-06-23T04:43:19Z
+138	OPEN	Huxley News	enhancement, Content	2023-07-18T05:26:44Z
+137	OPEN	Social Page	enhancement, Content	2023-07-18T05:35:18Z
+136	OPEN	Homepage	enhancement, Content	2023-09-09T21:33:54Z
+135	OPEN	About Me	enhancement, Content	2023-08-31T01:18:06Z
+134	OPEN	Mental Health	enhancement, Content	2023-09-09T21:34:30Z
+133	OPEN	Social	enhancement, Content	2023-09-09T21:34:30Z
+132	OPEN	Work	enhancement, Content	2023-09-09T21:34:30Z
+131	OPEN	Separation Anxiety	enhancement, Content	2023-07-18T05:37:47Z
+130	OPEN	Training Progress	enhancement, Content	2023-07-18T05:37:59Z
+129	OPEN	Tricks	enhancement, Content	2023-07-18T05:37:47Z
+128	OPEN	Treat and Toy Reviews	enhancement, Content	2023-07-18T05:37:47Z

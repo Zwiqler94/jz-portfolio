@@ -1,0 +1,2915 @@
+[
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "Prevents #289 ",
+    "closed": true,
+    "closedAt": "2023-11-19T05:11:48Z",
+    "comments": [],
+    "createdAt": "2023-11-18T19:38:22Z",
+    "id": "I_kwDOFen07c53Pf96",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTY2",
+        "name": "bug",
+        "description": "Something isn't working",
+        "color": "d73a4a"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABcwrHiw",
+        "name": "BLOCKER",
+        "description": "",
+        "color": "b60205"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 358,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "App Check Not Working",
+    "updatedAt": "2023-11-19T05:11:48Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/358"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- size options",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-09-01T03:07:35Z",
+    "id": "I_kwDOFen07c5v2zYD",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "milestone": {
+      "number": 10,
+      "title": "v5.5  Release - Enhancements",
+      "description": "",
+      "dueOn": "2024-03-13T00:00:00Z"
+    },
+    "number": 337,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Add Dock/Minimize to Projects Page",
+    "updatedAt": "2023-11-18T19:33:59Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/337"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-07-28T23:13:49Z",
+    "id": "I_kwDOFen07c5s6M43",
+    "labels": [],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 306,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Breakpoints Everything Lib",
+    "updatedAt": "2023-09-09T21:34:33Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/306"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- [ ] #87 \r\n- [ ] #288 \r\n- [ ] #306",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-07-28T23:13:42Z",
+    "id": "I_kwDOFen07c5s6M4K",
+    "labels": [],
+    "milestone": {
+      "number": 8,
+      "title": "2023-2024",
+      "description": "Task Tracking Milestone for 2023",
+      "dueOn": "2024-12-31T00:00:00Z"
+    },
+    "number": 305,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "dd6d47d5", "name": "🏗 In progress" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Breakpoints",
+    "updatedAt": "2023-07-28T23:13:49Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/305"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-07-18T05:40:41Z",
+    "id": "I_kwDOFen07c5r1YBw",
+    "labels": [],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 298,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "dd6d47d5", "name": "🏗 In progress" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Photo Tab",
+    "updatedAt": "2023-09-09T21:34:32Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/298"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-07-18T05:40:39Z",
+    "id": "I_kwDOFen07c5r1YBW",
+    "labels": [],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 297,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Fitness Tab",
+    "updatedAt": "2023-09-09T21:34:32Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/297"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-07-18T05:40:37Z",
+    "id": "I_kwDOFen07c5r1YA5",
+    "labels": [],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 296,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "dd6d47d5", "name": "🏗 In progress" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Japanese Tab",
+    "updatedAt": "2023-09-09T21:34:32Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/296"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- [ ] #296\r\n- [ ] #297\r\n- [ ] #298",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-07-18T05:39:24Z",
+    "id": "I_kwDOFen07c5r1Xv7",
+    "labels": [],
+    "milestone": {
+      "number": 8,
+      "title": "2023-2024",
+      "description": "Task Tracking Milestone for 2023",
+      "dueOn": "2024-12-31T00:00:00Z"
+    },
+    "number": 295,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Hobbies Page",
+    "updatedAt": "2023-07-18T05:41:00Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/295"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-07-18T05:34:48Z",
+    "id": "I_kwDOFen07c5r1WyO",
+    "labels": [],
+    "milestone": {
+      "number": 6,
+      "title": "v6  Release - Social Media Expanded",
+      "description": "Go through Meta App requirements to used their api and get content to display in a custom manner.  ",
+      "dueOn": "2024-02-29T00:00:00Z"
+    },
+    "number": 294,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Style Social Page",
+    "updatedAt": "2023-07-18T05:35:47Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/294"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-07-18T05:35:18Z",
+    "comments": [],
+    "createdAt": "2023-07-18T05:34:45Z",
+    "id": "I_kwDOFen07c5r1Wxg",
+    "labels": [],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 293,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Re-add social page",
+    "updatedAt": "2023-07-18T05:35:18Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/293"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-08-31T01:18:35Z",
+    "comments": [],
+    "createdAt": "2023-07-18T05:05:37Z",
+    "id": "I_kwDOFen07c5r1PH2",
+    "labels": [],
+    "milestone": {
+      "number": 7,
+      "title": "v5 Release - Security",
+      "description": "- Authentication for apis that need it\r\n- DB Sec\r\n- GCP Sec",
+      "dueOn": "2024-01-31T00:00:00Z"
+    },
+    "number": 292,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Add Styling",
+    "updatedAt": "2023-08-31T01:18:36Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/292"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "Add contact me page",
+    "closed": true,
+    "closedAt": "2023-07-18T05:21:26Z",
+    "comments": [],
+    "createdAt": "2023-07-18T05:05:33Z",
+    "id": "I_kwDOFen07c5r1PG_",
+    "labels": [],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 291,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Add Page",
+    "updatedAt": "2023-08-31T01:20:50Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/291"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-11-17T01:23:30Z",
+    "comments": [],
+    "createdAt": "2023-07-18T04:58:45Z",
+    "id": "I_kwDOFen07c5r1Nwz",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTgy",
+        "name": "invalid",
+        "description": "This doesn't seem right",
+        "color": "e4e669"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 290,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "add ability to pull post from static source in deployed versions",
+    "updatedAt": "2023-11-17T01:23:31Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/290"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "prevents all content issue from being fixed #121 ",
+    "closed": true,
+    "closedAt": "2023-11-19T05:14:52Z",
+    "comments": [],
+    "createdAt": "2023-07-18T04:58:42Z",
+    "id": "I_kwDOFen07c5r1NwF",
+    "labels": [
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABcwrHiw",
+        "name": "BLOCKER",
+        "description": "",
+        "color": "b60205"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 289,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Setup DB to manage posts in app",
+    "updatedAt": "2023-11-19T05:14:52Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/289"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-07-18T04:54:43Z",
+    "id": "I_kwDOFen07c5r1MTO",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMTAzMTgyOTMx",
+        "name": "style",
+        "description": "Improvements of UI styling (CSS, SCSS)",
+        "color": "fbca04"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 288,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Add Breakpoints for LG, XL, non-standard screen sizes",
+    "updatedAt": "2023-11-19T05:57:43Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/288"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- [x] #291\r\n- [x] #292",
+    "closed": true,
+    "closedAt": "2023-08-31T01:18:30Z",
+    "comments": [],
+    "createdAt": "2023-07-15T20:34:54Z",
+    "id": "I_kwDOFen07c5rqk4X",
+    "labels": [],
+    "milestone": {
+      "number": 8,
+      "title": "2023-2024",
+      "description": "Task Tracking Milestone for 2023",
+      "dueOn": "2024-12-31T00:00:00Z"
+    },
+    "number": 282,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Contact Me Page",
+    "updatedAt": "2023-08-31T01:18:30Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/282"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-07-28T22:47:44Z",
+    "comments": [
+      {
+        "id": "IC_kwDOFen07c5gXzrm",
+        "author": { "login": "Zwiqler94" },
+        "authorAssociation": "OWNER",
+        "body": "resources:\n\n-  http://mcg.mbitson.com/#!?mcgpalette0=%23a2c4c9&mcgpalette1=%2326a69a&themename=mcgtheme\n- https://www.materialpalette.com/\n- https://gka.github.io/palettes/#/12|d|00429d,96ffea,ffffe0|ffffe0,ff005e,93003a|1|1",
+        "createdAt": "2023-07-02T22:01:18Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/Zwiqler94/jz-portfolio/issues/269#issuecomment-1616853734",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2023-07-02T21:56:33Z",
+    "id": "I_kwDOFen07c5qY9EH",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "MDU6TGFiZWwzMTAzMTgyOTMx",
+        "name": "style",
+        "description": "Improvements of UI styling (CSS, SCSS)",
+        "color": "fbca04"
+      }
+    ],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 269,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Try New Color Pallette",
+    "updatedAt": "2023-07-28T22:47:44Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/269"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- [x] #289\r\n- [x] #290",
+    "closed": false,
+    "closedAt": null,
+    "comments": [
+      {
+        "id": "IC_kwDOFen07c5gVD-l",
+        "author": { "login": "Zwiqler94" },
+        "authorAssociation": "OWNER",
+        "body": "also added new routes to retrieve posts from pg db",
+        "createdAt": "2023-07-01T21:17:19Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/Zwiqler94/jz-portfolio/issues/265#issuecomment-1616134053",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2023-06-28T00:37:28Z",
+    "id": "I_kwDOFen07c5p-WhZ",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 8,
+      "title": "2023-2024",
+      "description": "Task Tracking Milestone for 2023",
+      "dueOn": "2024-12-31T00:00:00Z"
+    },
+    "number": 265,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "dd6d47d5", "name": "🏗 In progress" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Migrate to DB to Retrieve Post Info from",
+    "updatedAt": "2023-11-19T05:14:53Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/265"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "Enhance #111 ",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-06-23T04:40:18Z",
+    "id": "I_kwDOFen07c5pi7tl",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "MDU6TGFiZWwzMTU3NDA3NjEy",
+        "name": "automation",
+        "description": "Build pipeline modifications",
+        "color": "c2e0c6"
+      }
+    ],
+    "milestone": {
+      "number": 4,
+      "title": "CI/CD Versioning",
+      "description": "Purpose of this milestone is to finalize a versioning solution for the project",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 257,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Update Language In CI/CD and Versioning Workflows (#111 Enhancements)",
+    "updatedAt": "2023-06-23T04:43:19Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/257"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "  - [ ] #126\r\n  - [ ] #127\r\n  - [ ] #128\r\n  - [ ] #129\r\n  - [ ] #130\r\n  - [ ] #131",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:46:34Z",
+    "id": "I_kwDOFen07c5mUKL5",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 8,
+      "title": "2023-2024",
+      "description": "Task Tracking Milestone for 2023",
+      "dueOn": "2024-12-31T00:00:00Z"
+    },
+    "number": 138,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Huxley News",
+    "updatedAt": "2023-07-18T05:26:44Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/138"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- [x] #293\r\n- [ ] #294",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:42:11Z",
+    "id": "I_kwDOFen07c5mUJml",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 8,
+      "title": "2023-2024",
+      "description": "Task Tracking Milestone for 2023",
+      "dueOn": "2024-12-31T00:00:00Z"
+    },
+    "number": 137,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Social Page",
+    "updatedAt": "2023-07-18T05:35:18Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/137"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "Decide on homepage purposes ",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:42:07Z",
+    "id": "I_kwDOFen07c5mUJmA",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 136,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Homepage",
+    "updatedAt": "2023-09-09T21:33:54Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/136"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- [ ] #120 \r\n- [x] #122 \r\n- [x] #123 \r\n- [ ] #124 \r\n- [x] #282",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:42:05Z",
+    "id": "I_kwDOFen07c5mUJll",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 8,
+      "title": "2023-2024",
+      "description": "Task Tracking Milestone for 2023",
+      "dueOn": "2024-12-31T00:00:00Z"
+    },
+    "number": 135,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "dd6d47d5", "name": "🏗 In progress" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "About Me",
+    "updatedAt": "2023-08-31T01:18:06Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/135"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:26:43Z",
+    "id": "I_kwDOFen07c5mUHim",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 134,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Mental Health",
+    "updatedAt": "2023-09-09T21:34:30Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/134"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:26:40Z",
+    "id": "I_kwDOFen07c5mUHiT",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 133,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Social",
+    "updatedAt": "2023-09-09T21:34:30Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/133"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:26:33Z",
+    "id": "I_kwDOFen07c5mUHhF",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 132,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Work",
+    "updatedAt": "2023-09-09T21:34:30Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/132"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:26:29Z",
+    "id": "I_kwDOFen07c5mUHgg",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 131,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Separation Anxiety",
+    "updatedAt": "2023-07-18T05:37:47Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/131"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:26:27Z",
+    "id": "I_kwDOFen07c5mUHgF",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 130,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Training Progress",
+    "updatedAt": "2023-07-18T05:37:59Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/130"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:26:24Z",
+    "id": "I_kwDOFen07c5mUHfs",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 129,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Tricks",
+    "updatedAt": "2023-07-18T05:37:47Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/129"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:26:17Z",
+    "id": "I_kwDOFen07c5mUHeo",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 128,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Treat and Toy Reviews",
+    "updatedAt": "2023-07-18T05:37:47Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/128"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:26:13Z",
+    "id": "I_kwDOFen07c5mUHeH",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 127,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Health",
+    "updatedAt": "2023-09-09T21:34:29Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/127"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:26:09Z",
+    "id": "I_kwDOFen07c5mUHdk",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 126,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Hux Pictures ",
+    "updatedAt": "2023-07-18T05:37:46Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/126"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "# Add Updates About Life:\r\n- [ ] #138\r\n- [ ] #132\r\n- [ ] #133\r\n- [ ] #134",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:25:42Z",
+    "id": "I_kwDOFen07c5mUHZj",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 8,
+      "title": "2023-2024",
+      "description": "Task Tracking Milestone for 2023",
+      "dueOn": "2024-12-31T00:00:00Z"
+    },
+    "number": 125,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "News Page Content",
+    "updatedAt": "2023-07-18T05:26:22Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/125"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- [ ] fill with side projects\n- [ ] fix distorted views",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:10:43Z",
+    "id": "I_kwDOFen07c5mUFcV",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 124,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "dd6d47d5", "name": "🏗 In progress" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Projects Tab",
+    "updatedAt": "2023-11-19T05:19:11Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/124"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "Add linkedin, work stuff",
+    "closed": true,
+    "closedAt": "2023-08-31T01:07:16Z",
+    "comments": [
+      {
+        "id": "IC_kwDOFen07c5ftC2Z",
+        "author": { "login": "Zwiqler94" },
+        "authorAssociation": "OWNER",
+        "body": "still need to add other badges ",
+        "createdAt": "2023-06-24T16:52:31Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/Zwiqler94/jz-portfolio/issues/123#issuecomment-1605643673",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2023-05-19T03:10:12Z",
+    "id": "I_kwDOFen07c5mUFX3",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 123,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Credentials Tab",
+    "updatedAt": "2023-08-31T01:07:17Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/123"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "Add description from stackoverflow, linkedin, work, etc..",
+    "closed": true,
+    "closedAt": "2023-08-31T01:07:39Z",
+    "comments": [],
+    "createdAt": "2023-05-19T03:09:16Z",
+    "id": "I_kwDOFen07c5mUFPx",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 122,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Skills Tab",
+    "updatedAt": "2023-08-31T01:07:39Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/122"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- [ ] #135\r\n- [ ] #136\r\n- [ ]  #125 \r\n- [ ] #137\r\n- [ ] #265\r\n- [ ] #295",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:07:27Z",
+    "id": "I_kwDOFen07c5mUFAL",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 8,
+      "title": "2023-2024",
+      "description": "Task Tracking Milestone for 2023",
+      "dueOn": "2024-12-31T00:00:00Z"
+    },
+    "number": 121,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "dd6d47d5", "name": "🏗 In progress" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Content Task Tracker",
+    "updatedAt": "2023-07-18T05:39:25Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/121"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T03:05:00Z",
+    "id": "I_kwDOFen07c5mUEni",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSQbNTg",
+        "name": "Content",
+        "description": "task to add content",
+        "color": "327604"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 120,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "dd6d47d5", "name": "🏗 In progress" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "About Me Tab",
+    "updatedAt": "2023-09-09T21:33:53Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/120"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "Add more complex IAM to site",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2023-05-19T02:58:35Z",
+    "id": "I_kwDOFen07c5mUDXZ",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSV7Odg",
+        "name": "security",
+        "description": "security related issues",
+        "color": "EE4B2B"
+      }
+    ],
+    "milestone": {
+      "number": 7,
+      "title": "v5 Release - Security",
+      "description": "- Authentication for apis that need it\r\n- DB Sec\r\n- GCP Sec",
+      "dueOn": "2024-01-31T00:00:00Z"
+    },
+    "number": 119,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Build on Google Auth Foundation",
+    "updatedAt": "2023-07-18T04:51:46Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/119"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "In order to hide API keys, will possibly break this off into its own project for all projects",
+    "closed": true,
+    "closedAt": "2023-05-17T20:31:43Z",
+    "comments": [],
+    "createdAt": "2023-05-17T01:29:24Z",
+    "id": "I_kwDOFen07c5mGZCC",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 115,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Add secret service",
+    "updatedAt": "2023-05-17T20:31:44Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/115"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-07-02T21:55:19Z",
+    "comments": [],
+    "createdAt": "2023-05-17T01:10:36Z",
+    "id": "I_kwDOFen07c5mGV_L",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOFen07c8AAAABSV7Odg",
+        "name": "security",
+        "description": "security related issues",
+        "color": "EE4B2B"
+      }
+    ],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 114,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Add Google Authentication",
+    "updatedAt": "2023-07-02T21:55:19Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/114"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- [x] Decide when to create a firebase preview\r\n   - [x]  Before or After check on other statuses: after versioning\r\n- [x]  When to version\r\n   - [x]  Before or After check on other statuses: in parallel with codeql, before deployment  \r\n   - [x]  Pushes, pull requests, or both: on pr close for development version/tag then deploy to dev/main site, on pr open/sync deploy to preview channels",
+    "closed": true,
+    "closedAt": "2023-06-23T04:44:55Z",
+    "comments": [
+      {
+        "id": "IC_kwDOFen07c5dGXxY",
+        "author": { "login": "Zwiqler94" },
+        "authorAssociation": "OWNER",
+        "body": "Successfully Implemented versioning for **unprotected branches**, need to clean up workflows and commits.\r\nneed to figure out how to do this for protected branches",
+        "createdAt": "2023-05-24T21:30:23Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/Zwiqler94/jz-portfolio/issues/111#issuecomment-1561951320",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "IC_kwDOFen07c5fBNfn",
+        "author": { "login": "Zwiqler94" },
+        "authorAssociation": "OWNER",
+        "body": "Latest updates:\n\nOver the last 4 weeks I've been working on automations to get tokens that allow pushing to protected branches. \n\n2 tokens from different \"users\" are needed to create and approve a PR. \n\n1.  Token 1 generates a PR #X from `branch A` into `main` and versions the app, pushes code to #X\n2. Token 2 Approves\n3. Either token merges \n\n[@Zwiqler94/GH-Actions](https://www.GitHub.com/zwiqler94/gh-actions) abstracts this away. \n\n",
+        "createdAt": "2023-06-16T06:03:25Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/Zwiqler94/jz-portfolio/issues/111#issuecomment-1594152935",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "IC_kwDOFen07c5flgtN",
+        "author": { "login": "Zwiqler94" },
+        "authorAssociation": "OWNER",
+        "body": "It's taken forever but versioning is complete with the caveat that some language needs updates!!",
+        "createdAt": "2023-06-23T04:35:46Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/Zwiqler94/jz-portfolio/issues/111#issuecomment-1603668813",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2023-04-08T21:09:51Z",
+    "id": "I_kwDOFen07c5i7DN-",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMTU3NDA3NjEy",
+        "name": "automation",
+        "description": "Build pipeline modifications",
+        "color": "c2e0c6"
+      }
+    ],
+    "milestone": {
+      "number": 4,
+      "title": "CI/CD Versioning",
+      "description": "Purpose of this milestone is to finalize a versioning solution for the project",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 111,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Fix GH Actions for deployments",
+    "updatedAt": "2023-06-23T04:44:55Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/111"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-05-17T20:29:40Z",
+    "comments": [],
+    "createdAt": "2023-04-08T21:07:23Z",
+    "id": "I_kwDOFen07c5i7DFW",
+    "labels": [],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 110,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Fix App Check",
+    "updatedAt": "2023-05-17T20:29:40Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/110"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-03-04T20:56:52Z",
+    "comments": [
+      {
+        "id": "IC_kwDOFen07c5Wt5jN",
+        "author": { "login": "Zwiqler94" },
+        "authorAssociation": "OWNER",
+        "body": "Too Vague",
+        "createdAt": "2023-03-04T20:56:52Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/Zwiqler94/jz-portfolio/issues/88#issuecomment-1454872781",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2022-12-22T02:33:03Z",
+    "id": "I_kwDOFen07c5Z1XcP",
+    "labels": [],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 88,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Fix Styling",
+    "updatedAt": "2023-03-04T20:57:01Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/88"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "Start with small iphone screens and tablet",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2022-12-22T01:23:06Z",
+    "id": "I_kwDOFen07c5Z1MWi",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMTAzMTgyOTMx",
+        "name": "style",
+        "description": "Improvements of UI styling (CSS, SCSS)",
+        "color": "fbca04"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 87,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "dd6d47d5", "name": "🏗 In progress" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Add Breakpoints for SM, MD screen sizes",
+    "updatedAt": "2023-09-09T21:33:53Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/87"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-05-17T00:50:21Z",
+    "comments": [
+      {
+        "id": "IC_kwDOFen07c5ca0Fe",
+        "author": { "login": "Zwiqler94" },
+        "authorAssociation": "OWNER",
+        "body": "Using google login instead",
+        "createdAt": "2023-05-17T00:50:21Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/Zwiqler94/jz-portfolio/issues/79#issuecomment-1550532958",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2022-10-19T00:48:05Z",
+    "id": "I_kwDOFen07c5USHaI",
+    "labels": [],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 79,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "8a751fa2", "name": "Canceled 🚫" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Add FB SDK Login",
+    "updatedAt": "2023-05-17T00:50:21Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/79"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2022-10-19T00:56:14Z",
+    "comments": [],
+    "createdAt": "2022-10-19T00:33:36Z",
+    "id": "I_kwDOFen07c5USD7w",
+    "labels": [],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 76,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Add Caching and Service Worker",
+    "updatedAt": "2023-05-19T04:02:43Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/76"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2022-12-22T00:19:03Z",
+    "comments": [],
+    "createdAt": "2022-10-18T22:35:34Z",
+    "id": "I_kwDOFen07c5URsyP",
+    "labels": [],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 75,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Fix Up Projects",
+    "updatedAt": "2023-05-19T04:02:34Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/75"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "## Update to Latest App Version: \r\n- [x] #72\r\n- [x] #73 \r\n\r\n## Automation Weirdness: \r\n- [x] #47\r\n- [x]  #46 \r\n- [x] #48\r\n- [x]  #49 \r\n- [x]  #50 \r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+    "closed": true,
+    "closedAt": "2023-05-19T04:01:43Z",
+    "comments": [],
+    "createdAt": "2022-10-18T20:57:09Z",
+    "id": "I_kwDOFen07c5URW-1",
+    "labels": [],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 74,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Catch All For PRs That Were Closed/Canceled without their own Issues",
+    "updatedAt": "2023-05-19T04:13:52Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/74"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2022-12-22T00:18:07Z",
+    "comments": [
+      {
+        "id": "IC_kwDOFen07c5RMjGi",
+        "author": { "login": "Zwiqler94" },
+        "authorAssociation": "OWNER",
+        "body": "Sort of done using Release-Please!",
+        "createdAt": "2022-12-22T00:18:06Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/Zwiqler94/jz-portfolio/issues/55#issuecomment-1362244002",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "IC_kwDOFen07c5ZdxxA",
+        "author": { "login": "Zwiqler94" },
+        "authorAssociation": "OWNER",
+        "body": "needed to change",
+        "createdAt": "2023-04-08T21:08:33Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/Zwiqler94/jz-portfolio/issues/55#issuecomment-1500978240",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2021-07-08T19:07:18Z",
+    "id": "MDU6SXNzdWU5NDAxNDI0MTI=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMTU3NDA3NjEy",
+        "name": "automation",
+        "description": "Build pipeline modifications",
+        "color": "c2e0c6"
+      }
+    ],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 55,
+    "projectCards": [
+      {
+        "project": { "name": "JLZ Portfolio" },
+        "column": { "name": "In progress" }
+      }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "8a751fa2", "name": "Canceled 🚫" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Figure out Automated Deployment and Versioning",
+    "updatedAt": "2023-04-08T21:08:33Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/55"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-03-04T20:55:27Z",
+    "comments": [],
+    "createdAt": "2021-07-08T19:06:48Z",
+    "id": "MDU6SXNzdWU5NDAxNDIwNzE=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMTU3NDA3NjEy",
+        "name": "automation",
+        "description": "Build pipeline modifications",
+        "color": "c2e0c6"
+      }
+    ],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 54,
+    "projectCards": [
+      {
+        "project": { "name": "JLZ Portfolio" },
+        "column": { "name": "In progress" }
+      }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Add Conventional Changelog",
+    "updatedAt": "2023-03-04T20:55:28Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/54"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2022-10-18T20:31:35Z",
+    "comments": [],
+    "createdAt": "2021-07-08T18:59:34Z",
+    "id": "MDU6SXNzdWU5NDAxMzcwNDg=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTgy",
+        "name": "invalid",
+        "description": "This doesn't seem right",
+        "color": "e4e669"
+      }
+    ],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 52,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "8a751fa2", "name": "Canceled 🚫" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Fix Breakpoints for iPhone 5e sized Screens",
+    "updatedAt": "2022-10-18T21:04:51Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/52"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-03-01T06:41:40Z",
+    "comments": [],
+    "createdAt": "2021-07-08T18:36:08Z",
+    "id": "MDU6SXNzdWU5NDAxMjE1ODU=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 51,
+    "projectCards": [
+      {
+        "project": { "name": "JLZ Portfolio" },
+        "column": { "name": "In progress" }
+      }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Post Content to Hobbies Page",
+    "updatedAt": "2023-05-19T04:02:36Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/51"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2021-06-21T02:17:43Z",
+    "comments": [],
+    "createdAt": "2021-06-21T01:34:11Z",
+    "id": "MDU6SXNzdWU5MjU3NDMzODg=",
+    "labels": [],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 44,
+    "projectCards": [
+      { "project": { "name": "JLZ Portfolio" }, "column": { "name": "Done" } }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Fix Link Post Image Size",
+    "updatedAt": "2022-10-18T21:05:08Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/44"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2021-06-20T20:42:24Z",
+    "comments": [],
+    "createdAt": "2021-06-20T16:40:06Z",
+    "id": "MDU6SXNzdWU5MjU2MzcwMTc=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 38,
+    "projectCards": [],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Add Commit Lint",
+    "updatedAt": "2022-10-18T21:05:08Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/38"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2021-06-20T16:39:08Z",
+    "comments": [],
+    "createdAt": "2021-06-19T03:30:14Z",
+    "id": "MDU6SXNzdWU5MjUzMDQ3Njg=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 36,
+    "projectCards": [
+      { "project": { "name": "JLZ Portfolio" }, "column": { "name": "Done" } }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Add Commitizen",
+    "updatedAt": "2022-10-18T21:05:07Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/36"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2023-03-04T20:55:34Z",
+    "comments": [],
+    "createdAt": "2021-05-27T19:57:05Z",
+    "id": "MDU6SXNzdWU5MDQxMzQ1NzM=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "milestone": {
+      "number": 2,
+      "title": "v2 Release - Content Pt. 1",
+      "description": "First stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n     ",
+      "dueOn": "2023-08-16T00:00:00Z"
+    },
+    "number": 12,
+    "projectCards": [
+      { "project": { "name": "JLZ Portfolio" }, "column": { "name": "To do" } }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Create Video Post Component ",
+    "updatedAt": "2023-03-04T20:55:34Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/12"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2021-05-27T19:56:36Z",
+    "id": "MDU6SXNzdWU5MDQxMzQyMjQ=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "milestone": {
+      "number": 9,
+      "title": "v4/5 Release - Content Pt. 1 - 3",
+      "description": "This release is for finalizing content and functionality for content only \r\nFirst stable version!\r\n\r\n- Design Spike\r\n  -  color\r\n  -  typography\r\n  -  Breakpoints basic\r\n- Content \r\n   -  Homepage \r\n   -  About me\r\n      - About Me Tab\r\n      - Skills Tab\r\n  - Add Contact Me, designs in v4\r\n- Designs\r\n   - Breakpoints Advanced\r\n-  Components\r\n   -  Image Posts\r\n-  Content \r\n   -  Hobbies\r\n   -  News\r\n   -  About Me\r\n      -  Projects Tab\r\n      -  Credentials Tab\r\n- Content functionality\r\n  - finish up how db and app will sync up\r\n  - where db will be hosted ($)\r\n-  Content \r\n   -  News\r\n      -  Huxley News",
+      "dueOn": "2023-12-31T00:00:00Z"
+    },
+    "number": 11,
+    "projectCards": [
+      { "project": { "name": "JLZ Portfolio" }, "column": { "name": "To do" } }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Create Image Post Component ",
+    "updatedAt": "2023-09-09T21:34:29Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/11"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2021-06-20T23:54:06Z",
+    "comments": [],
+    "createdAt": "2021-05-27T19:56:20Z",
+    "id": "MDU6SXNzdWU5MDQxMzQwMTE=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 10,
+    "projectCards": [
+      { "project": { "name": "JLZ Portfolio" }, "column": { "name": "Done" } }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Create Link Post Component ",
+    "updatedAt": "2022-10-18T21:05:07Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/10"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": true,
+    "closedAt": "2021-06-21T01:29:24Z",
+    "comments": [],
+    "createdAt": "2021-05-27T19:55:28Z",
+    "id": "MDU6SXNzdWU5MDQxMzMzODg=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 9,
+    "projectCards": [
+      { "project": { "name": "JLZ Portfolio" }, "column": { "name": "Done" } }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Create Text Post Component",
+    "updatedAt": "2022-10-18T21:05:06Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/9"
+  },
+  {
+    "assignees": [
+      { "id": "MDQ6VXNlcjEwMjI2MDg0", "login": "Zwiqler94", "name": "Jake Z" }
+    ],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "- [ ] Add editor for new posts\n- [ ] Add editor to edit old posts",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2021-05-27T19:54:40Z",
+    "id": "MDU6SXNzdWU5MDQxMzI3Mzk=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "milestone": {
+      "number": 5,
+      "title": "v7 Release - Editor",
+      "description": "The purpose of this release is to add editing functionality to the site.",
+      "dueOn": "2024-01-18T00:00:00Z"
+    },
+    "number": 8,
+    "projectCards": [
+      { "project": { "name": "JLZ Portfolio" }, "column": { "name": "To do" } }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Create Editor UI",
+    "updatedAt": "2023-07-18T04:45:17Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/8"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "",
+    "closed": false,
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2021-05-27T19:53:26Z",
+    "id": "MDU6SXNzdWU5MDQxMzEyNzA=",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc0",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDAyMzA3NTc3",
+        "name": "help wanted",
+        "description": "Extra attention is needed",
+        "color": "008672"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDk5MDI5NDk3",
+        "name": "test",
+        "description": "Test addition or improvement",
+        "color": "A73CFD"
+      }
+    ],
+    "milestone": {
+      "number": 5,
+      "title": "v7 Release - Editor",
+      "description": "The purpose of this release is to add editing functionality to the site.",
+      "dueOn": "2024-01-18T00:00:00Z"
+    },
+    "number": 7,
+    "projectCards": [
+      { "project": { "name": "JLZ Portfolio" }, "column": { "name": "To do" } }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "db536ffd", "name": "📋 Backlog" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "OPEN",
+    "title": "Unit Tests",
+    "updatedAt": "2023-07-18T04:45:17Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/7"
+  },
+  {
+    "assignees": [],
+    "author": {
+      "id": "MDQ6VXNlcjEwMjI2MDg0",
+      "is_bot": false,
+      "login": "Zwiqler94",
+      "name": "Jake Z"
+    },
+    "body": "A component that displays different kinds of posts \r\n\r\n\r\n\r\nPost Type | Content\r\n-- | --\r\nText Post | Text [, Images, Videos, or Links within text]\r\nLink Post | Link with Image\r\nImage Post | Image as main content, text as caption\r\nVideo Post | Video as main content, text as caption\r\n\r\n\r\n\r\n\r\n",
+    "closed": true,
+    "closedAt": "2021-05-27T19:51:46Z",
+    "comments": [],
+    "createdAt": "2021-05-27T19:49:13Z",
+    "id": "MDU6SXNzdWU5MDQxMjcwOTI=",
+    "labels": [],
+    "milestone": {
+      "number": 1,
+      "title": "v1 Initial Release!",
+      "description": "First Version Online",
+      "dueOn": null
+    },
+    "number": 6,
+    "projectCards": [
+      { "project": { "name": "JLZ Portfolio" }, "column": { "name": "Done" } }
+    ],
+    "projectItems": [
+      {
+        "status": { "optionId": "18134ac6", "name": "✅ Done" },
+        "title": "@Zwiqler94's Portfolio Backlog"
+      }
+    ],
+    "reactionGroups": [],
+    "state": "CLOSED",
+    "title": "Create Feed Component",
+    "updatedAt": "2022-10-18T21:05:06Z",
+    "url": "https://github.com/Zwiqler94/jz-portfolio/issues/6"
+  }
+]

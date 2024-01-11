@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   LinkPreview,
   MissingLinkPreviewData,
-} from 'src/app/components/models/link-post';
+} from 'src/app/components/models/post.model';
+import { LinkPost } from 'src/app/components/models/post.model';
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
@@ -11,11 +12,17 @@ import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.s
   templateUrl: './link-post.component.html',
   styleUrls: ['./link-post.component.scss'],
 })
-export class LinkPostComponent extends PostBaseComponent implements OnInit {
+export class LinkPostComponent
+  extends PostBaseComponent
+  implements OnInit, LinkPost
+{
   linkPreviewData: LinkPreview;
+  uri: string;
+  image?: string | undefined;
 
   constructor(private linkPreviewService: LinkPreviewService) {
     super();
+    this.type = 'LinkPost';
   }
 
   get getLinkPreviewData() {
@@ -35,23 +42,26 @@ export class LinkPostComponent extends PostBaseComponent implements OnInit {
   }
 
   async getLinkPreview() {
-    const linkArray = this.postContent.match(
+    const linkArray = this.content.match(
       /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9/\-.,&?=%#();:~]*/,
     );
     if (linkArray !== null) {
+      this.uri = linkArray[0];
       try {
         (
-          await this.linkPreviewService.getLinkPreview(String(linkArray[0]))
+          await this.linkPreviewService.getLinkPreview(String(this.uri))
         ).subscribe({
           next: (data: unknown) => {
             {
               this.linkPreviewData = data as LinkPreview;
+              this.title = this.linkPreviewData.title;
+              this.content = this.linkPreviewData.description;
+              this.image = this.linkPreviewData.image;
             }
           },
           error: (err) => {
-            MissingLinkPreviewData.title = linkArray[0];
-            MissingLinkPreviewData.url = linkArray[0];
-            this.linkPreviewData = MissingLinkPreviewData;
+            this.title = MissingLinkPreviewData.title;
+            this.content = MissingLinkPreviewData.description;
             throw new Error(JSON.stringify(err));
           },
         });

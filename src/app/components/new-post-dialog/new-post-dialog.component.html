@@ -1,0 +1,100 @@
+<div id="new-post-div">
+  <h1 mat-dialog-title>New Post</h1>
+  <div id="new-post-content" mat-dialog-content>
+    <form [formGroup]="form" id="form">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          formControlName="title"
+          type="text"
+          placeholder="Write your title here!"
+          required
+        />
+      </mat-form-field>
+
+      <div
+        id="editor"
+        class="NgxEditor__Wrapper"
+        class="full-width full-height"
+      >
+        <ngx-editor-menu
+          [editor]="editor"
+          [toolbar]="toolbar"
+          [customMenuRef]="customMenu"
+          [colorPresets]="colors"
+        >
+        </ngx-editor-menu>
+        <ngx-editor
+          [editor]="editor"
+          formControlName="editorContent"
+          [placeholder]="'Type here...'"
+        ></ngx-editor>
+        <ng-template #customMenu>
+          <div class="color-picker-divs">
+            <div class="NgxEditor__Seperator"></div>
+            <div
+              class="NgxEditor__MenuItem NgxEditor__MenuItem--Text"
+              (mousedown)="onTextColorClick($event)"
+              [ngClass]="{
+                'NgxEditor__MenuItem--Active': isTextColorActive,
+                'NgxEditor--Disabled': isTextColorDisabled
+              }"
+            >
+              <ngx-colors
+                class="color-picker-component"
+                ngx-colors-trigger
+                formControlName="textColor"
+                acceptLabel="Select"
+                cancelLabel="Cancel"
+              ></ngx-colors>
+              <button
+                class="clear-buttons"
+                mat-icon-button
+                color="accent"
+                (click)="clearTextColor()"
+              >
+                <mat-icon>highlight_off</mat-icon>
+              </button>
+            </div>
+            <span class="menu-label">Text Color</span>
+          </div>
+          <div class="color-picker-divs">
+            <div
+              class="NgxEditor__MenuItem NgxEditor__MenuItem--Text"
+              (mousedown)="onTextBgColorClick($event)"
+              [ngClass]="{
+                'NgxEditor__MenuItem--Active': isTextBGColorActive,
+                'NgxEditor--Disabled': isTextBGColorDisabled
+              }"
+            >
+              <ngx-colors
+                class="color-picker-component"
+                ngx-colors-trigger
+                formControlName="bgColor"
+                acceptLabel="Select"
+                cancelLabel="Cancel"
+              ></ngx-colors>
+              <button
+                class="clear-buttons"
+                mat-icon-button
+                color="accent"
+                (click)="clearBgColor()"
+              >
+                <mat-icon>highlight_off</mat-icon>
+              </button>
+            </div>
+            <span class="menu-label"> Background Color </span>
+          </div>
+        </ng-template>
+      </div>
+
+      <div mat-dialog-actions>
+        <button mat-raised-button type="submit" (click)="createPost()">
+          Post
+        </button>
+        <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -4,3 +4,7 @@ dist/*
 .github/**/*
 .vscode/**/*
 e2e/**/*
+*.jpeg
+*.jpg
+*.png
+
