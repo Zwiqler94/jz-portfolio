@@ -23,29 +23,37 @@ body {
 }
 
 // Define a dark theme
-$dark-theme: mat.define-dark-theme((color: (primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
-        accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
-        warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
-      ),
-      // Only include `typography` and `density` in the default dark theme.
-      typography: mat.define-typography-config(),
-      density: 0,
-    ));
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
+      accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
+      warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
+    ),
+    // Only include `typography` and `density` in the default dark theme.
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
 
 // Define a light theme
-$light-theme: mat.define-light-theme((color: (primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
-        accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
-        warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
-      ),
-      // Only include `typography` and `density` in the default dark theme.
-      typography: mat.define-typography-config(),
-      density: 0,
-    ));
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
+      accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
+      warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
+    ),
+    // Only include `typography` and `density` in the default dark theme.
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
 
 // Apply the dark theme by default
 @include mat.all-component-themes($dark-theme);
 
-#editor>ngx-editor-menu>div.NgxEditor__MenuBar {
+#editor > ngx-editor-menu > div.NgxEditor__MenuBar {
   background-color: black;
 }
 
@@ -63,7 +71,7 @@ div.NgxEditor.NgxEditor {
   // typography and density styles.
   @include mat.all-component-colors($light-theme);
 
-  #editor>ngx-editor-menu>div.NgxEditor__MenuBar {
+  #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
     background-color: orange;
   }
 }
@@ -81,7 +89,7 @@ mat-card.base {
   white-space: normal;
 }
 
-#editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+#editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
   height: 350px;
 }
 
@@ -98,41 +106,31 @@ div#post-content#post-content#post-content p img {
 }
 
 @media (max-width: 1400px) {
-
   div#post-content#post-content#post-content p img {
     width: 55vw;
   }
-
 }
 
 @media (max-width: 1080px) {
-
   div#post-content#post-content#post-content p img {
     width: 72vw;
   }
-
 }
 
 @media (max-width: 430px) {
-
   div#post-content#post-content#post-content p img {
     width: 82vw;
   }
-
 }
 
 @media (max-width: 390px) {
-
   div#post-content#post-content#post-content p img {
     width: 76vw;
   }
-
 }
 
 @media (max-width: 375px) {
-
   div#post-content#post-content#post-content p img {
     width: 81vw;
   }
-
 }

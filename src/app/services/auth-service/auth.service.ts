@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   canActivate() {
-    return true
+    return true;
     // if (this.uid) {
     //   return true;
     // } else {

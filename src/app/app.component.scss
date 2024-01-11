@@ -24,7 +24,7 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
 }
 
 #toolbar-logo,
-#toolbar-logo>img {
+#toolbar-logo > img {
   height: $toolbar-height;
   width: auto;
   margin-right: 5rem;
@@ -73,7 +73,7 @@ mat-toolbar {
   height: 0.25rem;
 }
 
-#button-container-column>button {
+#button-container-column > button {
   display: inline-flex;
   flex-direction: row-reverse;
   width: 12rem;
@@ -114,7 +114,6 @@ mat-toolbar {
     width: 100vw;
     height: 5rem;
     flex-basis: auto;
-
   }
 
   .mat-toolbar-single-row {
@@ -122,7 +121,7 @@ mat-toolbar {
   }
 
   #toolbar-logo,
-  #toolbar-logo>img {
+  #toolbar-logo > img {
     height: 5rem;
     width: auto;
   }
@@ -134,14 +133,13 @@ mat-toolbar {
     flex-shrink: 2;
   }
 
-  #button-container-column>button {
+  #button-container-column > button {
     width: 10rem;
   }
 
   #menu {
     width: 59vw;
   }
-
 }
 
 @media (max-width: 820px) {
@@ -155,10 +153,6 @@ mat-toolbar {
     width: 58.5vw;
   }
 }
-
-
-
-
 
 @media (max-width: 320px) {
   #menu {
