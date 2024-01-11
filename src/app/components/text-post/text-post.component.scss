@@ -19,6 +19,33 @@ mat-card {
 @media (max-width: 430px) {
   mat-card {
     margin: 0.938rem;
-    max-width: 24.5rem;
+    width: 24.5rem;
   }
+}
+
+@media (max-width: 390px) {
+  mat-card {
+    margin: 0.938rem;
+    min-width: 21.25rem;
+    max-width: 21.25rem;
+  }
+
+}
+
+@media (max-width: 375px) {
+  mat-card {
+    margin: 0.938rem;
+    min-width: 22rem;
+    max-width: 22rem;
+  }
+
+}
+
+@media (max-width: 320px) {
+  mat-card {
+    margin: 0.938rem;
+    min-width: 19rem;
+    max-width: 19rem;
+  }
+
 }
