@@ -5,7 +5,7 @@ import { Router, Request, Response } from 'express';
 import { Pool } from 'pg';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 // import { Connector, IpAddressTypes } from '@google-cloud/cloud-sql-connector';
-import { info, warn } from 'firebase-functions/logger';
+import { debug, info, warn } from 'firebase-functions/logger';
 // import { debug } from 'console';
 
 import {
@@ -298,8 +298,8 @@ class AWSDBManager {
 
   async getMainPosts(req: Request, res: Response) {
     try {
-      const useLocalDb = /^true$/i.test(<string>req.query.local);
-      info({ useLocalDb, q: req.query });
+      const useLocalDb = /^true$/i.test(req.query.local ? req.query.local.toString() : 'true');
+      debug({ useLocalDb, q: req.query });
       await AWSDBManager.connectDB(useLocalDb);
       const mainPosts = await AWSDBManager.pool.query(
         'select post_list.id, post_list.type from post_list inner join main_feed on main_feed.post_id=post_list.id',
@@ -308,6 +308,7 @@ class AWSDBManager {
       if (mainPosts) {
         const fullPostArray: any[] = [];
         for (const row of mainPosts.rows) {
+          debug(row);
           let result = undefined;
           if (row.type === 'text') {
             result = await AWSDBManager.pool.query(
@@ -320,8 +321,14 @@ class AWSDBManager {
               [row.id],
             );
           }
-          if (result?.rows[0]) { fullPostArray.push(result.rows[0]); }
-          else warn(`Result for Post ID: ${row.id} missing`)
+
+          const rowResult = result?.rows[0];
+
+          warn(rowResult);
+
+          if (rowResult) {
+            fullPostArray.push(rowResult);
+          } else warn(`Result for Post ID: ${row.id} missing`);
         }
         // mainPosts.rows.forEach((row) => {
         //   const result = query('select * from post_list where id=$1', [row.post_id]);
