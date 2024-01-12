@@ -7,9 +7,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { EverythingLibModule } from '@zwiqler94/everything-lib';
+import { NgxEditorModule } from 'ngx-editor';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
@@ -60,6 +62,8 @@ import { JapaneseTabComponent } from './pages/hobbies/japanese-tab/japanese-tab.
 import { PhotographyTabComponent } from './pages/hobbies/photography-tab/photography-tab.component';
 import { FitnessTabComponent } from './pages/hobbies/fitness-tab/fitness-tab.component';
 import { DatabaseService } from 'src/app/services/database/database.service';
+import { NewPostDialogComponent } from './components/new-post-dialog/new-post-dialog.component';
+import { NgxColorsModule } from 'ngx-colors';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -95,6 +99,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     JapaneseTabComponent,
     PhotographyTabComponent,
     FitnessTabComponent,
+    NewPostDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -142,6 +147,9 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     CdkDrag,
     CdkDragHandle,
     EverythingLibModule,
+    NgxEditorModule,
+    MatDialogModule,
+    NgxColorsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

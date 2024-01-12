@@ -5,6 +5,7 @@
 
 @import "https://fonts.googleapis.com/icon?family=Material+Icons+Round";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+
 body {
   margin: 0;
   font-family:
@@ -52,11 +53,27 @@ $light-theme: mat.define-light-theme(
 // Apply the dark theme by default
 @include mat.all-component-themes($dark-theme);
 
+#editor > ngx-editor-menu > div.NgxEditor__MenuBar {
+  background-color: black;
+}
+
+.NgxEditor__MenuBar {
+  border-radius: 10px 10px 0px 0px;
+}
+
+div.NgxEditor.NgxEditor {
+  border-radius: 0px 0px 8px 8px;
+}
+
 // Apply the light theme only when the user prefers light themes.
 @media (prefers-color-scheme: light) {
   // Use the `-color` mixins to only apply color styles without reapplying the same
   // typography and density styles.
   @include mat.all-component-colors($light-theme);
+
+  #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
+    background-color: orange;
+  }
 }
 
 mat-card.base {
@@ -70,4 +87,72 @@ mat-card.base {
 .mat-mdc-standard-chip .mdc-evolution-chip__action--primary,
 .mat-mdc-standard-chip .mat-mdc-chip-action-label {
   white-space: normal;
+}
+
+#editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
+  height: 350px;
+}
+
+#editor .preview {
+  padding: 0;
+}
+
+.app-color-picker .preview {
+  box-shadow: none;
+}
+
+div#post-content#post-content#post-content p img {
+  width: 85vw;
+}
+
+@media (min-height: 1024px) {
+  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
+    height: 32.125rem;
+  }
+
+  div.cdk-overlay-container
+    div.cdk-global-overlay-wrapper
+    div.cdk-overlay-pane {
+    height: 70vh !important;
+  }
+}
+
+@media (min-height: 1266px) {
+  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+    height: 32.125rem;
+  }
+
+  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
+    height: 75vh !important;
+  }
+}
+
+@media (max-width: 1400px) {
+  div#post-content#post-content#post-content p img {
+    width: 55vw;
+  }
+}
+
+@media (max-width: 1080px) {
+  div#post-content#post-content#post-content p img {
+    width: 72vw;
+  }
+}
+
+@media (max-width: 430px) {
+  div#post-content#post-content#post-content p img {
+    width: 82vw;
+  }
+}
+
+@media (max-width: 390px) {
+  div#post-content#post-content#post-content p img {
+    width: 76vw;
+  }
+}
+
+@media (max-width: 375px) {
+  div#post-content#post-content#post-content p img {
+    width: 81vw;
+  }
 }
