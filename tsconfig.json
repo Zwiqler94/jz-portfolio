@@ -16,7 +16,7 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2021",
-    "module": "ESNext",
+    "module": "ES2020",
     "lib": ["ES2021", "dom"],
     "paths": {
       "@angular/*": ["./node_modules/@angular/*"]

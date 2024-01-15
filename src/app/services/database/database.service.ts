@@ -73,53 +73,69 @@ export class DatabaseService {
         .set('X-Firebase-AppCheck', this.tokenResult)
         .set('Accepts', 'application/json');
       console.log(this.headers);
-      this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main`, {
+      this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main?local=false`, {
         headers: this.headers,
       });
-      this.puppyPosts = this.httpClient.get<Post[]>(`${this.postUrl}/puppy`, {
-        headers: this.headers,
-      });
-      this.articlePosts = this.httpClient.get<Post[]>(
-        `${this.postUrl}/articles`,
-        { headers: this.headers },
+      this.puppyPosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/puppy?local=false`,
+        {
+          headers: this.headers,
+        }
       );
-      this.applePosts = this.httpClient.get<Post[]>(`${this.postUrl}/apple`, {
+      this.articlePosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/articles?local=false`,
+        { headers: this.headers }
+      );
+      this.applePosts = this.httpClient.get<Post[]>(`${this.postUrl}/apple?local=false`, {
         headers: this.headers,
       });
-      this.animePosts = this.httpClient.get<Post[]>(`${this.postUrl}/anime`, {
+      this.animePosts = this.httpClient.get<Post[]>(`${this.postUrl}/anime?local=false`, {
         headers: this.headers,
       });
       this.blockchainPosts = this.httpClient.get<Post[]>(
-        `${this.postUrl}/blockchain`,
-        { headers: this.headers },
+        `${this.postUrl}/blockchain?local=false`,
+        { headers: this.headers }
       );
     } else if (environment.local) {
       this.headers = new HttpHeaders()
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json');
-      this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main`, {
-        headers: this.headers,
-        params: { local: true },
-      });
-      this.puppyPosts = this.httpClient.get<Post[]>(`${this.postUrl}/puppy`, {
-        headers: this.headers,
-        params: { local: true },
-      });
-      this.articlePosts = this.httpClient.get<Post[]>(
-        `${this.postUrl}/articles`,
-        { headers: this.headers, params: { local: true } },
+      this.mainPosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/main?local=true`,
+        {
+          headers: this.headers,
+          params: { local: true },
+        }
       );
-      this.applePosts = this.httpClient.get<Post[]>(`${this.postUrl}/apple`, {
-        headers: this.headers,
-        params: { local: true },
-      });
-      this.animePosts = this.httpClient.get<Post[]>(`${this.postUrl}/anime`, {
-        headers: this.headers,
-        params: { local: true },
-      });
+
+      this.puppyPosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/puppy?local=true`,
+        {
+          headers: this.headers,
+          params: { local: true },
+        }
+      );
+      this.articlePosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/articles?local=true`,
+        { headers: this.headers, params: { local: true } }
+      );
+      this.applePosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/apple?local=true`,
+        {
+          headers: this.headers,
+          params: { local: true },
+        }
+      );
+      this.animePosts = this.httpClient.get<Post[]>(
+        `${this.postUrl}/anime?local=true`,
+        {
+          headers: this.headers,
+          params: { local: true },
+        }
+      );
       this.blockchainPosts = this.httpClient.get<Post[]>(
-        `${this.postUrl}/blockchain`,
-        { headers: this.headers, params: { local: true } },
+        `${this.postUrl}/blockchain?local=true`,
+        { headers: this.headers, params: { local: true } }
       );
     } else {
       this.mainPosts = of(
