@@ -443,64 +443,71 @@ class AWSDBManager {
     }
   };
 
-  createPost = async (req: Request, res: Response) => {
-    try {
-      await this.connectDB(true);
+  /**
+   * @todo
+   * @param req
+   * @param res
+   * @returns
+   */
+  // createPost = async (req: Request, res: Response) => {
+  //   try {
+  //     await this.connectDB(true);
 
-      debug({ test: req.body.content });
+  //     debug({ test: req.body.content });
 
-      const post_hash_result = (await this.query(
-        `select hash_post('${req.body.location}', '${req.body.type}', '${
-          req.body.status
-        }', '${req.body.content.replace('\\', '')}') as post_hash`,
-        true,
-      ))!.rows[0].post_hash;
 
-      const resultPostList = await this.query(
-        `insert into public.post_list(location, status, content, post_hash) select '${
-          req.body.location
-        }', '${req.body.status}', '${req.body.content.replace(
-          '\\',
-          '',
-        )}', '${post_hash_result}' where not exists (select id from public.post_list where post_hash = '${post_hash_result}') returning id`,
-        true,
-      );
 
-      if (resultPostList) {
-        if (resultPostList.rows.length < 1)
-          return res.status(400).json({ error: 'Post Already Exists' });
+  //     const resultPostList = await this.query(
+  //       `insert into public.post_list(location, status, content, post_hash) select '${
+  //         req.body.location
+  //       }', '${req.body.status}', '${req.body.content.replace(
+  //         '\\',
+  //         '',
+  //       )}', '${post_hash_result}' where not exists (select id from public.post_list where post_hash = '${post_hash_result}') returning id`,
+  //       true,
+  //     );
 
-        // const locationId = await this.query(
-        //   ` select feed_name_to_id('${req.body.location}') as feed_id`,
-        //   true
-        // );
+  //     if (resultPostList) {
+  //       if (resultPostList.rows.length < 1)
+  //         return res.status(400).json({ error: 'Post Already Exists' });
 
-        await this.query(
-          `update public.text_post set title = '${req.body.title}' where post_hash = '${post_hash_result}';`,
-          true,
-        );
-        // const resultFeed = await this.query(
-        //   `insert into public.main_feed(list_id, post_id, from_sub_feed, post_hash) values ('${
-        //     locationId.rows[0].feed_id
-        //   }', '${
-        //     resultPostList.rows[0].id
-        //   }', '${false}', '${post_hash_result}') returning list_id, post_id`,
-        //   true
-        // );
+  //       // const locationId = await this.query(
+  //       //   ` select feed_name_to_id('${req.body.location}') as feed_id`,
+  //       //   true
+  //       // );
 
-        return res.status(201).json({
-          list: req.body.location,
-          post: resultPostList.rows[0].id,
-        });
-      } else {
-        throw new Error('Results Missing');
-      }
-    } catch (err) {
-      error(err);
-      return res.status(400).json({ err });
-    }
-  };
+  //       await this.query(
+  //         `update public.text_post set title = '${req.body.title}' where post_hash = '${post_hash_result}';`,
+  //         true,
+  //       );
+  //       // const resultFeed = await this.query(
+  //       //   `insert into public.main_feed(list_id, post_id, from_sub_feed, post_hash) values ('${
+  //       //     locationId.rows[0].feed_id
+  //       //   }', '${
+  //       //     resultPostList.rows[0].id
+  //       //   }', '${false}', '${post_hash_result}') returning list_id, post_id`,
+  //       //   true
+  //       // );
 
+  //       return res.status(201).json({
+  //         list: req.body.location,
+  //         post: resultPostList.rows[0].id,
+  //       });
+  //     } else {
+  //       throw new Error('Results Missing');
+  //     }
+  //   } catch (err) {
+  //     error(err);
+  //     return res.status(400).json({ err });
+  //   }
+  // };
+
+  /**
+   * @deprecated
+   * @param req
+   * @param res
+   * @returns
+   */
   hashPost = async (req: Request, res: Response) => {
     await this.connectDB(true);
 
@@ -525,5 +532,5 @@ postRouter.get('/articles', dbManager.getArticlePosts);
 postRouter.get('/apple', dbManager.getApplePosts);
 postRouter.get('/blockchain', dbManager.getBlockchainPosts);
 postRouter.get('/anime', dbManager.getAnimePosts);
-postRouter.post('/hash', postValidator, validator, dbManager.hashPost);
-postRouter.post('/', postValidator, validator, dbManager.createPost);
+// postRouter.post('/hash', postValidator, validator, dbManager.hashPost);
+// postRouter.post('/', postValidator, validator, dbManager.createPost);
