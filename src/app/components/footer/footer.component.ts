@@ -1,4 +1,4 @@
-import { Component, VERSION } from '@angular/core';
+import { Component, HostListener, VERSION } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -6,6 +6,16 @@ import { Component, VERSION } from '@angular/core';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
+  screenWidth: number;
+  screenHeight: number;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = window.innerWidth;
+    this.screenHeight = window.innerHeight;
+    console.log(this.screenHeight, this.screenWidth);
+  }
+
   get angularVersion() {
     return VERSION;
   }
