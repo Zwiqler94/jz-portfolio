@@ -15,9 +15,9 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2021",
-    "module": "ES2020",
-    "lib": ["ES2021", "dom"],
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
     "paths": {
       "@angular/*": ["./node_modules/@angular/*"]
     },
