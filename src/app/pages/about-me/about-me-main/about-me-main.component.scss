@@ -96,10 +96,11 @@ div#center-about-div>mat-card {
   }
 }
 
-@media (max-width: 700px) {
-  #center-about-div>mat-card {
-    margin: 0;
-    max-width: 30.5rem;
+@media (max-width: 770px) {
+  div#center-about-div>mat-card {
+    margin: 0 5rem 2rem 5rem;
+    max-width: 24.5rem;
+    height: 80rem;
   }
 
   img {
@@ -110,11 +111,8 @@ div#center-about-div>mat-card {
 
 }
 
-@media (max-width: 530px) {
+@media (max-width: 550px) {
   div#center-about-div>mat-card {
-    margin-right: 5rem;
-    margin-left: 5rem;
-    margin: 0 5rem 5rem 5rem;
     max-width: 24.5rem;
     height: 80rem;
   }
@@ -123,9 +121,6 @@ div#center-about-div>mat-card {
 
 @media (max-width: 390px) {
   div#center-about-div>mat-card {
-    margin-right: 5rem;
-    margin-left: 5rem;
-    margin: 0 5rem 5rem 5rem;
     max-width: 21.5rem;
     height: 75rem;
   }
@@ -135,6 +130,23 @@ div#center-about-div>mat-card {
   }
 
   mat-card{
+    font-size: smaller;
+  }
+
+}
+
+@media (max-width: 320px) {
+  div#center-about-div>mat-card {
+
+    max-width: 19.5rem;
+    height: 75rem;
+  }
+
+  img#profile-image {
+    height: 25.3rem;
+  }
+
+  mat-card {
     font-size: smaller;
   }
 
