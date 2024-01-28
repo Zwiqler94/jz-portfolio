@@ -101,7 +101,7 @@ export class DatabaseService {
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json');
       this.mainPosts = this.httpClient.get<Post[]>(
-        `${this.postUrl}/main?local=true`,
+        `${this.postUrl}/main`,
         {
           headers: this.headers,
           params: { local: true },
@@ -109,32 +109,32 @@ export class DatabaseService {
       );
 
       this.puppyPosts = this.httpClient.get<Post[]>(
-        `${this.postUrl}/puppy?local=true`,
+        `${this.postUrl}/puppy`,
         {
           headers: this.headers,
           params: { local: true },
         }
       );
       this.articlePosts = this.httpClient.get<Post[]>(
-        `${this.postUrl}/articles?local=true`,
+        `${this.postUrl}/articles`,
         { headers: this.headers, params: { local: true } }
       );
       this.applePosts = this.httpClient.get<Post[]>(
-        `${this.postUrl}/apple?local=true`,
+        `${this.postUrl}/apple`,
         {
           headers: this.headers,
           params: { local: true },
         }
       );
       this.animePosts = this.httpClient.get<Post[]>(
-        `${this.postUrl}/anime?local=true`,
+        `${this.postUrl}/anime`,
         {
           headers: this.headers,
           params: { local: true },
         }
       );
       this.blockchainPosts = this.httpClient.get<Post[]>(
-        `${this.postUrl}/blockchain?local=true`,
+        `${this.postUrl}/blockchain`,
         { headers: this.headers, params: { local: true } }
       );
     } else {
