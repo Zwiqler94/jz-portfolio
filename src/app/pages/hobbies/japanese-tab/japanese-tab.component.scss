@@ -12,7 +12,7 @@ mat-card {
 }
 
 .jlpt-score {
-  max-width: 72vw;
+  max-width: 85vw;
   min-width: 20vw;
 }
 
@@ -29,9 +29,48 @@ caption {
   align-items: center;
 }
 
-// @media (max-width: 430px) {
-//     .jlpt-score {
-//         max-width: 75vw;
-//         min-width: 20vw;
-//     }
-// }
+
+@media (max-width: 430px) {
+  mat-card {
+    margin: 0.938rem;
+    width: 24.5rem;
+  }
+
+  .jlpt-score {
+    width: 18.7rem;
+  }
+
+}
+
+@media (max-width: 390px) {
+  mat-card {
+    min-width: 21.25rem;
+    max-width: 21.25rem;
+  }
+
+  // .jlpt-score {
+  //   width: 18rem;
+  // }
+}
+
+@media (max-width: 375px) {
+  mat-card {
+    min-width: 22rem;
+    max-width: 22rem;
+  }
+
+  // .jlpt-score {
+  //   width: 20rem;
+  // }
+}
+
+@media (max-width: 320px) {
+  mat-card {
+    min-width: 19rem;
+    max-width: 19rem;
+  }
+
+  // .jlpt-score {
+  //   width: 16rem;
+  // }
+}
