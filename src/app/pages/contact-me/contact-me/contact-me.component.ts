@@ -17,12 +17,12 @@ export class ContactMeComponent {
     redirect: ['https://web3forms.com/success'],
   });
 
-  private _x = new FormData();
-  public get x() {
-    return this._x;
+  private _form = new FormData();
+  public get form() {
+    return this._form;
   }
-  public set x(value) {
-    this._x = value;
+  public set form(value) {
+    this._form = value;
   }
 
   constructor(
@@ -66,7 +66,7 @@ export class ContactMeComponent {
   async updateFormData() {
     for (const control in this.contactForm.value) {
       console.log(control, this.contactForm.get(control)?.value);
-      this.x.append(control, this.contactForm.get(control)?.value);
+      this.form.append(control, this.contactForm.get(control)?.value);
     }
   }
 }

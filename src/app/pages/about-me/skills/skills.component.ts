@@ -51,6 +51,7 @@ export class SkillsComponent extends Tabs {
     { list: 'Tools', skill: 'Supertest' },
     { list: 'Tools', skill: 'Swagger/OpenAPI 3' },
   ];
+
   public get skillList() {
     return this._skillList;
   }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
@@ -11,7 +11,16 @@ import { environment } from 'src/environments/environment';
 })
 export class ProjectsComponent extends Tabs {
   @Input() public tabTitle: string;
+  screenWidth: number;
+  screenHeight: number;
   // @ViewChild('tab', { read: ViewContainerRef }) tabTemplate: ViewContainerRef;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = window.innerWidth;
+    this.screenHeight = window.innerHeight;
+    console.log(this.screenHeight, this.screenWidth);
+  }
 
   _result = [''];
 
@@ -20,10 +29,7 @@ export class ProjectsComponent extends Tabs {
     specialCharacters: [''],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private httpClient: HttpClient,
-  ) {
+  constructor(private fb: FormBuilder, private httpClient: HttpClient) {
     super();
   }
 
@@ -57,7 +63,7 @@ export class ProjectsComponent extends Tabs {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
           },
-        },
+        }
       )
       .subscribe((results) => {
         this.results = results;
