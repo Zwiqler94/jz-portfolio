@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
-import { EverythingLibModule } from '@zwiqler94/everything-lib';
+import { EverythingLibModule } from '@zwiqler94/everything-lib'
 import { NgxEditorModule } from 'ngx-editor';
 
 import { MatTabsModule } from '@angular/material/tabs';
