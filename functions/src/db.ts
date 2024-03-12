@@ -455,8 +455,6 @@ class AWSDBManager {
 
   //     debug({ test: req.body.content });
 
-
-
   //     const resultPostList = await this.query(
   //       `insert into public.post_list(location, status, content, post_hash) select '${
   //         req.body.location

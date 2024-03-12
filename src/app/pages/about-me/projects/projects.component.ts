@@ -11,15 +11,18 @@ import { environment } from 'src/environments/environment';
 })
 export class ProjectsComponent extends Tabs {
   @Input() public tabTitle: string;
-  screenWidth: number;
+  screenWidth: number = window.innerWidth;
   screenHeight: number;
+
+  private _maxWidth: number = this.screenWidth - 45;
+
   // @ViewChild('tab', { read: ViewContainerRef }) tabTemplate: ViewContainerRef;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
-    console.log(this.screenHeight, this.screenWidth);
+    this.maxWidth = this.screenWidth - 45;
   }
 
   _result = [''];
@@ -29,7 +32,10 @@ export class ProjectsComponent extends Tabs {
     specialCharacters: [''],
   });
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private httpClient: HttpClient,
+  ) {
     super();
   }
 
@@ -43,6 +49,14 @@ export class ProjectsComponent extends Tabs {
 
   set results(result: string[]) {
     this._result = result;
+  }
+
+  public set maxWidth(value: number) {
+    this._maxWidth = value;
+  }
+
+  public get maxWidth(): string {
+    return `${this._maxWidth}px`;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -63,7 +77,7 @@ export class ProjectsComponent extends Tabs {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
           },
-        }
+        },
       )
       .subscribe((results) => {
         this.results = results;
