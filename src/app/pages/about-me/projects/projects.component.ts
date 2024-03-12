@@ -32,7 +32,10 @@ export class ProjectsComponent extends Tabs {
     specialCharacters: [''],
   });
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private httpClient: HttpClient,
+  ) {
     super();
   }
 
@@ -74,7 +77,7 @@ export class ProjectsComponent extends Tabs {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
           },
-        }
+        },
       )
       .subscribe((results) => {
         this.results = results;

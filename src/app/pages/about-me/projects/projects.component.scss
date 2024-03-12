@@ -103,11 +103,10 @@ mat-form-field {
 }
 
 @media (max-width: 430px) {
-.project-content {
-
+  .dragF > mat-card {
+    max-width: 24rem;
+  }
+  .project-content {
     margin: 0.5rem;
-
   }
 }
-
-
