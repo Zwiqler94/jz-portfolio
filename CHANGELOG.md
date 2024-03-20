@@ -1,3 +1,9 @@
+## <small>5.0.5 (2024-03-20)</small>
+
+* fix(skills): adjust breakpoints for small screens (#401) ([c376ac5](https://github.com/Zwiqler94/jz-portfolio/commit/c376ac5)), closes [#401](https://github.com/Zwiqler94/jz-portfolio/issues/401)
+
+
+
 ## <small>5.0.4 (2024-01-22)</small>
 
 - fix(tsconfig): change target, module, lib to ES2022 (#399) ([14e91bb](https://github.com/Zwiqler94/jz-portfolio/commit/14e91bb)), closes [#399](https://github.com/Zwiqler94/jz-portfolio/issues/399)
