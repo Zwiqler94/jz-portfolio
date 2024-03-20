@@ -15,7 +15,7 @@ jobs:
       userToken: ${{ steps.checkToken.outputs.userToken }}
     steps:
       - id: checkToken
-        uses: Zwiqler94/GH-Actions@v0.4.3
+        uses: Zwiqler94/GH-Actions@v0.5.0
         with:
           token: ${{ secrets.USER_ACCESS_TOKEN }}
           appId: ${{ secrets.APP_ID }}
