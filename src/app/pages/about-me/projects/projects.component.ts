@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
@@ -11,7 +11,19 @@ import { environment } from 'src/environments/environment';
 })
 export class ProjectsComponent extends Tabs {
   @Input() public tabTitle: string;
+  screenWidth: number = window.innerWidth;
+  screenHeight: number;
+
+  private _maxWidth: number = this.screenWidth - 45;
+
   // @ViewChild('tab', { read: ViewContainerRef }) tabTemplate: ViewContainerRef;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = window.innerWidth;
+    this.screenHeight = window.innerHeight;
+    this.maxWidth = this.screenWidth - 45;
+  }
 
   _result = [''];
 
@@ -37,6 +49,14 @@ export class ProjectsComponent extends Tabs {
 
   set results(result: string[]) {
     this._result = result;
+  }
+
+  public set maxWidth(value: number) {
+    this._maxWidth = value;
+  }
+
+  public get maxWidth(): string {
+    return `${this._maxWidth}px`;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

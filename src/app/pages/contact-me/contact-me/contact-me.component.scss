@@ -3,17 +3,28 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50vw;
+  width: 80vw;
+}
+
+mat-card {
+  width: 90vw;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 mat-form-field {
-  width: 50vw;
+  width: 100%;
 }
 
 #contact-div {
   display: flex;
   align-items: center;
   height: 72vh;
-  width: 100%;
+  width: 100vw;
   justify-content: center;
 }

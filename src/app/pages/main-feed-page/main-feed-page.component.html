@@ -1,6 +1,11 @@
 <div id="main-feed-div">
   <div *ngIf="isUserAdmin()" id="create-post-div">
-    <button mat-flat-button color="primary" (click)="openNewPostDialog()">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="openNewPostDialog()"
+      disabled
+    >
       Admin Create Post
     </button>
   </div>

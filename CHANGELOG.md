@@ -1,8 +1,6 @@
 ## <small>5.0.4 (2024-01-22)</small>
 
-* fix(tsconfig): change target, module, lib to ES2022 (#399) ([14e91bb](https://github.com/Zwiqler94/jz-portfolio/commit/14e91bb)), closes [#399](https://github.com/Zwiqler94/jz-portfolio/issues/399)
-
-
+- fix(tsconfig): change target, module, lib to ES2022 (#399) ([14e91bb](https://github.com/Zwiqler94/jz-portfolio/commit/14e91bb)), closes [#399](https://github.com/Zwiqler94/jz-portfolio/issues/399)
 
 ## <small>5.0.3 (2024-01-06)</small>
 
