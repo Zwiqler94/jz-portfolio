@@ -19,27 +19,27 @@ mat-card {
 @media (max-width: 430px) {
   mat-card {
     margin: 0.938rem;
-    width: 24.5rem;
+    width: 24rem;
   }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 395px) {
   mat-card {
-    min-width: 21.25rem;
-    max-width: 21.25rem;
+    min-width: 21rem;
+    max-width: 21rem;
   }
 }
 
 @media (max-width: 375px) {
   mat-card {
-    min-width: 22rem;
-    max-width: 22rem;
+    min-width: 20rem;
+    max-width: 20rem;
   }
 }
 
 @media (max-width: 320px) {
   mat-card {
-    min-width: 19rem;
-    max-width: 19rem;
+    min-width: 18rem;
+    max-width: 18rem;
   }
 }
