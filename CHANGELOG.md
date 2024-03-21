@@ -1,3 +1,9 @@
+## <small>5.0.7 (2024-03-21)</small>
+
+* feat(creds): add new badges to credentials page ([98c5488](https://github.com/Zwiqler94/jz-portfolio/commit/98c5488)), closes [#431](https://github.com/Zwiqler94/jz-portfolio/issues/431)
+
+
+
 ## <small>5.0.6 (2024-03-21)</small>
 
 * revert: "feat (creds): add new badges to credentials page" ([f135067](https://github.com/Zwiqler94/jz-portfolio/commit/f135067))
