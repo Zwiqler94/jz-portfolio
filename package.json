@@ -1,6 +1,6 @@
 {
   "name": "jz-portfolio",
-  "version": "6.0.0",
+  "version": "5.0.8",
   "repository": "https://github.com/Zwiqler94/jz-portfolio.git",
   "scripts": {
     "ng": "ng",
