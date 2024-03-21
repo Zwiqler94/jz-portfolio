@@ -1,3 +1,16 @@
+## <small>5.0.8 (2024-03-21)</small>
+
+* build(versioning): switch to semantic-release from conventional-changelog ([5a4ff70](https://github.com/Zwiqler94/jz-portfolio/commit/5a4ff70))
+
+
+
+## [5.0.8](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.7...v5.0.8) (2024-03-21)
+
+
+### build
+
+* **versioning:** switch to semantic-release from conventional-changelog ([5a4ff70](https://github.com/Zwiqler94/jz-portfolio/commit/5a4ff70551f0ab60e873b653c4a16a5a6a56be7d))
+
 ## <small>5.0.7 (2024-03-21)</small>
 
 * feat(creds): add new badges to credentials page ([98c5488](https://github.com/Zwiqler94/jz-portfolio/commit/98c5488)), closes [#431](https://github.com/Zwiqler94/jz-portfolio/issues/431)
