@@ -1,6 +1,7 @@
 {
   "name": "jz-portfolio",
   "version": "5.0.7",
+  "repository": "https://github.com/Zwiqler94/jz-portfolio.git",
   "scripts": {
     "ng": "ng",
     "build:dev-local:watch": "npm run build:dev-local -- --watch",
@@ -23,6 +24,7 @@
     "lint:fix": "prettier --write ./ && ng lint jz-portfolio --fix",
     "e2e": "ng e2",
     "version": "conventional-changelog -i CHANGELOG.md -s -n ./.changelog-config.js && git add CHANGELOG.md",
+    "semantic-release": "semantic-release",
     "seed": "node dist/db-config/scripts/seed.ts"
   },
   "private": true,
@@ -127,6 +129,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
     "prettier": "^3.2.5",
+    "semantic-release": "^23.0.5",
+    "semantic-release-npm-github-publish": "^1.5.5",
     "ts-node": "~10.9.2",
     "typescript": ">=5.2 <5.4"
   },
@@ -134,5 +138,22 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "release": {
+    "branches": [
+      "main",
+      "development",
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
+    ],
+    "dryRun": false,
+    "ci": false,
+    "extends": "semantic-release-npm-github-publish"
   }
 }
