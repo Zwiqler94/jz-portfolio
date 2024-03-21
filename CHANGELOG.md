@@ -1,4 +1,16 @@
+## [6.0.1](https://github.com/Zwiqler94/jz-portfolio/compare/v6.0.0...v6.0.1) (2024-03-21)
 
+
+### chore
+
+* **versioning:** vvvvv ([a732183](https://github.com/Zwiqler94/jz-portfolio/commit/a732183a08fd888d80dddcacbb87f21c783ae330))
+
+
+### revert
+
+* revert v6 release ([58cc2ac](https://github.com/Zwiqler94/jz-portfolio/commit/58cc2acfa4829f317ddd718ccb96542f66b58750))
+* undo release 6 ([af058d2](https://github.com/Zwiqler94/jz-portfolio/commit/af058d2bd77d6262c9dcbef04aa78afe66c2cd1a))
+* undo v6 release ([3b947ca](https://github.com/Zwiqler94/jz-portfolio/commit/3b947cafd740257987327a09776100c44cd4b512))
 
 ## [5.0.8](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.7...v5.0.8) (2024-03-21)
 
