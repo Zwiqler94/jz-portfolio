@@ -32,7 +32,7 @@ export class JzTabGroupComponent
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class JzTabGroupComponent
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['currentTab']) {
       this.component = this.tabComponentList.filter(
-        (x) => x.link === this.currentTab
+        (x) => x.link === this.currentTab,
       )[0].component;
 
       console.log(this.currentTab);

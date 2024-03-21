@@ -8,4 +8,5 @@
 # You can see what browsers were selected by your queries by running:
 #   npx browserslist
 
-> 0.4% and last 5 versions, not dead
+defaults
+> 0.1% in my stats and not dead

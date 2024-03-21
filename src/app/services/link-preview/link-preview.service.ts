@@ -6,8 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppCheckTokenResult } from 'firebase/app-check';
-import { LinkPreview } from 'src/app/components/models/link-post';
-import { appCheck } from 'firebase-admin';
+import { LinkPreview } from 'src/app/components/models/post.model';
 
 interface SecretResponse {
   k: string;

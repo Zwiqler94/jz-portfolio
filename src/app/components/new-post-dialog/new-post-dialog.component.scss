@@ -1,0 +1,44 @@
+#form {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+#new-post-div,
+#new-post-content {
+  height: 100%;
+}
+
+.menu-label {
+  font-size: 0.05rem;
+}
+
+.color-picker-divs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// .clear-buttons{
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     margin-left: 0.65rem;
+//     padding-left: 0.05rem;
+// }
+
+ngx-colors.color-picker-component {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.05rem;
+}

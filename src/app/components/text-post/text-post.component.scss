@@ -4,14 +4,42 @@
   align-items: center;
 }
 
+#post-content {
+  width: fit-content;
+  padding: 0.5rem;
+}
+
 mat-card {
   margin: 0.938rem;
-  max-width: 42.5rem;
+  max-width: 50.5rem;
+  min-height: 24.5rem;
+  min-width: 24.5rem;
 }
 
 @media (max-width: 430px) {
   mat-card {
     margin: 0.938rem;
-    max-width: 24.5rem;
+    width: 24.5rem;
+  }
+}
+
+@media (max-width: 390px) {
+  mat-card {
+    min-width: 21.25rem;
+    max-width: 21.25rem;
+  }
+}
+
+@media (max-width: 375px) {
+  mat-card {
+    min-width: 22rem;
+    max-width: 22rem;
+  }
+}
+
+@media (max-width: 320px) {
+  mat-card {
+    min-width: 19rem;
+    max-width: 19rem;
   }
 }

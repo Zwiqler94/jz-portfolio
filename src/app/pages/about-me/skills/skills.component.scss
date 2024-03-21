@@ -1,5 +1,5 @@
 mat-chip {
-  height: 2.5rem;
+  height: 2rem;
 }
 
 .about-content {
@@ -15,7 +15,28 @@ mat-chip {
 mat-card {
   padding: 0.25rem;
   max-width: 95vw;
-  width: 40rem;
+  width: 50rem;
   height: 12rem;
   min-width: 45vw;
+}
+
+@media (max-width: 390px) {
+  mat-card {
+    min-width: 21.25rem;
+    max-width: 21.25rem;
+  }
+}
+
+@media (max-width: 375px) {
+  mat-card {
+    min-width: 22rem;
+    max-width: 22rem;
+  }
+}
+
+@media (max-width: 320px) {
+  mat-card {
+    min-width: 19rem;
+    max-width: 19rem;
+  }
 }

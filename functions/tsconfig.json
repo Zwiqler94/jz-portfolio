@@ -2,11 +2,11 @@
   "compilerOptions": {
     "module": "CommonJS",
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
+    // "noUnusedLocals": true,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "ES2022",
+    "target": "ES2021",
     "moduleResolution": "Node",
     "resolveJsonModule": true
   },

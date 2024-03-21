@@ -1,8 +1,89 @@
+# [6.0.0](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.8...v6.0.0) (2024-03-21)
+
+
+### build
+
+* **deps:** remove types for rimraf minimatch and glob ([87ff4d8](https://github.com/Zwiqler94/jz-portfolio/commit/87ff4d81d8abb13fb5ac285b580d949040aa0643))
+
+
+### chore
+
+* **ads:** add adsense ([c45ed1d](https://github.com/Zwiqler94/jz-portfolio/commit/c45ed1d4ffe4be2b4377c19211e2fd5592c97fac))
+* **deps:** figured out why prosemirror caused issues with ngx-editor ([288e34c](https://github.com/Zwiqler94/jz-portfolio/commit/288e34ce744e6efb6bdb1b55c334a30f33cc7cf0))
+* **deps:** update deps ([94e3fb5](https://github.com/Zwiqler94/jz-portfolio/commit/94e3fb53a5733f6ea256fb1892b9120acf7fa7c8))
+* **deps:** update to latest deps ([27e4fff](https://github.com/Zwiqler94/jz-portfolio/commit/27e4fff578a3d56c251124cdf429528d6cdc852a))
+* **merge:** merge JZP-24 ([8c9acb7](https://github.com/Zwiqler94/jz-portfolio/commit/8c9acb71eba2f2a59105b236c82334b57a5265c3))
+
+
+### ci
+
+* **deps:** update workflows to nodejs 20 ([91971e8](https://github.com/Zwiqler94/jz-portfolio/commit/91971e8f4dcf56f92eb49274ed9e8daf001dee49))
+
+
+### feat
+
+* **breakpoints:** update sizing of projects page for small screens ([83e7e0f](https://github.com/Zwiqler94/jz-portfolio/commit/83e7e0facc97f28a1a8fd77f38581789874ddb6e))
+* **posts:** add latest editor updates for creating posts ([7c57b19](https://github.com/Zwiqler94/jz-portfolio/commit/7c57b192cfd6e947e80444fffa6014ba214b845c))
+* update functions deps and add validator, create post apis ([#375](https://github.com/Zwiqler94/jz-portfolio/issues/375)) ([1f89727](https://github.com/Zwiqler94/jz-portfolio/commit/1f89727e32cf4e4cef0fac4f0ffd056552462f1d))
+* **v17:** update to ng 17 ([8408797](https://github.com/Zwiqler94/jz-portfolio/commit/8408797e2bcf42ef43b5f3c3bd91a9c6e935caa9))
+
+
+### fix
+
+* **deps:** fix dep issues ([ab530ba](https://github.com/Zwiqler94/jz-portfolio/commit/ab530bae5690e0eaea91f745faabeab7eca134e0))
+* **deps:** fix dep issues ([c38ef40](https://github.com/Zwiqler94/jz-portfolio/commit/c38ef405b20aff0b419e34d0a82e6b08f2853680))
+* **skills:** adjust breakpoints for small screens ([fd74edb](https://github.com/Zwiqler94/jz-portfolio/commit/fd74edb3e05fb4d3c37f5e4fbfc70010ceee5957))
+* **skills:** adjust breakpoints for small screens ([#401](https://github.com/Zwiqler94/jz-portfolio/issues/401)) ([ac98a22](https://github.com/Zwiqler94/jz-portfolio/commit/ac98a229f7ad3d028bf49d3e65fb194c13cb788f))
+
+
+### Breaking changes
+
+* validation require certain parameters in api calls or it will fail
+
+JZP-58 JZP-37
+
+* build(lint): ignore image files in linting and other ignore linting
+
+* refactor(lint): lint code
+
+* refactor(lint): add more lint fixes
+
+## [5.0.8](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.7...v5.0.8) (2024-03-21)
+
+
+### build
+
+* **versioning:** switch to semantic-release from conventional-changelog ([5a4ff70](https://github.com/Zwiqler94/jz-portfolio/commit/5a4ff70551f0ab60e873b653c4a16a5a6a56be7d))
+
+## <small>5.0.7 (2024-03-21)</small>
+
+* feat(creds): add new badges to credentials page ([98c5488](https://github.com/Zwiqler94/jz-portfolio/commit/98c5488)), closes [#431](https://github.com/Zwiqler94/jz-portfolio/issues/431)
+
+
+
+## <small>5.0.6 (2024-03-21)</small>
+
+* revert: "feat (creds): add new badges to credentials page" ([f135067](https://github.com/Zwiqler94/jz-portfolio/commit/f135067))
+
+
+
+## <small>5.0.5 (2024-03-20)</small>
+
+* fix(skills): adjust breakpoints for small screens (#401) ([c376ac5](https://github.com/Zwiqler94/jz-portfolio/commit/c376ac5)), closes [#401](https://github.com/Zwiqler94/jz-portfolio/issues/401)
+
+
+
+## <small>5.0.4 (2024-01-22)</small>
+
+- fix(tsconfig): change target, module, lib to ES2022 (#399) ([14e91bb](https://github.com/Zwiqler94/jz-portfolio/commit/14e91bb)), closes [#399](https://github.com/Zwiqler94/jz-portfolio/issues/399)
+
+## <small>5.0.3 (2024-01-06)</small>
+
+- fix(projects): update links to live projects (#386) ([70492b4](https://github.com/Zwiqler94/jz-portfolio/commit/70492b4)), closes [#386](https://github.com/Zwiqler94/jz-portfolio/issues/386)
+
 ## <small>5.0.2 (2023-11-23)</small>
 
-* fix(appcheck): fix appcheck once more (#363) ([07f49dc](https://github.com/Zwiqler94/jz-portfolio/commit/07f49dc)), closes [#363](https://github.com/Zwiqler94/jz-portfolio/issues/363) [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87) [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87)
-
-
+- fix(appcheck): fix appcheck once more (#363) ([07f49dc](https://github.com/Zwiqler94/jz-portfolio/commit/07f49dc)), closes [#363](https://github.com/Zwiqler94/jz-portfolio/issues/363) [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87) [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87)
 
 ## <small>5.0.1 (2023-11-19)</small>
 

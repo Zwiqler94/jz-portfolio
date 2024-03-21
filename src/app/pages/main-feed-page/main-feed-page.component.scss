@@ -1,6 +1,30 @@
-div {
+#main-feed-div {
   display: flex;
-  height: 50vh;
+  flex-direction: column;
   width: 100vw;
   justify-content: center;
 }
+
+#create-post-div {
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+@media (max-width: 1080px) {
+  #create-post-div {
+    display: inline-flex;
+    align-items: center;
+    margin: 1rem;
+    justify-content: center;
+  }
+}
+
+// @media (max-width: 1080px) {}
+
+// @media (max-width: 1080px) {}
+
+// @media (max-width: 1080px) {}
+
+// @media (max-width: 320px) {
+
+// }

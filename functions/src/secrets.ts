@@ -1,9 +1,10 @@
 /* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { error, debug } from 'firebase-functions/logger';
+import { error } from 'firebase-functions/logger';
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { defineSecret } from 'firebase-functions/params';
+import { SecretParam } from 'firebase-functions/lib/params/types';
 // import { SecretParam } from 'firebase-functions/lib/params/types';
 
 export const clientCert = defineSecret('JLZ_APP_CLIENT_CERT');
@@ -20,7 +21,7 @@ export const awsSecretKey = defineSecret('AWS_SECRET_ACCESS_KEY');
 
 export const secretRouter = express.Router();
 
-export const secretArray: any[] = [
+export const secretArray: SecretParam[] = [
   clientCert,
   clientKey,
   dbPassDev,
@@ -36,14 +37,14 @@ const getLinkPreviewSecret = async (req: Request, res: Response) => {
   try {
     const isProd: boolean = req.query.prod === 'true';
     const apiKey = isProd ? secretNameProd.value() : secretNameDev.value();
-    debug({
-      y: isProd,
-      t: req.query.prod,
-      a: secretNameProd.value(),
-      b: secretNameDev.value(),
-      g: apiKey,
-    });
-    debug({ k: apiKey });
+    // debug({
+    //   y: isProd,
+    //   t: req.query.prod,
+    //   a: secretNameProd.value(),
+    //   b: secretNameDev.value(),
+    //   g: apiKey,
+    // });
+    // debug({ k: apiKey });
     res.status(200).json({ k: apiKey });
   } catch (err) {
     error(err);
@@ -55,7 +56,7 @@ const getSecret = async (req: Request, res: Response) => {
   try {
     const secretName = secretArray.filter((secret) => {
       if (secret.name === req.params.name) {
-        debug(secretNameProd.value());
+        // debug(secretNameProd.value());
         return true;
       }
       return false;

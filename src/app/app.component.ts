@@ -3,7 +3,6 @@ import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
-import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
   selector: 'app-root',
