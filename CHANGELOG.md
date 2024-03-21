@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/Zwiqler94/jz-portfolio/compare/v6.0.0...v6.0.1) (2024-03-21)
+
+
+### chore
+
+* **versioning:** vvvvv ([a732183](https://github.com/Zwiqler94/jz-portfolio/commit/a732183a08fd888d80dddcacbb87f21c783ae330))
+
 # [6.0.0](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.8...v6.0.0) (2024-03-21)
 
 
