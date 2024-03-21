@@ -3,7 +3,6 @@
 
 ### chore
 
-* **c:** coookies ([6376783](https://github.com/Zwiqler94/jz-portfolio/commit/6376783f33d81d006f529172bcc9f161761c97a3))
 * **versioning:** vvvvv ([a732183](https://github.com/Zwiqler94/jz-portfolio/commit/a732183a08fd888d80dddcacbb87f21c783ae330))
 
 
