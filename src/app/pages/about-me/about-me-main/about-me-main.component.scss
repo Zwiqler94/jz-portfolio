@@ -99,24 +99,26 @@ div#center-about-div > mat-card {
     height: 80rem;
   }
 
-
+  img {
+    width: fit-content;
+  }
 }
 
 @media (max-width: 550px) {
   div#center-about-div > mat-card {
-    max-width: 23rem;
-    height: 85rem;
+    max-width: 24.5rem;
+    height: 80rem;
   }
 }
 
 @media (max-width: 390px) {
   div#center-about-div > mat-card {
-    max-width: 20rem;
-    height: 80rem;
+    max-width: 21.5rem;
+    height: 75rem;
   }
 
   img#profile-image {
-    height: 26rem;
+    height: 28rem;
   }
 
   mat-card {
@@ -126,11 +128,12 @@ div#center-about-div > mat-card {
 
 @media (max-width: 320px) {
   div#center-about-div > mat-card {
-    max-width: 18rem;
+    max-width: 19.5rem;
+    height: 75rem;
   }
 
   img#profile-image {
-    height: 25rem;
+    height: 25.3rem;
   }
 
   mat-card {
