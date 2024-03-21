@@ -141,8 +141,7 @@
   "release": {
     "branches": [
       "development",
-      "next",
-      "cookies"
+      "next"
     ],
     "dryRun": false,
     "ci": false,
