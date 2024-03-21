@@ -140,7 +140,7 @@
   },
   "release": {
     "branches": [
-      "main",
+      "next",
       "development"
     ],
     "dryRun": false,
