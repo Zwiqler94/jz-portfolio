@@ -1,3 +1,10 @@
+## [6.0.2](https://github.com/Zwiqler94/jz-portfolio/compare/v6.0.1...v6.0.2) (2024-03-21)
+
+
+### chore
+
+* **c:** coookies ([6376783](https://github.com/Zwiqler94/jz-portfolio/commit/6376783f33d81d006f529172bcc9f161761c97a3))
+
 ## [6.0.1](https://github.com/Zwiqler94/jz-portfolio/compare/v6.0.0...v6.0.1) (2024-03-21)
 
 
