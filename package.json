@@ -140,6 +140,8 @@
   },
   "release": {
     "branches": [
+      "5.x.x",
+      "6.x.x",
       "development",
       "next"
     ],
