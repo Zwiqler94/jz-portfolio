@@ -1,6 +1,6 @@
 {
   "name": "jz-portfolio",
-  "version": "5.0.8",
+  "version": "5.0.9",
   "repository": "https://github.com/Zwiqler94/jz-portfolio.git",
   "scripts": {
     "ng": "ng",
@@ -23,6 +23,7 @@
     "lint": "ng lint",
     "lint:fix": "prettier --write ./ && ng lint jz-portfolio --fix",
     "e2e": "ng e2",
+    "changelog:update": "conventional-changelog -i CHANGELOG.md -s -n ./.changelog-config.js && git add CHANGELOG.md",
     "semantic-release": "semantic-release",
     "seed": "node dist/db-config/scripts/seed.ts"
   },
