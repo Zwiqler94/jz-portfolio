@@ -1,3 +1,10 @@
+## [5.0.12](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.11...v5.0.12) (2024-03-22)
+
+
+### build
+
+* **versioning:** limit release version ([5cb49b9](https://github.com/Zwiqler94/jz-portfolio/commit/5cb49b9048fa1556603b7a9d6bcde42e8d50b87d))
+
 ## [5.0.10](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.9...v5.0.10) (2024-03-22)
 
 
