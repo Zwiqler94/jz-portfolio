@@ -1,4 +1,9 @@
+## [5.0.10](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.9...v5.0.10) (2024-03-22)
 
+
+### build
+
+* **testy:** test ([#438](https://github.com/Zwiqler94/jz-portfolio/issues/438)) ([2757738](https://github.com/Zwiqler94/jz-portfolio/commit/27577384c2c1ac5b324f778206a74dda0297c2bc))
 
 ## [5.0.8](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.7...v5.0.8) (2024-03-21)
 
