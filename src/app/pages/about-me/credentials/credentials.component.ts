@@ -26,3 +26,5 @@ export class CredentialsComponent extends Tabs implements OnInit {
   }
   @Input() tabTitle: string;
 }
+
+
