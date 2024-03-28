@@ -129,7 +129,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
     "prettier": "^3.2.5",
-    "semantic-release": "^23.0.5",
+    "semantic-release": "^23.0.6",
     "semantic-release-npm-github-publish": "^1.5.5",
     "ts-node": "~10.9.2",
     "typescript": "^5.4"
