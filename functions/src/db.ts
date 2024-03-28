@@ -11,7 +11,8 @@ import {
   SecretsManagerClient,
 } from '@aws-sdk/client-secrets-manager';
 import { postValidator } from './validators/post.validator';
-import { validator } from './middleware';
+import { limiter, validator } from './middleware';
+import rateLimit from 'express-rate-limit';
 
 export const getSecretValue = async (secretName = 'SECRET_NAME') => {
   const client = new SecretsManagerClient({ region: 'us-east-2' });
@@ -525,11 +526,11 @@ export const postRouter = Router();
 
 const dbManager = new AWSDBManager();
 
-postRouter.get('/main', dbManager.getMainPosts);
-postRouter.get('/puppy', dbManager.getPuppyPosts);
-postRouter.get('/articles', dbManager.getArticlePosts);
-postRouter.get('/apple', dbManager.getApplePosts);
-postRouter.get('/blockchain', dbManager.getBlockchainPosts);
-postRouter.get('/anime', dbManager.getAnimePosts);
+postRouter.get('/main', limiter, dbManager.getMainPosts);
+postRouter.get('/puppy', limiter, dbManager.getPuppyPosts);
+postRouter.get('/articles', limiter, dbManager.getArticlePosts);
+postRouter.get('/apple', limiter, dbManager.getApplePosts);
+postRouter.get('/blockchain', limiter, dbManager.getBlockchainPosts);
+postRouter.get('/anime', limiter, dbManager.getAnimePosts);
 // postRouter.post('/hash', postValidator, validator, dbManager.hashPost);
 // postRouter.post('/', postValidator, validator, dbManager.createPost);

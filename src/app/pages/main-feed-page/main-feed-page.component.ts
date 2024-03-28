@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewPostDialogComponent } from 'src/app/components/new-post-dialog/new-post-dialog.component';
-import { Editor } from 'ngx-editor';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { environment } from 'src/environments/environment';
 
