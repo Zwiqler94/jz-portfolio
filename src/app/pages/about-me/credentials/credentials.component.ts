@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MicrosoftLearnUserProfile } from 'src/app/interfaces/microsoft/microsoft';
 import { Tabs } from 'src/app/interfaces/tabs.model';
-import credInfo from 'src/assets/credentials/msft_credentials.json';
+import  credInfo from 'src/assets/credentials/msft_credentials.json';
 
 @Component({
   selector: 'app-credentials',
@@ -20,8 +20,11 @@ export class CredentialsComponent extends Tabs implements OnInit {
     const targeto = document.querySelector('#credential-div') as HTMLDivElement;
     targeto.append(scriptEl);
 
+
     this.profile = new MicrosoftLearnUserProfile(credInfo);
-    console.log(this.profile);
+    console.log(this.profile)
   }
   @Input() tabTitle: string;
 }
+
+

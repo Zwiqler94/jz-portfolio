@@ -1,32 +1,41 @@
 ## [5.0.12](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.11...v5.0.12) (2024-03-22)
 
+
 ### build
 
-- **versioning:** limit release version ([5cb49b9](https://github.com/Zwiqler94/jz-portfolio/commit/5cb49b9048fa1556603b7a9d6bcde42e8d50b87d))
+* **versioning:** limit release version ([5cb49b9](https://github.com/Zwiqler94/jz-portfolio/commit/5cb49b9048fa1556603b7a9d6bcde42e8d50b87d))
 
 ## [5.0.10](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.9...v5.0.10) (2024-03-22)
 
+
 ### build
 
-- **testy:** test ([#438](https://github.com/Zwiqler94/jz-portfolio/issues/438)) ([2757738](https://github.com/Zwiqler94/jz-portfolio/commit/27577384c2c1ac5b324f778206a74dda0297c2bc))
+* **testy:** test ([#438](https://github.com/Zwiqler94/jz-portfolio/issues/438)) ([2757738](https://github.com/Zwiqler94/jz-portfolio/commit/27577384c2c1ac5b324f778206a74dda0297c2bc))
 
 ## [5.0.8](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.7...v5.0.8) (2024-03-21)
 
+
 ### build
 
-- **versioning:** switch to semantic-release from conventional-changelog ([5a4ff70](https://github.com/Zwiqler94/jz-portfolio/commit/5a4ff70551f0ab60e873b653c4a16a5a6a56be7d))
+* **versioning:** switch to semantic-release from conventional-changelog ([5a4ff70](https://github.com/Zwiqler94/jz-portfolio/commit/5a4ff70551f0ab60e873b653c4a16a5a6a56be7d))
 
 ## <small>5.0.7 (2024-03-21)</small>
 
-- feat(creds): add new badges to credentials page ([98c5488](https://github.com/Zwiqler94/jz-portfolio/commit/98c5488)), closes [#431](https://github.com/Zwiqler94/jz-portfolio/issues/431)
+* feat(creds): add new badges to credentials page ([98c5488](https://github.com/Zwiqler94/jz-portfolio/commit/98c5488)), closes [#431](https://github.com/Zwiqler94/jz-portfolio/issues/431)
+
+
 
 ## <small>5.0.6 (2024-03-21)</small>
 
-- revert: "feat (creds): add new badges to credentials page" ([f135067](https://github.com/Zwiqler94/jz-portfolio/commit/f135067))
+* revert: "feat (creds): add new badges to credentials page" ([f135067](https://github.com/Zwiqler94/jz-portfolio/commit/f135067))
+
+
 
 ## <small>5.0.5 (2024-03-20)</small>
 
-- fix(skills): adjust breakpoints for small screens (#401) ([c376ac5](https://github.com/Zwiqler94/jz-portfolio/commit/c376ac5)), closes [#401](https://github.com/Zwiqler94/jz-portfolio/issues/401)
+* fix(skills): adjust breakpoints for small screens (#401) ([c376ac5](https://github.com/Zwiqler94/jz-portfolio/commit/c376ac5)), closes [#401](https://github.com/Zwiqler94/jz-portfolio/issues/401)
+
+
 
 ## <small>5.0.4 (2024-01-22)</small>
 
