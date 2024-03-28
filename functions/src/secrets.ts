@@ -5,6 +5,7 @@ import * as express from 'express';
 import { Request, Response } from 'express';
 import { defineSecret } from 'firebase-functions/params';
 import { SecretParam } from 'firebase-functions/lib/params/types';
+import rateLimit from 'express-rate-limit';
 // import { SecretParam } from 'firebase-functions/lib/params/types';
 
 export const clientCert = defineSecret('JLZ_APP_CLIENT_CERT');
@@ -69,5 +70,5 @@ const getSecret = async (req: Request, res: Response) => {
   }
 };
 
-secretRouter.get('/secrets/link-previews', getLinkPreviewSecret);
-secretRouter.get('/secrets/:name', getSecret);
+secretRouter.get('/secrets/link-previews', rateLimit, getLinkPreviewSecret);
+secretRouter.get('/secrets/:name', rateLimit, getSecret);
