@@ -8,11 +8,43 @@
           </mat-expansion-panel-header>
           <mat-chip-set>
             <ng-container *ngFor="let skillObj of skillList">
-              <mat-chip
-                *ngIf="skillObj.list === 'Programming'"
-                color="accent"
-                highlighted
-              >
+              <mat-chip *ngIf="skillObj.list === 'Programming'" color="accent" highlighted>
+                {{ skillObj.skill }}
+              </mat-chip>
+            </ng-container>
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Frameworks:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            <ng-container *ngFor="let skillObj of skillList">
+              <mat-chip *ngIf="skillObj.list === 'Frameworks'" color="accent" highlighted>
+                {{ skillObj.skill }}
+              </mat-chip>
+            </ng-container>
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Designing:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            <ng-container *ngFor="let skillObj of skillList">
+              <mat-chip *ngIf="skillObj.list === 'Designs'" color="accent" highlighted>
+                {{ skillObj.skill }}
+              </mat-chip>
+            </ng-container>
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Databases:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            <ng-container *ngFor="let skillObj of skillList">
+              <mat-chip *ngIf="skillObj.list === 'Databases'" color="accent" highlighted>
                 {{ skillObj.skill }}
               </mat-chip>
             </ng-container>
@@ -72,11 +104,7 @@
           </mat-expansion-panel-header>
           <mat-chip-set>
             <ng-container *ngFor="let skillObj of skillList">
-              <mat-chip
-                *ngIf="skillObj.list === 'Methodologies'"
-                color="accent"
-                highlighted
-              >
+              <mat-chip *ngIf="skillObj.list === 'Methodologies'" color="accent" highlighted>
                 {{ skillObj.skill }}
               </mat-chip>
             </ng-container>
@@ -88,11 +116,19 @@
           </mat-expansion-panel-header>
           <mat-chip-set>
             <ng-container *ngFor="let skillObj of skillList">
-              <mat-chip
-                *ngIf="skillObj.list === 'Tools'"
-                color="accent"
-                highlighted
-              >
+              <mat-chip *ngIf="skillObj.list === 'Tools'" color="accent" highlighted>
+                {{ skillObj.skill }}
+              </mat-chip>
+            </ng-container>
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Cloud Platforms:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            <ng-container *ngFor="let skillObj of skillList">
+              <mat-chip *ngIf="skillObj.list === 'Cloud'" color="accent" highlighted>
                 {{ skillObj.skill }}
               </mat-chip>
             </ng-container>
