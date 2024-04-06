@@ -1,3 +1,4 @@
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, Input } from '@angular/core';
 import { Interface } from 'readline';
 import { Tabs } from 'src/app/interfaces/tabs.model';
@@ -12,6 +13,46 @@ interface SkillModel {
   selector: 'app-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
+  animations: [
+    trigger('panelAnimation', [
+      // state('start', style({ opacity: 1, transform: 'none' })),
+      // transition(':enter', []),
+      transition('* <=> *, void <=> *', [
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(-100px)' }),
+            stagger('90ms', [
+              animate(
+                '0.5s 10ms ease-in',
+                style({ opacity: 1, transform: 'none' })
+              ),
+            ]),
+          ],
+          { optional: true }
+        ),
+        query(
+          ':leave',
+          [
+            style({ opacity: 1, transform: 'none' }),
+            stagger('50ms', [
+              animate(
+                '0.5s 10ms ease-out',
+                style({ opacity: 0, transform: 'translateY(-100px)' })
+              ),
+            ]),
+          ],
+          {
+            optional: true,
+          }
+        ),
+      ]),
+      // transition(':leave', [
+      //   style({ opacity: 0, transform: 'translateY(-100)' }),
+      //   animate('5s 100ms ease-out'),
+      // ]),
+    ]),
+  ],
 })
 export class SkillsComponent extends Tabs {
   @Input() public tabTitle: string;

@@ -21,6 +21,8 @@ import { EditorPageComponent } from 'src/app/pages/editor-page/editor-page.compo
 import { PhotographyTabComponent } from 'src/app/pages/hobbies/photography-tab/photography-tab.component';
 import { FitnessTabComponent } from 'src/app/pages/hobbies/fitness-tab/fitness-tab.component';
 import { JapaneseTabComponent } from 'src/app/pages/hobbies/japanese-tab/japanese-tab.component';
+import { TestComponent } from 'src/app/test/test.component';
+import { CpComponent } from 'src/app/cp/cp.component';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AuthGuard: CanActivateFn = (_route, _state) => {
@@ -59,6 +61,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactMeComponent, canActivate: envAuthGaurd },
   { path: 'editor', component: EditorPageComponent, canActivate: envAuthGaurd },
   { path: 'error', component: ErrorPageComponent },
+  { path: 'test', component: TestComponent },
+  { path: 'cp', component: CpComponent },
   { path: '**', component: ErrorPageComponent },
 ];
 

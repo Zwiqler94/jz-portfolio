@@ -1,6 +1,8 @@
-mat-chip {
-  height: 2rem;
-}
+
+/* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version. */
+// mat-chip {
+//   height: 2rem;
+// }
 
 .about-content {
   position: relative;
@@ -12,6 +14,7 @@ mat-chip {
   justify-content: center;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card {
   padding: 0.25rem;
   max-width: 100vw;
@@ -20,6 +23,7 @@ mat-card {
 }
 
 @media (max-width: 390px) {
+  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
   mat-card {
     min-width: 21.25rem;
     max-width: 21.25rem;
@@ -27,6 +31,7 @@ mat-card {
 }
 
 @media (max-width: 375px) {
+  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
   mat-card {
     min-width: 22rem;
     max-width: 22rem;
@@ -34,6 +39,7 @@ mat-card {
 }
 
 @media (max-width: 320px) {
+  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
   mat-card {
     min-width: 19rem;
     max-width: 19rem;

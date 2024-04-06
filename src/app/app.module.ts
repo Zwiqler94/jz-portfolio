@@ -64,6 +64,10 @@ import { FitnessTabComponent } from './pages/hobbies/fitness-tab/fitness-tab.com
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { NewPostDialogComponent } from './components/new-post-dialog/new-post-dialog.component';
 import { NgxColorsModule } from 'ngx-colors';
+import { TestComponent } from './test/test.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+import { CpComponent } from './cp/cp.component';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -100,6 +104,8 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     PhotographyTabComponent,
     FitnessTabComponent,
     NewPostDialogComponent,
+    TestComponent,
+    CpComponent,
   ],
   imports: [
     BrowserModule,
@@ -150,6 +156,8 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     MatDialogModule,
     NgxColorsModule,
     EverythingLibModule,
+    MatGridListModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

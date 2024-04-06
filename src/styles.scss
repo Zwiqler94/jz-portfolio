@@ -76,12 +76,13 @@ div.NgxEditor.NgxEditor {
   }
 }
 
-mat-card.base {
-  max-width: 80vw;
-  width: 10rem;
-  min-width: 45vw;
-  height: 28rem;
-}
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
+// mat-card.base {
+//   max-width: 80vw;
+//   width: 10rem;
+//   min-width: 45vw;
+//   height: 28rem;
+// }
 
 .mat-mdc-standard-chip .mdc-evolution-chip__cell--primary,
 .mat-mdc-standard-chip .mdc-evolution-chip__action--primary,
