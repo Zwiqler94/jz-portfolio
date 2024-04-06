@@ -188,7 +188,6 @@ export class MicrosoftLearnUserProfile {
   qnA: QnA;
 
   constructor(profileComponents: any) {
-    console.log({ profileComponents });
     this.attachments = profileComponents.Attachments;
     this.xp = profileComponents.XP;
     this.progress = profileComponents.Progress;

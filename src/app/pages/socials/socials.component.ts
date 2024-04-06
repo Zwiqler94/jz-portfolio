@@ -1,12 +1,6 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import {
-  Component,
-  OnInit,
-  Renderer2,
-  Inject,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, Renderer2, Inject, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
@@ -91,6 +85,6 @@ export class SocialsComponent implements AfterViewInit {
   }
 
   random(): number {
-    return Math.random()*Math.PI;
+    return Math.random() * Math.PI;
   }
 }

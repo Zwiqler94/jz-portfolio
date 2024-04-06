@@ -1,6 +1,20 @@
-import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { Component, Input } from '@angular/core';
-import { Interface } from 'readline';
+import {
+  animate,
+  animateChild,
+  query,
+  stagger,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
 
@@ -16,15 +30,21 @@ interface SkillModel {
   animations: [
     trigger('panelAnimation', [
       // state('start', style({ opacity: 1, transform: 'none' })),
-      // transition(':enter', []),
-      transition('* <=> *, void <=> *', [
+      transition('void <=> *', [
+        query(
+          'div.mat-expansion-panel-content',
+          [animateChild({ duration: '0.01ms' })],
+          {
+            optional: true,
+          }
+        ),
         query(
           ':enter',
           [
             style({ opacity: 0, transform: 'translateY(-100px)' }),
             stagger('90ms', [
               animate(
-                '0.5s 10ms ease-in',
+                '0.5s 200ms ease-in',
                 style({ opacity: 1, transform: 'none' })
               ),
             ]),
@@ -35,9 +55,10 @@ interface SkillModel {
           ':leave',
           [
             style({ opacity: 1, transform: 'none' }),
-            stagger('50ms', [
+
+            stagger('5ms', [
               animate(
-                '0.5s 10ms ease-out',
+                '0.55s ease-in-out',
                 style({ opacity: 0, transform: 'translateY(-100px)' })
               ),
             ]),
@@ -47,15 +68,90 @@ interface SkillModel {
           }
         ),
       ]),
-      // transition(':leave', [
-      //   style({ opacity: 0, transform: 'translateY(-100)' }),
-      //   animate('5s 100ms ease-out'),
+      // transition('void <=> *', [
+      //   query(
+      //     'div.mat-expansion-panel-content',
+      //     [animateChild({ duration: '0.01ms' })],
+      //     {
+      //       optional: true,
+      //     },
+      //   ),
+      //   query(
+      //     ':enter',
+      //     [
+      //       style({ opacity: 0, transform: 'translateY(-100px)' }),
+      //       stagger('90ms', [
+      //         animate(
+      //           '1s 300ms ease-in',
+      //           style({ opacity: 1, transform: 'none' }),
+      //         ),
+      //       ]),
+      //     ],
+      //     { optional: true },
+      //   ),
+      //   query(
+      //     ':leave',
+      //     [
+      //       style({ opacity: 1, transform: 'none' }),
+      //       stagger('20ms', [
+      //         animate(
+      //           '0.1s 10ms ease-out',
+      //           style({ opacity: 0, transform: 'translateY(-100px)' }),
+      //         ),
+      //       ]),
+      //     ],
+      //     {
+      //       optional: true,
+      //     },
+      //   ),
+      // ]),
+      // transition('credentials <=> skills', [
+      //   query(
+      //     'div.mat-expansion-panel-content',
+      //     [animateChild({ duration: '0.01ms' })],
+      //     {
+      //       optional: true,
+      //     },
+      //   ),
+      //   query(
+      //     ':enter',
+      //     [
+      //       style({ opacity: 0, transform: 'translateY(-100px)' }),
+      //       stagger('190ms', [
+      //         animate(
+      //           '0.5s 300ms ease-in',
+      //           style({ opacity: 1, transform: 'none' }),
+      //         ),
+      //       ]),
+      //     ],
+      //     { optional: true },
+      //   ),
+      //   // query(
+      //   //   ':leave',
+      //   //   [
+      //   //     style({ opacity: 1, transform: 'none' }),
+      //   //     stagger('50ms', [
+      //   //       animate(
+      //   //         '0.5s 10ms ease-out',
+      //   //         style({ opacity: 0, transform: 'translateY(-100px)' }),
+      //   //       ),
+      //   //     ]),
+      //   //   ],
+      //   //   {
+      //   //     optional: true,
+      //   //   },
+      //   // ),
       // ]),
     ]),
   ],
 })
-export class SkillsComponent extends Tabs {
+export class SkillsComponent extends Tabs implements OnChanges {
   @Input() public tabTitle: string;
+  @Input() public prevTabTitle: string;
+  @Output() tabTitleChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() prevTabTitleChange: EventEmitter<string> =
+    new EventEmitter<string>();
+
   private _skillList: SkillModel[];
   private _skillListDefault: SkillModel[] = [
     { list: 'Cloud', skill: 'AWS' },
@@ -74,6 +170,7 @@ export class SkillsComponent extends Tabs {
     { list: 'Frameworks', skill: 'Hyperledger Fabric' },
     { list: 'Frameworks', skill: 'Hyperledger Indy' },
     { list: 'Frameworks', skill: 'Mocha' },
+    { list: 'Frameworks', skill: 'Supertest' },
     { list: 'Methodologies', skill: 'Agile Software Development' },
     { list: 'Methodologies', skill: 'Test-Driven Development' },
     { list: 'Programming', skill: 'C' },
@@ -94,9 +191,17 @@ export class SkillsComponent extends Tabs {
     { list: 'Tools', skill: 'Jenkins' },
     { list: 'Tools', skill: 'Jira' },
     { list: 'Tools', skill: 'Kubernetes' },
-    { list: 'Frameworks', skill: 'Supertest' },
     { list: 'Tools', skill: 'Swagger/OpenAPI 3' },
   ];
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['tabTitle']) {
+      this.prevTabTitle = this.tabTitle;
+      this.prevTabTitleChange.emit(this.tabTitle);
+      this.tabTitleChange.emit(this.tabTitle);
+      console.log({ tab: this.tabTitle, prevTab: this.prevTabTitle });
+    }
+  }
 
   public get skillList(): SkillModel[] {
     if (environment.production) {

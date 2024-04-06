@@ -4,10 +4,10 @@ img#profile-image {
   border-radius: 0.25rem;
 }
 
-div#center-about-div > mat-card {
+div#center-about-div>mat-card {
   padding: 0.25rem;
-  width: 35rem;
-  height: 88rem;
+  width: 75rem;
+  height: 48rem;
 }
 
 #right-about-div,
@@ -42,15 +42,15 @@ div#center-about-div > mat-card {
 #right-about-div mat-card,
 #left-about-div mat-card {
   padding: 0.25rem;
-  width: 13rem;
-  height: 17.15rem;
+  height: 9rem;
+  width: 7rem;
 }
 
-#right-about-div > mat-card:not(:last-child) {
+#right-about-div>mat-card:not(:last-child) {
   margin-bottom: 1rem;
 }
 
-#left-about-div > mat-card:not(:last-child) {
+#left-about-div>mat-card:not(:last-child) {
   margin-bottom: 1rem;
 }
 
@@ -62,6 +62,17 @@ div#center-about-div > mat-card {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
+}
+
+#profile-content {
+  display: flex;
+  flex-direction: row;
+}
+
+#project-content-text {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 1440px) {
@@ -77,6 +88,7 @@ div#center-about-div > mat-card {
 }
 
 @media (max-width: 1180px) {
+
   .side-image,
   #right-about-div,
   #left-about-div {
@@ -93,7 +105,12 @@ div#center-about-div > mat-card {
 }
 
 @media (max-width: 870px) {
-  div#center-about-div > mat-card {
+  .profile-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  div#center-about-div>mat-card {
     margin: 0 5rem 2rem 5rem;
     max-width: 24.5rem;
     height: 80rem;
@@ -101,14 +118,14 @@ div#center-about-div > mat-card {
 }
 
 @media (max-width: 550px) {
-  div#center-about-div > mat-card {
+  div#center-about-div>mat-card {
     max-width: 24.5rem;
     height: 80rem;
   }
 }
 
 @media (max-width: 390px) {
-  div#center-about-div > mat-card {
+  div#center-about-div>mat-card {
     max-width: 21.5rem;
     height: 75rem;
   }
@@ -116,6 +133,7 @@ div#center-about-div > mat-card {
   img#profile-image {
     height: 28rem;
   }
+
   /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
   // mat-card {
   //   font-size: smaller;
@@ -123,7 +141,7 @@ div#center-about-div > mat-card {
 }
 
 @media (max-width: 320px) {
-  div#center-about-div > mat-card {
+  div#center-about-div>mat-card {
     max-width: 19.5rem;
     height: 75rem;
   }

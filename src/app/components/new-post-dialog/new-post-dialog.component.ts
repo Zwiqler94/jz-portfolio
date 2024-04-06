@@ -196,6 +196,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
       },
     });
 
+    this.editor.registerPlugin(bgColorPickerPlugin);
     this.editor.registerPlugin(textColorPickerPlugin);
   }
 

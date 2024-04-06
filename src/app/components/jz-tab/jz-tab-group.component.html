@@ -19,6 +19,7 @@
 <mat-tab-nav-panel #panel>
   <app-jz-tab-item
     [tabComponentList]="tabComponentList"
-    [tab]="currentTab"
+    [(tab)]="currentTab"
+    [(prevTab)]="previousTab"
   ></app-jz-tab-item>
 </mat-tab-nav-panel>
