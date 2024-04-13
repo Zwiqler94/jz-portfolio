@@ -27,14 +27,11 @@
   width: 60px;
 }
 
-#insta-posts1,
-#insta-posts2,
-#insta-posts3,
-#insta-posts4 {
+.insta-posts {
   display: flex;
   flex-direction: column;
-  width: 25vw;
-  height: 5500px;
+  width: 20vw;
+  height: 400rem;
   max-width: 65rem;
   margin: 0.5rem;
 }
@@ -42,8 +39,8 @@
 #feeds {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  margin: 1rem;
+  padding: 0.65rem;
+  margin: 0.65rem;
 }
 
 #instagram-feed {

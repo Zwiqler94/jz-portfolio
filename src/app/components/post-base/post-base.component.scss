@@ -4,6 +4,7 @@
   align-items: center;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card {
   margin: 0.938rem;
   min-width: 40vw;
@@ -41,6 +42,7 @@ a {
 }
 
 @media (max-width: 430px) {
+  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
   mat-card {
     margin: 0.938rem;
     max-width: 24.5rem;

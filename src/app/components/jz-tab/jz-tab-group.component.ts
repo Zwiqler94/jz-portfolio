@@ -9,8 +9,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { Tabs } from 'src/app/interfaces/tabs.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 
 @Component({
@@ -18,15 +17,12 @@ import { TabNavModel } from 'src/app/components/models/tab-nav.model';
   templateUrl: './jz-tab-group.component.html',
   styleUrls: ['./jz-tab-group.component.scss'],
 })
-export class JzTabGroupComponent
-  implements OnInit, Tabs, AfterViewInit, OnChanges
-{
-  @Input() tabTitle = '';
-  @Input() router: Router;
+export class JzTabGroupComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('tabTemplate', { read: ViewContainerRef })
   component: any;
+
   currentTab = '';
-  currentPage = '';
+  previousTab = '';
 
   @Input() tabComponentList: TabNavModel[] = [];
 
@@ -36,7 +32,9 @@ export class JzTabGroupComponent
   ) {}
 
   ngOnInit(): void {
-    this.route.children[0].url.subscribe((x) => (this.currentTab = x[0].path));
+    this.route.children[0].url
+      .pipe()
+      .subscribe((x) => (this.currentTab = x[0].path));
   }
 
   ngAfterViewInit() {
@@ -49,7 +47,8 @@ export class JzTabGroupComponent
         (x) => x.link === this.currentTab,
       )[0].component;
 
-      console.log(this.currentTab);
+      this.previousTab = changes['currentTab'].previousValue;
+      console.log({ tab: this.currentTab, prevTab: this.previousTab });
     }
   }
 }

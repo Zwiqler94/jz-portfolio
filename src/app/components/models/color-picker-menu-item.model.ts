@@ -1,8 +1,7 @@
-import { MenuModule } from 'ngx-editor/lib/modules/menu/menu.module';
 import { Command } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Plugin } from 'prosemirror-state';
-import { setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
+import { setBlockType } from 'prosemirror-commands';
 import { schema } from 'ngx-editor';
 
 interface MenuItem {
@@ -80,9 +79,9 @@ function icon(text: string | null, name: string) {
 // }
 
 // Create an icon for a heading at the given level
-function heading(level: string | number) {
-  return {
-    command: setBlockType(schema.nodes.heading, { level }),
-    dom: icon('H' + level, 'heading'),
-  };
-}
+// function heading(level: string | number) {
+//   return {
+//     command: setBlockType(schema.nodes.heading, { level }),
+//     dom: icon('H' + level, 'heading'),
+//   };
+// }

@@ -8,11 +8,9 @@ import {
   OnInit,
   ViewChild,
   ViewContainerRef,
-  inject,
 } from '@angular/core';
 import { TextPostComponent } from 'src/app/components/text-post/text-post.component';
-import { Post, PostBase, TextPost } from '../models/post.model';
-import { LinkPost } from 'src/app/components/models/post.model';
+import { Post } from '../models/post.model';
 import { LinkPostComponent } from 'src/app/components/link-post/link-post.component';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { from, lastValueFrom } from 'rxjs';

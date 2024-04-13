@@ -1,5 +1,3 @@
-import { SafeHtml } from '@angular/platform-browser';
-
 export interface PostBase {
   type: PostType;
   title: string;

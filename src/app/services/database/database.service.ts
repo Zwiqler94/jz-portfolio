@@ -167,7 +167,13 @@ export class DatabaseService {
     }
   }
 
-  createPost(post: any) {
+  createPost(post: {
+    location: string;
+    type: string;
+    status: string;
+    title: null | undefined;
+    content: string;
+  }) {
     this.headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json');

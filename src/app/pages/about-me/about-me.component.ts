@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { Router } from '@angular/router';
 import { AboutMeMainComponent } from 'src/app/pages/about-me/about-me-main/about-me-main.component';
@@ -15,6 +15,11 @@ import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 })
 export class AboutMeComponent implements Tabs {
   @Input() tabTitle: string;
+  @Input() prevTabTitle: string;
+  @Output() tabTitleChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() prevTabTitleChange: EventEmitter<string> =
+    new EventEmitter<string>();
+
   // @ViewChild(TabsDirective, { static: true }) appTabs!: TabsDirective;
 
   private _badgeHeight = '18.75rem';

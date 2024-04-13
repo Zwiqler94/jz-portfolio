@@ -58,8 +58,8 @@ mat-form-field {
 }
 
 .handleC {
-  top: -2.65rem;
-  right: -3rem;
+  top: -0.25rem;
+  right: -0.375rem;
   @extend %common-handle;
 }
 
@@ -97,6 +97,7 @@ mat-form-field {
   .dragF > mat-card {
     max-width: 24rem;
   }
+
   .project-content {
     margin: 0.5rem;
   }
@@ -106,6 +107,7 @@ mat-form-field {
   .dragF > mat-card {
     max-width: 24rem;
   }
+
   .project-content {
     margin: 0.5rem;
   }
