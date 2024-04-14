@@ -72,7 +72,7 @@ class AWSDBManager {
       const caCert = Buffer.from(await getSecretValue('caSSLCert'));
 
       this.pool = new Pool({
-        host: 'jz-portfolio.cj0jeurehhtj.us-east-2.rds.amazonaws.com',
+        host: 'jz-portfolio-proxy.proxy-cj0jeurehhtj.us-east-2.rds.amazonaws.com',
         user: AWSDBManager.username,
         password: AWSDBManager.password,
         database: 'jz_dev',
