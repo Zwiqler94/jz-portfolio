@@ -21,6 +21,7 @@ import express = require('express');
 // import {getFunctions, connectFunctionsEmulator} from "firebase/functions";
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
+import { debug } from 'firebase-functions/logger';
 
 // import {getAuth, connectAuthEmulator} from "firebase/auth";
 
@@ -43,7 +44,7 @@ export const fbAdminApp = initializeApp({
 
 const app = express();
 app.use(cors());
-// app.enable('trust proxy');
+app.set('trust proxy', 1);
 const jzPortfolioBackendExpressApp = express.Router();
 
 app.use('/api/v3', jzPortfolioBackendExpressApp);
@@ -82,3 +83,4 @@ export const jzPortfolioApp = onRequest(
   },
   app,
 );
+
