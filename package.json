@@ -57,7 +57,7 @@
     "ngx-editor": "^17.0.1",
     "nodemon": "^3.1.0",
     "object-hash": "^3.0.0",
-    "pg": "^8.11.3",
+    "pg": "^8.11.4",
     "pg-format": "^1.0.4",
     "promise-polyfill": "^8.3.0",
     "prosemirror-commands": "^1.5.2",
