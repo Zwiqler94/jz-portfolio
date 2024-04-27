@@ -49,9 +49,15 @@ const jzPortfolioBackendExpressApp = express.Router();
 app.use('/api/v3', jzPortfolioBackendExpressApp);
 jzPortfolioBackendExpressApp.use(secretRouter);
 jzPortfolioBackendExpressApp.use('/posts', postRouter);
-jzPortfolioBackendExpressApp.use('/health', (req, res) =>
-  res.send("I'm alive!"),
+jzPortfolioBackendExpressApp.get('/health', (req, res) =>
+  res.status(200).json({ result: 'Healthy' })
 );
+jzPortfolioBackendExpressApp.get('/x-forwarded-for', (request, response) =>
+  response.send(request.headers['x-forwarded-for'])
+);
+
+
+
 
 export const jzPortfolioApp = onRequest(
   {
