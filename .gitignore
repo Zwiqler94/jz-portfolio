@@ -73,9 +73,10 @@ db-config/
 # Environment Files
 .env.*
 .env
+.nx/cache/
+cli-envs/
 cli-envs
 
 # Amazon
 .aws
-.nx/cache/18.3.4-nx.darwin-arm64.node
-.nx/cache/nx_files.nxt
+
