@@ -71,5 +71,5 @@ const getSecret = async (req: Request, res: Response) => {
   }
 };
 
-secretRouter.get('/secrets/link-previews', limiter, getLinkPreviewSecret);
-secretRouter.get('/secrets/:name', limiter, getSecret);
+secretRouter.get('/secrets/link-previews', getLinkPreviewSecret);
+secretRouter.get('/secrets/:name', getSecret);

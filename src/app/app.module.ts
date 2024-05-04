@@ -1,4 +1,4 @@
-import { NgModule, inject } from '@angular/core';
+import { CSP_NONCE, NgModule, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -69,6 +69,9 @@ declare global {
   // eslint-disable-next-line no-var
   var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
 }
+
+// const crypto = require("crypto");
+// const nonce = crypto.randomBytes(16).toString("base64");
 
 self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
 
@@ -151,7 +154,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     NgxColorsModule,
     EverythingLibModule,
   ],
-  providers: [],
+  // providers: [{ provide: CSP_NONCE, useValue: btoa('cuuutie') }],
   bootstrap: [AppComponent],
 })
 export class AppModule {

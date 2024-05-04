@@ -105,7 +105,7 @@ export class DatabaseService {
         { headers: this.headers },
       );
     } else if (environment.local) {
-      this.headers = new HttpHeaders()
+      this.headers = this.headers
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json');
       this.mainPosts = this.httpClient.get<Post[]>(`${this.postUrl}/main`, {

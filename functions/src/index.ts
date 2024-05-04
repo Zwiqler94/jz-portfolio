@@ -21,6 +21,8 @@ import express = require('express');
 // import {getFunctions, connectFunctionsEmulator} from "firebase/functions";
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
+import { debug } from 'firebase-functions/logger';
+import { appCheckGaurd, limiter } from './middleware';
 
 // import {getAuth, connectAuthEmulator} from "firebase/auth";
 
@@ -43,25 +45,34 @@ export const fbAdminApp = initializeApp({
 
 const app = express();
 app.use(cors());
-// app.enable('trust proxy');
+app.use(limiter);
+app.set('trust proxy', 1);
 const jzPortfolioBackendExpressApp = express.Router();
+const gaurdedRoutes = express.Router().use(appCheckGaurd);
 
 app.use('/api/v3', jzPortfolioBackendExpressApp);
-jzPortfolioBackendExpressApp.use(secretRouter);
-jzPortfolioBackendExpressApp.use('/posts', postRouter);
-jzPortfolioBackendExpressApp.get('/health', (req, res) =>
-  res.status(200).json({ result: 'Healthy' })
-);
+
+gaurdedRoutes.use(secretRouter);
+gaurdedRoutes.use('/posts', postRouter);
+
+jzPortfolioBackendExpressApp.get('/health', (req, res) => {
+  const data = {
+    uptime: process.uptime(),
+    message: 'Ok',
+    date: new Date(),
+  };
+
+  res.status(200).send(data);
+});
+
 jzPortfolioBackendExpressApp.get('/x-forwarded-for', (request, response) =>
-  response.send(request.headers['x-forwarded-for'])
+  response.send(request.headers['x-forwarded-for']),
 );
 
-
-
+jzPortfolioBackendExpressApp.use(gaurdedRoutes);
 
 export const jzPortfolioApp = onRequest(
   {
-    enforceAppCheck: true,
     maxInstances: 5,
     timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
