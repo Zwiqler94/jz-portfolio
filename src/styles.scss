@@ -5,13 +5,17 @@
 
 @import "https://fonts.googleapis.com/icon?family=Material+Icons+Round";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
   margin: 0;
   font-family:
+    "Quicksand",
+    "Libre Franklin",
+    Roboto,
     system-ui,
     -apple-system,
-    Roboto,
     BlinkMacSystemFont,
     "Segoe UI",
     Oxygen,
@@ -26,12 +30,14 @@ body {
 $dark-theme: mat.define-dark-theme(
   (
     color: (
-      primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
-      accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
-      warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
+      primary: mat.define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
+      accent: mat.define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
+      warn: mat.define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
     ),
     // Only include `typography` and `density` in the default dark theme.
-    typography: mat.define-typography-config(),
+    typography: mat.define-typography-config(
+      $font-family: 'Quicksand'
+    ),
     density: 0,
   )
 );
@@ -43,12 +49,10 @@ $light-theme: mat.define-light-theme(
       primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
       accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
       warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
-    ),
-    // Only include `typography` and `density` in the default dark theme.
-    typography: mat.define-typography-config(),
-    density: 0,
+    )
   )
 );
+
 
 // Apply the dark theme by default
 @include mat.all-component-themes($dark-theme);
@@ -104,6 +108,12 @@ mat-card.base {
 div#post-content#post-content#post-content p img {
   width: 85vw;
 }
+
+#badge-name {
+   color: antiquewhite
+ }
+
+
 
 @media (min-height: 1024px) {
   #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
