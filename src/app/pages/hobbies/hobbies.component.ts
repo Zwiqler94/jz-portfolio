@@ -2,10 +2,13 @@
 /* eslint-disable no-underscore-dangle */
 import { Component } from '@angular/core';
 import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
+import { Router } from '@angular/router';
 import { listAll, ListResult, StorageReference } from 'firebase/storage';
+import { TabNavModel } from 'src/app/components/models/tab-nav.model';
+import { FitnessTabComponent } from 'src/app/pages/hobbies/fitness-tab/fitness-tab.component';
+import { JapaneseTabComponent } from 'src/app/pages/hobbies/japanese-tab/japanese-tab.component';
+import { PhotographyTabComponent } from 'src/app/pages/hobbies/photography-tab/photography-tab.component';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
-// import { cache } from 'src/main';
-// import { MediaCacheModel } from 'src/models/cache.model';
 
 @Component({
   selector: 'app-hobbies',
@@ -13,19 +16,36 @@ import { ServiceWorkerService } from 'src/app/services/service-worker/service-wo
   styleUrls: ['./hobbies.component.scss'],
 })
 export class HobbiesComponent {
+  private _tabComponentList: TabNavModel[] = [
+    {
+      component: PhotographyTabComponent,
+      title: 'Photography',
+      link: 'photos',
+    },
+    {
+      component: JapaneseTabComponent,
+      title: 'Japanese',
+      link: 'japanese',
+    },
+    { component: FitnessTabComponent, title: 'Fitness', link: 'fitness' },
+  ];
+
   constructor(
     private storage: Storage,
     private sw: ServiceWorkerService,
+    private router: Router,
   ) {
     this.setupVideos();
     this.setUpCarouselImages();
     this.setUpPhotographyImages();
-    // cache.on('set', () => {
-    //   console.log('Miss: media stored in cache');
-    // });
-    // cache.on('get', () => {
-    //   console.log('Hit: media retrieved in cache');
-    // });
+    const currentPagePath = location.pathname.split('/').pop();
+    const result = this.tabComponentList.filter(
+      (tabItem) => tabItem.link === currentPagePath,
+    );
+    if (result.length <= 0)
+      this.router.navigateByUrl('/hobbies/photos', {
+        skipLocationChange: true,
+      });
   }
 
   private async setUpPhotographyImages() {
@@ -123,6 +143,13 @@ export class HobbiesComponent {
 
   public get pics5(): string[] {
     return this.sw.pics5;
+  }
+
+  public get tabComponentList(): TabNavModel[] {
+    return this._tabComponentList;
+  }
+  public set tabComponentList(value: TabNavModel[]) {
+    this._tabComponentList = value;
   }
 
   private async setUpCarouselImages() {

@@ -10,8 +10,20 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   min-width: 50vw;
   width: 120rem;
   max-width: 100vw;
   height: 4rem;
 }
+
+// @media (min-height: 695px) and (max-width: 1080px) {
+//   #footer,
+//     footer {
+//       padding: 0rem;
+//     }
+
+//     #footer-div {
+//     //  align-items: center;
+//     }
+// }

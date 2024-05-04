@@ -237,7 +237,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "jz-portfolio:build"
+            "buildTarget": "jz-portfolio:build"
           }
         },
         "lint": {
@@ -250,20 +250,20 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "jz-portfolio:build:production"
+              "buildTarget": "jz-portfolio:build:production"
             },
             "development": {
-              "browserTarget": "jz-portfolio:build:development"
+              "buildTarget": "jz-portfolio:build:development"
             },
             "dev-local": {
-              "browserTarget": "jz-portfolio:build:dev-local"
+              "buildTarget": "jz-portfolio:build:dev-local"
             },
             "local": {
-              "browserTarget": "jz-portfolio:build:local"
+              "buildTarget": "jz-portfolio:build:local"
             }
           },
           "options": {
-            "browserTarget": "jz-portfolio:build"
+            "buildTarget": "jz-portfolio:build"
           }
         },
         "test": {

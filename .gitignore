@@ -75,3 +75,8 @@ db-config/
 .env
 .nx/cache/
 cli-envs/
+cli-envs
+
+# Amazon
+.aws
+

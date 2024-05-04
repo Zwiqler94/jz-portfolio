@@ -1,20 +1,24 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script
-      async="true"
-      src="https://www.googletagmanager.com/gtag/js?id=G-CNT03XSD81"
-    ></script>
+    <!-- <meta http-equiv="Content-Security-Policy" content="frame-src *;"> -->
+    <!-- Google Tag Manager -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-CNT03XSD81");
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          "gtm.start": new Date().getTime(),
+          event: "gtm.js",
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-KWH754TK");
     </script>
+    <!-- End Google Tag Manager -->
 
     <meta charset="utf-8" />
     <title>Jacob Zwickler</title>
@@ -54,12 +58,35 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/4b9ba14b0f.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="manifest" href="manifest.webmanifest" />
     <meta name="theme-color" content="#1976d2" />
     <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7668256718856123"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body class="mat-typography mat-app-background">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-KWH754TK"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <app-root></app-root>
     <noscript
       >Please enable JavaScript to continue using this application.</noscript

@@ -1,9 +1,45 @@
-export interface Post {
-  type: string;
+import { SafeHtml } from '@angular/platform-browser';
+
+export interface PostBase {
+  type: PostType;
   title: string;
   content: string;
-  location?: string;
-  uri?: string;
-  video?: string;
-  image?: string;
+  location: string;
 }
+
+export interface LinkPost extends PostBase {
+  uri: string;
+}
+
+export interface TextPost extends PostBase {}
+
+export interface ImagePost extends PostBase {
+  image: string;
+}
+
+export interface VideoPost extends PostBase {
+  video: string;
+}
+
+export interface LinkPreview {
+  title: string;
+  description: string;
+  url: string;
+  image: string;
+}
+
+export const MissingLinkPreviewData: LinkPreview = {
+  title: 'Link Preview Unavailable',
+  image: '',
+  url: '',
+  description: 'Link Preview Unavailable',
+};
+
+export type PostType =
+  | 'LinkPost'
+  | 'link'
+  | 'TextPost'
+  | 'text'
+  | 'ImagePost'
+  | 'VideoPost';
+export type Post = TextPost | LinkPost | ImagePost | VideoPost;

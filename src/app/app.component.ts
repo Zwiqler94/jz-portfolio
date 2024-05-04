@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // this.dbService.appCheck = inject(AppCheck);
+
     if (this.swUpdate.isEnabled) {
       console.log('Service Worker Enabled');
       this.swUpdate.versionUpdates

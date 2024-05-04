@@ -4,7 +4,7 @@
 
 # JzPortfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11 (updated to v15).
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11 (updated to v17).
 
 ## Development server
 
@@ -34,7 +34,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 Jacob Zwickler
 
-## Image Citationa
+## Image Citation
 
 next arrow by Graphik Designz from the Noun Project
 previous arrow by Mohamad Arif Prasetyo from the Noun Project
+
+## Branch Organization Using Semantic Release
+
+1. Production -> main
+2. Development -> development / QA / branch off for maintenance branches (release branch, v5 )
+3. Next -> use to make sure that dev never goes above a certain version (major version ahead, ex. v6)

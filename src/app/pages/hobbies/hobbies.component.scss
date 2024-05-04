@@ -1,22 +1,22 @@
-$hobby-div-height: 100vh;
-$content-div-height: calc($hobby-div-height - 3rem);
+$hobby-div-height: 52rem;
+$content-div-height: calc($hobby-div-height - 2rem);
 $paragraph-div-height: calc($content-div-height - 2rem);
+$hobby-div-width: 100vw;
+$content-div-width: calc($hobby-div-width - 2.75rem);
 
 #hobby-div {
   display: flex;
-  height: $hobby-div-height;
-  width: 100vw;
-  background-color: gray;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: $hobby-div-width;
 }
 
 .content-div {
-  height: $content-div-height;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: white;
+  align-items: center;
 }
 
 .paragraph {
@@ -25,6 +25,7 @@ $paragraph-div-height: calc($content-div-height - 2rem);
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 30vw;
 }
 
 .image-div {
@@ -32,7 +33,6 @@ $paragraph-div-height: calc($content-div-height - 2rem);
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 80vw;
 }
 
 .images {
@@ -42,14 +42,13 @@ $paragraph-div-height: calc($content-div-height - 2rem);
   justify-content: center;
 }
 
-figcaption {
-  margin-top: 0.5vw;
-}
-
-.jlpt-score,
 .japan {
   height: 20vh;
   width: auto;
+}
+
+.jlpt-score {
+  width: 20vw;
 }
 
 video {
@@ -62,12 +61,6 @@ video {
 
 mat-tab-group {
   width: 100vw;
-}
-
-mat-card {
-  max-width: 80vw;
-  width: 18.75rem;
-  min-width: 45vw;
 }
 
 // mat-card {
@@ -99,6 +92,7 @@ mat-card {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
   .image-columns {
     display: flex;
     flex-direction: column;
@@ -126,6 +120,27 @@ mat-card {
   margin: 1rem;
 }
 
+mat-card {
+  padding: 0.25rem;
+  max-width: 95vw;
+  width: 26.25rem;
+  height: 45rem;
+  min-width: 45vw;
+}
+
 app-carousel {
   margin: 3rem;
+}
+
+app-jz-tab-group {
+  width: 100vw;
+  height: 95vh;
+}
+
+@media (max-width: 430px) {
+  .jlpt-score {
+    max-width: 30vw;
+    height: 20rem;
+    min-width: 20vw;
+  }
 }

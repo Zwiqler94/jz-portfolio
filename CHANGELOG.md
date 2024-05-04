@@ -1,3 +1,120 @@
+## [5.0.12](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.11...v5.0.12) (2024-03-22)
+
+### build
+
+- **versioning:** limit release version ([5cb49b9](https://github.com/Zwiqler94/jz-portfolio/commit/5cb49b9048fa1556603b7a9d6bcde42e8d50b87d))
+
+## [5.0.10](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.9...v5.0.10) (2024-03-22)
+
+### build
+
+- **testy:** test ([#438](https://github.com/Zwiqler94/jz-portfolio/issues/438)) ([2757738](https://github.com/Zwiqler94/jz-portfolio/commit/27577384c2c1ac5b324f778206a74dda0297c2bc))
+
+## [5.0.8](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.7...v5.0.8) (2024-03-21)
+
+### build
+
+- **versioning:** switch to semantic-release from conventional-changelog ([5a4ff70](https://github.com/Zwiqler94/jz-portfolio/commit/5a4ff70551f0ab60e873b653c4a16a5a6a56be7d))
+
+## <small>5.0.7 (2024-03-21)</small>
+
+- feat(creds): add new badges to credentials page ([98c5488](https://github.com/Zwiqler94/jz-portfolio/commit/98c5488)), closes [#431](https://github.com/Zwiqler94/jz-portfolio/issues/431)
+
+## <small>5.0.6 (2024-03-21)</small>
+
+- revert: "feat (creds): add new badges to credentials page" ([f135067](https://github.com/Zwiqler94/jz-portfolio/commit/f135067))
+
+## <small>5.0.5 (2024-03-20)</small>
+
+- fix(skills): adjust breakpoints for small screens (#401) ([c376ac5](https://github.com/Zwiqler94/jz-portfolio/commit/c376ac5)), closes [#401](https://github.com/Zwiqler94/jz-portfolio/issues/401)
+
+## <small>5.0.4 (2024-01-22)</small>
+
+- fix(tsconfig): change target, module, lib to ES2022 (#399) ([14e91bb](https://github.com/Zwiqler94/jz-portfolio/commit/14e91bb)), closes [#399](https://github.com/Zwiqler94/jz-portfolio/issues/399)
+
+## <small>5.0.3 (2024-01-06)</small>
+
+- fix(projects): update links to live projects (#386) ([70492b4](https://github.com/Zwiqler94/jz-portfolio/commit/70492b4)), closes [#386](https://github.com/Zwiqler94/jz-portfolio/issues/386)
+
+## <small>5.0.2 (2023-11-23)</small>
+
+- fix(appcheck): fix appcheck once more (#363) ([07f49dc](https://github.com/Zwiqler94/jz-portfolio/commit/07f49dc)), closes [#363](https://github.com/Zwiqler94/jz-portfolio/issues/363) [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87) [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87)
+
+## <small>5.0.1 (2023-11-19)</small>
+
+- ci(semver): update versioning process until stable (#360) ([6403ce5](https://github.com/Zwiqler94/jz-portfolio/commit/6403ce5)), closes [#360](https://github.com/Zwiqler94/jz-portfolio/issues/360)
+
+## 5.0.0 (2023-11-19)
+
+- Latest Changes (#343) ([87f3cf3](https://github.com/Zwiqler94/jz-portfolio/commit/87f3cf3)), closes [#343](https://github.com/Zwiqler94/jz-portfolio/issues/343) [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
+
+## <small>4.0.1 (2023-11-15)</small>
+
+- Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular/cdk@\*, @angular/material ([d0e7511](https://github.com/Zwiqler94/jz-portfolio/commit/d0e7511))
+- Angular CLI update for packages - @angular/cli@16, @angular/core@16, @angular/cdk@16, @angular/mater ([ed6639c](https://github.com/Zwiqler94/jz-portfolio/commit/ed6639c))
+- Angular CLI update for packages - @angular/core@_, @angular/cdk@_, @angular/material@\* ([57f13a3](https://github.com/Zwiqler94/jz-portfolio/commit/57f13a3))
+- Angular CLI update for packages - @angular/core@_, @angular/cdk@_, @angular/material@\* ([9cea663](https://github.com/Zwiqler94/jz-portfolio/commit/9cea663))
+- Prod Push 7/30 (#311) ([c6f72c8](https://github.com/Zwiqler94/jz-portfolio/commit/c6f72c8)), closes [#311](https://github.com/Zwiqler94/jz-portfolio/issues/311) [#273](https://github.com/Zwiqler94/jz-portfolio/issues/273)
+- Prod Push!! (#320) ([1f3beaf](https://github.com/Zwiqler94/jz-portfolio/commit/1f3beaf)), closes [#320](https://github.com/Zwiqler94/jz-portfolio/issues/320) [#299](https://github.com/Zwiqler94/jz-portfolio/issues/299) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#265](https://github.com/Zwiqler94/jz-portfolio/issues/265) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#73](https://github.com/Zwiqler94/jz-portfolio/issues/73) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#JLZP-51](https://github.com/Zwiqler94/jz-portfolio/issues/JLZP-51) [#72](https://github.com/Zwiqler94/jz-portfolio/issues/72) [#101](https://github.com/Zwiqler94/jz-portfolio/issues/101) [#102](https://github.com/Zwiqler94/jz-portfolio/issues/102)
+- fix: everything-lib update ([1887a52](https://github.com/Zwiqler94/jz-portfolio/commit/1887a52))
+- fix(deps): fix everything lib deps ([953baf0](https://github.com/Zwiqler94/jz-portfolio/commit/953baf0))
+- fix(deps): fix mismatch deps ([99535b1](https://github.com/Zwiqler94/jz-portfolio/commit/99535b1))
+- fix(deps): fix mismatch deps ([fa7fc93](https://github.com/Zwiqler94/jz-portfolio/commit/fa7fc93))
+- fix(deps): remove firestore because of interface issues ([b7a5900](https://github.com/Zwiqler94/jz-portfolio/commit/b7a5900))
+- fix(functions): add ssl options back ([08f7255](https://github.com/Zwiqler94/jz-portfolio/commit/08f7255))
+- fix(style): push login button up ([71aec48](https://github.com/Zwiqler94/jz-portfolio/commit/71aec48))
+- build(deps): fix angular fire deps ([c01863d](https://github.com/Zwiqler94/jz-portfolio/commit/c01863d))
+- build(deps): update deps ([3284734](https://github.com/Zwiqler94/jz-portfolio/commit/3284734))
+- build(deps): update deps ([e01c93d](https://github.com/Zwiqler94/jz-portfolio/commit/e01c93d))
+- build(deps): update to latest everything lib ([4c2db18](https://github.com/Zwiqler94/jz-portfolio/commit/4c2db18))
+- feat(about-me): add more functionality to about me tabs ([8834c33](https://github.com/Zwiqler94/jz-portfolio/commit/8834c33))
+- feat(components): add custom tabs with linking ([2fdfdc7](https://github.com/Zwiqler94/jz-portfolio/commit/2fdfdc7))
+- chore: Dep Updates (#329) ([0bc3417](https://github.com/Zwiqler94/jz-portfolio/commit/0bc3417)), closes [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
+- chore: Dep Updates (#329) ([89e4903](https://github.com/Zwiqler94/jz-portfolio/commit/89e4903)), closes [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
+- chore: update deps ([cce74e2](https://github.com/Zwiqler94/jz-portfolio/commit/cce74e2))
+- chore: update deps ([c66def1](https://github.com/Zwiqler94/jz-portfolio/commit/c66def1))
+- chore(deps): fix deps again ([e3a9f0b](https://github.com/Zwiqler94/jz-portfolio/commit/e3a9f0b))
+- chore(deps): update angular deps ([d2d7d8d](https://github.com/Zwiqler94/jz-portfolio/commit/d2d7d8d))
+- chore(deps): update angular deps ([99e562f](https://github.com/Zwiqler94/jz-portfolio/commit/99e562f))
+- chore(deps): update deps ([89c6cee](https://github.com/Zwiqler94/jz-portfolio/commit/89c6cee))
+- chore(deps): update deps ([6c18221](https://github.com/Zwiqler94/jz-portfolio/commit/6c18221))
+- chore(deps): update deps ([761b7bb](https://github.com/Zwiqler94/jz-portfolio/commit/761b7bb))
+- chore(deps): update deps ([b1647e8](https://github.com/Zwiqler94/jz-portfolio/commit/b1647e8))
+
+### BREAKING CHANGE
+
+- change secret routes for v3
+
+- chore(release): 2.0.5 :tada:
+
+fix(secrets): fix secrets service rate limiter
+
+- chore(release): 2.0.6 :tada:
+
+Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular-eslint/schematics@_, @angular/material@_, @angular/cdk@\*
+
+@angular-eslint/schematics migration - update-16-0-0
+
+Updates @angular-eslint to v16
+
+chore(angular): migrate to v16
+
+- Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular/material@_, @angular/cdk@_
+
+- build(deps): update deps
+
+- feat(posts): switch from using static posts file to use pg db
+
+* switched main and puppy feed
+
+- new about page requires new tab components
+- new routes and auth reqs
+- no longer uses staticTextpost file
+
+## 4.0.0 (2023-09-09)
+
+- feat: custom tabs (#330) ([37aa64e](https://github.com/Zwiqler94/jz-portfolio/commit/37aa64e)), closes [#330](https://github.com/Zwiqler94/jz-portfolio/issues/330) [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
+
 ## <small>3.0.1 (2023-07-30)</small>
 
 - ci: fix more workflow issues (#318) ([eefcee2](https://github.com/Zwiqler94/jz-portfolio/commit/eefcee2)), closes [#318](https://github.com/Zwiqler94/jz-portfolio/issues/318)

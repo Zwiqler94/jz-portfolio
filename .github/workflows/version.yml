@@ -15,7 +15,7 @@ jobs:
       userToken: ${{ steps.checkToken.outputs.userToken }}
     steps:
       - id: checkToken
-        uses: Zwiqler94/GH-Actions@v0.4.3
+        uses: Zwiqler94/GH-Actions@v0.7.3
         with:
           token: ${{ secrets.USER_ACCESS_TOKEN }}
           appId: ${{ secrets.APP_ID }}
@@ -34,14 +34,14 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.4
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
-      - name: Use Node.js 18
+      - name: Use Node.js 20
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4.0.1
         with:
-          node-version: 18
+          node-version: 20
           cache: "npm"
       - name: version
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
@@ -93,14 +93,14 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.4
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
-      - name: Use Node.js 18
+      - name: Use Node.js 20
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4.0.1
         with:
-          node-version: 18
+          node-version: 20
           cache: "npm"
       - name: version
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
@@ -152,14 +152,14 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.4
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
-      - name: Use Node.js 18
+      - name: Use Node.js 20
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4.0.1
         with:
-          node-version: 18
+          node-version: 20
           cache: "npm"
       - name: version
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}

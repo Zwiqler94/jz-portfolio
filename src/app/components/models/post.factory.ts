@@ -1,29 +1,29 @@
-import { Post } from 'src/app/components/models/post.model';
+import { PostBase } from 'src/app/components/models/post.model';
 
 abstract class PostFactory {
   abstract createPost(): void;
 }
 
 class LinkPostFactory extends PostFactory {
-  createPost(): Post {
-    return;
+  createPost(): PostBase {
+    throw new Error('Method not implemented.');
   }
 }
 
 class TextPostFactory extends PostFactory {
-  createPost(): Post {
+  createPost(): PostBase {
     throw new Error('Method not implemented.');
   }
 }
 
 class VideoPostFactory extends PostFactory {
-  createPost(): Post {
+  createPost(): PostBase {
     throw new Error('Method not implemented.');
   }
 }
 
 class ImagePostFactory extends PostFactory {
-  createPost(): Post {
+  createPost(): PostBase {
     throw new Error('Method not implemented.');
   }
 }

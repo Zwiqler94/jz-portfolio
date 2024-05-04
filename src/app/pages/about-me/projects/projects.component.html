@@ -1,0 +1,132 @@
+<div class="project-content">
+  <div
+    class="dragA drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 0 }"
+  >
+    <div class="handleA" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-username-generator
+      class="project-content-item"
+      [(usernameForm)]="usernameFormInApp"
+      [(result)]="_result"
+    >
+    </lib-username-generator>
+  </div>
+
+  <div
+    class="dragB drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 100 }"
+  >
+    <div class="handleB" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-nasa id="" [apiKey]="nasaApiKey"></lib-nasa>
+  </div>
+  <div
+    class="dragC drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 200 }"
+  >
+    <div class="handleC" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-pokemon
+      [height]="'35'"
+      [width]="'35'"
+      class="project-content-item"
+    ></lib-pokemon>
+  </div>
+  <div
+    class="dragD drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 300 }"
+  >
+    <div class="handleD" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-boredom-solver
+      [height]="'5'"
+      [width]="maxWidth"
+      class="project-content-item"
+    ></lib-boredom-solver>
+  </div>
+  <div
+    class="dragE drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 400 }"
+  >
+    <div class="handleE" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-age-by-name
+      [height]="'15'"
+      [width]="maxWidth"
+      class="project-content-item"
+    ></lib-age-by-name>
+  </div>
+  <div
+    class="dragE drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 500 }"
+  >
+    <div class="handleE" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <mat-card>
+      <mat-card-header>
+        <h1>More Widgets Coming Soon!</h1>
+      </mat-card-header>
+    </mat-card>
+  </div>
+  <div
+    class="dragF drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 600 }"
+  >
+    <div class="handleF" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <mat-card>
+      <iframe
+        [frameBorder]="0"
+        class="project-content-item"
+        style="background-color: aliceblue"
+        height="600"
+        [width]="maxWidth"
+        src="https://iipa-32fdd.web.app"
+      >
+      </iframe>
+    </mat-card>
+  </div>
+  <div
+    class="dragF drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 700 }"
+  >
+    <div class="handleF" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <mat-card>
+      <iframe
+        [frameBorder]="0"
+        class="project-content-item"
+        style="background-color: aliceblue"
+        height="600"
+        [width]="maxWidth"
+        src="https://lotto-beast-new.web.app"
+      >
+      </iframe>
+    </mat-card>
+  </div>
+</div>

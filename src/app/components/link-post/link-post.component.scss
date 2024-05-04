@@ -42,12 +42,30 @@ a {
   justify-self: auto;
 }
 
-@media (max-width: 25.875rem) {
+img {
+  width: 100%;
+}
+
+@media (max-width: 430px) {
   mat-card {
-    margin: 0.938rem;
-    width: 22rem;
+    max-width: 24.5rem;
   }
-  img {
-    width: 19.5rem;
+}
+
+@media (max-width: 390px) {
+  mat-card {
+    max-width: 21.25rem;
+  }
+}
+
+@media (max-width: 375px) {
+  mat-card {
+    max-width: 22rem;
+  }
+}
+
+@media (max-width: 320px) {
+  mat-card {
+    max-width: 19rem;
   }
 }

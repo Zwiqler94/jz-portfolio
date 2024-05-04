@@ -1,8 +1,12 @@
 /* eslint-disable new-cap */
 import { onRequest } from 'firebase-functions/v2/https';
 import {
+  awsAccessKey,
+  awsSecretKey,
   clientCert,
   clientKey,
+  dbHostDev,
+  dbHostProd,
   dbPassDev,
   dbPassProd,
   secretNameDev,
@@ -10,13 +14,15 @@ import {
   secretRouter,
   serverCA,
 } from './secrets';
-import { limiter } from './middleware';
+// import { limiter } from './middleware';
 import { postRouter } from './db';
-import * as cors from 'cors';
-import * as express from 'express';
+import cors = require('cors');
+import express = require('express');
 // import {getFunctions, connectFunctionsEmulator} from "firebase/functions";
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
+import { debug } from 'firebase-functions/logger';
+import { appCheckGaurd, limiter } from './middleware';
 
 // import {getAuth, connectAuthEmulator} from "firebase/auth";
 
@@ -39,18 +45,36 @@ export const fbAdminApp = initializeApp({
 
 const app = express();
 app.use(cors());
-// app.enable('trust proxy');
+app.use(limiter);
+app.set('trust proxy', 1);
 const jzPortfolioBackendExpressApp = express.Router();
+const gaurdedRoutes = express.Router().use(appCheckGaurd);
 
-app.use('/api/v3', limiter, jzPortfolioBackendExpressApp);
-jzPortfolioBackendExpressApp.use(secretRouter);
-jzPortfolioBackendExpressApp.use('/posts', postRouter);
-jzPortfolioBackendExpressApp.use('/health', (req, res) =>
-  res.send("I'm alive!"),
+app.use('/api/v3', jzPortfolioBackendExpressApp);
+
+gaurdedRoutes.use(secretRouter);
+gaurdedRoutes.use('/posts', postRouter);
+
+jzPortfolioBackendExpressApp.get('/health', (req, res) => {
+  const data = {
+    uptime: process.uptime(),
+    message: 'Ok',
+    date: new Date(),
+  };
+
+  res.status(200).send(data);
+});
+
+jzPortfolioBackendExpressApp.get('/x-forwarded-for', (request, response) =>
+  response.send(request.headers['x-forwarded-for']),
 );
+
+jzPortfolioBackendExpressApp.use(gaurdedRoutes);
 
 export const jzPortfolioApp = onRequest(
   {
+    maxInstances: 5,
+    timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
     secrets: [
@@ -61,7 +85,12 @@ export const jzPortfolioApp = onRequest(
       serverCA,
       dbPassDev,
       dbPassProd,
+      dbHostDev,
+      dbHostProd,
+      awsAccessKey,
+      awsSecretKey,
     ],
   },
   app,
 );
+

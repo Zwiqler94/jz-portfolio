@@ -1,0 +1,138 @@
+img#profile-image {
+  height: 45rem;
+  aspect-ratio: 3/4;
+  border-radius: 0.25rem;
+}
+
+div#center-about-div > mat-card {
+  padding: 0.25rem;
+  width: 35rem;
+  height: 88rem;
+}
+
+#right-about-div,
+#left-about-div {
+  width: 8vw;
+  display: flex;
+  flex-direction: column;
+}
+
+#right-about-div {
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#left-about-div {
+  align-items: flex-start;
+  justify-content: center;
+}
+
+#center-about-div {
+  width: 78vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+// #right-about-div:not(:last-child) mat-card {
+//   margin-bottom: 1rem;
+// }
+
+#right-about-div mat-card,
+#left-about-div mat-card {
+  padding: 0.25rem;
+  width: 13rem;
+  height: 17.15rem;
+}
+
+#right-about-div > mat-card:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+#left-about-div > mat-card:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.about-content,
+.project-content {
+  position: relative;
+  margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+@media (max-width: 1440px) {
+  .about-content:not(:last-child) mat-card {
+    margin-right: 11rem;
+  }
+}
+
+@media (max-width: 1280px) {
+  .about-content:not(:last-child) mat-card {
+    margin-right: 8rem;
+  }
+}
+
+@media (max-width: 1180px) {
+  .side-image,
+  #right-about-div,
+  #left-about-div {
+    display: none;
+  }
+
+  .about-content:not(:last-child) mat-card {
+    margin-right: 0rem;
+  }
+
+  img#profile-image {
+    height: 32rem;
+  }
+}
+
+@media (max-width: 870px) {
+  div#center-about-div > mat-card {
+    margin: 0 5rem 2rem 5rem;
+    max-width: 24.5rem;
+    height: 80rem;
+  }
+}
+
+@media (max-width: 550px) {
+  div#center-about-div > mat-card {
+    max-width: 24.5rem;
+    height: 80rem;
+  }
+}
+
+@media (max-width: 390px) {
+  div#center-about-div > mat-card {
+    max-width: 21.5rem;
+    height: 75rem;
+  }
+
+  img#profile-image {
+    height: 28rem;
+  }
+
+  mat-card {
+    font-size: smaller;
+  }
+}
+
+@media (max-width: 320px) {
+  div#center-about-div > mat-card {
+    max-width: 19.5rem;
+    height: 75rem;
+  }
+
+  img#profile-image {
+    height: 25.3rem;
+  }
+
+  mat-card {
+    font-size: smaller;
+  }
+}
