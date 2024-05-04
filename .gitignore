@@ -77,3 +77,5 @@ cli-envs
 
 # Amazon
 .aws
+.nx/cache/18.3.4-nx.darwin-arm64.node
+.nx/cache/nx_files.nxt
