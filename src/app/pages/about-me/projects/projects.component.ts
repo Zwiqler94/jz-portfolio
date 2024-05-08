@@ -12,9 +12,10 @@ import { environment } from 'src/environments/environment';
 export class ProjectsComponent extends Tabs {
   @Input() public tabTitle: string;
   screenWidth: number = window.innerWidth;
-  screenHeight: number;
+  screenHeight: number = window.innerHeight;
 
-  private _maxWidth: number = this.screenWidth - 45;
+  private _maxWidth: number = this.screenWidth - 25 - 45;
+  private _maxHeight: number = this.screenHeight - 25 - 145;
 
   // @ViewChild('tab', { read: ViewContainerRef }) tabTemplate: ViewContainerRef;
 
@@ -22,7 +23,8 @@ export class ProjectsComponent extends Tabs {
   onResize(event: any) {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
-    this.maxWidth = this.screenWidth - 45;
+    this.maxWidth = this.screenWidth - 25 - 45;
+    this.maxHeight = this.screenHeight - 25 - 145;
   }
 
   _result = [''];
@@ -32,10 +34,7 @@ export class ProjectsComponent extends Tabs {
     specialCharacters: [''],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private httpClient: HttpClient,
-  ) {
+  constructor(private fb: FormBuilder, private httpClient: HttpClient) {
     super();
   }
 
@@ -59,6 +58,14 @@ export class ProjectsComponent extends Tabs {
     return `${this._maxWidth}px`;
   }
 
+  public set maxHeight(value: number) {
+    this._maxHeight = value;
+  }
+
+  public get maxHeight(): string {
+    return `${this._maxHeight}px`;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onSubmit(_token: unknown) {
     const body = {
@@ -77,7 +84,7 @@ export class ProjectsComponent extends Tabs {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
           },
-        },
+        }
       )
       .subscribe((results) => {
         this.results = results;
