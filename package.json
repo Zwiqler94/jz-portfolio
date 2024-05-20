@@ -39,7 +39,7 @@
     "@angular/localize": "^17.3.7",
     "@angular/material": "^17.3.7",
     "@angular/platform-browser": "^17.3.7",
-    "@angular/platform-browser-dynamic": "^17.3.7",
+    "@angular/platform-browser-dynamic": "^17.3.9",
     "@angular/router": "^17.3.7",
     "@angular/service-worker": "^17.3.7",
     "@firebase/util": "^1.9.5",
