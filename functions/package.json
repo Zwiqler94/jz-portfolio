@@ -23,7 +23,7 @@
     "@aws-sdk/client-rds": "^3.564.0",
     "@aws-sdk/client-rds-data": "^3.564.0",
     "@aws-sdk/client-s3": "^3.564.0",
-    "@aws-sdk/client-secrets-manager": "^3.564.0",
+    "@aws-sdk/client-secrets-manager": "^3.565.0",
     "@google-cloud/cloud-sql-connector": "^1.2.4",
     "@google-cloud/secret-manager": "^5.4.0",
     "@types/node": "^20.12.7",
