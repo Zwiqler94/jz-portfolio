@@ -20,7 +20,9 @@ import express = require('express');
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
 import { appCheckGaurd, limiter } from './middleware';
+import helmet from 'helmet';
 import { error } from 'firebase-functions/logger';
+const session = require('express-session');
 
 
 
@@ -34,10 +36,20 @@ export const fbAdminApp = initializeApp({
 
 const app = express();
 app.use(cors());
+app.use(helmet())
+app.use(
+  session({
+    secret: [process.env.SESS_SEC, 'pjwq0 !@#jmx',],
+    resave: false,
+    saveUninitialized: true,
+
+  })
+);
+app.disable("x-powered-by")
 app.use(limiter);
 app.set('trust proxy', 1);
-const jzPortfolioBackendExpressApp = express.Router();
-const gaurdedRoutes = express.Router().use(appCheckGaurd);
+const jzPortfolioBackendExpressApp = express.Router().use(helmet());
+const gaurdedRoutes = express.Router().use(appCheckGaurd).use(helmet());
 
 app.use('/api/v3', jzPortfolioBackendExpressApp);
 
@@ -69,6 +81,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   error(err.stack);
   res.status(500).send('500: Something broke!');
 });
+
 
 export const jzPortfolioApp = onRequest(
   {
