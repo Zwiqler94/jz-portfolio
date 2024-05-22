@@ -1,4 +1,4 @@
-import { CSP_NONCE, NgModule, inject } from '@angular/core';
+import {  NgModule, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -70,8 +70,7 @@ declare global {
   var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
 }
 
-// const crypto = require("crypto");
-// const nonce = crypto.randomBytes(16).toString("base64");
+
 
 self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
 
@@ -123,24 +122,6 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     MatSidenavModule,
     MatExpansionModule,
     MatIconModule,
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideAppCheck(() =>
-      initializeAppCheck(getApp(), {
-        provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
-        isTokenAutoRefreshEnabled: true,
-      }),
-    ),
-    provideStorage(() => getStorage()),
-    provideAnalytics(() => initializeAnalytics(getApp())),
-    provideAuth(() => {
-      const auth = getAuth();
-      if (environment.local) {
-        connectAuthEmulator(auth, 'http://localhost:9099', {
-          disableWarnings: true,
-        });
-      }
-      return auth;
-    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.serviceOptions.useServiceWorker,
       // Register the ServiceWorker as soon as the application is stable
@@ -154,7 +135,26 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
     NgxColorsModule,
     EverythingLibModule,
   ],
-  // providers: [{ provide: CSP_NONCE, useValue: btoa('cuuutie') }],
+  providers: [
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAppCheck(() =>
+      initializeAppCheck(getApp(), {
+        provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
+        isTokenAutoRefreshEnabled: true,
+      })
+    ),
+    provideStorage(() => getStorage()),
+    provideAnalytics(() => initializeAnalytics(getApp())),
+    provideAuth(() => {
+      const auth = getAuth();
+      if (environment.local) {
+        connectAuthEmulator(auth, 'http://localhost:9099', {
+          disableWarnings: true,
+        });
+      }
+      return auth;
+    }),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
