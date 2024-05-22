@@ -14,26 +14,15 @@ import {
   secretRouter,
   serverCA,
 } from './secrets';
-// import { limiter } from './middleware';
 import { postRouter } from './db';
 import cors = require('cors');
 import express = require('express');
-// import {getFunctions, connectFunctionsEmulator} from "firebase/functions";
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
-import { debug } from 'firebase-functions/logger';
 import { appCheckGaurd, limiter } from './middleware';
+import { error } from 'firebase-functions/logger';
 
-// import {getAuth, connectAuthEmulator} from "firebase/auth";
 
-// const auth = getAuth();
-// connectAuthEmulator(auth, "http://127.0.0.1:9099");
-
-// const functions = getFunctions();
-
-// connectFunctionsEmulator(functions, "http://127.0.0.1", 5001);
-
-// This is from MEGA-FEATURE-BRANCH
 
 export const fbAdminApp = initializeApp({
   credential: cert({
@@ -70,6 +59,16 @@ jzPortfolioBackendExpressApp.get('/x-forwarded-for', (request, response) =>
 );
 
 jzPortfolioBackendExpressApp.use(gaurdedRoutes);
+
+app.use((req, res, next) => {
+  res.status(404).send("404: Sorry can't find that!");
+});
+
+
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  error(err.stack);
+  res.status(500).send('500: Something broke!');
+});
 
 export const jzPortfolioApp = onRequest(
   {
