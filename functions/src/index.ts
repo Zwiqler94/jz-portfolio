@@ -22,9 +22,9 @@ import * as creds from '../credentials.json';
 import { appCheckGaurd, limiter } from './middleware';
 import helmet from 'helmet';
 import { error } from 'firebase-functions/logger';
-const session = require('express-session');
-
-
+import { Firestore } from '@google-cloud/firestore';
+import { FirestoreStore } from '@google-cloud/connect-firestore';
+import session = require('express-session');
 
 export const fbAdminApp = initializeApp({
   credential: cert({
@@ -35,17 +35,32 @@ export const fbAdminApp = initializeApp({
 });
 
 const app = express();
-app.use(cors());
-app.use(helmet())
-app.use(
-  session({
-    secret: [process.env.SESS_SEC, 'pjwq0 !@#jmx',],
+
+let SESSION_SECRETS = ['XYX9c8fenuicvn948bnvu8'];
+
+if (process.env.SESSION_SECRET) {
+  SESSION_SECRETS = [process.env.SESSION_SECRET, ...SESSION_SECRETS];
+}
+
+  const sessionOpts: session.SessionOptions = {
+    store: new FirestoreStore({
+      dataset: new Firestore(),
+      kind: 'express-sessions',
+    }),
+    secret: SESSION_SECRETS,
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      secure: app.get('env') === 'prod',
+      maxAge: 3600
+    },
+  };
 
-  })
-);
-app.disable("x-powered-by")
+app.use(session(sessionOpts));
+
+app.use(cors());
+app.use(helmet());
+app.disable('X-Powered-By');
 app.use(limiter);
 app.set('trust proxy', 1);
 const jzPortfolioBackendExpressApp = express.Router().use(helmet());
@@ -67,7 +82,7 @@ jzPortfolioBackendExpressApp.get('/health', (req, res) => {
 });
 
 jzPortfolioBackendExpressApp.get('/x-forwarded-for', (request, response) =>
-  response.send(request.headers['x-forwarded-for']),
+  response.send(request.headers['x-forwarded-for'])
 );
 
 jzPortfolioBackendExpressApp.use(gaurdedRoutes);
@@ -76,12 +91,17 @@ app.use((req, res, next) => {
   res.status(404).send("404: Sorry can't find that!");
 });
 
-
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  error(err.stack);
-  res.status(500).send('500: Something broke!');
-});
-
+app.use(
+  (
+    err: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    error(err.stack);
+    res.status(500).send('500: Something broke!');
+  }
+);
 
 export const jzPortfolioApp = onRequest(
   {
@@ -103,5 +123,5 @@ export const jzPortfolioApp = onRequest(
       awsSecretKey,
     ],
   },
-  app,
+  app
 );

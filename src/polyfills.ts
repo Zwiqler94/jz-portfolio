@@ -22,9 +22,9 @@ import '@angular/localize/init';
  * BROWSER POLYFILLS
  */
 
-import 'cross-fetch/polyfill';
+// import 'cross-fetch/polyfill';
 import 'core-js/stable';
-import 'globalthis';
+// import 'globalthis';
 
 /**
  * IE11 requires the following for NgClass support on SVG elements
