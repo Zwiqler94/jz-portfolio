@@ -85,7 +85,7 @@ jobs:
         run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
       - name: request Merge
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
-        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"version","commit_message":"Add a new value to the merge_method enum"}'
+        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"version","commit_message":"${{needs.verify-commit.outputs.commitMsg}}"}'
   version-minor:
     if: ${{ github.event.pull_request.merged == true }}
     needs: [verify-commit, check-tokens]
@@ -144,7 +144,7 @@ jobs:
         run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
       - name: request Merge
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
-        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"version","commit_message":"Add a new value to the merge_method enum"}'
+        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"version","commit_message":"${{needs.verify-commit.outputs.commitMsg}}"}'
   version-major:
     if: ${{ github.event.pull_request.merged == true }}
     needs: [verify-commit, check-tokens]
@@ -203,7 +203,7 @@ jobs:
         run: echo "MERGE_URL="${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge"" >> "$GITHUB_ENV"
       - name: request Merge
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
-        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"version","commit_message":"Add a new value to the merge_method enum"}'
+        run: curl --request PUT ${{ env.MERGE_URL }}  -H "Accept:application/vnd.github+json" -H 'Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}' -d '{"commit_title":"version","commit_message":"${{needs.verify-commit.outputs.commitMsg}}"}'
   skip-no-deploy:
     runs-on: ubuntu-latest
     if: ${{ github.event.action == 'opened' || github.event.action == 'synchronize'}}
