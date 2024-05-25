@@ -2,8 +2,6 @@ import { getAppCheck } from 'firebase-admin/app-check';
 import { Request, Response, NextFunction } from 'express';
 import { debug, error } from 'firebase-functions/logger';
 import { rateLimit } from 'express-rate-limit';
-// import * as creds from '../credentials.json';
-import { fbAdminApp } from '.';
 import { validationResult } from 'express-validator';
 
 export const appCheckGaurd = async (
@@ -14,7 +12,6 @@ export const appCheckGaurd = async (
   const appCheckToken = req.header('X-Firebase-AppCheck');
   const appCheckDebugToken = req.header('X-Firebase-Appcheck-Debug');
   const tokenToCheck = appCheckToken ? appCheckToken : appCheckDebugToken;
-  // debug({ tokenToCheck, creds });
   if (!tokenToCheck) {
     res.status(401);
     return next('Unauthorized Code: A');
