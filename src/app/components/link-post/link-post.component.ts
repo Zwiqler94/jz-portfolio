@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  LinkPost,
   LinkPreview,
   MissingLinkPreviewData,
 } from 'src/app/components/models/post.model';
-import { LinkPost } from 'src/app/components/models/post.model';
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
@@ -28,7 +28,7 @@ export class LinkPostComponent
 {
   linkPreviewData: LinkPreview;
   uri: string;
-  image?: string | undefined;
+  image?: string;
 
   constructor(private linkPreviewService: LinkPreviewService) {
     super();
