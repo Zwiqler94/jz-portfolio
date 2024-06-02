@@ -42,19 +42,19 @@ if (process.env.SESSION_SECRET) {
   SESSION_SECRETS = [process.env.SESSION_SECRET, ...SESSION_SECRETS];
 }
 
-  const sessionOpts: session.SessionOptions = {
-    store: new FirestoreStore({
-      dataset: new Firestore(),
-      kind: 'express-sessions',
-    }),
-    secret: SESSION_SECRETS,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: app.get('env') === 'prod',
-      maxAge: 3600
-    },
-  };
+const sessionOpts: session.SessionOptions = {
+  store: new FirestoreStore({
+    dataset: new Firestore(),
+    kind: 'express-sessions',
+  }),
+  secret: SESSION_SECRETS,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: app.get('env') === 'prod',
+    maxAge: 3600,
+  },
+};
 
 app.use(session(sessionOpts));
 
@@ -82,7 +82,7 @@ jzPortfolioBackendExpressApp.get('/health', (req, res) => {
 });
 
 jzPortfolioBackendExpressApp.get('/x-forwarded-for', (request, response) =>
-  response.send(request.headers['x-forwarded-for'])
+  response.send(request.headers['x-forwarded-for']),
 );
 
 jzPortfolioBackendExpressApp.use(gaurdedRoutes);
@@ -96,13 +96,12 @@ app.use(
     err: any,
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction
+    next: express.NextFunction,
   ) => {
     error(err.stack);
     res.status(500).send('500: Something broke!');
-  }
+  },
 );
-
 
 export const jzPortfolioApp = onRequest(
   {
@@ -124,5 +123,5 @@ export const jzPortfolioApp = onRequest(
       awsSecretKey,
     ],
   },
-  app
+  app,
 );
