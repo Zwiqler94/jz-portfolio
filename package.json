@@ -42,7 +42,7 @@
     "@angular/service-worker": "^17.3.10",
     "@firebase/util": "^1.9.6",
     "@google-cloud/secret-manager": "^5.6.0",
-    "@zwiqler94/everything-lib": "^0.4.0",
+    "@zwiqler94/everything-lib": "^0.4.2",
     "core-js": "^3.37.1",
     "cross-fetch": "^4.0.0",
     "firebase": "^10.12.2",

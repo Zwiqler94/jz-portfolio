@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Tabs } from 'src/app/interfaces/tabs.model';
@@ -7,6 +6,7 @@ import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
 import { EverythingLibModule } from '@zwiqler94/everything-lib';
 import { MatIcon } from '@angular/material/icon';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-projects',
@@ -20,6 +20,7 @@ import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
     MatCard,
     MatCardHeader,
     MatCardContent,
+    MatSnackBarModule,
     EverythingLibModule,
   ],
 })
@@ -49,10 +50,7 @@ export class ProjectsComponent extends Tabs {
     specialCharacters: [''],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private httpClient: HttpClient,
-  ) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
     super();
   }
 
@@ -82,5 +80,11 @@ export class ProjectsComponent extends Tabs {
 
   public get maxHeight(): string {
     return `${this._maxHeight}px`;
+  }
+
+  onCompletionMsgChange($event: string) {
+    if ($event !== 'Success') {
+      this.snackBar.open($event,'X',{ panelClass: '.error'})
+    }
   }
 }

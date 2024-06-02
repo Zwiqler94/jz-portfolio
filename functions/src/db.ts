@@ -10,7 +10,6 @@ import {
   GetSecretValueCommand,
   SecretsManagerClient,
 } from '@aws-sdk/client-secrets-manager';
-import { appCheckGaurd } from './middleware';
 import { PostDBResponse } from './models/post-response.model';
 import { postValidator } from './validators/post.validator';
 
@@ -36,15 +35,7 @@ class AWSDBManager {
   private client: PoolClient | undefined;
 
   constructor() {
-    // getSecretValue('rdsproxy_rwuser').then((x) => {
-    //   const { username, password } = JSON.parse(
-    //     x,
-    //     // await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5'),
-    //   );
-    //   // debug({ password });
-    //   AWSDBManager.password = password;
-    //   AWSDBManager.username = username;
-    // });
+
   }
 
   startUpDBService = async () => {

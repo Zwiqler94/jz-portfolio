@@ -12,6 +12,7 @@
       class="project-content-item"
       [(usernameForm)]="usernameFormInApp"
       [(result)]="_result"
+      (completionMsgChange)="onCompletionMsgChange($event)"
     >
     </lib-username-generator>
   </div>
@@ -25,7 +26,7 @@
     <div class="handleB" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-nasa id="" [apiKey]="nasaApiKey"></lib-nasa>
+    <lib-nasa id="" [apiKey]="nasaApiKey"  (completionMsgChange)="onCompletionMsgChange($event)"></lib-nasa>
   </div>
   <div
     class="dragC drag"
@@ -40,6 +41,7 @@
       [height]="'35'"
       [width]="'35'"
       class="project-content-item"
+       (completionMsgChange)="onCompletionMsgChange($event)"
     ></lib-pokemon>
   </div>
   <div
@@ -55,6 +57,7 @@
       [height]="'15'"
       [width]="maxWidth"
       class="project-content-item"
+       (completionMsgChange)="onCompletionMsgChange($event)"
     ></lib-boredom-solver>
   </div>
   <div
@@ -70,6 +73,7 @@
       [height]="'15'"
       [width]="maxWidth"
       class="project-content-item"
+       (completionMsgChange)="onCompletionMsgChange($event)"
     ></lib-age-by-name>
   </div>
   <div

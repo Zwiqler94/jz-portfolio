@@ -1,6 +1,12 @@
+@use "themes";
+
 mat-form-field {
   margin: 1rem;
   width: 30rem;
+}
+
+.error{
+  background-color: map-get(themes.$md-A-1-analagous1, 500);
 }
 
 // lib-username-generator {
