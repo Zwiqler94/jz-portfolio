@@ -80,7 +80,7 @@ div.NgxEditor.NgxEditor {
   }
 }
 
-mat-card.base {
+.mat-mdc-card.base {
   max-width: 80vw;
   width: 10rem;
   min-width: 45vw;
@@ -152,6 +152,30 @@ div#post-content#post-content#post-content p img {
 @media (max-width: 430px) {
   div#post-content#post-content#post-content p img {
     width: 82vw;
+  }
+
+  #location-type-selection-div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  app-new-post-dialog {
+    // /* --mat-option-label-text-line-height: 1.25rem; */
+    --mat-option-label-text-line-height: 0.25rem;
+    // /* --mdc-outlined-text-field-label-text-size: 1rem; */
+    --mdc-outlined-text-field-label-text-size: 0.5rem;
+    // /* --mdc-outlined-text-field-container-shape: 4px; */
+    --mdc-outlined-text-field-container-shape: 18px;
+    // /* --mat-form-field-container-text-line-height: 1.5rem; */
+    // /* --mat-form-field-container-text-size: 1rem; */
+    --mat-form-field-container-text-line-height: 0.5rem;
+    --mat-form-field-container-text-size: 0.5rem;
+    // /* --mat-form-field-container-height: 56px; */
+    --mat-form-field-container-height: 17px;
+    // /* --mat-form-field-container-vertical-padding: 16px; */
+    // /* --mat-form-field-filled-with-label-container-padding-top: 24px; */
+    --mat-form-field-container-vertical-padding: 7px;
+    --mat-form-field-filled-with-label-container-padding-top: 8px;
   }
 }
 

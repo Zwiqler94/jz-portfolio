@@ -1,10 +1,11 @@
-import { SafeHtml } from '@angular/platform-browser';
-
 export interface PostBase {
   type: PostType;
   title: string;
   content: string;
   location: string;
+  created_at?: string;
+  updated_at?: string;
+  status?: string;
 }
 
 export interface LinkPost extends PostBase {

@@ -8,11 +8,15 @@ import {
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
+  standalone: true,
+  imports: [MatCard, MatCardContent, MatButton],
 })
 export class LoginPageComponent implements OnInit {
   private fbAuth: Auth = inject(Auth);

@@ -2,6 +2,31 @@
   <h1 mat-dialog-title>New Post</h1>
   <div id="new-post-content" mat-dialog-content>
     <form [formGroup]="form" id="form">
+      <div id="location-type-selection-div">
+        <div id="location-type-inner-divs-A">
+          <mat-form-field appearance="outline">
+            <mat-label>Post Location</mat-label>
+            <mat-select formControlName="feedLocation">
+              @for (location of locationOptions; track $index) {
+                <mat-option [value]="location">{{ location }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div id="location-type-inner-divs-B">
+          <mat-form-field appearance="outline">
+            <mat-label>Post Type</mat-label>
+            <mat-select formControlName="postType">
+              @for (postType of postTypeOptions; track $index) {
+                <mat-option [value]="postType.value">{{
+                  postType.displayValue
+                }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Title</mat-label>
         <input

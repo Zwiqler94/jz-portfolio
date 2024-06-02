@@ -6,9 +6,14 @@
   align-items: center;
 }
 
-mat-card {
+.mat-mdc-card {
   margin: 0.938rem;
   max-width: 42.5rem;
+}
+
+#link-description,
+.mat-mdc-card-content {
+  word-wrap: break-word;
 }
 
 img {
@@ -31,6 +36,9 @@ img {
 #link-description {
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+#link-title {
   word-break: break-all;
 }
 
@@ -47,25 +55,25 @@ img {
 }
 
 @media (max-width: 430px) {
-  mat-card {
+  .mat-mdc-card {
     max-width: 24.5rem;
   }
 }
 
 @media (max-width: 390px) {
-  mat-card {
+  .mat-mdc-card {
     max-width: 21.25rem;
   }
 }
 
 @media (max-width: 375px) {
-  mat-card {
+  .mat-mdc-card {
     max-width: 22rem;
   }
 }
 
 @media (max-width: 320px) {
-  mat-card {
+  .mat-mdc-card {
     max-width: 19rem;
   }
 }

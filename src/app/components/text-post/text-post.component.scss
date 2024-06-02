@@ -9,33 +9,34 @@
   padding: 0.5rem;
 }
 
-mat-card {
+/*  The following rule targets internal classes of card that may no longer apply for the MDC version. */
+.mat-mdc-card {
   margin: 0.938rem;
   max-width: 50.5rem;
   min-height: 24.5rem;
 }
 
 @media (max-width: 430px) {
-  mat-card {
+  .mat-mdc-card {
     margin: 0.938rem;
     width: 23rem;
   }
 }
 
 @media (max-width: 390px) {
-  mat-card {
+  .mat-mdc-card {
     max-width: 21.25rem;
   }
 }
 
 @media (max-width: 375px) {
-  mat-card {
+  .mat-mdc-card {
     max-width: 22rem;
   }
 }
 
 @media (max-width: 320px) {
-  mat-card {
+  .mat-mdc-card {
     max-width: 19rem;
   }
 }

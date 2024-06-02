@@ -1,8 +1,7 @@
-import { MenuModule } from 'ngx-editor/lib/modules/menu/menu.module';
 import { Command } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Plugin } from 'prosemirror-state';
-import { setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
+import { setBlockType } from 'prosemirror-commands';
 import { schema } from 'ngx-editor';
 
 interface MenuItem {

@@ -5,10 +5,11 @@ import { Router } from '@angular/router';
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
   styleUrls: ['./error-page.component.scss'],
+  standalone: true,
 })
 export class ErrorPageComponent {
   constructor(private router: Router) {}
-  goHome() {
-    this.router.navigate(['home']);
+  async goHome() {
+    return await this.router.navigateByUrl('/home');
   }
 }

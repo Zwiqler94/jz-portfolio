@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Tabs } from 'src/app/interfaces/tabs.model';
+import { MatCard, MatCardImage, MatCardContent } from '@angular/material/card';
 
 @Component({
   selector: 'app-about-me-main',
   templateUrl: './about-me-main.component.html',
   styleUrls: ['./about-me-main.component.scss'],
+  standalone: true,
+  imports: [MatCard, MatCardImage, MatCardContent],
 })
 export class AboutMeMainComponent extends Tabs {
   @Input() public tabTitle: string;

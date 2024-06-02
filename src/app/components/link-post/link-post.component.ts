@@ -7,10 +7,20 @@ import { LinkPost } from 'src/app/components/models/post.model';
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
+import {
+  MatCard,
+  MatCardHeader,
+  MatCardTitle,
+  MatCardContent,
+  MatCardImage,
+} from '@angular/material/card';
+
 @Component({
   selector: 'app-link-post',
   templateUrl: './link-post.component.html',
   styleUrls: ['./link-post.component.scss'],
+  standalone: true,
+  imports: [MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatCardImage],
 })
 export class LinkPostComponent
   extends PostBaseComponent
@@ -43,7 +53,7 @@ export class LinkPostComponent
 
   async getLinkPreview() {
     const linkArray = this.content.match(
-      /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9/\-.,&?=%#();:~]*/,
+      /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9/\-.,&?=%#(_);:~]*/,
     );
     if (linkArray !== null) {
       this.uri = linkArray[0];
@@ -54,7 +64,9 @@ export class LinkPostComponent
           next: (data: unknown) => {
             {
               this.linkPreviewData = data as LinkPreview;
-              this.title = this.linkPreviewData.title;
+              this.title = this.linkPreviewData.title
+                ? this.linkPreviewData.title
+                : this.title;
               this.content = this.linkPreviewData.description;
               this.image = this.linkPreviewData.image;
             }
@@ -62,7 +74,7 @@ export class LinkPostComponent
           error: (err) => {
             this.title = MissingLinkPreviewData.title;
             this.content = MissingLinkPreviewData.description;
-            throw new Error(JSON.stringify(err));
+            console.error(err);
           },
         });
       } catch (err: any) {

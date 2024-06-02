@@ -17,6 +17,7 @@ mat-form-field {
   // align-items: center;
   text-align: center;
   // background: #fff;
+  margin: 0;
   border-radius: 4px;
   position: relative;
   z-index: 1;
@@ -81,7 +82,7 @@ mat-form-field {
   @extend %common-handle;
 }
 
-.dragF > mat-card {
+.dragF > .mat-mdc-card {
   // height: 35rem;
   // width: 35rem;
   padding: 0.85rem;
@@ -94,12 +95,12 @@ mat-form-field {
 }
 
 @media (max-width: 1280px) {
-  .dragF > mat-card {
+  .dragF > .mat-mdc-card {
     max-width: 48rem;
   }
 
   .project-content {
-    margin: 0.5rem;
+    margin: 1rem;
   }
 
   .handleB,
@@ -111,53 +112,47 @@ mat-form-field {
 }
 
 @media (max-width: 1000px) {
-  .dragF>mat-card {
+  .dragF > .mat-mdc-card {
     max-width: 50rem;
   }
-
-
 }
 
-
 @media (max-width: 900px) {
-  .dragF > mat-card {
+  .dragF > .mat-mdc-card {
     max-width: 50rem;
   }
-
-
 }
 
 @media (max-width: 760px) {
-  .dragF > mat-card {
+  .dragF > .mat-mdc-card {
     max-width: 45rem;
   }
-
-
 }
 
 @media (max-width: 430px) {
-  .dragF > mat-card {
+  .dragF > .mat-mdc-card {
     max-width: 26rem;
   }
-
+  .project-content {
+    margin: 2.25rem;
+  }
 }
 
-@media (max-width: 390px) {
-  .dragF > mat-card {
+@media (max-width: 395px) {
+  .dragF > .mat-mdc-card {
     max-width: 23rem;
   }
 
   .project-content {
-    margin: 0.5rem;
+    margin: 1rem;
   }
 }
 
 @media (max-width: 375px) {
-  .dragF > mat-card {
+  .dragF > .mat-mdc-card {
     max-width: 22.5rem;
   }
-
   .project-content {
-    margin: 0.5rem;
+    margin: 0.7rem;
   }
 }
