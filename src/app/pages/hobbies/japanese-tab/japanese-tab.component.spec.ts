@@ -8,7 +8,7 @@ describe('JapaneseTabComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [JapaneseTabComponent],
+      imports: [JapaneseTabComponent],
     });
     fixture = TestBed.createComponent(JapaneseTabComponent);
     component = fixture.componentInstance;

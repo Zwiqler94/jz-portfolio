@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewsComponent } from './news.component';
+import { HomePageComponent } from './home-page.component';
+import { importProvidersFrom } from '@angular/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import {
   ReCaptchaV3Provider,
@@ -12,13 +14,13 @@ import { environment } from 'src/environments/environment';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
-describe('NewsComponent', () => {
-  let component: NewsComponent;
-  let fixture: ComponentFixture<NewsComponent>;
+describe('MainFeedPageComponent', () => {
+  let component: HomePageComponent;
+  let fixture: ComponentFixture<HomePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewsComponent],
+      imports: [HomePageComponent],
       providers: [
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideAuth(() => {
@@ -36,7 +38,14 @@ describe('NewsComponent', () => {
             isTokenAutoRefreshEnabled: true,
           }),
         ),
-
+        importProvidersFrom(
+          ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: false,
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:20000',
+          }),
+        ),
         provideHttpClient(),
         provideHttpClientTesting(),
       ],
@@ -44,7 +53,7 @@ describe('NewsComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewsComponent);
+    fixture = TestBed.createComponent(HomePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
