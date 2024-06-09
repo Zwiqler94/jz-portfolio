@@ -5,6 +5,9 @@ on:
       versionType:
         description: "the version increment type (major, minor, or patch)"
         value: ${{ jobs.VERIFY.outputs.versionType }}
+      commitMsg:
+         description: "the last commit message"
+         value: ${{ jobs.GET-COMMIT.outputs.commitMsg }}
 permissions: read-all
 env:
   GH_TOKEN: "${{ github.token }}"
@@ -44,7 +47,7 @@ jobs:
         run: |
           if [[ $commitMsg =~ (BREAKING CHANGE|^(.|\s)+(\(.|\s\))?!:(.|\s)+$) ]]; then
               echo "versionType=minor" >> "$GITHUB_OUTPUT"
-              echo "versionType=minor" 
+              echo "versionType=minor"
               exit 0
           elif [[ $commitMsg =~ ^feat(\(.+\))?:(.|\s)+$ ]]; then
               echo "versionType=patch" >> "$GITHUB_OUTPUT"
