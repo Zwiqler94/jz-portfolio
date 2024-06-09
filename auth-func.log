@@ -1,0 +1,147 @@
+i  emulators: Starting emulators: auth, functions, firestore
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+lsof: WARNING: can't stat() smbfs file system /Volumes/.timemachine/Jacob’s iMac._smb._tcp.local/30C981C3-88C3-485D-BA65-452E1AB72FA1/Network Backup Drive
+      Output information may be incomplete.
+      assuming "dev=36000040" from mount table
+⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: database, hosting, pubsub, storage, dataconnect
+⚠  functions: Your GOOGLE_APPLICATION_CREDENTIALS environment variable points to /Users/jacobzwickler/.config/gcloud/application_default_credentials.json. Non-emulated services will access production using these credentials. Be careful!
+⚠  firestore: Cloud Firestore Emulator does not support multiple databases yet.
+⚠  firestore: Did not find a Cloud Firestore rules file specified in a firebase.json config file.
+⚠  firestore: The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration.
+i  firestore: Firestore Emulator logging to firestore-debug.log
+✔  firestore: Firestore Emulator UI websocket is running on 9150.
+i  ui: Emulator UI logging to ui-debug.log
+i  functions: Watching "/Users/jacobzwickler/Documents/GitHub/jz-portfolio/functions" for Cloud Functions...
+✔  functions: Using node@20 from host.
+i  functions: Loaded environment variables from .env.prod, .env.local.
+Serving at port 8878
+
+✔  functions: Loaded functions definitions from source: jzPortfolioApp, jzPortfolioAppDev.
+✔  functions[us-central1-jzPortfolioApp]: http function initialized (http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioApp).
+✔  functions[us-central1-jzPortfolioAppDev]: http function initialized (http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev).
+
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ 127.0.0.1:9099 │ http://127.0.0.1:4000/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Functions      │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ 127.0.0.1:5012 │ http://127.0.0.1:4000/firestore │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500, 9150
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+i  functions: Loaded environment variables from .env.prod, .env.local.
+i  functions: Beginning execution of "us-central1-jzPortfolioApp"
+>  {"severity":"WARNING","message":"No value found for secret parameter \"DB_HOST_PROD\". A function can only access a secret if you include the secret in the function's dependency array."}
+>  production ""
+i  functions: Finished "us-central1-jzPortfolioApp" in 847.510667ms
+✔  functions: Using node@20 from host.
+i  functions: Loaded environment variables from .env.prod, .env.local.
+Serving at port 8748
+
+✔  functions: Loaded functions definitions from source: jzPortfolioApp, jzPortfolioAppDev.
+i  functions: Loaded environment variables from .env.prod, .env.local.
+i  functions: Beginning execution of "us-central1-jzPortfolioApp"
+>  {"severity":"WARNING","message":"No value found for secret parameter \"DB_HOST_PROD\". A function can only access a secret if you include the secret in the function's dependency array."}
+>  production ""
+i  functions: Finished "us-central1-jzPortfolioApp" in 242.062042ms
+✔  functions: Using node@20 from host.
+i  functions: Loaded environment variables from .env.prod, .env.local.
+Serving at port 8918
+
+✔  functions: Loaded functions definitions from source: jzPortfolioApp, jzPortfolioAppDev.
+⬢  functions: Failed to load function definition from source: FirebaseError: There was an error reading functions/package.json:
+
+ functions/lib/src/index.js does not exist, can't deploy Cloud Functions
+⬢  functions: Failed to load function definition from source: FirebaseError: There was an error reading functions/package.json:
+
+ functions/lib/src/index.js does not exist, can't deploy Cloud Functions
+✔  functions: Using node@20 from host.
+i  functions: Loaded environment variables from .env.prod, .env.local.
+Serving at port 8028
+
+✔  functions: Loaded functions definitions from source: jzPortfolioApp, jzPortfolioAppDev.
+✔  functions: Using node@20 from host.
+i  functions: Loaded environment variables from .env.prod, .env.local.
+Serving at port 8156
+
+✔  functions: Loaded functions definitions from source: jzPortfolioApp, jzPortfolioAppDev.
+✔  functions: Using node@20 from host.
+i  functions: Loaded environment variables from .env.prod, .env.local.
+Serving at port 8339
+
+✔  functions: Loaded functions definitions from source: jzPortfolioApp, jzPortfolioAppDev.
+i  functions: Loaded environment variables from .env.prod, .env.local.
+i  functions: Beginning execution of "us-central1-jzPortfolioApp"
+>  {"severity":"DEBUG","message":"DEBUG TOKEN USED"}
+>  {"severity":"WARNING","message":"No value found for secret parameter \"LINK_PREVIEW_PROD\". A function can only access a secret if you include the secret in the function's dependency array."}
+i  functions: Finished "us-central1-jzPortfolioApp" in 250.880666ms
+i  functions: Beginning execution of "us-central1-jzPortfolioApp"
+>  {"severity":"DEBUG","message":"DEBUG TOKEN USED"}
+>  {"severity":"WARNING","message":"No value found for secret parameter \"LINK_PREVIEW_PROD\". A function can only access a secret if you include the secret in the function's dependency array."}
+i  functions: Finished "us-central1-jzPortfolioApp" in 25.48875ms
+ 
+i  emulators: Received SIGINT (Ctrl-C) for the first time. Starting a clean shutdown.
+i  emulators: Please wait for a clean shutdown or send the SIGINT (Ctrl-C) signal again to stop right now.
+i  emulators: Shutting down emulators.
+i  ui: Stopping Emulator UI
+⚠  Emulator UI has exited upon receiving signal: SIGINT
+i  functions: Stopping Functions Emulator
+i  firestore: Stopping Firestore Emulator
+i  auth: Stopping Authentication Emulator
+i  eventarc: Stopping Eventarc Emulator
+i  hub: Stopping emulator hub
+i  logging: Stopping Logging Emulator
