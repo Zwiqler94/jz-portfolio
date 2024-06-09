@@ -102,17 +102,17 @@ export class LinkPreviewService {
           params: this.params,
           headers: this.headers,
         })
-        .pipe(retry({ count: 3, delay: 30000 }), catchError(this.handleError));
+        .pipe(catchError(this.handleError));
     } catch (err) {
       console.error(err);
       throw Error(JSON.stringify(err));
     }
   }
 
-  handleError(error: HttpErrorResponse) {
+  handleError = (error: HttpErrorResponse) => {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error);
+      console.error('An error occurred:', error.message, error.error);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
@@ -123,7 +123,10 @@ export class LinkPreviewService {
     }
     // Return an observable with a user-facing error message.
     return throwError(
-      () => new Error('Something bad happened; please try again later.'),
+      () =>
+        new Error(
+          `Something bad happened; please try again later. ${error.type} Error Message: ${error.message} `,
+        ),
     );
-  }
+  };
 }

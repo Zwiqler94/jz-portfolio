@@ -17,10 +17,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
-import {
-  withInterceptorsFromDi,
-  provideHttpClient,
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -39,6 +36,7 @@ import {
 } from '@angular/fire/app-check';
 import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
+// import { meowthInterceptor } from 'src/app/interceptors/meowth.interceptor';
 
 if (environment.production) {
   enableProdMode();
@@ -101,7 +99,7 @@ bootstrapApplication(AppComponent, {
       return auth;
     }),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(),
   ],
 }).catch((err) => console.error(err));

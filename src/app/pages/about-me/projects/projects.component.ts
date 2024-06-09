@@ -50,7 +50,10 @@ export class ProjectsComponent extends Tabs {
     specialCharacters: [''],
   });
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+  ) {
     super();
   }
 
@@ -84,7 +87,7 @@ export class ProjectsComponent extends Tabs {
 
   onCompletionMsgChange($event: string) {
     if ($event !== 'Success') {
-      this.snackBar.open($event,'X',{ panelClass: '.error'})
+      this.snackBar.open($event, 'X', { panelClass: '.error' });
     }
   }
 }
