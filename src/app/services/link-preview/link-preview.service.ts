@@ -2,8 +2,13 @@
 /* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
 import { AppCheck, getToken } from '@angular/fire/app-check';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
+import { catchError, lastValueFrom, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppCheckTokenResult } from 'firebase/app-check';
 import { LinkPreview } from 'src/app/components/models/post.model';
@@ -60,11 +65,9 @@ export class LinkPreviewService {
   async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
     try {
       if (!environment.local && this.appCheck) {
-        console.info(this.appCheck);
         this.tokenResult = (await getToken(this.appCheck)).token;
-        console.info(this.tokenResult);
       } else {
-        return '';
+        this.tokenResult = '';
       }
     } catch (err) {
       console.error(err);
@@ -76,11 +79,9 @@ export class LinkPreviewService {
     this.params = new HttpParams();
     if (!environment.local)
       this.headers = this.headers.set('X-Firebase-AppCheck', this.tokenResult);
-    console.log(this.headers);
     this.params = this.params.set('prod', environment.production);
     let secretsUrl = environment.serviceOptions.secretService;
     secretsUrl += '/link-previews';
-    console.info(secretsUrl);
     return this.httpClient.get<SecretResponse>(secretsUrl, {
       params: this.params,
       headers: this.headers,
@@ -89,23 +90,43 @@ export class LinkPreviewService {
 
   async getLinkPreview(url: string) {
     await this.getAppCheckToken();
-    console.info(url);
     this.params = new HttpParams();
     if (!environment.local)
       this.headers = this.headers.set('X-Firebase-AppCheck', this.tokenResult);
 
     try {
       const apiKey: SecretResponse = await lastValueFrom(this.getAPIKey());
-      console.info(apiKey);
       this.params = this.params.set('key', apiKey.k).set('q', url);
-      console.info(this.params);
-      return this.httpClient.get<LinkPreview>(this.baseUrl, {
-        params: this.params,
-        headers: this.headers,
-      });
+      return this.httpClient
+        .get<LinkPreview>(this.baseUrl, {
+          params: this.params,
+          headers: this.headers,
+        })
+        .pipe(catchError(this.handleError));
     } catch (err) {
       console.error(err);
       throw Error(JSON.stringify(err));
     }
   }
+
+  handleError = (error: HttpErrorResponse) => {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.message, error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error,
+      );
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      () =>
+        new Error(
+          `Something bad happened; please try again later. ${error.type} Error Message: ${error.message} `,
+        ),
+    );
+  };
 }

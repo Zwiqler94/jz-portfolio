@@ -22,11 +22,10 @@ export const appCheckGaurd = async (
     if (!appCheckDebugToken && appCheckToken) {
       const _result = await getAppCheck().verifyToken(tokenToCheck);
       debug('Audience', _result.token.aud);
-      return next();
     } else if (appCheckDebugToken && !appCheckToken) {
       debug('DEBUG TOKEN USED');
-      return next();
     }
+    return next();
   } catch (err) {
     error(err);
     res.status(401);

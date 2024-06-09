@@ -1,8 +1,9 @@
-<mat-card>
+<mat-card appearance="outlined">
   <mat-card-content>
     <div class="container">
       <ng-container>
         <img
+          alt="previous arrow"
           class="nav-arrows"
           src="../../../assets/icons/noun_previous arrow_1407190.png"
           (click)="onPreviousClick()"
@@ -11,6 +12,7 @@
           <img src="{{ currentSlide }}" />
         </div>
         <img
+          alt="next arrow"
           class="nav-arrows"
           src="../../../assets/icons/noun_next arrow_3318610.png"
           (click)="onNextClick()"

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { NgModule, inject } from '@angular/core';
-import { CanActivateFn, RouterModule, Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { CanActivateFn, Routes } from '@angular/router';
 import { AboutMeComponent } from './pages/about-me/about-me.component';
 import { HobbiesComponent } from './pages/hobbies/hobbies.component';
 import { NewsComponent } from './pages/news/news.component';
 // import { SocialsComponent } from './pages/socials/socials.component';
 import { ErrorPageComponent } from 'src/app/pages/error-page/error-page.component';
 // import { FeedComponent } from 'src/app/components/feed/feed.component';
-import { MainFeedPageComponent } from 'src/app/pages/main-feed-page/main-feed-page.component';
+import { HomePageComponent } from 'src/app/pages/home-page/home-page.component';
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { SocialsComponent } from 'src/app/pages/socials/socials.component';
@@ -22,21 +22,20 @@ import { PhotographyTabComponent } from 'src/app/pages/hobbies/photography-tab/p
 import { FitnessTabComponent } from 'src/app/pages/hobbies/fitness-tab/fitness-tab.component';
 import { JapaneseTabComponent } from 'src/app/pages/hobbies/japanese-tab/japanese-tab.component';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AuthGuard: CanActivateFn = (_route, _state) => {
   return inject(AuthService).canActivate();
 };
 
 const envAuthGaurd = environment.deployable ? [AuthGuard] : undefined;
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: '', component: LoginPageComponent },
-  { path: 'home', component: MainFeedPageComponent, canActivate: envAuthGaurd },
+  { path: 'home', component: HomePageComponent, canActivate: envAuthGaurd },
   {
     path: 'aboutme',
     component: AboutMeComponent,
-    canActivate: envAuthGaurd,
+    // canActivate: envAuthGaurd,
     children: [
       { path: 'main', component: AboutMeMainComponent },
       { path: 'projects', component: ProjectsComponent },
@@ -61,9 +60,3 @@ const routes: Routes = [
   { path: 'error', component: ErrorPageComponent },
   { path: '**', component: ErrorPageComponent },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

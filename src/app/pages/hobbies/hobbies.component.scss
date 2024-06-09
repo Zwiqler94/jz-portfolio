@@ -59,16 +59,16 @@ video {
   align-self: center;
 }
 
-mat-tab-group {
+mat-mdc-tab-group {
   width: 100vw;
 }
 
-// mat-card {
+// mat-mdc-card {
 //   margin: 0.938rem;
 //   max-width: 42.5rem;
 // }
 
-// .mat-card-image:first-child {
+// .mat-mdc-card-image:first-child {
 //   margin-top: 0;
 // }
 
@@ -120,7 +120,8 @@ mat-tab-group {
   margin: 1rem;
 }
 
-mat-card {
+/*  The following rule targets internal classes of card that may no longer apply for the MDC version.*/
+.mat-mdc-card {
   padding: 0.25rem;
   max-width: 95vw;
   width: 26.25rem;

@@ -1,29 +1,30 @@
-import {
-  CSP_NONCE,
-  Component,
-  Inject,
-  Input,
-  OnInit,
-  Renderer2,
-  SecurityContext,
-} from '@angular/core';
+import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { MicrosoftLearnUserProfile } from 'src/app/interfaces/credentials/microsoft/microsoft';
 import { Tabs } from 'src/app/interfaces/tabs.model';
-import {
-  DomSanitizer,
-  SafeHtml,
-  SafeResourceUrl,
-  SafeUrl,
-} from '@angular/platform-browser';
+import { SafeHtml } from '@angular/platform-browser';
 import credInfo from 'src/assets/credentials/msft_credentials.json';
-import { DOCUMENT } from '@angular/common';
 import { credentials } from 'src/assets/credentials/credly_credentials';
 import { Credly } from 'src/app/interfaces/credentials/credly/credly';
+import {
+  MatCard,
+  MatCardContent,
+  MatCardImage,
+  MatCardSubtitle,
+  MatCardFooter,
+} from '@angular/material/card';
 
 @Component({
   selector: 'app-credentials',
   templateUrl: './credentials.component.html',
   styleUrls: ['./credentials.component.scss'],
+  standalone: true,
+  imports: [
+    MatCard,
+    MatCardContent,
+    MatCardImage,
+    MatCardSubtitle,
+    MatCardFooter,
+  ],
 })
 export class CredentialsComponent extends Tabs implements OnInit {
   MICROSOFT_LEARN_URL = 'https://learn.microsoft.com/en-us';
@@ -32,11 +33,7 @@ export class CredentialsComponent extends Tabs implements OnInit {
   profile: MicrosoftLearnUserProfile;
   credlyCreds: Credly[];
 
-  constructor(
-    private sanitizer: DomSanitizer,
-    private renderer2: Renderer2,
-    @Inject(DOCUMENT) private doc: Document,
-  ) {
+  constructor(private renderer2: Renderer2) {
     super();
     // this.CREDLY_URL = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL,
     //  this.sanitizer.bypassSecurityTrustResourceUrl('//cdn.credly.com/assets/utilities/embed.js')
@@ -50,6 +47,8 @@ export class CredentialsComponent extends Tabs implements OnInit {
       val.host = 'https://www.credly.com';
       return val;
     });
+
+    // console.debug(this.credlyCreds)
     const scriptEl = this.renderer2.createElement('script');
     scriptEl.src = 'assets/credentials/credly-embed.js';
     scriptEl.async = true;

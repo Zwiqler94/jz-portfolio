@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -27,13 +27,13 @@ export class AuthService {
   }
 
   canActivate() {
-    return true;
-    // if (this.uid) {
-    //   return true;
-    // } else {
-    //   this.router.navigateByUrl('/login');
-    //   return false;
-    // }
+    // return true;
+    if (this.uid) {
+      return true;
+    } else {
+      this.router.navigateByUrl('/login');
+      return false;
+    }
   }
 
   logout() {

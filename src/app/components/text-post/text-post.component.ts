@@ -5,10 +5,28 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { TextPost } from 'src/app/components/models/post.model';
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 
+import {
+  MatCard,
+  MatCardHeader,
+  MatCardTitleGroup,
+  MatCardTitle,
+  MatCardSubtitle,
+  MatCardContent,
+} from '@angular/material/card';
+
 @Component({
   selector: 'app-text-post',
   templateUrl: './text-post.component.html',
   styleUrls: ['./text-post.component.scss'],
+  standalone: true,
+  imports: [
+    MatCard,
+    MatCardHeader,
+    MatCardTitleGroup,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatCardContent,
+  ],
 })
 export class TextPostComponent
   extends PostBaseComponent

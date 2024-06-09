@@ -8,17 +8,20 @@ import { CredentialsComponent } from 'src/app/pages/about-me/credentials/credent
 import { ProjectsComponent } from 'src/app/pages/about-me/projects/projects.component';
 import { SkillsComponent } from 'src/app/pages/about-me/skills/skills.component';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
+import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.component';
 @Component({
   selector: 'app-about-me',
   templateUrl: './about-me.component.html',
   styleUrls: ['./about-me.component.scss'],
+  standalone: true,
+  imports: [JzTabGroupComponent],
 })
 export class AboutMeComponent implements Tabs {
   @Input() tabTitle: string;
   // @ViewChild(TabsDirective, { static: true }) appTabs!: TabsDirective;
 
-  private _badgeHeight = '18.75rem';
-  private _badgeWidth = '12.5rem';
+  // private _badgeHeight = '18.75rem';
+  // private _badgeWidth = '12.5rem';
 
   private _tabComponentList: TabNavModel[] = [
     { component: AboutMeMainComponent, title: 'About Me', link: 'main' },
@@ -40,19 +43,19 @@ export class AboutMeComponent implements Tabs {
       this.router.navigateByUrl('/aboutme/main', { skipLocationChange: true });
   }
 
-  public get badgeHeight() {
-    return this._badgeHeight;
-  }
-  public set badgeHeight(value) {
-    this._badgeHeight = value;
-  }
+  // public get badgeHeight() {
+  //   return this._badgeHeight;
+  // }
+  // public set badgeHeight(value) {
+  //   this._badgeHeight = value;
+  // }
 
-  public get badgeWidth() {
-    return this._badgeWidth;
-  }
-  public set badgeWidth(value) {
-    this._badgeWidth = value;
-  }
+  // public get badgeWidth() {
+  //   return this._badgeWidth;
+  // }
+  // public set badgeWidth(value) {
+  //   this._badgeWidth = value;
+  // }
 
   public get tabComponentList(): TabNavModel[] {
     return this._tabComponentList;

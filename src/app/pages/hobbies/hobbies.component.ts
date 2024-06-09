@@ -9,11 +9,14 @@ import { FitnessTabComponent } from 'src/app/pages/hobbies/fitness-tab/fitness-t
 import { JapaneseTabComponent } from 'src/app/pages/hobbies/japanese-tab/japanese-tab.component';
 import { PhotographyTabComponent } from 'src/app/pages/hobbies/photography-tab/photography-tab.component';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
+import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.component';
 
 @Component({
   selector: 'app-hobbies',
   templateUrl: './hobbies.component.html',
   styleUrls: ['./hobbies.component.scss'],
+  standalone: true,
+  imports: [JzTabGroupComponent],
 })
 export class HobbiesComponent {
   private _tabComponentList: TabNavModel[] = [

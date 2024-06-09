@@ -1,16 +1,20 @@
 import { Component, HostListener, VERSION } from '@angular/core';
 
+import { MatDivider } from '@angular/material/divider';
+
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
+  standalone: true,
+  imports: [MatDivider],
 })
 export class FooterComponent {
   screenWidth: number;
   screenHeight: number;
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize(_event: any) {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
     console.log(this.screenHeight, this.screenWidth);

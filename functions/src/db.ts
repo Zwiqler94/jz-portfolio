@@ -10,8 +10,8 @@ import {
   GetSecretValueCommand,
   SecretsManagerClient,
 } from '@aws-sdk/client-secrets-manager';
-import { appCheckGaurd } from './middleware';
 import { PostDBResponse } from './models/post-response.model';
+import { postValidator } from './validators/post.validator';
 
 export const getSecretValue = async (secretName = 'SECRET_NAME') => {
   const client = new SecretsManagerClient({ region: 'us-east-2' });
@@ -34,23 +34,12 @@ class AWSDBManager {
   private pool: Pool | undefined;
   private client: PoolClient | undefined;
 
-  constructor() {
-    // getSecretValue('rdsproxy_rwuser').then((x) => {
-    //   const { username, password } = JSON.parse(
-    //     x,
-    //     // await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5'),
-    //   );
-    //   // debug({ password });
-    //   AWSDBManager.password = password;
-    //   AWSDBManager.username = username;
-    // });
-  }
-
   startUpDBService = async () => {
     try {
       debug('constructing');
       if (process.env.DB_ENV && process.env.DB_ENV === 'AWS') {
-        this.client = await (await this.connectDB(false)).connect();
+        this.pool = await this.connectDB(false);
+        this.client = await this.pool.connect();
       } else {
         this.pool = await this.connectDB(true);
         this.client = await this.pool.connect();
@@ -64,17 +53,22 @@ class AWSDBManager {
         error('Unexpected error on idle client', err);
         process.exit(-1);
       });
-      throw Error(JSON.stringify({ connectionError: err }));
+      throw new Error(JSON.stringify({ connectionError: err }));
     }
   };
 
-  query = async (text: string, params?: any): Promise<QueryResult<any>> => {
+  querySingle = async (
+    text: string,
+    params?: any,
+  ): Promise<QueryResult<any>> => {
     try {
       const start = Date.now();
       if (this.client) {
+        info('executing query...', { text, params });
         const res = await this.client.query(text, params);
         const duration = Date.now() - start;
-        info('executed query', { text, duration, rows: res.rowCount });
+        info('query executed', { text, duration, rows: res.rowCount });
+        this.client.release();
         return res
           ? res
           : {
@@ -85,33 +79,57 @@ class AWSDBManager {
               fields: [],
             };
       } else {
-        throw Error('no pool established');
+        throw new Error('no pool established');
       }
     } catch (err) {
       error(err);
-      throw Error(JSON.stringify(err));
+      throw new Error(JSON.stringify(err));
+    }
+  };
+
+  query = async (text: string, params?: any): Promise<QueryResult<any>> => {
+    try {
+      const start = Date.now();
+      if (this.client) {
+        info('executing query...', { text, params });
+        const res = await this.client.query(text, params);
+        const duration = Date.now() - start;
+        info('query executed', { text, duration, rows: res.rowCount });
+        return res
+          ? res
+          : {
+              rows: [],
+              command: '',
+              rowCount: null,
+              oid: 0,
+              fields: [],
+            };
+      } else {
+        throw new Error('no pool established');
+      }
+    } catch (err) {
+      error(err);
+      throw new Error(JSON.stringify(err));
     }
   };
 
   closeDB = async () => {
     try {
       if (this.pool) await this.pool.end();
-      else throw Error('no pool established');
+      else throw new Error('no pool established');
     } catch (err) {
       error(err);
-      throw Error(JSON.stringify(err));
+      throw new Error(JSON.stringify(err));
     }
   };
 
   connectDB = async (useLocal: boolean) => {
+    const application_name = `jlz_portfolio_${process.env.DB_ENV}_${process.env.DB_USER}`;
+
     if (!useLocal) {
-      debug(await getSecretValue('rdsproxy_rwuser'));
       const { username, password } = JSON.parse(
-        // await getSecretValue('rdsproxy_rwuser'),
         await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5'),
       );
-
-      debug({ password });
 
       AWSDBManager.password = password;
       AWSDBManager.username = username;
@@ -119,10 +137,11 @@ class AWSDBManager {
       const caCert = Buffer.from(await getSecretValue('caSSLCert'));
 
       this.pool = new Pool({
-        host: 'jz-portfolio.cj0jeurehhtj.us-east-2.rds.amazonaws.com',
+        application_name,
+        host: process.env.DB_HOST,
         user: AWSDBManager.username,
         password: AWSDBManager.password,
-        database: 'jz_dev',
+        database: process.env.DB_NAME,
         ssl: {
           ca: caCert,
         },
@@ -135,15 +154,20 @@ class AWSDBManager {
         });
     } else {
       this.pool = new Pool({
+        application_name,
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
-        database: 'jz-local',
+        database: process.env.DB_NAME,
         port: 5433,
         ssl: false,
-      }).on('connect', () => {
-        debug('connected to local DB');
-      });
+      })
+        .on('connect', () => {
+          debug('connected to local DB');
+        })
+        .on('release', () => {
+          debug('bye bye');
+        });
     }
     return this.pool;
   };
@@ -188,12 +212,12 @@ class AWSDBManager {
           }
 
           console.table(fullPostArray);
-
+          this.client.release();
           res.status(200).json(fullPostArray);
         }
       }
     } catch (err) {
-      console.error(err);
+      error(err);
       res.status(500).json(err);
     }
   };
@@ -243,7 +267,7 @@ class AWSDBManager {
         }
       }
     } catch (err) {
-      console.error(err);
+      error(err);
       res.status(500).json(err);
     }
   };
@@ -293,7 +317,7 @@ class AWSDBManager {
         }
       }
     } catch (err) {
-      console.error(err);
+      error(err);
       res.status(500).json(err);
     }
   };
@@ -316,11 +340,11 @@ class AWSDBManager {
         if (mainPosts) {
           const fullPostArray: any[] = [];
           for (const row of mainPosts.rows) {
-            console.log({ row });
+            info({ row });
             // moose
             let result;
             if (row.type === 'text') {
-              console.log({ ID: row.id });
+              info({ ID: row.id });
               result = await this.query(
                 'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
                 [row.id],
@@ -346,65 +370,70 @@ class AWSDBManager {
         }
       }
     } catch (err) {
-      console.error(err);
+      error(err);
       res.status(500).json(err);
     }
   };
 
   getAnimePosts = async (req: Request, res: Response) => {
     try {
-      let mainPosts = new PostDBResponse().createBlankResponse();
+      if (req.cookies.jlz_portfolio_local_jake) {
+        let mainPosts = new PostDBResponse().createBlankResponse();
 
-      const queryText =
-        'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id';
+        const queryText =
+          'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id';
 
-      const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true',
-      );
+        const useLocalDb = /^true$/i.test(
+          req.query.local ? req.query.local.toString() : 'true',
+        );
 
-      // await this.connectDB(useLocalDb);
-      this.client = await this.startUpDBService();
-      if (this.client) {
-        mainPosts = await this.query(queryText);
+        // await this.connectDB(useLocalDb);
+        this.client = await this.startUpDBService();
+        if (this.client) {
+          mainPosts = await this.query(queryText);
 
-        if (mainPosts) {
-          const fullPostArray: any[] = [];
-          for (const row of mainPosts.rows) {
-            let result;
-            if (row.type === 'text') {
-              result = await this.query(
-                'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-                [row.id],
-              );
-            } else {
-              result = await this.query(
-                'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-                [row.id],
-              );
+          if (mainPosts) {
+            const fullPostArray: any[] = [];
+            for (const row of mainPosts.rows) {
+              let result;
+              if (row.type === 'text') {
+                result = await this.query(
+                  'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
+                  [row.id],
+                );
+              } else {
+                result = await this.query(
+                  'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
+                  [row.id],
+                );
+              }
+              const rowResult = result?.rows[0];
+
+              warn(rowResult);
+
+              if (rowResult) {
+                fullPostArray.push(rowResult);
+              } else warn(`Result for Post ID: ${row.id} missing`);
             }
-            const rowResult = result?.rows[0];
 
-            warn(rowResult);
+            console.table(fullPostArray);
 
-            if (rowResult) {
-              fullPostArray.push(rowResult);
-            } else warn(`Result for Post ID: ${row.id} missing`);
+            res.status(200).json(fullPostArray);
           }
-
-          console.table(fullPostArray);
-
-          res.status(200).json(fullPostArray);
+        } else {
+          throw new Error('no pool established');
         }
       } else {
-        throw Error('no pool established');
+        console.log(req.cookies);
       }
     } catch (err) {
-      console.error(err);
+      error(err);
       res.status(500).json(err);
     }
   };
 
   getMainPosts = async (req: Request, res: Response) => {
+    debug({ sesSigned: req.session.cookie.signed });
     try {
       let mainPosts: QueryResult<any> | undefined =
         new PostDBResponse().createBlankResponse();
@@ -449,33 +478,11 @@ class AWSDBManager {
           }
 
           console.table(fullPostArray);
-          this.client.release();
           res.status(200).json(fullPostArray);
         }
       } else {
-        throw Error('Pool Client Missing');
+        throw new Error('Pool Client Missing');
       }
-      // }
-      // else {
-      //   this.connectLocalDB();
-      //   AWSDBManager.connectLocalDB();
-      //   mainPosts = await this.query(queryText);
-      //   if (mainPosts) {
-      //     const fullPostArray: any[] = [];
-      //     for (const row of mainPosts.rows) {
-      //       let result;
-      //       if (row.type === 'text') {
-      //         result = await this.queryLocal(mainTextPostQuery, [row.id]);
-      //       } else {
-      //         result = await this.queryLocal(mainLinkPostQuery, [row.id]);
-      //       }
-      //       fullPostArray.push(result.rows[0]);
-      //     }
-
-      //     console.table(fullPostArray);
-      //     res.status(200).json(fullPostArray);
-      //   }
-      // }
     } catch (err) {
       error(err);
       res.status(500).json(err);
@@ -488,56 +495,89 @@ class AWSDBManager {
    * @param res
    * @returns
    */
-  // createPost = async (req: Request, res: Response) => {
-  //   try {
-  //     await this.connectDB(true);
+  createPost = async (req: Request, res: Response) => {
+    try {
+      const useLocalDb = /^true$/i.test(
+        req.query.local ? req.query.local.toString() : 'true',
+      );
 
-  //     debug({ test: req.body.content });
+      debug(useLocalDb);
 
-  //     const resultPostList = await this.query(
-  //       `insert into public.post_list(location, status, content, post_hash) select '${
-  //         req.body.location
-  //       }', '${req.body.status}', '${req.body.content.replace(
-  //         '\\',
-  //         '',
-  //       )}', '${post_hash_result}' where not exists (select id from public.post_list where post_hash = '${post_hash_result}') returning id`,
-  //       true,
-  //     );
+      this.client = await this.startUpDBService();
+      if (this.client) {
+        try {
+          const result = await this.query(
+            `select hash_post($1, $2, $3, $4) as post_hash`,
+            [
+              req.body.location,
+              req.body.type,
+              req.body.status,
+              req.body.content,
+            ],
+          );
 
-  //     if (resultPostList) {
-  //       if (resultPostList.rows.length < 1)
-  //         return res.status(400).json({ error: 'Post Already Exists' });
+          const post_hash_result: string = result?.rows[0].post_hash;
 
-  //       // const locationId = await this.query(
-  //       //   ` select feed_name_to_id('${req.body.location}') as feed_id`,
-  //       //   true
-  //       // );
+          debug({ post_hash_result });
 
-  //       await this.query(
-  //         `update public.text_post set title = '${req.body.title}' where post_hash = '${post_hash_result}';`,
-  //         true,
-  //       );
-  //       // const resultFeed = await this.query(
-  //       //   `insert into public.main_feed(list_id, post_id, from_sub_feed, post_hash) values ('${
-  //       //     locationId.rows[0].feed_id
-  //       //   }', '${
-  //       //     resultPostList.rows[0].id
-  //       //   }', '${false}', '${post_hash_result}') returning list_id, post_id`,
-  //       //   true
-  //       // );
+          if (post_hash_result.length > 0) {
+            try {
+              const resultPostList = await this.query(
+                `insert into public.post_list(title, location, status, content, post_hash, type) select $1, $2, $3, $4, $5, $6 where not exists (select id from public.post_list where post_hash=$4) returning id`,
+                [
+                  req.body.title,
+                  req.body.location,
+                  req.body.status,
+                  req.body.content.replace('\\', ''),
+                  post_hash_result,
+                  req.body.type,
+                ],
+              );
 
-  //       return res.status(201).json({
-  //         list: req.body.location,
-  //         post: resultPostList.rows[0].id,
-  //       });
-  //     } else {
-  //       throw new Error('Results Missing');
-  //     }
-  //   } catch (err) {
-  //     error(err);
-  //     return res.status(400).json({ err });
-  //   }
-  // };
+              if (resultPostList) {
+                if (resultPostList.rows.length < 1)
+                  return res.status(400).json({ error: 'Post Already Exists' });
+
+                try {
+                  await this.query(
+                    `update public.${req.body.type}_post set title=$1 where post_hash=$2;`,
+                    [req.body.title, post_hash_result],
+                  );
+
+                  console.table(resultPostList);
+
+                  return res.status(201).json({
+                    list: req.body.location,
+                    post: resultPostList.rows[0].id,
+                  });
+                } catch (err) {
+                  error(err);
+                  return res.status(400).json({ err });
+                }
+              } else {
+                throw new Error('Post Not Created');
+              }
+            } catch (err) {
+              error(err);
+              return res.status(400).json(err);
+            }
+          } else {
+            throw new Error('Post Hash Missing');
+          }
+        } catch (err) {
+          error(err);
+          return res.status(400).json({ err });
+        } finally {
+          this.client.release();
+        }
+      } else {
+        throw new Error('Pool Client Missing');
+      }
+    } catch (err: any) {
+      error(err);
+      return res.status(400).json({ err });
+    }
+  };
 
   /**
    * @deprecated
@@ -548,7 +588,7 @@ class AWSDBManager {
   hashPost = async (req: Request, res: Response) => {
     await this.connectDB(true);
 
-    const result = await this.query(
+    const result = await this.querySingle(
       `select hash_post('${req.body.location}', '${req.body.type}', '${req.body.status}', '${req.body.content}') as post_hash`,
       true,
     );
@@ -563,11 +603,11 @@ export const postRouter = Router();
 
 const dbManager = new AWSDBManager();
 
-postRouter.get('/main', appCheckGaurd, dbManager.getMainPosts);
-// postRouter.get('/puppy', limiter, dbManager.getPuppyPosts);
-// postRouter.get('/articles', limiter, dbManager.getArticlePosts);
-// postRouter.get('/apple', limiter, dbManager.getApplePosts);
-// postRouter.get('/blockchain', limiter, dbManager.getBlockchainPosts);
-// postRouter.get('/anime', limiter, dbManager.getAnimePosts);
-// postRouter.post('/hash', postValidator, validator, dbManager.hashPost);
-// postRouter.post('/', postValidator, validator, dbManager.createPost);
+postRouter.get('/main', dbManager.getMainPosts);
+postRouter.get('/puppy', dbManager.getPuppyPosts);
+postRouter.get('/articles', dbManager.getArticlePosts);
+postRouter.get('/apple', dbManager.getApplePosts);
+postRouter.get('/blockchain', dbManager.getBlockchainPosts);
+postRouter.get('/anime', dbManager.getAnimePosts);
+// postRouter.post('/hash', postValidator, dbManager.hashPost);
+postRouter.post('/', postValidator, dbManager.createPost);

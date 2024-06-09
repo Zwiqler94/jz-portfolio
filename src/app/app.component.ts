@@ -1,13 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { FooterComponent } from './components/footer/footer.component';
+import {
+  MatSidenavContainer,
+  MatSidenav,
+  MatSidenavContent,
+} from '@angular/material/sidenav';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton, MatMiniFabButton } from '@angular/material/button';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MatToolbar } from '@angular/material/toolbar';
+import { DatabaseService } from 'src/app/services/database/database.service';
+import { AppCheck } from '@angular/fire/app-check';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [
+    MatToolbar,
+    RouterLink,
+    RouterLinkActive,
+    MatButton,
+    MatMiniFabButton,
+    MatIcon,
+    MatDivider,
+    MatSidenavContainer,
+    MatSidenav,
+    MatSidenavContent,
+    RouterOutlet,
+    FooterComponent,
+    NgOptimizedImage,
+  ],
 })
 export class AppComponent implements OnInit {
   title = 'jlz-portfolio';
@@ -16,11 +46,12 @@ export class AppComponent implements OnInit {
     private swUpdate: SwUpdate,
     private auth: AuthService,
     private snack: MatSnackBar,
-  ) {}
+    private dbService: DatabaseService,
+  ) {
+    this.dbService.appCheck = inject(AppCheck);
+  }
 
   ngOnInit(): void {
-    // this.dbService.appCheck = inject(AppCheck);
-
     if (this.swUpdate.isEnabled) {
       console.log('Service Worker Enabled');
       this.swUpdate.versionUpdates

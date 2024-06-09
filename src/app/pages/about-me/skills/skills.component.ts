@@ -1,7 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { Interface } from 'readline';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
+
+import { MatChipSet, MatChip } from '@angular/material/chips';
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+} from '@angular/material/expansion';
+import { MatCard, MatCardContent } from '@angular/material/card';
 
 interface SkillModel {
   skill: string;
@@ -12,6 +20,17 @@ interface SkillModel {
   selector: 'app-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
+  standalone: true,
+  imports: [
+    MatCard,
+    MatCardContent,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatChipSet,
+    MatChip,
+  ],
 })
 export class SkillsComponent extends Tabs {
   @Input() public tabTitle: string;

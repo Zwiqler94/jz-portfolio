@@ -1,14 +1,16 @@
 <div id="post-div">
-  <mat-card class="mat-elevation-z1">
+  <mat-card appearance="outlined" class="mat-elevation-z1">
     <mat-card-header>
       <!-- <mat-card-title> {{ title }} </mat-card-title> -->
       <mat-card-title-group>
         <mat-card-title>
           {{ title }}
         </mat-card-title>
-        <mat-card-subtitle *ngIf="subTitle">
-          {{ subTitle }}
-        </mat-card-subtitle>
+        @if (subTitle) {
+          <mat-card-subtitle>
+            {{ subTitle }}
+          </mat-card-subtitle>
+        }
       </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>

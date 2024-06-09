@@ -1,6 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedComponent } from './feed.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  ReCaptchaV3Provider,
+  initializeAppCheck,
+  provideAppCheck,
+} from '@angular/fire/app-check';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from 'src/environments/environment';
 
 describe('FeedComponent', () => {
   let component: FeedComponent;
@@ -8,7 +17,18 @@ describe('FeedComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FeedComponent],
+      imports: [FeedComponent],
+      providers: [
+        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideAppCheck(() =>
+          initializeAppCheck(getApp(), {
+            provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
+            isTokenAutoRefreshEnabled: true,
+          }),
+        ),
+      ],
     }).compileComponents();
   });
 
