@@ -42,6 +42,7 @@
     "@angular/service-worker": "^17.3.10",
     "@firebase/util": "^1.9.6",
     "@google-cloud/secret-manager": "^5.6.0",
+    "@semantic-release/changelog": "^6.0.3",
     "@zwiqler94/everything-lib": "^0.4.3",
     "compression": "^1.7.4",
     "core-js": "^3.37.1",
@@ -159,8 +160,14 @@
       "development",
       "next"
     ],
-    "dryRun": false,
+    "dryRun": true,
     "ci": false,
-    "extends": "semantic-release-npm-github-publish"
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/chnagelog",
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ]
   }
 }
