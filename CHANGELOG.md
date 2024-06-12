@@ -1,3 +1,11 @@
+## [5.2.1](https://github.com/Zwiqler94/jz-portfolio/compare/v5.2.0...v5.2.1) (2024-06-12)
+
+
+### Bug Fixes
+
+* **changelog:** test version up ([7ce0a7a](https://github.com/Zwiqler94/jz-portfolio/commit/7ce0a7a9ed6ca72d0036697982e67638b7c13d10))
+* **changelog:** testing testing 1 2 3 ([a339203](https://github.com/Zwiqler94/jz-portfolio/commit/a339203767e384b7c09fc33d64fb1a55a565b543))
+
 ## [5.0.12](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.11...v5.0.12) (2024-03-22)
 
 ### build
