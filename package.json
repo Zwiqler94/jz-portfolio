@@ -12,7 +12,7 @@
     "build:local": "ng build -c local",
     "build:prod:watch": "npm run build:prod -- --watch",
     "build:prod": "ng build -c production",
-    "changelog:update": "conventional-changelog -i CHANGELOG.md -s -n ./.changelog-config.js && git add CHANGELOG.md",
+    "changelog:update": "conventional-changelog -i CHANGELOG.md -s  -r 1 -n ./.changelog-config.js && git add CHANGELOG.md",
     "e2e": "ng e2e ",
     "lint:fix": "prettier --write ./ && ng lint jz-portfolio --fix",
     "lint": "ng lint",
