@@ -155,7 +155,7 @@
   },
   "release": {
     "branches": [
-      "5.1.x",
+      "5.2.x",
       "5.x",
       "development",
       "next"
