@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('meep@!')
     if (this.swUpdate.isEnabled) {
       console.log('Service Worker Enabled');
       this.swUpdate.versionUpdates
