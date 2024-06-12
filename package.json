@@ -155,10 +155,10 @@
   },
   "release": {
     "branches": [
-      {"name":"5.1.x"},
-      {"name":"5.x"},
-      {"name":"development"},
-      {"name":"next"}
+      "5.1.x",
+      "5.x",
+      "development",
+      "next"
     ],
     "dryRun": true,
     "ci": false,
