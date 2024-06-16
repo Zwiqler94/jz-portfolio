@@ -31,7 +31,7 @@ export class JzTabItemComponent implements AfterViewInit, OnChanges {
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngAfterViewInit(): void {
@@ -49,13 +49,18 @@ export class JzTabItemComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tab']) {
-      this.tabTemplate.clear();
       const component = this.tabComponentList.filter(
-        (x) => x.link === this.tab,
+        (x) => x.link === this.tab
       )[0].component;
-      const componentRef =
-        this.tabTemplate.createComponent<typeof component>(component);
-      componentRef.instance.tabTitle = this.tab.title;
+
+      if (this.tabTemplate) {
+        this.tabTemplate.clear();
+
+        const componentRef =
+          this.tabTemplate.createComponent<typeof component>(component);
+
+        componentRef.instance.tabTitle = this.tab.title;
+      }
     }
   }
 }
