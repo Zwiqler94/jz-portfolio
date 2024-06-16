@@ -68,7 +68,7 @@
     "sinon": "^18.0.0",
     "tslib": "^2.6.3",
     "uuid": "^10.0.0",
-    "webpack": "^5.91.0",
+    "webpack": "^5.92.0",
     "zone.js": "^0.14.7"
   },
   "devDependencies": {
@@ -120,7 +120,7 @@
     "@wdio/schematics": "^1.2.1",
     "@wdio/spec-reporter": "^8.38.2",
     "browserslist-ga-export": "^5.0.0",
-    "chromedriver": "^125.0.3",
+    "chromedriver": "^126.0.1",
     "conventional-changelog-cli": "^5.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.57.0",
@@ -140,8 +140,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
     "mocha": "10.4.0",
-    "prettier": "^3.3.1",
-    "puppeteer": "22.10.0",
+    "prettier": "^3.3.2",
+    "puppeteer": "22.11.0",
     "semantic-release": "^24.0.0",
     "semantic-release-npm-github-publish": "^1.5.5",
     "ts-node": "~10.9.2",
