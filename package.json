@@ -1,6 +1,6 @@
 {
   "name": "jz-portfolio",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "repository": "https://github.com/Zwiqler94/jz-portfolio.git",
   "scripts": {
     "build:dev-local:watch": "npm run build:dev-local -- --watch",
