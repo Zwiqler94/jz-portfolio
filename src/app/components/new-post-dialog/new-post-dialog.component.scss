@@ -42,3 +42,17 @@ ngx-colors.color-picker-component {
   margin-bottom: 0.5rem;
   padding-left: 0.05rem;
 }
+
+#location-type-selection-div {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.location-type-inner-divs {
+  display: inline-flex;
+  margin: 1rem;
+}
+
+@media (max-width: 430px) {
+}

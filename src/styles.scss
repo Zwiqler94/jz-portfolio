@@ -5,13 +5,17 @@
 
 @import "https://fonts.googleapis.com/icon?family=Material+Icons+Round";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 
 body {
   margin: 0;
   font-family:
+    "Quicksand",
+    "Libre Franklin",
+    Roboto,
     system-ui,
     -apple-system,
-    Roboto,
     BlinkMacSystemFont,
     "Segoe UI",
     Oxygen,
@@ -26,12 +30,15 @@ body {
 $dark-theme: mat.define-dark-theme(
   (
     color: (
-      primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
-      accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
-      warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
+      primary: mat.define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
+      accent: mat.define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
+      warn: mat.define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
     ),
     // Only include `typography` and `density` in the default dark theme.
-    typography: mat.define-typography-config(),
+    typography:
+      mat.define-typography-config(
+        $font-family: "Quicksand",
+      ),
     density: 0,
   )
 );
@@ -44,9 +51,6 @@ $light-theme: mat.define-light-theme(
       accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
       warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
     ),
-    // Only include `typography` and `density` in the default dark theme.
-    typography: mat.define-typography-config(),
-    density: 0,
   )
 );
 
@@ -76,7 +80,7 @@ div.NgxEditor.NgxEditor {
   }
 }
 
-mat-card.base {
+.mat-mdc-card.base {
   max-width: 80vw;
   width: 10rem;
   min-width: 45vw;
@@ -103,6 +107,10 @@ mat-card.base {
 
 div#post-content#post-content#post-content p img {
   width: 85vw;
+}
+
+#badge-name {
+  color: antiquewhite;
 }
 
 @media (min-height: 1024px) {
@@ -144,6 +152,30 @@ div#post-content#post-content#post-content p img {
 @media (max-width: 430px) {
   div#post-content#post-content#post-content p img {
     width: 82vw;
+  }
+
+  #location-type-selection-div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  app-new-post-dialog {
+    // /* --mat-option-label-text-line-height: 1.25rem; */
+    --mat-option-label-text-line-height: 0.25rem;
+    // /* --mdc-outlined-text-field-label-text-size: 1rem; */
+    --mdc-outlined-text-field-label-text-size: 0.5rem;
+    // /* --mdc-outlined-text-field-container-shape: 4px; */
+    --mdc-outlined-text-field-container-shape: 18px;
+    // /* --mat-form-field-container-text-line-height: 1.5rem; */
+    // /* --mat-form-field-container-text-size: 1rem; */
+    --mat-form-field-container-text-line-height: 0.5rem;
+    --mat-form-field-container-text-size: 0.5rem;
+    // /* --mat-form-field-container-height: 56px; */
+    --mat-form-field-container-height: 17px;
+    // /* --mat-form-field-container-vertical-padding: 16px; */
+    // /* --mat-form-field-filled-with-label-container-padding-top: 24px; */
+    --mat-form-field-container-vertical-padding: 7px;
+    --mat-form-field-filled-with-label-container-padding-top: 8px;
   }
 }
 

@@ -1,20 +1,25 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewPostDialogComponent } from 'src/app/components/new-post-dialog/new-post-dialog.component';
-import { Editor } from 'ngx-editor';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { environment } from 'src/environments/environment';
+import { FeedComponent } from '../../components/feed/feed.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-main-feed-page',
-  templateUrl: './main-feed-page.component.html',
-  styleUrls: ['./main-feed-page.component.scss'],
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss'],
+  standalone: true,
+  imports: [MatButton, FeedComponent],
 })
-export class MainFeedPageComponent implements OnInit {
+export class HomePageComponent implements OnInit {
+  shouldFetchPosts = false;
+
   constructor(
     private snack: MatSnackBar,
     private sw: ServiceWorkerService,
@@ -45,7 +50,11 @@ export class MainFeedPageComponent implements OnInit {
   }
 
   openNewPostDialog() {
-    this.dialog.open(NewPostDialogComponent);
+    const dialogRef = this.dialog.open(NewPostDialogComponent);
+    dialogRef.afterClosed().subscribe((res) => {
+      console.log(res);
+      this.shouldFetchPosts = true;
+    });
   }
 
   isUserAdmin() {

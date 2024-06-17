@@ -1,5 +1,5 @@
 <div class="about-content">
-  <mat-card class="testy1">
+  <mat-card appearance="outlined" class="testy1">
     <mat-card-content>
       <mat-accordion>
         <mat-expansion-panel>
@@ -7,15 +7,97 @@
             <mat-panel-title>Programming languages: </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-chip-set>
-            <ng-container *ngFor="let skillObj of skillList">
-              <mat-chip
-                *ngIf="skillObj.list === 'Programming'"
-                color="accent"
-                highlighted
-              >
-                {{ skillObj.skill }}
-              </mat-chip>
-            </ng-container>
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Programming") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Frameworks:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Frameworks") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Designing:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Designs") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Databases:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Databases") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Frameworks:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Frameworks") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Designing:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Designs") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Databases:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Databases") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
           </mat-chip-set>
         </mat-expansion-panel>
         <mat-expansion-panel>
@@ -23,21 +105,13 @@
             <mat-panel-title>Methodologies: </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-chip-set>
-            <ng-container *ngFor="let skillObj of skillList">
-              <mat-chip
-                *ngIf="skillObj.list === 'Methodologies'"
-                color="accent"
-                highlighted
-              >
-                {{ skillObj.skill }}
-              </mat-chip>
-            </ng-container>
-            <!-- <mat-chip color="accent" highlighted
-              >Agile Software Development</mat-chip
-            >
-            <mat-chip color="accent" highlighted
-              >Test-Driven Development</mat-chip
-            > -->
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Methodologies") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
           </mat-chip-set>
         </mat-expansion-panel>
         <mat-expansion-panel>
@@ -45,15 +119,41 @@
             <mat-panel-title>Tools:</mat-panel-title>
           </mat-expansion-panel-header>
           <mat-chip-set>
-            <ng-container *ngFor="let skillObj of skillList">
-              <mat-chip
-                *ngIf="skillObj.list === 'Tools'"
-                color="accent"
-                highlighted
-              >
-                {{ skillObj.skill }}
-              </mat-chip>
-            </ng-container>
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Tools") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Cloud Platforms:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Cloud") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
+          </mat-chip-set>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Cloud Platforms:</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-set>
+            @for (skillObj of skillList; track skillObj) {
+              @if (skillObj.list === "Cloud") {
+                <mat-chip color="accent" highlighted>
+                  {{ skillObj.skill }}
+                </mat-chip>
+              }
+            }
           </mat-chip-set>
         </mat-expansion-panel>
       </mat-accordion>

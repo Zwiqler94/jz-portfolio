@@ -8,7 +8,7 @@ describe('LinkPostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PostBaseComponent],
+      imports: [PostBaseComponent],
     }).compileComponents();
   });
 

@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-photography-tab',
   templateUrl: './photography-tab.component.html',
   styleUrls: ['./photography-tab.component.scss'],
+  standalone: true,
 })
 export class PhotographyTabComponent {}

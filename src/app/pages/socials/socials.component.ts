@@ -1,29 +1,18 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import {
-  Component,
-  OnInit,
-  Renderer2,
-  Inject,
-  AfterViewInit,
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-socials',
   templateUrl: './socials.component.html',
   styleUrls: ['./socials.component.scss'],
+  standalone: true,
 })
 export class SocialsComponent implements OnInit, AfterViewInit {
   instagramScript: any;
   twitterScript: any;
 
-  constructor(
-    private renderer2: Renderer2,
-    @Inject(DOCUMENT) private domDocument: any,
-    private router: Router,
-  ) {
+  constructor() {
     // if (this.router.navigated === true) {
     //   location.reload();
     // }

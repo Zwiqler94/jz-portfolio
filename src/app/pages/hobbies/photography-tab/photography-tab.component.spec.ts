@@ -8,7 +8,7 @@ describe('PhotographyTabComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PhotographyTabComponent],
+      imports: [PhotographyTabComponent],
     });
     fixture = TestBed.createComponent(PhotographyTabComponent);
     component = fixture.componentInstance;

@@ -19,9 +19,9 @@ export const environment = {
     useServiceWorker: false,
     productionServices: false,
     postService:
-      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/posts',
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v3/posts',
     secretService:
-      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioApp/api/v3/secrets',
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v3/secrets',
   },
 };
 

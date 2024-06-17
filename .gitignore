@@ -73,7 +73,11 @@ db-config/
 # Environment Files
 .env.*
 .env
+.nx/cache/
+cli-envs/
 cli-envs
 
 # Amazon
 .aws
+
+*.log

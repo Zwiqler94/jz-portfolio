@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { SafeHtml } from '@angular/platform-browser';
-import { Post, PostBase, PostType } from 'src/app/components/models/post.model';
-import { TextPostComponent } from 'src/app/components/text-post/text-post.component';
+import { PostBase, PostType } from 'src/app/components/models/post.model';
 
 @Component({
   selector: 'app-post-base',
   templateUrl: './post-base.component.html',
   styleUrls: ['./post-base.component.scss'],
+  standalone: true,
 })
 export class PostBaseComponent implements PostBase {
+  @Input() created_at: string;
   @Input() title: string;
   @Input() subTitle?: string | undefined;
   @Input() content: any;

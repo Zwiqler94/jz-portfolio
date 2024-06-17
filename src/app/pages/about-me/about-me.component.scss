@@ -10,9 +10,10 @@ $content-div-width: calc($about-div-width - 2.75rem);
   justify-content: center;
   align-items: center;
   width: $about-div-width;
+  // height: $about-div-height;
 }
 
-mat-tab {
+mat-mdc-tab {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,7 +39,8 @@ mat-tab {
 //   align-items: center;
 // }
 
-mat-card {
+/*  The following rule targets internal classes of card that may no longer apply for the MDC version.*/
+.mat-mdc-card {
   padding: 0.25rem;
   max-width: 95vw;
   width: 26.25rem;

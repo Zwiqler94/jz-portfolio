@@ -25,8 +25,8 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
 
 #toolbar-logo,
 #toolbar-logo > img {
-  height: $toolbar-height;
-  width: auto;
+  // height: auto;
+  // width: auto;
   margin-right: 5rem;
 }
 
@@ -36,7 +36,7 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
 
 .mat-drawer-container {
   margin-bottom: -0.8125rem;
-  height: 95vh;
+  // height: 95vh;
 }
 
 mat-toolbar {

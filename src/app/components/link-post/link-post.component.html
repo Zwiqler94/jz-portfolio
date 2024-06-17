@@ -1,22 +1,23 @@
 <div id="post-div">
-  <mat-card>
+  <mat-card appearance="outlined">
     <mat-card-header>
       <mat-card-title> {{ title }} </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <ng-container *ngIf="hasLinkPreviewData; else link">
-        <h1>
-          {{ title }}
-        </h1>
+      @if (hasLinkPreviewData) {
+        <!-- <h1>
+        {{ title }}
+      </h1> -->
         <a href="{{ uri }}">
-          <img mat-card-image src="{{ image }}" />
-
+          <img mat-card-image src="{{ image }}" [alt]="content" />
           <div id="link-info">
             <h2 id="link-title">{{ title }}</h2>
             <p id="link-description">{{ content }}</p>
           </div>
         </a>
-      </ng-container>
+      } @else {
+        <a href="{{ uri }}">{{ uri }}</a>
+      }
       <ng-template #link>
         <a href="{{ uri }}">{{ uri }}</a>
       </ng-template>

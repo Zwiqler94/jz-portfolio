@@ -1,6 +1,12 @@
+@use "themes";
+
 mat-form-field {
   margin: 1rem;
   width: 30rem;
+}
+
+.error {
+  background-color: map-get(themes.$md-A-1-analagous1, 500);
 }
 
 // lib-username-generator {
@@ -17,6 +23,7 @@ mat-form-field {
   // align-items: center;
   text-align: center;
   // background: #fff;
+  margin: 0;
   border-radius: 4px;
   position: relative;
   z-index: 1;
@@ -81,7 +88,7 @@ mat-form-field {
   @extend %common-handle;
 }
 
-.dragF > mat-card {
+.dragF > .mat-mdc-card {
   // height: 35rem;
   // width: 35rem;
   padding: 0.85rem;
@@ -93,20 +100,65 @@ mat-form-field {
   margin: 2rem;
 }
 
-@media (max-width: 430px) {
-  .dragF > mat-card {
-    max-width: 24rem;
+@media (max-width: 1280px) {
+  .dragF > .mat-mdc-card {
+    max-width: 48rem;
   }
+
   .project-content {
-    margin: 0.5rem;
+    margin: 1rem;
+  }
+
+  .handleB,
+  .handleC {
+    top: -0.05rem;
+    right: -0.85rem;
+    @extend %common-handle;
+  }
+}
+
+@media (max-width: 1000px) {
+  .dragF > .mat-mdc-card {
+    max-width: 50rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .dragF > .mat-mdc-card {
+    max-width: 50rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .dragF > .mat-mdc-card {
+    max-width: 45rem;
   }
 }
 
 @media (max-width: 430px) {
-  .dragF > mat-card {
-    max-width: 24rem;
+  .dragF > .mat-mdc-card {
+    max-width: 26rem;
   }
   .project-content {
-    margin: 0.5rem;
+    margin: 2.25rem;
+  }
+}
+
+@media (max-width: 395px) {
+  .dragF > .mat-mdc-card {
+    max-width: 23rem;
+  }
+
+  .project-content {
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .dragF > .mat-mdc-card {
+    max-width: 22.5rem;
+  }
+  .project-content {
+    margin: 0.7rem;
   }
 }

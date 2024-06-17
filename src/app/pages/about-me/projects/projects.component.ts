@@ -1,28 +1,46 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
+import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
+import { EverythingLibModule } from '@zwiqler94/everything-lib';
+import { MatIcon } from '@angular/material/icon';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
+  standalone: true,
+  imports: [
+    CdkDrag,
+    CdkDragHandle,
+    MatIcon,
+    MatCard,
+    MatCardHeader,
+    MatCardContent,
+    MatSnackBarModule,
+    EverythingLibModule,
+  ],
 })
 export class ProjectsComponent extends Tabs {
   @Input() public tabTitle: string;
   screenWidth: number = window.innerWidth;
-  screenHeight: number;
+  screenHeight: number = window.innerHeight;
+  widgetCount = 8;
 
-  private _maxWidth: number = this.screenWidth - 45;
+  private _maxWidth: number = this.screenWidth - 25 - 45;
+  private _maxHeight: number = (this.screenHeight - 25) / 8;
 
   // @ViewChild('tab', { read: ViewContainerRef }) tabTemplate: ViewContainerRef;
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize(_event: any) {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
-    this.maxWidth = this.screenWidth - 45;
+    this.maxWidth = this.screenWidth - 25 - 45;
+    this.maxHeight = (this.screenHeight - 25) / 8;
   }
 
   _result = [''];
@@ -34,7 +52,7 @@ export class ProjectsComponent extends Tabs {
 
   constructor(
     private fb: FormBuilder,
-    private httpClient: HttpClient,
+    private snackBar: MatSnackBar,
   ) {
     super();
   }
@@ -59,28 +77,17 @@ export class ProjectsComponent extends Tabs {
     return `${this._maxWidth}px`;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onSubmit(_token: unknown) {
-    const body = {
-      words: (this.usernameFormInApp.get('words')?.value as string).split(','),
-      specials: (
-        this.usernameFormInApp.get('specialCharacters')?.value as string
-      ).split(','),
-    };
-    console.log(body);
-    this.httpClient
-      .post<string[]>(
-        'https://us-central1-usernamegenerator.cloudfunctions.net/usernameGeneratorAPI/usernames',
-        body,
-        {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-      .subscribe((results) => {
-        this.results = results;
-      });
+  public set maxHeight(value: number) {
+    this._maxHeight = value;
+  }
+
+  public get maxHeight(): string {
+    return `${this._maxHeight}px`;
+  }
+
+  onCompletionMsgChange($event: string) {
+    if ($event !== 'Success') {
+      this.snackBar.open($event, 'X', { panelClass: '.error' });
+    }
   }
 }

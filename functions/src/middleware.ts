@@ -1,9 +1,7 @@
 import { getAppCheck } from 'firebase-admin/app-check';
 import { Request, Response, NextFunction } from 'express';
-import { error } from 'firebase-functions/logger';
+import { debug, error } from 'firebase-functions/logger';
 import { rateLimit } from 'express-rate-limit';
-// import * as creds from '../credentials.json';
-import { fbAdminApp } from '.';
 import { validationResult } from 'express-validator';
 
 export const appCheckGaurd = async (
@@ -12,9 +10,8 @@ export const appCheckGaurd = async (
   next: NextFunction,
 ) => {
   const appCheckToken = req.header('X-Firebase-AppCheck');
-  const appCheckDebugToken = req.header('X-Firebase-AppCheck-Debug');
+  const appCheckDebugToken = req.header('X-Firebase-Appcheck-Debug');
   const tokenToCheck = appCheckToken ? appCheckToken : appCheckDebugToken;
-  // debug({ tokenToCheck, creds });
   if (!tokenToCheck) {
     res.status(401);
     return next('Unauthorized Code: A');
@@ -22,7 +19,12 @@ export const appCheckGaurd = async (
 
   try {
     /* eslint-disable-next-line */
-    const _result = await getAppCheck(fbAdminApp).verifyToken(tokenToCheck);
+    if (!appCheckDebugToken && appCheckToken) {
+      const _result = await getAppCheck().verifyToken(tokenToCheck);
+      debug('Audience', _result.token.aud);
+    } else if (appCheckDebugToken && !appCheckToken) {
+      debug('DEBUG TOKEN USED');
+    }
     return next();
   } catch (err) {
     error(err);
@@ -31,7 +33,11 @@ export const appCheckGaurd = async (
   }
 };
 
-export const limiter = rateLimit({ max: 100, windowMs: 15 * 60 * 1000 });
+export const limiter = rateLimit({
+  max: 100,
+  windowMs: 15 * 60 * 1000,
+  validate: { ip: false },
+});
 
 export const validator = async (
   req: Request,

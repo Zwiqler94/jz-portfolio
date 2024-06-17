@@ -1,20 +1,24 @@
+import { DateTime } from 'luxon';
 import { Post } from 'src/app/components/models/post.model';
 
 export const testPosts: Post[] = [
   {
     location: 'Main',
+    created_at: DateTime.now().toISODate(),
     type: 'text',
     title: 'This is a Test Post',
     content: 'Lorem Ipsum Testy Test',
   },
   {
     location: 'Main',
+    created_at: DateTime.now().toISODate(),
     type: 'text',
     title: 'This is a Test Post 2',
     content: 'Lorem  Test ',
   },
   {
     location: 'Main',
+    created_at: DateTime.now().toISODate(),
     type: 'text',
     title: 'This is a Test Post 3',
     content: 'Lorem  Test ',
@@ -24,6 +28,8 @@ export const testPosts: Post[] = [
 export const staticTextPosts: Post[] = [
   {
     location: 'Puppy',
+
+    created_at: DateTime.now().toISODate(),
     type: 'text',
     title: 'Puppy Update',
     content:
@@ -31,6 +37,8 @@ export const staticTextPosts: Post[] = [
   },
   {
     location: 'Main',
+
+    created_at: DateTime.now().toISODate(),
     type: 'text',
     title: 'Welcome!',
     content:
@@ -39,52 +47,68 @@ export const staticTextPosts: Post[] = [
   },
   {
     location: 'Main',
+
+    created_at: DateTime.now().toISODate(),
     type: 'link',
     title: 'Test Link Preview!',
     content: 'Test link https://www.youtube.com/watch?v=696IhvQ0vXU',
   },
   {
     location: 'Main',
+
+    created_at: DateTime.now().toISODate(),
     type: 'link',
     title: 'Test Link Preview!',
     content: 'Test link https://www.youtube.com/watch?v=FpS2CncJXP8',
   },
   {
     location: 'Main',
+
+    created_at: DateTime.now().toISODate(),
     type: 'link',
     title: 'Test Link Preview!',
     content: 'Test link https://www.youtube.com/watch?v=1HkmMXprPwI',
   },
   {
     location: 'Apple',
+
     type: 'link',
     title: 'Test Link Preview!',
     content:
       'Test link https://9to5mac.com/2023/07/02/new-apple-smart-display-mac-monitor/',
+    created_at: DateTime.now().toISODate(),
   },
   {
     location: 'Apple',
+
     type: 'link',
     title: 'Test Link Preview!',
     content:
       'Test link https://9to5mac.com/2023/07/01/apple-card-goldman-sachs-deal-ending-report/',
+    created_at: DateTime.now().toISODate(),
   },
   {
     location: 'Blockchain',
+
     type: 'link',
     title: 'Test Link Preview!',
     content:
       'Test link https://cointelegraph.com/news/how-blockchain-is-reshaping-the-entertainment-industry-qa-with-earntv',
+    created_at: DateTime.now().toISODate(),
   },
   {
     location: 'Blockchain',
+
     type: 'link',
     title: 'Test Link Preview!',
+    created_at: DateTime.now().toISODate(),
     content:
       'Test link https://finance.yahoo.com/news/ubisoft-reveals-next-blockchain-game-170447844.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAALyZUAQt1htLnAk0_JzpaN_Dc9SeHO3D-lVc-RhqbdpsNXkkFdc3VeZo6vQP5ZsyTGihhrQ_ysmwYUKTUWkgtnniwIunUWYgVXkg82MHCw6APe-mfufg8A4QQH13BZr_vPWZG8MYg9WsE40yr_YtbBNU5UCyiIDbiFIUE1l8Dz4S',
   },
   {
     location: 'Anime',
+
+    created_at: DateTime.now().toISODate(),
     type: 'link',
     title: 'Test Link Preview!',
     content:
@@ -92,6 +116,8 @@ export const staticTextPosts: Post[] = [
   },
   {
     location: 'Anime',
+
+    created_at: DateTime.now().toISODate(),
     type: 'link',
     title: 'Test Link Preview!',
     content:
@@ -99,6 +125,8 @@ export const staticTextPosts: Post[] = [
   },
   {
     location: 'Articles',
+
+    created_at: DateTime.now().toISODate(),
     title: 'meh',
     type: 'link',
     content:
@@ -106,6 +134,8 @@ export const staticTextPosts: Post[] = [
   },
   {
     location: 'Articles',
+
+    created_at: DateTime.now().toISODate(),
     title: 'meh2',
     type: 'link',
     content: 'https://www.thejewishstar.com/stories/HAFTR-Highlights,3038',
