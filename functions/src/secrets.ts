@@ -6,7 +6,7 @@ import { secretArray, secretName } from '.';
 
 export const secretRouter = express.Router();
 
-const getLinkPreviewSecret = async (req: Request, res: Response) => {
+export const getLinkPreviewSecret = async (req: Request, res: Response) => {
   try {
     const isProd = req.query.prod === 'true';
     const apiKey = secretName.value();
@@ -17,7 +17,7 @@ const getLinkPreviewSecret = async (req: Request, res: Response) => {
   }
 };
 
-const getSecret = async (req: Request, res: Response) => {
+export const getSecret = async (req: Request, res: Response) => {
   try {
     const secretName = secretArray.filter((secret) => {
       if (secret.name === req.params.name) {

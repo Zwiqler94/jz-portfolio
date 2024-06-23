@@ -12,13 +12,15 @@ import {
 } from '@aws-sdk/client-secrets-manager';
 import { PostDBResponse } from './models/post-response.model';
 import { postValidator } from './validators/post.validator';
+import { validationResult } from 'express-validator';
+import { validator } from './middleware';
 
 export const getSecretValue = async (secretName = 'SECRET_NAME') => {
   const client = new SecretsManagerClient({ region: 'us-east-2' });
   const response = await client.send(
     new GetSecretValueCommand({
       SecretId: secretName,
-    })
+    }),
   );
 
   if (response.SecretString) {
@@ -59,7 +61,7 @@ class AWSDBManager {
 
   querySingle = async (
     text: string,
-    params?: any
+    params?: any,
   ): Promise<QueryResult<any>> => {
     try {
       const start = Date.now();
@@ -128,7 +130,7 @@ class AWSDBManager {
 
     if (!useLocal) {
       const { username, password } = JSON.parse(
-        await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5')
+        await getSecretValue('rds!db-84dfcf5a-5942-4ee0-9122-9ed073a5c0d5'),
       );
 
       AWSDBManager.password = password;
@@ -180,7 +182,7 @@ class AWSDBManager {
         'select post_list.id, post_list.type from post_list inner join puppy_feed on puppy_feed.post_id=post_list.id';
 
       const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true'
+        req.query.local ? req.query.local.toString() : 'true',
       );
 
       this.client = await this.startUpDBService();
@@ -194,12 +196,12 @@ class AWSDBManager {
             if (row.type === 'text') {
               result = await this.query(
                 'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-                [row.id]
+                [row.id],
               );
             } else {
               result = await this.query(
                 'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-                [row.id]
+                [row.id],
               );
             }
             const rowResult = result?.rows[0];
@@ -230,7 +232,7 @@ class AWSDBManager {
         'select post_list.id, post_list.type from post_list inner join articles_feed on articles_feed.post_id=post_list.id';
 
       const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true'
+        req.query.local ? req.query.local.toString() : 'true',
       );
 
       this.client = await this.startUpDBService();
@@ -244,12 +246,12 @@ class AWSDBManager {
             if (row.type === 'text') {
               result = await this.query(
                 'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-                [row.id]
+                [row.id],
               );
             } else {
               result = await this.query(
                 'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-                [row.id]
+                [row.id],
               );
             }
             const rowResult = result?.rows[0];
@@ -280,7 +282,7 @@ class AWSDBManager {
         'select post_list.id, post_list.type from post_list inner join apple_feed on apple_feed.post_id=post_list.id';
 
       const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true'
+        req.query.local ? req.query.local.toString() : 'true',
       );
 
       this.client = await this.startUpDBService();
@@ -294,12 +296,12 @@ class AWSDBManager {
             if (row.type === 'text') {
               result = await this.query(
                 'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-                [row.id]
+                [row.id],
               );
             } else {
               result = await this.query(
                 'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-                [row.id]
+                [row.id],
               );
             }
             const rowResult = result?.rows[0];
@@ -330,7 +332,7 @@ class AWSDBManager {
         'select post_list.id, post_list.type from post_list inner join blockchain_feed on blockchain_feed.post_id=post_list.id';
 
       const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true'
+        req.query.local ? req.query.local.toString() : 'true',
       );
 
       this.client = await this.startUpDBService();
@@ -347,12 +349,12 @@ class AWSDBManager {
               info({ ID: row.id });
               result = await this.query(
                 'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-                [row.id]
+                [row.id],
               );
             } else {
               result = await this.query(
                 'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-                [row.id]
+                [row.id],
               );
             }
             const rowResult = result?.rows[0];
@@ -383,7 +385,7 @@ class AWSDBManager {
         'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id';
 
       const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true'
+        req.query.local ? req.query.local.toString() : 'true',
       );
 
       // await this.connectDB(useLocalDb);
@@ -398,12 +400,12 @@ class AWSDBManager {
             if (row.type === 'text') {
               result = await this.query(
                 'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-                [row.id]
+                [row.id],
               );
             } else {
               result = await this.query(
                 'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-                [row.id]
+                [row.id],
               );
             }
             const rowResult = result?.rows[0];
@@ -443,7 +445,7 @@ class AWSDBManager {
         'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ';
 
       const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true'
+        req.query.local ? req.query.local.toString() : 'true',
       );
 
       debug(useLocalDb);
@@ -494,7 +496,7 @@ class AWSDBManager {
   createPost = async (req: Request, res: Response) => {
     try {
       const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true'
+        req.query.local ? req.query.local.toString() : 'true',
       );
 
       debug(useLocalDb);
@@ -509,7 +511,7 @@ class AWSDBManager {
               req.body.type,
               req.body.status,
               req.body.content,
-            ]
+            ],
           );
 
           const post_hash_result: string = result?.rows[0].post_hash;
@@ -527,7 +529,7 @@ class AWSDBManager {
                   req.body.content.replace('\\', ''),
                   post_hash_result,
                   req.body.type,
-                ]
+                ],
               );
 
               if (resultPostList) {
@@ -537,7 +539,7 @@ class AWSDBManager {
                 try {
                   await this.query(
                     `update public.${req.body.type}_post set title=$1 where post_hash=$2;`,
-                    [req.body.title, post_hash_result]
+                    [req.body.title, post_hash_result],
                   );
 
                   console.table(resultPostList);
@@ -570,8 +572,9 @@ class AWSDBManager {
         throw new Error('Pool Client Missing');
       }
     } catch (err: any) {
-      error(err);
-      return res.status(400).json({ err });
+      const errAsJson = JSON.parse((err as Error).message);
+      error(errAsJson);
+      return res.status(400).json(errAsJson);
     }
   };
 
@@ -586,7 +589,7 @@ class AWSDBManager {
 
     const result = await this.querySingle(
       `select hash_post('${req.body.location}', '${req.body.type}', '${req.body.status}', '${req.body.content}') as post_hash`,
-      true
+      true,
     );
 
     return res.status(200).json(result?.rows[0].post_hash);
@@ -597,7 +600,7 @@ export const postRouter = Router();
 
 // // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
-const dbManager = new AWSDBManager();
+export const dbManager = new AWSDBManager();
 
 postRouter.get('/main', dbManager.getMainPosts);
 postRouter.get('/puppy', dbManager.getPuppyPosts);
@@ -606,4 +609,4 @@ postRouter.get('/apple', dbManager.getApplePosts);
 postRouter.get('/blockchain', dbManager.getBlockchainPosts);
 postRouter.get('/anime', dbManager.getAnimePosts);
 // postRouter.post('/hash', postValidator, dbManager.hashPost);
-postRouter.post('/', postValidator, dbManager.createPost);
+postRouter.post('/', postValidator, validator, dbManager.createPost);

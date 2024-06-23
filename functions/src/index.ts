@@ -16,6 +16,9 @@ import compression from 'compression';
 import { defineSecret } from 'firebase-functions/params';
 import { SecretParam } from 'firebase-functions/lib/params/types';
 import { secretRouter } from './secrets';
+import { SwaggerUiOptions, serve, setup } from 'swagger-ui-express';
+import swaggerDoc from '../JAZWICKLER-JLZ-5.1.7-swagger.json';
+import { authRouter } from './auth';
 
 export const fbAdminApp = initializeApp({
   credential: cert({
@@ -26,6 +29,15 @@ export const fbAdminApp = initializeApp({
 });
 
 const app = express();
+
+// var options: SwaggerUiOptions = {
+
+//   // swaggerOptions: {
+//   //   url: '/api-docs/swagger.json',
+//   // },
+// };
+// app.get('/api-docs/swagger.json', (req, res) => res.json(swaggerDoc));
+app.use('/api-docs', serve, setup(swaggerDoc));
 
 app.use(compression());
 
@@ -128,6 +140,8 @@ jzPortfolioBackendExpressApp.get('/health', (req, res) => {
 jzPortfolioBackendExpressApp.get('/x-forwarded-for', (request, response) =>
   response.send(request.headers['x-forwarded-for']),
 );
+
+jzPortfolioBackendExpressApp.use('/auth', authRouter);
 
 jzPortfolioBackendExpressApp.use(gaurdedRoutes);
 
