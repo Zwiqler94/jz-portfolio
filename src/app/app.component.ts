@@ -51,7 +51,11 @@ export class AppComponent implements OnInit {
     this.dbService.appCheck = inject(AppCheck);
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.auth.appCheckToken = (
+      await this.auth.getAppCheckToken('app:oninit')
+    ).token;
+
     if (this.swUpdate.isEnabled) {
       console.log('Service Worker Enabled');
       this.swUpdate.versionUpdates

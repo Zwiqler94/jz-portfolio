@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
+import { AppCheck } from '@angular/fire/app-check';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -30,9 +32,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    onAuthStateChanged(this.fbAuth, (user) => {
+    onAuthStateChanged(this.fbAuth, async (user) => {
       if (user) {
         this.auth.uid = user.uid;
+        if (!this.auth.appCheckToken)
+          this.auth.appCheckToken = (
+            await this.auth.getAppCheckToken('')
+          ).token;
         this.router.navigateByUrl('/home');
       } else {
         this.router.navigateByUrl('/login');
@@ -42,9 +48,15 @@ export class LoginPageComponent implements OnInit {
 
   signIn() {
     signInWithPopup(this.fbAuth, this.googleProvider)
-      .then((result) => {
+      .then(async (result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         this.auth.userToken = credential?.accessToken;
+        if (!this.auth.appCheckToken)
+          this.auth.appCheckToken = (
+            await this.auth.getAppCheckToken('')
+          ).token;
+
+        console.debug(this.auth.appCheckToken);
         const user = result.user;
         console.debug(user);
         this.router.navigateByUrl('/home');

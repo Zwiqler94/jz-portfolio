@@ -12,6 +12,7 @@ import {
 import { DateTime } from 'luxon';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { Post } from 'src/app/components/models/post.model';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { staticTextPosts } from 'src/app/services/database/posts';
 import { environment } from 'src/environments/environment';
 
@@ -28,24 +29,32 @@ export class DatabaseService {
 
   postUrl = environment.serviceOptions.postService;
   _appCheck: AppCheck | undefined;
-  tokenResult: string;
+  // tokenResult: string;
 
   headers: HttpHeaders = new HttpHeaders();
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private authService: AuthService,
+  ) {
     this.appCheck = inject(AppCheck);
+
     this.setDBUrls();
-    try {
-      if (environment.local && typeof environment.appCheckDebug === 'string') {
-        this.headers = new HttpHeaders().set(
-          'X-Firebase-AppCheck-Debug',
-          environment.appCheckDebug,
-        );
-      }
-    } catch (err) {
-      console.log(err);
+
+    if (environment.local && typeof environment.appCheckDebug === 'string') {
+      console.debug('IN DEBUG MODE');
+      if (!this.authService.appCheckToken)
+        this.authService
+          .getAppCheckToken('db:constructor')
+          .then((val) => (this.authService.appCheckToken = val.token));
     }
+
+    // if (!this.authService.appCheckToken) {
+    //   this.authService.getAppCheckToken().subscribe((authToken) => {
+    //     this.authService.appCheckToken = authToken.token;
+    //   });
+    // }
   }
 
   get appCheck() {
@@ -56,25 +65,28 @@ export class DatabaseService {
     this._appCheck = x;
   }
 
-  async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
-    try {
-      if (!environment.local && this.appCheck) {
-        this.tokenResult = (await getToken(this.appCheck)).token;
-        // console.debug(this.tokenResult);
-      } else {
-        return '';
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    return this.tokenResult;
-  }
+  // async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
+  //   try {
+  //     if (!environment.local && this.appCheck) {
+  //       this.tokenResult = (await getToken(this.appCheck, false)).token;
+  //       // console.debug(this.tokenResult);
+  //     } else {
+  //       return '';
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  //   return this.tokenResult;
+  // }
 
   private async setDBUrls() {
-    await this.getAppCheckToken();
+    if (!this.authService.appCheckToken)
+      this.authService.appCheckToken = (
+        await this.authService.getAppCheckToken('db:urls')
+      ).token;
     if (!environment.local) {
       this.headers = this.headers
-        .set('X-Firebase-AppCheck', this.tokenResult)
+        .set('X-Firebase-AppCheck', this.authService.appCheckToken)
         .set('Accepts', 'application/json');
       console.debug(this.headers);
       this.mainPosts = this.httpClient
@@ -141,6 +153,7 @@ export class DatabaseService {
         );
     } else if (environment.local) {
       this.headers = this.headers
+        .set('X-Firebase-AppCheck', this.authService.appCheckToken)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json');
 

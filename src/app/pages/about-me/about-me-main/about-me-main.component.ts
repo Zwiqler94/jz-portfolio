@@ -11,15 +11,15 @@ import { MatCard, MatCardImage, MatCardContent } from '@angular/material/card';
 })
 export class AboutMeMainComponent extends Tabs {
   @Input() public tabTitle: string;
-  _profileImage = './assets/about-me/me.jpeg';
-  _sideImageA: string = './assets/about-me/side-image-18.jpeg';
-  _sideImageB: string = './assets/about-me/side-image-2.png';
-  _sideImageC: string = './assets/about-me/side-image-3.png';
-  _sideImageD: string = './assets/about-me/side-image-4.jpeg';
-  _sideImageE: string = './assets/about-me/side-image-5.jpeg';
-  _sideImageF: string = './assets/about-me/side-image-6.jpeg';
-  _sideImageG: string = './assets/about-me/side-image-11.jpeg';
-  _sideImageH: string = './assets/about-me/side-image-14.jpeg';
-  _sideImageI: string = './assets/about-me/side-image-16.jpeg';
-  _sideImageJ: string = './assets/about-me/side-image-19.jpeg';
+  _profileImage = './assets/about-me/me.avif';
+  _sideImageA: string = './assets/about-me/side-image-18.avif';
+  _sideImageB: string = './assets/about-me/side-image-2.avif';
+  _sideImageC: string = './assets/about-me/side-image-3.avif';
+  _sideImageD: string = './assets/about-me/side-image-4.avif';
+  _sideImageE: string = './assets/about-me/side-image-5.avif';
+  _sideImageF: string = './assets/about-me/side-image-6.avif';
+  _sideImageG: string = './assets/about-me/side-image-11.avif';
+  _sideImageH: string = './assets/about-me/side-image-14.avif';
+  _sideImageI: string = './assets/about-me/side-image-16.avif';
+  _sideImageJ: string = './assets/about-me/side-image-19.avif';
 }
