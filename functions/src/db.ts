@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 /* eslint-disable new-cap */
 /* eslint-disable no-extra-boolean-cast */
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { Pool, PoolClient, QueryResult } from 'pg';
 import { error, debug, info, warn } from 'firebase-functions/logger';
 
@@ -174,7 +174,7 @@ class AWSDBManager {
     return this.pool;
   };
 
-  getPuppyPosts = async (req: Request, res: Response) => {
+  getPuppyPosts = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
@@ -221,10 +221,11 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
-  getArticlePosts = async (req: Request, res: Response) => {
+  getArticlePosts = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
@@ -271,10 +272,11 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
-  getApplePosts = async (req: Request, res: Response) => {
+  getApplePosts = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
@@ -321,10 +323,15 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
-  getBlockchainPosts = async (req: Request, res: Response) => {
+  getBlockchainPosts = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
@@ -374,10 +381,11 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
-  getAnimePosts = async (req: Request, res: Response) => {
+  getAnimePosts = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
@@ -427,11 +435,12 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
-  getMainPosts = async (req: Request, res: Response) => {
-    debug({ sesSigned: req.session.cookie.signed });
+  getMainPosts = async (req: Request, res: Response, next: NextFunction) => {
+    // debug({ sesSigned: req.session.cookie.signed });
     try {
       let mainPosts: QueryResult<any> | undefined =
         new PostDBResponse().createBlankResponse();
@@ -484,6 +493,7 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
@@ -493,14 +503,8 @@ class AWSDBManager {
    * @param res
    * @returns
    */
-  createPost = async (req: Request, res: Response) => {
+  createPost = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true',
-      );
-
-      debug(useLocalDb);
-
       this.client = await this.startUpDBService();
       if (this.client) {
         try {
@@ -534,7 +538,7 @@ class AWSDBManager {
 
               if (resultPostList) {
                 if (resultPostList.rows.length < 1)
-                  return res.status(400).json({ error: 'Post Already Exists' });
+                  throw new Error('Post Already Exists');
 
                 try {
                   await this.query(
@@ -544,27 +548,30 @@ class AWSDBManager {
 
                   console.table(resultPostList);
 
-                  return res.status(201).json({
+                  res.status(201).json({
                     list: req.body.location,
                     post: resultPostList.rows[0].id,
                   });
                 } catch (err) {
                   error(err);
-                  return res.status(400).json({ err });
+                  res.status(400).json({ err });
+                  next(err);
                 }
               } else {
                 throw new Error('Post Not Created');
               }
             } catch (err) {
               error(err);
-              return res.status(400).json(err);
+              res.status(400).json(err);
+              next(err);
             }
           } else {
             throw new Error('Post Hash Missing');
           }
         } catch (err) {
           error(err);
-          return res.status(400).json({ err });
+          res.status(400).json({ err });
+          next(err);
         } finally {
           this.client.release();
         }
@@ -574,7 +581,8 @@ class AWSDBManager {
     } catch (err: any) {
       const errAsJson = JSON.parse((err as Error).message);
       error(errAsJson);
-      return res.status(400).json(errAsJson);
+      res.status(400).json(errAsJson);
+      next(err);
     }
   };
 
@@ -584,7 +592,7 @@ class AWSDBManager {
    * @param res
    * @returns
    */
-  hashPost = async (req: Request, res: Response) => {
+  hashPost = async (req: Request, res: Response, next: NextFunction) => {
     await this.connectDB(true);
 
     const result = await this.querySingle(

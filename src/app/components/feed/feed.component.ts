@@ -54,8 +54,9 @@ export class FeedComponent implements OnInit, OnChanges {
 
         this.shouldFetchPosts = !this.shouldFetchPosts;
         this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
+        console.table(this.posts$);
       }
-      console.table(this.posts$);
+
       this.changeDetector.detectChanges();
     }
   }
@@ -63,6 +64,8 @@ export class FeedComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     console.info(this.dbService.appCheck);
     this.posts$ = this.dbService.mainPosts;
+    this.shouldFetchPosts = !this.shouldFetchPosts;
+    this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
   }
 
   // ngAfterViewInit(): void {

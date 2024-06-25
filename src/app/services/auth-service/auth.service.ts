@@ -1,16 +1,39 @@
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import {
+  AppCheck,
+  AppCheckTokenResult,
+  getToken,
+} from '@angular/fire/app-check';
 import { Auth } from '@angular/fire/auth';
 import { CanActivateFn, Router } from '@angular/router';
+import { catchError, lastValueFrom, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private _appCheck: AppCheck = inject(AppCheck);
   private fbAuth: Auth = inject(Auth);
   private _userToken: string | undefined;
   private _uid: string | undefined;
+  private _appCheckToken: string | undefined;
+  static called = 0;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private httpClient: HttpClient,
+  ) {
+    if (!this.appCheckToken)
+      this.getAppCheckToken('auth:constructor')
+        .then((val) => (this._appCheckToken = val.token))
+        .finally(() => console.debug('tokened!'));
+  }
 
   public get userToken(): string | undefined {
     return this._userToken;
@@ -36,10 +59,69 @@ export class AuthService {
     }
   }
 
+  async getAppCheckToken(from: string) {
+    console.log({ cal: AuthService.called++, from });
+
+    if (!environment.local && this.appCheck) {
+      return getToken(this.appCheck);
+    } else {
+      const basicAuthBase64 = btoa(
+        `${environment.serviceOptions.ADMIN_USER}:${environment.serviceOptions.ADMIN_PASS}`,
+      );
+      const headers = new HttpHeaders().set(
+        'Authorization',
+        `Basic ${basicAuthBase64}`,
+      );
+      return lastValueFrom(
+        this.httpClient
+          .get<{
+            token: string;
+          }>(`${environment.serviceOptions.url}/api/v3/auth/token`, { headers })
+          .pipe(catchError(this.handleError)),
+      );
+    }
+  }
+
   logout() {
     this.fbAuth.signOut();
     this.uid = undefined;
     this.userToken = undefined;
+    this.appCheckToken = undefined;
     this.router.navigateByUrl('/login');
+  }
+
+  handleError = (error: HttpErrorResponse) => {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.message, error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error,
+      );
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      () =>
+        new Error(
+          `Something bad happened; please try again later. ${error.type} Error Message: ${error.message} `,
+        ),
+    );
+  };
+
+  public get appCheck(): AppCheck {
+    return this._appCheck;
+  }
+  public set appCheck(value: AppCheck) {
+    this._appCheck = value;
+  }
+
+  public get appCheckToken(): string | undefined {
+    return this._appCheckToken;
+  }
+  public set appCheckToken(value: string | undefined) {
+    this._appCheckToken = value;
   }
 }

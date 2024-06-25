@@ -2,10 +2,10 @@
 import { onRequest } from 'firebase-functions/v2/https';
 import { postRouter } from './db';
 import cors, { CorsOptions } from 'cors';
-import express from 'express';
+import express, { ErrorRequestHandler } from 'express';
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
-import { appCheckGaurd, limiter } from './middleware';
+import { appCheckGaurd, errorHandler, limiter } from './middleware';
 import helmet from 'helmet';
 import { error } from 'firebase-functions/logger';
 import { Firestore } from '@google-cloud/firestore';
@@ -30,12 +30,12 @@ export const fbAdminApp = initializeApp({
 
 const app = express();
 
-// var options: SwaggerUiOptions = {
+// `var options: SwaggerUiOptions = {
 
 //   // swaggerOptions: {
 //   //   url: '/api-docs/swagger.json',
 //   // },
-// };
+// };`
 // app.get('/api-docs/swagger.json', (req, res) => res.json(swaggerDoc));
 app.use('/api-docs', serve, setup(swaggerDoc));
 
@@ -126,7 +126,7 @@ const secretArray: SecretParam[] = [
 gaurdedRoutes.use(secretRouter);
 gaurdedRoutes.use('/posts', postRouter);
 
-jzPortfolioBackendExpressApp.get('/health', (req, res) => {
+jzPortfolioBackendExpressApp.get('/health', (req, res, next) => {
   console.log(app.get('env'), JSON.stringify(dbHost.value()));
   const data = {
     uptime: process.uptime(),
@@ -137,13 +137,19 @@ jzPortfolioBackendExpressApp.get('/health', (req, res) => {
   res.status(200).send(data);
 });
 
-jzPortfolioBackendExpressApp.get('/x-forwarded-for', (request, response) =>
-  response.send(request.headers['x-forwarded-for']),
+jzPortfolioBackendExpressApp.get('/x-forwarded-for', (req, res, next) =>
+  res.send(req.headers['x-forwarded-for']),
 );
 
 jzPortfolioBackendExpressApp.use('/auth', authRouter);
 
 jzPortfolioBackendExpressApp.use(gaurdedRoutes);
+
+// app.get('/error', (req, res, next) => {
+//   res.status(503);
+//   const err = new Error('Sample Error');
+//   next(err);
+// });
 
 app.disable('x-powered-by');
 
@@ -151,17 +157,7 @@ app.use((req, res, next) => {
   res.status(404).send("404: Sorry can't find that!");
 });
 
-app.use(
-  (
-    err: any,
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction,
-  ) => {
-    error(err.stack);
-    res.status(500).send('500: Something broke!');
-  },
-);
+app.use(errorHandler);
 
 export const jzPortfolioApp = onRequest(
   {

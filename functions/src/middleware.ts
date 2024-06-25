@@ -1,6 +1,6 @@
 import { getAppCheck } from 'firebase-admin/app-check';
 
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 import { debug, error } from 'firebase-functions/logger';
 import { rateLimit } from 'express-rate-limit';
 import { validationResult } from 'express-validator';
@@ -11,29 +11,35 @@ export const appCheckGaurd = async (
   next: NextFunction,
 ) => {
   const appCheckToken = req.header('X-Firebase-AppCheck');
-  const appCheckDebugToken = req.header('X-Firebase-Appcheck-Debug');
-  const tokenToCheck = appCheckToken ? appCheckToken : appCheckDebugToken;
+  // const appCheckDebugToken = req.header('X-Firebase-AppCheck');
+  const tokenToCheck = appCheckToken; //? appCheckToken : appCheckDebugToken;
   if (!tokenToCheck) {
     res.status(401);
     return next('Unauthorized Code: No Token');
   }
 
+  // debug({ tokenToCheck });
+
   try {
     /* eslint-disable-next-line */
-    if (appCheckDebugToken || appCheckToken) {
-      const _result = await getAppCheck().verifyToken(tokenToCheck);
-      debug('Audience', _result.token.aud);
-    }
+    // if (appCheckToken) {
 
-    if (appCheckDebugToken && !appCheckToken) {
-      debug('DEBUG TOKEN USED');
-    }
-    return next();
-  } catch (err) {
-    error(err);
+    await getAppCheck().verifyToken(tokenToCheck);
+
+    // } else {
+    //    return next('');
+    // }
+
+    // if (appCheckDebugToken && !appCheckToken) {
+    //   debug('DEBUG TOKEN USED');
+    // }
+    next();
+  } catch (err: any) {
+    // error(err);
     res.status(401);
-    return next('Unauthorized Code: Error');
+    next(`Unauthorized Code: Error ${err.message}`);
   }
+  // next();
 };
 
 export const limiter = rateLimit({
@@ -54,4 +60,19 @@ export const validator = async (
     error(result.array);
     return res.status(400).json({ errors: result.array() });
   }
+};
+
+export const errorHandler: ErrorRequestHandler = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  error(err.stack);
+  return res.status(res.statusCode).json({
+    name: err.name,
+    code: res.statusCode,
+    description: err.message ? err.message : err,
+    stack: err.stack,
+  });
 };
