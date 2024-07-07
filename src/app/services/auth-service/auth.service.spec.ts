@@ -6,15 +6,8 @@ import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { RouterTestingHarness } from '@angular/router/testing';
-import { ErrorPageComponent } from 'src/app/pages/error-page/error-page.component';
 import { HomePageComponent } from 'src/app/pages/home-page/home-page.component';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot,
-  provideRouter,
-} from '@angular/router';
+import { Router, RouterStateSnapshot, provideRouter } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { provideHttpClient } from '@angular/common/http';
@@ -25,7 +18,6 @@ import {
   provideAppCheck,
 } from '@angular/fire/app-check';
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
-import exp from 'constants';
 
 function fakeRouterState(url: string): RouterStateSnapshot {
   return {

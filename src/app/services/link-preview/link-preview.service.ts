@@ -40,6 +40,17 @@ export class LinkPreviewService {
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   get apiKey() {
+    this.getAPIKey()
+      .then(async (res) => {
+        try {
+          this._apiKey = (await lastValueFrom(res)).k;
+        } catch (err) {
+          console.error(err);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     return this._apiKey;
   }
 
@@ -47,37 +58,30 @@ export class LinkPreviewService {
     this._apiKey = value;
   }
 
-  async getAppCheckToken() {
-    if (!this.authService.appCheckToken)
-      this.authService.appCheckToken = (
-        await this.authService.getAppCheckToken('linkprev:getTok')
-      ).token;
-    else throw new Error('no token!');
-    // let token = '';
-    // try {
-    //   if (!environment.local && this.appCheck) {
-    //     token = (await getToken(this.appCheck)).token;
-    //   } else {
-    //     if (!this.authService.appCheckToken) {
-    //       this.authService.getAppCheckToken().subscribe((authToken) => {
-    //         this.authService.appCheckToken = authToken.token;
-    //       });
-    //     }
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    // }
-    // return token;
+  async hasAppCheckToken() {
+    if (this.authService.appCheckToken) return true;
+    else if (!this.authService.appCheckToken) {
+      try {
+        this.authService.appCheckToken = (
+          await this.authService.getAppCheckToken('linkprev:getTok')
+        )?.token;
+        return true;
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
+    } else return false;
   }
 
   async getAPIKey() {
     try {
-      await this.getAppCheckToken();
-      this.params = new HttpParams();
-      this.headers = this.headers.set(
-        'X-Firebase-AppCheck',
-        this.authService.appCheckToken!,
-      );
+      if (await this.hasAppCheckToken()) {
+        this.params = new HttpParams();
+        this.headers = this.headers.set(
+          'X-Firebase-AppCheck',
+          this.authService.appCheckToken!,
+        );
+      }
     } catch (err) {
       console.log(err);
     }
@@ -86,34 +90,38 @@ export class LinkPreviewService {
     let secretsUrl = environment.serviceOptions.secretService;
     secretsUrl += '/link-previews';
 
-    return this.httpClient.get<SecretResponse>(secretsUrl, {
-      params: this.params,
-      headers: this.headers,
-    });
+    return this.httpClient
+      .get<SecretResponse>(secretsUrl, {
+        params: this.params,
+        headers: this.headers,
+      })
+      .pipe(catchError(this.handleError));
   }
 
   async getLinkPreview(url: string) {
     try {
-      await this.getAppCheckToken();
-      this.params = new HttpParams();
+      if (await this.hasAppCheckToken()) {
+        this.params = new HttpParams();
 
-      this.headers = this.headers.set(
-        'X-Firebase-AppCheck',
-        this.authService.appCheckToken!,
-      );
-      const apiKey: SecretResponse = await lastValueFrom(
-        await this.getAPIKey(),
-      );
-      this.params = this.params.set('key', apiKey.k).set('q', url);
-      return this.httpClient
-        .get<LinkPreview>(this.baseUrl, {
-          params: this.params,
-          headers: this.headers,
-        })
-        .pipe(catchError(this.handleError));
+        this.headers = this.headers.append(
+          'X-Firebase-AppCheck',
+          this.authService.appCheckToken!,
+        );
+
+        this.params = this.params.set('key', this.apiKey).set('q', url);
+        return this.httpClient
+          .get<LinkPreview>(this.baseUrl, {
+            params: this.params,
+            headers: this.headers,
+          })
+          .pipe(catchError(this.handleError));
+      } else {
+        console.log('Token Error');
+        throw new Error('Token Error');
+      }
     } catch (err) {
       console.error(err);
-      throw Error(JSON.stringify(err));
+      throw new Error(JSON.stringify(err));
     }
   }
 

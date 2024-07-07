@@ -2,12 +2,11 @@
 import { onRequest } from 'firebase-functions/v2/https';
 import { postRouter } from './db';
 import cors, { CorsOptions } from 'cors';
-import express, { ErrorRequestHandler } from 'express';
+import express from 'express';
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
 import { appCheckGaurd, errorHandler, limiter } from './middleware';
 import helmet from 'helmet';
-import { error } from 'firebase-functions/logger';
 import { Firestore } from '@google-cloud/firestore';
 import { FirestoreStore } from '@google-cloud/connect-firestore';
 import session from 'express-session';
@@ -16,9 +15,10 @@ import compression from 'compression';
 import { defineSecret } from 'firebase-functions/params';
 import { SecretParam } from 'firebase-functions/lib/params/types';
 import { secretRouter } from './secrets';
-import { SwaggerUiOptions, serve, setup } from 'swagger-ui-express';
+import { serve, setup } from 'swagger-ui-express';
 import swaggerDoc from '../JAZWICKLER-JLZ-5.1.7-swagger.json';
 import { authRouter } from './auth';
+import { randomUUID } from 'crypto';
 
 export const fbAdminApp = initializeApp({
   credential: cert({
@@ -41,7 +41,7 @@ app.use('/api-docs', serve, setup(swaggerDoc));
 
 app.use(compression());
 
-let SESSION_SECRETS = ['XYX9c8fenuicvn948bnvu8'];
+let SESSION_SECRETS = [randomUUID().toString()];
 
 if (process.env.SESSION_SECRET) {
   SESSION_SECRETS = [process.env.SESSION_SECRET, ...SESSION_SECRETS];
@@ -59,7 +59,7 @@ const sessionOpts: session.SessionOptions = {
   cookie: {
     // secure: true, //app.get('env') === 'production',
     httpOnly: false,
-    domain: 'localhost',
+    // domain: 'localhost',
     priority: 'high',
     // path: "/cookie/",
     sameSite: 'none',
@@ -102,6 +102,14 @@ const dbPass =
   app.get('env') === 'production'
     ? defineSecret('DB_PASS_PROD')
     : defineSecret('DB_PASS_DEV');
+const adminUser =
+  app.get('env') === 'production'
+    ? defineSecret('ADMIN_USER_PROD')
+    : defineSecret('ADMIN_USER_DEV');
+const adminPass =
+  app.get('env') === 'production'
+    ? defineSecret('ADMIN_PASS_PROD')
+    : defineSecret('ADMIN_PASS_DEV');
 const dbHost =
   app.get('env') === 'production'
     ? defineSecret('DB_HOST_PROD')
@@ -114,20 +122,24 @@ const serverCA = defineSecret('JLZ_APP_SERVER_CA');
 const awsAccessKey = defineSecret('AWS_ACCESS_KEY_ID');
 const awsSecretKey = defineSecret('AWS_SECRET_ACCESS_KEY');
 
-const secretArray: SecretParam[] = [
+const secrets: SecretParam[] = [
   clientCert,
   clientKey,
+  adminUser,
+  adminPass,
   dbPass,
   dbHost,
   secretName,
   serverCA,
+  awsAccessKey,
+  awsSecretKey,
 ];
 
 gaurdedRoutes.use(secretRouter);
 gaurdedRoutes.use('/posts', postRouter);
 
 jzPortfolioBackendExpressApp.get('/health', (req, res, next) => {
-  console.log(app.get('env'), JSON.stringify(dbHost.value()));
+  // console.log(app.get('env'), JSON.stringify(dbHost.value()));
   const data = {
     uptime: process.uptime(),
     message: 'Ok',
@@ -165,17 +177,7 @@ export const jzPortfolioApp = onRequest(
     timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
-    secrets: [
-      clientCert,
-      clientKey,
-      serverCA,
-
-      defineSecret('DB_PASS_PROD'),
-      defineSecret('DB_HOST_PROD'),
-      defineSecret('LINK_PREVIEW_PROD'),
-      awsAccessKey,
-      awsSecretKey,
-    ],
+    secrets,
   },
   app,
 );
@@ -186,18 +188,9 @@ export const jzPortfolioAppDev = onRequest(
     timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
-    secrets: [
-      clientCert,
-      clientKey,
-      serverCA,
-      defineSecret('DB_PASS_DEV'),
-      defineSecret('DB_HOST_DEV'),
-      defineSecret('LINK_PREVIEW_DEV'),
-      awsAccessKey,
-      awsSecretKey,
-    ],
+    secrets,
   },
   app,
 );
 
-export { secretArray, secretName };
+export { secrets, secretName };

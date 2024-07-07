@@ -27,8 +27,8 @@ export const environment = {
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v3/secrets',
     postService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v3/posts',
-    ADMIN_USER: 'admin',
-    ADMIN_PASS: 'ioerb--on',
+    ADMIN_USER: '',
+    ADMIN_PASS: '',
   },
 };
 

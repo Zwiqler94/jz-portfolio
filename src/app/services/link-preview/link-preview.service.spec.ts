@@ -12,7 +12,6 @@ import {
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import sinon from 'sinon';
-import { AppCheckToken, getToken } from 'firebase/app-check';
 // const quibble = require('quibble');
 
 describe('LinkPreviewService', () => {

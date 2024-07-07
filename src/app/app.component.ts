@@ -45,16 +45,18 @@ export class AppComponent implements OnInit {
   constructor(
     private swUpdate: SwUpdate,
     private auth: AuthService,
-    private snack: MatSnackBar,
     private dbService: DatabaseService,
+    private snack: MatSnackBar,
   ) {
     this.dbService.appCheck = inject(AppCheck);
   }
 
   async ngOnInit(): Promise<void> {
+    // await this.dbService.setDBUrls();
+
     this.auth.appCheckToken = (
       await this.auth.getAppCheckToken('app:oninit')
-    ).token;
+    )?.token;
 
     if (this.swUpdate.isEnabled) {
       console.log('Service Worker Enabled');

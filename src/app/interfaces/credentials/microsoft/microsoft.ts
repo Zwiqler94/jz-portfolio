@@ -168,9 +168,9 @@ interface TechProfile {
 
 interface QnA {
   docsId: string;
-  questions: any[]; // Array type can be specified if known
-  answers: any[]; // Array type can be specified if known
-  comments: any[]; // Array type can be specified if known
+  questions: unknown[]; // Array type can be specified if known
+  answers: unknown[]; // Array type can be specified if known
+  comments: unknown[]; // Array type can be specified if known
 }
 
 export class MicrosoftLearnUserProfile {
@@ -182,7 +182,7 @@ export class MicrosoftLearnUserProfile {
   skillAssessment: null;
   assessments: null;
   nextSteps: null;
-  challenges: { Table: any[] }; // Array type can be specified if known
+  challenges: { Table: unknown[] }; // Array type can be specified if known
   lists: Lists;
   techProfile: TechProfile;
   qnA: QnA;

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { error } from 'firebase-functions/logger';
 import express, { NextFunction, Request, Response } from 'express';
-import { secretArray, secretName } from '.';
+import { secrets, secretName } from '.';
 
 export const secretRouter = express.Router();
 
@@ -28,7 +28,7 @@ export const getSecret = async (
   next: NextFunction,
 ) => {
   try {
-    const secretName = secretArray.filter((secret) => {
+    const secretName = secrets.filter((secret) => {
       if (secret.name === req.params.name) {
         // debug(secretNameProd.value());
         return true;

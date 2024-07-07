@@ -25,7 +25,7 @@ export class HomePageComponent implements OnInit {
     private sw: ServiceWorkerService,
     private dialog: MatDialog,
     private auth: AuthService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -48,6 +48,7 @@ export class HomePageComponent implements OnInit {
           });
         }
       });
+    this.shouldFetchPosts = !this.shouldFetchPosts;
   }
 
   openNewPostDialog() {
@@ -62,5 +63,9 @@ export class HomePageComponent implements OnInit {
     return (
       this.auth.uid === 'vsKhoiQqEzOQjk699NnCDtdu30Z2' || environment.local
     );
+  }
+
+  isLoggedIn() {
+    return this.auth.isLoggedIn;
   }
 }
