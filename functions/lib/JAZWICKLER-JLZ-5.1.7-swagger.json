@@ -1,0 +1,292 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "5.1.7",
+        "title": "Portfolio Back End",
+        "description": ""
+    },
+    "servers": [
+        {
+            "url": "https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/{basePath}",
+            "description": "Development Function",
+            "variables": {
+                "basePath": {
+                    "default": "api/v3"
+                }
+            }
+        },
+        {
+            "url": "http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioApp/{basePath}",
+            "description": "Local Function",
+            "variables": {
+                "basePath": {
+                    "default": "api/v3"
+                }
+            }
+        },
+        {
+            "url": "https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/{basePath}",
+            "description": "Production Function",
+            "variables": {
+                "basePath": {
+                    "default": "api/v3"
+                }
+            }
+        }
+    ],
+    "paths": {
+        "/auth/token": {
+            "get": {
+                "tags": ["Auth"],
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SecretResponse"
+                    }
+                }
+            }
+        },
+        "/secrets/link-previews": {
+            "get": {
+                "operationId": "secretsLinkPreviews",
+                "tags": ["Secrets"],
+                "parameters": [
+                    {
+                        "name": "prod",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SecretResponse"
+                    },
+                    "500": {
+                        "500": null,
+                        "$ref": "#/components/responses/GeneralServerError"
+                    }
+                }
+            }
+        },
+        "/secrets/{secretName}": {
+            "get": {
+                "operationId": "secretsName",
+                "tags": ["Secrets"],
+                "parameters": [
+                    {
+                        "name": "secretName",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SecretResponse"
+                    },
+                    "500": {
+                        "500": null,
+                        "$ref": "#/components/responses/GeneralServerError"
+                    }
+                }
+            }
+        },
+        "/posts": {
+            "post": {
+                "operationId": "postPosts",
+                "tags": ["Posts"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SecretResponse"
+                    },
+                    "500": {
+                        "500": null,
+                        "$ref": "#/components/responses/GeneralServerError"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "body": {
+                                    "value": {
+                                        "title": "mmmmm",
+                                        "location": "main",
+                                        "type": "link",
+                                        "status": "blah",
+                                        "content": "meep"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/posts/{feedLocation}": {
+            "get": {
+                "operationId": "getPosts",
+                "tags": ["Posts"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SecretResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/GeneralServerError"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "feedLocation",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "post": {
+                "deprecated": true,
+                "summary": "Future Endpoint",
+                "x-planned-feature": true,
+                "tags": ["Posts"],
+                "parameters": [
+                    {
+                        "name": "feedLocation",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/SecretResponse"
+                    },
+                    "500": {
+                        "500": null,
+                        "$ref": "#/components/responses/GeneralServerError"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "X-Firebase-Appcheck-Debug": {
+                "type": "apiKey",
+                "name": "X-Firebase-Appcheck-Debug",
+                "in": "header"
+            },
+            "X-Firebase-AppCheck": {
+                "type": "apiKey",
+                "name": "X-Firebase-AppCheck",
+                "in": "header"
+            },
+            "basicAuth": {
+                "type": "http",
+                "scheme": "basic"
+            }
+        },
+        "schemas": {
+            "SecretResponse": {
+                "type": "object",
+                "properties": {
+                    "k": {
+                        "type": "string"
+                    }
+                }
+            },
+            "GeneralServerError": {
+                "type": "string",
+                "properties": {
+                    "500": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "SecretResponse": {
+                "description": "success",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "k": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "examples": {
+                            "default": {
+                                "value": {
+                                    "k": "d91cbaf713c65097c842e273e8c8186d"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "GeneralServerError": {
+                "description": "Server Error",
+                "content": {
+                    "text/plain": {
+                        "schema": {
+                            "type": "string",
+                            "properties": {
+                                "500": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "examples": {
+                            "default": {
+                                "value": "500: Something Broke!"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "X-Firebase-Appcheck-Debug": []
+        },
+        {
+            "X-Firebase-AppCheck": []
+        }
+    ]
+}

@@ -4,14 +4,11 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import {
-  AppCheck,
-  AppCheckTokenResult,
-  getToken,
-} from '@angular/fire/app-check';
+import { AppCheck } from '@angular/fire/app-check';
 import { DateTime } from 'luxon';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { Post } from 'src/app/components/models/post.model';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { staticTextPosts } from 'src/app/services/database/posts';
 import { environment } from 'src/environments/environment';
 
@@ -19,7 +16,13 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DatabaseService {
-  mainPosts: Observable<Post[]>;
+  private _mainPosts: Observable<Post[]>;
+  public get mainPosts(): Observable<Post[]> {
+    return this._mainPosts;
+  }
+  public set mainPosts(value: Observable<Post[]>) {
+    this._mainPosts = value;
+  }
   puppyPosts: Observable<Post[]>;
   articlePosts: Observable<Post[]>;
   applePosts: Observable<Post[]>;
@@ -28,24 +31,34 @@ export class DatabaseService {
 
   postUrl = environment.serviceOptions.postService;
   _appCheck: AppCheck | undefined;
-  tokenResult: string;
+  // tokenResult: string;
 
   headers: HttpHeaders = new HttpHeaders();
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private authService: AuthService,
+  ) {
     this.appCheck = inject(AppCheck);
-    this.setDBUrls();
-    try {
-      if (environment.local && typeof environment.appCheckDebug === 'string') {
-        this.headers = new HttpHeaders().set(
-          'X-Firebase-AppCheck-Debug',
-          environment.appCheckDebug,
-        );
-      }
-    } catch (err) {
-      console.log(err);
+
+    if (environment.local && typeof environment.appCheckDebug === 'string') {
+      console.debug('IN DEBUG MODE');
+      if (!this.authService.appCheckToken)
+        this.authService.getAppCheckToken('db:constructor').then((val) => {
+          val
+            ? (this.authService.appCheckToken = val.token)
+            : (this.authService.appCheckToken = undefined);
+        });
     }
+
+    this.setDBUrls();
+
+    // if (!this.authService.appCheckToken) {
+    //   this.authService.getAppCheckToken().subscribe((authToken) => {
+    //     this.authService.appCheckToken = authToken.token;
+    //   });
+    // }
   }
 
   get appCheck() {
@@ -56,25 +69,33 @@ export class DatabaseService {
     this._appCheck = x;
   }
 
-  async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
-    try {
-      if (!environment.local && this.appCheck) {
-        this.tokenResult = (await getToken(this.appCheck)).token;
-        // console.debug(this.tokenResult);
-      } else {
-        return '';
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    return this.tokenResult;
-  }
+  // async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
+  //   try {
+  //     if (!environment.local && this.appCheck) {
+  //       this.tokenResult = (await getToken(this.appCheck, false)).token;
+  //       // console.debug(this.tokenResult);
+  //     } else {
+  //       return '';
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  //   return this.tokenResult;
+  // }
 
   private async setDBUrls() {
-    await this.getAppCheckToken();
+    // if (!this.authService.appCheckToken) {
+    // this.authService.getAppCheckToken('db:urls').then((tokenResult) => {
+    this.authService.appCheckToken = (
+      await this.authService.getAppCheckToken('db:urls')
+    )?.token; //tokenResult?.token;
+    // });
+    // }
+
+    // if (this.authService.appCheckToken) {
     if (!environment.local) {
       this.headers = this.headers
-        .set('X-Firebase-AppCheck', this.tokenResult)
+        .set('X-Firebase-AppCheck', this.authService.appCheckToken!)
         .set('Accepts', 'application/json');
       console.debug(this.headers);
       this.mainPosts = this.httpClient
@@ -89,6 +110,7 @@ export class DatabaseService {
           }),
           catchError(this.handleError),
         );
+
       this.puppyPosts = this.httpClient
         .get<Post[]>(`${this.postUrl}/puppy?local=false`, {
           headers: this.headers,
@@ -99,6 +121,7 @@ export class DatabaseService {
           }),
           catchError(this.handleError),
         );
+
       this.articlePosts = this.httpClient
         .get<Post[]>(`${this.postUrl}/articles?local=false`, {
           headers: this.headers,
@@ -109,6 +132,7 @@ export class DatabaseService {
           }),
           catchError(this.handleError),
         );
+
       this.applePosts = this.httpClient
         .get<Post[]>(`${this.postUrl}/apple?local=false`, {
           headers: this.headers,
@@ -119,6 +143,7 @@ export class DatabaseService {
           }),
           catchError(this.handleError),
         );
+
       this.animePosts = this.httpClient
         .get<Post[]>(`${this.postUrl}/anime?local=false`, {
           headers: this.headers,
@@ -129,6 +154,7 @@ export class DatabaseService {
           }),
           catchError(this.handleError),
         );
+
       this.blockchainPosts = this.httpClient
         .get<Post[]>(`${this.postUrl}/blockchain?local=false`, {
           headers: this.headers,
@@ -141,6 +167,7 @@ export class DatabaseService {
         );
     } else if (environment.local) {
       this.headers = this.headers
+        .set('X-Firebase-AppCheck', this.authService.appCheckToken!)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json');
 
@@ -240,6 +267,60 @@ export class DatabaseService {
       this.blockchainPosts = of(
         staticTextPosts.filter(
           (post) => post.location.toLowerCase() === 'blockchain',
+        ),
+      );
+    }
+    // }
+  }
+
+  async getMainPosts() {
+    this.authService.appCheckToken = (
+      await this.authService.getAppCheckToken('db:urls')
+    )?.token;
+    this.headers = new HttpHeaders({
+      'X-Firebase-AppCheck': this.authService.appCheckToken!,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+    console.debug(this.headers);
+    if (!environment.local) {
+      // .set('X-Firebase-AppCheck', this.authService.appCheckToken!)
+      // .set('Content-Type', 'application/json')
+      // .set('Accept', 'application/json');
+
+      return this.httpClient
+        .get<Post[]>(`${this.postUrl}/main?local=false`, {
+          headers: this.headers,
+          observe: 'response',
+        })
+        .pipe(
+          map((posts) => {
+            console.debug({ yup: posts.headers.keys() });
+            return this.nextFn(posts.body!);
+          }),
+          catchError(this.handleError),
+        );
+    } else if (environment.local) {
+      // this.headers = new HttpHeaders()
+      //   .set('X-Firebase-AppCheck', this.authService.appCheckToken!)
+      //   .set('Content-Type', 'application/json')
+      //   .set('Accept', 'application/json');
+
+      return this.httpClient
+        .get<Post[]>(`${this.postUrl}/main`, {
+          headers: this.headers,
+          params: { local: true },
+        })
+        .pipe(
+          map((posts) => {
+            return this.nextFn(posts);
+          }),
+          catchError(this.handleError),
+        );
+    } else {
+      return of(
+        staticTextPosts.filter(
+          (post) => post.location.toLowerCase() === 'main',
         ),
       );
     }

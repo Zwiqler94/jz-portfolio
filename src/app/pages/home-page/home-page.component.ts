@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
@@ -25,6 +25,7 @@ export class HomePageComponent implements OnInit {
     private sw: ServiceWorkerService,
     private dialog: MatDialog,
     private auth: AuthService,
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -47,19 +48,24 @@ export class HomePageComponent implements OnInit {
           });
         }
       });
+    this.shouldFetchPosts = !this.shouldFetchPosts;
   }
 
   openNewPostDialog() {
     const dialogRef = this.dialog.open(NewPostDialogComponent);
     dialogRef.afterClosed().subscribe((res) => {
-      console.log(res);
       this.shouldFetchPosts = true;
     });
+    this.cd.detectChanges();
   }
 
   isUserAdmin() {
     return (
       this.auth.uid === 'vsKhoiQqEzOQjk699NnCDtdu30Z2' || environment.local
     );
+  }
+
+  isLoggedIn() {
+    return this.auth.isLoggedIn;
   }
 }

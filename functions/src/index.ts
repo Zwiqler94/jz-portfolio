@@ -5,9 +5,8 @@ import cors, { CorsOptions } from 'cors';
 import express from 'express';
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
-import { appCheckGaurd, limiter } from './middleware';
+import { appCheckGaurd, errorHandler, limiter } from './middleware';
 import helmet from 'helmet';
-import { error } from 'firebase-functions/logger';
 import { Firestore } from '@google-cloud/firestore';
 import { FirestoreStore } from '@google-cloud/connect-firestore';
 import session from 'express-session';
@@ -16,6 +15,10 @@ import compression from 'compression';
 import { defineSecret } from 'firebase-functions/params';
 import { SecretParam } from 'firebase-functions/lib/params/types';
 import { secretRouter } from './secrets';
+import { serve, setup } from 'swagger-ui-express';
+import swaggerDoc from '../JAZWICKLER-JLZ-5.1.7-swagger.json';
+import { authRouter } from './auth';
+import { randomUUID } from 'crypto';
 
 export const fbAdminApp = initializeApp({
   credential: cert({
@@ -27,9 +30,18 @@ export const fbAdminApp = initializeApp({
 
 const app = express();
 
+// `var options: SwaggerUiOptions = {
+
+//   // swaggerOptions: {
+//   //   url: '/api-docs/swagger.json',
+//   // },
+// };`
+// app.get('/api-docs/swagger.json', (req, res) => res.json(swaggerDoc));
+app.use('/api-docs', serve, setup(swaggerDoc));
+
 app.use(compression());
 
-let SESSION_SECRETS = ['XYX9c8fenuicvn948bnvu8'];
+let SESSION_SECRETS = [randomUUID().toString()];
 
 if (process.env.SESSION_SECRET) {
   SESSION_SECRETS = [process.env.SESSION_SECRET, ...SESSION_SECRETS];
@@ -47,7 +59,7 @@ const sessionOpts: session.SessionOptions = {
   cookie: {
     // secure: true, //app.get('env') === 'production',
     httpOnly: false,
-    domain: 'localhost',
+    // domain: 'localhost',
     priority: 'high',
     // path: "/cookie/",
     sameSite: 'none',
@@ -90,6 +102,14 @@ const dbPass =
   app.get('env') === 'production'
     ? defineSecret('DB_PASS_PROD')
     : defineSecret('DB_PASS_DEV');
+const adminUser =
+  app.get('env') === 'production'
+    ? defineSecret('ADMIN_USER_PROD')
+    : defineSecret('ADMIN_USER_DEV');
+const adminPass =
+  app.get('env') === 'production'
+    ? defineSecret('ADMIN_PASS_PROD')
+    : defineSecret('ADMIN_PASS_DEV');
 const dbHost =
   app.get('env') === 'production'
     ? defineSecret('DB_HOST_PROD')
@@ -102,20 +122,24 @@ const serverCA = defineSecret('JLZ_APP_SERVER_CA');
 const awsAccessKey = defineSecret('AWS_ACCESS_KEY_ID');
 const awsSecretKey = defineSecret('AWS_SECRET_ACCESS_KEY');
 
-const secretArray: SecretParam[] = [
+const secrets: SecretParam[] = [
   clientCert,
   clientKey,
+  adminUser,
+  adminPass,
   dbPass,
   dbHost,
   secretName,
   serverCA,
+  awsAccessKey,
+  awsSecretKey,
 ];
 
 gaurdedRoutes.use(secretRouter);
 gaurdedRoutes.use('/posts', postRouter);
 
-jzPortfolioBackendExpressApp.get('/health', (req, res) => {
-  console.log(app.get('env'), JSON.stringify(dbHost.value()));
+jzPortfolioBackendExpressApp.get('/health', (req, res, next) => {
+  // console.log(app.get('env'), JSON.stringify(dbHost.value()));
   const data = {
     uptime: process.uptime(),
     message: 'Ok',
@@ -125,11 +149,19 @@ jzPortfolioBackendExpressApp.get('/health', (req, res) => {
   res.status(200).send(data);
 });
 
-jzPortfolioBackendExpressApp.get('/x-forwarded-for', (request, response) =>
-  response.send(request.headers['x-forwarded-for']),
+jzPortfolioBackendExpressApp.get('/x-forwarded-for', (req, res, next) =>
+  res.send(req.headers['x-forwarded-for']),
 );
 
+jzPortfolioBackendExpressApp.use('/auth', authRouter);
+
 jzPortfolioBackendExpressApp.use(gaurdedRoutes);
+
+// app.get('/error', (req, res, next) => {
+//   res.status(503);
+//   const err = new Error('Sample Error');
+//   next(err);
+// });
 
 app.disable('x-powered-by');
 
@@ -137,17 +169,7 @@ app.use((req, res, next) => {
   res.status(404).send("404: Sorry can't find that!");
 });
 
-app.use(
-  (
-    err: any,
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction,
-  ) => {
-    error(err.stack);
-    res.status(500).send('500: Something broke!');
-  },
-);
+app.use(errorHandler);
 
 export const jzPortfolioApp = onRequest(
   {
@@ -155,17 +177,7 @@ export const jzPortfolioApp = onRequest(
     timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
-    secrets: [
-      clientCert,
-      clientKey,
-      serverCA,
-
-      defineSecret('DB_PASS_PROD'),
-      defineSecret('DB_HOST_PROD'),
-      defineSecret('LINK_PREVIEW_PROD'),
-      awsAccessKey,
-      awsSecretKey,
-    ],
+    secrets,
   },
   app,
 );
@@ -176,18 +188,9 @@ export const jzPortfolioAppDev = onRequest(
     timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
-    secrets: [
-      clientCert,
-      clientKey,
-      serverCA,
-      defineSecret('DB_PASS_DEV'),
-      defineSecret('DB_HOST_DEV'),
-      defineSecret('LINK_PREVIEW_DEV'),
-      awsAccessKey,
-      awsSecretKey,
-    ],
+    secrets,
   },
   app,
 );
 
-export { secretArray, secretName };
+export { secrets, secretName };
