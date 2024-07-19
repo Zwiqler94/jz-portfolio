@@ -49,7 +49,7 @@
     "firebase": "^10.12.2",
     "firebase-admin": "^12.2",
     "firebase-functions": "^5.0.1",
-    "jose": "^5.4.1",
+    "jose": "^5.6.2",
     "luxon": "^3.4.4",
     "ngx-colors": "^3.6.0",
     "ngx-editor": "^17.5.4",
