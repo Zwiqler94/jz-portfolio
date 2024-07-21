@@ -141,7 +141,7 @@ export class PhotographyTabComponent implements OnInit {
       const galleryRef2 = this.gallery.ref(this.galleryIds[1]);
       galleryRef1.load(this.pics);
       galleryRef2.load(this.pics2);
-      this.galleryRefs = [galleryRef1,galleryRef2]
+      this.galleryRefs = [galleryRef1, galleryRef2];
     } catch (error) {
       console.log('Photography Tab Images Cannot Be Displayed');
       throw new Error('Photography Tab  Images Cannot Be Displayed');

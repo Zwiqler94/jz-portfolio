@@ -2,10 +2,14 @@
   <mat-card-content>
     @defer (on timer(2s)) {
       <div class="outter-grid">
-        @for (grid of [pics, pics2]; track grid; let outerIndex = $index ) {
+        @for (grid of [pics, pics2]; track grid; let outerIndex = $index) {
           <div class="grid">
             @for (item of grid; track $index) {
-              <div class="grid-item" [lightbox]="$index" [gallery]="galleryIds[outerIndex]">
+              <div
+                class="grid-item"
+                [lightbox]="$index"
+                [gallery]="galleryIds[outerIndex]"
+              >
                 @if (item.data && item.data.thumb) {
                   @if ($even) {
                     @if (($index / 2) % 3 === 0) {
@@ -139,7 +143,7 @@
             }
           </div>
         }
-     </div>
+      </div>
     } @loading (minimum 800s) {
       <div class="lds-ellipsis">
         <div></div>
