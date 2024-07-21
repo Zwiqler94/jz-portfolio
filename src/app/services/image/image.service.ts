@@ -16,7 +16,7 @@ export class ImageService {
 
   getMyImageInfo() {
     return this.httpClient.get<CloudinaryApiResponse>(
-      'http://res.cloudinary.com/dhdioy0wn/search/5666ec92f7c2696dd9f8ba74fd351e16acfacd110c047e5a17a13a5263587649/300/eyJleHByZXNzaW9uIjoicmVzb3VyY2VfdHlwZTppbWFnZSBBTkQgYXNzZXRfZm9sZGVyOkpMWi1Qb3J0Zm9saW8vSmFrZSIsIm1heF9yZXN1bHRzIjo0MH0=',
+      'https://res.cloudinary.com/dhdioy0wn/search/5666ec92f7c2696dd9f8ba74fd351e16acfacd110c047e5a17a13a5263587649/300/eyJleHByZXNzaW9uIjoicmVzb3VyY2VfdHlwZTppbWFnZSBBTkQgYXNzZXRfZm9sZGVyOkpMWi1Qb3J0Zm9saW8vSmFrZSIsIm1heF9yZXN1bHRzIjo0MH0=',
     );
   }
 
@@ -28,13 +28,13 @@ export class ImageService {
 
   getHuxleyImageInfoNext() {
     return this.httpClient.get<CloudinaryApiResponse>(
-      'http://res.cloudinary.com/dhdioy0wn/search/81ee7fd17ffd0c1e5aa8db7f47c88ec9a519613cab618f1a4ffaa98026dba020/300/eyJleHByZXNzaW9uIjoicmVzb3VyY2VfdHlwZTppbWFnZSBBTkQgYXNzZXRfZm9sZGVyOkpMWi1Qb3J0Zm9saW8vSHV4bGV5IiwibWF4X3Jlc3VsdHMiOjQwfQ==/b1dedb8209018c137c353dd56b2163f02420708bfc533b0fec3ea6fe485acf1c215f3cd8c537aaac8703d074727d6b17',
+      'https://res.cloudinary.com/dhdioy0wn/search/81ee7fd17ffd0c1e5aa8db7f47c88ec9a519613cab618f1a4ffaa98026dba020/300/eyJleHByZXNzaW9uIjoicmVzb3VyY2VfdHlwZTppbWFnZSBBTkQgYXNzZXRfZm9sZGVyOkpMWi1Qb3J0Zm9saW8vSHV4bGV5IiwibWF4X3Jlc3VsdHMiOjQwfQ==/b1dedb8209018c137c353dd56b2163f02420708bfc533b0fec3ea6fe485acf1c215f3cd8c537aaac8703d074727d6b17',
     );
   }
 
   getMyImageInfoNext() {
     return this.httpClient.get<CloudinaryApiResponse>(
-      'http://res.cloudinary.com/dhdioy0wn/search/5666ec92f7c2696dd9f8ba74fd351e16acfacd110c047e5a17a13a5263587649/300/eyJleHByZXNzaW9uIjoicmVzb3VyY2VfdHlwZTppbWFnZSBBTkQgYXNzZXRfZm9sZGVyOkpMWi1Qb3J0Zm9saW8vSmFrZSIsIm1heF9yZXN1bHRzIjo0MH0=/c965a9061e4b4ba4653adf1671fa1ddbbe808af029bdbff3578c2bb9aede519eaf73f4d9d16d56ca1c8e230dd7431003',
+      'https://res.cloudinary.com/dhdioy0wn/search/5666ec92f7c2696dd9f8ba74fd351e16acfacd110c047e5a17a13a5263587649/300/eyJleHByZXNzaW9uIjoicmVzb3VyY2VfdHlwZTppbWFnZSBBTkQgYXNzZXRfZm9sZGVyOkpMWi1Qb3J0Zm9saW8vSmFrZSIsIm1heF9yZXN1bHRzIjo0MH0=/c965a9061e4b4ba4653adf1671fa1ddbbe808af029bdbff3578c2bb9aede519eaf73f4d9d16d56ca1c8e230dd7431003',
     );
   }
 
