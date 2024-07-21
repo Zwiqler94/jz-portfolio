@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { MicrosoftLearnUserProfile } from 'src/app/interfaces/credentials/microsoft/microsoft';
+import { MicrosoftLearnUserProfile } from 'src/app/interfaces/credentials/microsoft/microsoft.interface';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { SafeHtml } from '@angular/platform-browser';
 import credInfo from 'src/assets/credentials/msft_credentials.json';
 import { credentials } from 'src/assets/credentials/credly_credentials';
-import { Credly } from 'src/app/interfaces/credentials/credly/credly';
+import { Credly } from 'src/app/interfaces/credentials/credly/credly.interface';
 import {
   MatCard,
   MatCardContent,

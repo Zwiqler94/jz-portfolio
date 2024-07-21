@@ -16,6 +16,7 @@ import {
 } from '@angular/material/card';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-link-post',
@@ -32,7 +33,10 @@ export class LinkPostComponent
   uri: string;
   image?: string;
 
-  constructor(private linkPreviewService: LinkPreviewService, private authService: AuthService) {
+  constructor(
+    private linkPreviewService: LinkPreviewService,
+    private authService: AuthService,
+  ) {
     super();
     this.type = 'LinkPost';
   }
@@ -55,9 +59,8 @@ export class LinkPostComponent
 
   async getLinkPreview() {
     const headers = new HttpHeaders({
-
       'X-Firebase-AppCheck': this.authService.appCheckToken!,
-    })
+    });
 
     const linkArray = this.content.match(
       /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9+/\-.,&?=%#(_);:~]*/,
@@ -65,25 +68,25 @@ export class LinkPostComponent
     if (linkArray !== null) {
       this.uri = linkArray[0];
       try {
-        (
-          await this.linkPreviewService.getLinkPreview(String(this.uri))
-        ).subscribe({
-          next: (data: unknown) => {
-            {
-              this.linkPreviewData = data as LinkPreview;
-              this.title = this.linkPreviewData.title
-                ? this.linkPreviewData.title
-                : this.title;
-              this.content = this.linkPreviewData.description;
-              this.image = this.linkPreviewData.image;
-            }
-          },
-          error: (err) => {
-            this.title = MissingLinkPreviewData.title;
-            this.content = MissingLinkPreviewData.description;
-            console.error(err);
-          },
-        });
+        (await this.linkPreviewService.getLinkPreview(String(this.uri)))
+          .pipe(delay(15000))
+          .subscribe({
+            next: (data: unknown) => {
+              {
+                this.linkPreviewData = data as LinkPreview;
+                this.title = this.linkPreviewData.title
+                  ? this.linkPreviewData.title
+                  : this.title;
+                this.content = this.linkPreviewData.description;
+                this.image = this.linkPreviewData.image;
+              }
+            },
+            error: (err) => {
+              this.title = MissingLinkPreviewData.title;
+              this.content = MissingLinkPreviewData.description;
+              console.error(err);
+            },
+          });
       } catch (err: any) {
         throw new Error(err);
       }

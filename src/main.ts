@@ -35,8 +35,15 @@ import {
   ReCaptchaV3Provider,
 } from '@angular/fire/app-check';
 import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
-// import { meowthInterceptor } from 'src/app/interceptors/meowth.interceptor';
+import {
+  PreloadAllModules,
+  provideRouter,
+  withComponentInputBinding,
+  withPreloading,
+} from '@angular/router';
+import { GALLERY_CONFIG, GalleryConfig } from 'ng-gallery';
+import { LIGHTBOX_CONFIG, LightboxConfig } from 'ng-gallery/lightbox';
+import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
 
 if (environment.production) {
   enableProdMode();
@@ -51,6 +58,30 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
 
 bootstrapApplication(AppComponent, {
   providers: [
+    {
+      provide: IMAGE_CONFIG,
+      useValue: {
+        breakpoints: [
+          16, 24, 32, 48, 64, 96, 128, 160, 224, 256, 288, 384, 512, 640, 750,
+          828, 1080, 1200, 1365, 1500, 1648, 1920,
+        ],
+      },
+    },
+    {
+      provide: LIGHTBOX_CONFIG,
+      useValue: {
+        keyboardShortcuts: true,
+        exitAnimationTime: 1000,
+      } as LightboxConfig,
+    },
+    {
+      provide: GALLERY_CONFIG,
+      useValue: {
+        autoHeight: true,
+        imageSize: 'contain',
+      } as GalleryConfig,
+    },
+    provideCloudinaryLoader('https://res.cloudinary.com/dhdioy0wn'),
     importProvidersFrom(
       MatButtonModule,
       MatSnackBarModule,
@@ -99,7 +130,11 @@ bootstrapApplication(AppComponent, {
       return auth;
     }),
     provideAnimations(),
-    provideRouter(routes, withComponentInputBinding()),
+    provideRouter(
+      routes,
+      withComponentInputBinding(),
+      withPreloading(PreloadAllModules),
+    ),
     provideHttpClient(),
   ],
 }).catch((err) => console.error(err));

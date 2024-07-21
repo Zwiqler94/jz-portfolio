@@ -48,7 +48,7 @@ export class HomePageComponent implements OnInit {
           });
         }
       });
-    this.shouldFetchPosts = !this.shouldFetchPosts;
+    // this.shouldFetchPosts = !this.shouldFetchPosts;
   }
 
   openNewPostDialog() {

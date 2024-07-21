@@ -41,7 +41,8 @@
       "cacheConfig": {
         "maxAge": "3d",
         "maxSize": 500,
-        "strategy": "performance"
+        "strategy": "freshness",
+        "timeout": "0u"
       },
       "name": "linkpreview",
       "urls": [

@@ -27,7 +27,11 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
 #toolbar-logo > img {
   // height: auto;
   // width: auto;
-  margin-right: 5rem;
+  // margin-inline-start: 5rem;
+
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: 10px;
 }
 
 // mat-sidenav-content {
@@ -120,18 +124,18 @@ mat-toolbar {
     padding: 0;
   }
 
-  #toolbar-logo,
-  #toolbar-logo > img {
-    height: 5rem;
-    width: auto;
-  }
+  // #toolbar-logo,
+  // #toolbar-logo>img {
+  //   height: 5rem;
+  //   width: auto;
+  // }
 
-  #logo {
-    width: 40vw;
-    display: flex;
-    justify-content: flex-start;
-    flex-shrink: 2;
-  }
+  // #logo {
+  //   width: 40vw;
+  //   display: flex;
+  //   justify-content: flex-start;
+  //   flex-shrink: 2;
+  // }
 
   #button-container-column > button {
     width: 10rem;

@@ -86,48 +86,48 @@ export class ServiceWorkerService {
   //   this._snackBar.open(message, action);
   // }
 
-  public get video(): string {
-    return this._video;
-  }
-  public set video(value: string) {
-    this._video = value;
-  }
-  public get japanPics(): string[] {
-    return this._japanPics;
-  }
-  public set japanPics(value: string[]) {
-    this._japanPics = value;
-  }
-  public get pics1(): string[] {
-    return this._pics1;
-  }
-  public set pics1(value: string[]) {
-    this._pics1 = value;
-  }
-  public get pics2(): string[] {
-    return this._pics2;
-  }
-  public set pics2(value: string[]) {
-    this._pics2 = value;
-  }
-  public get pics3(): string[] {
-    return this._pics3;
-  }
-  public set pics3(value: string[]) {
-    this._pics3 = value;
-  }
-  public get pics4(): string[] {
-    return this._pics4;
-  }
-  public set pics4(value: string[]) {
-    this._pics4 = value;
-  }
-  public get pics5(): string[] {
-    return this._pics5;
-  }
-  public set pics5(value: string[]) {
-    this._pics5 = value;
-  }
+  // public get video(): string {
+  //   return this._video;
+  // }
+  // public set video(value: string) {
+  //   this._video = value;
+  // }
+  // public get japanPics(): string[] {
+  //   return this._japanPics;
+  // }
+  // public set japanPics(value: string[]) {
+  //   this._japanPics = value;
+  // }
+  // public get pics1(): string[] {
+  //   return this._pics1;
+  // }
+  // public set pics1(value: string[]) {
+  //   this._pics1 = value;
+  // }
+  // public get pics2(): string[] {
+  //   return this._pics2;
+  // }
+  // public set pics2(value: string[]) {
+  //   this._pics2 = value;
+  // }
+  // public get pics3(): string[] {
+  //   return this._pics3;
+  // }
+  // public set pics3(value: string[]) {
+  //   this._pics3 = value;
+  // }
+  // public get pics4(): string[] {
+  //   return this._pics4;
+  // }
+  // public set pics4(value: string[]) {
+  //   this._pics4 = value;
+  // }
+  // public get pics5(): string[] {
+  //   return this._pics5;
+  // }
+  // public set pics5(value: string[]) {
+  //   this._pics5 = value;
+  // }
 
   async setUpPushNotifications() {
     await this.push.requestSubscription({ serverPublicKey: this.publicKey });

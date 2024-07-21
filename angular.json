@@ -137,7 +137,7 @@
                   "with": "src/environments/environment.local.ts"
                 }
               ],
-              "optimization": false,
+              "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
               "namedChunks": true,

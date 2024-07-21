@@ -7,7 +7,8 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges, AfterViewInit,
+  SimpleChanges,
+  AfterViewInit,
 } from '@angular/core';
 import { Post } from '../models/post.model';
 import { DatabaseService } from 'src/app/services/database/database.service';
@@ -31,7 +32,7 @@ import { NgClass, AsyncPipe } from '@angular/common';
     AsyncPipe,
   ],
 })
-export class FeedComponent implements  OnChanges, AfterViewInit {
+export class FeedComponent implements OnChanges, AfterViewInit {
   @Input() direction: 'H' | 'V' = 'V';
   @Input() feedLocation: string = 'Main';
   // @ViewChild('posts', { read: ViewContainerRef })
@@ -50,14 +51,16 @@ export class FeedComponent implements  OnChanges, AfterViewInit {
   async ngOnChanges(changes: SimpleChanges) {
     if (changes['shouldFetchPosts']) {
       if (this.shouldFetchPosts) {
-        this.posts$ = await this.dbService.getMainPosts();
+        // this.posts$ = await this.dbService.getMainPosts();
 
-        this.shouldFetchPosts = !this.shouldFetchPosts;
-        this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
+        // this.shouldFetchPosts = !this.shouldFetchPosts;
+        // this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
+
         // console.table(this.posts$);
+        await this.ngAfterViewInit();
       }
 
-      this.changeDetector.detectChanges();
+      // this.changeDetector.detectChanges();
     }
   }
 
@@ -66,7 +69,7 @@ export class FeedComponent implements  OnChanges, AfterViewInit {
     this.posts$ = await this.dbService.getMainPosts();
     this.shouldFetchPosts = !this.shouldFetchPosts;
     this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
-    this.changeDetector.detectChanges();
+    // this.changeDetector.detectChanges();
   }
 
   // ngAfterViewInit(): void {

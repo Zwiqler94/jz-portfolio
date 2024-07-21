@@ -1,0 +1,308 @@
+@use "themes" as themes;
+
+.outter-grid {
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.grid {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+
+.grid-item {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: 10px;
+}
+
+#placeholder {
+  max-inline-size: 100%;
+}
+
+.mat-mdc-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lds-ellipsis {
+  width: 15vw;
+  max-inline-size: 100vw;
+  margin-inline-start: 12vw;
+  margin-block-start: 25vw;
+}
+
+.odd-3 {
+  background-color: map-get(themes.$md-A-1-primary, 600);
+}
+
+.odd-5 {
+  background-color: map-get(themes.$md-A-1-secondary, 700);
+}
+
+.odd-7 {
+  background-color: map-get(themes.$md-A-1-primary, 800);
+}
+
+.even-2 {
+  background-color: map-get(themes.$md-A-1-secondary, 600);
+}
+
+.else {
+  background-color: map-get(themes.$md-A-1-complementary, 700);
+}
+
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  margin-inline: 3rem;
+  animation: lds-ellipsis1 0.8s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  left: 10px;
+  margin-inline: 1rem;
+  animation: lds-ellipsis2 0.8s infinite ;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 30px;
+  margin-inline: 4rem;
+  animation:  lds-ellipsis4 0.8s infinite ;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 90px;
+  margin-inline: 5rem;
+  animation:  lds-ellipsis2 0.8s infinite ;
+}
+
+.lds-ellipsis div:nth-child(5) {
+  left: 120px;
+  margin-inline: 8rem;
+  animation: lds-ellipsis4 0.8s infinite ;
+}
+
+.lds-ellipsis div:nth-child(6) {
+  left: 150px;
+  margin-inline: 10rem;
+  animation:  lds-ellipsis2 0.8s infinite ;
+}
+
+.lds-ellipsis div:nth-child(7) {
+  left: 190px;
+  margin-inline: 12rem;
+  animation: lds-ellipsis4 0.8s infinite ;
+
+}
+
+.lds-ellipsis div:nth-child(8) {
+  left: 250px;
+  margin-inline: 15rem;
+  animation: lds-ellipsis3 0.8s infinite;
+}
+
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0) scale(0);
+  }
+
+  5% {
+    transform: translate(10px, -10%);
+  }
+
+  10% {
+    transform: translate(20px, -20%);
+  }
+
+  15% {
+    transform: translate(30px, -30%);
+  }
+
+  20% {
+    transform: translate(40px, -40%);
+  }
+
+  25% {
+    transform: translate(50px, -50%);
+  }
+
+  30% {
+    transform: translate(60px, -60%);
+  }
+
+  35% {
+    transform: translate(70px, -70%);
+  }
+
+  40% {
+    transform: translate(80px, -80%);
+  }
+
+  45% {
+    transform: translate(90px, -90%);
+  }
+
+  50% {
+    transform: translate(100px, -100%) scale(1);
+  }
+
+  55% {
+    transform: translate(110px, -90%);
+  }
+
+  60% {
+    transform: translate(120px, -80%);
+  }
+
+  65% {
+    transform: translate(130px, -70%);
+  }
+
+  70% {
+    transform: translate(140px, -60);
+  }
+
+  75% {
+    transform: translate(150px, -50);
+  }
+
+  80% {
+    transform: translate(160px, -40%);
+  }
+
+  85% {
+    transform: translate(170px, -30%);
+  }
+
+  90% {
+    transform: translate(180px, -20%);
+  }
+
+  95% {
+    transform: translate(190px, -10%);
+  }
+
+  100% {
+    transform: translate(200px, 0) scale(0);
+  }
+
+}
+
+@keyframes lds-ellipsis4 {
+  100% {
+    transform: translate(0, 0) scale(0);
+  }
+
+  95% {
+    transform: translate(5px, 10%);
+  }
+
+  90% {
+    transform: translate(10px, 20%);
+  }
+
+  85% {
+    transform: translate(15px, 30%);
+  }
+
+  80% {
+    transform: translate(20px, 40%);
+  }
+
+  75% {
+    transform: translate(25px, 50%);
+  }
+
+  70% {
+    transform: translate(30px, 60%);
+  }
+
+  65% {
+    transform: translate(35px, 70%);
+  }
+
+  60% {
+    transform: translate(40px, 80%);
+  }
+
+  55% {
+    transform: translate(45px, 90%);
+  }
+
+  50% {
+    transform: translate(50px, 100%) scale(1);
+  }
+
+  45% {
+    transform: translate(65px, 90%);
+  }
+
+  40% {
+    transform: translate(70px, 80%);
+  }
+
+  35% {
+    transform: translate(75px, 70%);
+  }
+
+  30% {
+    transform: translate(80px, 60);
+  }
+
+  25% {
+    transform: translate(85px, 50);
+  }
+
+  20% {
+    transform: translate(90px, 40%);
+  }
+
+  15% {
+    transform: translate(95px, 30%);
+  }
+
+  10% {
+    transform: translate(100px, 20%);
+  }
+
+  5% {
+    transform: translate(105px, 10%);
+  }
+
+  0% {
+    transform: translate(110px, 0) scale(0);
+  }
+
+}
