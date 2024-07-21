@@ -54,6 +54,16 @@
       "cacheConfig": {
         "maxAge": "3d",
         "maxSize": 500,
+        "strategy": "freshness",
+        "timeout": "0u"
+      },
+      "name": "cloudinary",
+      "urls": ["https://res.cloudinary.com/dhdioy0wn/"]
+    },
+    {
+      "cacheConfig": {
+        "maxAge": "3d",
+        "maxSize": 500,
         "strategy": "performance"
       },
       "name": "misc",
