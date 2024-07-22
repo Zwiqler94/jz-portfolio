@@ -26,6 +26,12 @@ body {
     sans-serif;
 }
 
+img {
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: 10px;
+}
+
 // Define a dark theme
 $dark-theme: mat.define-dark-theme(
   (

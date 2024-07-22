@@ -36,6 +36,13 @@ img {
   justify-content: center;
 }
 
+.mat-mdc-card-content,
+.mat-mdc-card-content:first-child,
+.mat-mdc-card-content:last-child {
+  padding: 0.3rem;
+  padding-block-end: 0.05rem;
+}
+
 .lds-ellipsis {
   width: 15vw;
   max-inline-size: 100vw;
@@ -109,6 +116,26 @@ img {
   left: 250px;
   margin-inline: 15rem;
   animation: lds-ellipsis3 0.8s infinite;
+}
+
+@media (max-width: 1080px) {
+  div.outter-grid {
+    flex-direction: column;
+  }
+
+  .outter-grid,
+  .grid {
+    margin: 0rem;
+    padding: 0rem;
+  }
+
+  .grid-item {
+    margin: 0.5rem;
+  }
+
+  img {
+    border-radius: 8px;
+  }
 }
 
 @keyframes lds-ellipsis1 {
