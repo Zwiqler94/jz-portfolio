@@ -74,7 +74,7 @@ export const routes: Routes = [
       // { path: 'fitness', component: FitnessTabComponent },
       {
         path: 'japanese',
-        title: 'Japan Obsessed',
+        title: 'ようこそ！',
         component: JapaneseTabComponent,
       },
     ],
