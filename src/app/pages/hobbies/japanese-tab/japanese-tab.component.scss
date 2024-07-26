@@ -4,12 +4,10 @@
 // $hobby-div-width: 100vw;
 // $content-div-width: calc($hobby-div-width - 2.75rem);
 
- .paragraph .mat-mdc-card {
+.paragraph .mat-mdc-card {
   max-width: 43vw;
   margin-inline: 3.5vw;
   inset-block: 4vw;
-
-
 }
 
 // .jlpt-score {
@@ -23,13 +21,13 @@
   margin: 1rem;
   justify-content: center;
   align-items: center;
-  .jlpt-score{
+  .jlpt-score {
     margin: 0.5rem;
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    img{
+    img {
       max-height: 17rem;
     }
   }

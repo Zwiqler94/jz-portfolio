@@ -1,0 +1,164 @@
+@use "themes" as themes;
+
+.outter-grid {
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.grid {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+
+.grid-item {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: 10px;
+}
+
+#placeholder {
+  max-inline-size: 100%;
+}
+
+.mat-mdc-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-mdc-card-content,
+.mat-mdc-card-content:first-child,
+.mat-mdc-card-content:last-child {
+  padding: 0.3rem;
+  padding-block-end: 0.05rem;
+}
+
+.primary-1 {
+  background-color: map-get(themes.$md-A-1-primary, 100);
+}
+
+.secondary-1 {
+  background-color: map-get(themes.$md-A-1-secondary, 100);
+}
+
+.complementary-1 {
+  background-color: map-get(themes.$md-A-1-complementary, 100);
+}
+
+.secondary-9 {
+  background-color: map-get(themes.$md-A-1-secondary, 200);
+}
+
+.complementary-2 {
+  background-color: map-get(themes.$md-A-1-complementary, 200);
+}
+
+.primary-2 {
+  background-color: map-get(themes.$md-A-1-primary, 200);
+}
+
+.secondary-2 {
+  background-color: map-get(themes.$md-A-1-secondary, 300);
+}
+
+.primary-3 {
+  background-color: map-get(themes.$md-A-1-primary, 300);
+}
+
+.complementary-3 {
+  background-color: map-get(themes.$md-A-1-complementary, 300);
+}
+
+.complementary-4 {
+  background-color: map-get(themes.$md-A-1-complementary, 400);
+}
+
+.primary-4 {
+  background-color: map-get(themes.$md-A-1-primary, 400);
+}
+
+.secondary-3 {
+  background-color: map-get(themes.$md-A-1-secondary, 400);
+}
+
+.primary-5 {
+  background-color: map-get(themes.$md-A-1-primary, 500);
+}
+
+.complementary-5 {
+  background-color: map-get(themes.$md-A-1-complementary, 500);
+}
+
+.complementary-6 {
+  background-color: map-get(themes.$md-A-1-complementary, 600);
+}
+
+.primary-6 {
+  background-color: map-get(themes.$md-A-1-primary, 700);
+}
+
+.secondary-4 {
+  background-color: map-get(themes.$md-A-1-secondary, 700);
+}
+
+.primary-7 {
+  background-color: map-get(themes.$md-A-1-primary, 800);
+}
+
+.secondary-6 {
+  background-color: map-get(themes.$md-A-1-secondary, 800);
+}
+
+.secondary-7 {
+  background-color: map-get(themes.$md-A-1-secondary, 800);
+}
+
+.primary-8 {
+  background-color: map-get(themes.$md-A-1-primary, 900);
+}
+
+.secondary-5 {
+  background-color: map-get(themes.$md-A-1-secondary, 900);
+}
+
+.primary-9 {
+  background-color: map-get(themes.$md-A-1-primary, 800);
+}
+
+.complementary-7 {
+  background-color: map-get(themes.$md-A-1-complementary, 800);
+}
+
+.secondary-8 {
+  background-color: map-get(themes.$md-A-1-secondary, 900);
+}
+
+@media (max-width: 1080px) {
+  div.outter-grid {
+    flex-direction: column;
+  }
+
+  .outter-grid,
+  .grid {
+    margin: 0rem;
+    padding: 0rem;
+  }
+
+  .grid-item {
+    margin: 0.5rem;
+  }
+
+  img {
+    border-radius: 8px;
+  }
+}

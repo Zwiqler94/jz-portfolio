@@ -119,33 +119,6 @@ div#post-content#post-content#post-content p img {
   color: antiquewhite;
 }
 
-.lds-ellipsis {
-  /* change color here */
-  color: map-get(themes.$md-A-1-analagous1, 500);
-}
-
-.lds-ellipsis,
-.lds-ellipsis div {
-  box-sizing: border-box;
-}
-
-.lds-ellipsis {
-  display: inline-block;
-  position: relative;
-  max-inline-size: 100%;
-  height: 100px;
-}
-
-.lds-ellipsis div {
-  position: absolute;
-  top: 2.0833rem;
-  width: 3.125rem;
-  height: 3.125rem;
-  border-radius: 50%;
-  background: currentColor;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-
 @media (min-height: 1024px) {
   #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;

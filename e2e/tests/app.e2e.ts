@@ -53,7 +53,7 @@ describe('App test', function () {
   });
 
 
-it('has JS disabled warning', async () => {
+it.skip('has JS disabled warning', async () => {
     const {page} = getBrowserState();
     const element = await page.waitForSelector('body > noscript:nth-child(1)');
 

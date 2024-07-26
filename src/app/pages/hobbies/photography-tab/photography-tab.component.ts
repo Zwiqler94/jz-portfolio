@@ -1,17 +1,13 @@
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import {
-  Storage,
-  getDownloadURL,
-  listAll,
-  ListResult,
-  ref,
-  StorageReference,
-} from '@angular/fire/storage';
-import { MatCard, MatCardModule } from '@angular/material/card';
-import { Router } from '@angular/router';
-import { zip } from 'lodash-es';
-import { Gallery, GalleryItem, GalleryRef, ImageItem } from 'ng-gallery';
+  Gallery,
+  GalleryConfig,
+  GalleryItem,
+  GalleryRef,
+  ImageItem,
+} from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { delay, forkJoin, retry } from 'rxjs';
 import {
@@ -19,32 +15,37 @@ import {
   Resource,
 } from 'src/app/interfaces/cloudinary-search.interface';
 import { ImageService } from 'src/app/services/image/image.service';
-import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
-// import Jimp from 'jimp';
+import { LoadingOverlayComponent } from '../../../components/loading-overlay/loading-overlay.component';
+import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-gallery.component';
 
 @Component({
   selector: 'app-photography-tab',
   templateUrl: './photography-tab.component.html',
   styleUrls: ['./photography-tab.component.scss'],
   standalone: true,
-  imports: [LightboxModule, AsyncPipe, NgOptimizedImage, MatCardModule],
+  imports: [
+    LightboxModule,
+    AsyncPipe,
+    NgOptimizedImage,
+    MatCardModule,
+    LoadingOverlayComponent,
+    PhotoGalleryComponent,
+  ],
 })
 export class PhotographyTabComponent implements OnInit {
-  private storage = inject(Storage);
+  // private storage = inject(Storage);
 
-  pics: GalleryItem[] = [];
-  pics2: GalleryItem[] = [];
   galleryIds = ['MIIIII', 'YUUUUUU'];
   galleryRefs: GalleryRef[] = [];
+  photoGrids: GalleryItem[][] = [];
+
   constructor(
-    private sw: ServiceWorkerService,
-    private router: Router,
     private imageService: ImageService,
     public gallery: Gallery,
   ) {}
 
-  async ngOnInit() {
-    await this.setUpPhotographyImagesCloudinary();
+  ngOnInit() {
+    this.setUpPhotographyImagesCloudinary();
   }
 
   // private async setUpPhotographyImages() {
@@ -122,26 +123,37 @@ export class PhotographyTabComponent implements OnInit {
   // }
 
   private setUpPhotographyImagesCloudinary() {
+    const config: GalleryConfig = {
+      // thumbAutosize: true,
+      // itemAutosize: true,
+      thumbPosition: 'left',
+      scrollBehavior: 'smooth',
+      // imageSize: 'contain',
+      debug: true,
+    };
     try {
       forkJoin([
         this.imageService.getHuxleyImageInfo(),
         this.imageService.getMyImageInfo(),
         this.imageService.getRandomImageInfo(),
-        this.imageService.getHuxleyImageInfoNext(),
-        this.imageService.getMyImageInfoNext(),
-        this.imageService.getRandomImageInfoNext(),
+        this.imageService.getHuxleyImageInfo(
+          'b1dedb8209018c137c353dd56b2163f02420708bfc533b0fec3ea6fe485acf1c215f3cd8c537aaac8703d074727d6b17',
+        ),
+        this.imageService.getMyImageInfo(
+          'c965a9061e4b4ba4653adf1671fa1ddbbe808af029bdbff3578c2bb9aede519eaf73f4d9d16d56ca1c8e230dd7431003',
+        ),
+        this.imageService.getRandomImageInfo(
+          '9c43258dc88234010af7a25ad66ea603c492e7c0f4e7388a91577edc043abfc7deaee8e8a130981de163f5f71f77b48f',
+        ),
       ])
-        .pipe(delay(5000), retry(3))
+        .pipe(delay(2000), retry(3))
         .subscribe((imageResults) => {
-          this.setImageArr(imageResults.slice(0, 3), this.pics);
-          this.setImageArr(imageResults.slice(3), this.pics2);
+          const galleryRef1 = this.gallery.ref(this.galleryIds[0], config);
+          const galleryRef2 = this.gallery.ref(this.galleryIds[1], config);
+          galleryRef1.load(this.setImageArr(imageResults.slice(0, 3), []));
+          galleryRef2.load(this.setImageArr(imageResults.slice(3), []));
+          this.galleryRefs = [galleryRef1, galleryRef2];
         });
-
-      const galleryRef1 = this.gallery.ref(this.galleryIds[0]);
-      const galleryRef2 = this.gallery.ref(this.galleryIds[1]);
-      galleryRef1.load(this.pics);
-      galleryRef2.load(this.pics2);
-      this.galleryRefs = [galleryRef1, galleryRef2];
     } catch (error) {
       console.log('Photography Tab Images Cannot Be Displayed');
       throw new Error('Photography Tab  Images Cannot Be Displayed');
@@ -151,8 +163,8 @@ export class PhotographyTabComponent implements OnInit {
   private setImageArr(
     imageResults: CloudinaryApiResponse[],
     arr: GalleryItem[],
-  ) {
-    this.removeUndefinedArrayValuesAndZip([
+  ): GalleryItem[] {
+    this.zipImageResults([
       imageResults[0].resources,
       imageResults[1].resources,
       imageResults[2].resources,
@@ -169,23 +181,11 @@ export class PhotographyTabComponent implements OnInit {
         );
       }
     });
+    if (arr.length > 0) this.photoGrids.push(arr);
+    return arr;
   }
 
-  formartForCloudinaryProvider(imageUrl: string) {
-    console.log({
-      theURI: imageUrl.replace(
-        /.*\/r_40\/c_thumb,w_100(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)+)/,
-        '',
-      ),
-    });
-    return imageUrl.replace(
-      /.*\/r_40\/c_thumb,w_100(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)+)/,
-      '',
-    );
-  }
-
-  removeUndefinedArrayValuesAndZip(arr: Resource[][]) {
-    console.log({ zippedFlatten: zip(...arr).flat(2), zipped: zip(...arr) });
-    return zip(...arr).flat(2);
+  zipImageResults(arr: Resource[][]) {
+    return this.imageService.zipImageResults(arr);
   }
 }

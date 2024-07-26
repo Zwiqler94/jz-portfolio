@@ -77,8 +77,9 @@ bootstrapApplication(AppComponent, {
     {
       provide: GALLERY_CONFIG,
       useValue: {
-        autoHeight: true,
-        imageSize: 'contain',
+        // autoHeight: true,
+        // itemAutosize: true,
+        // imageSize: 'contain',
       } as GalleryConfig,
     },
     provideCloudinaryLoader('https://res.cloudinary.com/dhdioy0wn'),

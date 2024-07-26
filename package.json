@@ -22,7 +22,7 @@
     "postbuild:local:watch": "for i in $(find dist/jz-portfolio-local -type f -print); do brotli -q 6 -f -s -v $i; done",
     "seed": "node dist/db-config/scripts/seed.ts",
     "semantic-release": "semantic-release",
-    "start:dev-local": "http-server  --gzip --proxy http://0.0.0.0:8083? --cors  -p 8083  dist/jz-portfolio-dev-local",
+    "start:dev-local": "http-server --gzip --brotli --proxy http://localhost:8083? --cors -p 8083  dist/jz-portfolio-dev-local",
     "start:dev": "http-server --cors -p 8085 -c-1 dist/jz-portfolio-dev",
     "start:local": "http-server --gzip --brotli --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local",
     "start:prod": "http-server --cors  -p 8087 -c-1 dist/jz-portfolio",
