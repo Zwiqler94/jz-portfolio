@@ -53,8 +53,7 @@
     {
       "cacheConfig": {
         "maxAge": "7d",
-        "maxSize": 500,
-        "timeout": "0u"
+        "maxSize": 500
       },
       "name": "cloudinary",
       "urls": ["https://res.cloudinary.com/dhdioy0wn/"]

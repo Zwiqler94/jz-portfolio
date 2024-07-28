@@ -1,5 +1,5 @@
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {
   Gallery,
@@ -17,6 +17,7 @@ import {
 import { ImageService } from 'src/app/services/image/image.service';
 import { LoadingOverlayComponent } from '../../../components/loading-overlay/loading-overlay.component';
 import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-gallery.component';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-photography-tab',
@@ -38,6 +39,8 @@ export class PhotographyTabComponent implements OnInit {
   galleryIds = ['MIIIII', 'YUUUUUU'];
   galleryRefs: GalleryRef[] = [];
   photoGrids: GalleryItem[][] = [];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private imageService: ImageService,
@@ -148,10 +151,10 @@ export class PhotographyTabComponent implements OnInit {
         .pipe(delay(2000), retry(3))
         .subscribe((imageResults) => {
           const galleryRef1 = this.gallery.ref(this.galleryIds[0], config);
-          const galleryRef2 = this.gallery.ref(this.galleryIds[1], config);
-          galleryRef1.load(this.setImageArr(imageResults.slice(0, 3), []));
-          galleryRef2.load(this.setImageArr(imageResults.slice(3), []));
-          this.galleryRefs = [galleryRef1, galleryRef2];
+          // const galleryRef2 = this.gallery.ref(this.galleryIds[1], config);
+          galleryRef1.load(this.setImageArr(imageResults, []));
+          // galleryRef2.load(this.setImageArr(imageResults.slice(3), []));
+          this.galleryRefs = [galleryRef1];
         });
     } catch (error) {
       console.debug('Photography Tab Images Cannot Be Displayed');

@@ -62,12 +62,12 @@ export class ImageService {
   // }
 
   formatForCloudinaryProvider(imageUrl: string) {
-    console.debug({
-      theURI: imageUrl.replace(
-        /.*\/r_40\/c_thumb,w_100(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)+)/,
-        '',
-      ),
-    });
+    // console.debug({
+    //   theURI: imageUrl.replace(
+    //     /.*\/r_40\/c_thumb,w_100(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)+)/,
+    //     '',
+    //   ),
+    // });
     return imageUrl.replace(
       /.*\/r_40\/c_thumb,w_100(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)+)/,
       '',
