@@ -55,7 +55,7 @@ export class JapaneseTabComponent implements OnInit {
           this.galleryRefs = [galleryRef1];
         });
     } catch (error) {
-      console.log('Japanese Tab Images Cannot Be Displayed');
+      console.debug('Japanese Tab Images Cannot Be Displayed');
       throw new Error('Japanese Tab  Images Cannot Be Displayed');
     }
   }

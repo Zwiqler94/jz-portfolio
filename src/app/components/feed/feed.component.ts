@@ -107,7 +107,7 @@ export class FeedComponent implements OnChanges, AfterViewInit {
   //             this.generatePost(post);
   //           });
   //         },
-  //         error: (error) => console.log(error),
+  //         error: (error) => console.debug(error),
   //       });
   //       break;
   // case 'puppy':
@@ -186,7 +186,7 @@ export class FeedComponent implements OnChanges, AfterViewInit {
   //         this.postTemplate.createComponent(LinkPostComponent);
   //       this.componentRef.instance.title = post.title;
   //       this.componentRef.instance.content = post.content;
-  //       console.log(post.content);
+  //       console.debug(post.content);
   //       break;
   //     case 'text':
   //     case 'TextPost':
@@ -194,7 +194,7 @@ export class FeedComponent implements OnChanges, AfterViewInit {
   //         this.postTemplate.createComponent(TextPostComponent);
   //       this.componentRef.instance.title = post.title;
   //       this.componentRef.instance.content = post.content;
-  //       console.log(post.content);
+  //       console.debug(post.content);
   //       break;
   //   }
   // }

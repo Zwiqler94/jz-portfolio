@@ -62,7 +62,7 @@ export class ImageService {
   // }
 
   formatForCloudinaryProvider(imageUrl: string) {
-    console.log({
+    console.debug({
       theURI: imageUrl.replace(
         /.*\/r_40\/c_thumb,w_100(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)+)/,
         '',
@@ -75,7 +75,7 @@ export class ImageService {
   }
 
   zipImageResults(arr: Resource[][]) {
-    console.log({ zippedFlatten: zip(...arr).flat(2), zipped: zip(...arr) });
+    console.debug({ zippedFlatten: zip(...arr).flat(2), zipped: zip(...arr) });
     return zip(...arr).flat(2);
   }
 }

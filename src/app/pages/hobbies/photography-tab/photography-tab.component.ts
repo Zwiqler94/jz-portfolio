@@ -117,7 +117,7 @@ export class PhotographyTabComponent implements OnInit {
   //     const galleryRef = this.gallery.ref(this.galleryId);
   //     galleryRef.load(this.pics);
   //   } catch (error) {
-  //     console.log('Photography Tab Images Cannot Be Displayed');
+  //     console.debug('Photography Tab Images Cannot Be Displayed');
   //     throw new Error('Photography Tab  Images Cannot Be Displayed');
   //   }
   // }
@@ -129,7 +129,6 @@ export class PhotographyTabComponent implements OnInit {
       thumbPosition: 'left',
       scrollBehavior: 'smooth',
       // imageSize: 'contain',
-      debug: true,
     };
     try {
       forkJoin([
@@ -155,7 +154,7 @@ export class PhotographyTabComponent implements OnInit {
           this.galleryRefs = [galleryRef1, galleryRef2];
         });
     } catch (error) {
-      console.log('Photography Tab Images Cannot Be Displayed');
+      console.debug('Photography Tab Images Cannot Be Displayed');
       throw new Error('Photography Tab  Images Cannot Be Displayed');
     }
   }

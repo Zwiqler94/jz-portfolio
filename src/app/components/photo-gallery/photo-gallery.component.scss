@@ -143,6 +143,12 @@ img {
   background-color: map-get(themes.$md-A-1-secondary, 900);
 }
 
+gallery {
+  border-radius: 1%;
+  margin-inline: 3.5vw;
+  max-width: 43vw;
+}
+
 @media (max-width: 1080px) {
   div.outter-grid {
     flex-direction: column;
@@ -160,5 +166,11 @@ img {
 
   img {
     border-radius: 8px;
+  }
+
+
+  gallery {
+    margin-inline: 7vw;
+    max-width: 86vw;
   }
 }

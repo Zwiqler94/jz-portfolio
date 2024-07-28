@@ -33,7 +33,7 @@ xdescribe('JzTabComponent', () => {
     // // ];
     // component.route.children.push(routey);
     component.router.navigateByUrl('/moop');
-    console.log({r:component.route})
+    console.debug({ r: component.route });
     fixture.detectChanges();
   });
 

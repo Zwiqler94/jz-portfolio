@@ -94,7 +94,7 @@ export class HobbiesComponent {
   //       this.sw.japanPics.push(await getDownloadURL(itemRef));
   //     });
   //   } catch (error) {
-  //     console.log('Carousel Images Cannot Be Displayed');
+  //     console.debug('Carousel Images Cannot Be Displayed');
   //     throw new Error('Carousel Images Cannot Be Displayed');
   //   }
   // }

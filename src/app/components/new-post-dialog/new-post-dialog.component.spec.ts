@@ -16,10 +16,7 @@ import {
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatDialogHarness } from '@angular/material/dialog/testing';
-import {
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { provideAuth } from '@angular/fire/auth';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 

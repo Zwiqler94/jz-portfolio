@@ -139,7 +139,7 @@ gaurdedRoutes.use(secretRouter);
 gaurdedRoutes.use('/posts', postRouter);
 
 jzPortfolioBackendExpressApp.get('/health', (req, res, next) => {
-  // console.log(app.get('env'), JSON.stringify(dbHost.value()));
+  // console.debug(app.get('env'), JSON.stringify(dbHost.value()));
   const data = {
     uptime: process.uptime(),
     message: 'Ok',

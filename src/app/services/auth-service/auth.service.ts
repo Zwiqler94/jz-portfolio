@@ -61,7 +61,7 @@ export class AuthService {
   }
 
   async getAppCheckToken(from: string) {
-    console.log({ cal: AuthService.called++, from });
+    console.debug({ cal: AuthService.called++, from });
 
     if (this.isLoggedIn) {
       if (!environment.local && this.appCheck) {

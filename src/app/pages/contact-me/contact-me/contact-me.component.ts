@@ -71,7 +71,7 @@ export class ContactMeComponent {
       )
       .pipe(catchError(this.dbService.handleError))
       .subscribe({
-        next: (val) => console.log(val),
+        next: (val) => console.debug(val),
         error: console.error,
         complete: () => {
           this.snackBar.open('Message Sent Successfully', 'X');
@@ -81,7 +81,7 @@ export class ContactMeComponent {
 
   async updateFormData() {
     for (const control in this.contactForm.value) {
-      console.log(control, this.contactForm.get(control)?.value);
+      console.debug(control, this.contactForm.get(control)?.value);
       this.form.append(control, this.contactForm.get(control)?.value);
     }
   }

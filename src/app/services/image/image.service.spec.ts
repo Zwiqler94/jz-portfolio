@@ -34,4 +34,18 @@ describe('ImageService', () => {
       { filename: 'Y' } as Resource,
     ]);
   });
+
+  it('should get a format cloudinary url', () => {
+    // const spy = spyOn(component, 'formatForCloudinaryProvider');
+    const spyImg = spyOn(
+      service,
+      'formatForCloudinaryProvider',
+    ).and.returnValue('/kdkdkd.jpeg');
+    const x = service.formatForCloudinaryProvider(
+      'https://www.x.com/r_40/c_thumb,w_100/kdkdkd.jpeg',
+    );
+    console.debug({ x });
+    expect(x).toBe('/kdkdkd.jpeg');
+    expect(spyImg).toHaveBeenCalled();
+  });
 });

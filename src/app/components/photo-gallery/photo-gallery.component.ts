@@ -23,6 +23,7 @@ export class PhotoGalleryComponent {
   @Input() galleryIds: string[] = [];
   @Input() galleryRefs: GalleryRef[] = [];
   @Input() photoGrids: GalleryItem[][] = [];
+  @Input() galleryType: 'LB' | 'GAL' = 'LB';
 
   constructor(
     private imageService: ImageService,

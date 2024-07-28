@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
     )?.token;
 
     if (this.swUpdate.isEnabled) {
-      console.log('Service Worker Enabled');
+      console.debug('Service Worker Enabled');
       this.swUpdate.versionUpdates
         .pipe(
           filter(

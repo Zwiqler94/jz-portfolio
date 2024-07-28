@@ -40,7 +40,7 @@ export class HomePageComponent implements OnInit {
             'Yup!',
           );
           d.afterDismissed().subscribe((f: MatSnackBarDismiss) => {
-            console.log(f.dismissedByAction);
+            console.debug(f.dismissedByAction);
             while (!f.dismissedByAction) {
               this.snack.open('Hurry up and update!', 'UPDATE!');
             }

@@ -2,7 +2,7 @@
   <div class="paragraph">
     <mat-card appearance="outlined">
       <mat-card-header>
-        <h1>My Japanese Adventure / 僕の日本語冒険</h1>
+        <h1>My Japanese Adventure / <br/> 僕の日本語冒険</h1>
       </mat-card-header>
       <mat-card-content>
         <p>
@@ -23,30 +23,24 @@
       <mat-card appearance="outlined">
         <mat-card-content id="images">
           <div class="jlpt-score">
-            <img
-              alt="jlpt-n5-score"
-              src="https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/hobbies%2Fjlpt%2FJLPTN5.avif?alt=media&token=2cb20aae-5cda-48f2-b407-ee0ed8731cf7"
-            />
+            <img alt="jlpt-n5-score"
+              src="https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/hobbies%2Fjlpt%2FJLPTN5.avif?alt=media&token=2cb20aae-5cda-48f2-b407-ee0ed8731cf7" />
             <caption>
               Certificate of Passing JLPT N5
             </caption>
           </div>
 
           <div class="jlpt-score">
-            <img
-              alt="jlpt-n4-score"
-              src="https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/hobbies%2Fjlpt%2FJLPTN4.jpeg?alt=media&token=63aabca6-e50b-4354-bfad-b962c299c4c4"
-            />
+            <img alt="jlpt-n4-score"
+              src="https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/hobbies%2Fjlpt%2FJLPTN4.jpeg?alt=media&token=63aabca6-e50b-4354-bfad-b962c299c4c4" />
             <caption>
               Certificate of Passing JLPT N4
             </caption>
           </div>
 
           <div class="jlpt-score">
-            <img
-              alt="jlpt-n3-score"
-              src="https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/hobbies%2Fjlpt%2FJLPTN3.jpeg?alt=media&token=8a9e7a7b-45bd-458d-ad50-9f040ef2db90"
-            />
+            <img alt="jlpt-n3-score"
+              src="https://firebasestorage.googleapis.com/v0/b/jlz-portfolio.appspot.com/o/hobbies%2Fjlpt%2FJLPTN3.jpeg?alt=media&token=8a9e7a7b-45bd-458d-ad50-9f040ef2db90" />
             <caption>
               Online Report of Passing JLPT N3
             </caption>
@@ -72,20 +66,24 @@
       </mat-card-content>
     </mat-card>
     @defer (on timer(2s)) {
-      <app-photo-gallery
-        [photoGrids]="photoGrids"
-        [galleryRefs]="galleryRefs"
-        [galleryIds]="galleryIds"
-      >
-      </app-photo-gallery>
+
+
+    <mat-card>
+      <mat-card-content>
+        <app-photo-gallery [photoGrids]="photoGrids" [galleryRefs]="galleryRefs" [galleryIds]="galleryIds"
+          [galleryType]="'GAL'">
+        </app-photo-gallery>
+      </mat-card-content>
+    </mat-card>
+
     } @loading (minimum 8s) {
-      <mat-card>
-        <mat-card-content>
-          <app-loading-overlay> </app-loading-overlay>
-        </mat-card-content>
-      </mat-card>
+    <mat-card>
+      <mat-card-content>
+        <app-loading-overlay> </app-loading-overlay>
+      </mat-card-content>
+    </mat-card>
     } @error {
-      <h1>An Error Has Occured. No Pictures To Display!</h1>
+    <h1>An Error Has Occured. No Pictures To Display!</h1>
     }
 
     <!-- <app-carousel [slides]="japanPics"></app-carousel> -->

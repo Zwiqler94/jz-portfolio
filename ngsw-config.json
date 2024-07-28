@@ -52,9 +52,8 @@
     },
     {
       "cacheConfig": {
-        "maxAge": "3d",
+        "maxAge": "7d",
         "maxSize": 500,
-        "strategy": "freshness",
         "timeout": "0u"
       },
       "name": "cloudinary",

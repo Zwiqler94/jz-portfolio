@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable no-underscore-dangle */
 import { ApplicationRef, Injectable } from '@angular/core';
+import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { SwPush, SwUpdate } from '@angular/service-worker';
 import { concat, first, interval } from 'rxjs';
 
@@ -23,21 +24,22 @@ export class ServiceWorkerService {
     private updates: SwUpdate,
     appRef: ApplicationRef,
     private push: SwPush,
+    private snack: MatSnackBar,
   ) {
     if (this.swUpdates.isEnabled) {
       updates.versionUpdates.subscribe((event) => {
         switch (event.type) {
           case 'VERSION_DETECTED':
-            console.log(`Downloading new app version: ${event.version.hash}`);
+            console.debug(`Downloading new app version: ${event.version.hash}`);
             break;
           case 'VERSION_READY':
-            console.log(`Current app version: ${event.currentVersion.hash}`);
-            console.log(
+            console.debug(`Current app version: ${event.currentVersion.hash}`);
+            console.debug(
               `New app version ready for use: ${event.latestVersion.hash}`,
             );
             break;
           case 'VERSION_INSTALLATION_FAILED':
-            console.log(
+            console.debug(
               `Failed to install app version '${event.version.hash}': ${event.error}`,
             );
             break;
@@ -56,7 +58,7 @@ export class ServiceWorkerService {
       everySixHoursOnceAppIsStable$.subscribe(async () => {
         try {
           const updateFound = await updates.checkForUpdate();
-          console.log(
+          console.debug(
             updateFound
               ? 'A new version is available.'
               : 'Already on the latest version.',
@@ -64,6 +66,19 @@ export class ServiceWorkerService {
         } catch (err) {
           console.error('Failed to check for updates:', err);
         }
+      });
+
+      updates.unrecoverable.subscribe((event) => {
+        const swUpdateSnack = this.snack.open(
+          `An error occurred that we cannot recover from: ${event.reason}. Please reload the page.`,
+        );
+        swUpdateSnack
+          .afterDismissed()
+          .subscribe((dismiss: MatSnackBarDismiss) => {
+            if (dismiss.dismissedByAction) {
+              document.location.reload();
+            }
+          });
       });
     }
 

@@ -24,7 +24,7 @@ export class SocialsComponent implements OnInit, AfterViewInit {
     try {
       this.loadScripts();
     } catch (error) {
-      console.log(error);
+      console.debug(error);
     }
     // this.instagramScript.loaded = false;
     // this.twitterScript.loaded = false;

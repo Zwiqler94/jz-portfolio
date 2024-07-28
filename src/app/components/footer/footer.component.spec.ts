@@ -24,12 +24,10 @@ describe('FooterComponent', () => {
 
   it('should change the screen size', () => {
     const spyOnResize = spyOn(component, 'onResize');
-    window.resizeBy(1000,1200)
+    window.resizeBy(1000, 1200);
     window.dispatchEvent(new Event('resize'));
     expect(spyOnResize).toHaveBeenCalled();
     // expect(component.screenHeight).toBe(1200)
     // expect(component.screenWidth).toBe(1000);
   });
-
-
 });

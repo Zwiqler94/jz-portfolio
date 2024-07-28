@@ -83,7 +83,7 @@ export class LinkPreviewService {
       params.set('prod', environment.production);
       let secretsUrl = environment.serviceOptions.secretService;
       secretsUrl += '/link-previews';
-      console.log(headers.get('X-Firebase-AppCheck'));
+      console.debug(headers.get('X-Firebase-AppCheck'));
       return this.httpClient
         .get<SecretResponse>(secretsUrl, {
           params,
@@ -91,7 +91,7 @@ export class LinkPreviewService {
         })
         .pipe(delay(50000), catchError(this.handleError));
     } catch (err) {
-      console.log(err);
+      console.debug(err);
       return;
     }
   }
@@ -116,7 +116,7 @@ export class LinkPreviewService {
           })
           .pipe(delay(30000), catchError(this.handleError));
       } else {
-        console.log('Token Error');
+        console.debug('Token Error');
         throw new Error('Token Error');
       }
     } catch (err) {

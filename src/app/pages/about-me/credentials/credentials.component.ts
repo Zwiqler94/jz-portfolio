@@ -65,7 +65,7 @@ export class CredentialsComponent extends Tabs implements OnInit {
     this.renderer2.appendChild(targeto, scriptEl);
 
     this.profile = new MicrosoftLearnUserProfile(credInfo);
-    console.log(this.profile);
+    console.debug(this.profile);
   }
   @Input() tabTitle: string;
 }
