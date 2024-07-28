@@ -1,0 +1,96 @@
+@if (galleryType === "LB") {
+  <div class="outter-grid">
+    @for (grid of displayGrids; track grid; let outterIndex = $index) {
+      @if (grid.length >= 1) {
+        <div
+          class="grid"
+          [gallerize]="galleryIds[outterIndex]"
+          [selector]="'.' + galleryIds[outterIndex] + '-img'"
+        >
+          @for (item of grid; track $index) {
+            <div class="grid-item">
+              @if (item.data && item.data.thumb) {
+                <!-- @if ($index *  % 3 === 0) { -->
+                <mat-card appearance="raised" class="primary-1">
+                  <mat-card-content>
+                    <img
+                      [class]="galleryIds[outterIndex] + '-img'"
+                      [ngSrc]="formatForCloudinaryProvider(item.data.thumb)"
+                      [attr.imageSrc]="item.data.src"
+                      decoding="async"
+                      height="200"
+                      width="200"
+                      sizes="30vw"
+                      priority
+                    />
+                  </mat-card-content>
+                </mat-card>
+                <!-- } @else if ($index % 5 === 0) {
+                  <mat-card appearance="raised" class="odd-5">
+                    <mat-card-content>
+                      <img
+                        [class]="galleryIds[outerIndex] + '-img'"
+                        [ngSrc]="formatForCloudinaryProvider(item.data.thumb)"
+                        [attr.imageSrc]="item.data.src"
+                        decoding="async"
+                        height="300"
+                        width="300"
+                        sizes="15vw"
+                        priority
+                      />
+                    </mat-card-content>
+                  </mat-card>
+                } @else if ($index % 7 === 0) {
+                  <mat-card appearance="raised" class="odd-7">
+                    <mat-card-content>
+                      <img
+                        [class]="galleryIds[outerIndex] + '-img'"
+                        [ngSrc]="formatForCloudinaryProvider(item.data.thumb)"
+                        [attr.imageSrc]="item.data.src"
+                        decoding="async"
+                        height="300"
+                        width="300"
+                        sizes="15vw"
+                        priority
+                      />
+                    </mat-card-content>
+                  </mat-card>
+                } @else {
+                  <mat-card appearance="raised" class="else">
+                    <mat-card-content>
+                      <img
+                        [class]="galleryIds[outerIndex] + '-img'"
+                        [ngSrc]="formatForCloudinaryProvider(item.data.thumb)"
+                        [attr.imageSrc]="item.data.src"
+                        decoding="async"
+                        height="300"
+                        width="300"
+                        sizes="15vw"
+                        priority
+                      />
+                    </mat-card-content>
+                  </mat-card>
+                } -->
+              }
+            </div>
+          } @empty {
+            <h1>No Pictures To Display!</h1>
+          }
+        </div>
+      } @else {
+        <app-loading-overlay> </app-loading-overlay>
+      }
+    }
+  </div>
+  <mat-paginator
+    [pageIndex]="0"
+    [pageSize]="pageSize"
+    [length]="photoGrids[0].length"
+    (page)="onPageChange($event, 0)"
+  >
+  </mat-paginator>
+} @else {
+  @for (grid of photoGrids; track grid; let outerIndex = $index) {
+    <gallery [items]="grid" [autoPlay]="true"> </gallery>
+  }
+}

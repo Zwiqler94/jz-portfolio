@@ -1,6 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
-import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import {
+  ServiceWorkerModule,
+  SwUpdate,
+  VersionReadyEvent,
+} from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { FooterComponent } from './components/footer/footer.component';
@@ -59,7 +63,7 @@ export class AppComponent implements OnInit {
     )?.token;
 
     if (this.swUpdate.isEnabled) {
-      console.log('Service Worker Enabled');
+      console.debug('Service Worker Enabled');
       this.swUpdate.versionUpdates
         .pipe(
           filter(

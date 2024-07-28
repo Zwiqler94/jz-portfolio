@@ -60,7 +60,7 @@ export class JzTabGroupComponent
         (x) => x.link === this.currentTab,
       )[0].component;
 
-      console.log(this.currentTab);
+      console.debug(this.currentTab);
     }
   }
 }

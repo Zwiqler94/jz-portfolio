@@ -783,7 +783,7 @@ Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 ## 0.4.0 (2022-10-11)
 
 - begin link preview for link post ([46bb1ff](https://github.com/Zwiqler94/jz-portfolio/commit/46bb1ff))
-- [Clean-up] remove console.log ([9b6f043](https://github.com/Zwiqler94/jz-portfolio/commit/9b6f043))
+- [Clean-up] remove console.debug ([9b6f043](https://github.com/Zwiqler94/jz-portfolio/commit/9b6f043))
 - [Clean-up] switch main branch to build in production mode ([6147ffe](https://github.com/Zwiqler94/jz-portfolio/commit/6147ffe))
 - [JLZP-9] switch pulls to ff only ([47054cc](https://github.com/Zwiqler94/jz-portfolio/commit/47054cc))
 - [JLZP-9] switch pulls to ff only take 2 ([5d9dec6](https://github.com/Zwiqler94/jz-portfolio/commit/5d9dec6))
@@ -1499,7 +1499,7 @@ Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 ## 0.4.0 (2022-10-11)
 
 - begin link preview for link post ([46bb1ff](https://github.com/Zwiqler94/jz-portfolio/commit/46bb1ff))
-- [Clean-up] remove console.log ([9b6f043](https://github.com/Zwiqler94/jz-portfolio/commit/9b6f043))
+- [Clean-up] remove console.debug ([9b6f043](https://github.com/Zwiqler94/jz-portfolio/commit/9b6f043))
 - [Clean-up] switch main branch to build in production mode ([6147ffe](https://github.com/Zwiqler94/jz-portfolio/commit/6147ffe))
 - [JLZP-9] switch pulls to ff only ([47054cc](https://github.com/Zwiqler94/jz-portfolio/commit/47054cc))
 - [JLZP-9] switch pulls to ff only take 2 ([5d9dec6](https://github.com/Zwiqler94/jz-portfolio/commit/5d9dec6))

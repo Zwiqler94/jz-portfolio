@@ -1,23 +1,36 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
-import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import {
+  FirebaseApp,
+  getApp,
+  initializeApp,
+  provideFirebaseApp,
+} from '@angular/fire/app';
 
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { HomePageComponent } from 'src/app/pages/home-page/home-page.component';
 import { Router, RouterStateSnapshot, provideRouter } from '@angular/router';
-import { importProvidersFrom } from '@angular/core';
+import { Component, importProvidersFrom } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
+import {
+  AppCheck,
   ReCaptchaV3Provider,
+  getToken,
   initializeAppCheck,
   provideAppCheck,
 } from '@angular/fire/app-check';
+import * as appCheck from '@angular/fire/app-check';
+
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
+import Sinon, { mock, spy, stub, fake, replace, replaceGetter } from 'sinon';
 
 function fakeRouterState(url: string): RouterStateSnapshot {
   return {
@@ -27,6 +40,7 @@ function fakeRouterState(url: string): RouterStateSnapshot {
 
 describe('AuthService', () => {
   let service: AuthService;
+  let appCheckService: AppCheck;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -68,6 +82,12 @@ describe('AuthService', () => {
       ],
     });
     service = TestBed.inject(AuthService);
+    appCheckService = TestBed.inject(AppCheck);
+    const httpTesting = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    Sinon.restore();
   });
 
   it('should be created', () => {
@@ -134,5 +154,63 @@ describe('AuthService', () => {
     expect(spy1)
       .withContext('should go to login')
       .toHaveBeenCalledWith('/login');
+  });
+
+  xit('should call app-check getToken', async () => {
+    // const harness = await RouterTestingHarness.create();
+    // const comp = await harness.navigateByUrl('/home', HomePageComponent);
+    environment.local = false;
+
+    service.isLoggedIn = true;
+
+    // const spy2 = spyOnProperty(appCheckService, 'app').and.returnValue({
+    //   name: '',
+    //   options: {},
+    //   automaticDataCollectionEnabled: false
+    // });
+
+    console.log({
+      env: environment.local,
+      ac: service.appCheck ? 'defined' : undefined,
+    });
+
+    const fakeAppCheck = {
+      getToken: async () => {
+        return { token: '' };
+      },
+    };
+
+    const fakeSpy = stub(appCheck, 'getToken'); //.resolves({ token:''});
+    // service.uid = 'mooie';
+    // service.userToken = 'eynsDNFigfnovnosdinvoisnv9024ur98ghn39io';
+    // service.logout();
+    try {
+      await service.getAppCheckToken('moose');
+      expect(fakeSpy).toBe(1);
+    } catch (err) {
+      console.error(err);
+    }
+    // expect(spy2).toBeDefined()
+  });
+
+  xit('should trigger error Handler', async () => {
+    // const harness = await RouterTestingHarness.create();
+    // const comp = await harness.navigateByUrl('/home', HomePageComponent);
+    // environment.local = false;
+
+    const spy = spyOn(service, 'getAppCheckToken').and.rejectWith(undefined);
+
+    // const fakeAppCheck = {
+    //   getToken: appCheck.getToken,
+    // };
+
+    await service.getAppCheckToken('moose');
+
+    // const spy1 = spyOn(fakeAppCheck, 'getToken').and.resolveTo();
+    // service.uid = 'mooie';
+    // service.userToken = 'eynsDNFigfnovnosdinvoisnv9024ur98ghn39io';
+    // service.logout();
+
+    expect(spy).toThrowError();
   });
 });
