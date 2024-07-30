@@ -1,4 +1,13 @@
 @if (galleryType === "LB") {
+  <mat-paginator
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [length]="photoGrids[0].length"
+    (page)="onPageChange($event, 0)"
+    [showFirstLastButtons]="true"
+
+  >
+  </mat-paginator>
   <div class="outter-grid">
     @for (grid of displayGrids; track grid; let outterIndex = $index) {
       @if (grid.length >= 1) {
@@ -18,9 +27,9 @@
                       [ngSrc]="formatForCloudinaryProvider(item.data.thumb)"
                       [attr.imageSrc]="item.data.src"
                       decoding="async"
-                      height="200"
-                      width="200"
-                      sizes="30vw"
+                      height="350"
+                      width="236"
+                      sizes="16vw"
                       priority
                     />
                   </mat-card-content>
@@ -83,10 +92,11 @@
     }
   </div>
   <mat-paginator
-    [pageIndex]="0"
+    [pageIndex]="pageIndex"
     [pageSize]="pageSize"
     [length]="photoGrids[0].length"
     (page)="onPageChange($event, 0)"
+    [showFirstLastButtons]="true"
   >
   </mat-paginator>
 } @else {
