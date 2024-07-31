@@ -85,6 +85,7 @@ export class PhotoGalleryComponent implements OnInit {
       startIdx,
       endIdx,
     );
+    this.pageIndex = event.pageIndex;
   }
 
   generateGalleryIndices(event: PageEvent) {
@@ -111,7 +112,7 @@ export class PhotoGalleryComponent implements OnInit {
       endIdx = event.pageSize * event.pageIndex;
     } else {
       startIdx = this.pageSize + 1;
-      endIdx = (this.pageSize * 2 ) + 1;
+      endIdx = this.pageSize * 2 + 1;
     }
     return { startIdx, endIdx };
   }
