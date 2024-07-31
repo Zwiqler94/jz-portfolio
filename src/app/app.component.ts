@@ -64,6 +64,20 @@ export class AppComponent implements OnInit {
 
     if (this.swUpdate.isEnabled) {
       console.debug('Service Worker Enabled');
+
+       this.swUpdate.unrecoverable.subscribe((event) => {
+         const swUpdateSnack = this.snack.open(
+           `An error occurred that we cannot recover from: ${event.reason}. Please reload the page.`,
+         );
+         swUpdateSnack
+           .afterDismissed()
+           .subscribe((dismiss: MatSnackBarDismiss) => {
+             if (dismiss.dismissedByAction) {
+               document.location.reload();
+             }
+           });
+       });
+
       this.swUpdate.versionUpdates
         .pipe(
           filter(
