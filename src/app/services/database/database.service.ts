@@ -1,8 +1,4 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ApplicationRef, Injectable, inject } from '@angular/core';
 import { AppCheck } from '@angular/fire/app-check';
 import { DateTime } from 'luxon';
