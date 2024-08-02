@@ -37,15 +37,15 @@ export class DatabaseService {
       //first((isStable) => isStable === true),
     //);
 
-    if (environment.local && typeof environment.appCheckDebug === 'string') {
-      console.debug('IN DEBUG MODE');
-      if (!this.authService.appCheckToken)
-        this.authService.getAppCheckToken('db:constructor').then((val) => {
-          val
-            ? (this.authService.appCheckToken = val.token)
-            : (this.authService.appCheckToken = undefined);
-        });
-    }
+    //if (environment.local && typeof environment.appCheckDebug === 'string') {
+      //console.debug('IN DEBUG MODE');
+      //if (!this.authService.appCheckToken)
+        //this.authService.getAppCheckToken('db:constructor').then((val) => {
+          //val
+            //? (this.authService.appCheckToken = val.token)
+            //: (this.authService.appCheckToken = undefined);
+        //});
+    //}
 
     // this.setDBUrls();
 
