@@ -33,9 +33,9 @@ export class DatabaseService {
   ) {
     this.appCheck = inject(AppCheck);
 
-    const appIsStable$ = appRef.isStable.pipe(
-      first((isStable) => isStable === true),
-    );
+    //const appIsStable$ = appRef.isStable.pipe(
+      //first((isStable) => isStable === true),
+    //);
 
     if (environment.local && typeof environment.appCheckDebug === 'string') {
       console.debug('IN DEBUG MODE');
