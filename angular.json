@@ -178,7 +178,7 @@
             "index": "src/index.html",
             "namedChunks": true,
             "optimization": false,
-            "polyfills": ["src/polyfills.ts"],
+            "polyfills": ["src/polyfills.ts", "@angular/localize/init"],
             "scripts": [],
             "serviceWorker": "ngsw-config.json",
             "sourceMap": true,

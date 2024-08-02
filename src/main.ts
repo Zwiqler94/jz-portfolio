@@ -2,7 +2,6 @@ import { enableProdMode, importProvidersFrom } from '@angular/core';
 
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
-import { EverythingLibModule } from '@zwiqler94/everything-lib';
 import { NgxColorsModule } from 'ngx-colors';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxEditorModule } from 'ngx-editor';
@@ -44,6 +43,7 @@ import {
 import { GALLERY_CONFIG, GalleryConfig } from 'ng-gallery';
 import { LIGHTBOX_CONFIG, LightboxConfig } from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
+
 
 if (environment.production) {
   enableProdMode();
@@ -110,7 +110,6 @@ bootstrapApplication(AppComponent, {
       NgxEditorModule,
       MatDialogModule,
       NgxColorsModule,
-      EverythingLibModule,
     ),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAppCheck(() =>
@@ -136,6 +135,6 @@ bootstrapApplication(AppComponent, {
       withComponentInputBinding(),
       withPreloading(PreloadAllModules),
     ),
-    provideHttpClient(),
+    provideHttpClient()
   ],
 }).catch((err) => console.error(err));

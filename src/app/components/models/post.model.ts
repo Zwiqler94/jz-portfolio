@@ -1,3 +1,4 @@
+/* eslint-disable */
 export interface PostBase {
   type: PostType;
   title: string;
@@ -12,7 +13,9 @@ export interface LinkPost extends PostBase {
   uri: string;
 }
 
-export interface TextPost extends PostBase {}
+export interface TextPost extends PostBase {
+
+}
 
 export interface ImagePost extends PostBase {
   image: string;

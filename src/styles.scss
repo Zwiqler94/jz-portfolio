@@ -1,5 +1,5 @@
 @use "@angular/material" as mat;
-@use "themes" as themes;
+@use "./style_vars/v6_m3-theme" as themes;
 
 @include mat.core();
 
@@ -33,37 +33,36 @@ img {
 }
 
 // Define a dark theme
-$dark-theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: mat.define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
-      accent: mat.define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
-      warn: mat.define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
-    ),
-    // Only include `typography` and `density` in the default dark theme.
-    typography:
-      mat.define-typography-config(
-        $font-family: "Quicksand",
-      ),
-    density: 0,
-  )
-);
+// $dark-theme: mat.define-theme((color: (theme-type: dark,
+//         primary: mat.define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
+//         tertiary: mat.define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
+//         // warn: mat.define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
+//       ),
 
-// Define a light theme
-$light-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
-      accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
-      warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
-    ),
-  )
-);
+//       typography:(brand-family: "Quicksand", bold-weight:900),
+//       density: -1,
+//     ));
+
+// // Define a light theme
+// $light-theme: mat.define-theme((color: (theme-type: light,
+//         primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
+//         accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
+//         warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
+//       ),
+//     ));
 
 // Apply the dark theme by default
-@include mat.all-component-themes($dark-theme);
+// @include mat.all-component-themes($dark-theme);
 
-#editor > ngx-editor-menu > div.NgxEditor__MenuBar {
+html {
+  @include mat.all-component-themes(themes.$dark-theme);
+
+  @media(prefers-color-scheme: light) {
+    @include mat.all-component-colors(themes.$light-theme);
+  }
+}
+
+#editor>ngx-editor-menu>div.NgxEditor__MenuBar {
   background-color: black;
 }
 
@@ -75,13 +74,12 @@ div.NgxEditor.NgxEditor {
   border-radius: 0px 0px 8px 8px;
 }
 
-// Apply the light theme only when the user prefers light themes.
 @media (prefers-color-scheme: light) {
   // Use the `-color` mixins to only apply color styles without reapplying the same
   // typography and density styles.
-  @include mat.all-component-colors($light-theme);
+  // @include mat.all-component-colors($light-theme);
 
-  #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
+  #editor>ngx-editor-menu>div.NgxEditor__MenuBar {
     background-color: orange;
   }
 }
@@ -99,7 +97,7 @@ div.NgxEditor.NgxEditor {
   white-space: normal;
 }
 
-#editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
+#editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
   height: 350px;
 }
 
@@ -120,25 +118,21 @@ div#post-content#post-content#post-content p img {
 }
 
 @media (min-height: 1024px) {
-  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
+  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container
-    div.cdk-global-overlay-wrapper
-    div.cdk-overlay-pane {
+  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
     height: 70vh !important;
   }
 }
 
 @media (min-height: 1266px) {
-  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
+  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container
-    div.cdk-global-overlay-wrapper
-    div.cdk-overlay-pane {
+  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
     height: 75vh !important;
   }
 }

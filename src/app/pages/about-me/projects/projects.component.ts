@@ -3,10 +3,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
 import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
-import { EverythingLibModule } from '@zwiqler94/everything-lib';
 import { MatIcon } from '@angular/material/icon';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AgeByNameComponent, NasaComponent, PokemonComponent, UsernameGeneratorComponent } from '@zwiqler94/everything-lib';
 
 @Component({
   selector: 'app-projects',
@@ -21,7 +21,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatCardHeader,
     MatCardContent,
     MatSnackBarModule,
-    EverythingLibModule,
+    UsernameGeneratorComponent,
+    NasaComponent,
+    AgeByNameComponent,
+    PokemonComponent
   ],
 })
 export class ProjectsComponent extends Tabs {
