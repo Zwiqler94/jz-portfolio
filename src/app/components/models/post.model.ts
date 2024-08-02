@@ -12,7 +12,9 @@ export interface LinkPost extends PostBase {
   uri: string;
 }
 
-export interface TextPost extends PostBase {}
+export interface TextPost extends PostBase {
+type = 'text';
+}
 
 export interface ImagePost extends PostBase {
   image: string;
