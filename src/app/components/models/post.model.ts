@@ -13,7 +13,7 @@ export interface LinkPost extends PostBase {
 }
 
 export interface TextPost extends PostBase {
-type = 'text';
+type:PostType = 'text';
 }
 
 export interface ImagePost extends PostBase {
