@@ -62,14 +62,9 @@ export class ImageService {
   // }
 
   formatForCloudinaryProvider(imageUrl: string) {
-    // console.debug({
-    //   theURI: imageUrl.replace(
-    //     /.*\/r_40\/c_thumb,w_100(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)+)/,
-    //     '',
-    //   ),
-    // });
+
     return imageUrl.replace(
-      /.*\/r_40\/c_thumb,w_100(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|ttf|woff|woff2|mp4)+)/,
+      /(ht{2}p(s?):\/\/[A-Za-z\d.-]*)(\/r_40\/c_thumb,w_10{2})(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|t{2}f|wof{2}|wof{2}2|mp4)*)/,
       '',
     );
   }
