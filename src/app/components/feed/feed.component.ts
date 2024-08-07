@@ -8,6 +8,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  AfterViewInit,
 } from '@angular/core';
 import { Post } from '../models/post.model';
 import { DatabaseService } from 'src/app/services/database/database.service';
@@ -31,7 +32,7 @@ import { NgClass, AsyncPipe } from '@angular/common';
     AsyncPipe,
   ],
 })
-export class FeedComponent implements OnInit, OnChanges {
+export class FeedComponent implements OnChanges, AfterViewInit {
   @Input() direction: 'H' | 'V' = 'V';
   @Input() feedLocation: string = 'Main';
   // @ViewChild('posts', { read: ViewContainerRef })
@@ -47,22 +48,28 @@ export class FeedComponent implements OnInit, OnChanges {
     public dbService: DatabaseService,
   ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
+  async ngOnChanges(changes: SimpleChanges) {
     if (changes['shouldFetchPosts']) {
       if (this.shouldFetchPosts) {
-        this.posts$ = this.dbService.mainPosts;
+        // this.posts$ = await this.dbService.getMainPosts();
 
-        this.shouldFetchPosts = !this.shouldFetchPosts;
-        this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
+        // this.shouldFetchPosts = !this.shouldFetchPosts;
+        // this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
+
+        // console.table(this.posts$);
+        await this.ngAfterViewInit();
       }
-      console.table(this.posts$);
-      this.changeDetector.detectChanges();
+
+      // this.changeDetector.detectChanges();
     }
   }
 
-  ngOnInit(): void {
+  async ngAfterViewInit() {
     console.info(this.dbService.appCheck);
-    this.posts$ = this.dbService.mainPosts;
+    this.posts$ = await this.dbService.getMainPosts();
+    this.shouldFetchPosts = !this.shouldFetchPosts;
+    this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
+    // this.changeDetector.detectChanges();
   }
 
   // ngAfterViewInit(): void {
@@ -100,7 +107,7 @@ export class FeedComponent implements OnInit, OnChanges {
   //             this.generatePost(post);
   //           });
   //         },
-  //         error: (error) => console.log(error),
+  //         error: (error) => console.debug(error),
   //       });
   //       break;
   // case 'puppy':
@@ -179,7 +186,7 @@ export class FeedComponent implements OnInit, OnChanges {
   //         this.postTemplate.createComponent(LinkPostComponent);
   //       this.componentRef.instance.title = post.title;
   //       this.componentRef.instance.content = post.content;
-  //       console.log(post.content);
+  //       console.debug(post.content);
   //       break;
   //     case 'text':
   //     case 'TextPost':
@@ -187,7 +194,7 @@ export class FeedComponent implements OnInit, OnChanges {
   //         this.postTemplate.createComponent(TextPostComponent);
   //       this.componentRef.instance.title = post.title;
   //       this.componentRef.instance.content = post.content;
-  //       console.log(post.content);
+  //       console.debug(post.content);
   //       break;
   //   }
   // }

@@ -1,6 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
-import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import {
+  ServiceWorkerModule,
+  SwUpdate,
+  VersionReadyEvent,
+} from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { FooterComponent } from './components/footer/footer.component';
@@ -45,15 +49,21 @@ export class AppComponent implements OnInit {
   constructor(
     private swUpdate: SwUpdate,
     private auth: AuthService,
-    private snack: MatSnackBar,
     private dbService: DatabaseService,
+    private snack: MatSnackBar,
   ) {
     this.dbService.appCheck = inject(AppCheck);
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    // await this.dbService.setDBUrls();
+
+    this.auth.appCheckToken = (
+      await this.auth.getAppCheckToken('app:oninit')
+    )?.token;
+
     if (this.swUpdate.isEnabled) {
-      console.log('Service Worker Enabled');
+      console.debug('Service Worker Enabled');
       this.swUpdate.versionUpdates
         .pipe(
           filter(

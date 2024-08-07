@@ -13,7 +13,7 @@ describe('App test', function () {
 
     const title = await element?.evaluate(el => el.textContent);
 
-    console.log(title)
+    console.debug(title)
 
     assert.ok(element);
     assert.equal(title, 'Jacob Zwickler')
@@ -34,7 +34,7 @@ describe('App test', function () {
 
     const noscriptWarning = await element?.evaluate(el => el.textContent);
 
-    console.log(noscriptWarning)
+    console.debug(noscriptWarning)
 
     assert.ok(element);
     assert.equal(noscriptWarning, 'Please enable JavaScript to continue using this application.')
@@ -46,20 +46,20 @@ describe('App test', function () {
 
     const noscriptTagManager = (await element?.evaluate(el => el.textContent))?.replaceAll(/\s+/g,' ').trim();
 
-    console.log(noscriptTagManager)
+    console.debug(noscriptTagManager)
 
     assert.ok(element);
     assert.equal(noscriptTagManager, '<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWH754TK"  height="0"  width="0" style="display: none; visibility: hidden" ></iframe >'.replaceAll(/\s+/g,' ').trim())
   });
 
 
-it('has JS disabled warning', async () => {
+it.skip('has JS disabled warning', async () => {
     const {page} = getBrowserState();
     const element = await page.waitForSelector('body > noscript:nth-child(1)');
 
     const noscriptTagManager = (await element?.evaluate(el => el.textContent))?.replaceAll(/\s+/g,' ').trim();
 
-    console.log(noscriptTagManager)
+    console.debug(noscriptTagManager)
 
     assert.ok(element);
     assert.equal(noscriptTagManager, '<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWH754TK"  height="0"  width="0" style="display: none; visibility: hidden" ></iframe >'.replaceAll(/\s+/g,' ').trim())

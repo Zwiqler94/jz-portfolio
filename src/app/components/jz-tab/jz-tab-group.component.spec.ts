@@ -7,8 +7,6 @@ import {
   UrlSegment,
   provideRouter,
 } from '@angular/router';
-import { Observable, from } from 'rxjs';
-import { JapaneseTabComponent } from 'src/app/pages/hobbies/japanese-tab/japanese-tab.component';
 import { JzTabItemComponent } from 'src/app/components/jz-tab-item/jz-tab-item.component';
 
 xdescribe('JzTabComponent', () => {
@@ -17,13 +15,25 @@ xdescribe('JzTabComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [JzTabGroupComponent, JzTabItemComponent, RouterLink],
+      imports: [JzTabGroupComponent],
       providers: [
-        provideRouter([{ path: '**', component: JzTabGroupComponent }]),
+        // provideRouter([{ path: '/moop', component: JzTabGroupComponent }]),
       ],
     });
     fixture = TestBed.createComponent(JzTabGroupComponent);
     component = fixture.componentInstance;
+    // const routey = new ActivatedRoute();
+    // routey.snapshot.url = [
+    //   new UrlSegment('/moose', {}),
+    //   new UrlSegment('/moosey', {}),
+    // ];
+    // // routey.snapshot.children[0].url = [
+    // //   new UrlSegment('/moose', {}),
+    // //   new UrlSegment('/moosey', {}),
+    // // ];
+    // component.route.children.push(routey);
+    component.router.navigateByUrl('/moop');
+    console.debug({ r: component.route });
     fixture.detectChanges();
   });
 

@@ -1,4 +1,4 @@
-import { Credly } from 'src/app/interfaces/credentials/credly/credly';
+import { Credly } from 'src/app/interfaces/credentials/credly/credly.interface';
 
 export const credentials: Credly[] = [
   {

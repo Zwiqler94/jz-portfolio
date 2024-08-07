@@ -8,12 +8,7 @@ import { importProvidersFrom } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
-import {
-  FirebaseApp,
-  getApp,
-  initializeApp,
-  provideFirebaseApp,
-} from '@angular/fire/app';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAppCheck } from '@angular/fire/app-check';
 import {
   initializeAppCheck,
@@ -22,7 +17,6 @@ import {
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { Deferred } from '@firebase/util';
 
 describe('ErrorPageComponent', () => {
   let component: ErrorPageComponent;

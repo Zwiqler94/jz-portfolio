@@ -13,6 +13,8 @@ import {
 import { DatabaseService } from './database.service';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { provideAuth } from '@angular/fire/auth';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
 
 describe('DatabaseService', () => {
   let service: DatabaseService;
@@ -29,6 +31,15 @@ describe('DatabaseService', () => {
             isTokenAutoRefreshEnabled: true,
           }),
         ),
+        provideAuth(() => {
+          const auth = getAuth();
+          if (environment.local) {
+            connectAuthEmulator(auth, 'http://localhost:9099', {
+              disableWarnings: true,
+            });
+          }
+          return auth;
+        }),
         provideHttpClient(),
         provideHttpClientTesting(),
       ],

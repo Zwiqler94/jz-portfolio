@@ -10,6 +10,15 @@ import {
 } from '@angular/fire/app-check';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
+import { inject } from '@angular/core';
+import { DatabaseService } from 'src/app/services/database/database.service';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
+import {
+  Auth,
+  connectAuthEmulator,
+  getAuth,
+  provideAuth,
+} from '@angular/fire/auth';
 
 describe('FeedComponent', () => {
   let component: FeedComponent;
@@ -22,6 +31,15 @@ describe('FeedComponent', () => {
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideHttpClient(),
         provideHttpClientTesting(),
+        provideAuth(() => {
+          const auth = getAuth();
+          if (environment.local) {
+            connectAuthEmulator(auth, 'http://localhost:9099', {
+              disableWarnings: true,
+            });
+          }
+          return auth;
+        }),
         provideAppCheck(() =>
           initializeAppCheck(getApp(), {
             provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),

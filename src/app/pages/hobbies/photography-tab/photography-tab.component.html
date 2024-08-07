@@ -1,1 +1,21 @@
-<p>photography-tab works!</p>
+<mat-card appearance="outlined">
+  <mat-card-content>
+    @defer (on timer(2s)) {
+      <app-photo-gallery
+        [photoGrids]="photoGrids"
+        [galleryRefs]="galleryRefs"
+        [galleryIds]="galleryIds"
+        [pageSize]="12"
+      >
+      </app-photo-gallery>
+    } @loading (minimum 8s) {
+      <app-loading-overlay> </app-loading-overlay>
+    } @error {
+      <h1>An Error Has Occured. No Pictures To Display!</h1>
+    }
+  </mat-card-content>
+</mat-card>
+<!-- @placeholder(minimum 5s) {
+  <img id="placeholder" src="assets/icons/icon-384x384.png" />
+
+}  -->

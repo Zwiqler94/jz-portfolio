@@ -17,7 +17,7 @@ export class FooterComponent {
   onResize(_event: any) {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
-    console.log(this.screenHeight, this.screenWidth);
+    console.debug(this.screenHeight, this.screenWidth);
   }
 
   get angularVersion() {
