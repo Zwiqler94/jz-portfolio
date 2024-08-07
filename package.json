@@ -22,7 +22,7 @@
     "semantic-release": "semantic-release",
     "start:dev-local": "http-server  --gzip --proxy http://0.0.0.0:8083? --cors  -p 8083  dist/jz-portfolio-dev-local",
     "start:dev": "http-server --cors -p 8085 -c-1 dist/jz-portfolio-dev",
-    "start:local": "http-server --gzip --brotli --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local",
+    "start:local": "npx http-server --gzip --brotli --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local",
     "start:prod": "http-server --cors  -p 8087 -c-1 dist/jz-portfolio",
     "test": "ng test"
   },
@@ -44,7 +44,7 @@
     "@firebase/util": "^1.9.6",
     "@google-cloud/secret-manager": "^5.6.0",
     "@semantic-release/changelog": "^6.0.3",
-    "@zwiqler94/everything-lib": "^0.4.3",
+    "@zwiqler94/everything-lib": "file:everything-app/dist/everything-lib",
     "compression": "^1.7.4",
     "firebase": "^10.12.2",
     "firebase-admin": "^12.2",

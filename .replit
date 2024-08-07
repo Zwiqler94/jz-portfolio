@@ -1,0 +1,27 @@
+modules = ["angular-node-20", "bash", "nodejs-20", "web", "java-graalvm22.3"]
+run = "npm run start:local"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "npm run start:local"]
+
+[[ports]]
+localPort = 8081
+externalPort = 8080
+
+
+
+[[ports]]
+localPort = 9005
+externalPort = 9005
+
+[[ports]]
+localPort = 9099
+externalPort = 9099
+
+[[ports]]
+localPort = 39119
+externalPort = 3000
+exposeLocalhost = true
