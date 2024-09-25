@@ -82,3 +82,5 @@ cli-envs
 
 *.log
 src/environments/environment.local.ts
+.scannerwork/
+sonar-project.properties
