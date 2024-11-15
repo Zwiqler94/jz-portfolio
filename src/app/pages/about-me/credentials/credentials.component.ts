@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, Input, OnInit, Renderer2, inject } from '@angular/core';
 import { MicrosoftLearnUserProfile } from 'src/app/interfaces/credentials/microsoft/microsoft.interface';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { SafeHtml } from '@angular/platform-browser';
@@ -27,13 +27,18 @@ import {
   ],
 })
 export class CredentialsComponent extends Tabs implements OnInit {
+  private renderer2 = inject(Renderer2);
+
   MICROSOFT_LEARN_URL = 'https://learn.microsoft.com/en-us';
   CREDLY_URL: any;
   scriptHtml: SafeHtml | string;
   profile: MicrosoftLearnUserProfile;
   credlyCreds: Credly[];
 
-  constructor(private renderer2: Renderer2) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     super();
     // this.CREDLY_URL = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL,
     //  this.sanitizer.bypassSecurityTrustResourceUrl('//cdn.credly.com/assets/utilities/embed.js')

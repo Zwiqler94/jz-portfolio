@@ -44,14 +44,17 @@ import { NgOptimizedImage } from '@angular/common';
   ],
 })
 export class AppComponent implements OnInit {
+  private swUpdate = inject(SwUpdate);
+  private auth = inject(AuthService);
+  private dbService = inject(DatabaseService);
+  private snack = inject(MatSnackBar);
+
   title = 'jlz-portfolio';
 
-  constructor(
-    private swUpdate: SwUpdate,
-    private auth: AuthService,
-    private dbService: DatabaseService,
-    private snack: MatSnackBar,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     this.dbService.appCheck = inject(AppCheck);
   }
 

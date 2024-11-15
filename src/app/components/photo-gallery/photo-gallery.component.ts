@@ -1,5 +1,5 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { GalleryItem, GalleryRef, Gallery } from 'ng-gallery';
@@ -22,6 +22,9 @@ import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.comp
   styleUrl: './photo-gallery.component.scss',
 })
 export class PhotoGalleryComponent implements OnInit {
+  private imageService = inject(ImageService);
+  gallery = inject(Gallery);
+
   @Input() galleryIds: string[] = [];
   @Input() galleryRefs: GalleryRef[] = [];
   @Input() photoGrids: GalleryItem[][] = [];
@@ -30,10 +33,10 @@ export class PhotoGalleryComponent implements OnInit {
   @Input() pageSize: number;
   pageIndex: number;
 
-  constructor(
-    private imageService: ImageService,
-    public gallery: Gallery,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit() {
     this.displayGrids = this.photoGrids.map((grid) =>

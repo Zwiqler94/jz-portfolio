@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-underscore-dangle */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, delay, lastValueFrom, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -15,16 +15,19 @@ interface SecretResponse {
   providedIn: 'root',
 })
 export class LinkPreviewService {
+  private httpClient = inject(HttpClient);
+  private authService = inject(AuthService);
+
   // private _appCheck: AppCheck;
   private baseUrl = 'https://api.linkpreview.net/';
   private _apiKey!: string;
+
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
   // private params: HttpParams = new HttpParams().set('key', this.apiKey);
   // headers: HttpHeaders = new HttpHeaders();
 
-  constructor(
-    private httpClient: HttpClient,
-    private authService: AuthService,
-  ) {
+  constructor() {
     // this.appCheck = appCheck;
     if (environment.local && typeof environment.appCheckDebug === 'string') {
       console.debug('In DEBUG MODE');

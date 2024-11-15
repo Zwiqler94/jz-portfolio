@@ -1,5 +1,5 @@
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {
   Gallery,
@@ -34,6 +34,9 @@ import { MatPaginator } from '@angular/material/paginator';
   ],
 })
 export class PhotographyTabComponent implements OnInit {
+  private imageService = inject(ImageService);
+  gallery = inject(Gallery);
+
   // private storage = inject(Storage);
 
   galleryIds = ['MIIIII', 'YUUUUUU'];
@@ -42,10 +45,10 @@ export class PhotographyTabComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(
-    private imageService: ImageService,
-    public gallery: Gallery,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit() {
     this.setUpPhotographyImagesCloudinary();

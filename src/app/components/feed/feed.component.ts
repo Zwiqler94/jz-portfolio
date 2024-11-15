@@ -1,15 +1,5 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-  AfterViewInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, AfterViewInit, inject } from '@angular/core';
 import { Post } from '../models/post.model';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { Observable } from 'rxjs';
@@ -33,6 +23,9 @@ import { NgClass, AsyncPipe } from '@angular/common';
   ],
 })
 export class FeedComponent implements OnChanges, AfterViewInit {
+  private changeDetector = inject(ChangeDetectorRef);
+  dbService = inject(DatabaseService);
+
   @Input() direction: 'H' | 'V' = 'V';
   @Input() feedLocation: string = 'Main';
   // @ViewChild('posts', { read: ViewContainerRef })
@@ -43,10 +36,10 @@ export class FeedComponent implements OnChanges, AfterViewInit {
   @Output() shouldFetchPostsChange: EventEmitter<boolean> =
     new EventEmitter<boolean>(false);
 
-  constructor(
-    private changeDetector: ChangeDetectorRef,
-    public dbService: DatabaseService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   async ngOnChanges(changes: SimpleChanges) {
     if (changes['shouldFetchPosts']) {

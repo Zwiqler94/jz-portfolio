@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
+  private router = inject(Router);
+  private httpClient = inject(HttpClient);
+
   private _appCheck: AppCheck = inject(AppCheck);
   private fbAuth: Auth = inject(Auth);
   private _userToken: string | undefined;
@@ -18,10 +21,10 @@ export class AuthService {
   static called = 0;
   private _isLoggedIn: boolean = false;
 
-  constructor(
-    private router: Router,
-    private httpClient: HttpClient,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     if (!this.appCheckToken)
       this.getAppCheckToken('auth:constructor')
         .then((val) =>

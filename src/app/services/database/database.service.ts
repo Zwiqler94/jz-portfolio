@@ -12,6 +12,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DatabaseService {
+  private httpClient = inject(HttpClient);
+  private authService = inject(AuthService);
+
   private _mainPosts: Observable<Post[]>;
   puppyPosts: Observable<Post[]>;
   articlePosts: Observable<Post[]>;
@@ -25,12 +28,13 @@ export class DatabaseService {
 
   headers: HttpHeaders = new HttpHeaders();
 
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(
-    private httpClient: HttpClient,
-    private authService: AuthService,
-    appRef: ApplicationRef,
-  ) {
+  constructor() {
+    const appRef = inject(ApplicationRef);
+
     this.appCheck = inject(AppCheck);
 
     const appIsStable$ = appRef.isStable.pipe(

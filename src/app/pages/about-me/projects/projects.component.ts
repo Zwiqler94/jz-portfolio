@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, inject } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
@@ -25,6 +25,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   ],
 })
 export class ProjectsComponent extends Tabs {
+  private fb = inject(FormBuilder);
+  private snackBar = inject(MatSnackBar);
+
   @Input() public tabTitle: string;
   screenWidth: number = window.innerWidth;
   screenHeight: number = window.innerHeight;
@@ -50,10 +53,10 @@ export class ProjectsComponent extends Tabs {
     specialCharacters: [''],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     super();
   }
 

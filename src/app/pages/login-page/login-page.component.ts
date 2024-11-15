@@ -21,15 +21,18 @@ import { MatCard, MatCardContent } from '@angular/material/card';
   imports: [MatCard, MatCardContent, MatButton],
 })
 export class LoginPageComponent implements OnInit {
+  private router = inject(Router);
+  private auth = inject(AuthService);
+
   private fbAuth: Auth = inject(Auth);
   private googleProvider = new GoogleAuthProvider().addScope('profile');
   userName: string | null;
   private _isLoggedIn: boolean;
 
-  constructor(
-    private router: Router,
-    private auth: AuthService,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     this.fbAuth
       .setPersistence(browserLocalPersistence)
       .catch((err) => console.error(err));
