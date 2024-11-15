@@ -13,6 +13,7 @@ import {
   MatCardTitle,
   MatCardContent,
   MatCardImage,
+  MatCardModule,
 } from '@angular/material/card';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
@@ -23,7 +24,7 @@ import { delay } from 'rxjs';
   templateUrl: './link-post.component.html',
   styleUrls: ['./link-post.component.scss'],
   standalone: true,
-  imports: [MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatCardImage],
+  imports: [MatCardModule],
 })
 export class LinkPostComponent
   extends PostBaseComponent
