@@ -6,7 +6,13 @@ import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { AgeByNameComponent, BoredomSolverComponent, NasaComponent, PokemonComponent, UsernameGeneratorComponent } from '@zwiqler94/everything-lib';
+import {
+  AgeByNameComponent,
+  BoredomSolverComponent,
+  NasaComponent,
+  PokemonComponent,
+  UsernameGeneratorComponent,
+} from '@zwiqler94/everything-lib';
 
 @Component({
   selector: 'app-projects',
@@ -25,7 +31,7 @@ import { AgeByNameComponent, BoredomSolverComponent, NasaComponent, PokemonCompo
     PokemonComponent,
     BoredomSolverComponent,
     NasaComponent,
-    AgeByNameComponent
+    AgeByNameComponent,
   ],
 })
 export class ProjectsComponent extends Tabs {

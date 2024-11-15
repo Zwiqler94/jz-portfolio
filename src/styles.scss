@@ -36,9 +36,12 @@ img {
 $dark-theme: mat.m2-define-dark-theme(
   (
     color: (
-      primary: mat.m2-define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
-      accent: mat.m2-define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
-      warn: mat.m2-define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
+      primary:
+        mat.m2-define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
+      accent:
+        mat.m2-define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
+      warn:
+        mat.m2-define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
     ),
     // Only include `typography` and `density` in the default dark theme.
     typography:
@@ -53,9 +56,12 @@ $dark-theme: mat.m2-define-dark-theme(
 $light-theme: mat.m2-define-light-theme(
   (
     color: (
-      primary: mat.m2-define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
-      accent: mat.m2-define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
-      warn: mat.m2-define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
+      primary:
+        mat.m2-define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
+      accent:
+        mat.m2-define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
+      warn:
+        mat.m2-define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
     ),
   )
 );

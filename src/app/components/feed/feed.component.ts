@@ -1,5 +1,16 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, AfterViewInit, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  AfterViewInit,
+  inject,
+} from '@angular/core';
 import { Post } from '../models/post.model';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { Observable } from 'rxjs';

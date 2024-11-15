@@ -67,7 +67,6 @@ export class ImageService {
   // }
 
   formatForCloudinaryProvider(imageUrl: string) {
-
     return imageUrl.replace(
       /(ht{2}p(s?):\/\/[A-Za-z\d.-]*)(\/r_40\/c_thumb,w_10{2})(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|t{2}f|wof{2}|wof{2}2|mp4)*)/,
       '',

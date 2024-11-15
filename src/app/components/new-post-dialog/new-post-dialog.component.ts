@@ -69,7 +69,8 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 })
 export class NewPostDialogComponent implements OnInit, OnDestroy {
   private dbService = inject(DatabaseService);
-  private dialogRef = inject<MatDialogRef<NewPostDialogComponent>>(MatDialogRef);
+  private dialogRef =
+    inject<MatDialogRef<NewPostDialogComponent>>(MatDialogRef);
   private snack = inject(MatSnackBar);
 
   editor: Editor;

@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { ApplicationRef, Injectable, inject } from '@angular/core';
 import { AppCheck } from '@angular/fire/app-check';
 import { DateTime } from 'luxon';
@@ -45,9 +49,7 @@ export class DatabaseService {
       console.debug('IN DEBUG MODE');
       if (!this.authService.appCheckToken)
         this.authService.getAppCheckToken('db:constructor').then((val) => {
-          val
-            ? (this.authService.appCheckToken = val.token)
-            : (this.authService.appCheckToken = undefined);
+          this.authService.appCheckToken = val ? val.token : undefined;
         });
     }
 

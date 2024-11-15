@@ -1,4 +1,15 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';

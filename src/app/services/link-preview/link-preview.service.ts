@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-underscore-dangle */
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { catchError, delay, lastValueFrom, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LinkPreview } from 'src/app/components/models/post.model';
