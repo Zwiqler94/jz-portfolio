@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
@@ -18,15 +18,18 @@ import { MatButton } from '@angular/material/button';
   imports: [MatButton, FeedComponent],
 })
 export class HomePageComponent implements OnInit {
+  private snack = inject(MatSnackBar);
+  private sw = inject(ServiceWorkerService);
+  private dialog = inject(MatDialog);
+  private auth = inject(AuthService);
+  private cd = inject(ChangeDetectorRef);
+
   shouldFetchPosts = false;
 
-  constructor(
-    private snack: MatSnackBar,
-    private sw: ServiceWorkerService,
-    private dialog: MatDialog,
-    private auth: AuthService,
-    private cd: ChangeDetectorRef,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit() {
     this.sw.swUpdates.versionUpdates

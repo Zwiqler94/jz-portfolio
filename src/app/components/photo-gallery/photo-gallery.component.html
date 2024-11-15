@@ -5,7 +5,6 @@
     [length]="photoGrids[0].length"
     (page)="onPageChange($event, 0)"
     [showFirstLastButtons]="true"
-
   >
   </mat-paginator>
   <div class="outter-grid">
@@ -102,6 +101,6 @@
   </mat-paginator>
 } @else {
   @for (grid of photoGrids; track grid; let outerIndex = $index) {
-    <gallery [items]="grid" [autoPlay]="true"> </gallery>
+    <gallery [items]="grid" [autoplay]="true"> </gallery>
   }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { Router } from '@angular/router';
 import { AboutMeMainComponent } from 'src/app/pages/about-me/about-me-main/about-me-main.component';
@@ -17,6 +17,8 @@ import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.compon
   imports: [JzTabGroupComponent],
 })
 export class AboutMeComponent implements Tabs {
+  protected router = inject(Router);
+
   @Input() tabTitle: string;
   // @ViewChild(TabsDirective, { static: true }) appTabs!: TabsDirective;
 
@@ -34,7 +36,10 @@ export class AboutMeComponent implements Tabs {
     { component: ProjectsComponent, title: 'Projects', link: 'projects' },
   ];
 
-  constructor(protected router: Router) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     const currentPagePath = location.pathname.split('/').pop();
     const result = this.tabComponentList.filter(
       (tabItem) => tabItem.link === currentPagePath,

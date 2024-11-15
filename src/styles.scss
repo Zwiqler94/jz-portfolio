@@ -33,16 +33,19 @@ img {
 }
 
 // Define a dark theme
-$dark-theme: mat.define-dark-theme(
+$dark-theme: mat.m2-define-dark-theme(
   (
     color: (
-      primary: mat.define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
-      accent: mat.define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
-      warn: mat.define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
+      primary:
+        mat.m2-define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
+      accent:
+        mat.m2-define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
+      warn:
+        mat.m2-define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
     ),
     // Only include `typography` and `density` in the default dark theme.
     typography:
-      mat.define-typography-config(
+      mat.m2-define-typography-config(
         $font-family: "Quicksand",
       ),
     density: 0,
@@ -50,12 +53,15 @@ $dark-theme: mat.define-dark-theme(
 );
 
 // Define a light theme
-$light-theme: mat.define-light-theme(
+$light-theme: mat.m2-define-light-theme(
   (
     color: (
-      primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
-      accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
-      warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
+      primary:
+        mat.m2-define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
+      accent:
+        mat.m2-define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
+      warn:
+        mat.m2-define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
     ),
   )
 );
@@ -166,20 +172,20 @@ div#post-content#post-content#post-content p img {
   }
 
   app-new-post-dialog {
-    // /* --mat-option-label-text-line-height: 1.25rem; */
+    // __<<ngM2ThemingMigrationEscapedComment0>>__
     --mat-option-label-text-line-height: 0.25rem;
-    // /* --mdc-outlined-text-field-label-text-size: 1rem; */
+    // __<<ngM2ThemingMigrationEscapedComment1>>__
     --mdc-outlined-text-field-label-text-size: 0.5rem;
-    // /* --mdc-outlined-text-field-container-shape: 4px; */
+    // __<<ngM2ThemingMigrationEscapedComment2>>__
     --mdc-outlined-text-field-container-shape: 18px;
-    // /* --mat-form-field-container-text-line-height: 1.5rem; */
-    // /* --mat-form-field-container-text-size: 1rem; */
+    // __<<ngM2ThemingMigrationEscapedComment3>>__
+    // __<<ngM2ThemingMigrationEscapedComment4>>__
     --mat-form-field-container-text-line-height: 0.5rem;
     --mat-form-field-container-text-size: 0.5rem;
-    // /* --mat-form-field-container-height: 56px; */
+    // __<<ngM2ThemingMigrationEscapedComment5>>__
     --mat-form-field-container-height: 17px;
-    // /* --mat-form-field-container-vertical-padding: 16px; */
-    // /* --mat-form-field-filled-with-label-container-padding-top: 24px; */
+    // __<<ngM2ThemingMigrationEscapedComment6>>__
+    // __<<ngM2ThemingMigrationEscapedComment7>>__
     --mat-form-field-container-vertical-padding: 7px;
     --mat-form-field-filled-with-label-container-padding-top: 8px;
   }

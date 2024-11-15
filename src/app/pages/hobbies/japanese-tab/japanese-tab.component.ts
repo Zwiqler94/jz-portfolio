@@ -1,5 +1,5 @@
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { GalleryItem, GalleryRef, Gallery, ImageItem } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
@@ -28,15 +28,18 @@ import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-g
   ],
 })
 export class JapaneseTabComponent implements OnInit {
+  private sw = inject(ServiceWorkerService);
+  private imageService = inject(ImageService);
+  gallery = inject(Gallery);
+
   galleryIds = ['MIIIII'];
   galleryRefs: GalleryRef[] = [];
   photoGrids: GalleryItem[][] = [];
 
-  constructor(
-    private sw: ServiceWorkerService,
-    private imageService: ImageService,
-    public gallery: Gallery,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit() {
     this.setUpPhotographyImagesCloudinary();

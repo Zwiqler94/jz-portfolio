@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   LinkPost,
   LinkPreview,
@@ -29,14 +29,17 @@ export class LinkPostComponent
   extends PostBaseComponent
   implements OnInit, LinkPost
 {
+  private linkPreviewService = inject(LinkPreviewService);
+  private authService = inject(AuthService);
+
   linkPreviewData: LinkPreview;
   uri: string;
   image?: string;
 
-  constructor(
-    private linkPreviewService: LinkPreviewService,
-    private authService: AuthService,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     super();
     this.type = 'LinkPost';
   }

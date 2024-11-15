@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable no-underscore-dangle */
-import { ApplicationRef, Injectable } from '@angular/core';
+import { ApplicationRef, Injectable, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { SwPush, SwUpdate } from '@angular/service-worker';
 import { concat, first, interval } from 'rxjs';
@@ -9,6 +9,10 @@ import { concat, first, interval } from 'rxjs';
   providedIn: 'root',
 })
 export class ServiceWorkerService {
+  private updates = inject(SwUpdate);
+  private push = inject(SwPush);
+  private snack = inject(MatSnackBar);
+
   readonly publicKey =
     'BHr4Vvr3Uh3dsAj749pPSlkAbe-qknUpEypYYN1xvm9QN_DRzAo80b2gJSLxvui5cjdMB1FPKiGVHbxtj-dFDJQ';
 
@@ -20,12 +24,13 @@ export class ServiceWorkerService {
   private _pics4: string[] = [];
   private _pics5: string[] = [];
 
-  constructor(
-    private updates: SwUpdate,
-    appRef: ApplicationRef,
-    private push: SwPush,
-    private snack: MatSnackBar,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const updates = this.updates;
+    const appRef = inject(ApplicationRef);
+
     if (this.swUpdates.isEnabled) {
       updates.versionUpdates.subscribe((event) => {
         switch (event.type) {

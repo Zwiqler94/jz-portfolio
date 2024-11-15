@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { zip } from 'lodash-es';
 import {
   CloudinaryApiResponse,
@@ -10,8 +10,13 @@ import {
   providedIn: 'root',
 })
 export class ImageService {
+  private httpClient = inject(HttpClient);
+
   CLOUDINARY_URL = 'https://res.cloudinary.com/dhdioy0wn/search';
-  constructor(private httpClient: HttpClient) {}
+
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+  constructor() {}
 
   getHuxleyImageInfo(nextCursorKey?: string) {
     const imgUrl = nextCursorKey
@@ -62,7 +67,6 @@ export class ImageService {
   // }
 
   formatForCloudinaryProvider(imageUrl: string) {
-
     return imageUrl.replace(
       /(ht{2}p(s?):\/\/[A-Za-z\d.-]*)(\/r_40\/c_thumb,w_10{2})(?=.*(svg|cur|jp(e*)g|png|apng|webp|avif|gif|otf|t{2}f|wof{2}|wof{2}2|mp4)*)/,
       '',

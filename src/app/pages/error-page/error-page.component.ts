@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,12 @@ import { Router } from '@angular/router';
   standalone: true,
 })
 export class ErrorPageComponent {
-  constructor(private router: Router) {}
+  private router = inject(Router);
+
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
   async goHome() {
     return await this.router.navigateByUrl('/home');
   }

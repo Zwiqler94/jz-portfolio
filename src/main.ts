@@ -1,8 +1,9 @@
+/// <reference types="@angular/localize" />
+
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
-import { EverythingLibModule } from '@zwiqler94/everything-lib';
 import { NgxColorsModule } from 'ngx-colors';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxEditorModule } from 'ngx-editor';
@@ -110,7 +111,6 @@ bootstrapApplication(AppComponent, {
       NgxEditorModule,
       MatDialogModule,
       NgxColorsModule,
-      EverythingLibModule,
     ),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAppCheck(() =>

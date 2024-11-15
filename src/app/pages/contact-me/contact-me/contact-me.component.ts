@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -34,6 +34,11 @@ import { DatabaseService } from 'src/app/services/database/database.service';
   ],
 })
 export class ContactMeComponent {
+  private http = inject(HttpClient);
+  private fb = inject(FormBuilder);
+  private snackBar = inject(MatSnackBar);
+  private dbService = inject(DatabaseService);
+
   contactForm: FormGroup = this.fb.group({
     name: [''],
     email: [''],
@@ -50,12 +55,10 @@ export class ContactMeComponent {
     this._form = value;
   }
 
-  constructor(
-    private http: HttpClient,
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar,
-    private dbService: DatabaseService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   async onSubmit() {
     this.http

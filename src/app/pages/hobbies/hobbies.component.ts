@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable no-underscore-dangle */
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { listAll, ListResult, StorageReference } from 'firebase/storage';
@@ -19,6 +19,10 @@ import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.compon
   imports: [JzTabGroupComponent],
 })
 export class HobbiesComponent {
+  private storage = inject(Storage);
+  private sw = inject(ServiceWorkerService);
+  private router = inject(Router);
+
   private _tabComponentList: TabNavModel[] = [
     {
       component: PhotographyTabComponent,
@@ -33,11 +37,10 @@ export class HobbiesComponent {
     // { component: FitnessTabComponent, title: 'Fitness', link: 'fitness' },
   ];
 
-  constructor(
-    private storage: Storage,
-    private sw: ServiceWorkerService,
-    private router: Router,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     // this.setupVideos();
     // this.setUpCarouselImages();
     // this.setUpPhotographyImages();
