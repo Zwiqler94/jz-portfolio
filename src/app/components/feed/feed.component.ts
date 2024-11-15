@@ -28,7 +28,7 @@ import { NgClass, AsyncPipe } from '@angular/common';
     NgClass,
     TextPostComponent,
     LinkPostComponent,
-MatCardModule,
+    MatCardModule,
     AsyncPipe,
   ],
 })
