@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-underscore-dangle */
-import { Injectable } from '@angular/core';
-import { AppCheck, getToken } from '@angular/fire/app-check';
+import { Injectable, inject } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { catchError, lastValueFrom, retry, throwError } from 'rxjs';
+import { catchError, delay, lastValueFrom, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AppCheckTokenResult } from 'firebase/app-check';
 import { LinkPreview } from 'src/app/components/models/post.model';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 interface SecretResponse {
   k: string;
@@ -21,91 +20,111 @@ interface SecretResponse {
   providedIn: 'root',
 })
 export class LinkPreviewService {
-  private _appCheck: AppCheck;
+  private httpClient = inject(HttpClient);
+  private authService = inject(AuthService);
+
+  // private _appCheck: AppCheck;
   private baseUrl = 'https://api.linkpreview.net/';
   private _apiKey!: string;
-  private params: HttpParams = new HttpParams().set('key', this.apiKey);
-  private tokenResult: string;
-  headers: HttpHeaders = new HttpHeaders();
 
-  constructor(
-    private httpClient: HttpClient,
-    appCheck: AppCheck,
-  ) {
-    try {
-      this.appCheck = appCheck;
-      if (environment.local && typeof environment.appCheckDebug === 'string') {
-        this.headers = new HttpHeaders().set(
-          'X-Firebase-AppCheck-Debug',
-          environment.appCheckDebug,
-        );
-      }
-    } catch (err) {
-      console.log(err);
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+  // private params: HttpParams = new HttpParams().set('key', this.apiKey);
+  // headers: HttpHeaders = new HttpHeaders();
+
+  constructor() {
+    // this.appCheck = appCheck;
+    if (environment.local && typeof environment.appCheckDebug === 'string') {
+      console.debug('In DEBUG MODE');
     }
   }
 
-  get appCheck() {
-    return this._appCheck;
-  }
-
-  set appCheck(x) {
-    this._appCheck = x;
-  }
+  // ‰
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  get apiKey() {
-    return this._apiKey;
-  }
+  // get apiKey() {
+  //   if (!this._apiKey) {
+  //     this.getAPIKey()
+  //       .then(async (res) => {
+  //         try {
+  //           if (res) this._apiKey = (await lastValueFrom(res)).k;
+  //         } catch (err) {
+  //           console.error(err);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //       });
+  //   }
+  //   return this._apiKey;
+  // }
 
-  set apiKey(value) {
-    this._apiKey = value;
-  }
+  // set apiKey(value) {
+  //   this._apiKey = value;
+  // }
 
-  async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
-    try {
-      if (!environment.local && this.appCheck) {
-        this.tokenResult = (await getToken(this.appCheck)).token;
-      } else {
-        this.tokenResult = '';
+  async hasAppCheckToken() {
+    if (this.authService.appCheckToken) return true;
+    else if (!this.authService.appCheckToken) {
+      try {
+        this.authService.appCheckToken = (
+          await this.authService.getAppCheckToken('linkprev:getTok')
+        )?.token;
+        return true;
+      } catch (err) {
+        console.error(err);
+        throw new Error(JSON.stringify(err));
       }
-    } catch (err) {
-      console.error(err);
-    }
-    return this.tokenResult;
+    } else return false;
   }
 
   getAPIKey() {
-    this.params = new HttpParams();
-    if (!environment.local)
-      this.headers = this.headers.set('X-Firebase-AppCheck', this.tokenResult);
-    this.params = this.params.set('prod', environment.production);
-    let secretsUrl = environment.serviceOptions.secretService;
-    secretsUrl += '/link-previews';
-    return this.httpClient.get<SecretResponse>(secretsUrl, {
-      params: this.params,
-      headers: this.headers,
-    });
+    const params = new HttpParams();
+    const headers = new HttpHeaders();
+    try {
+      headers.set('X-Firebase-AppCheck', this.authService.appCheckToken!);
+      params.set('prod', environment.production);
+      let secretsUrl = environment.serviceOptions.secretService;
+      secretsUrl += '/link-previews';
+      console.debug(headers.get('X-Firebase-AppCheck'));
+      return this.httpClient
+        .get<SecretResponse>(secretsUrl, {
+          params,
+          headers,
+        })
+        .pipe(delay(50000), catchError(this.handleError));
+    } catch (err) {
+      console.debug(err);
+      return;
+    }
   }
 
   async getLinkPreview(url: string) {
-    await this.getAppCheckToken();
-    this.params = new HttpParams();
-    if (!environment.local)
-      this.headers = this.headers.set('X-Firebase-AppCheck', this.tokenResult);
-
     try {
-      const apiKey: SecretResponse = await lastValueFrom(this.getAPIKey());
-      this.params = this.params.set('key', apiKey.k).set('q', url);
-      return this.httpClient
-        .get<LinkPreview>(this.baseUrl, {
-          params: this.params,
-          headers: this.headers,
-        })
-        .pipe(catchError(this.handleError));
+      const hasAppCheckToken = await this.hasAppCheckToken();
+      let params = new HttpParams();
+      let headers = new HttpHeaders();
+      if (hasAppCheckToken) {
+        headers = headers.set(
+          'X-Firebase-AppCheck',
+          this.authService.appCheckToken!,
+        );
+        const apiKey = (await lastValueFrom(this.getAPIKey()!)).k;
+
+        params = params.set('key', apiKey).set('q', url);
+        return this.httpClient
+          .get<LinkPreview>(this.baseUrl, {
+            params,
+            headers,
+          })
+          .pipe(delay(30000), catchError(this.handleError));
+      } else {
+        console.debug('Token Error');
+        throw new Error('Token Error');
+      }
     } catch (err) {
       console.error(err);
-      throw Error(JSON.stringify(err));
+      throw new Error(JSON.stringify(err));
     }
   }
 

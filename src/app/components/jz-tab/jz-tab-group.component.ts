@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -32,6 +33,9 @@ import { MatTabNav, MatTabLink, MatTabNavPanel } from '@angular/material/tabs';
 export class JzTabGroupComponent
   implements OnInit, Tabs, AfterViewInit, OnChanges
 {
+  private changeDetector = inject(ChangeDetectorRef);
+  route = inject(ActivatedRoute);
+
   @Input() tabTitle = '';
   @Input() router: Router;
   @ViewChild('tabTemplate', { read: ViewContainerRef })
@@ -41,10 +45,10 @@ export class JzTabGroupComponent
 
   @Input() tabComponentList: TabNavModel[] = [];
 
-  constructor(
-    private changeDetector: ChangeDetectorRef,
-    public route: ActivatedRoute,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.route.children[0].url.subscribe((x) => (this.currentTab = x[0].path));
@@ -60,7 +64,7 @@ export class JzTabGroupComponent
         (x) => x.link === this.currentTab,
       )[0].component;
 
-      console.log(this.currentTab);
+      console.debug(this.currentTab);
     }
   }
 }

@@ -1,38 +1,38 @@
 <div [ngClass]="{ 'feed-div-v': isVertical, 'feed-div-h': isHorizontal }">
-  @if (posts$ | async; as posts) {
-    @for (item of posts; track $index) {
-      @switch (item.type) {
-        @case ("TextPost") {
-          <app-text-post [title]="item.title" [content]="item.content">
-          </app-text-post>
-        }
+  @if (false) {
+    @if (posts$ | async; as posts) {
+      @for (item of posts; track $index) {
+        @switch (item.type) {
+          @case ("TextPost") {
+            <app-text-post [title]="item.title" [content]="item.content">
+            </app-text-post>
+          }
 
-        @case ("text") {
-          <app-text-post [title]="item.title" [content]="item.content">
-          </app-text-post>
-        }
+          @case ("text") {
+            <app-text-post [title]="item.title" [content]="item.content">
+            </app-text-post>
+          }
 
-        @case ("LinkPost") {
-          <app-link-post [title]="item.title" [content]="item.content">
-          </app-link-post>
-        }
+          @case ("LinkPost") {
+            <app-link-post [title]="item.title" [content]="item.content">
+            </app-link-post>
+          }
 
-        @case ("link") {
-          <app-link-post [title]="item.title" [content]="item.content">
-          </app-link-post>
+          @case ("link") {
+            <app-link-post [title]="item.title" [content]="item.content">
+            </app-link-post>
+          }
+        }
+      } @empty {
+        @if (true) {
+          <mat-card id="under-construction">
+            <mat-card-header>
+              <h1>UNDER CONSTRUCTION</h1>
+            </mat-card-header>
+          </mat-card>
         }
       }
-    } @empty {
-      @if (true) {
-        <mat-card id="under-construction">
-          <mat-card-header>
-            <h1>UNDER CONSTRUCTION</h1>
-          </mat-card-header>
-        </mat-card>
-      }
-    }
-  } @else {
-    @if (true) {
+    } @else {
       <mat-card id="under-construction">
         <mat-card-header>
           <h1>Loading...</h1>

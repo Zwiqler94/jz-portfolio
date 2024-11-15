@@ -9,8 +9,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
   standalone: true,
 })
 export class SocialsComponent implements OnInit, AfterViewInit {
-  instagramScript: any;
-  twitterScript: any;
+  instagramScript: unknown;
+  twitterScript: unknown;
 
   constructor() {
     // if (this.router.navigated === true) {
@@ -24,7 +24,7 @@ export class SocialsComponent implements OnInit, AfterViewInit {
     try {
       this.loadScripts();
     } catch (error) {
-      console.log(error);
+      console.debug(error);
     }
     // this.instagramScript.loaded = false;
     // this.twitterScript.loaded = false;

@@ -1,12 +1,12 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { catchError, throwError } from 'rxjs';
+import { catchError } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
@@ -34,6 +34,11 @@ import { DatabaseService } from 'src/app/services/database/database.service';
   ],
 })
 export class ContactMeComponent {
+  private http = inject(HttpClient);
+  private fb = inject(FormBuilder);
+  private snackBar = inject(MatSnackBar);
+  private dbService = inject(DatabaseService);
+
   contactForm: FormGroup = this.fb.group({
     name: [''],
     email: [''],
@@ -50,12 +55,10 @@ export class ContactMeComponent {
     this._form = value;
   }
 
-  constructor(
-    private http: HttpClient,
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar,
-    private dbService: DatabaseService,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   async onSubmit() {
     this.http
@@ -71,7 +74,7 @@ export class ContactMeComponent {
       )
       .pipe(catchError(this.dbService.handleError))
       .subscribe({
-        next: (val) => console.log(val),
+        next: (val) => console.debug(val),
         error: console.error,
         complete: () => {
           this.snackBar.open('Message Sent Successfully', 'X');
@@ -81,7 +84,7 @@ export class ContactMeComponent {
 
   async updateFormData() {
     for (const control in this.contactForm.value) {
-      console.log(control, this.contactForm.get(control)?.value);
+      console.debug(control, this.contactForm.get(control)?.value);
       this.form.append(control, this.contactForm.get(control)?.value);
     }
   }

@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 /* eslint-disable new-cap */
 /* eslint-disable no-extra-boolean-cast */
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { Pool, PoolClient, QueryResult } from 'pg';
 import { error, debug, info, warn } from 'firebase-functions/logger';
 
@@ -12,6 +12,8 @@ import {
 } from '@aws-sdk/client-secrets-manager';
 import { PostDBResponse } from './models/post-response.model';
 import { postValidator } from './validators/post.validator';
+import { validationResult } from 'express-validator';
+import { validator } from './middleware';
 
 export const getSecretValue = async (secretName = 'SECRET_NAME') => {
   const client = new SecretsManagerClient({ region: 'us-east-2' });
@@ -172,7 +174,7 @@ class AWSDBManager {
     return this.pool;
   };
 
-  getPuppyPosts = async (req: Request, res: Response) => {
+  getPuppyPosts = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
@@ -219,10 +221,11 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
-  getArticlePosts = async (req: Request, res: Response) => {
+  getArticlePosts = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
@@ -269,10 +272,11 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
-  getApplePosts = async (req: Request, res: Response) => {
+  getApplePosts = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
@@ -319,10 +323,15 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
-  getBlockchainPosts = async (req: Request, res: Response) => {
+  getBlockchainPosts = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
@@ -372,68 +381,66 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
-  getAnimePosts = async (req: Request, res: Response) => {
+  getAnimePosts = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      if (req.cookies.jlz_portfolio_local_jake) {
-        let mainPosts = new PostDBResponse().createBlankResponse();
+      let mainPosts = new PostDBResponse().createBlankResponse();
 
-        const queryText =
-          'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id';
+      const queryText =
+        'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id';
 
-        const useLocalDb = /^true$/i.test(
-          req.query.local ? req.query.local.toString() : 'true',
-        );
+      const useLocalDb = /^true$/i.test(
+        req.query.local ? req.query.local.toString() : 'true',
+      );
 
-        // await this.connectDB(useLocalDb);
-        this.client = await this.startUpDBService();
-        if (this.client) {
-          mainPosts = await this.query(queryText);
+      // await this.connectDB(useLocalDb);
+      this.client = await this.startUpDBService();
+      if (this.client) {
+        mainPosts = await this.query(queryText);
 
-          if (mainPosts) {
-            const fullPostArray: any[] = [];
-            for (const row of mainPosts.rows) {
-              let result;
-              if (row.type === 'text') {
-                result = await this.query(
-                  'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
-                  [row.id],
-                );
-              } else {
-                result = await this.query(
-                  'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
-                  [row.id],
-                );
-              }
-              const rowResult = result?.rows[0];
-
-              warn(rowResult);
-
-              if (rowResult) {
-                fullPostArray.push(rowResult);
-              } else warn(`Result for Post ID: ${row.id} missing`);
+        if (mainPosts) {
+          const fullPostArray: any[] = [];
+          for (const row of mainPosts.rows) {
+            let result;
+            if (row.type === 'text') {
+              result = await this.query(
+                'select post_list.id, post_list.type, text_post.title, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join text_post on post_list.id=text_post.post_list_id where post_list.id=$1 ',
+                [row.id],
+              );
+            } else {
+              result = await this.query(
+                'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ',
+                [row.id],
+              );
             }
+            const rowResult = result?.rows[0];
 
-            console.table(fullPostArray);
+            warn(rowResult);
 
-            res.status(200).json(fullPostArray);
+            if (rowResult) {
+              fullPostArray.push(rowResult);
+            } else warn(`Result for Post ID: ${row.id} missing`);
           }
-        } else {
-          throw new Error('no pool established');
+
+          console.table(fullPostArray);
+
+          res.status(200).json(fullPostArray);
         }
       } else {
-        console.log(req.cookies);
+        throw new Error('no pool established');
       }
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
-  getMainPosts = async (req: Request, res: Response) => {
-    debug({ sesSigned: req.session.cookie.signed });
+  getMainPosts = async (req: Request, res: Response, next: NextFunction) => {
+    // debug({ sesSigned: req.session.cookie.signed });
     try {
       let mainPosts: QueryResult<any> | undefined =
         new PostDBResponse().createBlankResponse();
@@ -486,6 +493,7 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
+      next(err);
     }
   };
 
@@ -495,14 +503,8 @@ class AWSDBManager {
    * @param res
    * @returns
    */
-  createPost = async (req: Request, res: Response) => {
+  createPost = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true',
-      );
-
-      debug(useLocalDb);
-
       this.client = await this.startUpDBService();
       if (this.client) {
         try {
@@ -536,7 +538,7 @@ class AWSDBManager {
 
               if (resultPostList) {
                 if (resultPostList.rows.length < 1)
-                  return res.status(400).json({ error: 'Post Already Exists' });
+                  throw new Error('Post Already Exists');
 
                 try {
                   await this.query(
@@ -546,27 +548,30 @@ class AWSDBManager {
 
                   console.table(resultPostList);
 
-                  return res.status(201).json({
+                  res.status(201).json({
                     list: req.body.location,
                     post: resultPostList.rows[0].id,
                   });
                 } catch (err) {
                   error(err);
-                  return res.status(400).json({ err });
+                  res.status(400).json({ err });
+                  next(err);
                 }
               } else {
                 throw new Error('Post Not Created');
               }
             } catch (err) {
               error(err);
-              return res.status(400).json(err);
+              res.status(400).json(err);
+              next(err);
             }
           } else {
             throw new Error('Post Hash Missing');
           }
         } catch (err) {
           error(err);
-          return res.status(400).json({ err });
+          res.status(400).json({ err });
+          next(err);
         } finally {
           this.client.release();
         }
@@ -574,8 +579,10 @@ class AWSDBManager {
         throw new Error('Pool Client Missing');
       }
     } catch (err: any) {
-      error(err);
-      return res.status(400).json({ err });
+      const errAsJson = JSON.parse((err as Error).message);
+      error(errAsJson);
+      res.status(400).json(errAsJson);
+      next(err);
     }
   };
 
@@ -585,7 +592,7 @@ class AWSDBManager {
    * @param res
    * @returns
    */
-  hashPost = async (req: Request, res: Response) => {
+  hashPost = async (req: Request, res: Response, next: NextFunction) => {
     await this.connectDB(true);
 
     const result = await this.querySingle(
@@ -601,7 +608,7 @@ export const postRouter = Router();
 
 // // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
-const dbManager = new AWSDBManager();
+export const dbManager = new AWSDBManager();
 
 postRouter.get('/main', dbManager.getMainPosts);
 postRouter.get('/puppy', dbManager.getPuppyPosts);
@@ -610,4 +617,4 @@ postRouter.get('/apple', dbManager.getApplePosts);
 postRouter.get('/blockchain', dbManager.getBlockchainPosts);
 postRouter.get('/anime', dbManager.getAnimePosts);
 // postRouter.post('/hash', postValidator, dbManager.hashPost);
-postRouter.post('/', postValidator, dbManager.createPost);
+postRouter.post('/', postValidator, validator, dbManager.createPost);

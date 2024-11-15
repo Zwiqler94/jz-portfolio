@@ -7,6 +7,7 @@ import {
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
@@ -23,16 +24,19 @@ import { TabNavModel } from 'src/app/components/models/tab-nav.model';
   standalone: true,
 })
 export class JzTabItemComponent implements AfterViewInit, OnChanges {
+  private changeDetector = inject(ChangeDetectorRef);
+  private router = inject(Router);
+
   @Input() tab: any;
   @ViewChild('tabTemplate', { read: ViewContainerRef })
   tabTemplate: ViewContainerRef;
 
   @Input() tabComponentList: TabNavModel[] = [];
 
-  constructor(
-    private changeDetector: ChangeDetectorRef,
-    private router: Router,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngAfterViewInit(): void {
     const component = this.getComponentFromTabList();
@@ -49,13 +53,18 @@ export class JzTabItemComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tab']) {
-      this.tabTemplate.clear();
       const component = this.tabComponentList.filter(
         (x) => x.link === this.tab,
       )[0].component;
-      const componentRef =
-        this.tabTemplate.createComponent<typeof component>(component);
-      componentRef.instance.tabTitle = this.tab.title;
+
+      if (this.tabTemplate) {
+        this.tabTemplate.clear();
+
+        const componentRef =
+          this.tabTemplate.createComponent<typeof component>(component);
+
+        componentRef.instance.tabTitle = this.tab.title;
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -68,6 +68,11 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
   ],
 })
 export class NewPostDialogComponent implements OnInit, OnDestroy {
+  private dbService = inject(DatabaseService);
+  private dialogRef =
+    inject<MatDialogRef<NewPostDialogComponent>>(MatDialogRef);
+  private snack = inject(MatSnackBar);
+
   editor: Editor;
   html: '';
   toolbar: Toolbar = [
@@ -128,11 +133,10 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     postType: new FormControl(null),
   });
 
-  constructor(
-    private dbService: DatabaseService,
-    private dialogRef: MatDialogRef<NewPostDialogComponent>,
-    private snack: MatSnackBar,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.editor = new Editor();
