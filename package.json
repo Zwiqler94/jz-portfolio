@@ -48,7 +48,7 @@
     "@firebase/util": "^1.9.7",
     "@google-cloud/secret-manager": "^5.6.0",
     "@semantic-release/changelog": "^6.0.3",
-    "@zwiqler94/everything-lib": "~0.7.0",
+    "@zwiqler94/everything-lib": "^0.7.0",
     "compression": "^1.7.4",
     "firebase": "^10.12.4",
     "firebase-admin": "^12.2",
