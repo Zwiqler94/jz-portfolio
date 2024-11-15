@@ -3,10 +3,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": [
-      "jasmine",
-      "@angular/localize"
-    ],
+    "types": ["jasmine", "@angular/localize"],
     "paths": {}
   },
   "files": ["src/polyfills.ts"],
