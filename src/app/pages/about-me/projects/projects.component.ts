@@ -19,16 +19,18 @@ import {
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
   standalone: true,
-  imports: [CdkDrag,
-  CdkDragHandle,
-  MatIcon,
-  MatCardModule,
-  MatSnackBarModule,
-  UsernameGeneratorComponent,
-  PokemonComponent,
-  BoredomSolverComponent,
-  NasaComponent,
-  AgeByNameComponent],
+  imports: [
+    CdkDrag,
+    CdkDragHandle,
+    MatIcon,
+    MatCardModule,
+    MatSnackBarModule,
+    UsernameGeneratorComponent,
+    PokemonComponent,
+    BoredomSolverComponent,
+    NasaComponent,
+    AgeByNameComponent,
+  ],
 })
 export class ProjectsComponent extends Tabs {
   private fb = inject(FormBuilder);
