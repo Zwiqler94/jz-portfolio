@@ -178,7 +178,10 @@
             "index": "src/index.html",
             "namedChunks": true,
             "optimization": false,
-            "polyfills": ["src/polyfills.ts"],
+            "polyfills": [
+              "src/polyfills.ts",
+              "@angular/localize/init"
+            ],
             "scripts": [],
             "serviceWorker": "ngsw-config.json",
             "sourceMap": true,
@@ -258,7 +261,11 @@
               }
             ],
             "codeCoverage": true,
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing",
+              "@angular/localize/init"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
