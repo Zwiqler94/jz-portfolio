@@ -48,20 +48,11 @@
     "@firebase/util": "^1.10.2",
     "@google-cloud/secret-manager": "^5.6.0",
     "@semantic-release/changelog": "^6.0.3",
-<<<<<<< HEAD
     "@zwiqler94/everything-lib": "^0.7.2",
     "compression": "^1.7.5",
     "firebase": "^11.0.2",
     "firebase-admin": "^13.0",
     "jose": "^5.9.6",
-=======
-    "@zwiqler94/everything-lib": "^0.7.0",
-    "compression": "^1.7.4",
-    "firebase": "^10.12.4",
-    "firebase-admin": "^12.2",
-    "firebase-functions": "^5.0.1",
-    "jose": "^5.6.3",
->>>>>>> fe5c86e (@angular-eslint/schematics migration - update-18-2-0)
     "lodash-es": "^4.17.21",
     "luxon": "^3.5.0",
     "ng-gallery": "^12.0.0",
