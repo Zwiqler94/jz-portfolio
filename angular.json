@@ -131,12 +131,6 @@
                 "input": "src/index.html",
                 "output": "index.html"
               },
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.local.ts"
-                }
-              ],
               "optimization": false,
               "outputHashing": "all",
               "sourceMap": true,

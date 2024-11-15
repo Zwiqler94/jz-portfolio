@@ -60,12 +60,14 @@ export class LoginPageComponent implements OnInit {
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // this.auth.userToken = credential?.accessToken;
         // if (!this.auth.appCheckToken)
+        this.auth.uid = result.user.uid;
         this.auth.appCheckToken = (
           await this.auth.getAppCheckToken('login:signin')
         )?.token;
 
         // console.debug(this.auth.appCheckToken);
         this.userName = result.user.displayName;
+
         console.debug(`${this.userName} is logged in`);
         this.router.navigateByUrl('/home');
       })

@@ -48,7 +48,7 @@ export const routes: Routes = [
       import('./pages/about-me/about-me.component').then(
         (m) => m.AboutMeComponent,
       ),
-    // canActivate: envAuthGaurd,
+    canActivate: envAuthGaurd,
     children: [
       {
         path: 'main',

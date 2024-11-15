@@ -15,12 +15,12 @@ export const environment = {
     appId: '1:518070660509:web:9d2511d1a027342457d374',
     measurementId: 'G-CNT03XSD81',
   },
-  local: false,
+  local: true,
   nasaAPIKey: 'vnfZmI8NbIb44DmpbbSAvlMhFz7Ipnyc1tq6xNLb',
   production: false,
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
-    useServiceWorker: true,
+    useServiceWorker: false,
     productionServices: true,
     url: 'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev',
     secretService:
