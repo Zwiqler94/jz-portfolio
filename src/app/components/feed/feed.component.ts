@@ -14,7 +14,7 @@ import {
 import { Post } from '../models/post.model';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { Observable } from 'rxjs';
-import { MatCard, MatCardHeader } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { LinkPostComponent } from '../link-post/link-post.component';
 import { TextPostComponent } from '../text-post/text-post.component';
 import { NgClass, AsyncPipe } from '@angular/common';
@@ -28,8 +28,7 @@ import { NgClass, AsyncPipe } from '@angular/common';
     NgClass,
     TextPostComponent,
     LinkPostComponent,
-    MatCard,
-    MatCardHeader,
+MatCardModule,
     AsyncPipe,
   ],
 })

@@ -2,7 +2,7 @@ import { Component, HostListener, Input, inject } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
-import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -19,20 +19,16 @@ import {
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
   standalone: true,
-  imports: [
-    CdkDrag,
-    CdkDragHandle,
-    MatIcon,
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
-    MatSnackBarModule,
-    UsernameGeneratorComponent,
-    PokemonComponent,
-    BoredomSolverComponent,
-    NasaComponent,
-    AgeByNameComponent,
-  ],
+  imports: [CdkDrag,
+  CdkDragHandle,
+  MatIcon,
+  MatCardModule,
+  MatSnackBarModule,
+  UsernameGeneratorComponent,
+  PokemonComponent,
+  BoredomSolverComponent,
+  NasaComponent,
+  AgeByNameComponent],
 })
 export class ProjectsComponent extends Tabs {
   private fb = inject(FormBuilder);

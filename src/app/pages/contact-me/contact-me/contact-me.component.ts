@@ -11,7 +11,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
+import { MatCardModule, MatCardContent } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatabaseService } from 'src/app/services/database/database.service';
 
@@ -21,9 +21,7 @@ import { DatabaseService } from 'src/app/services/database/database.service';
   styleUrls: ['./contact-me.component.scss'],
   standalone: true,
   imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
+    MatCardModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormField,
