@@ -19,7 +19,7 @@
             <div class="grid-item">
               @if (item.data && item.data.thumb) {
                 <!-- @if ($index *  % 3 === 0) { -->
-                <mat-card appearance="raised" class="primary-1">
+                <mat-card appearance="outlined" class="primary-1">
                   <mat-card-content>
                     <img
                       [class]="galleryIds[outterIndex] + '-img'"
@@ -35,7 +35,7 @@
                   </mat-card-content>
                 </mat-card>
                 <!-- } @else if ($index % 5 === 0) {
-                  <mat-card appearance="raised" class="odd-5">
+                  <mat-card appearance="outlined" class="odd-5">
                     <mat-card-content>
                       <img
                         [class]="galleryIds[outerIndex] + '-img'"
@@ -50,7 +50,7 @@
                     </mat-card-content>
                   </mat-card>
                 } @else if ($index % 7 === 0) {
-                  <mat-card appearance="raised" class="odd-7">
+                  <mat-card appearance="outlined" class="odd-7">
                     <mat-card-content>
                       <img
                         [class]="galleryIds[outerIndex] + '-img'"
@@ -65,7 +65,7 @@
                     </mat-card-content>
                   </mat-card>
                 } @else {
-                  <mat-card appearance="raised" class="else">
+                  <mat-card appearance="outlined" class="else">
                     <mat-card-content>
                       <img
                         [class]="galleryIds[outerIndex] + '-img'"

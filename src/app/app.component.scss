@@ -21,10 +21,12 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
 #button-container-column {
   display: flex;
   flex-direction: column;
+  margin-block-start: 1rem;
+  justify-content: center;
 }
 
 #toolbar-logo,
-#toolbar-logo > img {
+#toolbar-logo>img {
   max-inline-size: 100%;
   margin-inline-start: 0.1vw;
   margin-block-start: 0.1vh;
@@ -76,10 +78,16 @@ mat-toolbar {
   height: 0.25rem;
 }
 
-#button-container-column > button {
+mat-sidenav#side-nav {
+  width: 12rem;
+}
+
+
+
+#button-container-column>button {
   display: inline-flex;
   flex-direction: row-reverse;
-  width: 12rem;
+  width: 11rem;
   justify-content: flex-start;
 
   mat-icon {
@@ -136,9 +144,9 @@ mat-toolbar {
   //   flex-shrink: 2;
   // }
 
-  #button-container-column > button {
-    width: 10rem;
-  }
+  // #button-container-column > button {
+  //   width: 10rem;
+  // }
 
   #menu {
     width: 59vw;

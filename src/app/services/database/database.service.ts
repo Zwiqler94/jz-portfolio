@@ -1,8 +1,4 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ApplicationRef, Injectable, inject } from '@angular/core';
 import { AppCheck } from '@angular/fire/app-check';
 import { DateTime } from 'luxon';
@@ -41,9 +37,9 @@ export class DatabaseService {
 
     this.appCheck = inject(AppCheck);
 
-    const appIsStable$ = appRef.isStable.pipe(
-      first((isStable) => isStable === true),
-    );
+    //const appIsStable$ = appRef.isStable.pipe(
+      //first((isStable) => isStable === true),
+    //);
 
     if (environment.local && typeof environment.appCheckDebug === 'string') {
       console.debug('IN DEBUG MODE');
