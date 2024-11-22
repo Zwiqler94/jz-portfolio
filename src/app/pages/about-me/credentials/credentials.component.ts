@@ -14,17 +14,16 @@ import {
 } from '@angular/material/card';
 
 @Component({
-  selector: 'app-credentials',
-  templateUrl: './credentials.component.html',
-  styleUrls: ['./credentials.component.scss'],
-  standalone: true,
-  imports: [
-    MatCard,
-    MatCardContent,
-    MatCardImage,
-    MatCardSubtitle,
-    MatCardFooter,
-  ],
+    selector: 'app-credentials',
+    templateUrl: './credentials.component.html',
+    styleUrls: ['./credentials.component.scss'],
+    imports: [
+        MatCard,
+        MatCardContent,
+        MatCardImage,
+        MatCardSubtitle,
+        MatCardFooter,
+    ]
 })
 export class CredentialsComponent extends Tabs implements OnInit {
   private renderer2 = inject(Renderer2);

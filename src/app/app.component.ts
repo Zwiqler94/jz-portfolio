@@ -23,25 +23,24 @@ import { AppCheck } from '@angular/fire/app-check';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [
-    MatToolbar,
-    RouterLink,
-    RouterLinkActive,
-    MatButton,
-    MatMiniFabButton,
-    MatIcon,
-    MatDivider,
-    MatSidenavContainer,
-    MatSidenav,
-    MatSidenavContent,
-    RouterOutlet,
-    FooterComponent,
-    NgOptimizedImage,
-  ],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    imports: [
+        MatToolbar,
+        RouterLink,
+        RouterLinkActive,
+        MatButton,
+        MatMiniFabButton,
+        MatIcon,
+        MatDivider,
+        MatSidenavContainer,
+        MatSidenav,
+        MatSidenavContent,
+        RouterOutlet,
+        FooterComponent,
+        NgOptimizedImage,
+    ]
 })
 export class AppComponent implements OnInit {
   private swUpdate = inject(SwUpdate);

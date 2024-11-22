@@ -20,11 +20,10 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { delay } from 'rxjs';
 
 @Component({
-  selector: 'app-link-post',
-  templateUrl: './link-post.component.html',
-  styleUrls: ['./link-post.component.scss'],
-  standalone: true,
-  imports: [MatCardModule],
+    selector: 'app-link-post',
+    templateUrl: './link-post.component.html',
+    styleUrls: ['./link-post.component.scss'],
+    imports: [MatCardModule]
 })
 export class LinkPostComponent
   extends PostBaseComponent

@@ -8,18 +8,16 @@ import { ImageService } from 'src/app/services/image/image.service';
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
 
 @Component({
-  selector: 'app-photo-gallery',
-  standalone: true,
-  imports: [
-    LightboxModule,
-    NgOptimizedImage,
-    MatCardModule,
-    LoadingOverlayComponent,
-    NgClass,
-    MatPaginatorModule,
-  ],
-  templateUrl: './photo-gallery.component.html',
-  styleUrl: './photo-gallery.component.scss',
+    selector: 'app-photo-gallery',
+    imports: [
+        LightboxModule,
+        NgOptimizedImage,
+        MatCardModule,
+        LoadingOverlayComponent,
+        MatPaginatorModule,
+    ],
+    templateUrl: './photo-gallery.component.html',
+    styleUrl: './photo-gallery.component.scss'
 })
 export class PhotoGalleryComponent implements OnInit {
   private imageService = inject(ImageService);

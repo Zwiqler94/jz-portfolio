@@ -1,4 +1,5 @@
 @use "themes";
+@use "sass:map";
 
 #post-div {
   display: flex;
@@ -27,7 +28,7 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: map-get(themes.$md-A-1-complementary, 700);
+  background-color: map.get(themes.$md-A-1-complementary, 700);
   margin-left: -16px;
   margin-right: -16px;
 }

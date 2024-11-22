@@ -17,20 +17,19 @@ interface SkillModel {
 }
 
 @Component({
-  selector: 'app-skills',
-  templateUrl: './skills.component.html',
-  styleUrls: ['./skills.component.scss'],
-  standalone: true,
-  imports: [
-    MatCard,
-    MatCardContent,
-    MatAccordion,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    MatChipSet,
-    MatChip,
-  ],
+    selector: 'app-skills',
+    templateUrl: './skills.component.html',
+    styleUrls: ['./skills.component.scss'],
+    imports: [
+        MatCard,
+        MatCardContent,
+        MatAccordion,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        MatChipSet,
+        MatChip,
+    ]
 })
 export class SkillsComponent extends Tabs {
   @Input() public tabTitle: string;

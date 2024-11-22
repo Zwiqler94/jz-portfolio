@@ -10,11 +10,10 @@ import { SkillsComponent } from 'src/app/pages/about-me/skills/skills.component'
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.component';
 @Component({
-  selector: 'app-about-me',
-  templateUrl: './about-me.component.html',
-  styleUrls: ['./about-me.component.scss'],
-  standalone: true,
-  imports: [JzTabGroupComponent],
+    selector: 'app-about-me',
+    templateUrl: './about-me.component.html',
+    styleUrls: ['./about-me.component.scss'],
+    imports: [JzTabGroupComponent]
 })
 export class AboutMeComponent implements Tabs {
   protected router = inject(Router);

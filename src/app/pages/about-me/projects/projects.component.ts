@@ -8,29 +8,26 @@ import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   AgeByNameComponent,
-  BoredomSolverComponent,
   NasaComponent,
   PokemonComponent,
   UsernameGeneratorComponent,
 } from '@zwiqler94/everything-lib';
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss'],
-  standalone: true,
-  imports: [
-    CdkDrag,
-    CdkDragHandle,
-    MatIcon,
-    MatCardModule,
-    MatSnackBarModule,
-    UsernameGeneratorComponent,
-    PokemonComponent,
-    BoredomSolverComponent,
-    NasaComponent,
-    AgeByNameComponent,
-  ],
+    selector: 'app-projects',
+    templateUrl: './projects.component.html',
+    styleUrls: ['./projects.component.scss'],
+    imports: [
+        CdkDrag,
+        CdkDragHandle,
+        MatIcon,
+        MatCardModule,
+        MatSnackBarModule,
+        UsernameGeneratorComponent,
+        PokemonComponent,
+        NasaComponent,
+        AgeByNameComponent,
+    ]
 })
 export class ProjectsComponent extends Tabs {
   private fb = inject(FormBuilder);

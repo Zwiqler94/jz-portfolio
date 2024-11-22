@@ -20,17 +20,16 @@ import { TextPostComponent } from '../text-post/text-post.component';
 import { NgClass, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-feed',
-  templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.scss'],
-  standalone: true,
-  imports: [
-    NgClass,
-    TextPostComponent,
-    LinkPostComponent,
-    MatCardModule,
-    AsyncPipe,
-  ],
+    selector: 'app-feed',
+    templateUrl: './feed.component.html',
+    styleUrls: ['./feed.component.scss'],
+    imports: [
+        NgClass,
+        TextPostComponent,
+        LinkPostComponent,
+        MatCardModule,
+        AsyncPipe,
+    ]
 })
 export class FeedComponent implements OnChanges, AfterViewInit {
   private changeDetector = inject(ChangeDetectorRef);

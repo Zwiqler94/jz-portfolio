@@ -1,4 +1,3 @@
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {
@@ -20,18 +19,15 @@ import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-g
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-photography-tab',
-  templateUrl: './photography-tab.component.html',
-  styleUrls: ['./photography-tab.component.scss'],
-  standalone: true,
-  imports: [
-    LightboxModule,
-    AsyncPipe,
-    NgOptimizedImage,
-    MatCardModule,
-    LoadingOverlayComponent,
-    PhotoGalleryComponent,
-  ],
+    selector: 'app-photography-tab',
+    templateUrl: './photography-tab.component.html',
+    styleUrls: ['./photography-tab.component.scss'],
+    imports: [
+        LightboxModule,
+        MatCardModule,
+        LoadingOverlayComponent,
+        PhotoGalleryComponent,
+    ]
 })
 export class PhotographyTabComponent implements OnInit {
   private imageService = inject(ImageService);

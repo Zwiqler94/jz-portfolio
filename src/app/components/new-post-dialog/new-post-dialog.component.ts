@@ -43,29 +43,28 @@ import { MatSelect } from '@angular/material/select';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-new-post-dialog',
-  templateUrl: './new-post-dialog.component.html',
-  styleUrls: ['./new-post-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormField,
-    MatLabel,
-    MatSelect,
-    MatOption,
-    MatInput,
-    NgxEditorModule,
-    NgClass,
-    NgxColorsModule,
-    MatIconButton,
-    MatIcon,
-    MatDialogActions,
-    MatButton,
-    MatDialogClose,
-  ],
+    selector: 'app-new-post-dialog',
+    templateUrl: './new-post-dialog.component.html',
+    styleUrls: ['./new-post-dialog.component.scss'],
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        MatOption,
+        MatInput,
+        NgxEditorModule,
+        NgClass,
+        NgxColorsModule,
+        MatIconButton,
+        MatIcon,
+        MatDialogActions,
+        MatButton,
+        MatDialogClose,
+    ]
 })
 export class NewPostDialogComponent implements OnInit, OnDestroy {
   private dbService = inject(DatabaseService);

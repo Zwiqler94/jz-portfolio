@@ -11,11 +11,10 @@ import { FeedComponent } from '../../components/feed/feed.component';
 import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss'],
-  standalone: true,
-  imports: [MatButton, FeedComponent],
+    selector: 'app-home-page',
+    templateUrl: './home-page.component.html',
+    styleUrls: ['./home-page.component.scss'],
+    imports: [MatButton, FeedComponent]
 })
 export class HomePageComponent implements OnInit {
   private snack = inject(MatSnackBar);

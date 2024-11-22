@@ -18,17 +18,16 @@ import { JzTabItemComponent } from '../jz-tab-item/jz-tab-item.component';
 import { MatTabNav, MatTabLink, MatTabNavPanel } from '@angular/material/tabs';
 
 @Component({
-  selector: 'app-jz-tab-group',
-  templateUrl: './jz-tab-group.component.html',
-  styleUrls: ['./jz-tab-group.component.scss'],
-  standalone: true,
-  imports: [
-    MatTabNav,
-    MatTabLink,
-    RouterLink,
-    MatTabNavPanel,
-    JzTabItemComponent,
-  ],
+    selector: 'app-jz-tab-group',
+    templateUrl: './jz-tab-group.component.html',
+    styleUrls: ['./jz-tab-group.component.scss'],
+    imports: [
+        MatTabNav,
+        MatTabLink,
+        RouterLink,
+        MatTabNavPanel,
+        JzTabItemComponent,
+    ]
 })
 export class JzTabGroupComponent
   implements OnInit, Tabs, AfterViewInit, OnChanges
