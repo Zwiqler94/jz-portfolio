@@ -88,7 +88,7 @@ const allowList = ['127.0.0.1', '0.0.0.0'];
 export const limiter = rateLimit({
   max: 100,
   windowMs: 15 * 60 * 1000,
-  validate: { ip: false },
+  validate: { ip: true },
   legacyHeaders: false,
   standardHeaders: 'draft-7',
   // skip: (req, res) => allowList.includes(req.ip as string),

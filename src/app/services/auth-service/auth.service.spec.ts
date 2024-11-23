@@ -11,7 +11,10 @@ import { Router, RouterStateSnapshot, provideRouter } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import {
   AppCheck,
   ReCaptchaV3Provider,
