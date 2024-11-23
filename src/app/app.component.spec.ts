@@ -12,7 +12,10 @@ import {
 } from '@angular/fire/app';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import {
   ReCaptchaV3Provider,
   initializeAppCheck,

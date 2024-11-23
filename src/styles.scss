@@ -91,7 +91,7 @@ div.NgxEditor.NgxEditor {
   // typography and density styles.
   // @include mat.all-component-colors($light-theme);
 
-  #editor>ngx-editor-menu>div.NgxEditor__MenuBar {
+  #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
     background-color: orange;
   }
 }
@@ -109,7 +109,7 @@ div.NgxEditor.NgxEditor {
   white-space: normal;
 }
 
-#editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+#editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
   height: 350px;
 }
 
@@ -130,21 +130,25 @@ div#post-content#post-content#post-content p img {
 }
 
 @media (min-height: 1024px) {
-  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
+  div.cdk-overlay-container
+    div.cdk-global-overlay-wrapper
+    div.cdk-overlay-pane {
     height: 70vh !important;
   }
 }
 
 @media (min-height: 1266px) {
-  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
+  div.cdk-overlay-container
+    div.cdk-global-overlay-wrapper
+    div.cdk-overlay-pane {
     height: 75vh !important;
   }
 }

@@ -29,6 +29,8 @@ import { NavBarComponent } from 'src/app/components/nav-bar/nav-bar.component';
   ],
 })
 export class AppComponent implements OnInit {
+  private lp = inject(LinkPreviewService);
+
   private swUpdate = inject(SwUpdate);
   private authService = inject(AuthService);
   private fbAuth = inject(Auth);

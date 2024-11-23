@@ -18,7 +18,6 @@ import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.comp
     MatCardModule,
     LoadingOverlayComponent,
     MatPaginatorModule,
-
   ],
   templateUrl: './photo-gallery.component.html',
   styleUrl: './photo-gallery.component.scss',
