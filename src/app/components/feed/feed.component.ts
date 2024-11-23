@@ -3,13 +3,13 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
   AfterViewInit,
   inject,
+  input,
 } from '@angular/core';
 import { Post } from '../models/post.model';
 import { DatabaseService } from 'src/app/services/database/database.service';
@@ -20,59 +20,62 @@ import { TextPostComponent } from '../text-post/text-post.component';
 import { NgClass, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-feed',
-    templateUrl: './feed.component.html',
-    styleUrls: ['./feed.component.scss'],
-    imports: [
-        NgClass,
-        TextPostComponent,
-        LinkPostComponent,
-        MatCardModule,
-        AsyncPipe,
-    ]
+  selector: 'app-feed',
+  templateUrl: './feed.component.html',
+  styleUrls: ['./feed.component.scss'],
+  imports: [
+    NgClass,
+    TextPostComponent,
+    LinkPostComponent,
+    MatCardModule,
+    AsyncPipe,
+  ],
 })
-export class FeedComponent implements OnChanges, AfterViewInit {
-  private changeDetector = inject(ChangeDetectorRef);
+export class FeedComponent implements OnInit {
   dbService = inject(DatabaseService);
 
-  @Input() direction: 'H' | 'V' = 'V';
-  @Input() feedLocation: string = 'Main';
+  readonly direction = input<'H' | 'V'>('V');
+  readonly feedLocation = input<string>('Main');
   // @ViewChild('posts', { read: ViewContainerRef })
   // postTemplate: ViewContainerRef;
   // componentRef: ComponentRef<PostBaseComponent>;
   posts$: Observable<Post[]>;
-  @Input() shouldFetchPosts: boolean = false;
+  readonly shouldFetchPosts = input<boolean>(false);
   @Output() shouldFetchPostsChange: EventEmitter<boolean> =
     new EventEmitter<boolean>(false);
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
-
-  async ngOnChanges(changes: SimpleChanges) {
-    if (changes['shouldFetchPosts']) {
-      if (this.shouldFetchPosts) {
-        // this.posts$ = await this.dbService.getMainPosts();
-
-        // this.shouldFetchPosts = !this.shouldFetchPosts;
-        // this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
-
-        // console.table(this.posts$);
-        await this.ngAfterViewInit();
-      }
-
-      // this.changeDetector.detectChanges();
-    }
+  ngOnInit() {
+    this.posts$ = this.dbService.getMainPosts();
   }
 
-  async ngAfterViewInit() {
-    console.info(this.dbService.appCheck);
-    this.posts$ = await this.dbService.getMainPosts();
-    this.shouldFetchPosts = !this.shouldFetchPosts;
-    this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
-    // this.changeDetector.detectChanges();
-  }
+  // async ngOnChanges(changes: SimpleChanges) {
+  //   // if (changes['shouldFetchPosts']) {
+  //   //   if (this.shouldFetchPosts) {
+  //   //     // this.posts$ = await this.dbService.getMainPosts();
+
+  //   //     // this.shouldFetchPosts = !this.shouldFetchPosts;
+  //   //     // this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
+
+  //   //     // console.table(this.posts$);
+  //   //     await this.ngAfterViewInit();
+  //   //   }
+
+  //     // this.changeDetector.detectChanges();
+  //   }
+  // }
+
+  // ngAfterViewInit() {
+  //   // console.info(this.dbService.appCheck);
+  //   // try {
+  //     this.posts$ = this.dbService.getMainPosts();
+  //     // this.shouldFetchPosts = !this.shouldFetchPosts;
+  //     // this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
+  //   // } catch (error) {
+  //   //   console.error(error);
+  //   //   throw new Error(JSON.stringify(error));
+  //   // }
+  //   // this.changeDetector.detectChanges();
+  // }
 
   // ngAfterViewInit(): void {
   //   // this.feedSwitchv2(this.feedLocation);
@@ -202,10 +205,10 @@ export class FeedComponent implements OnChanges, AfterViewInit {
   // }
 
   public get isHorizontal() {
-    return this.direction === 'H' ? true : false;
+    return this.direction() === 'H' ? true : false;
   }
 
   public get isVertical() {
-    return this.direction === 'V' ? true : false;
+    return this.direction() === 'V' ? true : false;
   }
 }

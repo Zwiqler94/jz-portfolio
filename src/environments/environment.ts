@@ -22,13 +22,11 @@ export const environment = {
   serviceOptions: {
     useServiceWorker: false,
     productionServices: true,
-    url: 'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev',
-    secretService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v3/secrets',
+    url: 'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev',
     postService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v3/posts',
-    ADMIN_USER: '',
-    ADMIN_PASS: '',
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v3/posts',
+    secretService:
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v3/secrets',
   },
 };
 

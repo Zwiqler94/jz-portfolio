@@ -2,7 +2,7 @@
 import { onRequest } from 'firebase-functions/v2/https';
 import { postRouter } from './db';
 import cors, { CorsOptions } from 'cors';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
 import { appCheckGaurd, errorHandler, limiter } from './middleware';
@@ -47,24 +47,24 @@ if (process.env.SESSION_SECRET) {
   SESSION_SECRETS = [process.env.SESSION_SECRET, ...SESSION_SECRETS];
 }
 
-const sessionOpts: session.SessionOptions = {
-  store: new FirestoreStore({
-    dataset: new Firestore(),
-    kind: 'express-sessions',
-  }),
-  name: `jlz_portfolio_${process.env.DB_ENV}_${process.env.DB_USER}`,
-  secret: SESSION_SECRETS,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    // secure: true, //app.get('env') === 'production',
-    httpOnly: false,
-    // domain: 'localhost',
-    priority: 'high',
-    // path: "/cookie/",
-    sameSite: 'none',
-  },
-};
+// const sessionOpts: session.SessionOptions = {
+//   store: new FirestoreStore({
+//     dataset: new Firestore(),
+//     kind: 'express-sessions',
+//   }),
+//   name: `jlz_portfolio_${process.env.DB_ENV}_${process.env.DB_USER}`,
+//   secret: SESSION_SECRETS,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {
+//     // secure: true, //app.get('env') === 'production',
+//     httpOnly: false,
+//     // domain: 'localhost',
+//     priority: 'high',
+//     // path: "/cookie/",
+//     sameSite: 'none',
+//   },
+// };
 
 const corsOpts: CorsOptions = {
   origin: ['http://localhost'],
@@ -82,7 +82,7 @@ const corsOpts: CorsOptions = {
 };
 
 app.use(cors(corsOpts));
-app.use(session(sessionOpts));
+// app.use(session(sessionOpts));
 
 // header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 // header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization,
@@ -138,7 +138,7 @@ const secrets: SecretParam[] = [
 gaurdedRoutes.use(secretRouter);
 gaurdedRoutes.use('/posts', postRouter);
 
-jzPortfolioBackendExpressApp.get('/health', (req, res, next) => {
+jzPortfolioBackendExpressApp.get('/health', (req: Request, res, next) => {
   // console.debug(app.get('env'), JSON.stringify(dbHost.value()));
   const data = {
     uptime: process.uptime(),
@@ -149,8 +149,11 @@ jzPortfolioBackendExpressApp.get('/health', (req, res, next) => {
   res.status(200).send(data);
 });
 
-jzPortfolioBackendExpressApp.get('/x-forwarded-for', (req, res, next) =>
-  res.send(req.headers['x-forwarded-for']),
+jzPortfolioBackendExpressApp.get(
+  '/x-forwarded-for',
+  (req: Request, res: Response) => {
+    res.send(req.headers['x-forwarded-for']);
+  },
 );
 
 jzPortfolioBackendExpressApp.use('/auth', authRouter);

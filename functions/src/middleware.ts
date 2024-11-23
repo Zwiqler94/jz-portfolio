@@ -67,7 +67,7 @@ export const appCheckGaurd = async (
   } catch (err: any) {
     // error(err);
     res.status(401);
-    next(`Unauthorized Code: Error ${err.message}`);
+    return next(`Unauthorized Code: Error ${err.message}`);
   }
   // next();
 };
@@ -77,7 +77,7 @@ const allowList = ['127.0.0.1', '0.0.0.0'];
 export const limiter = rateLimit({
   max: 100,
   windowMs: 15 * 60 * 1000,
-  validate: { ip: false },
+  validate: { ip: true },
   legacyHeaders: false,
   standardHeaders: 'draft-7',
   skip: (req, res) => allowList.includes(req.ip as string),
@@ -93,7 +93,7 @@ export const validator = async (
     return next();
   } else {
     error(result.array);
-    return res.status(400).json({ errors: result.array() });
+    res.status(400).json({ errors: result.array() });
   }
 };
 
@@ -104,7 +104,7 @@ export const errorHandler: ErrorRequestHandler = (
   next: NextFunction,
 ) => {
   error(err.stack);
-  return res.status(res.statusCode).json({
+  res.status(res.statusCode).json({
     name: err.name,
     code: res.statusCode,
     description: err.message ? err.message : err,

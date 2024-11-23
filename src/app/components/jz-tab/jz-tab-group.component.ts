@@ -2,52 +2,53 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  Input,
   OnChanges,
   OnInit,
   SimpleChanges,
-  ViewChild,
   ViewContainerRef,
   inject,
+  input,
+  viewChild,
 } from '@angular/core';
-import { Tabs } from 'src/app/interfaces/tabs.model';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 import { JzTabItemComponent } from '../jz-tab-item/jz-tab-item.component';
 
 import { MatTabNav, MatTabLink, MatTabNavPanel } from '@angular/material/tabs';
+import { TabComponent } from 'src/app/components/tab/tab.component';
 
 @Component({
-    selector: 'app-jz-tab-group',
-    templateUrl: './jz-tab-group.component.html',
-    styleUrls: ['./jz-tab-group.component.scss'],
-    imports: [
-        MatTabNav,
-        MatTabLink,
-        RouterLink,
-        MatTabNavPanel,
-        JzTabItemComponent,
-    ]
+  selector: 'app-jz-tab-group',
+  templateUrl: './jz-tab-group.component.html',
+  styleUrls: ['./jz-tab-group.component.scss'],
+  imports: [
+    MatTabNav,
+    MatTabLink,
+    RouterLink,
+    MatTabNavPanel,
+    JzTabItemComponent,
+  ],
 })
 export class JzTabGroupComponent
-  implements OnInit, Tabs, AfterViewInit, OnChanges
+  extends TabComponent
+  implements OnInit, AfterViewInit, OnChanges
 {
   private changeDetector = inject(ChangeDetectorRef);
   route = inject(ActivatedRoute);
 
-  @Input() tabTitle = '';
-  @Input() router: Router;
-  @ViewChild('tabTemplate', { read: ViewContainerRef })
-  component: any;
+  readonly router = input<Router>();
+  component = viewChild('tabTemplate', { read: ViewContainerRef });
   currentTab = '';
   currentPage = '';
 
-  @Input() tabComponentList: TabNavModel[] = [];
+  readonly tabComponentList = input<TabNavModel[]>([]);
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     this.route.children[0].url.subscribe((x) => (this.currentTab = x[0].path));
@@ -59,7 +60,7 @@ export class JzTabGroupComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['currentTab']) {
-      this.component = this.tabComponentList.filter(
+      this.component = this.tabComponentList().filter(
         (x) => x.link === this.currentTab,
       )[0].component;
 

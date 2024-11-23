@@ -453,11 +453,9 @@ class AWSDBManager {
       const mainLinkPostQuery =
         'select post_list.id, post_list.type, link_post.uri, post_list.content ,post_list.created_at, post_list.updated_at from post_list inner join link_post on post_list.id=link_post.post_list_id where post_list.id=$1 ';
 
-      const useLocalDb = /^true$/i.test(
-        req.query.local ? req.query.local.toString() : 'true',
-      );
+      // const useLocalDb = /^true$/i.test(req.query.local!.toString());
 
-      debug(useLocalDb);
+      // debug(useLocalDb);
 
       // this.pool = await this.connectDB(useLocalDb);
       this.client = await this.startUpDBService();
@@ -486,6 +484,8 @@ class AWSDBManager {
 
           console.table(fullPostArray);
           res.status(200).json(fullPostArray);
+        } else {
+          throw new Error('No Posts');
         }
       } else {
         throw new Error('Pool Client Missing');
@@ -493,7 +493,6 @@ class AWSDBManager {
     } catch (err) {
       error(err);
       res.status(500).json(err);
-      next(err);
     }
   };
 

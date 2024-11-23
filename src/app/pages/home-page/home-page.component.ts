@@ -11,52 +11,27 @@ import { FeedComponent } from '../../components/feed/feed.component';
 import { MatButton } from '@angular/material/button';
 
 @Component({
-    selector: 'app-home-page',
-    templateUrl: './home-page.component.html',
-    styleUrls: ['./home-page.component.scss'],
-    imports: [MatButton, FeedComponent]
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss'],
+  imports: [MatButton, FeedComponent],
 })
-export class HomePageComponent implements OnInit {
-  private snack = inject(MatSnackBar);
-  private sw = inject(ServiceWorkerService);
+export class HomePageComponent {
   private dialog = inject(MatDialog);
   private auth = inject(AuthService);
   private cd = inject(ChangeDetectorRef);
 
-  shouldFetchPosts = false;
+  // shouldFetchPosts = false;
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
 
   constructor() {}
 
-  ngOnInit() {
-    this.sw.swUpdates.versionUpdates
-      .pipe(
-        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
-      )
-      .subscribe((x) => {
-        if (x) {
-          const d = this.snack.open(
-            'New App Version Detected, Update?',
-            'Yup!',
-          );
-          d.afterDismissed().subscribe((f: MatSnackBarDismiss) => {
-            console.debug(f.dismissedByAction);
-            while (!f.dismissedByAction) {
-              this.snack.open('Hurry up and update!', 'UPDATE!');
-            }
-            document.location.reload();
-          });
-        }
-      });
-    // this.shouldFetchPosts = !this.shouldFetchPosts;
-  }
-
   openNewPostDialog() {
     const dialogRef = this.dialog.open(NewPostDialogComponent);
     dialogRef.afterClosed().subscribe((res) => {
-      this.shouldFetchPosts = true;
+      // this.shouldFetchPosts = true;
     });
     this.cd.detectChanges();
   }

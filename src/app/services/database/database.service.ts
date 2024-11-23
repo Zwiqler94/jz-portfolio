@@ -1,8 +1,22 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { ApplicationRef, Injectable, inject } from '@angular/core';
-import { AppCheck } from '@angular/fire/app-check';
+import { AppCheck, getToken } from '@angular/fire/app-check';
 import { DateTime } from 'luxon';
-import { Observable, catchError, map, of, throwError, first } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  map,
+  of,
+  throwError,
+  first,
+  from,
+  switchMap,
+  retry,
+} from 'rxjs';
 import { Post } from 'src/app/components/models/post.model';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { staticTextPosts } from 'src/app/services/database/posts';
@@ -14,6 +28,9 @@ import { environment } from 'src/environments/environment';
 export class DatabaseService {
   private httpClient = inject(HttpClient);
   private authService = inject(AuthService);
+  appRef = inject(ApplicationRef);
+
+  appCheck = inject(AppCheck);
 
   private _mainPosts: Observable<Post[]>;
   puppyPosts: Observable<Post[]>;
@@ -23,48 +40,33 @@ export class DatabaseService {
   blockchainPosts: Observable<Post[]>;
 
   postUrl = environment.serviceOptions.postService;
-  _appCheck: AppCheck | undefined;
+
   // tokenResult: string;
 
   headers: HttpHeaders = new HttpHeaders();
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
+  // /** Inserted by Angular inject() migration for backwards compatibility */
+  // constructor(...args: unknown[]){}
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {
-    const appRef = inject(ApplicationRef);
-
-    this.appCheck = inject(AppCheck);
-
-    //const appIsStable$ = appRef.isStable.pipe(
-      //first((isStable) => isStable === true),
-    //);
-
-    if (environment.local && typeof environment.appCheckDebug === 'string') {
-      console.debug('IN DEBUG MODE');
-      if (!this.authService.appCheckToken)
-        this.authService.getAppCheckToken('db:constructor').then((val) => {
-          this.authService.appCheckToken = val ? val.token : undefined;
-        });
-    }
-
-    // this.setDBUrls();
-
-    // if (!this.authService.appCheckToken) {
-    //   this.authService.getAppCheckToken().subscribe((authToken) => {
-    //     this.authService.appCheckToken = authToken.token;
-    //   });
-    // }
-  }
-
-  get appCheck() {
-    return this._appCheck;
-  }
-
-  set appCheck(x) {
-    this._appCheck = x;
-  }
+  // constructor() {
+  //   //const appIsStable$ = appRef.isStable.pipe(
+  //   //first((isStable) => isStable === true),
+  //   //);
+  //   // if (environment.local && typeof environment.appCheckDebug === 'string') {
+  //   //   console.debug('IN DEBUG MODE');
+  //   //   if (!this.authService.appCheckToken)
+  //   //     this.authService.getAppCheckToken('db:constructor').then((val) => {
+  //   //       this.authService.appCheckToken = val ? val.token : undefined;
+  //   //     });
+  //   // }
+  //   // this.setDBUrls();
+  //   // if (!this.authService.appCheckToken) {
+  //   //   this.authService.getAppCheckToken().subscribe((authToken) => {
+  //   //     this.authService.appCheckToken = authToken.token;
+  //   //   });
+  //   // }
+  // }
 
   // async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
   //   try {
@@ -270,57 +272,37 @@ export class DatabaseService {
   //   // }
   // }
 
-  async getMainPosts() {
-    this.authService.appCheckToken = (
-      await this.authService.getAppCheckToken('db:urls')
-    )?.token;
-    this.headers = new HttpHeaders({
-      'X-Firebase-AppCheck': this.authService.appCheckToken!,
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    });
-    console.debug(this.headers);
-    if (!environment.local) {
-      // .set('X-Firebase-AppCheck', this.authService.appCheckToken!)
-      // .set('Content-Type', 'application/json')
-      // .set('Accept', 'application/json');
+  getMainPosts(): Observable<any[]> {
+    return from(this.authService.getAppCheckToken('db:urls')).pipe(
+      switchMap((appCheckResponse) => {
+        const appCheckToken = appCheckResponse?.token;
 
-      return this.httpClient
-        .get<Post[]>(`${this.postUrl}/main?local=false`, {
-          headers: this.headers,
-          observe: 'response',
-        })
-        .pipe(
-          map((posts) => {
-            console.debug({ yup: posts.headers.keys() });
-            return this.nextFn(posts.body!);
-          }),
-          catchError(this.handleError),
-        );
-    } else if (environment.local) {
-      // this.headers = new HttpHeaders()
-      //   .set('X-Firebase-AppCheck', this.authService.appCheckToken!)
-      //   .set('Content-Type', 'application/json')
-      //   .set('Accept', 'application/json');
+        if (!appCheckToken) {
+          throw new Error('AppCheck token is missing.');
+        }
 
-      return this.httpClient
-        .get<Post[]>(`${this.postUrl}/main`, {
+        // Set headers
+        this.headers = new HttpHeaders({
+          'X-Firebase-AppCheck': appCheckToken,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        });
+
+        console.debug(this.headers); // Optionally remove in production
+
+        // Make HTTP request
+        return this.httpClient.get<Post[]>(`${this.postUrl}/main`, {
           headers: this.headers,
-          params: { local: true },
-        })
-        .pipe(
-          map((posts) => {
-            return this.nextFn(posts);
-          }),
-          catchError(this.handleError),
-        );
-    } else {
-      return of(
-        staticTextPosts.filter(
-          (post) => post.location.toLowerCase() === 'main',
-        ),
-      );
-    }
+          // params: { local: true },
+        });
+      }),
+      retry(3),
+      map((posts) => this.nextFn(posts)), // Process the response
+      catchError((error) => {
+        console.error('Error fetching main posts:', error);
+        return throwError(() => error); // Propagate the error as an Observable
+      }),
+    );
   }
 
   handleError = (error: HttpErrorResponse) => {

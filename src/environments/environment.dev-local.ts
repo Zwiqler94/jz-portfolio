@@ -3,7 +3,6 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  appCheckDebug: '4ad6c24e-aab2-40b5-9cd2-f7fe4291db01',
   appUrl: 'jlz-portfolio-dev.web.app',
   deployable: false,
   firebaseConfig: {
@@ -15,18 +14,18 @@ export const environment = {
     appId: '1:518070660509:web:9d2511d1a027342457d374',
     measurementId: 'G-CNT03XSD81',
   },
-  local: false,
+  local: true,
   nasaAPIKey: 'vnfZmI8NbIb44DmpbbSAvlMhFz7Ipnyc1tq6xNLb',
   production: false,
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
     useServiceWorker: true,
-    productionServices: true,
-    url: 'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev',
+    productionServices: false,
+    url: 'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev',
     postService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v3/posts',
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v3/posts',
     secretService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v3/secrets',
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v3/secrets',
   },
 };
 

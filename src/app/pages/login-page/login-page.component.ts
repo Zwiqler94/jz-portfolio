@@ -14,10 +14,10 @@ import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
-    selector: 'app-login-page',
-    templateUrl: './login-page.component.html',
-    styleUrls: ['./login-page.component.scss'],
-    imports: [MatCard, MatCardContent, MatButton]
+  selector: 'app-login-page',
+  templateUrl: './login-page.component.html',
+  styleUrls: ['./login-page.component.scss'],
+  imports: [MatCard, MatCardContent, MatButton],
 })
 export class LoginPageComponent implements OnInit {
   private router = inject(Router);

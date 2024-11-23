@@ -12,10 +12,10 @@ import { ServiceWorkerService } from 'src/app/services/service-worker/service-wo
 import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.component';
 
 @Component({
-    selector: 'app-hobbies',
-    templateUrl: './hobbies.component.html',
-    styleUrls: ['./hobbies.component.scss'],
-    imports: [JzTabGroupComponent]
+  selector: 'app-hobbies',
+  templateUrl: './hobbies.component.html',
+  styleUrls: ['./hobbies.component.scss'],
+  imports: [JzTabGroupComponent],
 })
 export class HobbiesComponent {
   private storage = inject(Storage);

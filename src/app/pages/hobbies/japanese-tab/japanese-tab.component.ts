@@ -13,15 +13,15 @@ import { LoadingOverlayComponent } from '../../../components/loading-overlay/loa
 import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-gallery.component';
 
 @Component({
-    selector: 'app-japanese-tab',
-    templateUrl: './japanese-tab.component.html',
-    styleUrls: ['./japanese-tab.component.scss'],
-    imports: [
-        LightboxModule,
-        MatCardModule,
-        LoadingOverlayComponent,
-        PhotoGalleryComponent,
-    ]
+  selector: 'app-japanese-tab',
+  templateUrl: './japanese-tab.component.html',
+  styleUrls: ['./japanese-tab.component.scss'],
+  imports: [
+    LightboxModule,
+    MatCardModule,
+    LoadingOverlayComponent,
+    PhotoGalleryComponent,
+  ],
 })
 export class JapaneseTabComponent implements OnInit {
   private sw = inject(ServiceWorkerService);

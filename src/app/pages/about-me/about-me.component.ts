@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
-import { Component, Input, inject } from '@angular/core';
-import { Tabs } from 'src/app/interfaces/tabs.model';
+import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AboutMeMainComponent } from 'src/app/pages/about-me/about-me-main/about-me-main.component';
 import { CredentialsComponent } from 'src/app/pages/about-me/credentials/credentials.component';
@@ -9,20 +8,17 @@ import { ProjectsComponent } from 'src/app/pages/about-me/projects/projects.comp
 import { SkillsComponent } from 'src/app/pages/about-me/skills/skills.component';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.component';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { TabComponent } from 'src/app/components/tab/tab.component';
 @Component({
-    selector: 'app-about-me',
-    templateUrl: './about-me.component.html',
-    styleUrls: ['./about-me.component.scss'],
-    imports: [JzTabGroupComponent]
+  selector: 'app-about-me',
+  templateUrl: './about-me.component.html',
+  styleUrls: ['./about-me.component.scss'],
+  imports: [JzTabGroupComponent],
 })
-export class AboutMeComponent implements Tabs {
+export class AboutMeComponent extends TabComponent {
   protected router = inject(Router);
-
-  @Input() tabTitle: string;
-  // @ViewChild(TabsDirective, { static: true }) appTabs!: TabsDirective;
-
-  // private _badgeHeight = '18.75rem';
-  // private _badgeWidth = '12.5rem';
+  private auth = inject(AuthService);
 
   private _tabComponentList: TabNavModel[] = [
     { component: AboutMeMainComponent, title: 'About Me', link: 'main' },
@@ -39,6 +35,7 @@ export class AboutMeComponent implements Tabs {
   constructor(...args: unknown[]);
 
   constructor() {
+    super();
     const currentPagePath = location.pathname.split('/').pop();
     const result = this.tabComponentList.filter(
       (tabItem) => tabItem.link === currentPagePath,

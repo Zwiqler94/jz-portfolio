@@ -26,7 +26,7 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
 }
 
 #toolbar-logo,
-#toolbar-logo>img {
+#toolbar-logo > img {
   max-inline-size: 100%;
   margin-inline-start: 0.1vw;
   margin-block-start: 0.1vh;
@@ -82,9 +82,7 @@ mat-sidenav#side-nav {
   width: 12rem;
 }
 
-
-
-#button-container-column>button {
+#button-container-column > button {
   display: inline-flex;
   flex-direction: row-reverse;
   width: 11rem;

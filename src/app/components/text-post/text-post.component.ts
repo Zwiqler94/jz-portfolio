@@ -8,10 +8,10 @@ import { PostBaseComponent } from 'src/app/components/post-base/post-base.compon
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-    selector: 'app-text-post',
-    templateUrl: './text-post.component.html',
-    styleUrls: ['./text-post.component.scss'],
-    imports: [MatCardModule]
+  selector: 'app-text-post',
+  templateUrl: './text-post.component.html',
+  styleUrls: ['./text-post.component.scss'],
+  imports: [MatCardModule],
 })
 export class TextPostComponent
   extends PostBaseComponent
@@ -28,6 +28,6 @@ export class TextPostComponent
   }
 
   ngOnInit(): void {
-    this.content = this.sanitizer.bypassSecurityTrustHtml(this.content);
+    this.content = this.sanitizer.bypassSecurityTrustHtml(this.content());
   }
 }

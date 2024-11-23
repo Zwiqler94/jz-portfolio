@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, inject, viewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {
   Gallery,
@@ -19,15 +19,15 @@ import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-g
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-    selector: 'app-photography-tab',
-    templateUrl: './photography-tab.component.html',
-    styleUrls: ['./photography-tab.component.scss'],
-    imports: [
-        LightboxModule,
-        MatCardModule,
-        LoadingOverlayComponent,
-        PhotoGalleryComponent,
-    ]
+  selector: 'app-photography-tab',
+  templateUrl: './photography-tab.component.html',
+  styleUrls: ['./photography-tab.component.scss'],
+  imports: [
+    LightboxModule,
+    MatCardModule,
+    LoadingOverlayComponent,
+    PhotoGalleryComponent,
+  ],
 })
 export class PhotographyTabComponent implements OnInit {
   private imageService = inject(ImageService);
@@ -39,7 +39,7 @@ export class PhotographyTabComponent implements OnInit {
   galleryRefs: GalleryRef[] = [];
   photoGrids: GalleryItem[][] = [];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);

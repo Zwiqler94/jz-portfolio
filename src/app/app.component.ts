@@ -21,37 +21,38 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { AppCheck } from '@angular/fire/app-check';
 import { NgOptimizedImage } from '@angular/common';
+import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    imports: [
-        MatToolbar,
-        RouterLink,
-        RouterLinkActive,
-        MatButton,
-        MatMiniFabButton,
-        MatIcon,
-        MatDivider,
-        MatSidenavContainer,
-        MatSidenav,
-        MatSidenavContent,
-        RouterOutlet,
-        FooterComponent,
-        NgOptimizedImage,
-    ]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  imports: [
+    MatToolbar,
+    RouterLink,
+    RouterLinkActive,
+    MatButton,
+    MatMiniFabButton,
+    MatIcon,
+    MatDivider,
+    MatSidenavContainer,
+    MatSidenav,
+    MatSidenavContent,
+    RouterOutlet,
+    FooterComponent,
+    NgOptimizedImage,
+  ],
 })
 export class AppComponent implements OnInit {
+  private lp = inject(LinkPreviewService);
+
   private swUpdate = inject(SwUpdate);
   private auth = inject(AuthService);
+  private appCheck = inject(AppCheck);
   private dbService = inject(DatabaseService);
   private snack = inject(MatSnackBar);
 
   title = 'jlz-portfolio';
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
 
   constructor() {
     this.dbService.appCheck = inject(AppCheck);
@@ -64,21 +65,23 @@ export class AppComponent implements OnInit {
       await this.auth.getAppCheckToken('app:oninit')
     )?.token;
 
+    // (await this.lp.getAPIKey())?.subscribe((apiKey) => (this.lp.apiKey = apiKey.k));
+
     if (this.swUpdate.isEnabled) {
       console.debug('Service Worker Enabled');
 
-       this.swUpdate.unrecoverable.subscribe((event) => {
-         const swUpdateSnack = this.snack.open(
-           `An error occurred that we cannot recover from: ${event.reason}. Please reload the page.`,
-         );
-         swUpdateSnack
-           .afterDismissed()
-           .subscribe((dismiss: MatSnackBarDismiss) => {
-             if (dismiss.dismissedByAction) {
-               document.location.reload();
-             }
-           });
-       });
+      this.swUpdate.unrecoverable.subscribe((event) => {
+        const swUpdateSnack = this.snack.open(
+          `An error occurred that we cannot recover from: ${event.reason}. Please reload the page.`,
+        );
+        swUpdateSnack
+          .afterDismissed()
+          .subscribe((dismiss: MatSnackBarDismiss) => {
+            if (dismiss.dismissedByAction) {
+              document.location.reload();
+            }
+          });
+      });
 
       this.swUpdate.versionUpdates
         .pipe(

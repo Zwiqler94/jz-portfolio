@@ -6,7 +6,7 @@
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "ES2021",
+    "target": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "esModuleInterop": true

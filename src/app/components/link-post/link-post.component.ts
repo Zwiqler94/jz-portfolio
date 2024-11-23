@@ -7,23 +7,14 @@ import {
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
-import {
-  MatCard,
-  MatCardHeader,
-  MatCardTitle,
-  MatCardContent,
-  MatCardImage,
-  MatCardModule,
-} from '@angular/material/card';
-import { HttpHeaders } from '@angular/common/http';
+import { MatCardModule } from '@angular/material/card';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
-import { delay } from 'rxjs';
 
 @Component({
-    selector: 'app-link-post',
-    templateUrl: './link-post.component.html',
-    styleUrls: ['./link-post.component.scss'],
-    imports: [MatCardModule]
+  selector: 'app-link-post',
+  templateUrl: './link-post.component.html',
+  styleUrls: ['./link-post.component.scss'],
+  imports: [MatCardModule],
 })
 export class LinkPostComponent
   extends PostBaseComponent
@@ -54,16 +45,19 @@ export class LinkPostComponent
 
   async ngOnInit() {
     try {
-      await this.getLinkPreview();
+      (await this.linkPreviewService.getAPIKey())?.subscribe(async (val) => {
+        this.linkPreviewService.apiKey = '1ba8305b83fd8470be4e9069b513094e';
+        await this.getLinkPreview();
+      });
     } catch (err) {
       console.error(err);
     }
   }
 
   async getLinkPreview() {
-    const headers = new HttpHeaders({
-      'X-Firebase-AppCheck': this.authService.appCheckToken!,
-    });
+    // const headers = new HttpHeaders({
+    //   'X-Firebase-AppCheck': this.authService.appCheckToken!,
+    // });
 
     const linkArray = this.content.match(
       /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9+/\-.,&?=%#(_);:~]*/,
@@ -71,18 +65,20 @@ export class LinkPostComponent
     if (linkArray !== null) {
       this.uri = linkArray[0];
       try {
-        (await this.linkPreviewService.getLinkPreview(String(this.uri)))
-          .pipe(delay(15000))
+        this.linkPreviewService
+          .getLinkPreview(String(this.uri))
+          // .pipe(delay(15000))
           .subscribe({
             next: (data: unknown) => {
-              {
-                this.linkPreviewData = data as LinkPreview;
-                this.title = this.linkPreviewData.title
-                  ? this.linkPreviewData.title
-                  : this.title;
-                this.content = this.linkPreviewData.description;
-                this.image = this.linkPreviewData.image;
-              }
+              // {
+              this.linkPreviewData = data as LinkPreview;
+              this.title = this.linkPreviewData.title
+                ? this.linkPreviewData.title
+                : this.title;
+
+              this.content = this.linkPreviewData.description;
+              this.image = this.linkPreviewData.image;
+              // }
             },
             error: (err) => {
               this.title = MissingLinkPreviewData.title;
