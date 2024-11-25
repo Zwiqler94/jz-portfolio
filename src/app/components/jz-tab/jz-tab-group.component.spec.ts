@@ -32,7 +32,7 @@ xdescribe('JzTabComponent', () => {
     // //   new UrlSegment('/moosey', {}),
     // // ];
     // component.route.children.push(routey);
-    component.router.navigateByUrl('/moop');
+    component.router().navigateByUrl('/moop');
     console.debug({ r: component.route });
     fixture.detectChanges();
   });

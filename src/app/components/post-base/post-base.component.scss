@@ -41,6 +41,13 @@ a {
   justify-self: auto;
 }
 
+.mat-mdc-card-footer {
+  display: inline-flex;
+  justify-content: center;
+  margin-inline: 0.2rem;
+  margin-block: 0.2rem;
+}
+
 @media (max-width: 430px) {
   .mat-mdc-card {
     margin: 0.938rem;

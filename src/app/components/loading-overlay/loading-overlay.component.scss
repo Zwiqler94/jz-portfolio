@@ -1,4 +1,5 @@
 @use "themes" as themes;
+@use "sass:map";
 
 #loading-wrapper {
   // margin-inline-start: 50%;
@@ -7,7 +8,7 @@
 
 .lds-ellipsis {
   /* change color here */
-  color: map-get(themes.$md-A-1-complementary, 700);
+  color: map.get(themes.$md-A-1-complementary, 700);
 }
 
 .lds-ellipsis,

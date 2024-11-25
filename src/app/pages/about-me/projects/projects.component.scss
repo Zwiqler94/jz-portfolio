@@ -1,4 +1,5 @@
 @use "themes";
+@use "sass:map";
 
 mat-form-field {
   margin: 1rem;
@@ -6,7 +7,7 @@ mat-form-field {
 }
 
 .error {
-  background-color: map-get(themes.$md-A-1-analagous1, 500);
+  background-color: map.get(themes.$md-A-1-analagous1, 500);
 }
 
 // lib-username-generator {

@@ -1,6 +1,5 @@
-import { Component, HostListener, Input, inject } from '@angular/core';
+import { Component, HostListener, inject, input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
@@ -8,17 +7,16 @@ import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   AgeByNameComponent,
-  BoredomSolverComponent,
   NasaComponent,
   PokemonComponent,
   UsernameGeneratorComponent,
 } from '@zwiqler94/everything-lib';
+import { TabComponent } from 'src/app/components/tab/tab.component';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
-  standalone: true,
   imports: [
     CdkDrag,
     CdkDragHandle,
@@ -27,16 +25,14 @@ import {
     MatSnackBarModule,
     UsernameGeneratorComponent,
     PokemonComponent,
-    BoredomSolverComponent,
     NasaComponent,
     AgeByNameComponent,
   ],
 })
-export class ProjectsComponent extends Tabs {
+export class ProjectsComponent extends TabComponent {
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
 
-  @Input() public tabTitle: string;
   screenWidth: number = window.innerWidth;
   screenHeight: number = window.innerHeight;
   widgetCount = 8;

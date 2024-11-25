@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { Tabs } from 'src/app/interfaces/tabs.model';
+import { Component, input } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 import { MatChipSet, MatChip } from '@angular/material/chips';
@@ -10,6 +9,7 @@ import {
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
 import { MatCard, MatCardContent } from '@angular/material/card';
+import { TabComponent } from 'src/app/components/tab/tab.component';
 
 interface SkillModel {
   skill: string;
@@ -20,7 +20,6 @@ interface SkillModel {
   selector: 'app-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
-  standalone: true,
   imports: [
     MatCard,
     MatCardContent,
@@ -32,8 +31,7 @@ interface SkillModel {
     MatChip,
   ],
 })
-export class SkillsComponent extends Tabs {
-  @Input() public tabTitle: string;
+export class SkillsComponent extends TabComponent {
   private _skillList: SkillModel[];
   private _skillListDefault: SkillModel[] = [
     { list: 'Cloud', skill: 'AWS' },

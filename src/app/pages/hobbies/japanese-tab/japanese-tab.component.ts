@@ -1,4 +1,3 @@
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { GalleryItem, GalleryRef, Gallery, ImageItem } from 'ng-gallery';
@@ -17,11 +16,8 @@ import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-g
   selector: 'app-japanese-tab',
   templateUrl: './japanese-tab.component.html',
   styleUrls: ['./japanese-tab.component.scss'],
-  standalone: true,
   imports: [
     LightboxModule,
-    AsyncPipe,
-    NgOptimizedImage,
     MatCardModule,
     LoadingOverlayComponent,
     PhotoGalleryComponent,

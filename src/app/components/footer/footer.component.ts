@@ -6,7 +6,6 @@ import { MatDivider } from '@angular/material/divider';
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
-  standalone: true,
   imports: [MatDivider],
 })
 export class FooterComponent {

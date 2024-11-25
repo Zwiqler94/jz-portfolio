@@ -7,8 +7,5 @@
     </div>
   }
 
-  <app-feed
-    feedLocation="Main"
-    [(shouldFetchPosts)]="shouldFetchPosts"
-  ></app-feed>
+  <app-feed feedLocation="Main" [triggerFetch]="triggerFetch"></app-feed>
 </div>

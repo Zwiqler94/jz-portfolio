@@ -1,5 +1,4 @@
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, inject, viewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {
   Gallery,
@@ -23,11 +22,8 @@ import { MatPaginator } from '@angular/material/paginator';
   selector: 'app-photography-tab',
   templateUrl: './photography-tab.component.html',
   styleUrls: ['./photography-tab.component.scss'],
-  standalone: true,
   imports: [
     LightboxModule,
-    AsyncPipe,
-    NgOptimizedImage,
     MatCardModule,
     LoadingOverlayComponent,
     PhotoGalleryComponent,
@@ -43,7 +39,7 @@ export class PhotographyTabComponent implements OnInit {
   galleryRefs: GalleryRef[] = [];
   photoGrids: GalleryItem[][] = [];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);

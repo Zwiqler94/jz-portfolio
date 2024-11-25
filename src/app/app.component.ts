@@ -21,12 +21,13 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { AppCheck } from '@angular/fire/app-check';
 import { NgOptimizedImage } from '@angular/common';
+import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     MatToolbar,
     RouterLink,
@@ -45,14 +46,13 @@ import { NgOptimizedImage } from '@angular/common';
 })
 export class AppComponent implements OnInit {
   private swUpdate = inject(SwUpdate);
-  private auth = inject(AuthService);
+  private authService = inject(AuthService);
+  private fbAuth = inject(Auth);
+  private appCheck = inject(AppCheck);
   private dbService = inject(DatabaseService);
   private snack = inject(MatSnackBar);
 
   title = 'jlz-portfolio';
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
 
   constructor() {
     this.dbService.appCheck = inject(AppCheck);
@@ -61,12 +61,28 @@ export class AppComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     // await this.dbService.setDBUrls();
 
-    this.auth.appCheckToken = (
-      await this.auth.getAppCheckToken('app:oninit')
+    this.authService.appCheckToken = (
+      await this.authService.getAppCheckToken('app:oninit')
     )?.token;
+
+    // (await this.lp.getAPIKey())?.subscribe((apiKey) => (this.lp.apiKey = apiKey.k));
 
     if (this.swUpdate.isEnabled) {
       console.debug('Service Worker Enabled');
+
+      this.swUpdate.unrecoverable.subscribe((event) => {
+        const swUpdateSnack = this.snack.open(
+          `An error occurred that we cannot recover from: ${event.reason}. Please reload the page.`,
+        );
+        swUpdateSnack
+          .afterDismissed()
+          .subscribe((dismiss: MatSnackBarDismiss) => {
+            if (dismiss.dismissedByAction) {
+              document.location.reload();
+            }
+          });
+      });
+
       this.swUpdate.versionUpdates
         .pipe(
           filter(
@@ -95,6 +111,6 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logout();
+    this.authService.logout();
   }
 }

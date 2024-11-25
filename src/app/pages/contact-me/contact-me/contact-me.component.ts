@@ -19,7 +19,6 @@ import { DatabaseService } from 'src/app/services/database/database.service';
   selector: 'app-contact-me',
   templateUrl: './contact-me.component.html',
   styleUrls: ['./contact-me.component.scss'],
-  standalone: true,
   imports: [
     MatCardModule,
     FormsModule,

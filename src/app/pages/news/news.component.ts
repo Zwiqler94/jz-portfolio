@@ -7,7 +7,6 @@ import { FeedComponent } from '../../components/feed/feed.component';
   selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss'],
-  standalone: true,
   imports: [FeedComponent],
 })
 export class NewsComponent implements OnInit {

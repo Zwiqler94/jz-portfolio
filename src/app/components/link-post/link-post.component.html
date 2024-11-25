@@ -1,26 +1,30 @@
-<div id="post-div">
-  <mat-card appearance="outlined">
-    <mat-card-header>
-      <mat-card-title> {{ title }} </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      @if (hasLinkPreviewData) {
-        <!-- <h1>
-        {{ title }}
-      </h1> -->
-        <a href="{{ uri }}">
-          <img mat-card-image src="{{ image }}" [alt]="content" />
-          <div id="link-info">
-            <h2 id="link-title">{{ title }}</h2>
-            <p id="link-description">{{ content }}</p>
-          </div>
-        </a>
-      } @else {
-        <a href="{{ uri }}">{{ uri }}</a>
-      }
-      <ng-template #link>
-        <a href="{{ uri }}">{{ uri }}</a>
-      </ng-template>
-    </mat-card-content>
-  </mat-card>
-</div>
+<app-post-base
+  [type]="type()"
+  [title]="previewData.title || content()"
+  [content]="previewData.description || content()"
+  [location]="'LinkPost'"
+  [created_at]="null"
+  [updated_at]="null"
+>
+  <div>
+    @if (previewData.url) {
+      <a [href]="title_or_uri()" target="_blank">
+        <img
+          mat-card-image
+          [src]="previewData.image"
+          [alt]="previewData.description"
+        />
+        <div id="link-info">
+          <h2>{{ previewData.title }}</h2>
+          <p>{{ previewData.description }}</p>
+        </div>
+      </a>
+    } @else {
+      <a
+        [href]="title_or_uri()"
+        target="_blank"
+        [innerHTML]="sanitizedBackupContent"
+      ></a>
+    }
+  </div>
+</app-post-base>

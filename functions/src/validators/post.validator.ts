@@ -7,7 +7,7 @@ export const postValidator = [
     .notEmpty()
     .withMessage('missing value'),
   body('type')
-    .isIn(['link', 'text', 'image'])
+    .isIn(['link', 'text', 'image', 'TextPost', 'LinkPost'])
     .withMessage('Unknown type')
     .notEmpty()
     .withMessage('missing value'),

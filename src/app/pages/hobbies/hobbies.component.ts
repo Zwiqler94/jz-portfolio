@@ -15,7 +15,6 @@ import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.compon
   selector: 'app-hobbies',
   templateUrl: './hobbies.component.html',
   styleUrls: ['./hobbies.component.scss'],
-  standalone: true,
   imports: [JzTabGroupComponent],
 })
 export class HobbiesComponent {
