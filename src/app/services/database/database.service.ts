@@ -4,7 +4,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { ApplicationRef, Injectable, inject } from '@angular/core';
-import { AppCheck, getToken } from '@angular/fire/app-check';
+import { AppCheck } from '@angular/fire/app-check';
 import { DateTime } from 'luxon';
 import {
   Observable,

@@ -79,3 +79,62 @@ export class FeedComponent {
     return post.id; // Assuming `id` exists on PostBase
   }
 }
+
+// /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+// import {
+//   ChangeDetectorRef,
+//   Component,
+//   EventEmitter,
+//   OnChanges,
+//   OnInit,
+//   Output,
+//   SimpleChanges,
+//   AfterViewInit,
+//   inject,
+//   input,
+// } from '@angular/core';
+// import { Post } from '../models/post.model';
+// import { DatabaseService } from 'src/app/services/database/database.service';
+// import { Observable } from 'rxjs';
+// import { MatCardModule } from '@angular/material/card';
+// import { LinkPostComponent } from '../link-post/link-post.component';
+// import { TextPostComponent } from '../text-post/text-post.component';
+// import { NgClass, AsyncPipe } from '@angular/common';
+
+// @Component({
+//   selector: 'app-feed',
+//   templateUrl: './feed.component.html',
+//   styleUrls: ['./feed.component.scss'],
+//   imports: [
+//     NgClass,
+//     TextPostComponent,
+//     LinkPostComponent,
+//     MatCardModule,
+//     AsyncPipe,
+//   ],
+// })
+// export class FeedComponent implements OnInit {
+//   dbService = inject(DatabaseService);
+
+//   readonly direction = input<'H' | 'V'>('V');
+//   readonly feedLocation = input<string>('Main');
+//   // @ViewChild('posts', { read: ViewContainerRef })
+//   // postTemplate: ViewContainerRef;
+//   // componentRef: ComponentRef<PostBaseComponent>;
+//   posts$: Observable<Post[]>;
+//   readonly shouldFetchPosts = input<boolean>(false);
+//   @Output() shouldFetchPostsChange: EventEmitter<boolean> =
+//     new EventEmitter<boolean>(false);
+
+//   ngOnInit() {
+//     this.posts$ = this.dbService.getMainPosts();
+//   }
+
+//   public get isHorizontal() {
+//     return this.direction() === 'H' ? true : false;
+//   }
+
+//   public get isVertical() {
+//     return this.direction() === 'V' ? true : false;
+//   }
+// }
