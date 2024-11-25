@@ -4,22 +4,20 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { ApplicationRef, Injectable, inject } from '@angular/core';
-import { AppCheck, getToken } from '@angular/fire/app-check';
+import { AppCheck } from '@angular/fire/app-check';
 import { DateTime } from 'luxon';
 import {
   Observable,
   catchError,
   map,
-  of,
   throwError,
-  first,
   from,
   switchMap,
   retry,
+  repeat,
 } from 'rxjs';
-import { Post } from 'src/app/components/models/post.model';
+import { AnyPost, PostBase } from 'src/app/components/models/post.model';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
-import { staticTextPosts } from 'src/app/services/database/posts';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -32,247 +30,18 @@ export class DatabaseService {
 
   appCheck = inject(AppCheck);
 
-  private _mainPosts: Observable<Post[]>;
-  puppyPosts: Observable<Post[]>;
-  articlePosts: Observable<Post[]>;
-  applePosts: Observable<Post[]>;
-  animePosts: Observable<Post[]>;
-  blockchainPosts: Observable<Post[]>;
+  private _mainPosts: Observable<AnyPost[]>;
+  puppyPosts: Observable<AnyPost[]>;
+  articlePosts: Observable<AnyPost[]>;
+  applePosts: Observable<AnyPost[]>;
+  animePosts: Observable<AnyPost[]>;
+  blockchainPosts: Observable<AnyPost[]>;
 
   postUrl = environment.serviceOptions.postService;
 
-  // tokenResult: string;
-
   headers: HttpHeaders = new HttpHeaders();
 
-  // /** Inserted by Angular inject() migration for backwards compatibility */
-  // constructor(...args: unknown[]){}
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  // constructor() {
-  //   //const appIsStable$ = appRef.isStable.pipe(
-  //   //first((isStable) => isStable === true),
-  //   //);
-  //   // if (environment.local && typeof environment.appCheckDebug === 'string') {
-  //   //   console.debug('IN DEBUG MODE');
-  //   //   if (!this.authService.appCheckToken)
-  //   //     this.authService.getAppCheckToken('db:constructor').then((val) => {
-  //   //       this.authService.appCheckToken = val ? val.token : undefined;
-  //   //     });
-  //   // }
-  //   // this.setDBUrls();
-  //   // if (!this.authService.appCheckToken) {
-  //   //   this.authService.getAppCheckToken().subscribe((authToken) => {
-  //   //     this.authService.appCheckToken = authToken.token;
-  //   //   });
-  //   // }
-  // }
-
-  // async getAppCheckToken(): Promise<string | AppCheckTokenResult | undefined> {
-  //   try {
-  //     if (!environment.local && this.appCheck) {
-  //       this.tokenResult = (await getToken(this.appCheck, false)).token;
-  //       // console.debug(this.tokenResult);
-  //     } else {
-  //       return '';
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  //   return this.tokenResult;
-  // }
-
-  // private async setDBUrls() {
-  //   // if (!this.authService.appCheckToken) {
-  //   // this.authService.getAppCheckToken('db:urls').then((tokenResult) => {
-  //   this.authService.appCheckToken = (
-  //     await this.authService.getAppCheckToken('db:urls')
-  //   )?.token; //tokenResult?.token;
-  //   // });
-  //   // }
-
-  //   // if (this.authService.appCheckToken) {
-  //   if (!environment.local) {
-  //     this.headers = this.headers
-  //       .set('X-Firebase-AppCheck', this.authService.appCheckToken!)
-  //       .set('Accepts', 'application/json');
-  //     console.debug(this.headers);
-  //     this.mainPosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/main?local=false`, {
-  //         headers: this.headers,
-  //         observe: 'response',
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           console.debug({ yup: posts.headers.keys() });
-  //           return this.nextFn(posts.body!);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-
-  //     this.puppyPosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/puppy?local=false`, {
-  //         headers: this.headers,
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-
-  //     this.articlePosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/articles?local=false`, {
-  //         headers: this.headers,
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-
-  //     this.applePosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/apple?local=false`, {
-  //         headers: this.headers,
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-
-  //     this.animePosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/anime?local=false`, {
-  //         headers: this.headers,
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-
-  //     this.blockchainPosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/blockchain?local=false`, {
-  //         headers: this.headers,
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-  //   } else if (environment.local) {
-  //     this.headers = this.headers
-  //       .set('X-Firebase-AppCheck', this.authService.appCheckToken!)
-  //       .set('Content-Type', 'application/json')
-  //       .set('Accept', 'application/json');
-
-  //     this.mainPosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/main`, {
-  //         headers: this.headers,
-  //         params: { local: true },
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-
-  //     this.puppyPosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/puppy`, {
-  //         headers: this.headers,
-  //         params: { local: true },
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-  //     this.articlePosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/articles`, {
-  //         headers: this.headers,
-  //         params: { local: true },
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-  //     this.applePosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/apple`, {
-  //         headers: this.headers,
-  //         params: { local: true },
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-  //     this.animePosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/anime`, {
-  //         headers: this.headers,
-  //         params: { local: true },
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-  //     this.blockchainPosts = this.httpClient
-  //       .get<Post[]>(`${this.postUrl}/blockchain`, {
-  //         headers: this.headers,
-  //         params: { local: true },
-  //       })
-  //       .pipe(
-  //         map((posts) => {
-  //           return this.nextFn(posts);
-  //         }),
-  //         catchError(this.handleError),
-  //       );
-  //   } else {
-  //     this.mainPosts = of(
-  //       staticTextPosts.filter(
-  //         (post) => post.location.toLowerCase() === 'main',
-  //       ),
-  //     );
-  //     this.puppyPosts = of(
-  //       staticTextPosts.filter(
-  //         (post) => post.location.toLowerCase() === 'puppy',
-  //       ),
-  //     );
-  //     this.articlePosts = of(
-  //       staticTextPosts.filter(
-  //         (post) => post.location.toLowerCase() === 'article',
-  //       ),
-  //     );
-  //     this.applePosts = of(
-  //       staticTextPosts.filter(
-  //         (post) => post.location.toLowerCase() === 'apple',
-  //       ),
-  //     );
-  //     this.animePosts = of(
-  //       staticTextPosts.filter(
-  //         (post) => post.location.toLowerCase() === 'anime',
-  //       ),
-  //     );
-  //     this.blockchainPosts = of(
-  //       staticTextPosts.filter(
-  //         (post) => post.location.toLowerCase() === 'blockchain',
-  //       ),
-  //     );
-  //   }
-  //   // }
-  // }
-
-  getMainPosts(): Observable<any[]> {
+  getMainPosts(): Observable<AnyPost[]> {
     return from(this.authService.getAppCheckToken('db:urls')).pipe(
       switchMap((appCheckResponse) => {
         const appCheckToken = appCheckResponse?.token;
@@ -291,13 +60,14 @@ export class DatabaseService {
         console.debug(this.headers); // Optionally remove in production
 
         // Make HTTP request
-        return this.httpClient.get<Post[]>(`${this.postUrl}/main`, {
+        return this.httpClient.get<AnyPost[]>(`${this.postUrl}/main`, {
           headers: this.headers,
           // params: { local: true },
         });
       }),
       retry(3),
-      map((posts) => this.nextFn(posts)), // Process the response
+      repeat({ delay: 12000 }),
+      // map((posts) => this.nextFn(posts)), // Process the response
       catchError((error) => {
         console.error('Error fetching main posts:', error);
         return throwError(() => error); // Propagate the error as an Observable
@@ -326,25 +96,48 @@ export class DatabaseService {
     );
   };
 
-  createPost(post: Post) {
+  createPost(post: AnyPost) {
+    const convertForBe = {
+      title: post.title_or_uri,
+      ...post,
+    };
     this.headers = this.headers
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json');
-    return this.httpClient.post(`${this.postUrl}`, post, {
+    return this.httpClient.post(`${this.postUrl}`, convertForBe, {
       headers: this.headers,
       params: { local: true },
     });
   }
 
-  private nextFn(posts: Post[]) {
-    return posts.sort((a: Post, b: Post) => {
-      const aVal = a.created_at
-        ? DateTime.fromISO(a.created_at)
-        : a.title.charAt(0);
-      const bVal = b.created_at
-        ? DateTime.fromISO(b.created_at)
-        : b.title.charAt(0);
+  private nextFn(posts: PostBase[]): PostBase[] {
+    return posts.sort((a, b) => {
+      // Get values for comparison
+      const aVal = this.getSortingValue(a);
+      const bVal = this.getSortingValue(b);
+
+      console.log(aVal, bVal);
+
+      // Compare values
       return aVal > bVal ? -1 : aVal < bVal ? 1 : 0;
     });
+  }
+
+  private getSortingValue(post: PostBase): string | DateTime | number {
+    // Handle sorting based on type
+    switch (post.type) {
+      case 'LinkPost':
+      case 'TextPost':
+        return post.id;
+
+      case 'ImagePost':
+      case 'VideoPost':
+        return post.created_at
+          ? DateTime.fromISO(post.created_at)
+          : post.content.charAt(0);
+
+      default:
+        return '';
+    }
   }
 }

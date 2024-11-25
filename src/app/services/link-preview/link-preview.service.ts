@@ -41,9 +41,9 @@ export class LinkPreviewService {
   // private params: HttpParams = new HttpParams().set('key', this.apiKey);
   // headers: HttpHeaders = new HttpHeaders();
 
-  constructor() {
-    this.getAPIKey().then();
-  }
+  // constructor() {
+  //   this.getAPIKey().then(ob=>ob?.subscribe(key=>this._apiKey = key.k))
+  // }
 
   // ‰
 
@@ -86,9 +86,6 @@ export class LinkPreviewService {
 
   async getAPIKey() {
     try {
-      this.authService.appCheckToken = (
-        await this.authService.getAppCheckToken('apiK')
-      )?.token;
       if (this.authService.appCheckToken) {
         const headers = new HttpHeaders().append(
           'X-Firebase-AppCheck',
@@ -117,12 +114,6 @@ export class LinkPreviewService {
 
   getLinkPreview(url: string) {
     try {
-      // this.authService.appCheckToken = (
-      //   await this.authService.getAppCheckToken('link preview')
-      // )?.token;
-      /* In the provided TypeScript code, the line `let params = new HttpParams();` is creating a new
-     instance of the `HttpParams` class from `@angular/common/http`. */
-
       if (this.authService.appCheckToken) {
         const headers = new HttpHeaders().append(
           'X-Firebase-AppCheck',

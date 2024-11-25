@@ -22,6 +22,7 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 import { AppCheck } from '@angular/fire/app-check';
 import { NgOptimizedImage } from '@angular/common';
 import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -44,10 +45,9 @@ import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.s
   ],
 })
 export class AppComponent implements OnInit {
-  private lp = inject(LinkPreviewService);
-
   private swUpdate = inject(SwUpdate);
-  private auth = inject(AuthService);
+  private authService = inject(AuthService);
+  private fbAuth = inject(Auth);
   private appCheck = inject(AppCheck);
   private dbService = inject(DatabaseService);
   private snack = inject(MatSnackBar);
@@ -61,8 +61,8 @@ export class AppComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     // await this.dbService.setDBUrls();
 
-    this.auth.appCheckToken = (
-      await this.auth.getAppCheckToken('app:oninit')
+    this.authService.appCheckToken = (
+      await this.authService.getAppCheckToken('app:oninit')
     )?.token;
 
     // (await this.lp.getAPIKey())?.subscribe((apiKey) => (this.lp.apiKey = apiKey.k));
@@ -111,6 +111,6 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logout();
+    this.authService.logout();
   }
 }

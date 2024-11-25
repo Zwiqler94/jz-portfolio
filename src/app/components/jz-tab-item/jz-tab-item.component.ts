@@ -21,7 +21,6 @@ import { TabNavModel } from 'src/app/components/models/tab-nav.model';
   selector: 'app-jz-tab-item',
   templateUrl: './jz-tab-item.component.html',
   styleUrls: ['./jz-tab-item.component.scss'],
-  standalone: true,
 })
 export class JzTabItemComponent implements AfterViewInit, OnChanges {
   private changeDetector = inject(ChangeDetectorRef);

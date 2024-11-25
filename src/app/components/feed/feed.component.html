@@ -1,58 +1,45 @@
-<div [ngClass]="{ 'feed-div-v': isVertical, 'feed-div-h': isHorizontal }">
-  <!-- @if (posts$ | async; as posts) { -->
-  @for (item of posts$ | async; track $index) {
-    @if (item.title) {
-      @switch (item.type) {
+<div [ngClass]="{ 'feed-div-v': true }">
+  @if (posts().length > 0) {
+    @for (post of posts(); track post.id) {
+      @switch (post.type) {
         @case ("TextPost") {
           <app-text-post
-            [titleInput]="item.title"
-            [contentInput]="item.content"
-          >
-          </app-text-post>
+            [title_or_uri]="post.title_or_uri"
+            [content]="post.content"
+            [created_at]="post.created_at"
+            [updated_at]="post.updated_at"
+          ></app-text-post>
         }
-
-        @case ("text") {
-          <app-text-post
-            [titleInput]="item.title"
-            [contentInput]="item.content"
-          >
-          </app-text-post>
-        }
-
         @case ("LinkPost") {
           <app-link-post
-            [titleInput]="item.title"
-            [contentInput]="item.content"
-          >
-          </app-link-post>
+            [title_or_uri]="post.title_or_uri"
+            [content]="post.content"
+          ></app-link-post>
         }
-
+        @case ("text") {
+          <app-text-post
+            [title_or_uri]="post.title_or_uri"
+            [content]="post.content"
+            [created_at]="post.created_at"
+            [updated_at]="post.updated_at"
+          ></app-text-post>
+        }
         @case ("link") {
           <app-link-post
-            [titleInput]="item.title"
-            [contentInput]="item.content"
-          >
-          </app-link-post>
+            [title_or_uri]="post.title_or_uri"
+            [content]="post.content"
+          ></app-link-post>
+        }
+        @default {
+          <p>Unsupported post type: {{ post.type }}</p>
         }
       }
-    } @else {
+    }
+  } @else {
     <mat-card id="under-construction">
       <mat-card-header>
-        <h1>Loading...</h1>
+        <h1>UNDER CONSTRUCTION</h1>
       </mat-card-header>
     </mat-card>
-    }
-  } @empty {
-    @if (true) {
-      <mat-card id="under-construction">
-        <mat-card-header>
-          <h1>UNDER CONSTRUCTION</h1>
-        </mat-card-header>
-      </mat-card>
-    }
   }
-  <!-- }  -->
-  <!-- @else {
-
-  } -->
 </div>

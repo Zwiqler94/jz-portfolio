@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { environment } from 'src/environments/environment';
 import { FeedComponent } from '../../components/feed/feed.component';
 import { MatButton } from '@angular/material/button';
+import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
 @Component({
   selector: 'app-home-page',
@@ -16,22 +17,35 @@ import { MatButton } from '@angular/material/button';
   styleUrls: ['./home-page.component.scss'],
   imports: [MatButton, FeedComponent],
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
   private dialog = inject(MatDialog);
   private auth = inject(AuthService);
   private cd = inject(ChangeDetectorRef);
+  private lp = inject(LinkPreviewService);
+  triggerFetch: boolean;
 
   // shouldFetchPosts = false;
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
-
   constructor() {}
+
+  async ngOnInit(): Promise<void> {
+    this.auth.appCheckToken = (
+      await this.auth.getAppCheckToken('app:oninit')
+    )?.token;
+
+    if (this.auth.appCheckToken) {
+      this.lp
+        .getAPIKey()
+        .then((ob) => ob?.subscribe((key) => (this.lp.apiKey = key.k)));
+    }
+  }
 
   openNewPostDialog() {
     const dialogRef = this.dialog.open(NewPostDialogComponent);
     dialogRef.afterClosed().subscribe((res) => {
-      // this.shouldFetchPosts = true;
+      this.triggerFetch = true;
     });
     this.cd.detectChanges();
   }

@@ -104,7 +104,7 @@ export const errorHandler: ErrorRequestHandler = (
   next: NextFunction,
 ) => {
   error(err.stack);
-  res.status(res.statusCode).json({
+  res.status(res.statusCode !== 200 ? res.statusCode : 500).json({
     name: err.name,
     code: res.statusCode,
     description: err.message ? err.message : err,

@@ -1,0 +1,23 @@
+<div class="post-base">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ displayTitle() }}</mat-card-title>
+      <mat-card-subtitle>{{ displayLocation() }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-card>
+        <mat-card-content>
+          <ng-content></ng-content>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-footer>
+      <div id="card-footer">
+        <small>Created: {{ created_at() || "N/A" | date: "short" }}</small>
+        @if (updated_at()) {
+          <small> | Updated: {{ updated_at() | date: "short" }}</small>
+        }
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>

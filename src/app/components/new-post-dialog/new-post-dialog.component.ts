@@ -41,6 +41,11 @@ import { MatInput } from '@angular/material/input';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
+import {
+  PostType,
+  PostBase,
+  AnyPost,
+} from 'src/app/components/models/post.model';
 
 @Component({
   selector: 'app-new-post-dialog',
@@ -265,28 +270,81 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
 
   createPost() {
     console.log('post');
-    const title = this.form.get('title')?.value;
-    const location = this.form.get('feedLocation')?.value;
-    const postType = this.form.get('postType')?.value;
-    this.dbService
-      .createPost({
-        location: location ? location : 'Main',
-        type: postType ? postType : 'text',
+
+    // Safely extract form values with fallbacks
+    const title = this.form.get('title')?.value ?? '';
+    const location = this.form.get('feedLocation')?.value ?? 'Main';
+    const editorContent = this.form.get('editorContent')?.value ?? '';
+    const postType = this.form.get('postType')?.value ?? 'text';
+
+    // Map form value to PostType enum
+    const mappedPostType =
+      postType === 'text'
+        ? PostType.TextPost
+        : postType === 'link'
+          ? PostType.LinkPost
+          : postType === 'image'
+            ? PostType.ImagePost
+            : postType === 'video'
+              ? PostType.VideoPost
+              : PostType.TextPost;
+
+    // Convert editor content using toHTML (ensure the correct type is passed)
+    const content = toHTML(editorContent as unknown as Record<string, any>);
+
+    // Generate the post payload dynamically
+    let postPayload: AnyPost;
+
+    if (mappedPostType === PostType.TextPost) {
+      postPayload = {
+        id: 0,
+        type: PostType.TextPost,
+        title_or_uri: title,
+        content,
+        location,
         status: 'pending',
-        title: title ? title : '',
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-        content: toHTML(this.form.get('editorContent')?.value!).replace(
-          '\\',
-          '',
-        ),
-      })
-      .subscribe({
-        next: (val) => console.debug(val),
-        error: (err) => {
-          console.error(err);
-          this.snack.open('Failed To Post, Try Again...', 'X');
-        },
-        complete: () => this.dialogRef.close('Cancel'),
-      });
+      };
+    } else if (mappedPostType === PostType.LinkPost) {
+      postPayload = {
+        id: 0,
+        type: PostType.LinkPost,
+        title_or_uri: this.form.get('uri')?.value ?? '',
+        content,
+        location,
+        status: 'pending',
+      };
+    } else if (mappedPostType === PostType.ImagePost) {
+      postPayload = {
+        id: 0,
+        type: PostType.ImagePost,
+        image: this.form.get('image')?.value ?? '',
+        content,
+        location,
+        title_or_uri: 'empty',
+        status: 'pending',
+      };
+    } else if (mappedPostType === PostType.VideoPost) {
+      postPayload = {
+        id: 0,
+        type: PostType.VideoPost,
+        video: this.form.get('video')?.value ?? '',
+        content,
+        location,
+        title_or_uri: 'empty',
+        status: 'pending',
+      };
+    } else {
+      throw new Error('Unsupported post type');
+    }
+
+    // Call the database service
+    this.dbService.createPost(postPayload).subscribe({
+      next: (val) => console.debug(val),
+      error: (err) => {
+        console.error(err);
+        this.snack.open('Failed To Post, Try Again...', 'X');
+      },
+      complete: () => this.dialogRef.close('Cancel'),
+    });
   }
 }
