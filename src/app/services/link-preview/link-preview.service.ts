@@ -7,7 +7,7 @@ import {
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { catchError, delay, lastValueFrom, throwError } from 'rxjs';
+import { catchError, delay, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LinkPreview } from 'src/app/components/models/post.model';
 import { AuthService } from 'src/app/services/auth-service/auth.service';

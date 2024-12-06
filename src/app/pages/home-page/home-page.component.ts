@@ -1,8 +1,4 @@
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
-import { VersionReadyEvent } from '@angular/service-worker';
-import { filter } from 'rxjs';
-import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewPostDialogComponent } from 'src/app/components/new-post-dialog/new-post-dialog.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';

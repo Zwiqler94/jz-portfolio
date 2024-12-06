@@ -1,19 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
-import {
-  FirebaseApp,
-  getApp,
-  initializeApp,
-  provideFirebaseApp,
-} from '@angular/fire/app';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { HomePageComponent } from 'src/app/pages/home-page/home-page.component';
 import { Router, RouterStateSnapshot, provideRouter } from '@angular/router';
-import { Component, importProvidersFrom } from '@angular/core';
+import { importProvidersFrom } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { provideHttpClient } from '@angular/common/http';
 import {
@@ -23,14 +18,13 @@ import {
 import {
   AppCheck,
   ReCaptchaV3Provider,
-  getToken,
   initializeAppCheck,
   provideAppCheck,
 } from '@angular/fire/app-check';
 import * as appCheck from '@angular/fire/app-check';
 
 import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
-import Sinon, { mock, spy, stub, fake, replace, replaceGetter } from 'sinon';
+import Sinon, { stub } from 'sinon';
 
 function fakeRouterState(url: string): RouterStateSnapshot {
   return {

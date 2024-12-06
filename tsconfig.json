@@ -15,9 +15,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "lib": ["ES2022", "dom"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext" ,"dom"],
     "paths": {
       "@angular/*": ["./node_modules/@angular/*"]
     },

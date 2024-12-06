@@ -24,9 +24,11 @@ export const environment = {
     productionServices: true,
     url: 'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev',
     postService:
-      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v3/posts',
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/posts',
     secretService:
-      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v3/secrets',
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/secrets',
+    previewService:
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/previews',
   },
 };
 

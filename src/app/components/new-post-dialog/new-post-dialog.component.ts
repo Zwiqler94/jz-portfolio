@@ -45,6 +45,7 @@ import {
   PostType,
   PostBase,
   AnyPost,
+  AnyPostResponse,
 } from 'src/app/components/models/post.model';
 
 @Component({
@@ -290,7 +291,10 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
               : PostType.TextPost;
 
     // Convert editor content using toHTML (ensure the correct type is passed)
-    const content = toHTML(editorContent as unknown as Record<string, any>);
+    const content = toHTML(this.form.get('editorContent')?.value!).replace(
+      '\\',
+      '',
+    );
 
     // Generate the post payload dynamically
     let postPayload: AnyPost;
@@ -308,10 +312,11 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
       postPayload = {
         id: 0,
         type: PostType.LinkPost,
-        title_or_uri: this.form.get('uri')?.value ?? '',
+        title_or_uri: title,
         content,
         location,
         status: 'pending',
+        image_uri: undefined,
       };
     } else if (mappedPostType === PostType.ImagePost) {
       postPayload = {

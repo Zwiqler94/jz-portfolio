@@ -9,14 +9,18 @@ import { DateTime } from 'luxon';
 import {
   Observable,
   catchError,
-  map,
   throwError,
   from,
   switchMap,
   retry,
   repeat,
 } from 'rxjs';
-import { AnyPost, PostBase } from 'src/app/components/models/post.model';
+import {
+  AnyPost,
+  AnyPostResponse,
+  LinkPreview,
+  PostBase,
+} from 'src/app/components/models/post.model';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { environment } from 'src/environments/environment';
 
@@ -38,10 +42,11 @@ export class DatabaseService {
   blockchainPosts: Observable<AnyPost[]>;
 
   postUrl = environment.serviceOptions.postService;
+  previewUrl = environment.serviceOptions.previewService;
 
   headers: HttpHeaders = new HttpHeaders();
 
-  getMainPosts(): Observable<AnyPost[]> {
+  getMainPosts(): Observable<AnyPostResponse[]> {
     return from(this.authService.getAppCheckToken('db:urls')).pipe(
       switchMap((appCheckResponse) => {
         const appCheckToken = appCheckResponse?.token;
@@ -60,10 +65,13 @@ export class DatabaseService {
         console.debug(this.headers); // Optionally remove in production
 
         // Make HTTP request
-        return this.httpClient.get<AnyPost[]>(`${this.postUrl}/main`, {
-          headers: this.headers,
-          // params: { local: true },
-        });
+        return this.httpClient.get<AnyPostResponse[]>(
+          `${this.postUrl}/main_feed`,
+          {
+            headers: this.headers,
+            // params: { local: true },
+          },
+        );
       }),
       retry(3),
       repeat({ delay: 12000 }),
@@ -107,6 +115,29 @@ export class DatabaseService {
     return this.httpClient.post(`${this.postUrl}`, convertForBe, {
       headers: this.headers,
       params: { local: true },
+    });
+  }
+
+  savePreviewData(id: number, data: LinkPreview) {
+    this.headers = this.headers
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json');
+    return this.httpClient.post(
+      `${this.previewUrl}`,
+      { id, data },
+      {
+        headers: this.headers,
+        params: { local: true },
+      },
+    );
+  }
+
+  getPreviewData(id: number) {
+    this.headers = this.headers
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json');
+    return this.httpClient.get<any>(`${this.previewUrl}/${id}`, {
+      headers: this.headers,
     });
   }
 

@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   OnChanges,
   OnInit,
@@ -8,7 +7,6 @@ import {
   input,
 } from '@angular/core';
 import {
-  LinkPost,
   LinkPreview,
   MissingLinkPreviewData,
   PostType,
@@ -16,9 +14,8 @@ import {
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
-import { MatCardModule } from '@angular/material/card';
-import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
   selector: 'app-link-post',
@@ -26,10 +23,12 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./link-post.component.scss'],
   imports: [PostBaseComponent],
 })
-export class LinkPostComponent implements OnInit {
+export class LinkPostComponent implements OnInit, OnChanges {
   private sanitizer = inject(DomSanitizer);
   // Inputs for LinkPost
+  readonly id = input<number>();
   readonly title_or_uri = input<string>();
+  readonly image_uri = input<string>();
   readonly content = input.required<string>();
   readonly type = input<PostType | undefined>(); // Constrain type to PostType or undefined
 
@@ -37,21 +36,57 @@ export class LinkPostComponent implements OnInit {
   previewData: LinkPreview = MissingLinkPreviewData;
 
   private linkPreviewService = inject(LinkPreviewService);
+  private databaseService = inject(DatabaseService);
+
   sanitizedBackupContent: SafeHtml;
 
   ngOnInit() {
+    this.getPreview();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['title_or_uri']) {
+      this.getPreview();
+    }
+  }
+
+  getPreview() {
+    const id = this.id();
+    const type = this.type();
     this.sanitizedBackupContent = this.sanitizer.bypassSecurityTrustHtml(
       this.content(),
     );
     const linkUri = this.title_or_uri();
     if (linkUri) {
-      this.linkPreviewService.getLinkPreview(linkUri).subscribe({
-        next: (data) => (this.previewData = data),
-        error: (err) => {
-          console.error('Failed to fetch link preview:', err);
-          this.previewData = MissingLinkPreviewData;
-        },
-      });
+      const image_uri = this.image_uri();
+      if (!image_uri) {
+        this.linkPreviewService.getLinkPreview(linkUri).subscribe({
+          next: (data) => {
+            this.previewData = data;
+            console.log(id);
+            if (id)
+              this.databaseService
+                .savePreviewData(id, data)
+                .subscribe((res) => console.log('stored lp', res));
+          },
+          error: (err) => {
+            console.error('Failed to fetch link preview:', err);
+            this.previewData = MissingLinkPreviewData;
+          },
+        });
+      } else {
+        if (id) {
+          this.databaseService.getPreviewData(id).subscribe((res) => {
+            this.previewData = {
+              title: res.title,
+              image: image_uri,
+              description: '',
+              url: res.uri,
+            };
+            console.log('had it', id);
+          });
+        }
+      }
     }
   }
 }

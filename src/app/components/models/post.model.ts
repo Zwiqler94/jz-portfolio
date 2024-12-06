@@ -22,6 +22,7 @@ export interface PostBase {
 // Extended types for specific post properties
 export interface LinkPost extends PostBase {
   type: PostType.LinkPost | PostType.link;
+  image_uri?: string;
 }
 
 export interface ImagePost extends PostBase {
@@ -40,6 +41,13 @@ export interface TextPost extends PostBase {
 
 // Union type for all posts
 export type AnyPost = TextPost | LinkPost | ImagePost | VideoPost;
+
+export type PostResponse = {
+  title: string;
+  uri: string;
+};
+
+export type AnyPostResponse = PostResponse & AnyPost;
 
 export interface LinkPreview {
   title: string;

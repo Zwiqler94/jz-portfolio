@@ -13,9 +13,15 @@
     </mat-card-content>
     <mat-card-footer>
       <div id="card-footer">
-        <small>Created: {{ created_at() || "N/A" | date: "short" }}</small>
+        <small
+          >Created:
+          {{ created_at() ? (created_at() | date: "short") : "N/A" }}</small
+        >
         @if (updated_at()) {
-          <small> | Updated: {{ updated_at() | date: "short" }}</small>
+          <small>
+            | Updated:
+            {{ updated_at() ? (updated_at() | date: "short") : "N/A" }}</small
+          >
         }
       </div>
     </mat-card-footer>

@@ -1,14 +1,9 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { AppCheck, getToken } from '@angular/fire/app-check';
 import { Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { catchError, lastValueFrom, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

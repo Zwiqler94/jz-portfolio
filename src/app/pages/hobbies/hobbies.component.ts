@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable no-underscore-dangle */
 import { Component, inject } from '@angular/core';
-import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
+import { Storage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
-import { listAll, ListResult, StorageReference } from 'firebase/storage';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
-import { FitnessTabComponent } from 'src/app/pages/hobbies/fitness-tab/fitness-tab.component';
 import { JapaneseTabComponent } from 'src/app/pages/hobbies/japanese-tab/japanese-tab.component';
 import { PhotographyTabComponent } from 'src/app/pages/hobbies/photography-tab/photography-tab.component';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
