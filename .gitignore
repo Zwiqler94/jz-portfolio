@@ -84,3 +84,4 @@ cli-envs
 src/environments/environment.local.ts
 .scannerwork/
 sonar-project.properties
+google-cloud-sdk/
