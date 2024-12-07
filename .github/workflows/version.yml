@@ -34,12 +34,12 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
-        uses: actions/checkout@v4.1.4
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 20
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
-        uses: actions/setup-node@v4.0.1
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
@@ -93,12 +93,12 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
-        uses: actions/checkout@v4.1.4
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 20
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
-        uses: actions/setup-node@v4.0.1
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
@@ -152,12 +152,12 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
-        uses: actions/checkout@v4.1.4
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 20
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
-        uses: actions/setup-node@v4.0.1
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
