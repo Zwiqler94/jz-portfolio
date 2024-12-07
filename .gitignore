@@ -84,5 +84,4 @@ cli-envs
 src/environments/environment.local.ts
 .scannerwork/
 sonar-project.properties
-google-cloud-sdk
-google-cloud-cli-linux-x86_64.tar.gz
+google-cloud-sdk/
