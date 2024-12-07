@@ -4,7 +4,8 @@
   "cli": {
     "analytics": false,
     "packageManager": "npm",
-    "schematicCollections": ["@angular-eslint/schematics"]
+    "schematicCollections": ["@angular-eslint/schematics"],
+    "cache": {"environment": "all"}
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -15,8 +16,7 @@
           "configurations": {
             "production": {
               "outputPath": {
-                "base": "dist/jz-portfolio",
-                "browser": ""
+                "base": "dist/jz-portfolio"
               },
               "index": {
                 "input": "src/index.prod.html",
@@ -30,11 +30,8 @@
               ],
               "optimization": true,
               "outputHashing": "bundles",
-              "sourceMap": {
-                "scripts": true,
-                "styles": true
-              },
-              "namedChunks": false,
+              "sourceMap": false,
+              "namedChunks": true,
               "extractLicenses": true,
               "budgets": [
                 {
@@ -56,7 +53,6 @@
             "development": {
               "outputPath": {
                 "base": "dist/jz-portfolio-dev",
-                "browser": ""
               },
               "index": {
                 "input": "src/index.html",
@@ -131,12 +127,6 @@
                 "input": "src/index.html",
                 "output": "index.html"
               },
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.local.ts"
-                }
-              ],
               "optimization": false,
               "outputHashing": "all",
               "sourceMap": true,
