@@ -3,6 +3,7 @@
   "version": "5.3.1",
   "repository": "https://github.com/Zwiqler94/jz-portfolio.git",
   "scripts": {
+    "build": "npm run build:prod",
     "build:dev-local:watch": "npm run build:dev-local -- --watch",
     "build:dev-local": "ng build -c dev-local",
     "build:dev:watch": "npm run build:dev -- --watch",
