@@ -1,6 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
-import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import {
+  ServiceWorkerModule,
+  SwUpdate,
+  VersionReadyEvent,
+} from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { FooterComponent } from './components/footer/footer.component';
@@ -40,20 +44,29 @@ import { NgOptimizedImage } from '@angular/common';
   ],
 })
 export class AppComponent implements OnInit {
+  private swUpdate = inject(SwUpdate);
+  private auth = inject(AuthService);
+  private dbService = inject(DatabaseService);
+  private snack = inject(MatSnackBar);
+
   title = 'jlz-portfolio';
 
-  constructor(
-    private swUpdate: SwUpdate,
-    private auth: AuthService,
-    private snack: MatSnackBar,
-    private dbService: DatabaseService,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     this.dbService.appCheck = inject(AppCheck);
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    // await this.dbService.setDBUrls();
+
+    this.auth.appCheckToken = (
+      await this.auth.getAppCheckToken('app:oninit')
+    )?.token;
+
     if (this.swUpdate.isEnabled) {
-      console.log('Service Worker Enabled');
+      console.debug('Service Worker Enabled');
       this.swUpdate.versionUpdates
         .pipe(
           filter(

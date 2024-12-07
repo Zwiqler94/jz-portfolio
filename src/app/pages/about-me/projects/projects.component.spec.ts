@@ -1,11 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProjectsComponent } from './projects.component';
-import {
-  EverythingBaseComponent,
-  EverythingLibModule,
-} from '@zwiqler94/everything-lib';
-import { importProvidersFrom } from '@angular/core';
+import { EverythingBaseComponent } from '@zwiqler94/everything-lib';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -18,7 +14,6 @@ describe('ProjectsComponent', () => {
     TestBed.configureTestingModule({
       imports: [ProjectsComponent, EverythingBaseComponent],
       providers: [
-        importProvidersFrom(EverythingLibModule),
         provideHttpClient(),
         provideHttpClientTesting(),
         provideAnimations(),

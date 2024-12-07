@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   standalone: true,
-  imports: [MatCard, MatCardContent],
+  imports: [MatCardModule],
 })
 export class CarouselComponent {
   @Input() slides: string[];

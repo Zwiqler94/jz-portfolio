@@ -41,13 +41,22 @@
       "cacheConfig": {
         "maxAge": "3d",
         "maxSize": 500,
-        "strategy": "performance"
+        "strategy": "freshness",
+        "timeout": "0u"
       },
       "name": "linkpreview",
       "urls": [
         "https://api.linkpreview.net/**/*",
         "https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts/*"
       ]
+    },
+    {
+      "cacheConfig": {
+        "maxAge": "7d",
+        "maxSize": 500
+      },
+      "name": "cloudinary",
+      "urls": ["https://res.cloudinary.com/dhdioy0wn/"]
     },
     {
       "cacheConfig": {

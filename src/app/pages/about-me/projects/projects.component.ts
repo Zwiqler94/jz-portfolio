@@ -1,12 +1,18 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, inject } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Tabs } from 'src/app/interfaces/tabs.model';
 import { environment } from 'src/environments/environment';
-import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
-import { EverythingLibModule } from '@zwiqler94/everything-lib';
+import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {
+  AgeByNameComponent,
+  BoredomSolverComponent,
+  NasaComponent,
+  PokemonComponent,
+  UsernameGeneratorComponent,
+} from '@zwiqler94/everything-lib';
 
 @Component({
   selector: 'app-projects',
@@ -17,14 +23,19 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     CdkDrag,
     CdkDragHandle,
     MatIcon,
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
+    MatCardModule,
     MatSnackBarModule,
-    EverythingLibModule,
+    UsernameGeneratorComponent,
+    PokemonComponent,
+    BoredomSolverComponent,
+    NasaComponent,
+    AgeByNameComponent,
   ],
 })
 export class ProjectsComponent extends Tabs {
+  private fb = inject(FormBuilder);
+  private snackBar = inject(MatSnackBar);
+
   @Input() public tabTitle: string;
   screenWidth: number = window.innerWidth;
   screenHeight: number = window.innerHeight;
@@ -50,10 +61,10 @@ export class ProjectsComponent extends Tabs {
     specialCharacters: [''],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar,
-  ) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     super();
   }
 
