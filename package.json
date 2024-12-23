@@ -141,7 +141,7 @@
     "karma-jasmine-html-reporter": "^2.1.0",
     "mocha": "10.8.2",
     "prettier": "^3.3.3",
-    "puppeteer": "23.8.0",
+    "puppeteer": "23.11.1",
     "semantic-release": "^24.2.0",
     "semantic-release-npm-github-publish": "^1.5.5",
     "ts-node": "~10.9.2",
