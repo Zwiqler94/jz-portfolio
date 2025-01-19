@@ -36,9 +36,9 @@ export class FeedComponent {
       next: (data) => {
         const sortedData = data.toSorted(this.sortPosts);
         const mappedData = sortedData.map((post) => {
-         post.title_or_uri = ['TextPost', 'text'].includes(post.type)
-           ? post.title
-           : post.uri;
+          post.title_or_uri = ['TextPost', 'text'].includes(post.type)
+            ? post.title
+            : post.uri;
           return post;
         });
         this.posts.set(mappedData);

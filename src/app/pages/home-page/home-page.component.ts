@@ -20,8 +20,6 @@ export class HomePageComponent implements OnInit {
   private lp = inject(LinkPreviewService);
   triggerFetch: boolean;
 
-  // shouldFetchPosts = false;
-
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
   constructor() {}

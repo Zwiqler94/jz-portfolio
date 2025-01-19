@@ -38,9 +38,6 @@ export class HobbiesComponent {
   constructor(...args: unknown[]);
 
   constructor() {
-    // this.setupVideos();
-    // this.setUpCarouselImages();
-    // this.setUpPhotographyImages();
     const currentPagePath = location.pathname.split('/').pop();
     const result = this.tabComponentList.filter(
       (tabItem) => tabItem.link === currentPagePath,

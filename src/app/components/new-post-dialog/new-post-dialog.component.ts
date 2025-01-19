@@ -291,7 +291,8 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
               : PostType.TextPost;
 
     // Convert editor content using toHTML (ensure the correct type is passed)
-    const content = toHTML(this.form.get('editorContent')?.value!).replace(
+    const contentToAdd = this.form.get('editorContent')
+    const content = toHTML(contentToAdd?.value as any).replace(
       '\\',
       '',
     );

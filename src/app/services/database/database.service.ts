@@ -148,9 +148,10 @@ export class DatabaseService {
       const bVal = this.getSortingValue(b);
 
       console.log(aVal, bVal);
+      const sort1 = aVal < bVal ? 1 : 0;
 
       // Compare values
-      return aVal > bVal ? -1 : aVal < bVal ? 1 : 0;
+      return aVal > bVal ? -1 : sort1;
     });
   }
 
