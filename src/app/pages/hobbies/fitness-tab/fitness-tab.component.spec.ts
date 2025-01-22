@@ -8,7 +8,7 @@ describe('FitnessTabComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FitnessTabComponent],
+      imports: [FitnessTabComponent],
     });
     fixture = TestBed.createComponent(FitnessTabComponent);
     component = fixture.componentInstance;

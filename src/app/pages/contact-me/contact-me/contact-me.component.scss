@@ -6,13 +6,13 @@
   width: 80vw;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card {
+/*  The following rule targets internal classes of card that may no longer apply for the MDC version. */
+.mat-mdc-card {
   width: 90vw;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card-content {
+/*  The following rule targets internal classes of card that may no longer apply for the MDC version. */
+.mat-mdc-card-content {
   display: flex;
   flex-direction: column;
   justify-content: center;

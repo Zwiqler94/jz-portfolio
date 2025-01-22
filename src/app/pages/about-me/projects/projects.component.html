@@ -12,6 +12,7 @@
       class="project-content-item"
       [(usernameForm)]="usernameFormInApp"
       [(result)]="_result"
+      (completionMsgChange)="onCompletionMsgChange($event)"
     >
     </lib-username-generator>
   </div>
@@ -20,18 +21,22 @@
     class="dragB drag"
     cdkDrag
     cdkDragBoundary=".project-content"
-    [cdkDragFreeDragPosition]="{ x: 0, y: 100 }"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 50 }"
   >
     <div class="handleB" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-nasa id="" [apiKey]="nasaApiKey"></lib-nasa>
+    <lib-nasa
+      id=""
+      [apiKey]="nasaApiKey"
+      (completionMsgChange)="onCompletionMsgChange($event)"
+    ></lib-nasa>
   </div>
   <div
     class="dragC drag"
     cdkDrag
     cdkDragBoundary=".project-content"
-    [cdkDragFreeDragPosition]="{ x: 0, y: 200 }"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 150 }"
   >
     <div class="handleC" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
@@ -40,28 +45,30 @@
       [height]="'35'"
       [width]="'35'"
       class="project-content-item"
+      (completionMsgChange)="onCompletionMsgChange($event)"
     ></lib-pokemon>
   </div>
   <div
     class="dragD drag"
     cdkDrag
     cdkDragBoundary=".project-content"
-    [cdkDragFreeDragPosition]="{ x: 0, y: 300 }"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 200 }"
   >
     <div class="handleD" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
     <lib-boredom-solver
-      [height]="'5'"
+      [height]="'15'"
       [width]="maxWidth"
       class="project-content-item"
+      (completionMsgChange)="onCompletionMsgChange($event)"
     ></lib-boredom-solver>
   </div>
   <div
     class="dragE drag"
     cdkDrag
     cdkDragBoundary=".project-content"
-    [cdkDragFreeDragPosition]="{ x: 0, y: 400 }"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 250 }"
   >
     <div class="handleE" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
@@ -70,13 +77,14 @@
       [height]="'15'"
       [width]="maxWidth"
       class="project-content-item"
+      (completionMsgChange)="onCompletionMsgChange($event)"
     ></lib-age-by-name>
   </div>
   <div
     class="dragE drag"
     cdkDrag
     cdkDragBoundary=".project-content"
-    [cdkDragFreeDragPosition]="{ x: 0, y: 500 }"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 300 }"
   >
     <div class="handleE" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
@@ -91,42 +99,46 @@
     class="dragF drag"
     cdkDrag
     cdkDragBoundary=".project-content"
-    [cdkDragFreeDragPosition]="{ x: 0, y: 600 }"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 350 }"
   >
     <div class="handleF" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
     <mat-card appearance="outlined">
-      <iframe
-        [frameBorder]="0"
-        class="project-content-item"
-        style="background-color: aliceblue"
-        height="600"
-        [width]="maxWidth"
-        src="https://iipa-32fdd.web.app"
-      >
-      </iframe>
+      <mat-card-content>
+        <iframe
+          title="IIPA"
+          class="project-content-item"
+          style="background-color: aliceblue"
+          [height]="maxHeight"
+          [width]="maxWidth"
+          src="https://iipa-32fdd.web.app"
+        >
+        </iframe>
+      </mat-card-content>
     </mat-card>
   </div>
   <div
     class="dragF drag"
     cdkDrag
     cdkDragBoundary=".project-content"
-    [cdkDragFreeDragPosition]="{ x: 0, y: 700 }"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 400 }"
   >
     <div class="handleF" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
     <mat-card appearance="outlined">
-      <iframe
-        [frameBorder]="0"
-        class="project-content-item"
-        style="background-color: aliceblue"
-        height="600"
-        [width]="maxWidth"
-        src="https://lotto-beast-new.web.app"
-      >
-      </iframe>
+      <mat-card-content>
+        <iframe
+          title="SmartPick"
+          class="project-content-item"
+          style="background-color: aliceblue"
+          [height]="maxHeight"
+          [width]="maxWidth"
+          src="https://lotto-beast-new.web.app"
+        >
+        </iframe>
+      </mat-card-content>
     </mat-card>
   </div>
 </div>

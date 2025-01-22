@@ -1,5 +1,5 @@
 $toolbar-height: 8rem;
-$main-view-height: 45rem;
+$main-view-height: 85vh;
 $sidenav-height: calc($main-view-height - $toolbar-height);
 
 #main-view {
@@ -25,9 +25,12 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
 
 #toolbar-logo,
 #toolbar-logo > img {
-  height: $toolbar-height;
-  width: auto;
-  margin-right: 5rem;
+  max-inline-size: 100%;
+  margin-inline-start: 0.1vw;
+  margin-block-start: 0.1vh;
+  block-size: auto;
+  border-radius: 10px;
+  width: 15vw;
 }
 
 // mat-sidenav-content {
@@ -36,7 +39,7 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
 
 .mat-drawer-container {
   margin-bottom: -0.8125rem;
-  height: 95vh;
+  // height: 95vh;
 }
 
 mat-toolbar {
@@ -120,18 +123,18 @@ mat-toolbar {
     padding: 0;
   }
 
-  #toolbar-logo,
-  #toolbar-logo > img {
-    height: 5rem;
-    width: auto;
-  }
+  // #toolbar-logo,
+  // #toolbar-logo>img {
+  //   height: 5rem;
+  //   width: auto;
+  // }
 
-  #logo {
-    width: 40vw;
-    display: flex;
-    justify-content: flex-start;
-    flex-shrink: 2;
-  }
+  // #logo {
+  //   width: 40vw;
+  //   display: flex;
+  //   justify-content: flex-start;
+  //   flex-shrink: 2;
+  // }
 
   #button-container-column > button {
     width: 10rem;

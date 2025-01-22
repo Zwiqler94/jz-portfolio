@@ -18,6 +18,8 @@ module.exports = function (config) {
         // the possible options are listed at https://jasmine.github.io/api/edge/Configuration.html
         // for example, you can disable the random execution with `random: false`
         // or set a specific seed with `seed: 4321`
+        random: false,
+        stopOnSpecFailure: true,
       },
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
     },
@@ -27,9 +29,9 @@ module.exports = function (config) {
     coverageReporter: {
       dir: require("path").join(__dirname, "./coverage/jz-portfolio"),
       subdir: ".",
-      reporters: [{ type: "html" }, { type: "text-summary" }],
+      reporters: [{ type: "html" }, { type: "text" }],
     },
-    reporters: ["progress", "kjhtml"],
+    reporters: ["progress", "coverage", "kjhtml"],
     browsers: ["Chrome"],
     restartOnFileChange: true,
   });

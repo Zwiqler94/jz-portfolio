@@ -12,29 +12,29 @@ jobs:
     if: "${{ github.event.pull_request.head.repo.full_name == github.repository && (github.event.action == 'opened' || github.event.action == 'synchronize')}}"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v1.1.1
+        uses: google-github-actions/auth@v2.1.2
         with:
           credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_NPM_PKG }}"
       - name: Set up gcloud Cloud SDK environment
-        uses: google-github-actions/setup-gcloud@v1.1.1
+        uses: google-github-actions/setup-gcloud@v2.1.0
       - run: echo " ${{ github.head_ref }} "
       - run: |
             gcloud config set artifacts/repository everything-lib
             gcloud config set artifacts/location us-central1
             gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
             npx google-artifactregistry-auth
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4.0.1
         with:
           node-version: 20
           cache: "npm"
       - run: "npm ci"
       - run: "npm run lint:fix"
       - run: "npm run build:prod"
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - uses: FirebaseExtended/action-hosting-deploy@v0.7.1
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_JLZ_PORTFOLIO }}"

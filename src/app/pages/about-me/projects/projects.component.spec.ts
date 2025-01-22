@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProjectsComponent } from './projects.component';
+import { EverythingBaseComponent } from '@zwiqler94/everything-lib';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
@@ -8,7 +12,12 @@ describe('ProjectsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ProjectsComponent],
+      imports: [ProjectsComponent, EverythingBaseComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideAnimations(),
+      ],
     });
     fixture = TestBed.createComponent(ProjectsComponent);
     component = fixture.componentInstance;

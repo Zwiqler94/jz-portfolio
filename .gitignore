@@ -60,6 +60,7 @@ Thumbs.db
 # Compiled JavaScript files
 **/lib/**/*.js
 **/lib/**/*.js.map
+functions/lib/
 
 # TypeScript v1 declaration files
 **/typings
@@ -73,7 +74,15 @@ db-config/
 # Environment Files
 .env.*
 .env
+.nx/cache/
+cli-envs/
 cli-envs
 
 # Amazon
 .aws
+
+*.log
+src/environments/environment.local.ts
+.scannerwork/
+sonar-project.properties
+google-cloud-sdk/

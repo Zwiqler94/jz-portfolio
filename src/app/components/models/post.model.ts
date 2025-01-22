@@ -3,13 +3,16 @@ export interface PostBase {
   title: string;
   content: string;
   location: string;
+  created_at?: string;
+  updated_at?: string;
+  status?: string;
 }
 
 export interface LinkPost extends PostBase {
   uri: string;
 }
 
-export interface TextPost extends PostBase {}
+export type TextPost = PostBase;
 
 export interface ImagePost extends PostBase {
   image: string;

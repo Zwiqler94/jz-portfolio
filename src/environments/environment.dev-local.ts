@@ -20,12 +20,13 @@ export const environment = {
   production: false,
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
-    useServiceWorker: false,
+    useServiceWorker: true,
     productionServices: true,
+    url: 'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev',
     postService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts',
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v3/posts',
     secretService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/secrets',
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v3/secrets',
   },
 };
 

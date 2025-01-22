@@ -1,10 +1,27 @@
 <mat-toolbar color="accent">
   <div id="logo">
     <a routerLink="/home" id="toolbar-logo" routerLinkActive="active">
-      <img src="../assets/JLZ-banner.png" />
+      <img
+        ngSrc="JLZ-banner.avif"
+        alt="site logo"
+        height="128"
+        width="256"
+        sizes="30vw"
+        fetchpriority="high"
+        priority
+      />
     </a>
   </div>
   <div id="button-container">
+    <button
+      color="primary"
+      mat-flat-button
+      routerLink="/home"
+      routerLinkActive="active"
+    >
+      Home
+    </button>
+    <div class="spacer"></div>
     <button
       color="primary"
       mat-flat-button
@@ -58,6 +75,18 @@
 <mat-sidenav-container>
   <mat-sidenav #drawer mode="over" position="end">
     <div id="button-container-column">
+      <button
+        color="primary"
+        mat-flat-button
+        routerLink="/home"
+        routerLinkActive="active"
+        extended
+        (click)="drawer.toggle()"
+      >
+        <mat-icon>house</mat-icon>
+        <p>Home</p>
+      </button>
+      <div class="vert-spacer"></div>
       <button
         color="primary"
         mat-flat-button

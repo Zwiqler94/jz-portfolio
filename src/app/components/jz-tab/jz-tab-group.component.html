@@ -6,15 +6,16 @@
   mat-align-tabs="center"
   [tabPanel]="panel"
 >
-  <a
-    mat-tab-link
-    *ngFor="let tab of tabComponentList"
-    (click)="currentTab = tab.link"
-    [active]="currentTab === tab.link"
-    [routerLink]="[tab.link]"
-  >
-    {{ tab.title }}
-  </a>
+  @for (tab of tabComponentList; track tab) {
+    <a
+      mat-tab-link
+      (click)="currentTab = tab.link"
+      [active]="currentTab === tab.link"
+      [routerLink]="[tab.link]"
+    >
+      {{ tab.title }}
+    </a>
+  }
 </nav>
 <mat-tab-nav-panel #panel>
   <app-jz-tab-item

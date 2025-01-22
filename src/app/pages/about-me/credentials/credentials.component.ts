@@ -1,168 +1,80 @@
 import {
-  animate,
-  query,
-  stagger,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import {
   Component,
-  EventEmitter,
-  Input,
-  OnChanges,
+  inject,
   OnInit,
-  Output,
+  Renderer2,
   SimpleChanges,
 } from '@angular/core';
-import { MicrosoftLearnUserProfile } from 'src/app/interfaces/microsoft/microsoft';
+import { MicrosoftLearnUserProfile } from 'src/app/interfaces/credentials/microsoft/microsoft.interface';
 import { Tabs } from 'src/app/interfaces/tabs.model';
+import { SafeHtml } from '@angular/platform-browser';
 import credInfo from 'src/assets/credentials/msft_credentials.json';
+import { credentials } from 'src/assets/credentials/credly_credentials';
+import { Credly } from 'src/app/interfaces/credentials/credly/credly.interface';
+import {
+  MatCard,
+  MatCardContent,
+  MatCardImage,
+  MatCardSubtitle,
+  MatCardFooter,
+} from '@angular/material/card';
 
 @Component({
-  selector: 'app-credentials',
-  templateUrl: './credentials.component.html',
-  styleUrls: ['./credentials.component.scss'],
-  animations: [
-    trigger('credys', [
-      // state('start', style({ opacity: 1, transform: 'none' })),
-      // transition(':enter', []),
-      transition('void <=> *', [
-        query(
-          ':enter',
-          [
-            style({ visibility: 'hidden' }),
-            style({
-              visibility: 'visible',
-              opacity: 0,
-              transform: 'translateY(-100px)',
-            }),
-            stagger('90ms', [
-              animate(
-                '3s 500ms cubic-bezier(1, 5, 1, 1)',
-                style({ opacity: 1, transform: 'none' })
-              ),
-            ]),
-          ],
-          { optional: true }
-        ),
-        query(
-          ':leave',
-          [
-            style({ opacity: 1, transform: 'none' }),
-
-            stagger('5ms', [
-              animate(
-                '0.5s ease-out',
-                style({ opacity: 0, transform: 'translateY(-300px)' })
-              ),
-            ]),
-          ],
-          {
-            optional: true,
-          }
-        ),
-      ]),
-      // transition(
-      //   ':enter',
-      //   [
-      //     // query(
-      //     //   ':enter',
-      //     //   [
-      //     //     style({ opacity: 0, transform: 'translateY(-100px)' }),
-      //     //     stagger('90ms', [
-      //     //       animate(
-      //     //         '0.5s 200ms ease-in',
-      //     //         style({ opacity: 1, transform: 'none' })
-      //     //       ),
-      //     //     ]),
-      //     //   ],
-      //     //   { optional: true }
-      //     // ),
-      //     query(
-      //       ':leave',
-      //       [
-      //         stagger('50ms', [
-      //           animate(
-      //             '0.5s 200ms ease-out',
-      //             style({ opacity: 0, transform: 'translateY(-100px)' })
-      //           ),
-      //         ]),
-      //       ],
-      //       {
-      //         optional: true,
-      //       }
-      //     ),
-      //   ]
-      // ),
-      // transition(
-      //   'skills <=> credentials, main => credentials, projects => credentials',
-      //   [
-      //     query(
-      //       ':enter',
-      //       [
-      //         style({ opacity: 0, transform: 'translateY(-100px)' }),
-      //         stagger('90ms', [
-      //           animate(
-      //             '0.5s 200ms ease-in',
-      //             style({ opacity: 1, transform: 'none' })
-      //           ),
-      //         ]),
-      //       ],
-      //       { optional: true }
-      //     ),
-      //     // query(
-      //     //   ':leave',
-      //     //   [
-      //     //     style({ opacity: 1, transform: 'none' }),
-
-      //     //     stagger('5ms', [
-      //     //       animate(
-      //     //         '0.5s 100ms ease-out',
-      //     //         style({ opacity: 0, transform: 'translateY(-100px)' })
-      //     //       ),
-      //     //     ]),
-      //     //   ],
-      //     //   {
-      //     //     optional: true,
-      //     //   }
-      //     // ),
-      //   ]
-      // ),
-      // transition(':leave', [
-      //   style({ opacity: 0, transform: 'translateY(-100px)' }),
-      //   animate('0.5s 100ms ease-out'),
-      // ]),
-    ]),
-  ],
+    selector: 'app-credentials',
+    templateUrl: './credentials.component.html',
+    styleUrls: ['./credentials.component.scss'],
+    imports: [
+        MatCard,
+        MatCardContent,
+        MatCardImage,
+        MatCardSubtitle,
+        MatCardFooter,
+    ]
 })
-export class CredentialsComponent extends Tabs implements OnInit, OnChanges {
-  @Input() tabTitle: string;
-  @Input() prevTabTitle: string;
-  @Output() tabTitleChange: EventEmitter<string> = new EventEmitter<string>();
-  @Output() prevTabTitleChange: EventEmitter<string> =
-    new EventEmitter<string>();
+export class CredentialsComponent extends Tabs implements OnInit {
+  private renderer2 = inject(Renderer2);
 
   MICROSOFT_LEARN_URL = 'https://learn.microsoft.com/en-us';
+  CREDLY_URL: any;
+  scriptHtml: SafeHtml | string;
   profile: MicrosoftLearnUserProfile;
+  credlyCreds: Credly[];
 
-  ngOnInit(): void {
-    const scriptEl = document.createElement('script');
-    scriptEl.src = 'https://cdn.credly.com/assets/utilities/embed.js';
-    scriptEl.async = true;
-    scriptEl.type = 'text/javascript';
-    const targeto = document.querySelector('.credential-div') as HTMLDivElement;
-    targeto.append(scriptEl);
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
 
-    this.profile = new MicrosoftLearnUserProfile(credInfo);
+  constructor() {
+    super();
+    // this.CREDLY_URL = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL,
+    //  this.sanitizer.bypassSecurityTrustResourceUrl('//cdn.credly.com/assets/utilities/embed.js')
+    // );
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['tabTitle']) {
-      this.prevTabTitle = this.tabTitle;
-      this.prevTabTitleChange.emit(this.tabTitle);
-      this.tabTitleChange.emit(this.tabTitle);
-      console.log({ tab: this.tabTitle, prevTab: this.prevTabTitle });
-    }
+  ngOnInit(): void {
+    this.credlyCreds = credentials.map((val) => {
+      val.height = 260;
+      val.width = 260;
+      val.host = 'https://www.credly.com';
+      return val;
+    });
+
+    // console.debug(this.credlyCreds)
+    const scriptEl = this.renderer2.createElement('script');
+    scriptEl.src = 'assets/credentials/credly-embed.js';
+    scriptEl.async = true;
+    scriptEl.nonce = btoa('cuuutie');
+    scriptEl.type = 'text/javascript';
+    const targeto = document.body.querySelector(
+      '#credential-div',
+    ) as HTMLDivElement;
+
+    // this.scriptHtml = this.sanitizer.bypassSecurityTrustHtml(
+    //   `<script src="https://cdn.credly.com/assets/utilities/embed.js" type="text/javascript" async></script> <b></b>`
+    // )!;
+
+    this.renderer2.appendChild(targeto, scriptEl);
+
+    this.profile = new MicrosoftLearnUserProfile(credInfo);
+    console.debug(this.profile);
   }
 }

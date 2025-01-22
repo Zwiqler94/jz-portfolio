@@ -8,16 +8,35 @@ import {
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Tabs } from 'src/app/interfaces/tabs.model';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
+import { JzTabItemComponent } from '../jz-tab-item/jz-tab-item.component';
+
+import { MatTabNav, MatTabLink, MatTabNavPanel } from '@angular/material/tabs';
 
 @Component({
-  selector: 'app-jz-tab-group',
-  templateUrl: './jz-tab-group.component.html',
-  styleUrls: ['./jz-tab-group.component.scss'],
+    selector: 'app-jz-tab-group',
+    templateUrl: './jz-tab-group.component.html',
+    styleUrls: ['./jz-tab-group.component.scss'],
+    imports: [
+        MatTabNav,
+        MatTabLink,
+        RouterLink,
+        MatTabNavPanel,
+        JzTabItemComponent,
+    ]
 })
-export class JzTabGroupComponent implements OnInit, AfterViewInit, OnChanges {
+export class JzTabGroupComponent
+  implements OnInit, Tabs, AfterViewInit, OnChanges
+{
+  private changeDetector = inject(ChangeDetectorRef);
+  route = inject(ActivatedRoute);
+
+  @Input() tabTitle = '';
+  @Input() router: Router;
   @ViewChild('tabTemplate', { read: ViewContainerRef })
   component: any;
 
@@ -26,10 +45,10 @@ export class JzTabGroupComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() tabComponentList: TabNavModel[] = [];
 
-  constructor(
-    private changeDetector: ChangeDetectorRef,
-    public route: ActivatedRoute,
-  ) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.route.children[0].url
@@ -47,8 +66,7 @@ export class JzTabGroupComponent implements OnInit, AfterViewInit, OnChanges {
         (x) => x.link === this.currentTab,
       )[0].component;
 
-      this.previousTab = changes['currentTab'].previousValue;
-      console.log({ tab: this.currentTab, prevTab: this.previousTab });
+      console.debug(this.currentTab);
     }
   }
 }

@@ -51,7 +51,7 @@ class MenuView {
 export function MenuPlugin(items: MenuItem[]) {
   return new Plugin({
     view(editorView: EditorView) {
-      console.log(editorView);
+      console.debug(editorView);
       const menuView = new MenuView(items, editorView);
       editorView.dom.parentNode!.insertBefore(menuView.dom, editorView.dom);
       return menuView;

@@ -1,14 +1,13 @@
 <div id="footer-div">
   <div><mat-divider></mat-divider></div>
   <div id="footer">
-    <footer
-      *ngIf="screenHeight > 695 && screenWidth > 1080; else smallScreenFooter"
-    >
-      This site was originally built using Angular 12 and now uses Angular
-      {{ angularVersion.full }}, Angular Material, Node.JS, and TypeScript.
-    </footer>
-    <ng-template #smallScreenFooter>
+    @if (screenHeight > 695 && screenWidth > 1080) {
+      <footer>
+        This site was originally built using Angular 12 and now uses Angular
+        {{ angularVersion.full }}, Angular Material, Node.JS, and TypeScript.
+      </footer>
+    } @else {
       Built with Angular {{ angularVersion.full }}.
-    </ng-template>
+    }
   </div>
 </div>
