@@ -1,31 +1,45 @@
-
 @use "@angular/material" as mat;
 @use "./style_vars/75_theme-colors" as themes;
 
-@include mat.core();
 @include mat.elevation-classes();
-
-// @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-// @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+@include mat.app-background();
 @import "@angular/cdk/overlay-prebuilt.css";
 
+$my-typ: (
+  plain-family: "Quicksand",
+  brand-family: "Quicksand",
+);
+
+$themey: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: themes.$primary-palette,
+      tertiary: themes.$tertiary-palette,
+    ),
+    typography: $my-typ,
+  )
+);
+
+html {
+  color-scheme: light dark;
+  @include mat.theme(
+    (
+      color: (
+        primary: themes.$primary-palette,
+        tertiary: themes.$tertiary-palette,
+      ),
+      density: 0,
+      typography: $my-typ,
+    )
+  );
+
+  @include mat.typography-hierarchy($themey);
+}
+
 body {
-  margin: 0;
-  font-family:
-    "Quicksand",
-    // "Libre Franklin",
-    // Roboto,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Oxygen,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 }
 
 img {
@@ -34,44 +48,7 @@ img {
   border-radius: 10px;
 }
 
-// :root {
-//   @include mat.button-overrides((protected-container-elevation-shadow: ));
-// }
-
-// Define a dark theme
-// $dark-theme: mat.define-theme((color: (theme-type: dark,
-//         primary: mat.define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
-//         tertiary: mat.define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
-//         // warn: mat.define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
-//       ),
-
-//       typography:(brand-family: "Quicksand", bold-weight:900),
-//       density: -1,
-//     ));
-
-// // Define a light theme
-// $light-theme: mat.define-theme((color: (theme-type: light,
-//         primary: mat.define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
-//         accent: mat.define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
-//         warn: mat.define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
-//       ),
-//     ));
-
-// Apply the dark theme by default
-// @include mat.all-component-themes($dark-theme);
-
-html {
-  // @include mat.all-component-themes(themes.$dark-theme);
-
-  // @media (prefers-color-scheme: light) {
-  //   @include mat.all-component-colors(themes.$light-theme);
-  // }
-  color-scheme: light dark;
-  @include mat.theme((color: (primary: themes.$primary-palette,
-        tertiary: themes.$tertiary-palette ), density: 0, typography: Quicksand))
-}
-
-#editor>ngx-editor-menu>div.NgxEditor__MenuBar {
+#editor > ngx-editor-menu > div.NgxEditor__MenuBar {
   background-color: black;
 }
 
@@ -88,7 +65,7 @@ div.NgxEditor.NgxEditor {
   // typography and density styles.
   // @include mat.all-component-colors($light-theme);
 
-  #editor>ngx-editor-menu>div.NgxEditor__MenuBar {
+  #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
     background-color: orange;
   }
 }
@@ -106,7 +83,7 @@ div.NgxEditor.NgxEditor {
   white-space: normal;
 }
 
-#editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+#editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
   height: 350px;
 }
 
@@ -127,21 +104,25 @@ div#post-content#post-content#post-content p img {
 }
 
 @media (min-height: 1024px) {
-  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
+  div.cdk-overlay-container
+    div.cdk-global-overlay-wrapper
+    div.cdk-overlay-pane {
     height: 70vh !important;
   }
 }
 
 @media (min-height: 1266px) {
-  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
+  div.cdk-overlay-container
+    div.cdk-global-overlay-wrapper
+    div.cdk-overlay-pane {
     height: 75vh !important;
   }
 }
@@ -200,5 +181,16 @@ div#post-content#post-content#post-content p img {
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.display {
+  font: var(--mat-sys-display-medium);
+}
+
+// html,
+// body {
+//   height: 100%;
+// }
+
+// body {
+//   margin: 0;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+// }

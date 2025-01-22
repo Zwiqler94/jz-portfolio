@@ -6,7 +6,8 @@
 
 @use "@angular/material" as mat;
 @use "gradients" as gradients;
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.

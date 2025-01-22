@@ -137,6 +137,7 @@ bootstrapApplication(AppComponent, {
       withComponentInputBinding(),
       withPreloading(PreloadAllModules),
     ),
-    provideHttpClient(), provideAnimationsAsync(),
+    provideHttpClient(),
+    provideAnimationsAsync(),
   ],
 }).catch((err) => console.error(err));

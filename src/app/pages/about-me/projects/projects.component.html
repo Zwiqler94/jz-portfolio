@@ -1,25 +1,52 @@
 <div class="project-content">
-  <div class="dragA drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: 0 }">
+  <div
+    class="dragA drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 0 }"
+  >
     <div class="handleA" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-username-generator class="project-content-item" [(usernameForm)]="usernameFormInApp" [(result)]="result"
-      (completionMsgChange)="onCompletionMsgChange($event)">
+    <lib-username-generator
+      class="project-content-item"
+      [(usernameForm)]="usernameFormInApp"
+      [(result)]="result"
+      (completionMsgChange)="onCompletionMsgChange($event)"
+    >
     </lib-username-generator>
   </div>
 
-  <div class="dragB drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: 50 }">
+  <div
+    class="dragB drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 50 }"
+  >
     <div class="handleB" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-nasa id="" [apiKey]="nasaApiKey" (completionMsgChange)="onCompletionMsgChange($event)"></lib-nasa>
+    <lib-nasa
+      id=""
+      [apiKey]="nasaApiKey"
+      (completionMsgChange)="onCompletionMsgChange($event)"
+    ></lib-nasa>
   </div>
-  <div class="dragC drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: 150 }">
+  <div
+    class="dragC drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 150 }"
+  >
     <div class="handleC" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-pokemon [heightInput]="'35'" [widthInput]="'35'" class="project-content-item"
-      (completionMsgChange)="onCompletionMsgChange($event)"></lib-pokemon>
+    <lib-pokemon
+      [heightInput]="'35'"
+      [widthInput]="'35'"
+      class="project-content-item"
+      (completionMsgChange)="onCompletionMsgChange($event)"
+    ></lib-pokemon>
   </div>
   <!-- <div
     class="dragD drag"
@@ -37,14 +64,28 @@
       (completionMsgChange)="onCompletionMsgChange($event)"
     ></lib-boredom-solver>
   </div> -->
-  <div class="dragE drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: 200 }">
+  <div
+    class="dragE drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 200 }"
+  >
     <div class="handleE" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-age-by-name [heightInput]="'15'" [widthInput]="maxWidth" class="project-content-item"
-      (completionMsgChange)="onCompletionMsgChange($event)"></lib-age-by-name>
+    <lib-age-by-name
+      [heightInput]="'15'"
+      [widthInput]="maxWidth"
+      class="project-content-item"
+      (completionMsgChange)="onCompletionMsgChange($event)"
+    ></lib-age-by-name>
   </div>
-  <div class="dragE drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: 250 }">
+  <div
+    class="dragE drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 250 }"
+  >
     <div class="handleE" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
@@ -54,26 +95,48 @@
       </mat-card-header>
     </mat-card>
   </div>
-  <div class="dragF drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: 300 }">
+  <div
+    class="dragF drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 300 }"
+  >
     <div class="handleF" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
     <mat-card appearance="outlined">
       <mat-card-content>
-        <iframe title="IIPA" class="project-content-item" style="background-color: aliceblue" [height]="maxHeight"
-          [width]="maxWidth" src="https://iipa-32fdd.web.app">
+        <iframe
+          title="IIPA"
+          class="project-content-item"
+          style="background-color: aliceblue"
+          [height]="maxHeight"
+          [width]="maxWidth"
+          src="https://iipa-32fdd.web.app"
+        >
         </iframe>
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="dragF drag" cdkDrag cdkDragBoundary=".project-content" [cdkDragFreeDragPosition]="{ x: 0, y: 350 }">
+  <div
+    class="dragF drag"
+    cdkDrag
+    cdkDragBoundary=".project-content"
+    [cdkDragFreeDragPosition]="{ x: 0, y: 350 }"
+  >
     <div class="handleF" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
     <mat-card appearance="outlined">
       <mat-card-content>
-        <iframe title="SmartPick" class="project-content-item" style="background-color: aliceblue" [height]="maxHeight"
-          [width]="maxWidth" src="https://lotto-beast-new.web.app">
+        <iframe
+          title="SmartPick"
+          class="project-content-item"
+          style="background-color: aliceblue"
+          [height]="maxHeight"
+          [width]="maxWidth"
+          src="https://lotto-beast-new.web.app"
+        >
         </iframe>
       </mat-card-content>
     </mat-card>
