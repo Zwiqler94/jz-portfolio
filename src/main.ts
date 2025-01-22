@@ -45,6 +45,7 @@ import {
 import { GALLERY_CONFIG, GalleryConfig } from 'ng-gallery';
 import { LIGHTBOX_CONFIG, LightboxConfig } from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 if (environment.production) {
   enableProdMode();
@@ -136,6 +137,6 @@ bootstrapApplication(AppComponent, {
       withComponentInputBinding(),
       withPreloading(PreloadAllModules),
     ),
-    provideHttpClient(),
+    provideHttpClient(), provideAnimationsAsync(),
   ],
 }).catch((err) => console.error(err));

@@ -86,3 +86,4 @@ src/environments/environment.local.ts
 .scannerwork/
 sonar-project.properties
 **/tsconfig.tsbuildinfo
+google-cloud-sdk/

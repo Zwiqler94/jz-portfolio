@@ -1,4 +1,11 @@
-import { Component, HostListener, inject, input } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  inject,
+  input,
+  model,
+  signal,
+} from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MatCardModule } from '@angular/material/card';
@@ -50,31 +57,34 @@ export class ProjectsComponent extends TabComponent {
     this.maxHeight = (this.screenHeight - 25) / 8;
   }
 
-  _result = [''];
+  result = signal(['']);
 
-  usernameFormInApp: FormGroup = this.fb.group({
+  private usernameForm: FormGroup<any> = this.fb.group({
     words: [''],
     specialCharacters: [''],
   });
+
+  usernameFormInApp = signal(this.usernameForm);
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
 
   constructor() {
     super();
+    this.result.set(['']);
   }
 
   get nasaApiKey() {
     return environment.nasaAPIKey;
   }
 
-  get results() {
-    return this._result;
-  }
+  // get results() {
+  //   return this._result();
+  // }
 
-  set results(result: string[]) {
-    this._result = result;
-  }
+  // set results(result: string[]) {
+  //   this._result.set(result);
+  // }
 
   public set maxWidth(value: number) {
     this._maxWidth = value;
