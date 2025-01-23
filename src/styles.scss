@@ -1,30 +1,45 @@
 @use "@angular/material" as mat;
-@use "themes" as themes;
+@use "./style_vars/75_theme-colors" as themes;
 
 @include mat.elevation-classes();
 @include mat.app-background();
-
-// @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-// @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 @import "@angular/cdk/overlay-prebuilt.css";
 
+$my-typ: (
+  plain-family: "Quicksand",
+  brand-family: "Quicksand",
+);
+
+$themey: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: themes.$primary-palette,
+      tertiary: themes.$tertiary-palette,
+    ),
+    typography: $my-typ,
+  )
+);
+
+html {
+  color-scheme: light dark;
+  @include mat.theme(
+    (
+      color: (
+        primary: themes.$primary-palette,
+        tertiary: themes.$tertiary-palette,
+      ),
+      density: 0,
+      typography: $my-typ,
+    )
+  );
+
+  @include mat.typography-hierarchy($themey);
+}
+
 body {
-  margin: 0;
-  font-family:
-    "Quicksand",
-    // "Libre Franklin",
-    // Roboto,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Oxygen,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 }
 
 img {
@@ -32,43 +47,6 @@ img {
   block-size: auto;
   border-radius: 10px;
 }
-
-// Define a dark theme
-$dark-theme: mat.m2-define-dark-theme(
-  (
-    color: (
-      primary:
-        mat.m2-define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
-      accent:
-        mat.m2-define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
-      warn:
-        mat.m2-define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
-    ),
-    // Only include `typography` and `density` in the default dark theme.
-    typography:
-      mat.m2-define-typography-config(
-        $font-family: "Quicksand",
-      ),
-    density: 0,
-  )
-);
-
-// Define a light theme
-$light-theme: mat.m2-define-light-theme(
-  (
-    color: (
-      primary:
-        mat.m2-define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
-      accent:
-        mat.m2-define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
-      warn:
-        mat.m2-define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
-    ),
-  )
-);
-
-// Apply the dark theme by default
-@include mat.all-component-themes($dark-theme);
 
 #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
   background-color: black;
@@ -82,11 +60,10 @@ div.NgxEditor.NgxEditor {
   border-radius: 0px 0px 8px 8px;
 }
 
-// Apply the light theme only when the user prefers light themes.
 @media (prefers-color-scheme: light) {
   // Use the `-color` mixins to only apply color styles without reapplying the same
   // typography and density styles.
-  @include mat.all-component-colors($light-theme);
+  // @include mat.all-component-colors($light-theme);
 
   #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
     background-color: orange;
@@ -203,3 +180,17 @@ div#post-content#post-content#post-content p img {
     width: 81vw;
   }
 }
+
+.display {
+  font: var(--mat-sys-display-medium);
+}
+
+// html,
+// body {
+//   height: 100%;
+// }
+
+// body {
+//   margin: 0;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+// }

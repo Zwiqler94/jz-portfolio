@@ -1,11 +1,22 @@
 import { getAppCheck } from 'firebase-admin/app-check';
 
-import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import {
+  Request,
+  Response,
+  NextFunction,
+  ErrorRequestHandler,
+  Express,
+} from 'express';
 import { debug, error } from 'firebase-functions/logger';
 import { rateLimit } from 'express-rate-limit';
 import { validationResult } from 'express-validator';
 import basicAuth from 'express-basic-auth';
 import { getAuth } from 'firebase-admin/auth';
+import compression from 'compression';
+import cors, { CorsOptions } from 'cors';
+import helmet from 'helmet';
+import { serve, setup } from 'swagger-ui-express';
+import swaggerDoc from '../../JAZWICKLER-JLZ-5.1.7-swagger.json';
 
 export const basicAuthorizer = (user: any, password: any) => {
   const userMatch = basicAuth.safeCompare(user, process.env.ADMIN_USER!);
@@ -67,7 +78,7 @@ export const appCheckGaurd = async (
   } catch (err: any) {
     // error(err);
     res.status(401);
-    next(`Unauthorized Code: Error ${err.message}`);
+    return next(`Unauthorized Code: Error ${err.message}`);
   }
   // next();
 };
@@ -80,7 +91,7 @@ export const limiter = rateLimit({
   validate: { ip: false },
   legacyHeaders: false,
   standardHeaders: 'draft-7',
-  skip: (req, res) => allowList.includes(req.ip as string),
+  // skip: (req, res) => allowList.includes(req.ip as string),
 });
 
 export const validator = async (
@@ -93,7 +104,7 @@ export const validator = async (
     return next();
   } else {
     error(result.array);
-    return res.status(400).json({ errors: result.array() });
+    res.status(400).json({ errors: result.array() });
   }
 };
 
@@ -104,10 +115,54 @@ export const errorHandler: ErrorRequestHandler = (
   next: NextFunction,
 ) => {
   error(err.stack);
-  return res.status(res.statusCode).json({
+  res.status(res.statusCode !== 200 ? res.statusCode : 500).json({
     name: err.name,
     code: res.statusCode,
     description: err.message ? err.message : err,
     stack: err.stack,
   });
+};
+
+const corsOpts: CorsOptions = {
+  origin: ['http://localhost'],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  exposedHeaders: ['X-Ratelimit-Limit', 'Set-Cookie'],
+  allowedHeaders: [
+    'Set-Cookie',
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'Authorization',
+  ],
+  credentials: true,
+};
+
+export const setupMiddleware = (app: Express): void => {
+  // CORS
+  app.use(cors(corsOpts));
+
+  // Security headers
+  app.use(helmet());
+
+  // Compression
+  app.use(compression());
+
+  // Rate Limiting
+  // app.use(limiter);
+
+  // Trust Proxy
+  app.set('trust proxy', 1);
+
+  // Disable 'X-Powered-By' header
+  app.set('X-Powered-By', false);
+
+  // Swagger Documentation
+  app.use('/api-docs', serve, setup(swaggerDoc)); // Mount Swagger UI
+
+  // App Check Guard Middleware
+  app.use(appCheckGaurd);
+
+  // Error Handler Middleware
+  app.use(errorHandler);
 };

@@ -4,6 +4,5 @@ import { Component } from '@angular/core';
   selector: 'app-fitness-tab',
   templateUrl: './fitness-tab.component.html',
   styleUrls: ['./fitness-tab.component.scss'],
-  standalone: true,
 })
 export class FitnessTabComponent {}

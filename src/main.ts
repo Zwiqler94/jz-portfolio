@@ -45,17 +45,18 @@ import {
 import { GALLERY_CONFIG, GalleryConfig } from 'ng-gallery';
 import { LIGHTBOX_CONFIG, LightboxConfig } from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 if (environment.production) {
   enableProdMode();
 }
 
-declare global {
-  // eslint-disable-next-line no-var
-  var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
-}
+// declare global {
+//   // eslint-disable-next-line no-var
+//   var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
+// }
 
-self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
+// self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -137,5 +138,6 @@ bootstrapApplication(AppComponent, {
       withPreloading(PreloadAllModules),
     ),
     provideHttpClient(),
+    provideAnimationsAsync(),
   ],
 }).catch((err) => console.error(err));

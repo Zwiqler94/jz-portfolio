@@ -4,10 +4,10 @@ import { Component, OnInit } from '@angular/core';
 import { FeedComponent } from '../../components/feed/feed.component';
 
 @Component({
-    selector: 'app-news',
-    templateUrl: './news.component.html',
-    styleUrls: ['./news.component.scss'],
-    imports: [FeedComponent]
+  selector: 'app-news',
+  templateUrl: './news.component.html',
+  styleUrls: ['./news.component.scss'],
+  imports: [FeedComponent],
 })
 export class NewsComponent implements OnInit {
   constructor() {}

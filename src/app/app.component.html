@@ -40,16 +40,16 @@
       Hobbies
     </button>
     <div class="spacer"></div>
-    <button
+    <!-- <button
       color="primary"
       mat-flat-button
       routerLink="/news"
       routerLinkActive="active"
     >
       News
-    </button>
+    </button> -->
     <div class="spacer"></div>
-    <button
+    <!-- <button
       color="primary"
       mat-flat-button
       routerLink="/socials"
@@ -57,7 +57,7 @@
     >
       Socials
     </button>
-    <div class="spacer"></div>
+    <div class="spacer"></div> -->
     <button mat-flat-button color="warn" (click)="logout()">LOGOUT!</button>
   </div>
   <div id="menu">
@@ -73,7 +73,7 @@
 </mat-toolbar>
 <mat-divider id="dividy"></mat-divider>
 <mat-sidenav-container>
-  <mat-sidenav #drawer mode="over" position="end">
+  <mat-sidenav id="side-nav" #drawer mode="over" position="end">
     <div id="button-container-column">
       <button
         color="primary"
@@ -84,7 +84,7 @@
         (click)="drawer.toggle()"
       >
         <mat-icon>house</mat-icon>
-        <p>Home</p>
+        Home
       </button>
       <div class="vert-spacer"></div>
       <button
@@ -96,7 +96,7 @@
         (click)="drawer.toggle()"
       >
         <mat-icon>person</mat-icon>
-        <p>About Me</p>
+        About Me
       </button>
       <div class="vert-spacer"></div>
       <button
@@ -108,10 +108,10 @@
         (click)="drawer.toggle()"
       >
         <mat-icon>sports_handball</mat-icon>
-        <p>Hobbies</p>
+        Hobbies
       </button>
       <div class="vert-spacer"></div>
-      <button
+      <!-- <button
         color="primary"
         mat-flat-button
         routerLink="/news"
@@ -121,9 +121,9 @@
       >
         <mat-icon>newspaper</mat-icon>
         <p>News</p>
-      </button>
-      <div class="vert-spacer"></div>
-      <button
+      </button> -->
+      <!-- <div class="vert-spacer"></div> -->
+      <!-- <button
         color="primary"
         mat-flat-button
         routerLink="/socials"
@@ -134,7 +134,7 @@
         <mat-icon>groups</mat-icon>
         <p>Socials</p>
       </button>
-      <div class="vert-spacer"></div>
+      <div class="vert-spacer"></div> -->
       <button
         color="primary"
         mat-flat-button
@@ -143,7 +143,7 @@
         (click)="drawer.toggle()"
       >
         <mat-icon>contact_mail</mat-icon>
-        <p>Contact Me</p>
+        Contact Me
       </button>
       <div class="vert-spacer"></div>
       <div class="vert-spacer"></div>
@@ -155,7 +155,7 @@
         (click)="drawer.toggle()"
       >
         <mat-icon>logout</mat-icon>
-        <p>LOGOUT!</p>
+        LOGOUT!
       </button>
     </div>
   </mat-sidenav>

@@ -1,8 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { getAppCheck } from 'firebase-admin/app-check';
 import { debug, error } from 'firebase-functions/logger';
-import { authValidator } from './validators/auth.validator';
-import { authGuard } from './middleware';
+import { authValidator } from '../validators/auth.validator';
+import { authGuard } from './general.middleware';
 
 export const authRouter = express.Router();
 

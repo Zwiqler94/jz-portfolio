@@ -16,19 +16,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
-    selector: 'app-contact-me',
-    templateUrl: './contact-me.component.html',
-    styleUrls: ['./contact-me.component.scss'],
-    imports: [
-        MatCardModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        MatButton,
-        MatIcon,
-    ]
+  selector: 'app-contact-me',
+  templateUrl: './contact-me.component.html',
+  styleUrls: ['./contact-me.component.scss'],
+  imports: [
+    MatCardModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatButton,
+    MatIcon,
+  ],
 })
 export class ContactMeComponent {
   private http = inject(HttpClient);

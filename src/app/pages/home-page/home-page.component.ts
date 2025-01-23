@@ -1,62 +1,45 @@
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
-import { VersionReadyEvent } from '@angular/service-worker';
-import { filter } from 'rxjs';
-import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewPostDialogComponent } from 'src/app/components/new-post-dialog/new-post-dialog.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { environment } from 'src/environments/environment';
 import { FeedComponent } from '../../components/feed/feed.component';
 import { MatButton } from '@angular/material/button';
+import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
 @Component({
-    selector: 'app-home-page',
-    templateUrl: './home-page.component.html',
-    styleUrls: ['./home-page.component.scss'],
-    imports: [MatButton, FeedComponent]
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss'],
+  imports: [MatButton, FeedComponent],
 })
 export class HomePageComponent implements OnInit {
-  private snack = inject(MatSnackBar);
-  private sw = inject(ServiceWorkerService);
   private dialog = inject(MatDialog);
   private auth = inject(AuthService);
   private cd = inject(ChangeDetectorRef);
-
-  shouldFetchPosts = false;
+  private lp = inject(LinkPreviewService);
+  triggerFetch: boolean;
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
-
   constructor() {}
 
-  ngOnInit() {
-    this.sw.swUpdates.versionUpdates
-      .pipe(
-        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
-      )
-      .subscribe((x) => {
-        if (x) {
-          const d = this.snack.open(
-            'New App Version Detected, Update?',
-            'Yup!',
-          );
-          d.afterDismissed().subscribe((f: MatSnackBarDismiss) => {
-            console.debug(f.dismissedByAction);
-            while (!f.dismissedByAction) {
-              this.snack.open('Hurry up and update!', 'UPDATE!');
-            }
-            document.location.reload();
-          });
-        }
-      });
-    // this.shouldFetchPosts = !this.shouldFetchPosts;
+  async ngOnInit(): Promise<void> {
+    this.auth.appCheckToken = (
+      await this.auth.getAppCheckToken('app:oninit')
+    )?.token;
+
+    if (this.auth.appCheckToken) {
+      this.lp
+        .getAPIKey()
+        .then((ob) => ob?.subscribe((key) => (this.lp.apiKey = key.k)));
+    }
   }
 
   openNewPostDialog() {
     const dialogRef = this.dialog.open(NewPostDialogComponent);
     dialogRef.afterClosed().subscribe((res) => {
-      this.shouldFetchPosts = true;
+      this.triggerFetch = true;
     });
     this.cd.detectChanges();
   }

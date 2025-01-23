@@ -5,7 +5,7 @@
     "analytics": false,
     "packageManager": "npm",
     "schematicCollections": ["@angular-eslint/schematics"],
-    "cache": {"environment": "all"}
+    "cache": { "environment": "all" }
   },
   "newProjectRoot": "projects",
   "projects": {

@@ -48,7 +48,7 @@ export const routes: Routes = [
       import('./pages/about-me/about-me.component').then(
         (m) => m.AboutMeComponent,
       ),
-    // canActivate: envAuthGaurd,
+    canActivate: envAuthGaurd,
     children: [
       {
         path: 'main',
@@ -112,22 +112,22 @@ export const routes: Routes = [
       },
     ],
   },
-  {
-    path: 'news',
-    loadComponent: () =>
-      import('./pages/news/news.component').then((m) => m.NewsComponent),
-    title: 'Blog',
-    canActivate: envAuthGaurd,
-  },
-  {
-    path: 'socials',
-    loadComponent: () =>
-      import('src/app/pages/socials/socials.component').then(
-        (m) => m.SocialsComponent,
-      ),
-    title: 'Socialize With Me',
-    canActivate: envAuthGaurd,
-  },
+  // {
+  //   path: 'news',
+  //   loadComponent: () =>
+  //     import('./pages/news/news.component').then((m) => m.NewsComponent),
+  //   title: 'Blog',
+  //   canActivate: envAuthGaurd,
+  // },
+  // {
+  //   path: 'socials',
+  //   loadComponent: () =>
+  //     import('src/app/pages/socials/socials.component').then(
+  //       (m) => m.SocialsComponent,
+  //     ),
+  //   title: 'Socialize With Me',
+  //   canActivate: envAuthGaurd,
+  // },
   {
     path: 'contact',
     loadComponent: () =>

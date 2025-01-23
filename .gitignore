@@ -60,7 +60,7 @@ Thumbs.db
 # Compiled JavaScript files
 **/lib/**/*.js
 **/lib/**/*.js.map
-functions/lib/
+**/lib/**/*.d.ts
 
 # TypeScript v1 declaration files
 **/typings
@@ -85,4 +85,5 @@ cli-envs
 src/environments/environment.local.ts
 .scannerwork/
 sonar-project.properties
+**/tsconfig.tsbuildinfo
 google-cloud-sdk/

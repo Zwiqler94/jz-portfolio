@@ -14,8 +14,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Tabs } from 'src/app/interfaces/tabs.model';
 import { MatCard, MatCardImage, MatCardContent } from '@angular/material/card';
+import { TabComponent } from 'src/app/components/tab/tab.component';
 
 @Component({
     selector: 'app-about-me-main',
@@ -109,8 +109,7 @@ import { MatCard, MatCardImage, MatCardContent } from '@angular/material/card';
     ],
     imports: [MatCard, MatCardImage, MatCardContent]
 })
-export class AboutMeMainComponent extends Tabs {
-  @Input() public tabTitle: string;
+export class AboutMeMainComponent extends TabComponent {
   _profileImage = './assets/about-me/me.avif';
   _sideImageA: string = './assets/about-me/side-image-18.avif';
   _sideImageB: string = './assets/about-me/side-image-2.avif';

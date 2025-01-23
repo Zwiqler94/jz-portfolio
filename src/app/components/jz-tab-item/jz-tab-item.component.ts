@@ -2,14 +2,13 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
   OnChanges,
   Output,
   SimpleChanges,
-  ViewChild,
   ViewContainerRef,
   inject,
+  input,
+  viewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
@@ -27,17 +26,17 @@ type TabTypes =
   selector: 'app-jz-tab-item',
   templateUrl: './jz-tab-item.component.html',
   styleUrls: ['./jz-tab-item.component.scss'],
-  standalone: true,
 })
 export class JzTabItemComponent implements AfterViewInit, OnChanges {
   private changeDetector = inject(ChangeDetectorRef);
   private router = inject(Router);
 
-  @Input() tab: any;
-  @ViewChild('tabTemplate', { read: ViewContainerRef })
-  tabTemplate: ViewContainerRef;
+  readonly tab = input<any>();
+  readonly tabTemplate = viewChild.required('tabTemplate', {
+    read: ViewContainerRef,
+  });
 
-  @Input() tabComponentList: TabNavModel[] = [];
+  readonly tabComponentList = input<TabNavModel[]>([]);
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
@@ -46,32 +45,33 @@ export class JzTabItemComponent implements AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     const component = this.getComponentFromTabList();
-    const componentRef = this.tabTemplate.createComponent<TabTypes>(component);
-    componentRef.instance.tabTitle = this.tab;
-    componentRef.instance.prevTabTitle = this.tab;
-    componentRef.instance.prevTabTitleChange.emit(this.tab);
-    componentRef.instance.tabTitleChange.emit(this.tab);
+    const componentRef =
+      this.tabTemplate().createComponent<typeof component>(component);
+    componentRef.instance.tabTitle = this.tab().title;
     this.changeDetector.detectChanges();
   }
 
   getComponentFromTabList(): any {
-    const tabItem = this.tabComponentList.filter((x) => x.link === this.tab)[0];
+    const tabItem = this.tabComponentList().filter(
+      (x) => x.link === this.tab(),
+    )[0];
     return tabItem ? tabItem.component : undefined;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tab']) {
-      const component = this.tabComponentList.filter(
-        (x) => x.link === this.tab,
+      const component = this.tabComponentList().filter(
+        (x) => x.link === this.tab(),
       )[0].component;
 
-      if (this.tabTemplate) {
-        this.tabTemplate.clear();
+      const tabTemplate = this.tabTemplate();
+      if (tabTemplate) {
+        tabTemplate.clear();
 
         const componentRef =
-          this.tabTemplate.createComponent<typeof component>(component);
+          tabTemplate.createComponent<typeof component>(component);
 
-        componentRef.instance.tabTitle = this.tab.title;
+        componentRef.instance.tabTitle = this.tab().title;
       }
     }
   }

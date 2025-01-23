@@ -2,11 +2,10 @@
   mat-tab-nav-bar
   id="about-tabs"
   color="primary"
-  backgroundColor="primary"
   mat-align-tabs="center"
   [tabPanel]="panel"
 >
-  @for (tab of tabComponentList; track tab) {
+  @for (tab of tabComponentList(); track tab) {
     <a
       mat-tab-link
       (click)="currentTab = tab.link"
@@ -19,8 +18,7 @@
 </nav>
 <mat-tab-nav-panel #panel>
   <app-jz-tab-item
-    [tabComponentList]="tabComponentList"
-    [(tab)]="currentTab"
-    [(prevTab)]="previousTab"
+    [tabComponentList]="tabComponentList()"
+    [tab]="currentTab"
   ></app-jz-tab-item>
 </mat-tab-nav-panel>

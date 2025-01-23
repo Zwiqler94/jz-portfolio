@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "themes" as themes;
 
 .outter-grid {
@@ -44,103 +45,103 @@ img {
 }
 
 .primary-1 {
-  background-color: map-get(themes.$md-A-1-primary, 100);
+  background-color: map.get(themes.$md-A-1-primary, 100);
 }
 
 .secondary-1 {
-  background-color: map-get(themes.$md-A-1-secondary, 100);
+  background-color: map.get(themes.$md-A-1-secondary, 100);
 }
 
 .complementary-1 {
-  background-color: map-get(themes.$md-A-1-complementary, 100);
+  background-color: map.get(themes.$md-A-1-complementary, 100);
 }
 
 .secondary-9 {
-  background-color: map-get(themes.$md-A-1-secondary, 200);
+  background-color: map.get(themes.$md-A-1-secondary, 200);
 }
 
 .complementary-2 {
-  background-color: map-get(themes.$md-A-1-complementary, 200);
+  background-color: map.get(themes.$md-A-1-complementary, 200);
 }
 
 .primary-2 {
-  background-color: map-get(themes.$md-A-1-primary, 200);
+  background-color: map.get(themes.$md-A-1-primary, 200);
 }
 
 .secondary-2 {
-  background-color: map-get(themes.$md-A-1-secondary, 300);
+  background-color: map.get(themes.$md-A-1-secondary, 300);
 }
 
 .primary-3 {
-  background-color: map-get(themes.$md-A-1-primary, 300);
+  background-color: map.get(themes.$md-A-1-primary, 300);
 }
 
 .complementary-3 {
-  background-color: map-get(themes.$md-A-1-complementary, 300);
+  background-color: map.get(themes.$md-A-1-complementary, 300);
 }
 
 .complementary-4 {
-  background-color: map-get(themes.$md-A-1-complementary, 400);
+  background-color: map.get(themes.$md-A-1-complementary, 400);
 }
 
 .primary-4 {
-  background-color: map-get(themes.$md-A-1-primary, 400);
+  background-color: map.get(themes.$md-A-1-primary, 400);
 }
 
 .secondary-3 {
-  background-color: map-get(themes.$md-A-1-secondary, 400);
+  background-color: map.get(themes.$md-A-1-secondary, 400);
 }
 
 .primary-5 {
-  background-color: map-get(themes.$md-A-1-primary, 500);
+  background-color: map.get(themes.$md-A-1-primary, 500);
 }
 
 .complementary-5 {
-  background-color: map-get(themes.$md-A-1-complementary, 500);
+  background-color: map.get(themes.$md-A-1-complementary, 500);
 }
 
 .complementary-6 {
-  background-color: map-get(themes.$md-A-1-complementary, 600);
+  background-color: map.get(themes.$md-A-1-complementary, 600);
 }
 
 .primary-6 {
-  background-color: map-get(themes.$md-A-1-primary, 700);
+  background-color: map.get(themes.$md-A-1-primary, 700);
 }
 
 .secondary-4 {
-  background-color: map-get(themes.$md-A-1-secondary, 700);
+  background-color: map.get(themes.$md-A-1-secondary, 700);
 }
 
 .primary-7 {
-  background-color: map-get(themes.$md-A-1-primary, 800);
+  background-color: map.get(themes.$md-A-1-primary, 800);
 }
 
 .secondary-6 {
-  background-color: map-get(themes.$md-A-1-secondary, 800);
+  background-color: map.get(themes.$md-A-1-secondary, 800);
 }
 
 .secondary-7 {
-  background-color: map-get(themes.$md-A-1-secondary, 800);
+  background-color: map.get(themes.$md-A-1-secondary, 800);
 }
 
 .primary-8 {
-  background-color: map-get(themes.$md-A-1-primary, 900);
+  background-color: map.get(themes.$md-A-1-primary, 900);
 }
 
 .secondary-5 {
-  background-color: map-get(themes.$md-A-1-secondary, 900);
+  background-color: map.get(themes.$md-A-1-secondary, 900);
 }
 
 .primary-9 {
-  background-color: map-get(themes.$md-A-1-primary, 800);
+  background-color: map.get(themes.$md-A-1-primary, 800);
 }
 
 .complementary-7 {
-  background-color: map-get(themes.$md-A-1-complementary, 800);
+  background-color: map.get(themes.$md-A-1-complementary, 800);
 }
 
 .secondary-8 {
-  background-color: map-get(themes.$md-A-1-secondary, 900);
+  background-color: map.get(themes.$md-A-1-secondary, 900);
 }
 
 gallery {

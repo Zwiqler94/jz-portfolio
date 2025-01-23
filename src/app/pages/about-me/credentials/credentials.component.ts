@@ -1,12 +1,5 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  Renderer2,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit, Renderer2, inject, input } from '@angular/core';
 import { MicrosoftLearnUserProfile } from 'src/app/interfaces/credentials/microsoft/microsoft.interface';
-import { Tabs } from 'src/app/interfaces/tabs.model';
 import { SafeHtml } from '@angular/platform-browser';
 import credInfo from 'src/assets/credentials/msft_credentials.json';
 import { credentials } from 'src/assets/credentials/credly_credentials';
@@ -18,20 +11,21 @@ import {
   MatCardSubtitle,
   MatCardFooter,
 } from '@angular/material/card';
+import { TabComponent } from 'src/app/components/tab/tab.component';
 
 @Component({
-    selector: 'app-credentials',
-    templateUrl: './credentials.component.html',
-    styleUrls: ['./credentials.component.scss'],
-    imports: [
-        MatCard,
-        MatCardContent,
-        MatCardImage,
-        MatCardSubtitle,
-        MatCardFooter,
-    ]
+  selector: 'app-credentials',
+  templateUrl: './credentials.component.html',
+  styleUrls: ['./credentials.component.scss'],
+  imports: [
+    MatCard,
+    MatCardContent,
+    MatCardImage,
+    MatCardSubtitle,
+    MatCardFooter,
+  ],
 })
-export class CredentialsComponent extends Tabs implements OnInit {
+export class CredentialsComponent extends TabComponent implements OnInit {
   private renderer2 = inject(Renderer2);
 
   MICROSOFT_LEARN_URL = 'https://learn.microsoft.com/en-us';
@@ -77,4 +71,5 @@ export class CredentialsComponent extends Tabs implements OnInit {
     this.profile = new MicrosoftLearnUserProfile(credInfo);
     console.debug(this.profile);
   }
+  readonly tabTitle = input<string>();
 }

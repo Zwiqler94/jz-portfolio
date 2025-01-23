@@ -1,4 +1,5 @@
 @use "themes";
+@use "sass:map";
 
 mat-form-field {
   margin: 1rem;
@@ -6,7 +7,7 @@ mat-form-field {
 }
 
 .error {
-  background-color: map-get(themes.$md-A-1-analagous1, 500);
+  background-color: map.get(themes.$md-A-1-analagous1, 500);
 }
 
 // lib-username-generator {
@@ -16,7 +17,7 @@ mat-form-field {
 
 .drag {
   box-sizing: border-box;
-  border: solid 1px #ccc;
+  // border: solid 1px #ccc;
   // color: rgba(0, 0, 0, 0.87);
   // display: flex;
   // justify-content: center;
@@ -24,7 +25,7 @@ mat-form-field {
   text-align: center;
   // background: #fff;
   margin: 0;
-  border-radius: 4px;
+  // border-radius: 4px;
   position: relative;
   z-index: 1;
   transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
