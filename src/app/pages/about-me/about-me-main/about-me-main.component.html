@@ -1,5 +1,5 @@
 <div class="about-content">
-  <div id="left-about-div">
+  <div id="left-about-div" [@sideAnisLeft]="true">
     <mat-card appearance="outlined" class="side-image"><img mat-card-image [src]="_sideImageA"
         alt="a pic of me" /></mat-card>
     <mat-card appearance="outlined" class="side-image"><img mat-card-image [src]="_sideImageB"
@@ -11,7 +11,7 @@
     <mat-card appearance="outlined" class="side-image"><img mat-card-image [src]="_sideImageE"
         alt="a pic of me" /></mat-card>
   </div>
-  <div id="center-about-div" [@sideAnisLeft]="true">
+  <div id="center-about-div" >
     <mat-card appearance="outlined">
       <img id="profile-image" mat-card-image [src]="_profileImage" alt="a pic of me" />
       <mat-card-content>

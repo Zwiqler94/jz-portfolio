@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { zip } from 'lodash-es';
+import { zip } from 'lodash-es'
 import {
   CloudinaryApiResponse,
   Resource,
