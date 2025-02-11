@@ -3,6 +3,7 @@
 
 @include mat.elevation-classes();
 @include mat.app-background();
+@include mat.core();
 @import "@angular/cdk/overlay-prebuilt.css";
 
 $my-typ: (
@@ -10,31 +11,45 @@ $my-typ: (
   brand-family: "Quicksand",
 );
 
-$themey: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: themes.$primary-palette,
-      tertiary: themes.$tertiary-palette,
-    ),
-    typography: $my-typ,
-  )
-);
+$toolbar-height: 8rem;
 
-html {
-  color-scheme: light dark;
-  @include mat.theme(
-    (
-      color: (
+$themey-light: mat.define-theme((color: (theme-type: light,
         primary: themes.$primary-palette,
         tertiary: themes.$tertiary-palette,
       ),
-      density: 0,
       typography: $my-typ,
-    )
-  );
+    ));
 
-  @include mat.typography-hierarchy($themey);
+$themey-dark: mat.define-theme((color: (theme-type: dark,
+        primary: themes.$primary-palette,
+        tertiary: themes.$tertiary-palette,
+      ),
+      typography: $my-typ,
+    ));
+
+html {
+  @supports(color: light-dark(#002f48, #e5f1ff)) {
+    color-scheme: light dark;
+    @include mat.theme((color: (primary: themes.$primary-palette,
+          tertiary: themes.$tertiary-palette,
+        ),
+        density: 0,
+        typography: $my-typ,
+      ));
+  }
+
+  @supports not (color: light-dark(#002f48, #e5f1ff)) {
+
+    @include mat.core-theme($themey-dark);
+    @include mat.all-component-themes($themey-dark);
+
+    @media (prefers-color-scheme: light) {
+      @include mat.core-color($themey-light);
+      @include mat.all-component-colors($themey-light);
+    }
+  }
+
+  @include mat.typography-hierarchy($themey-light);
 }
 
 body {
@@ -48,7 +63,7 @@ img {
   border-radius: 10px;
 }
 
-#editor > ngx-editor-menu > div.NgxEditor__MenuBar {
+#editor>ngx-editor-menu>div.NgxEditor__MenuBar {
   background-color: black;
 }
 
@@ -65,7 +80,7 @@ div.NgxEditor.NgxEditor {
   // typography and density styles.
   // @include mat.all-component-colors($light-theme);
 
-  #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
+  #editor>ngx-editor-menu>div.NgxEditor__MenuBar {
     background-color: orange;
   }
 }
@@ -83,7 +98,7 @@ div.NgxEditor.NgxEditor {
   white-space: normal;
 }
 
-#editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
+#editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
   height: 350px;
 }
 
@@ -104,25 +119,21 @@ div#post-content#post-content#post-content p img {
 }
 
 @media (min-height: 1024px) {
-  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
+  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container
-    div.cdk-global-overlay-wrapper
-    div.cdk-overlay-pane {
+  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
     height: 70vh !important;
   }
 }
 
 @media (min-height: 1266px) {
-  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
+  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container
-    div.cdk-global-overlay-wrapper
-    div.cdk-overlay-pane {
+  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
     height: 75vh !important;
   }
 }
@@ -181,16 +192,167 @@ div#post-content#post-content#post-content p img {
   }
 }
 
-.display {
+.title-small {
+  font: var(--mat-sys-title-large);
+}
+
+.title-medium {
+  font: var(--mat-sys-title-medium);
+}
+
+.title-large {
+  font: var(--mat-sys-title-large);
+}
+
+.display-small {
+  font: var(--mat-sys-display-large);
+}
+
+.display-medium {
   font: var(--mat-sys-display-medium);
 }
 
-// html,
-// body {
-//   height: 100%;
-// }
+.display-large {
+  font: var(--mat-sys-display-large);
+}
 
-// body {
-//   margin: 0;
-//   font-family: Roboto, "Helvetica Neue", sans-serif;
-// }
+.tertiary-container {
+  background-color: var(--mat-sys-tertiary-container);
+  border-radius: var(--mat-sys-corner-large);
+  padding: 1rem;
+}
+
+#dividy {
+  border-top-color: black;
+  border-top-width: 0.15rem;
+}
+
+#nav-button-container {
+  display: flex;
+  flex-direction: row;
+  width: 44vw;
+  justify-content: flex-end;
+  flex-shrink: 1;
+}
+
+#toolbar-logo,
+#toolbar-logo>img {
+  max-inline-size: 100%;
+  margin-inline-start: 0.1vw;
+  margin-block-start: 0.1vh;
+  block-size: auto;
+  border-radius: 10px;
+  width: 6vw;
+}
+
+mat-toolbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100vw;
+  height: $toolbar-height;
+  flex-basis: auto;
+
+  .mat-toolbar-single-row {
+    padding: 0;
+  }
+}
+
+#logo {
+  width: 40vw;
+  display: flex;
+  justify-content: flex-start;
+  flex-shrink: 2;
+}
+
+.spacer {
+  width: 0.25rem;
+}
+
+@media (max-width: 90rem) {
+
+  #toolbar-logo,
+  #toolbar-logo>img {
+    width: 8vw;
+  }
+}
+
+@media (max-width: 67.5rem) {
+
+  #logo {
+    width: 30vw;
+  }
+
+  #nav-button-container {
+    display: none;
+  }
+
+  #toolbar-logo,
+  #toolbar-logo>img {
+    width: 10.5vw;
+  }
+
+  #menu {
+    width: 58vw;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 0;
+    flex-shrink: 1;
+  }
+
+  mat-toolbar {
+    width: 100vw;
+    height: 5rem;
+    flex-basis: auto;
+  }
+
+  .mat-toolbar-single-row {
+    padding: 0;
+  }
+
+}
+
+@media (max-width: 50rem) {
+
+  #logo {
+    width: 20vw;
+  }
+
+  #menu {
+    width: 55vw;
+  }
+
+}
+
+@media (max-width: 44.0625rem) {
+
+  #logo {
+    width: 25vw;
+  }
+
+  #toolbar-logo,
+  #toolbar-logo>img {
+    width: 18vw;
+  }
+
+  #menu {
+    width: 45vw;
+  }
+
+}
+
+@media (max-width: 33.125rem) {
+
+
+  #menu {
+    width: 43vw;
+  }
+
+}
+
+@media (max-width: 23.75rem) {
+  #menu {
+    width: 40vw;
+  }
+}

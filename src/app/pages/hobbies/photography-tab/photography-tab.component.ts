@@ -4,11 +4,12 @@ import {
   Gallery,
   GalleryConfig,
   GalleryItem,
+  GalleryModule,
   GalleryRef,
   ImageItem,
 } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
-import { delay, forkJoin, retry } from 'rxjs';
+import { combineLatestAll, concatMap, delay, forkJoin, map, mergeAll, mergeMap, retry } from 'rxjs';
 import {
   CloudinaryApiResponse,
   Resource,
@@ -19,10 +20,11 @@ import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-g
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-photography-tab',
+  selector: 'jzp-photography-tab',
   templateUrl: './photography-tab.component.html',
   styleUrls: ['./photography-tab.component.scss'],
   imports: [
+    GalleryModule,
     LightboxModule,
     MatCardModule,
     LoadingOverlayComponent,
@@ -48,6 +50,9 @@ export class PhotographyTabComponent implements OnInit {
 
   ngOnInit() {
     this.setUpPhotographyImagesCloudinary();
+
+    // const cloudinary = this.imageService.cloudinaryInstance;
+
   }
 
   // private async setUpPhotographyImages() {
@@ -137,18 +142,26 @@ export class PhotographyTabComponent implements OnInit {
         this.imageService.getHuxleyImageInfo(),
         this.imageService.getMyImageInfo(),
         this.imageService.getRandomImageInfo(),
-        this.imageService.getHuxleyImageInfo(
-          'b1dedb8209018c137c353dd56b2163f02420708bfc533b0fec3ea6fe485acf1c215f3cd8c537aaac8703d074727d6b17',
-        ),
-        this.imageService.getMyImageInfo(
-          'c965a9061e4b4ba4653adf1671fa1ddbbe808af029bdbff3578c2bb9aede519eaf73f4d9d16d56ca1c8e230dd7431003',
-        ),
-        this.imageService.getRandomImageInfo(
-          '9c43258dc88234010af7a25ad66ea603c492e7c0f4e7388a91577edc043abfc7deaee8e8a130981de163f5f71f77b48f',
-        ),
+        // this.imageService.getHuxleyImageInfo(
+        //   'b1dedb8209018c137c353dd56b2163f02420708bfc533b0fec3ea6fe485acf1c215f3cd8c537aaac8703d074727d6b17',
+        // ),
+        // this.imageService.getMyImageInfo(
+        //   'c965a9061e4b4ba4653adf1671fa1ddbbe808af029bdbff3578c2bb9aede519eaf73f4d9d16d56ca1c8e230dd7431003',
+        // ),
+        // this.imageService.getRandomImageInfo(
+        //   '9c43258dc88234010af7a25ad66ea603c492e7c0f4e7388a91577edc043abfc7deaee8e8a130981de163f5f71f77b48f',
+        // ),
       ])
-        .pipe(delay(2000), retry(3))
+        .pipe(delay(2000), retry(3), concatMap(res => {
+          const x = res.map(origRes => origRes.next_cursor);
+          return forkJoin([
+            this.imageService.getHuxleyImageInfo(x[0]),
+            this.imageService.getMyImageInfo(x[1]),
+            this.imageService.getRandomImageInfo(x[2]),
+          ])
+        }))
         .subscribe((imageResults) => {
+          console.log(imageResults)
           const galleryRef1 = this.gallery.ref(this.galleryIds[0], config);
           // const galleryRef2 = this.gallery.ref(this.galleryIds[1], config);
           galleryRef1.load(this.setImageArr(imageResults, []));
@@ -173,10 +186,13 @@ export class PhotographyTabComponent implements OnInit {
       if (imageResult) {
         arr.push(
           new ImageItem({
-            src: imageResult.secure_url.replace(/v[\d]*/, 'r_40'),
+            src: imageResult.secure_url.replace(
+              /v[\d]*/,
+              'r_40/w_auto,q_auto,f_auto',
+            ),
             thumb: imageResult.secure_url.replace(
               /v[\d]*/,
-              'r_40/c_thumb,w_100',
+              'r_40/c_auto,g_auto,q_auto,f_auto',
             ),
           }),
         );

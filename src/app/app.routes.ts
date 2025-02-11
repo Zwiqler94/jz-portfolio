@@ -34,18 +34,18 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'home',
+    path: 'blog',
     title: 'Welcome to My Site!',
     loadComponent: () =>
-      import('src/app/pages/home-page/home-page.component').then(
+      import('src/app/pages/blog-page/blog-page.component').then(
         (m) => m.HomePageComponent,
       ),
     canActivate: envAuthGaurd,
   },
   {
-    path: 'aboutme',
+    path: 'home',
     loadComponent: () =>
-      import('./pages/about-me/about-me.component').then(
+      import('src/app/pages/home-page/home-page.component').then(
         (m) => m.AboutMeComponent,
       ),
     canActivate: envAuthGaurd,
@@ -54,31 +54,31 @@ export const routes: Routes = [
         path: 'main',
         title: 'A little bit about moi!',
         loadComponent: () =>
-          import(
-            'src/app/pages/about-me/about-me-main/about-me-main.component'
-          ).then((m) => m.AboutMeMainComponent),
+          import('src/app/pages/home-page/about-me/about-me.component').then(
+            (m) => m.AboutMeMainComponent,
+          ),
       },
       {
         path: 'projects',
         title: 'Project Portfolio',
         loadComponent: () =>
-          import('src/app/pages/about-me/projects/projects.component').then(
+          import('src/app/pages/home-page/projects/projects.component').then(
             (m) => m.ProjectsComponent,
           ),
       },
       {
         path: 'credentials',
-        title: 'Credentials',
+        title: 'My Credentials',
         loadComponent: () =>
           import(
-            'src/app/pages/about-me/credentials/credentials.component'
+            'src/app/pages/home-page/credentials/credentials.component'
           ).then((m) => m.CredentialsComponent),
       },
       {
         path: 'skills',
         title: 'What Can I Do?',
         loadComponent: () =>
-          import('src/app/pages/about-me/skills/skills.component').then(
+          import('src/app/pages/home-page/skills/skills.component').then(
             (m) => m.SkillsComponent,
           ),
       },
@@ -91,7 +91,7 @@ export const routes: Routes = [
         (m) => m.HobbiesComponent,
       ),
     canActivate: envAuthGaurd,
-    // title: 'My Hobbies! 🤪',
+    title: 'My Hobbies! 🤪',
     children: [
       {
         path: 'photos',

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AboutMeMainComponent } from './about-me-main.component';
+import { AboutMeMainComponent } from './about-me.component';
 import { provideRouter } from '@angular/router';
 
 describe('MainComponent', () => {

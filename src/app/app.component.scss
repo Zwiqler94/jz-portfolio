@@ -1,6 +1,7 @@
-$toolbar-height: 8rem;
+@use "../styles.scss" as styles;
+
 $main-view-height: 85vh;
-$sidenav-height: calc($main-view-height - $toolbar-height);
+$sidenav-height: calc($main-view-height - styles.$toolbar-height);
 
 #main-view {
   height: $main-view-height;
@@ -10,29 +11,11 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
   align-items: center;
 }
 
-#button-container {
-  display: flex;
-  flex-direction: row;
-  width: 44vw;
-  justify-content: flex-end;
-  flex-shrink: 1;
-}
-
 #button-container-column {
   display: flex;
   flex-direction: column;
   margin-block-start: 1rem;
   justify-content: center;
-}
-
-#toolbar-logo,
-#toolbar-logo > img {
-  max-inline-size: 100%;
-  margin-inline-start: 0.1vw;
-  margin-block-start: 0.1vh;
-  block-size: auto;
-  border-radius: 10px;
-  width: 15vw;
 }
 
 // mat-sidenav-content {
@@ -44,35 +27,6 @@ $sidenav-height: calc($main-view-height - $toolbar-height);
   // height: 95vh;
 }
 
-mat-toolbar {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  width: 100vw;
-  height: $toolbar-height;
-  flex-basis: auto;
-
-  .mat-toolbar-single-row {
-    padding: 0;
-  }
-}
-
-#menu {
-  margin-left: 4rem;
-  flex-shrink: 3;
-}
-
-#logo {
-  width: 40vw;
-  display: flex;
-  justify-content: flex-start;
-  flex-shrink: 2;
-}
-
-.spacer {
-  width: 0.25rem;
-}
 
 .vert-spacer {
   height: 0.25rem;
@@ -93,78 +47,10 @@ mat-sidenav#side-nav {
   }
 }
 
-#dividy {
-  border-top-color: black;
-  border-top-width: 0.15rem;
-}
-
 #footer-sidenav {
   width: 100vw;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   // height: 3.5rem;
-}
-
-@media (max-width: 1080px) {
-  #button-container {
-    display: none;
-  }
-
-  #menu {
-    width: 50vw;
-    display: flex;
-    justify-content: flex-end;
-    margin-left: 0;
-    flex-shrink: 1;
-  }
-
-  mat-toolbar {
-    width: 100vw;
-    height: 5rem;
-    flex-basis: auto;
-  }
-
-  .mat-toolbar-single-row {
-    padding: 0;
-  }
-
-  // #toolbar-logo,
-  // #toolbar-logo>img {
-  //   height: 5rem;
-  //   width: auto;
-  // }
-
-  // #logo {
-  //   width: 40vw;
-  //   display: flex;
-  //   justify-content: flex-start;
-  //   flex-shrink: 2;
-  // }
-
-  // #button-container-column > button {
-  //   width: 10rem;
-  // }
-
-  #menu {
-    width: 59vw;
-  }
-}
-
-@media (max-width: 820px) {
-  #menu {
-    width: 59vw;
-  }
-}
-
-@media (max-width: 430px) {
-  #menu {
-    width: 58.5vw;
-  }
-}
-
-@media (max-width: 320px) {
-  #menu {
-    width: 57vw;
-  }
 }

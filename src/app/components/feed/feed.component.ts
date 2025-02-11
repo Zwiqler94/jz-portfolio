@@ -18,7 +18,7 @@ import { TextPostComponent } from 'src/app/components/text-post/text-post.compon
 import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
-  selector: 'app-feed',
+  selector: 'jzp-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss'],
   imports: [MatCardModule, NgClass, TextPostComponent, LinkPostComponent],

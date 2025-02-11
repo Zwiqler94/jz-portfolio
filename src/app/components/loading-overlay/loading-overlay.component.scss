@@ -1,10 +1,10 @@
 @use "themes" as themes;
 @use "sass:map";
 
-#loading-wrapper {
-  // margin-inline-start: 50%;
-  // margin-block-start: 50%;
-}
+// #loading-wrapper {
+//   // margin-inline-start: 50%;
+//   // margin-block-start: 50%;
+// }
 
 .lds-ellipsis {
   /* change color here */
@@ -33,12 +33,12 @@
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 
-.lds-ellipsis {
-  // width: 15vw;
-  // max-inline-size: 100vw;
-  // margin-inline-start: 12vw;
-  // margin-block-start: 25vw;
-}
+// .lds-ellipsis {
+//   // width: 15vw;
+//   // max-inline-size: 100vw;
+//   // margin-inline-start: 12vw;
+//   // margin-block-start: 25vw;
+// }
 
 .lds-ellipsis div:nth-child(1) {
   left: 8px;

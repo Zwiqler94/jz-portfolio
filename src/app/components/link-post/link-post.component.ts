@@ -18,7 +18,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
-  selector: 'app-link-post',
+  selector: 'jzp-link-post',
   templateUrl: './link-post.component.html',
   styleUrls: ['./link-post.component.scss'],
   imports: [PostBaseComponent],
@@ -83,7 +83,7 @@ export class LinkPostComponent implements OnInit, OnChanges {
               description: '',
               url: res.uri,
             };
-            console.log('had it', id);
+            // console.log('had it', id);
           });
         }
       }
@@ -92,7 +92,7 @@ export class LinkPostComponent implements OnInit, OnChanges {
 }
 
 // @Component({
-//   selector: 'app-link-post',
+//   selector: 'jzp-link-post',
 //   templateUrl: './link-post.component.html',
 //   styleUrls: ['./link-post.component.scss'],
 //   imports: [MatCardModule],

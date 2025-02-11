@@ -10,7 +10,7 @@ import { ServiceWorkerService } from 'src/app/services/service-worker/service-wo
 import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.component';
 
 @Component({
-  selector: 'app-hobbies',
+  selector: 'jzp-hobbies',
   templateUrl: './hobbies.component.html',
   styleUrls: ['./hobbies.component.scss'],
   imports: [JzTabGroupComponent],

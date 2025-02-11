@@ -1,0 +1,72 @@
+<div class="about-content">
+  <div id="center-about-div">
+    <div class="row">
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>
+            {{ cardTitle1 }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="inner-row">
+            <img class="about-img" [src]="_sideImageH" alt="a pic of me" />
+            <div class="tertiary-container">
+              <p>{{ cardContent1A }}</p>
+              <p>{{ cardContent1B }}</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <div class="spacer"></div>
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>
+            {{ cardTitle2 }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="inner-row">
+            <img class="about-img" [src]="_sideImageD" alt="a pic of me" />
+            <p class="tertiary-container">
+              {{ cardContent2 }}
+            </p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="row">
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>
+            {{ cardTitle3 }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="inner-row">
+            <img class="about-img" [src]="_profileImage" alt="a pic of me" />
+            <p class="tertiary-container">
+              {{ cardContent3 }}
+            </p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <div class="spacer"></div>
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>
+            {{ cardTitle4 }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="inner-row">
+            <img class="about-img" [src]="_sideImageA" alt="a pic of me" />
+            <p class="tertiary-container">
+              {{ cardContent4 }}
+            </p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

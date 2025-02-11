@@ -1,56 +1,68 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { NewPostDialogComponent } from 'src/app/components/new-post-dialog/new-post-dialog.component';
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-underscore-dangle */
+import { Component, inject, input } from '@angular/core';
+import { Router } from '@angular/router';
+import { TabNavModel } from 'src/app/components/models/tab-nav.model';
+import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
-import { environment } from 'src/environments/environment';
-import { FeedComponent } from '../../components/feed/feed.component';
-import { MatButton } from '@angular/material/button';
-import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
-
+import { TabComponent } from 'src/app/components/tab/tab.component';
+import { AboutMeMainComponent } from 'src/app/pages/home-page/about-me/about-me.component';
+import { CredentialsComponent } from 'src/app/pages/home-page/credentials/credentials.component';
+import { ProjectsComponent } from 'src/app/pages/home-page/projects/projects.component';
+import { SkillsComponent } from 'src/app/pages/home-page/skills/skills.component';
 @Component({
-  selector: 'app-home-page',
+  selector: 'jzp-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  imports: [MatButton, FeedComponent],
+  imports: [JzTabGroupComponent],
 })
-export class HomePageComponent implements OnInit {
-  private dialog = inject(MatDialog);
+export class AboutMeComponent extends TabComponent {
+  protected router = inject(Router);
   private auth = inject(AuthService);
-  private cd = inject(ChangeDetectorRef);
-  private lp = inject(LinkPreviewService);
-  triggerFetch: boolean;
+
+  private _tabComponentList: TabNavModel[] = [
+    { component: AboutMeMainComponent, title: 'About Me', link: 'main' },
+    {
+      component: CredentialsComponent,
+      title: 'Credentials',
+      link: 'credentials',
+    },
+    { component: SkillsComponent, title: 'Skills', link: 'skills' },
+    { component: ProjectsComponent, title: 'Projects', link: 'projects' },
+  ];
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
-  constructor() {}
 
-  async ngOnInit(): Promise<void> {
-    this.auth.appCheckToken = (
-      await this.auth.getAppCheckToken('app:oninit')
-    )?.token;
-
-    if (this.auth.appCheckToken) {
-      this.lp
-        .getAPIKey()
-        .then((ob) => ob?.subscribe((key) => (this.lp.apiKey = key.k)));
-    }
-  }
-
-  openNewPostDialog() {
-    const dialogRef = this.dialog.open(NewPostDialogComponent);
-    dialogRef.afterClosed().subscribe((res) => {
-      this.triggerFetch = true;
-    });
-    this.cd.detectChanges();
-  }
-
-  isUserAdmin() {
-    return (
-      this.auth.uid === 'vsKhoiQqEzOQjk699NnCDtdu30Z2' || environment.local
+  constructor() {
+    super();
+    const currentPagePath = location.pathname.split('/').pop();
+    console.log(currentPagePath);
+    const result = this.tabComponentList.filter(
+      (tabItem) => tabItem.link === currentPagePath,
     );
+    if (result.length == 0)
+      this.router.navigateByUrl('/home/main', { skipLocationChange: true });
   }
 
-  isLoggedIn() {
-    return this.auth.isLoggedIn;
+  // public get badgeHeight() {
+  //   return this._badgeHeight;
+  // }
+  // public set badgeHeight(value) {
+  //   this._badgeHeight = value;
+  // }
+
+  // public get badgeWidth() {
+  //   return this._badgeWidth;
+  // }
+  // public set badgeWidth(value) {
+  //   this._badgeWidth = value;
+  // }
+
+  public get tabComponentList(): TabNavModel[] {
+    return this._tabComponentList;
+  }
+  public set tabComponentList(value: TabNavModel[]) {
+    this._tabComponentList = value;
   }
 }

@@ -1,11 +1,3 @@
-<div id="main-feed-div">
-  @if (isUserAdmin()) {
-    <div id="create-post-div">
-      <button mat-flat-button color="primary" (click)="openNewPostDialog()">
-        Admin Create Post
-      </button>
-    </div>
-  }
-
-  <app-feed feedLocation="Main" [triggerFetch]="triggerFetch"></app-feed>
+<div id="about-div">
+  <jzp-jz-tab-group [tabComponentList]="tabComponentList"></jzp-jz-tab-group>
 </div>

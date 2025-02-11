@@ -19,6 +19,8 @@ import {
   schema,
   toHTML,
   NgxEditorModule,
+  nodes as basicNodes,
+  marks,
 } from 'ngx-editor';
 import { isMarkActive } from 'ngx-editor/helpers';
 import {
@@ -29,7 +31,7 @@ import {
   Transaction,
 } from 'prosemirror-state';
 import { toggleMark } from 'prosemirror-commands';
-
+import { DOMOutputSpec, NodeSpec, Schema } from 'prosemirror-model';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { EditorView } from 'prosemirror-view';
 import { validColorValidator, NgxColorsModule } from 'ngx-colors';
@@ -49,7 +51,7 @@ import {
 } from 'src/app/components/models/post.model';
 
 @Component({
-  selector: 'app-new-post-dialog',
+  selector: 'jzp-new-post-dialog',
   templateUrl: './new-post-dialog.component.html',
   styleUrls: ['./new-post-dialog.component.scss'],
   imports: [
@@ -80,6 +82,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
 
   editor: Editor;
   html: '';
+  // customToolbar: ToolbarItem;
   toolbar: Toolbar = [
     ['bold', 'italic'],
     ['underline', 'strike'],
@@ -121,6 +124,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     '#bfd4f2',
     '#d4c5f9',
   ];
+
   selectedColor: string = '';
 
   form = new FormGroup({
@@ -143,8 +147,30 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
 
   constructor() {}
 
+  pNode: NodeSpec = {
+    content: 'inline*',
+    group: 'block',
+    parseDOM: [
+      {
+        tag: 'p.post-paragraph',
+      },
+    ],
+    toDOM(node): DOMOutputSpec {
+      return ['p', { class: 'post-paragraph' }, 0];
+    },
+  };
+
+  nodes = Object.assign({}, basicNodes, {
+    p_ext: this.pNode,
+  });
+
+  schema: Schema = new Schema({
+    nodes: this.nodes,
+    marks,
+  });
+
   ngOnInit(): void {
-    this.editor = new Editor();
+    this.editor = new Editor({ schema: this.schema });
 
     this.dialogRef.updateSize('85vw', '80vh');
 
@@ -152,7 +178,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
       console.log(color);
       this.selectedColor = color!;
       this.editor.commands.textColor(this.selectedColor).exec();
-      console.log(this.editor.view);
+      // console.log(this.editor.view);
       this.updateTextColor(this.editor.view, this.editor.view.state);
       this.colors.push(this.selectedColor);
     });
@@ -160,7 +186,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     this.form.get('bgColor')?.valueChanges.subscribe((color) => {
       console.log(color);
       this.editor.commands.backgroundColor(color!).exec();
-      console.log(this.editor.view);
+      // console.log(this.editor.view);
       this.updateBgTextColor(this.editor.view, this.editor.view.state);
       this.colors.push(color!);
     });
@@ -201,6 +227,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     this.form.controls['textColor'].setValue('#000000');
     this.isTextColorActive = false;
   }
+
   clearBgColor() {
     this.editor.commands.removeBackgroundColor();
     this.updateBgTextColor(this.editor.view, this.editor.view.state);
@@ -292,6 +319,9 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
 
     // Convert editor content using toHTML (ensure the correct type is passed)
     const contentToAdd = this.form.get('editorContent');
+
+    console.log({ md: this.schema });
+
     const content = toHTML(contentToAdd?.value as any).replace('\\', '');
 
     // Generate the post payload dynamically

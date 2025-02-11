@@ -2,19 +2,23 @@ import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, OnInit, inject, input, model } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { GalleryItem, GalleryRef, Gallery } from 'ng-gallery';
+import { GalleryItem, GalleryRef, Gallery, GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { ImageService } from 'src/app/services/image/image.service';
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
 
+
+
 @Component({
-  selector: 'app-photo-gallery',
+  selector: 'jzp-photo-gallery',
   imports: [
+    GalleryModule,
     LightboxModule,
     NgOptimizedImage,
     MatCardModule,
     LoadingOverlayComponent,
     MatPaginatorModule,
+
   ],
   templateUrl: './photo-gallery.component.html',
   styleUrl: './photo-gallery.component.scss',

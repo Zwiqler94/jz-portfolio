@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  selector: 'app-carousel',
+  selector: 'jzp-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   imports: [MatCardModule],

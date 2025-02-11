@@ -6,7 +6,7 @@ import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { RouterTestingHarness } from '@angular/router/testing';
-import { HomePageComponent } from 'src/app/pages/home-page/home-page.component';
+import { HomePageComponent } from 'src/app/pages/blog-page/blog-page.component';
 import { Router, RouterStateSnapshot, provideRouter } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';

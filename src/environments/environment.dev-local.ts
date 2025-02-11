@@ -19,14 +19,18 @@ export const environment = {
   production: false,
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
-    useServiceWorker: true,
-    productionServices: false,
+    useServiceWorker: false,
+    productionServices: true,
     url: 'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev',
     postService:
       'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/posts',
     secretService:
       'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/secrets',
+    previewService:
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/previews',
   },
+  cloudinary_key: '769313467736588',
+  cloudinary_secret: '4UVeFwEtMkHVJwQZ9Uqvt-IZNOo',
 };
 
 /*

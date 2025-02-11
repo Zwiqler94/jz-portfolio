@@ -1,47 +1,31 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
-import {
-  ServiceWorkerModule,
-  SwUpdate,
-  VersionReadyEvent,
-} from '@angular/service-worker';
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { FooterComponent } from './components/footer/footer.component';
-import {
-  MatSidenavContainer,
-  MatSidenav,
-  MatSidenavContent,
-} from '@angular/material/sidenav';
-import { MatDivider } from '@angular/material/divider';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton, MatMiniFabButton } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { MatToolbar } from '@angular/material/toolbar';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { AppCheck } from '@angular/fire/app-check';
-import { NgOptimizedImage } from '@angular/common';
-import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 import { Auth } from '@angular/fire/auth';
+import { NavBarComponent } from 'src/app/components/nav-bar/nav-bar.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'jzp-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   imports: [
-    MatToolbar,
     RouterLink,
     RouterLinkActive,
     MatButton,
-    MatMiniFabButton,
     MatIcon,
-    MatDivider,
-    MatSidenavContainer,
-    MatSidenav,
-    MatSidenavContent,
+    MatSidenavModule,
     RouterOutlet,
     FooterComponent,
-    NgOptimizedImage,
+    NavBarComponent,
   ],
 })
 export class AppComponent implements OnInit {

@@ -5,6 +5,7 @@ import {
   CloudinaryApiResponse,
   Resource,
 } from 'src/app/interfaces/cloudinary-search.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -67,7 +68,7 @@ export class ImageService {
   // }
 
   formatForCloudinaryProvider(imageUrl: string) {
-    console.log(imageUrl)
+    console.log(imageUrl);
     return imageUrl.replace(
       /https:\/\/res.cloudinary.com\/dhdioy0wn\/image\/upload/,
       '',

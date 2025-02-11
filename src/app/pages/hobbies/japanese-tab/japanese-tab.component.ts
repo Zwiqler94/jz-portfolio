@@ -13,7 +13,7 @@ import { LoadingOverlayComponent } from '../../../components/loading-overlay/loa
 import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-gallery.component';
 
 @Component({
-  selector: 'app-japanese-tab',
+  selector: 'jzp-japanese-tab',
   templateUrl: './japanese-tab.component.html',
   styleUrls: ['./japanese-tab.component.scss'],
   imports: [

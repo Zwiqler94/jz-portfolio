@@ -18,7 +18,7 @@ import { MatTabNav, MatTabLink, MatTabNavPanel } from '@angular/material/tabs';
 import { TabComponent } from 'src/app/components/tab/tab.component';
 
 @Component({
-  selector: 'app-jz-tab-group',
+  selector: 'jzp-jz-tab-group',
   templateUrl: './jz-tab-group.component.html',
   styleUrls: ['./jz-tab-group.component.scss'],
   imports: [

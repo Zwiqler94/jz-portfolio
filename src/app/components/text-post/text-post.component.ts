@@ -6,9 +6,10 @@ import { PostType, TextPost } from 'src/app/components/models/post.model';
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 
 import { MatCardModule } from '@angular/material/card';
+import { HTML } from 'ngx-editor/lib/trustedTypesUtil';
 
 @Component({
-  selector: 'app-text-post',
+  selector: 'jzp-text-post',
   templateUrl: './text-post.component.html',
   styleUrls: ['./text-post.component.scss'],
   imports: [MatCardModule, PostBaseComponent],
@@ -24,14 +25,15 @@ export class TextPostComponent implements OnInit {
   sanitzedContent: SafeHtml;
 
   ngOnInit(): void {
-    this.sanitzedContent = this.sanitizer.bypassSecurityTrustHtml(
-      this.content(),
-    );
+    const contentWithClass = this.content();
+
+    this.sanitzedContent =
+      this.sanitizer.bypassSecurityTrustHtml(contentWithClass);
   }
 }
 
 // @Component({
-//   selector: 'app-text-post',
+//   selector: 'jzp-text-post',
 //   templateUrl: './text-post.component.html',
 //   styleUrls: ['./text-post.component.scss'],
 //   imports: [MatCardModule],

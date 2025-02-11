@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 
 @Component({
-  selector: 'app-tab',
+  selector: 'jzp-tab',
   imports: [],
   templateUrl: './tab.component.html',
   styleUrl: './tab.component.scss',

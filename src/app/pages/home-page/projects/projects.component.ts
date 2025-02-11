@@ -2,14 +2,12 @@ import {
   Component,
   HostListener,
   inject,
-  input,
-  model,
   signal,
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MatCardModule } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {
@@ -21,13 +19,13 @@ import {
 import { TabComponent } from 'src/app/components/tab/tab.component';
 
 @Component({
-  selector: 'app-projects',
+  selector: 'jzp-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
   imports: [
     CdkDrag,
     CdkDragHandle,
-    MatIcon,
+    MatIconModule,
     MatCardModule,
     MatSnackBarModule,
     UsernameGeneratorComponent,

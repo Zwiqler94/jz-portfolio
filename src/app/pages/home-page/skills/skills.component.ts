@@ -1,14 +1,11 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
-
-import { MatChipSet, MatChip } from '@angular/material/chips';
+import {  MatChipsModule } from '@angular/material/chips';
 import {
   MatAccordion,
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle,
+  MatExpansionModule,
 } from '@angular/material/expansion';
-import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { TabComponent } from 'src/app/components/tab/tab.component';
 
 interface SkillModel {
@@ -17,18 +14,14 @@ interface SkillModel {
 }
 
 @Component({
-  selector: 'app-skills',
+  selector: 'jzp-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
   imports: [
-    MatCard,
-    MatCardContent,
+    MatCardModule,
     MatAccordion,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    MatChipSet,
-    MatChip,
+    MatExpansionModule,
+    MatChipsModule,
   ],
 })
 export class SkillsComponent extends TabComponent {

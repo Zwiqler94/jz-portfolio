@@ -8,25 +8,24 @@ import {
 } from '@angular/forms';
 import { catchError } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { MatInput } from '@angular/material/input';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatCardModule, MatCardContent } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
-  selector: 'app-contact-me',
+  selector: 'jzp-contact-me',
   templateUrl: './contact-me.component.html',
   styleUrls: ['./contact-me.component.scss'],
   imports: [
     MatCardModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatButton,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     MatIcon,
   ],
 })
