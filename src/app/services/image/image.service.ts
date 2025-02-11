@@ -70,7 +70,7 @@ export class ImageService {
   formatForCloudinaryProvider(imageUrl: string) {
     console.log(imageUrl);
     return imageUrl.replace(
-      /https:\/\/res.cloudinary.com\/dhdioy0wn\/image\/upload/,
+      /https:\/\/res\.cloudinary\.com\/dhdioy0wn\/image\/upload/,
       '',
     );
   }
