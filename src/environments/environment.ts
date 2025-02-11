@@ -14,7 +14,7 @@ export const environment = {
     appId: '1:518070660509:web:9d2511d1a027342457d374',
     measurementId: 'G-CNT03XSD81',
   },
-  local: false,
+  local: true,
   nasaAPIKey: 'vnfZmI8NbIb44DmpbbSAvlMhFz7Ipnyc1tq6xNLb',
   production: true,
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
@@ -29,6 +29,8 @@ export const environment = {
     previewService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/previews',
   },
+  cloudinary_key: '769313467736588',
+  cloudinary_secret: '4UVeFwEtMkHVJwQZ9Uqvt-IZNOo',
 };
 
 /*
