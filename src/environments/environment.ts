@@ -29,7 +29,6 @@ export const environment = {
     previewService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/previews',
   },
-
 };
 
 /*
