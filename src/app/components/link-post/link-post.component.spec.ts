@@ -53,7 +53,7 @@ xdescribe('LinkPostComponent', () => {
 
   xit('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.type).toBe('LinkPost');
+    expect(component.type()).toBe('LinkPost');
   });
 
   xit('should return a link preview obj', async () => {
@@ -82,7 +82,7 @@ xdescribe('LinkPostComponent', () => {
 
     await component.getLinkPreview();
 
-    expect(component.title).toBe(MissingLinkPreviewData.title);
-    expect(component.content).toBe(MissingLinkPreviewData.description);
+    expect(component.title()).toBe(MissingLinkPreviewData.title);
+    expect(component.content()).toBe(MissingLinkPreviewData.description);
   });
 });

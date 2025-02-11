@@ -1,29 +1,71 @@
 @use "@angular/material" as mat;
-@use "themes" as themes;
+@use "./style_vars/75_theme-colors" as themes;
 
+@include mat.elevation-classes();
+@include mat.app-background();
 @include mat.core();
-
-// @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-// @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 @import "@angular/cdk/overlay-prebuilt.css";
 
+$my-typ: (
+  plain-family: "Quicksand",
+  brand-family: "Quicksand",
+);
+
+$toolbar-height: 8rem;
+
+$themey-light: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: themes.$primary-palette,
+      tertiary: themes.$tertiary-palette,
+    ),
+    typography: $my-typ,
+  )
+);
+
+$themey-dark: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: themes.$primary-palette,
+      tertiary: themes.$tertiary-palette,
+    ),
+    typography: $my-typ,
+  )
+);
+
+html {
+  @supports (color: light-dark(#002f48, #e5f1ff)) {
+    color-scheme: light dark;
+    @include mat.theme(
+      (
+        color: (
+          primary: themes.$primary-palette,
+          tertiary: themes.$tertiary-palette,
+        ),
+        density: 0,
+        typography: $my-typ,
+      )
+    );
+  }
+
+  @supports not (color: light-dark(#002f48, #e5f1ff)) {
+    @include mat.core-theme($themey-dark);
+    @include mat.all-component-themes($themey-dark);
+
+    @media (prefers-color-scheme: light) {
+      @include mat.core-color($themey-light);
+      @include mat.all-component-colors($themey-light);
+    }
+  }
+
+  @include mat.typography-hierarchy($themey-light);
+}
+
 body {
-  margin: 0;
-  font-family:
-    "Quicksand",
-    // "Libre Franklin",
-    // Roboto,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Oxygen,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 }
 
 img {
@@ -31,43 +73,6 @@ img {
   block-size: auto;
   border-radius: 10px;
 }
-
-// Define a dark theme
-$dark-theme: mat.m2-define-dark-theme(
-  (
-    color: (
-      primary:
-        mat.m2-define-palette(themes.$md-A-1-primary, 400, 200, 600, A400),
-      accent:
-        mat.m2-define-palette(themes.$md-A-1-secondary, 400, 200, 600, A400),
-      warn:
-        mat.m2-define-palette(themes.$md-A-1-analagous1, 300, 200, 500, A400),
-    ),
-    // Only include `typography` and `density` in the default dark theme.
-    typography:
-      mat.m2-define-typography-config(
-        $font-family: "Quicksand",
-      ),
-    density: 0,
-  )
-);
-
-// Define a light theme
-$light-theme: mat.m2-define-light-theme(
-  (
-    color: (
-      primary:
-        mat.m2-define-palette(themes.$md-A-1-primary, 800, 600, 900, A100),
-      accent:
-        mat.m2-define-palette(themes.$md-A-1-secondary, 700, 500, 900, A100),
-      warn:
-        mat.m2-define-palette(themes.$md-A-1-analagous1, 500, 300, 700, A100),
-    ),
-  )
-);
-
-// Apply the dark theme by default
-@include mat.all-component-themes($dark-theme);
 
 #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
   background-color: black;
@@ -81,11 +86,10 @@ div.NgxEditor.NgxEditor {
   border-radius: 0px 0px 8px 8px;
 }
 
-// Apply the light theme only when the user prefers light themes.
 @media (prefers-color-scheme: light) {
   // Use the `-color` mixins to only apply color styles without reapplying the same
   // typography and density styles.
-  @include mat.all-component-colors($light-theme);
+  // @include mat.all-component-colors($light-theme);
 
   #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
     background-color: orange;
@@ -200,5 +204,160 @@ div#post-content#post-content#post-content p img {
 @media (max-width: 375px) {
   div#post-content#post-content#post-content p img {
     width: 81vw;
+  }
+}
+
+.title-small {
+  font: var(--mat-sys-title-large);
+}
+
+.title-medium {
+  font: var(--mat-sys-title-medium);
+}
+
+.title-large {
+  font: var(--mat-sys-title-large);
+}
+
+.display-small {
+  font: var(--mat-sys-display-large);
+}
+
+.display-medium {
+  font: var(--mat-sys-display-medium);
+}
+
+.display-large {
+  font: var(--mat-sys-display-large);
+}
+
+.tertiary-container {
+  background-color: var(--mat-sys-tertiary-container);
+  border-radius: var(--mat-sys-corner-large);
+  padding: 1rem;
+}
+
+#dividy {
+  border-top-color: black;
+  border-top-width: 0.15rem;
+}
+
+#nav-button-container {
+  display: flex;
+  flex-direction: row;
+  width: 44vw;
+  justify-content: flex-end;
+  flex-shrink: 1;
+}
+
+#toolbar-logo,
+#toolbar-logo > img {
+  max-inline-size: 100%;
+  margin-inline-start: 0.1vw;
+  margin-block-start: 0.1vh;
+  block-size: auto;
+  border-radius: 10px;
+  width: 6vw;
+}
+
+mat-toolbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100vw;
+  height: $toolbar-height;
+  flex-basis: auto;
+
+  .mat-toolbar-single-row {
+    padding: 0;
+  }
+}
+
+#logo {
+  width: 40vw;
+  display: flex;
+  justify-content: flex-start;
+  flex-shrink: 2;
+}
+
+.spacer {
+  width: 0.25rem;
+}
+
+@media (max-width: 90rem) {
+  #toolbar-logo,
+  #toolbar-logo > img {
+    width: 8vw;
+  }
+}
+
+@media (max-width: 67.5rem) {
+  #logo {
+    width: 30vw;
+  }
+
+  #nav-button-container {
+    display: none;
+  }
+
+  #toolbar-logo,
+  #toolbar-logo > img {
+    width: 10.5vw;
+  }
+
+  #menu {
+    width: 58vw;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 0;
+    flex-shrink: 1;
+  }
+
+  mat-toolbar {
+    width: 100vw;
+    height: 5rem;
+    flex-basis: auto;
+  }
+
+  .mat-toolbar-single-row {
+    padding: 0;
+  }
+}
+
+@media (max-width: 50rem) {
+  #logo {
+    width: 20vw;
+  }
+
+  #menu {
+    width: 55vw;
+  }
+}
+
+@media (max-width: 44.0625rem) {
+  #logo {
+    width: 25vw;
+  }
+
+  #toolbar-logo,
+  #toolbar-logo > img {
+    width: 18vw;
+  }
+
+  #menu {
+    width: 45vw;
+  }
+}
+
+@media (max-width: 33.125rem) {
+  #menu {
+    width: 43vw;
+  }
+}
+
+@media (max-width: 23.75rem) {
+  #menu {
+    width: 40vw;
   }
 }

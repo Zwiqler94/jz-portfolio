@@ -1,4 +1,5 @@
-@use "themes";
+@use "../../../style_vars/75_theme-colors.scss" as themes;
+@use "sass:map";
 
 .feed-div-v {
   display: flex;
@@ -15,5 +16,5 @@
 }
 
 #under-construction {
-  background-color: map-get(themes.$md-A-1-analagous1, 500);
+  background-color: map.get(map.get(themes.$primary-palette, error), 35);
 }

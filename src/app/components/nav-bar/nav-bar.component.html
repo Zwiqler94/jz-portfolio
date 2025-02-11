@@ -1,0 +1,74 @@
+<mat-toolbar color="accent">
+  <div id="logo">
+    <a routerLink="/home" id="toolbar-logo" routerLinkActive="active">
+      <img
+        ngSrc="JLZ-banner.avif"
+        alt="site logo"
+        height="128"
+        width="256"
+        sizes="30vw"
+        fetchpriority="high"
+        priority
+      />
+    </a>
+  </div>
+  <div id="nav-button-container">
+    <button
+      color="primary"
+      mat-flat-button
+      routerLink="/home"
+      routerLinkActive="active"
+    >
+      Home
+    </button>
+    <div class="spacer"></div>
+    <button
+      color="primary"
+      mat-flat-button
+      routerLink="/blog"
+      routerLinkActive="active"
+    >
+      Blog
+    </button>
+    <div class="spacer"></div>
+    <button
+      color="primary"
+      mat-flat-button
+      routerLink="/hobbies"
+      routerLinkActive="active"
+    >
+      Hobbies
+    </button>
+    <div class="spacer"></div>
+    <!-- <button
+      color="primary"
+      mat-flat-button
+      routerLink="/news"
+      routerLinkActive="active"
+    >
+      News
+    </button> -->
+    <div class="spacer"></div>
+    <!-- <button
+      color="primary"
+      mat-flat-button
+      routerLink="/socials"
+      routerLinkActive="active"
+    >
+      Socials
+    </button>
+    <div class="spacer"></div> -->
+    <button mat-flat-button color="warn" (click)="logoutFn()">LOGOUT!</button>
+  </div>
+  <div id="menu">
+    <button
+      mat-mini-fab
+      type="button"
+      color="primary"
+      (click)="drawer().toggle()"
+    >
+      <mat-icon> menu </mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<mat-divider id="dividy"></mat-divider>

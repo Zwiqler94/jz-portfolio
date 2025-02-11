@@ -1,3 +1,5 @@
+@use "../../../style_vars/v6_m3-theme.scss" as themes;
+
 #post-div {
   display: flex;
   justify-content: center;
@@ -7,6 +9,17 @@
 #post-content {
   width: fit-content;
   padding: 0.5rem;
+}
+
+div.content-div {
+  margin-inline: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#post-p {
+  justify-content: flex-start;
 }
 
 /*  The following rule targets internal classes of card that may no longer apply for the MDC version. */

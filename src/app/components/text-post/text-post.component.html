@@ -1,20 +1,10 @@
-<div id="post-div">
-  <mat-card appearance="outlined" class="mat-elevation-z1">
-    <mat-card-header>
-      <!-- <mat-card-title> {{ title }} </mat-card-title> -->
-      <mat-card-title-group>
-        <mat-card-title>
-          {{ title }}
-        </mat-card-title>
-        @if (subTitle) {
-          <mat-card-subtitle>
-            {{ subTitle }}
-          </mat-card-subtitle>
-        }
-      </mat-card-title-group>
-    </mat-card-header>
-    <mat-card-content>
-      <div id="post-content" [innerHTML]="content"></div>
-    </mat-card-content>
-  </mat-card>
-</div>
+<jzp-post-base
+  [type]="type()"
+  [title]="title_or_uri()"
+  [content]="content()"
+  [location]="'TextPost'"
+  [created_at]="created_at()"
+  [updated_at]="updated_at()"
+>
+  <div class="content-div" [innerHTML]="sanitzedContent"></div>
+</jzp-post-base>

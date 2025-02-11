@@ -19,6 +19,8 @@ import {
   schema,
   toHTML,
   NgxEditorModule,
+  nodes as basicNodes,
+  marks,
 } from 'ngx-editor';
 import { isMarkActive } from 'ngx-editor/helpers';
 import {
@@ -29,7 +31,7 @@ import {
   Transaction,
 } from 'prosemirror-state';
 import { toggleMark } from 'prosemirror-commands';
-
+import { DOMOutputSpec, NodeSpec, Schema } from 'prosemirror-model';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { EditorView } from 'prosemirror-view';
 import { validColorValidator, NgxColorsModule } from 'ngx-colors';
@@ -41,12 +43,17 @@ import { MatInput } from '@angular/material/input';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
+import {
+  PostType,
+  PostBase,
+  AnyPost,
+  AnyPostResponse,
+} from 'src/app/components/models/post.model';
 
 @Component({
-  selector: 'app-new-post-dialog',
+  selector: 'jzp-new-post-dialog',
   templateUrl: './new-post-dialog.component.html',
   styleUrls: ['./new-post-dialog.component.scss'],
-  standalone: true,
   imports: [
     MatDialogTitle,
     MatDialogContent,
@@ -75,6 +82,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
 
   editor: Editor;
   html: '';
+  // customToolbar: ToolbarItem;
   toolbar: Toolbar = [
     ['bold', 'italic'],
     ['underline', 'strike'],
@@ -116,6 +124,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     '#bfd4f2',
     '#d4c5f9',
   ];
+
   selectedColor: string = '';
 
   form = new FormGroup({
@@ -138,8 +147,30 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
 
   constructor() {}
 
+  pNode: NodeSpec = {
+    content: 'inline*',
+    group: 'block',
+    parseDOM: [
+      {
+        tag: 'p.post-paragraph',
+      },
+    ],
+    toDOM(node): DOMOutputSpec {
+      return ['p', { class: 'post-paragraph' }, 0];
+    },
+  };
+
+  nodes = Object.assign({}, basicNodes, {
+    p_ext: this.pNode,
+  });
+
+  schema: Schema = new Schema({
+    nodes: this.nodes,
+    marks,
+  });
+
   ngOnInit(): void {
-    this.editor = new Editor();
+    this.editor = new Editor({ schema: this.schema });
 
     this.dialogRef.updateSize('85vw', '80vh');
 
@@ -147,7 +178,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
       console.log(color);
       this.selectedColor = color!;
       this.editor.commands.textColor(this.selectedColor).exec();
-      console.log(this.editor.view);
+      // console.log(this.editor.view);
       this.updateTextColor(this.editor.view, this.editor.view.state);
       this.colors.push(this.selectedColor);
     });
@@ -155,7 +186,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     this.form.get('bgColor')?.valueChanges.subscribe((color) => {
       console.log(color);
       this.editor.commands.backgroundColor(color!).exec();
-      console.log(this.editor.view);
+      // console.log(this.editor.view);
       this.updateBgTextColor(this.editor.view, this.editor.view.state);
       this.colors.push(color!);
     });
@@ -196,6 +227,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     this.form.controls['textColor'].setValue('#000000');
     this.isTextColorActive = false;
   }
+
   clearBgColor() {
     this.editor.commands.removeBackgroundColor();
     this.updateBgTextColor(this.editor.view, this.editor.view.state);
@@ -266,28 +298,86 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
 
   createPost() {
     console.log('post');
-    const title = this.form.get('title')?.value;
-    const location = this.form.get('feedLocation')?.value;
-    const postType = this.form.get('postType')?.value;
-    this.dbService
-      .createPost({
-        location: location ? location : 'Main',
-        type: postType ? postType : 'text',
+
+    // Safely extract form values with fallbacks
+    const title = this.form.get('title')?.value ?? '';
+    const location = this.form.get('feedLocation')?.value ?? 'Main';
+    const editorContent = this.form.get('editorContent')?.value ?? '';
+    const postType = this.form.get('postType')?.value ?? 'text';
+
+    // Map form value to PostType enum
+    const mappedPostType =
+      postType === 'text'
+        ? PostType.TextPost
+        : postType === 'link'
+          ? PostType.LinkPost
+          : postType === 'image'
+            ? PostType.ImagePost
+            : postType === 'video'
+              ? PostType.VideoPost
+              : PostType.TextPost;
+
+    // Convert editor content using toHTML (ensure the correct type is passed)
+    const contentToAdd = this.form.get('editorContent');
+
+    console.log({ md: this.schema });
+
+    const content = toHTML(contentToAdd?.value as any).replace('\\', '');
+
+    // Generate the post payload dynamically
+    let postPayload: AnyPost;
+
+    if (mappedPostType === PostType.TextPost) {
+      postPayload = {
+        id: 0,
+        type: PostType.TextPost,
+        title_or_uri: title,
+        content,
+        location,
         status: 'pending',
-        title: title ? title : '',
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-        content: toHTML(this.form.get('editorContent')?.value!).replace(
-          '\\',
-          '',
-        ),
-      })
-      .subscribe({
-        next: (val) => console.debug(val),
-        error: (err) => {
-          console.error(err);
-          this.snack.open('Failed To Post, Try Again...', 'X');
-        },
-        complete: () => this.dialogRef.close('Cancel'),
-      });
+      };
+    } else if (mappedPostType === PostType.LinkPost) {
+      postPayload = {
+        id: 0,
+        type: PostType.LinkPost,
+        title_or_uri: title,
+        content,
+        location,
+        status: 'pending',
+        image_uri: undefined,
+      };
+    } else if (mappedPostType === PostType.ImagePost) {
+      postPayload = {
+        id: 0,
+        type: PostType.ImagePost,
+        image: this.form.get('image')?.value ?? '',
+        content,
+        location,
+        title_or_uri: 'empty',
+        status: 'pending',
+      };
+    } else if (mappedPostType === PostType.VideoPost) {
+      postPayload = {
+        id: 0,
+        type: PostType.VideoPost,
+        video: this.form.get('video')?.value ?? '',
+        content,
+        location,
+        title_or_uri: 'empty',
+        status: 'pending',
+      };
+    } else {
+      throw new Error('Unsupported post type');
+    }
+
+    // Call the database service
+    this.dbService.createPost(postPayload).subscribe({
+      next: (val) => console.debug(val),
+      error: (err) => {
+        console.error(err);
+        this.snack.open('Failed To Post, Try Again...', 'X');
+      },
+      complete: () => this.dialogRef.close('Cancel'),
+    });
   }
 }

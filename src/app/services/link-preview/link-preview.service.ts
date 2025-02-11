@@ -7,10 +7,11 @@ import {
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { catchError, delay, lastValueFrom, throwError } from 'rxjs';
+import { catchError, delay, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LinkPreview } from 'src/app/components/models/post.model';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { AppCheck } from '@angular/fire/app-check';
 
 interface SecretResponse {
   k: string;
@@ -20,24 +21,29 @@ interface SecretResponse {
   providedIn: 'root',
 })
 export class LinkPreviewService {
-  private httpClient = inject(HttpClient);
+  private appCheck = inject(AppCheck);
   private authService = inject(AuthService);
+
+  private httpClient = inject(HttpClient);
 
   // private _appCheck: AppCheck;
   private baseUrl = 'https://api.linkpreview.net/';
   private _apiKey!: string;
+  public get apiKey(): string {
+    return this._apiKey;
+  }
+  public set apiKey(value: string) {
+    this._apiKey = value;
+  }
 
   /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
+  // constructor(...args: unknown[]){}
   // private params: HttpParams = new HttpParams().set('key', this.apiKey);
   // headers: HttpHeaders = new HttpHeaders();
 
-  constructor() {
-    // this.appCheck = appCheck;
-    if (environment.local && typeof environment.appCheckDebug === 'string') {
-      console.debug('In DEBUG MODE');
-    }
-  }
+  // constructor() {
+  //   this.getAPIKey().then(ob=>ob?.subscribe(key=>this._apiKey = key.k))
+  // }
 
   // ‰
 
@@ -63,61 +69,71 @@ export class LinkPreviewService {
   //   this._apiKey = value;
   // }
 
-  async hasAppCheckToken() {
-    if (this.authService.appCheckToken) return true;
-    else if (!this.authService.appCheckToken) {
-      try {
-        this.authService.appCheckToken = (
-          await this.authService.getAppCheckToken('linkprev:getTok')
-        )?.token;
-        return true;
-      } catch (err) {
-        console.error(err);
-        throw new Error(JSON.stringify(err));
-      }
-    } else return false;
-  }
+  // async hasAppCheckToken() {
+  //   if (this.authService.appCheckToken) return true;
+  //   else if (!this.authService.appCheckToken) {
+  //     try {
+  //       this.authService.appCheckToken = (
+  //         await this.authService.getAppCheckToken('linkprev:getTok')
+  //       )?.token;
+  //       return true;
+  //     } catch (err) {
+  //       console.error(err);
+  //       throw new Error(JSON.stringify(err));
+  //     }
+  //   } else return false;
+  // }
 
-  getAPIKey() {
-    const params = new HttpParams();
-    const headers = new HttpHeaders();
+  async getAPIKey() {
     try {
-      headers.set('X-Firebase-AppCheck', this.authService.appCheckToken!);
-      params.set('prod', environment.production);
-      let secretsUrl = environment.serviceOptions.secretService;
-      secretsUrl += '/link-previews';
-      console.debug(headers.get('X-Firebase-AppCheck'));
-      return this.httpClient
-        .get<SecretResponse>(secretsUrl, {
-          params,
-          headers,
-        })
-        .pipe(delay(50000), catchError(this.handleError));
+      if (this.authService.appCheckToken) {
+        const headers = new HttpHeaders().append(
+          'X-Firebase-AppCheck',
+          this.authService.appCheckToken,
+        );
+        const params = new HttpParams().append(
+          'prod',
+          String(environment.production),
+        );
+        let secretsUrl = environment.serviceOptions.secretService;
+        secretsUrl += '/link-previews';
+        return this.httpClient
+          .get<SecretResponse>(secretsUrl, {
+            params,
+            headers,
+          })
+          .pipe(delay(2500), catchError(this.handleError));
+      }
+      console.error('meep');
+      throw Error('meep');
     } catch (err) {
       console.debug(err);
       return;
     }
   }
 
-  async getLinkPreview(url: string) {
+  getLinkPreview(url: string) {
     try {
-      const hasAppCheckToken = await this.hasAppCheckToken();
-      let params = new HttpParams();
-      let headers = new HttpHeaders();
-      if (hasAppCheckToken) {
-        headers = headers.set(
+      if (this.authService.appCheckToken) {
+        const headers = new HttpHeaders().append(
           'X-Firebase-AppCheck',
-          this.authService.appCheckToken!,
+          this.authService.appCheckToken,
         );
-        const apiKey = (await lastValueFrom(this.getAPIKey()!)).k;
 
-        params = params.set('key', apiKey).set('q', url);
-        return this.httpClient
-          .get<LinkPreview>(this.baseUrl, {
-            params,
-            headers,
-          })
-          .pipe(delay(30000), catchError(this.handleError));
+        if (this._apiKey) {
+          const params = new HttpParams()
+            .append('key', this._apiKey)
+            .append('q', url);
+          return this.httpClient
+            .get<LinkPreview>(this.baseUrl, {
+              params,
+              headers,
+            })
+            .pipe(delay(15000), catchError(this.handleError));
+        } else {
+          console.debug('API Key Error');
+          throw new Error('API Key Error');
+        }
       } else {
         console.debug('Token Error');
         throw new Error('Token Error');

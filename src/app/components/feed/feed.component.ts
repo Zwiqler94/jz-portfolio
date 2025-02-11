@@ -1,212 +1,81 @@
-/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+import { NgClass } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-  AfterViewInit,
+  model,
   inject,
+  input,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
-import { Post } from '../models/post.model';
-import { DatabaseService } from 'src/app/services/database/database.service';
-import { Observable } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
-import { LinkPostComponent } from '../link-post/link-post.component';
-import { TextPostComponent } from '../text-post/text-post.component';
-import { NgClass, AsyncPipe } from '@angular/common';
+import { LinkPostComponent } from 'src/app/components/link-post/link-post.component';
+import {
+  AnyPost,
+  AnyPostResponse,
+  PostBase,
+} from 'src/app/components/models/post.model';
+import { TextPostComponent } from 'src/app/components/text-post/text-post.component';
+import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
-  selector: 'app-feed',
+  selector: 'jzp-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss'],
-  standalone: true,
-  imports: [
-    NgClass,
-    TextPostComponent,
-    LinkPostComponent,
-    MatCardModule,
-    AsyncPipe,
-  ],
+  imports: [MatCardModule, NgClass, TextPostComponent, LinkPostComponent],
 })
-export class FeedComponent implements OnChanges, AfterViewInit {
-  private changeDetector = inject(ChangeDetectorRef);
-  dbService = inject(DatabaseService);
+export class FeedComponent {
+  readonly posts = model<AnyPost[]>([]);
+  readonly triggerFetch = input<boolean>();
 
-  @Input() direction: 'H' | 'V' = 'V';
-  @Input() feedLocation: string = 'Main';
-  // @ViewChild('posts', { read: ViewContainerRef })
-  // postTemplate: ViewContainerRef;
-  // componentRef: ComponentRef<PostBaseComponent>;
-  posts$: Observable<Post[]>;
-  @Input() shouldFetchPosts: boolean = false;
-  @Output() shouldFetchPostsChange: EventEmitter<boolean> =
-    new EventEmitter<boolean>(false);
+  private databaseService = inject(DatabaseService);
+  authService: any;
+  lp: any;
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
-
-  async ngOnChanges(changes: SimpleChanges) {
-    if (changes['shouldFetchPosts']) {
-      if (this.shouldFetchPosts) {
-        // this.posts$ = await this.dbService.getMainPosts();
-
-        // this.shouldFetchPosts = !this.shouldFetchPosts;
-        // this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
-
-        // console.table(this.posts$);
-        await this.ngAfterViewInit();
-      }
-
-      // this.changeDetector.detectChanges();
-    }
+  constructor() {
+    this.databaseService.getMainPosts().subscribe({
+      next: (data) => {
+        const sortedData = data.toSorted(this.sortPosts);
+        const mappedData = sortedData.map((post) => {
+          post.title_or_uri = ['TextPost', 'text'].includes(post.type)
+            ? post.title
+            : post.uri;
+          return post;
+        });
+        this.posts.set(mappedData);
+      },
+      error: (err) => console.error('Failed to fetch posts:', err),
+    });
   }
 
-  async ngAfterViewInit() {
-    console.info(this.dbService.appCheck);
-    this.posts$ = await this.dbService.getMainPosts();
-    this.shouldFetchPosts = !this.shouldFetchPosts;
-    this.shouldFetchPostsChange.emit(this.shouldFetchPosts);
-    // this.changeDetector.detectChanges();
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   // this.databaseService.getMainPosts().subscribe({
+  //   //   next: (data) => {
+  //   //     const sortedData = data.sort((a, b) =>
+  //   //       a.id > b.id ? -1 : a.id < b.id ? 1 : 0,
+  //   //     );
+  //   //     this.posts.set(sortedData);
+  //   //   },
+  //   //   error: (err) => console.error('Failed to lastest posts:', err),
+  //   // });
+  // }
+
+  // clear() {
+  //   this.posts.set([]);
+  // }
+
+  sortPosts(a: AnyPostResponse, b: AnyPostResponse) {
+    return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
   }
 
-  // ngAfterViewInit(): void {
-  //   // this.feedSwitchv2(this.feedLocation);
-  //   // this.changeDetector.detectChanges();
-  // }
-
-  // feedSwitch(feedSwitch: string): void {
-  //   if (feedSwitch === 'Main') {
-  //     for (const post of staticTextPosts) {
-  //       if (post.postType === 'text' && post.feedLocation === 'Main') {
-  //         this.generateTextPost(post);
-  //       } else if (post.postType === 'link' && post.feedLocation === 'Main') {
-  //         this.generateLinkPost(post);
-  //       }
-  //     }
-  //   } else if (feedSwitch === 'Puppy') {
-  //     for (const post of staticTextPosts) {
-  //       if (post.postType === 'text' && post.feedLocation === 'Puppy') {
-  //         this.generateTextPost(post);
-  //       }
-  //     }
-  //   }
-  // }
-
-  // async feedSwitchv2(feedSwitch: string) {
-  //   const postLimit = 10;
-  //   let posts: Post[] = [];
-  //   feedSwitch = feedSwitch.toLowerCase();
-  //   switch (feedSwitch) {
-  //     case 'main':
-  //       this.dbService.mainPosts.subscribe({
-  //         next: (posts) => {
-  //           from(posts).forEach((post) => {
-  //             this.generatePost(post);
-  //           });
-  //         },
-  //         error: (error) => console.debug(error),
-  //       });
-  //       break;
-  // case 'puppy':
-  //   posts = await lastValueFrom(this.dbService.puppyPosts);
-  //   posts.forEach((post) => {
-  //     setTimeout(() => {
-  //       this.generatePost(post);
-  //     }, 20000);
-  //   });
-  //   break;
-  // case 'articles':
-  //   posts = await lastValueFrom(this.dbService.articlePosts);
-  //   posts.forEach((post) => {
-  //     setTimeout(() => {
-  //       this.generatePost(post);
-  //     }, 30000);
-  //   });
-  //   break;
-  // case 'apple':
-  //   posts = await lastValueFrom(this.dbService.applePosts);
-  //   posts.forEach((post) => {
-  //     setTimeout(() => {
-  //       this.generatePost(post);
-  //     }, 40000);
-  //   });
-  //   break;
-  // case 'anime':
-  //   posts = await lastValueFrom(this.dbService.animePosts);
-  //   posts.forEach((post) => {
-  //     this.generatePost(post);
-  //   });
-  //   break;
-  // case 'blockchain':
-  //   posts = await lastValueFrom(this.dbService.blockchainPosts);
-  //   posts.forEach((post) => {
-  //     this.generatePost(post);
-  //   });
-  //   break;
-  // // case 'about':
-  //   posts = []; // await lastValueFrom(this.dbService.blockchainPosts);
-  //   posts.forEach((post) => {
-  //     this.generatePost(post);
-  //   });
-
-  // else if (feedSwitch === 'Social') {
-  //   posts = await lastValueFrom(this.dbService.social);
-  //   posts.forEach((post) => {
-  //     if (post.type === 'text') {
-  //       this.generateTextPost(post);
-  //     } else if (post.type === 'link') {
-  //       this.generateLinkPost(post);
-  //     }
-  //   });
-  // }
-
-  // else if (feedSwitch === 'Projects') {
-  //   posts: Post[] = await lastValueFrom(this.dbService.projects);
-  //   posts.forEach((post) => {
-  //     if (post.type === 'text') {
-  //       this.generateTextPost(post);
-  //     } else if (post.type === 'link') {
-  //       this.generateLinkPost(post);
-  //     }
-  //   });
-  // }}
-  //   }
-  // }
-
-  // generatePost(post: Post) {
-  //   switch (post.type) {
-  //     case 'ImagePost':
-  //     case 'VideoPost':
-  //     case 'link':
-  //     case 'LinkPost':
-  //       this.componentRef =
-  //         this.postTemplate.createComponent(LinkPostComponent);
-  //       this.componentRef.instance.title = post.title;
-  //       this.componentRef.instance.content = post.content;
-  //       console.debug(post.content);
-  //       break;
-  //     case 'text':
-  //     case 'TextPost':
-  //       this.componentRef =
-  //         this.postTemplate.createComponent(TextPostComponent);
-  //       this.componentRef.instance.title = post.title;
-  //       this.componentRef.instance.content = post.content;
-  //       console.debug(post.content);
-  //       break;
-  //   }
-  // }
-
-  public get isHorizontal() {
-    return this.direction === 'H' ? true : false;
+  isTextPost(post: PostBase): boolean {
+    return post.type === 'TextPost';
   }
 
-  public get isVertical() {
-    return this.direction === 'V' ? true : false;
+  isLinkPost(post: PostBase): boolean {
+    return post.type === 'LinkPost';
+  }
+
+  trackByPostId(index: number, post: PostBase): number {
+    return post.id; // Assuming `id` exists on PostBase
   }
 }

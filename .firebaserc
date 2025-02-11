@@ -2,7 +2,8 @@
   "projects": {
     "default": "jlz-portfolio",
     "dev": "jlz-portfolio",
-    "prod": "jlz-portfolio"
+    "prod": "jlz-portfolio",
+    "local": "jlz-portfolio"
   },
   "targets": {
     "jlz-portfolio": {

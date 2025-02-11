@@ -1,0 +1,136 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "build:local:watch",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "build:local",
+      "detail": "npm run build:local -- --watch"
+    },
+    {
+      "type": "npm",
+      "script": "start:local",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "start:local",
+      "detail": "http-server --gzip --brotli --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local"
+    },
+    {
+      "type": "npm",
+      "script": "build:dev-local:watch",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "build:dev-local",
+      "detail": "npm run build:local -- --watch"
+    },
+    {
+      "type": "npm",
+      "script": "start:dev-local",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "start:dev-local",
+      "detail": "http-server --gzip --brotli --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local"
+    },
+    {
+      "type": "npm",
+      "script": "build:dev:watch",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "build:dev",
+      "detail": "npm run build:local -- --watch"
+    },
+    {
+      "type": "npm",
+      "script": "start:dev",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "start:dev",
+      "detail": "http-server --gzip --brotli --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local"
+    },
+    {
+      "type": "npm",
+      "script": "build:prod:watch",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "build:dev",
+      "detail": "npm run build:local -- --watch"
+    },
+    {
+      "type": "npm",
+      "script": "start:prod",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "start:dev",
+      "detail": "http-server --gzip --brotli --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local"
+    },
+    {
+      "type": "npm",
+      "script": "build",
+      "path": "functions",
+      "problemMatcher": [],
+      "label": "build:functions",
+      "detail": "npm run build"
+    },
+    {
+      "type": "npm",
+      "script": "serve",
+      "path": "functions",
+      "problemMatcher": [],
+      "label": "serve:functions",
+      "detail": "npm run build && firebase emulators:start --only auth,functions"
+    },
+    {
+      "label": "local",
+      "dependsOn": [
+        "build:local",
+        "start:local",
+        "serve:functions"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "local:build:func",
+      "dependsOn": [
+        "build:local",
+        "start:local",
+        "build:functions",
+        "serve:functions"
+      ],
+      "group": {
+        "kind": "build",
+      }
+    },
+    {
+      "label": "dev",
+      "dependsOn": [
+        "build:dev",
+        "start:dev",
+        "serve:functions"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "dev-local",
+      "dependsOn": [
+        "build:dev-local",
+        "start:dev-local",
+        "serve:functions"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "prod",
+      "dependsOn": [
+        "build:prod",
+        "start:prod",
+        "serve:functions"
+      ],
+      "group": "build"
+    }
+  ]
+}

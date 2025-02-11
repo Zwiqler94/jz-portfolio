@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ErrorPageComponent } from './error-page.component';
 import { Router, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
-import { HomePageComponent } from 'src/app/pages/home-page/home-page.component';
+import { HomePageComponent } from 'src/app/pages/blog-page/blog-page.component';
 import { importProvidersFrom } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
