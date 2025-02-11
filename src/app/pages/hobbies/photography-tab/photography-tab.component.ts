@@ -9,7 +9,16 @@ import {
   ImageItem,
 } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
-import { combineLatestAll, concatMap, delay, forkJoin, map, mergeAll, mergeMap, retry } from 'rxjs';
+import {
+  combineLatestAll,
+  concatMap,
+  delay,
+  forkJoin,
+  map,
+  mergeAll,
+  mergeMap,
+  retry,
+} from 'rxjs';
 import {
   CloudinaryApiResponse,
   Resource,
@@ -52,7 +61,6 @@ export class PhotographyTabComponent implements OnInit {
     this.setUpPhotographyImagesCloudinary();
 
     // const cloudinary = this.imageService.cloudinaryInstance;
-
   }
 
   // private async setUpPhotographyImages() {
@@ -152,16 +160,20 @@ export class PhotographyTabComponent implements OnInit {
         //   '9c43258dc88234010af7a25ad66ea603c492e7c0f4e7388a91577edc043abfc7deaee8e8a130981de163f5f71f77b48f',
         // ),
       ])
-        .pipe(delay(2000), retry(3), concatMap(res => {
-          const x = res.map(origRes => origRes.next_cursor);
-          return forkJoin([
-            this.imageService.getHuxleyImageInfo(x[0]),
-            this.imageService.getMyImageInfo(x[1]),
-            this.imageService.getRandomImageInfo(x[2]),
-          ])
-        }))
+        .pipe(
+          delay(2000),
+          retry(3),
+          concatMap((res) => {
+            const x = res.map((origRes) => origRes.next_cursor);
+            return forkJoin([
+              this.imageService.getHuxleyImageInfo(x[0]),
+              this.imageService.getMyImageInfo(x[1]),
+              this.imageService.getRandomImageInfo(x[2]),
+            ]);
+          }),
+        )
         .subscribe((imageResults) => {
-          console.log(imageResults)
+          console.log(imageResults);
           const galleryRef1 = this.gallery.ref(this.galleryIds[0], config);
           // const galleryRef2 = this.gallery.ref(this.galleryIds[1], config);
           galleryRef1.load(this.setImageArr(imageResults, []));

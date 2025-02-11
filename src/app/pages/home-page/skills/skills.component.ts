@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import {  MatChipsModule } from '@angular/material/chips';
-import {
-  MatAccordion,
-  MatExpansionModule,
-} from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { TabComponent } from 'src/app/components/tab/tab.component';
 
@@ -17,12 +14,7 @@ interface SkillModel {
   selector: 'jzp-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
-  imports: [
-    MatCardModule,
-    MatAccordion,
-    MatExpansionModule,
-    MatChipsModule,
-  ],
+  imports: [MatCardModule, MatAccordion, MatExpansionModule, MatChipsModule],
 })
 export class SkillsComponent extends TabComponent {
   private _skillList: SkillModel[];

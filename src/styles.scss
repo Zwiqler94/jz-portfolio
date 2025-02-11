@@ -13,33 +13,44 @@ $my-typ: (
 
 $toolbar-height: 8rem;
 
-$themey-light: mat.define-theme((color: (theme-type: light,
-        primary: themes.$primary-palette,
-        tertiary: themes.$tertiary-palette,
-      ),
-      typography: $my-typ,
-    ));
+$themey-light: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: themes.$primary-palette,
+      tertiary: themes.$tertiary-palette,
+    ),
+    typography: $my-typ,
+  )
+);
 
-$themey-dark: mat.define-theme((color: (theme-type: dark,
-        primary: themes.$primary-palette,
-        tertiary: themes.$tertiary-palette,
-      ),
-      typography: $my-typ,
-    ));
+$themey-dark: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: themes.$primary-palette,
+      tertiary: themes.$tertiary-palette,
+    ),
+    typography: $my-typ,
+  )
+);
 
 html {
-  @supports(color: light-dark(#002f48, #e5f1ff)) {
+  @supports (color: light-dark(#002f48, #e5f1ff)) {
     color-scheme: light dark;
-    @include mat.theme((color: (primary: themes.$primary-palette,
+    @include mat.theme(
+      (
+        color: (
+          primary: themes.$primary-palette,
           tertiary: themes.$tertiary-palette,
         ),
         density: 0,
         typography: $my-typ,
-      ));
+      )
+    );
   }
 
   @supports not (color: light-dark(#002f48, #e5f1ff)) {
-
     @include mat.core-theme($themey-dark);
     @include mat.all-component-themes($themey-dark);
 
@@ -63,7 +74,7 @@ img {
   border-radius: 10px;
 }
 
-#editor>ngx-editor-menu>div.NgxEditor__MenuBar {
+#editor > ngx-editor-menu > div.NgxEditor__MenuBar {
   background-color: black;
 }
 
@@ -80,7 +91,7 @@ div.NgxEditor.NgxEditor {
   // typography and density styles.
   // @include mat.all-component-colors($light-theme);
 
-  #editor>ngx-editor-menu>div.NgxEditor__MenuBar {
+  #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
     background-color: orange;
   }
 }
@@ -98,7 +109,7 @@ div.NgxEditor.NgxEditor {
   white-space: normal;
 }
 
-#editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+#editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
   height: 350px;
 }
 
@@ -119,21 +130,25 @@ div#post-content#post-content#post-content p img {
 }
 
 @media (min-height: 1024px) {
-  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
+  div.cdk-overlay-container
+    div.cdk-global-overlay-wrapper
+    div.cdk-overlay-pane {
     height: 70vh !important;
   }
 }
 
 @media (min-height: 1266px) {
-  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
+  div.cdk-overlay-container
+    div.cdk-global-overlay-wrapper
+    div.cdk-overlay-pane {
     height: 75vh !important;
   }
 }
@@ -236,7 +251,7 @@ div#post-content#post-content#post-content p img {
 }
 
 #toolbar-logo,
-#toolbar-logo>img {
+#toolbar-logo > img {
   max-inline-size: 100%;
   margin-inline-start: 0.1vw;
   margin-block-start: 0.1vh;
@@ -271,15 +286,13 @@ mat-toolbar {
 }
 
 @media (max-width: 90rem) {
-
   #toolbar-logo,
-  #toolbar-logo>img {
+  #toolbar-logo > img {
     width: 8vw;
   }
 }
 
 @media (max-width: 67.5rem) {
-
   #logo {
     width: 30vw;
   }
@@ -289,7 +302,7 @@ mat-toolbar {
   }
 
   #toolbar-logo,
-  #toolbar-logo>img {
+  #toolbar-logo > img {
     width: 10.5vw;
   }
 
@@ -310,11 +323,9 @@ mat-toolbar {
   .mat-toolbar-single-row {
     padding: 0;
   }
-
 }
 
 @media (max-width: 50rem) {
-
   #logo {
     width: 20vw;
   }
@@ -322,33 +333,27 @@ mat-toolbar {
   #menu {
     width: 55vw;
   }
-
 }
 
 @media (max-width: 44.0625rem) {
-
   #logo {
     width: 25vw;
   }
 
   #toolbar-logo,
-  #toolbar-logo>img {
+  #toolbar-logo > img {
     width: 18vw;
   }
 
   #menu {
     width: 45vw;
   }
-
 }
 
 @media (max-width: 33.125rem) {
-
-
   #menu {
     width: 43vw;
   }
-
 }
 
 @media (max-width: 23.75rem) {

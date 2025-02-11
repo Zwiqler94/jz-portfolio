@@ -42,8 +42,17 @@ import {
   withComponentInputBinding,
   withPreloading,
 } from '@angular/router';
-import { Gallery, GALLERY_CONFIG, GalleryConfig, GalleryModule } from 'ng-gallery';
-import { LIGHTBOX_CONFIG, LightboxConfig, LightboxModule } from 'ng-gallery/lightbox';
+import {
+  Gallery,
+  GALLERY_CONFIG,
+  GalleryConfig,
+  GalleryModule,
+} from 'ng-gallery';
+import {
+  LIGHTBOX_CONFIG,
+  LightboxConfig,
+  LightboxModule,
+} from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
@@ -113,7 +122,7 @@ bootstrapApplication(AppComponent, {
       MatDialogModule,
       NgxColorsModule,
       GalleryModule,
-      LightboxModule
+      LightboxModule,
     ),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAppCheck(() =>

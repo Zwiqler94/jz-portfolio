@@ -4,18 +4,14 @@ import { SafeHtml } from '@angular/platform-browser';
 import credInfo from 'src/assets/credentials/msft_credentials.json';
 import { credentials } from 'src/assets/credentials/credly_credentials';
 import { Credly } from 'src/app/interfaces/credentials/credly/credly.interface';
-import {
-  MatCardModule
-} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { TabComponent } from 'src/app/components/tab/tab.component';
 
 @Component({
   selector: 'jzp-credentials',
   templateUrl: './credentials.component.html',
   styleUrls: ['./credentials.component.scss'],
-  imports: [
-    MatCardModule
-  ],
+  imports: [MatCardModule],
 })
 export class CredentialsComponent extends TabComponent implements OnInit {
   private renderer2 = inject(Renderer2);

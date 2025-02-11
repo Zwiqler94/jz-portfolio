@@ -1,9 +1,4 @@
-import {
-  Component,
-  HostListener,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MatCardModule } from '@angular/material/card';

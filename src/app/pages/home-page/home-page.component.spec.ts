@@ -8,7 +8,6 @@ import { CredentialsComponent } from 'src/app/pages/home-page/credentials/creden
 import { ProjectsComponent } from 'src/app/pages/home-page/projects/projects.component';
 import { SkillsComponent } from 'src/app/pages/home-page/skills/skills.component';
 
-
 xdescribe('AboutMeComponent', () => {
   let component: AboutMeComponent;
   let fixture: ComponentFixture<AboutMeComponent>;

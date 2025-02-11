@@ -4,7 +4,7 @@ img#profile-image {
   border-radius: 0.25rem;
 }
 
-div#center-about-div>.mat-mdc-card {
+div#center-about-div > .mat-mdc-card {
   padding: 0.25rem;
   // width: 35rem;
   // height: 88rem;
@@ -83,7 +83,7 @@ div#center-about-div>.mat-mdc-card {
 //   height: 17.15rem;
 // }
 
-#center-about-div>.row>.mat-mdc-card:not(:last-child) {
+#center-about-div > .row > .mat-mdc-card:not(:last-child) {
   margin-right: 1rem;
 }
 
@@ -117,9 +117,7 @@ div#center-about-div>.mat-mdc-card {
   }
 
   .mat-mdc-card {
-
     max-width: 80vw;
-
   }
 }
 
@@ -140,7 +138,7 @@ div#center-about-div>.mat-mdc-card {
 }
 
 @media (max-width: 870px) {
-  div#center-about-div>.mat-mdc-card {
+  div#center-about-div > .mat-mdc-card {
     margin: 0 5rem 2rem 5rem;
     max-width: 24rem;
     max-height: 80rem;
@@ -148,22 +146,22 @@ div#center-about-div>.mat-mdc-card {
 }
 
 @media (max-width: 550px) {
-  div#center-about-div>.mat-mdc-card {
+  div#center-about-div > .mat-mdc-card {
     max-width: 24rem;
   }
 }
 
 @media (max-width: 430px) {
-  div#center-about-div>.mat-mdc-card {
+  div#center-about-div > .mat-mdc-card {
     max-height: 85rem;
   }
-  .inner-row{
+  .inner-row {
     flex-direction: column;
   }
 }
 
 @media (max-width: 390px) {
-  div#center-about-div>.mat-mdc-card {
+  div#center-about-div > .mat-mdc-card {
     max-width: 21rem;
     max-height: 70rem;
   }
@@ -179,7 +177,7 @@ div#center-about-div>.mat-mdc-card {
 }
 
 @media (max-width: 320px) {
-  div#center-about-div>.mat-mdc-card {
+  div#center-about-div > .mat-mdc-card {
     max-width: 19rem;
   }
 

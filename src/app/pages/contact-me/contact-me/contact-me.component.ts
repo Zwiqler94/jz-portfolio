@@ -10,7 +10,11 @@ import { catchError } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatInput, MatInputModule } from '@angular/material/input';
-import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import {
+  MatFormField,
+  MatFormFieldModule,
+  MatLabel,
+} from '@angular/material/form-field';
 import { MatCardModule, MatCardContent } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatabaseService } from 'src/app/services/database/database.service';
