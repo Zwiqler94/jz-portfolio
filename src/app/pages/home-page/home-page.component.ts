@@ -1,74 +1,68 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
-import { VersionReadyEvent } from '@angular/service-worker';
-import { filter } from 'rxjs';
-import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
-import { MatDialog } from '@angular/material/dialog';
-import { NewPostDialogComponent } from 'src/app/components/new-post-dialog/new-post-dialog.component';
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-underscore-dangle */
+import { Component, inject, input } from '@angular/core';
+import { Router } from '@angular/router';
+import { TabNavModel } from 'src/app/components/models/tab-nav.model';
+import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
-import { environment } from 'src/environments/environment';
-import { FeedComponent } from '../../components/feed/feed.component';
-import { MatButton } from '@angular/material/button';
-
+import { TabComponent } from 'src/app/components/tab/tab.component';
+import { AboutMeMainComponent } from 'src/app/pages/home-page/about-me/about-me.component';
+import { CredentialsComponent } from 'src/app/pages/home-page/credentials/credentials.component';
+import { ProjectsComponent } from 'src/app/pages/home-page/projects/projects.component';
+import { SkillsComponent } from 'src/app/pages/home-page/skills/skills.component';
 @Component({
-  selector: 'app-home-page',
+  selector: 'jzp-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  standalone: true,
-  imports: [MatButton, FeedComponent],
+  imports: [JzTabGroupComponent],
 })
-export class HomePageComponent implements OnInit {
-  private snack = inject(MatSnackBar);
-  private sw = inject(ServiceWorkerService);
-  private dialog = inject(MatDialog);
+export class AboutMeComponent extends TabComponent {
+  protected router = inject(Router);
   private auth = inject(AuthService);
-  private cd = inject(ChangeDetectorRef);
 
-  shouldFetchPosts = false;
+  private _tabComponentList: TabNavModel[] = [
+    { component: AboutMeMainComponent, title: 'About Me', link: 'main' },
+    {
+      component: CredentialsComponent,
+      title: 'Credentials',
+      link: 'credentials',
+    },
+    { component: SkillsComponent, title: 'Skills', link: 'skills' },
+    { component: ProjectsComponent, title: 'Projects', link: 'projects' },
+  ];
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
 
-  constructor() {}
-
-  ngOnInit() {
-    this.sw.swUpdates.versionUpdates
-      .pipe(
-        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
-      )
-      .subscribe((x) => {
-        if (x) {
-          const d = this.snack.open(
-            'New App Version Detected, Update?',
-            'Yup!',
-          );
-          d.afterDismissed().subscribe((f: MatSnackBarDismiss) => {
-            console.debug(f.dismissedByAction);
-            while (!f.dismissedByAction) {
-              this.snack.open('Hurry up and update!', 'UPDATE!');
-            }
-            document.location.reload();
-          });
-        }
-      });
-    // this.shouldFetchPosts = !this.shouldFetchPosts;
-  }
-
-  openNewPostDialog() {
-    const dialogRef = this.dialog.open(NewPostDialogComponent);
-    dialogRef.afterClosed().subscribe((res) => {
-      this.shouldFetchPosts = true;
-    });
-    this.cd.detectChanges();
-  }
-
-  isUserAdmin() {
-    return (
-      this.auth.uid === 'vsKhoiQqEzOQjk699NnCDtdu30Z2' || environment.local
+  constructor() {
+    super();
+    const currentPagePath = location.pathname.split('/').pop();
+    console.log(currentPagePath);
+    const result = this.tabComponentList.filter(
+      (tabItem) => tabItem.link === currentPagePath,
     );
+    if (result.length == 0)
+      this.router.navigateByUrl('/home/main', { skipLocationChange: true });
   }
 
-  isLoggedIn() {
-    return this.auth.isLoggedIn;
+  // public get badgeHeight() {
+  //   return this._badgeHeight;
+  // }
+  // public set badgeHeight(value) {
+  //   this._badgeHeight = value;
+  // }
+
+  // public get badgeWidth() {
+  //   return this._badgeWidth;
+  // }
+  // public set badgeWidth(value) {
+  //   this._badgeWidth = value;
+  // }
+
+  public get tabComponentList(): TabNavModel[] {
+    return this._tabComponentList;
+  }
+  public set tabComponentList(value: TabNavModel[]) {
+    this._tabComponentList = value;
   }
 }

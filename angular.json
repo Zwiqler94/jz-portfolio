@@ -5,7 +5,7 @@
     "analytics": false,
     "packageManager": "npm",
     "schematicCollections": ["@angular-eslint/schematics"],
-    "cache": {"environment": "all"}
+    "cache": { "environment": "all" }
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -16,7 +16,8 @@
           "configurations": {
             "production": {
               "outputPath": {
-                "base": "dist/jz-portfolio"
+                "base": "dist/jz-portfolio",
+                "browser": ""
               },
               "index": {
                 "input": "src/index.prod.html",
@@ -29,9 +30,9 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "bundles",
+              "outputHashing": "all",
               "sourceMap": false,
-              "namedChunks": true,
+              "namedChunks": false,
               "extractLicenses": true,
               "budgets": [
                 {
@@ -42,7 +43,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "10mb"
                 }
               ],
               "aot": true,
@@ -52,7 +53,8 @@
             },
             "development": {
               "outputPath": {
-                "base": "dist/jz-portfolio-dev"
+                "base": "dist/jz-portfolio-dev",
+                "browser": ""
               },
               "index": {
                 "input": "src/index.html",
@@ -71,7 +73,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "5kb",
-                  "maximumError": "10kb"
+                  "maximumError": "10mb"
                 }
               ],
               "aot": true,
@@ -95,10 +97,10 @@
                   "with": "src/environments/environment.dev-local.ts"
                 }
               ],
-              "optimization": false,
-              "outputHashing": "all",
+              "optimization": true,
+              "outputHashing": "bundles",
               "sourceMap": true,
-              "namedChunks": true,
+              "namedChunks": false,
               "budgets": [
                 {
                   "type": "initial",
@@ -128,13 +130,13 @@
                 "output": "index.html"
               },
               "optimization": false,
-              "outputHashing": "all",
+              "outputHashing": "bundles",
               "sourceMap": true,
               "namedChunks": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "10mb",
+                  "maximumWarning": "10kb",
                   "maximumError": "15mb"
                 },
                 {
@@ -281,7 +283,7 @@
           }
         }
       },
-      "prefix": "app",
+      "prefix": "jzp",
       "projectType": "application",
       "root": "",
       "schematics": {

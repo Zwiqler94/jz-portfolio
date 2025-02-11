@@ -1,79 +1,6 @@
-<mat-toolbar color="accent">
-  <div id="logo">
-    <a routerLink="/home" id="toolbar-logo" routerLinkActive="active">
-      <img
-        ngSrc="JLZ-banner.avif"
-        alt="site logo"
-        height="128"
-        width="256"
-        sizes="30vw"
-        fetchpriority="high"
-        priority
-      />
-    </a>
-  </div>
-  <div id="button-container">
-    <button
-      color="primary"
-      mat-flat-button
-      routerLink="/home"
-      routerLinkActive="active"
-    >
-      Home
-    </button>
-    <div class="spacer"></div>
-    <button
-      color="primary"
-      mat-flat-button
-      routerLink="/aboutme"
-      routerLinkActive="active"
-    >
-      About Me
-    </button>
-    <div class="spacer"></div>
-    <button
-      color="primary"
-      mat-flat-button
-      routerLink="/hobbies"
-      routerLinkActive="active"
-    >
-      Hobbies
-    </button>
-    <div class="spacer"></div>
-    <button
-      color="primary"
-      mat-flat-button
-      routerLink="/news"
-      routerLinkActive="active"
-    >
-      News
-    </button>
-    <div class="spacer"></div>
-    <button
-      color="primary"
-      mat-flat-button
-      routerLink="/socials"
-      routerLinkActive="active"
-    >
-      Socials
-    </button>
-    <div class="spacer"></div>
-    <button mat-flat-button color="warn" (click)="logout()">LOGOUT!</button>
-  </div>
-  <div id="menu">
-    <button
-      mat-mini-fab
-      type="button"
-      color="primary"
-      (click)="drawer.toggle()"
-    >
-      <mat-icon> menu </mat-icon>
-    </button>
-  </div>
-</mat-toolbar>
-<mat-divider id="dividy"></mat-divider>
+<jzp-nav-bar [drawer]="drawer" [logoutFn]="logout"></jzp-nav-bar>
 <mat-sidenav-container>
-  <mat-sidenav #drawer mode="over" position="end">
+  <mat-sidenav id="side-nav" #drawer mode="over" position="end">
     <div id="button-container-column">
       <button
         color="primary"
@@ -84,19 +11,19 @@
         (click)="drawer.toggle()"
       >
         <mat-icon>house</mat-icon>
-        <p>Home</p>
+        Home
       </button>
       <div class="vert-spacer"></div>
       <button
         color="primary"
         mat-flat-button
-        routerLink="/aboutme"
+        routerLink="/blog"
         routerLinkActive="active"
         extended
         (click)="drawer.toggle()"
       >
         <mat-icon>person</mat-icon>
-        <p>About Me</p>
+        Blog
       </button>
       <div class="vert-spacer"></div>
       <button
@@ -108,10 +35,10 @@
         (click)="drawer.toggle()"
       >
         <mat-icon>sports_handball</mat-icon>
-        <p>Hobbies</p>
+        Hobbies
       </button>
       <div class="vert-spacer"></div>
-      <button
+      <!-- <button
         color="primary"
         mat-flat-button
         routerLink="/news"
@@ -121,9 +48,9 @@
       >
         <mat-icon>newspaper</mat-icon>
         <p>News</p>
-      </button>
-      <div class="vert-spacer"></div>
-      <button
+      </button> -->
+      <!-- <div class="vert-spacer"></div> -->
+      <!-- <button
         color="primary"
         mat-flat-button
         routerLink="/socials"
@@ -134,7 +61,7 @@
         <mat-icon>groups</mat-icon>
         <p>Socials</p>
       </button>
-      <div class="vert-spacer"></div>
+      <div class="vert-spacer"></div> -->
       <button
         color="primary"
         mat-flat-button
@@ -143,7 +70,7 @@
         (click)="drawer.toggle()"
       >
         <mat-icon>contact_mail</mat-icon>
-        <p>Contact Me</p>
+        Contact Me
       </button>
       <div class="vert-spacer"></div>
       <div class="vert-spacer"></div>
@@ -155,7 +82,7 @@
         (click)="drawer.toggle()"
       >
         <mat-icon>logout</mat-icon>
-        <p>LOGOUT!</p>
+        LOGOUT!
       </button>
     </div>
   </mat-sidenav>
@@ -166,4 +93,4 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<app-footer id="footer-sidenav"></app-footer>
+<jzp-footer id="footer-sidenav"></jzp-footer>

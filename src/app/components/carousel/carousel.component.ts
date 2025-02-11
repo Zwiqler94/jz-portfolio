@@ -1,15 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  selector: 'app-carousel',
+  selector: 'jzp-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
-  standalone: true,
   imports: [MatCardModule],
 })
 export class CarouselComponent {
-  @Input() slides: string[];
+  readonly slides = input<string[]>();
   currentSlideIndex = 0;
   currentSlide: string;
 
@@ -31,10 +30,10 @@ export class CarouselComponent {
     setInterval(() => {
       if (this.slides != null) {
         this.currentSlideIndex =
-          this.currentSlideIndex < this.slides.length - 1
+          this.currentSlideIndex < this.slides().length - 1
             ? this.currentSlideIndex + 1
             : 0;
-        this.currentSlide = this.slides[this.currentSlideIndex];
+        this.currentSlide = this.slides()[this.currentSlideIndex];
       }
     }, seed);
   }
@@ -42,10 +41,10 @@ export class CarouselComponent {
   onNextClick() {
     if (this.slides != null) {
       this.currentSlideIndex =
-        this.currentSlideIndex < this.slides.length - 1
+        this.currentSlideIndex < this.slides().length - 1
           ? this.currentSlideIndex + 1
           : 0;
-      this.currentSlide = this.slides[this.currentSlideIndex];
+      this.currentSlide = this.slides()[this.currentSlideIndex];
     }
   }
 
@@ -53,7 +52,7 @@ export class CarouselComponent {
     if (this.slides != null) {
       this.currentSlideIndex =
         this.currentSlideIndex > 0 ? this.currentSlideIndex - 1 : 15;
-      this.currentSlide = this.slides[this.currentSlideIndex];
+      this.currentSlide = this.slides()[this.currentSlideIndex];
     }
   }
 }

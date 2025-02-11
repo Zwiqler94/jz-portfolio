@@ -1,43 +1,49 @@
-<div [ngClass]="{ 'feed-div-v': isVertical, 'feed-div-h': isHorizontal }">
-  @if (false) {
-    @if (posts$ | async; as posts) {
-      @for (item of posts; track $index) {
-        @switch (item.type) {
-          @case ("TextPost") {
-            <app-text-post [title]="item.title" [content]="item.content">
-            </app-text-post>
-          }
-
-          @case ("text") {
-            <app-text-post [title]="item.title" [content]="item.content">
-            </app-text-post>
-          }
-
-          @case ("LinkPost") {
-            <app-link-post [title]="item.title" [content]="item.content">
-            </app-link-post>
-          }
-
-          @case ("link") {
-            <app-link-post [title]="item.title" [content]="item.content">
-            </app-link-post>
-          }
+<div [ngClass]="{ 'feed-div-v': true }">
+  @if (posts().length > 0) {
+    @for (post of posts(); track post.id) {
+      @switch (post.type) {
+        @case ("TextPost") {
+          <jzp-text-post
+            [title_or_uri]="post.title_or_uri"
+            [content]="post.content"
+            [created_at]="post.created_at"
+            [updated_at]="post.updated_at"
+          ></jzp-text-post>
         }
-      } @empty {
-        @if (true) {
-          <mat-card id="under-construction">
-            <mat-card-header>
-              <h1>UNDER CONSTRUCTION</h1>
-            </mat-card-header>
-          </mat-card>
+        @case ("LinkPost") {
+          <jzp-link-post
+            [id]="post.id"
+            [title_or_uri]="post.title_or_uri"
+            [image_uri]="post.image_uri"
+            [content]="post.content"
+          ></jzp-link-post>
+        }
+        @case ("text") {
+          <jzp-text-post
+            [title_or_uri]="post.title_or_uri"
+            [content]="post.content"
+            [created_at]="post.created_at"
+            [updated_at]="post.updated_at"
+          ></jzp-text-post>
+        }
+        @case ("link") {
+          <jzp-link-post
+            [id]="post.id"
+            [title_or_uri]="post.title_or_uri"
+            [image_uri]="post.image_uri"
+            [content]="post.content"
+          ></jzp-link-post>
+        }
+        @default {
+          <p>Unsupported post type: {{ post.type }}</p>
         }
       }
-    } @else {
-      <mat-card id="under-construction">
-        <mat-card-header>
-          <h1>Loading...</h1>
-        </mat-card-header>
-      </mat-card>
     }
+  } @else {
+    <mat-card class="display" id="under-construction">
+      <mat-card-header>
+        <h1>UNDER CONSTRUCTION</h1>
+      </mat-card-header>
+    </mat-card>
   }
 </div>

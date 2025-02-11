@@ -1,14 +1,9 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { AppCheck, getToken } from '@angular/fire/app-check';
 import { Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { catchError, lastValueFrom, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -66,47 +61,37 @@ export class AuthService {
   async getAppCheckToken(from: string) {
     console.debug({ cal: AuthService.called++, from });
 
-    if (this.isLoggedIn) {
-      if (!environment.local && this.appCheck) {
-        return getToken(this.appCheck);
-      } else {
-        // environment.serviceOptions.ADMIN_USER = await lastValueFrom(this.httpClient.get(`${environment.serviceOptions.secretService}/ADMIN_USER_DEV`)) as string;
-        // environment.serviceOptions.ADMIN_PASS = (await lastValueFrom(
-        //    this.httpClient.get(
-        //      `${environment.serviceOptions.secretService}/ADMIN_PASS_DEV`,
-        //    ),
-        //  )) as string;
+    if (this.fbAuth.currentUser) {
+      // if (!environment.local && this.appCheck) {
+      return getToken(this.appCheck);
+      // } else {
 
-        // const basicAuthBase64 = btoa(
-        //   `${environment.serviceOptions.ADMIN_USER}:${environment.serviceOptions.ADMIN_PASS}`,
-        // );
+      //   try {
+      //     const bearerToken =
 
-        try {
-          const bearerToken = await this.fbAuth.currentUser?.getIdToken();
+      //     const headers = new HttpHeaders().set(
+      //       'Authorization',
+      //       `Bearer ${bearerToken}`,
+      //     );
 
-          const headers = new HttpHeaders().set(
-            'Authorization',
-            `Bearer ${bearerToken}`,
-          );
+      //     const token = await lastValueFrom(
+      //       this.httpClient
+      //         .get<{
+      //           token: string;
+      //         }>(`${environment.serviceOptions.url}/api/v3/auth/token`, {
+      //           headers,
+      //         })
+      //         .pipe(catchError(this.handleError)),
+      //     );
 
-          const token = await lastValueFrom(
-            this.httpClient
-              .get<{
-                token: string;
-              }>(`${environment.serviceOptions.url}/api/v3/auth/token`, {
-                headers,
-              })
-              .pipe(catchError(this.handleError)),
-          );
-
-          return token;
-        } catch (err) {
-          console.error(err);
-          return;
-        }
-      }
-    }
-    return;
+      //     return token;
+      //   } catch (err) {
+      //     console.error(err);
+      //     return;
+      //   }
+      // }
+    } else return;
+    // return;
   }
 
   logout() {

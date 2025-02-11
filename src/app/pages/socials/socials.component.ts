@@ -3,10 +3,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
-  selector: 'app-socials',
+  selector: 'jzp-socials',
   templateUrl: './socials.component.html',
   styleUrls: ['./socials.component.scss'],
-  standalone: true,
 })
 export class SocialsComponent implements OnInit, AfterViewInit {
   instagramScript: unknown;

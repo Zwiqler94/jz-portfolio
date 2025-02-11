@@ -22,7 +22,7 @@ describe('App test', function () {
 
   it('is running', async () => {
     const {page} = getBrowserState();
-    const element = await page.waitForSelector('app-root');
+    const element = await page.waitForSelector('jzp-root');
 
     assert.ok(element);
 

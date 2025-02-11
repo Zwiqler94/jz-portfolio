@@ -1,0 +1,11 @@
+<div id="main-feed-div">
+  @if (isUserAdmin()) {
+    <div id="create-post-div">
+      <button mat-flat-button color="primary" (click)="openNewPostDialog()">
+        Admin Create Post
+      </button>
+    </div>
+  }
+
+  <jzp-feed feedLocation="Main" [triggerFetch]="triggerFetch"></jzp-feed>
+</div>

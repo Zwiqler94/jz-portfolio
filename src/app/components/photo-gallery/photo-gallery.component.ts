@@ -1,21 +1,20 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, input, model } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { GalleryItem, GalleryRef, Gallery } from 'ng-gallery';
+import { GalleryItem, GalleryRef, Gallery, GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { ImageService } from 'src/app/services/image/image.service';
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
 
 @Component({
-  selector: 'app-photo-gallery',
-  standalone: true,
+  selector: 'jzp-photo-gallery',
   imports: [
+    GalleryModule,
     LightboxModule,
     NgOptimizedImage,
     MatCardModule,
     LoadingOverlayComponent,
-    NgClass,
     MatPaginatorModule,
   ],
   templateUrl: './photo-gallery.component.html',
@@ -25,12 +24,12 @@ export class PhotoGalleryComponent implements OnInit {
   private imageService = inject(ImageService);
   gallery = inject(Gallery);
 
-  @Input() galleryIds: string[] = [];
-  @Input() galleryRefs: GalleryRef[] = [];
-  @Input() photoGrids: GalleryItem[][] = [];
+  readonly galleryIds = input<string[]>([]);
+  readonly galleryRefs = input<GalleryRef[]>([]);
+  readonly photoGrids = input<GalleryItem[][]>([]);
   displayGrids: GalleryItem[][] = [];
-  @Input() galleryType: 'LB' | 'GAL' = 'LB';
-  @Input() pageSize: number;
+  readonly galleryType = input<'LB' | 'GAL'>('LB');
+  readonly pageSize = model<number>(10);
   pageIndex: number;
 
   /** Inserted by Angular inject() migration for backwards compatibility */
@@ -39,8 +38,8 @@ export class PhotoGalleryComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.displayGrids = this.photoGrids.map((grid) =>
-      grid.slice(0, this.pageSize),
+    this.displayGrids = this.photoGrids().map((grid) =>
+      grid.slice(0, this.pageSize()),
     );
   }
 
@@ -83,17 +82,17 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent, gridIndex: number) {
-    const { startIdx, endIdx } = this.generateGalleryIndices(event);
-    this.displayGrids[gridIndex] = this.photoGrids[gridIndex].slice(
+    const { startIdx, endIdx } = this.generateGalleryIndexes(event);
+    this.displayGrids[gridIndex] = this.photoGrids()[gridIndex].slice(
       startIdx,
       endIdx,
     );
     this.pageIndex = event.pageIndex;
   }
 
-  generateGalleryIndices(event: PageEvent) {
+  generateGalleryIndexes(event: PageEvent) {
     let startIdx = 0;
-    let endIdx = this.pageSize;
+    let endIdx = this.pageSize();
     if (
       event.previousPageIndex &&
       event.previousPageIndex > event.pageIndex &&
@@ -114,8 +113,8 @@ export class PhotoGalleryComponent implements OnInit {
         : event.pageSize;
       endIdx = event.pageSize * event.pageIndex;
     } else {
-      startIdx = this.pageSize + 1;
-      endIdx = this.pageSize * 2 + 1;
+      startIdx = this.pageSize() + 1;
+      endIdx = this.pageSize() * 2 + 1;
     }
     return { startIdx, endIdx };
   }
