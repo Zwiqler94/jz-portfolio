@@ -39,7 +39,7 @@ jobs:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 20
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.2.0
         with:
           node-version: 20
           cache: "npm"
@@ -105,7 +105,7 @@ jobs:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 20
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.2.0
         with:
           node-version: 20
           cache: "npm"
@@ -164,7 +164,7 @@ jobs:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 20
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.2.0
         with:
           node-version: 20
           cache: "npm"
