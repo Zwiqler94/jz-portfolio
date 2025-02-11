@@ -50,7 +50,7 @@
     "@firebase/util": "^1.10.3",
     "@google-cloud/secret-manager": "^5.6.0",
     "@semantic-release/changelog": "^6.0.3",
-    "@zwiqler94/everything-lib": "file:../Everything App/everything-app/dist/everything-lib",
+    "@zwiqler94/everything-lib": "^0.9.3",
     "cloudinary": "^2.5.1",
     "compression": "^1.8.0",
     "firebase": "^11.3.0",
