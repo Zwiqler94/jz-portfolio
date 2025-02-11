@@ -28,8 +28,8 @@ export const environment = {
     postService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/posts',
   },
-  cloudinary_key: '769313467736588',
-  cloudinary_secret: '4UVeFwEtMkHVJwQZ9Uqvt-IZNOo',
+***REMOVED***
+***REMOVED***
 };
 
 /*
