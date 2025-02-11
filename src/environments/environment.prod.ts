@@ -16,7 +16,6 @@ export const environment = {
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
     useServiceWorker: true,
-
     url: 'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp',
     secretService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/secrets',
