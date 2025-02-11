@@ -16,7 +16,8 @@
           "configurations": {
             "production": {
               "outputPath": {
-                "base": "dist/jz-portfolio"
+                "base": "dist/jz-portfolio",
+                "browser": ""
               },
               "index": {
                 "input": "src/index.prod.html",
@@ -45,7 +46,8 @@
             },
             "development": {
               "outputPath": {
-                "base": "dist/jz-portfolio-dev"
+                "base": "dist/jz-portfolio-dev",
+                "browser": ""
               },
               "index": {
                 "input": "src/index.html",
