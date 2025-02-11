@@ -20,7 +20,6 @@ export const environment = {
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
     useServiceWorker: false,
-
     url: 'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev',
     postService:
       'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/posts',
@@ -29,7 +28,6 @@ export const environment = {
     previewService:
       'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/previews',
   },
-
 };
 
 /*
