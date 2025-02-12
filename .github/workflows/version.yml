@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType  == 'patch' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 20
@@ -100,7 +100,7 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType  == 'minor' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 20
@@ -159,7 +159,7 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType  == 'major' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 20
