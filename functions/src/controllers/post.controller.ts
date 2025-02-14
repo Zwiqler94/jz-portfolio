@@ -446,6 +446,18 @@ export class PostController {
   }
 
   private async fetchPostsByFeed(feedType: string): Promise<any[]> {
+    const validFeeds = [
+      'puppy_feed',
+      'anime_feed',
+      'apple_feed',
+      'blockchain_feed',
+      'main_feed',
+    ];
+
+    if (!validFeeds.includes(feedType)) {
+      throw new Error(`Invalid feed type: ${feedType}`);
+    }
+
     const queryText = `SELECT post_list.id, post_list.type
                      FROM post_list
                      INNER JOIN ${feedType} ON ${feedType}.post_id = post_list.id`;
