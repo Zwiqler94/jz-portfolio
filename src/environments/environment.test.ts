@@ -28,8 +28,7 @@ export const environment = {
     postService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/posts',
   },
-***REMOVED***
-***REMOVED***
+
 };
 
 /*
