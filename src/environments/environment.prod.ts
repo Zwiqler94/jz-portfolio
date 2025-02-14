@@ -24,6 +24,5 @@ export const environment = {
     previewService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v4/previews',
   },
-***REMOVED***
-***REMOVED***
+
 };
