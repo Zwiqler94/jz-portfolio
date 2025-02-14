@@ -56,9 +56,9 @@ import {
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-// if (environment.production) {
-//   enableProdMode();
-// }
+if (environment.production) {
+  enableProdMode();
+}
 
 // declare global {
 //   // eslint-disable-next-line no-var
