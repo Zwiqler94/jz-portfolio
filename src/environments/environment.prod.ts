@@ -1,5 +1,4 @@
 export const environment = {
-  appCheckDebug: false,
   appUrl: 'jlz-portfolio.web.app',
   deployable: true,
   firebaseConfig: {
@@ -17,13 +16,13 @@ export const environment = {
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
     useServiceWorker: true,
-    productionServices: true,
+
     url: 'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp',
     secretService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/secrets',
     postService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts',
     previewService:
-      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/previews',
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/previews',
   },
 };
