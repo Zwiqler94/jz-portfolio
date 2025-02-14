@@ -58,48 +58,7 @@
             }
           </mat-chip-set>
         </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>Frameworks:</mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-chip-set>
-            @for (skillObj of skillList; track skillObj) {
-              @if (skillObj.list === "Frameworks") {
-                <mat-chip color="accent" highlighted>
-                  {{ skillObj.skill }}
-                </mat-chip>
-              }
-            }
-          </mat-chip-set>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>Designing:</mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-chip-set>
-            @for (skillObj of skillList; track skillObj) {
-              @if (skillObj.list === "Designs") {
-                <mat-chip color="accent" highlighted>
-                  {{ skillObj.skill }}
-                </mat-chip>
-              }
-            }
-          </mat-chip-set>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>Databases:</mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-chip-set>
-            @for (skillObj of skillList; track skillObj) {
-              @if (skillObj.list === "Databases") {
-                <mat-chip color="accent" highlighted>
-                  {{ skillObj.skill }}
-                </mat-chip>
-              }
-            }
-          </mat-chip-set>
-        </mat-expansion-panel>
+
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>Methodologies: </mat-panel-title>
@@ -121,20 +80,6 @@
           <mat-chip-set>
             @for (skillObj of skillList; track skillObj) {
               @if (skillObj.list === "Tools") {
-                <mat-chip color="accent" highlighted>
-                  {{ skillObj.skill }}
-                </mat-chip>
-              }
-            }
-          </mat-chip-set>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>Cloud Platforms:</mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-chip-set>
-            @for (skillObj of skillList; track skillObj) {
-              @if (skillObj.list === "Cloud") {
                 <mat-chip color="accent" highlighted>
                   {{ skillObj.skill }}
                 </mat-chip>
