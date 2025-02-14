@@ -36,20 +36,13 @@
               "extractLicenses": true,
               "budgets": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "10mb"
-                },
-                {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
                   "maximumError": "10mb"
                 }
               ],
-              "aot": true,
               "statsJson": false,
-              "subresourceIntegrity": true,
-              "progress": true
+              "subresourceIntegrity": true
             },
             "development": {
               "outputPath": {
@@ -60,27 +53,8 @@
                 "input": "src/index.html",
                 "output": "index.html"
               },
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "10mb",
-                  "maximumError": "15mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "5kb",
-                  "maximumError": "10mb"
-                }
-              ],
-              "aot": true,
-              "statsJson": true,
-              "subresourceIntegrity": true,
-              "progress": true,
-              "extractLicenses": false
+              "optimization": false,
+              "outputHashing": "none"
             },
             "dev-local": {
               "outputPath": {
@@ -98,27 +72,7 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "bundles",
-              "sourceMap": true,
-              "namedChunks": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "10mb",
-                  "maximumError": "15mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "5kb",
-                  "maximumError": "15mb"
-                }
-              ],
-              "aot": true,
-              "statsJson": true,
-              "subresourceIntegrity": false,
-              "progress": true,
-              "verbose": true,
-              "extractLicenses": false
+              "verbose": true
             },
             "local": {
               "outputPath": {
@@ -129,10 +83,12 @@
                 "input": "src/index.html",
                 "output": "index.html"
               },
-              "optimization": false,
-              "outputHashing": "bundles",
-              "sourceMap": true,
-              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -145,13 +101,9 @@
                   "maximumError": "15mb"
                 }
               ],
-              "aot": true,
+
               "serviceWorker": false,
-              "statsJson": true,
-              "subresourceIntegrity": false,
-              "progress": true,
-              "verbose": true,
-              "extractLicenses": false
+              "verbose": true
             }
           },
           "options": {
@@ -166,7 +118,19 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "extractLicenses": true,
+            "budgets": [
+              {
+                "type": "initial",
+                "maximumWarning": "10mb",
+                "maximumError": "15mb"
+              },
+              {
+                "type": "anyComponentStyle",
+                "maximumWarning": "5kb",
+                "maximumError": "15mb"
+              }
+            ],
+            "extractLicenses": false,
             "index": "src/index.html",
             "namedChunks": true,
             "optimization": false,
@@ -180,7 +144,10 @@
             },
             "tsConfig": "tsconfig.app.json",
             "browser": "src/main.ts",
-            "preserveSymlinks": true
+            "preserveSymlinks": true,
+            "outputHashing": "bundles",
+            "subresourceIntegrity": false,
+            "statsJson": true
           }
         },
         "deploy": {

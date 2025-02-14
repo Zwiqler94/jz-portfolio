@@ -3,7 +3,6 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  appCheckDebug: false,
   appUrl: 'jlz-portfolio-dev.web.app',
   deployable: true,
   firebaseConfig: {
@@ -21,7 +20,7 @@ export const environment = {
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
     useServiceWorker: true,
-    productionServices: true,
+
     url: 'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev',
     secretService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/secrets',
