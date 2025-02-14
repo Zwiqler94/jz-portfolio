@@ -9,17 +9,6 @@
           "destination": "/index.html"
         }
       ],
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
-    },
-    {
-      "target": "jlz-portfolio-dev",
-      "public": "dist/jz-portfolio-dev",
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ],
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "predeploy": ["npm run lint:fix", "npm run build:prod"]
     },
@@ -27,10 +16,6 @@
       "target": "jlz-portfolio-dev",
       "public": "dist/jz-portfolio-dev",
       "rewrites": [
-        {
-          "source": "/secrets",
-          "function": "secretService"
-        },
         {
           "source": "**",
           "destination": "/index.html"
