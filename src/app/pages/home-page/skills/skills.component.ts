@@ -60,9 +60,10 @@ export class SkillsComponent extends TabComponent {
   ];
 
   public get skillList(): SkillModel[] {
-    if (environment.production) {
-      return this._skillList;
-    } else return this._skillListDefault;
+    // if (environment.production) {
+    //   return this._skillList;
+    // } else
+      return this._skillListDefault;
   }
   public set skillList(value) {
     if (environment.production) {
