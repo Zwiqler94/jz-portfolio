@@ -52,7 +52,7 @@ export class TabGroupComponent
   }
 
   ngOnInit(): void {
-    this.route.children[0].url.subscribe((x) => (this.currentTab.set(x[0].path)));
+    this.route.children[0].url.subscribe((x) => this.currentTab.set(x[0].path));
   }
 
   ngAfterViewInit() {
