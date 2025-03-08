@@ -18,11 +18,11 @@ import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 //   | SkillsComponent;
 
 @Component({
-  selector: 'jzp-jz-tab-item',
-  templateUrl: './jz-tab-item.component.html',
-  styleUrls: ['./jz-tab-item.component.scss'],
+  selector: 'jzp-tab-item',
+  templateUrl: './tab-item.component.html',
+  styleUrls: ['./tab-item.component.scss'],
 })
-export class JzTabItemComponent implements OnChanges {
+export class TabItemComponent implements OnChanges {
   private changeDetector = inject(ChangeDetectorRef);
   private router = inject(Router);
 

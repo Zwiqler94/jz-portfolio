@@ -38,11 +38,11 @@
       (d.outerHTML =
         '<iframe name="acclaim-badge" allowTransparency="true" frameborder="0" id="embedded-badge-' +
         a +
-        '" scrolling="no" src="//' +
+        '"src="//' +
         t +
         "/embedded_badge/" +
         a +
-        '" style="width: ' +
+        '" onload="try { this.contentDocument.body.style.padding = \'0\'; } catch(e) {}" style="width: ' +
         o +
         "px; height: " +
         r +

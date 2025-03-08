@@ -1,11 +1,15 @@
 import { Component, OnInit, Renderer2, inject, input } from '@angular/core';
-import { MicrosoftLearnUserProfile } from 'src/app/interfaces/credentials/microsoft/microsoft.interface';
+import {
+  Achievement,
+  MicrosoftLearnUserProfile,
+} from 'src/app/interfaces/credentials/microsoft/microsoft.interface';
 import { SafeHtml } from '@angular/platform-browser';
 import credInfo from 'src/assets/credentials/msft_credentials.json';
 import { credentials } from 'src/assets/credentials/credly_credentials';
-import { Credly } from 'src/app/interfaces/credentials/credly/credly.interface';
+import { CredlyCredential } from 'src/app/interfaces/credentials/credly/credly.interface';
 import { MatCardModule } from '@angular/material/card';
 import { TabComponent } from 'src/app/components/tab/tab.component';
+import { LearningCredential } from 'src/app/interfaces/credentials/credential.interface';
 
 @Component({
   selector: 'jzp-credentials',
@@ -15,12 +19,14 @@ import { TabComponent } from 'src/app/components/tab/tab.component';
 })
 export class CredentialsComponent extends TabComponent implements OnInit {
   private renderer2 = inject(Renderer2);
+  readonly tabTitle = input<string>();
 
   MICROSOFT_LEARN_URL = 'https://learn.microsoft.com/en-us';
   CREDLY_URL: any;
   scriptHtml: SafeHtml | string;
   profile: MicrosoftLearnUserProfile;
-  credlyCreds: Credly[];
+  credlyCreds: CredlyCredential[];
+  creds: LearningCredential[] = [];
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
@@ -33,11 +39,15 @@ export class CredentialsComponent extends TabComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.credlyCreds = credentials.map((val) => {
-      val.height = 260;
-      val.width = 260;
+    credentials.forEach((val) => {
+      val.height = 100;
+      val.width = 100;
       val.host = 'https://www.credly.com';
-      return val;
+      this.creds.push({
+        credentialMsft: undefined,
+        credentialCredly: val,
+        type: 'CRDLY',
+      });
     });
 
     // console.debug(this.credlyCreds)
@@ -50,14 +60,16 @@ export class CredentialsComponent extends TabComponent implements OnInit {
       '#credential-div',
     ) as HTMLDivElement;
 
-    // this.scriptHtml = this.sanitizer.bypassSecurityTrustHtml(
-    //   `<script src="https://cdn.credly.com/assets/utilities/embed.js" type="text/javascript" async></script> <b></b>`
-    // )!;
-
     this.renderer2.appendChild(targeto, scriptEl);
 
     this.profile = new MicrosoftLearnUserProfile(credInfo);
-    console.debug(this.profile);
+    this.profile.xp.achievements.forEach((a) => {
+      this.creds.push({
+        credentialMsft: a,
+        credentialCredly: undefined,
+        type: 'MSFT',
+      });
+    });
+    console.log({ hmm: this.creds });
   }
-  readonly tabTitle = input<string>();
 }

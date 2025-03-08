@@ -1,4 +1,4 @@
-export interface Credly {
+export interface CredlyCredential {
   height: number;
   width: number;
   badgeId: string;
