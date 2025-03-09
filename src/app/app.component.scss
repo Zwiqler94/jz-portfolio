@@ -1,6 +1,6 @@
 @use "../styles.scss" as styles;
 
-$main-view-height: 85vh;
+$main-view-height: 85dvh;
 $sidenav-height: calc($main-view-height - styles.$toolbar-height);
 
 #main-view {

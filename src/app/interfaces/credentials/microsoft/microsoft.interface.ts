@@ -1,8 +1,10 @@
+import { LearningCredential } from 'src/app/interfaces/credentials/credential.interface';
+
 interface AchievementCategory {
   [key: string]: number;
 }
 
-interface Achievement {
+export interface Achievement {
   category: string;
   typeId: string;
   userId: string;

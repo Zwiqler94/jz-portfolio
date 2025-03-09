@@ -74,7 +74,7 @@ img {
   border-radius: 10px;
 }
 
-#editor>ngx-editor-menu>div.NgxEditor__MenuBar {
+#editor > ngx-editor-menu > div.NgxEditor__MenuBar {
   background-color: black;
 }
 
@@ -91,7 +91,7 @@ div.NgxEditor.NgxEditor {
   // typography and density styles.
   // @include mat.all-component-colors($light-theme);
 
-  #editor>ngx-editor-menu>div.NgxEditor__MenuBar {
+  #editor > ngx-editor-menu > div.NgxEditor__MenuBar {
     background-color: orange;
   }
 }
@@ -109,7 +109,7 @@ div.NgxEditor.NgxEditor {
   white-space: normal;
 }
 
-#editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+#editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
   height: 350px;
 }
 
@@ -130,22 +130,26 @@ div#post-content#post-content#post-content p img {
 }
 
 @media (min-height: 1024px) {
-  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
-    height: 70vh !important;
+  div.cdk-overlay-container
+    div.cdk-global-overlay-wrapper
+    div.cdk-overlay-pane {
+    height: 70dvh !important;
   }
 }
 
 @media (min-height: 1266px) {
-  #editor>ngx-editor>div.NgxEditor div.NgxEditor__Content {
+  #editor > ngx-editor > div.NgxEditor div.NgxEditor__Content {
     height: 32.125rem;
   }
 
-  div.cdk-overlay-container div.cdk-global-overlay-wrapper div.cdk-overlay-pane {
-    height: 75vh !important;
+  div.cdk-overlay-container
+    div.cdk-global-overlay-wrapper
+    div.cdk-overlay-pane {
+    height: 75dvh !important;
   }
 }
 
@@ -203,8 +207,20 @@ div#post-content#post-content#post-content p img {
   }
 }
 
+.label-small {
+  font: var(--mat-sys-label-small);
+}
+
+.label-medium {
+  font: var(--mat-sys-label-medium);
+}
+
+.label-large {
+  font: var(--mat-sys-label-large);
+}
+
 .title-small {
-  font: var(--mat-sys-title-large);
+  font: var(--mat-sys-title-small);
 }
 
 .title-medium {
@@ -216,7 +232,7 @@ div#post-content#post-content#post-content p img {
 }
 
 .display-small {
-  font: var(--mat-sys-display-large);
+  font: var(--mat-sys-display-small);
 }
 
 .display-medium {
@@ -250,7 +266,7 @@ div#post-content#post-content#post-content p img {
 #toolbar-logo > img {
   max-inline-size: 100%;
   margin-inline-start: 0.1vw;
-  margin-block-start: 0.1vh;
+  margin-block-start: 0.1dvh;
   block-size: auto;
   border-radius: 10px;
   width: 6vw;

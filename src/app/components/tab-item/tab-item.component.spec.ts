@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JzTabItemComponent } from './jz-tab-item.component';
+import { TabItemComponent } from './tab-item.component';
 import { provideRouter } from '@angular/router';
 
 xdescribe('JzTabItemComponent', () => {
-  let component: JzTabItemComponent;
-  let fixture: ComponentFixture<JzTabItemComponent>;
+  let component: TabItemComponent;
+  let fixture: ComponentFixture<TabItemComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [JzTabItemComponent],
-      providers: [
-        provideRouter([{ path: '**', component: JzTabItemComponent }]),
-      ],
+      imports: [TabItemComponent],
+      providers: [provideRouter([{ path: '**', component: TabItemComponent }])],
     });
-    fixture = TestBed.createComponent(JzTabItemComponent);
+    fixture = TestBed.createComponent(TabItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
