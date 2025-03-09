@@ -1,6 +1,6 @@
 {
   "name": "jz-portfolio",
-  "version": "5.3.3",
+  "version": "5.3.4",
   "repository": "https://github.com/Zwiqler94/jz-portfolio.git",
   "scripts": {
     "artifactregistry-login": "npx google-artifactregistry-auth",
