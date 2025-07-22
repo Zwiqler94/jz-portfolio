@@ -52,7 +52,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@zwiqler94/everything-lib": "^0.9.3",
     "cloudinary": "^2.5.1",
-    "compression": "^1.8.0",
+    "compression": "^1.8.1",
     "firebase": "^11.3.0",
     "firebase-admin": "^13.1",
     "jose": "^5.9.6",
