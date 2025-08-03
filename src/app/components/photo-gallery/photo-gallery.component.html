@@ -1,12 +1,10 @@
 @if (galleryType() === "LB") {
-  <mat-paginator
-    [pageIndex]="pageIndex"
+  <mat-paginator [pageIndex]="pageIndex"
     [pageSize]="pageSize()"
     [length]="photoGrids()[0].length"
     (page)="onPageChange($event, 0)"
     [showFirstLastButtons]="true"
-  >
-  </mat-paginator>
+   />
   <div class="outter-grid">
     @for (grid of displayGrids; track grid; let outterIndex = $index) {
       @if (grid.length >= 1) {
@@ -91,16 +89,14 @@
       }
     }
   </div>
-  <mat-paginator
-    [pageIndex]="pageIndex"
+  <mat-paginator [pageIndex]="pageIndex"
     [pageSize]="pageSize()"
     [length]="photoGrids()[0].length"
     (page)="onPageChange($event, 0)"
     [showFirstLastButtons]="true"
-  >
-  </mat-paginator>
+   />
 } @else {
   @for (grid of photoGrids(); track grid; let outerIndex = $index) {
-    <gallery [items]="grid" [autoplay]="true"> </gallery>
+    <gallery [items]="grid" [autoplay]="true" />
   }
 }

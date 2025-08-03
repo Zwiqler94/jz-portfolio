@@ -1,15 +1,13 @@
 <mat-card appearance="outlined">
   <mat-card-content>
     @defer (on timer(2s)) {
-      <jzp-photo-gallery
-        [photoGrids]="photoGrids"
+      <jzp-photo-gallery [photoGrids]="photoGrids"
         [galleryRefs]="galleryRefs"
         [galleryIds]="galleryIds"
         [pageSize]="12"
-      >
-      </jzp-photo-gallery>
+       />
     } @loading (minimum 8s) {
-      <jzp-loading-overlay> </jzp-loading-overlay>
+      <jzp-loading-overlay />
     } @error {
       <h1>An Error Has Occured. No Pictures To Display!</h1>
     }
