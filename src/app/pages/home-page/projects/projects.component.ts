@@ -59,9 +59,6 @@ export class ProjectsComponent extends TabComponent {
 
   usernameFormInApp = signal(this.usernameForm);
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
   constructor() {
     super();
     this.result.set(['']);

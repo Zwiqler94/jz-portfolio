@@ -8,11 +8,12 @@
     <div class="handleA" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-username-generator class="project-content-item"
+    <lib-username-generator
+      class="project-content-item"
       [(usernameForm)]="usernameFormInApp"
       [(result)]="result"
       (completionMsgChange)="onCompletionMsgChange($event)"
-     />
+    />
   </div>
 
   <div
@@ -24,10 +25,11 @@
     <div class="handleB" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-nasa id=""
+    <lib-nasa
+      id=""
       [apiKey]="nasaApiKey"
       (completionMsgChange)="onCompletionMsgChange($event)"
-     />
+    />
   </div>
   <div
     class="dragC drag"
@@ -38,11 +40,12 @@
     <div class="handleC" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-pokemon [heightInput]="'35'"
+    <lib-pokemon
+      [heightInput]="'35'"
       [widthInput]="'35'"
       class="project-content-item"
       (completionMsgChange)="onCompletionMsgChange($event)"
-     />
+    />
   </div>
   <!-- <div
     class="dragD drag"
@@ -69,11 +72,12 @@
     <div class="handleE" cdkDragHandle>
       <mat-icon>drag_indicator</mat-icon>
     </div>
-    <lib-age-by-name [heightInput]="'15'"
+    <lib-age-by-name
+      [heightInput]="'15'"
       [widthInput]="maxWidth"
       class="project-content-item"
       (completionMsgChange)="onCompletionMsgChange($event)"
-     />
+    />
   </div>
   <div
     class="dragE drag"

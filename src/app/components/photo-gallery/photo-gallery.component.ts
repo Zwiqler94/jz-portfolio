@@ -32,11 +32,6 @@ export class PhotoGalleryComponent implements OnInit {
   readonly pageSize = model<number>(10);
   pageIndex: number;
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
-
   ngOnInit() {
     this.displayGrids = this.photoGrids().map((grid) =>
       grid.slice(0, this.pageSize()),

@@ -3,32 +3,36 @@
     @for (post of posts(); track post.id) {
       @switch (post.type) {
         @case ("TextPost") {
-          <jzp-text-post [title_or_uri]="post.title_or_uri"
+          <jzp-text-post
+            [title_or_uri]="post.title_or_uri"
             [content]="post.content"
             [created_at]="post.created_at"
             [updated_at]="post.updated_at"
-           />
+          />
         }
         @case ("LinkPost") {
-          <jzp-link-post [id]="post.id"
+          <jzp-link-post
+            [id]="post.id"
             [title_or_uri]="post.title_or_uri"
             [image_uri]="post.image_uri"
             [content]="post.content"
-           />
+          />
         }
         @case ("text") {
-          <jzp-text-post [title_or_uri]="post.title_or_uri"
+          <jzp-text-post
+            [title_or_uri]="post.title_or_uri"
             [content]="post.content"
             [created_at]="post.created_at"
             [updated_at]="post.updated_at"
-           />
+          />
         }
         @case ("link") {
-          <jzp-link-post [id]="post.id"
+          <jzp-link-post
+            [id]="post.id"
             [title_or_uri]="post.title_or_uri"
             [image_uri]="post.image_uri"
             [content]="post.content"
-           />
+          />
         }
         @default {
           <p>Unsupported post type: {{ post.type }}</p>

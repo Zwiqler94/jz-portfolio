@@ -43,15 +43,17 @@
         class="NgxEditor__Wrapper"
         class="full-width full-height"
       >
-        <ngx-editor-menu [editor]="editor"
+        <ngx-editor-menu
+          [editor]="editor"
           [toolbar]="toolbar"
           [customMenuRef]="customMenu"
           [colorPresets]="colors"
-         />
-        <ngx-editor [editor]="editor"
+        />
+        <ngx-editor
+          [editor]="editor"
           formControlName="editorContent"
           [placeholder]="'Type here...'"
-         />
+        />
         <ng-template #customMenu>
           <div class="color-picker-divs">
             <div class="NgxEditor__Seperator"></div>
@@ -63,12 +65,13 @@
                 'NgxEditor--Disabled': isTextColorDisabled,
               }"
             >
-              <ngx-colors class="color-picker-component"
+              <ngx-colors
+                class="color-picker-component"
                 ngx-colors-trigger
                 formControlName="textColor"
                 acceptLabel="Select"
                 cancelLabel="Cancel"
-               />
+              />
               <button
                 class="clear-buttons"
                 mat-icon-button
@@ -89,12 +92,13 @@
                 'NgxEditor--Disabled': isTextBGColorDisabled,
               }"
             >
-              <ngx-colors class="color-picker-component"
+              <ngx-colors
+                class="color-picker-component"
                 ngx-colors-trigger
                 formControlName="bgColor"
                 acceptLabel="Select"
                 cancelLabel="Cancel"
-               />
+              />
               <button
                 class="clear-buttons"
                 mat-icon-button

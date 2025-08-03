@@ -9,10 +9,6 @@ import { Router } from '@angular/router';
 export class ErrorPageComponent {
   private router = inject(Router);
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
   async goHome() {
     return await this.router.navigateByUrl('/home');
   }

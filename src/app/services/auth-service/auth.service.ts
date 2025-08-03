@@ -20,9 +20,6 @@ export class AuthService {
   static called = 0;
   private _isLoggedIn: boolean = false;
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
   constructor() {
     if (!this.appCheckToken)
       this.getAppCheckToken('auth:constructor')

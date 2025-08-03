@@ -142,7 +142,6 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     postType: new FormControl(null),
   });
 
-
   constructor() {}
 
   pNode: NodeSpec = {
