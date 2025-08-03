@@ -77,19 +77,17 @@
     @defer (on timer(2s)) {
       <mat-card>
         <mat-card-content>
-          <jzp-photo-gallery
-            [photoGrids]="photoGrids"
+          <jzp-photo-gallery [photoGrids]="photoGrids"
             [galleryRefs]="galleryRefs"
             [galleryIds]="galleryIds"
             [galleryType]="'GAL'"
-          >
-          </jzp-photo-gallery>
+           />
         </mat-card-content>
       </mat-card>
     } @loading (minimum 8s) {
       <mat-card>
         <mat-card-content>
-          <jzp-loading-overlay> </jzp-loading-overlay>
+          <jzp-loading-overlay />
         </mat-card-content>
       </mat-card>
     } @error {

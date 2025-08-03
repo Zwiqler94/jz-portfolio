@@ -142,8 +142,6 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     postType: new FormControl(null),
   });
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
 
   constructor() {}
 
