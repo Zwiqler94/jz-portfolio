@@ -8,8 +8,8 @@
   @for (tab of tabComponentList(); track tab) {
     <a
       mat-tab-link
-      (click)="currentTab = tab.link"
-      [active]="currentTab === tab.link"
+      (click)="currentTab.set(tab.link)"
+      [active]="currentTab() === tab.link"
       [routerLink]="[tab.link]"
     >
       {{ tab.title }}
@@ -17,8 +17,8 @@
   }
 </nav>
 <mat-tab-nav-panel #panel>
-  <jzp-jz-tab-item
+  <jzp-tab-item
     [tabComponentList]="tabComponentList()"
-    [tab]="currentTab"
-  ></jzp-jz-tab-item>
+    [tab]="currentTab()"
+  ></jzp-tab-item>
 </mat-tab-nav-panel>

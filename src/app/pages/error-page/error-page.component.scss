@@ -2,8 +2,8 @@
 @use "sass:map";
 
 #error-div {
-  height: 100vh;
-  width: 100vw;
+  height: 100dvh;
+  width: 100dvw;
   background-color: map.get(themes.$md-A-1-primary, 500);
 }
 
