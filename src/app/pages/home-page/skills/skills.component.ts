@@ -17,11 +17,12 @@ interface SkillModel {
   imports: [MatCardModule, MatAccordion, MatExpansionModule, MatChipsModule],
 })
 export class SkillsComponent extends TabComponent {
-  private _skillList: SkillModel[];
+  private _skillList: SkillModel[] = [];
   private _skillListDefault: SkillModel[] = [
     { list: 'Cloud', skill: 'AWS' },
     { list: 'Cloud', skill: 'Azure' },
     { list: 'Cloud', skill: 'Google Cloud Platform' },
+    { list: 'Cloud', skill: 'Firebase' },
     { list: 'Cloud', skill: 'IBM Cloud' },
     { list: 'Databases', skill: 'IBM Cloudant' },
     { list: 'Databases', skill: 'MongoDB' },
@@ -63,7 +64,9 @@ export class SkillsComponent extends TabComponent {
     // if (environment.production) {
     //   return this._skillList;
     // } else
-      return this._skillListDefault;
+    return this._skillList.length <= 0
+      ? this._skillListDefault
+      : this._skillList;
   }
   public set skillList(value) {
     if (environment.production) {

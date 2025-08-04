@@ -66,22 +66,22 @@ export const routes: Routes = [
             (m) => m.ProjectsComponent,
           ),
       },
-      {
-        path: 'credentials',
-        title: 'My Credentials',
-        loadComponent: () =>
-          import(
-            'src/app/pages/home-page/credentials/credentials.component'
-          ).then((m) => m.CredentialsComponent),
-      },
-      {
-        path: 'skills',
-        title: 'What Can I Do?',
-        loadComponent: () =>
-          import('src/app/pages/home-page/skills/skills.component').then(
-            (m) => m.SkillsComponent,
-          ),
-      },
+      // {
+      //   path: 'credentials',
+      //   title: 'My Credentials',
+      //   loadComponent: () =>
+      //     import(
+      //       'src/app/pages/home-page/credentials/credentials.component'
+      //     ).then((m) => m.CredentialsComponent),
+      // },
+      // {
+      //   path: 'skills',
+      //   title: 'What Can I Do?',
+      //   loadComponent: () =>
+      //     import('src/app/pages/home-page/skills/skills.component').then(
+      //       (m) => m.SkillsComponent,
+      //     ),
+      // },
     ],
   },
   {

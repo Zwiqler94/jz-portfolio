@@ -1,6 +1,6 @@
 /// <reference types="@angular/localize" />
 
-import { enableProdMode, importProvidersFrom } from '@angular/core';
+import { importProvidersFrom } from '@angular/core';
 
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
@@ -42,12 +42,7 @@ import {
   withComponentInputBinding,
   withPreloading,
 } from '@angular/router';
-import {
-  Gallery,
-  GALLERY_CONFIG,
-  GalleryConfig,
-  GalleryModule,
-} from 'ng-gallery';
+import { GALLERY_CONFIG, GalleryConfig, GalleryModule } from 'ng-gallery';
 import {
   LIGHTBOX_CONFIG,
   LightboxConfig,
@@ -55,17 +50,6 @@ import {
 } from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
-// if (environment.production) {
-//   enableProdMode();
-// }
-
-// declare global {
-//   // eslint-disable-next-line no-var
-//   var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
-// }
-
-// self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
 
 bootstrapApplication(AppComponent, {
   providers: [

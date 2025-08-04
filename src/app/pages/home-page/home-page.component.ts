@@ -3,7 +3,7 @@
 import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
-import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.component';
+import { TabGroupComponent } from '../../components/tab-group/tab-group.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { TabComponent } from 'src/app/components/tab/tab.component';
 import { AboutMeMainComponent } from 'src/app/pages/home-page/about-me/about-me.component';
@@ -14,7 +14,7 @@ import { SkillsComponent } from 'src/app/pages/home-page/skills/skills.component
   selector: 'jzp-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  imports: [JzTabGroupComponent],
+  imports: [TabGroupComponent],
 })
 export class AboutMeComponent extends TabComponent {
   protected router = inject(Router);
@@ -22,27 +22,30 @@ export class AboutMeComponent extends TabComponent {
 
   private _tabComponentList: TabNavModel[] = [
     { component: AboutMeMainComponent, title: 'About Me', link: 'main' },
-    {
-      component: CredentialsComponent,
-      title: 'Credentials',
-      link: 'credentials',
-    },
-    { component: SkillsComponent, title: 'Skills', link: 'skills' },
+    // {
+    //   component: CredentialsComponent,
+    //   title: 'Credentials',
+    //   link: 'credentials',
+    // },
+    // { component: SkillsComponent, title: 'Skills', link: 'skills' },
     { component: ProjectsComponent, title: 'Projects', link: 'projects' },
   ];
+  currentPagePath: string = '';
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
 
   constructor() {
     super();
-    const currentPagePath = location.pathname.split('/').pop();
-    console.log(currentPagePath);
+    this.currentPagePath = location.pathname.split('/').pop() ?? '';
+    console.log({ page: this.currentPagePath });
     const result = this.tabComponentList.filter(
-      (tabItem) => tabItem.link === currentPagePath,
+      (tabItem) => tabItem.link === this.currentPagePath,
     );
-    if (result.length == 0)
+    if (result.length == 0 || this.currentPagePath === 'home') {
       this.router.navigateByUrl('/home/main', { skipLocationChange: true });
+      this.currentPagePath = '/home/main';
+    }
   }
 
   // public get badgeHeight() {

@@ -7,8 +7,6 @@ import { LightboxModule } from 'ng-gallery/lightbox';
 import { ImageService } from 'src/app/services/image/image.service';
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
 
-
-
 @Component({
   selector: 'jzp-photo-gallery',
   imports: [
@@ -18,7 +16,6 @@ import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.comp
     MatCardModule,
     LoadingOverlayComponent,
     MatPaginatorModule,
-
   ],
   templateUrl: './photo-gallery.component.html',
   styleUrl: './photo-gallery.component.scss',
