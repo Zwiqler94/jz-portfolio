@@ -6,7 +6,6 @@ import { PostType, TextPost } from 'src/app/components/models/post.model';
 import { PostBaseComponent } from 'src/app/components/post-base/post-base.component';
 
 import { MatCardModule } from '@angular/material/card';
-import { HTML } from 'ngx-editor/lib/trustedTypesUtil';
 
 @Component({
   selector: 'jzp-text-post',
