@@ -5,6 +5,7 @@ on:
   workflow_call:
 permissions: write-all
 env:
+  test: ""
   commitMsg: ""
   REPO_URL: "https://api.github.com/repos/${{ github.repository }}"
 jobs:
