@@ -33,18 +33,7 @@ export class TabItemComponent implements OnChanges {
 
   readonly tabComponentList = input<TabNavModel[]>([]);
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
 
-  constructor() {}
-
-  // ngAfterViewInit(): void {
-  //   const component = this.getComponentFromTabList();
-  //   const componentRef =
-  //     this.tabTemplate().createComponent<typeof component>(component);
-  //   componentRef.instance.tabTitle = this.tab().title;
-  //   this.changeDetector.detectChanges();
-  // }
 
   getComponentFromTabList(): any {
     const tabItem = this.tabComponentList().filter(

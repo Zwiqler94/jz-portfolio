@@ -32,9 +32,6 @@ export class AboutMeComponent extends TabComponent {
   ];
   currentPagePath: string = '';
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
   constructor() {
     super();
     this.currentPagePath = location.pathname.split('/').pop() ?? '';

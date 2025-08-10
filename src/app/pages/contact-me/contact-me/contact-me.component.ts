@@ -55,11 +55,6 @@ export class ContactMeComponent {
     this._form = value;
   }
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
-
   async onSubmit() {
     this.http
       .post(

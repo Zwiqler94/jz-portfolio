@@ -44,9 +44,6 @@ export class TabGroupComponent
 
   readonly tabComponentList = input<TabNavModel[]>([]);
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
   constructor() {
     super();
   }

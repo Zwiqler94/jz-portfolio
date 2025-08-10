@@ -1,6 +1,6 @@
 import { defineSecret } from 'firebase-functions/params';
 import { SecretController } from './controllers/secrets.controller';
-import { Express, Router } from 'express';
+import {  Router } from 'express';
 
 export const getSecrets = (env: string) => {
   const secrets = {
@@ -8,8 +8,6 @@ export const getSecrets = (env: string) => {
       defineSecret('CLIENT_CERT'),
       defineSecret('CLIENT_KEY'),
       defineSecret('SERVER_CA'),
-      defineSecret('AWS_ACCESS_KEY_ID'),
-      defineSecret('AWS_SECRET_ACCESS_KEY'),
     ],
     production: [
       defineSecret('DB_PASS_PROD'),

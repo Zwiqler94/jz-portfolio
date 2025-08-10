@@ -4,7 +4,6 @@ import { PhotoGalleryComponent } from './photo-gallery.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ImageService } from 'src/app/services/image/image.service';
-import exp from 'constants';
 
 describe('PhotoGalleryComponent', () => {
   let component: PhotoGalleryComponent;

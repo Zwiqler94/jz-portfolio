@@ -27,24 +27,20 @@ export class CarouselComponent {
         seed = Math.floor(seed / 2 - seed / 4);
       }
     }
-    setInterval(() => {
-      if (this.slides != null) {
-        this.currentSlideIndex =
-          this.currentSlideIndex < this.slides().length - 1
-            ? this.currentSlideIndex + 1
-            : 0;
-        this.currentSlide = this.slides()[this.currentSlideIndex];
-      }
-    }, seed);
+    setInterval(() => this.onNextClick(), seed);
   }
 
   onNextClick() {
     if (this.slides != null) {
-      this.currentSlideIndex =
-        this.currentSlideIndex < this.slides().length - 1
-          ? this.currentSlideIndex + 1
-          : 0;
-      this.currentSlide = this.slides()[this.currentSlideIndex];
+      const slides = this.slides();
+
+      if (slides) {
+        this.currentSlideIndex =
+          this.currentSlideIndex < slides.length - 1
+            ? this.currentSlideIndex + 1
+            : 0;
+        this.currentSlide = slides ? slides[this.currentSlideIndex] : '';
+      }
     }
   }
 
@@ -52,7 +48,8 @@ export class CarouselComponent {
     if (this.slides != null) {
       this.currentSlideIndex =
         this.currentSlideIndex > 0 ? this.currentSlideIndex - 1 : 15;
-      this.currentSlide = this.slides()[this.currentSlideIndex];
+      const slides = this.slides();
+      this.currentSlide = slides ? slides[this.currentSlideIndex] : '';
     }
   }
 }

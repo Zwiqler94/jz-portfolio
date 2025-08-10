@@ -24,9 +24,6 @@ export class ServiceWorkerService {
   private _pics4: string[] = [];
   private _pics5: string[] = [];
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
   constructor() {
     const updates = this.updates;
     const appRef = inject(ApplicationRef);

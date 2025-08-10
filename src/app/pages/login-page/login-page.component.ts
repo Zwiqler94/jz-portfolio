@@ -26,9 +26,6 @@ export class LoginPageComponent implements OnInit {
   userName: string | null;
   private _isLoggedIn: boolean;
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
   constructor() {
     this.fbAuth
       .setPersistence(browserLocalPersistence)

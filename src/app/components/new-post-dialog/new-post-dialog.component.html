@@ -48,13 +48,12 @@
           [toolbar]="toolbar"
           [customMenuRef]="customMenu"
           [colorPresets]="colors"
-        >
-        </ngx-editor-menu>
+        />
         <ngx-editor
           [editor]="editor"
           formControlName="editorContent"
           [placeholder]="'Type here...'"
-        ></ngx-editor>
+        />
         <ng-template #customMenu>
           <div class="color-picker-divs">
             <div class="NgxEditor__Seperator"></div>
@@ -72,7 +71,7 @@
                 formControlName="textColor"
                 acceptLabel="Select"
                 cancelLabel="Cancel"
-              ></ngx-colors>
+              />
               <button
                 class="clear-buttons"
                 mat-icon-button
@@ -99,7 +98,7 @@
                 formControlName="bgColor"
                 acceptLabel="Select"
                 cancelLabel="Cancel"
-              ></ngx-colors>
+              />
               <button
                 class="clear-buttons"
                 mat-icon-button
