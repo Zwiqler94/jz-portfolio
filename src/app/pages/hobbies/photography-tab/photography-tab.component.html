@@ -6,10 +6,9 @@
         [galleryRefs]="galleryRefs"
         [galleryIds]="galleryIds"
         [pageSize]="12"
-      >
-      </jzp-photo-gallery>
+      />
     } @loading (minimum 8s) {
-      <jzp-loading-overlay> </jzp-loading-overlay>
+      <jzp-loading-overlay />
     } @error {
       <h1>An Error Has Occured. No Pictures To Display!</h1>
     }

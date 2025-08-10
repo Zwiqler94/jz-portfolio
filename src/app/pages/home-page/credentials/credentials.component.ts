@@ -28,9 +28,6 @@ export class CredentialsComponent extends TabComponent implements OnInit {
   credlyCreds: CredlyCredential[];
   creds: LearningCredential[] = [];
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
   constructor() {
     super();
     // this.CREDLY_URL = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL,

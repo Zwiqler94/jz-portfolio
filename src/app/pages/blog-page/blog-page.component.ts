@@ -20,10 +20,6 @@ export class HomePageComponent implements OnInit {
   private lp = inject(LinkPreviewService);
   triggerFetch: boolean;
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-  constructor() {}
-
   async ngOnInit(): Promise<void> {
     this.auth.appCheckToken = (
       await this.auth.getAppCheckToken('app:oninit')

@@ -8,7 +8,7 @@
             [content]="post.content"
             [created_at]="post.created_at"
             [updated_at]="post.updated_at"
-          ></jzp-text-post>
+          />
         }
         @case ("LinkPost") {
           <jzp-link-post
@@ -16,7 +16,7 @@
             [title_or_uri]="post.title_or_uri"
             [image_uri]="post.image_uri"
             [content]="post.content"
-          ></jzp-link-post>
+          />
         }
         @case ("text") {
           <jzp-text-post
@@ -24,7 +24,7 @@
             [content]="post.content"
             [created_at]="post.created_at"
             [updated_at]="post.updated_at"
-          ></jzp-text-post>
+          />
         }
         @case ("link") {
           <jzp-link-post
@@ -32,7 +32,7 @@
             [title_or_uri]="post.title_or_uri"
             [image_uri]="post.image_uri"
             [content]="post.content"
-          ></jzp-link-post>
+          />
         }
         @default {
           <p>Unsupported post type: {{ post.type }}</p>

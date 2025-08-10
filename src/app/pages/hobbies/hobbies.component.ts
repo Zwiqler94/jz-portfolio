@@ -34,9 +34,6 @@ export class HobbiesComponent {
     // { component: FitnessTabComponent, title: 'Fitness', link: 'fitness' },
   ];
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
   constructor() {
     const currentPagePath = location.pathname.split('/').pop();
     const result = this.tabComponentList.filter(

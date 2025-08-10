@@ -27,7 +27,7 @@
     l < i;
     l++
   )
-    (a = (d = m[l]).attributes.getNamedItem("data-share-badge-id").value),
+    ((a = (d = m[l]).attributes.getNamedItem("data-share-badge-id").value),
       (o = d.attributes.getNamedItem("data-iframe-width").value),
       (r = d.attributes.getNamedItem("data-iframe-height").value),
       (t = u(
@@ -46,5 +46,5 @@
         o +
         "px; height: " +
         r +
-        'px;" title="View my verified achievement on Credly." ></iframe>');
+        'px;" title="View my verified achievement on Credly." ></iframe>'));
 }).call(this);
