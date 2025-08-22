@@ -66,7 +66,7 @@ export class DatabaseService {
 
         // Make HTTP request
         return this.httpClient.get<AnyPostResponse[]>(
-          `${this.postUrl}/main_feed`,
+          `${this.postUrl}/main`,
           {
             headers: this.headers,
             // params: { local: true },

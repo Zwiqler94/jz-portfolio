@@ -13,5 +13,5 @@
     "esModuleInterop": true
   },
   "compileOnSave": true,
-  "include": ["src"]
+  "include": ["src", "../pg-test.js", "pg-test.js"]
 }

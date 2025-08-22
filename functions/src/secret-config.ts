@@ -5,22 +5,22 @@ import {  Router } from 'express';
 export const getSecrets = (env: string) => {
   const secrets = {
     common: [
-      defineSecret('CLIENT_CERT'),
-      defineSecret('CLIENT_KEY'),
-      defineSecret('SERVER_CA'),
+      // defineSecret('CLIENT_CERT'),
+      // defineSecret('CLIENT_KEY'),
+      // defineSecret('SERVER_CA'),
     ],
     production: [
-      defineSecret('DB_PASS_PROD'),
-      defineSecret('ADMIN_USER_PROD'),
-      defineSecret('ADMIN_PASS_PROD'),
-      defineSecret('DB_HOST_PROD'),
+      // defineSecret('DB_PASS_PROD'),
+      // defineSecret('ADMIN_USER_PROD'),
+      // defineSecret('ADMIN_PASS_PROD'),
+      // defineSecret('DB_HOST_PROD'),
       defineSecret('LINK_PREVIEW_PROD'),
     ],
     development: [
-      defineSecret('DB_PASS_DEV'),
-      defineSecret('ADMIN_USER_DEV'),
-      defineSecret('ADMIN_PASS_DEV'),
-      defineSecret('DB_HOST_DEV'),
+      // defineSecret('DB_PASS_DEV'),
+      // defineSecret('ADMIN_USER_DEV'),
+      // defineSecret('ADMIN_PASS_DEV'),
+      // defineSecret('DB_HOST_DEV'),
       defineSecret('LINK_PREVIEW_DEV'),
     ],
   };

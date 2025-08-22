@@ -5,6 +5,8 @@ import { devApp } from './routes/dev.routes';
 import { prodApp } from './routes/prod.routes';
 import { setupSecretRoutes } from './secret-config';
 
+
+
 // Create Express app for v3
 export const createAppV3 = (): express.Express => {
   const appV3 = express();
@@ -14,6 +16,7 @@ export const createAppV3 = (): express.Express => {
   appV3.use((req, res, next) => {
     res.status(404).send("404: Sorry can't find that!");
   });
+
   return appV3;
 };
 
@@ -26,5 +29,6 @@ export const createAppV4 = (): express.Express => {
   appV4.use((req, res, next) => {
     res.status(404).send("404: Sorry can't find that!");
   });
+
   return appV4;
 };

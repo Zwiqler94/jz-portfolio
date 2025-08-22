@@ -22,6 +22,6 @@ export const environment = {
     postService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts',
     previewService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v4/previews',
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/previews',
   },
 };
