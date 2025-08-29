@@ -10,17 +10,25 @@ The frontend is a standard Angular application.
 -   **Styling:** Global styles are in `src/styles.scss`. Component-specific styles are co-located with the components. The project uses SCSS and has a theme system in `src/style_vars`.
 -   **Environments:** Configuration for different environments (local, dev, prod) is managed in the `src/environments` directory.
 
-#### Angular Best Practices
-- Use standalone components.
-- Use signals for state management.
-- Use `NgOptimizedImage` for all static images.
-- Keep components small and focused.
-- Use `input()` and `output()` functions instead of decorators.
-- Use `computed()` for derived state.
-- Set `changeDetection: ChangeDetectionStrategy.OnPush`.
-- Prefer Reactive forms.
-- Use native control flow (`@if`, `@for`, `@switch`).
-- Use the `inject()` function for services.
+
+#### TypeScript & Angular Best Practices
+
+- Use strict type checking throughout the codebase. Prefer type inference when the type is obvious. Avoid the `any` type; use `unknown` if the type is uncertain.
+- Always use standalone components (do not set `standalone: true` in decorators; it's the default). Avoid NgModules.
+- Use signals for state management and `computed()` for derived state. Do NOT use `mutate` on signals; use `update` or `set` instead.
+- Implement lazy loading for feature routes.
+- Do NOT use `@HostBinding` or `@HostListener` decorators; instead, use the `host` object in the `@Component`/`@Directive` decorator.
+- Use `NgOptimizedImage` for all static images (not for inline base64 images).
+- Keep components small, focused, and single-responsibility. Prefer inline templates for small components.
+- Use `input()` and `output()` functions instead of decorators for component communication.
+- Set `changeDetection: ChangeDetectionStrategy.OnPush` in all components.
+- Prefer Reactive forms over Template-driven forms.
+- Do NOT use `ngClass` or `ngStyle`; use `class` and `style` bindings instead.
+- Keep templates simple and avoid complex logic. Use native control flow (`@if`, `@for`, `@switch`) instead of `*ngIf`, `*ngFor`, `*ngSwitch`.
+- Use the async pipe to handle observables in templates.
+- Design services around a single responsibility. Use `providedIn: 'root'` for singletons. Use the `inject()` function instead of constructor injection.
+- For state, keep transformations pure and predictable.
+- Common pitfall: You cannot use `as` expressions in `@else if (...)` (e.g., `@else if (bla(); as x)` is invalid).
 
 ### Backend (`functions/`)
 
