@@ -21,7 +21,7 @@
     "@aws-sdk/client-secrets-manager": "^3.859.0",
     "@google-cloud/connect-firestore": "^3.0.0",
     "@google-cloud/secret-manager": "^6.1.0",
-    "@types/node": "^24.2.0",
+    "@types/node": "^24.2.1",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
