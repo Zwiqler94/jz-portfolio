@@ -44,7 +44,7 @@
     "@angular/platform-browser": "^20.1.4",
     "@angular/platform-browser-dynamic": "^20.1.4",
     "@angular/router": "^20.1.4",
-    "@angular/service-worker": "^20.1.4",
+    "@angular/service-worker": "^20.2.4",
     "@cloudinary/ng": "^2.1.5",
     "@cloudinary/url-gen": "^1.21.0",
     "@firebase/util": "^1.13.0",
