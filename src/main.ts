@@ -1,6 +1,6 @@
 /// <reference types="@angular/localize" />
 
-import { importProvidersFrom } from '@angular/core';
+import { importProvidersFrom, isDevMode } from '@angular/core';
 
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
@@ -32,7 +32,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import {
   provideAppCheck,
   initializeAppCheck,
-  ReCaptchaV3Provider,
+  ReCaptchaEnterpriseProvider,
 } from '@angular/fire/app-check';
 import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
 import {
@@ -48,6 +48,14 @@ import {
   LightboxModule,
 } from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
+
+declare global {
+  var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
+}
+
+self.FIREBASE_APPCHECK_DEBUG_TOKEN = isDevMode()
+  ? environment.appCheckDebug
+  : false;
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -103,7 +111,7 @@ bootstrapApplication(AppComponent, {
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAppCheck(() =>
       initializeAppCheck(getApp(), {
-        provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
+        provider: new ReCaptchaEnterpriseProvider(environment.recaptchaSiteKey),
         isTokenAutoRefreshEnabled: true,
       }),
     ),
@@ -111,7 +119,7 @@ bootstrapApplication(AppComponent, {
     provideAnalytics(() => initializeAnalytics(getApp())),
     provideAuth(() => {
       const auth = getAuth();
-      if (environment.local && ngDevMode) {
+      if (environment.local && isDevMode()) {
         connectAuthEmulator(auth, 'http://localhost:9099', {
           disableWarnings: true,
         });
@@ -124,6 +132,8 @@ bootstrapApplication(AppComponent, {
       withPreloading(PreloadAllModules),
     ),
     provideHttpClient(),
-    provideServiceWorker('ngsw-worker.js', { enabled: environment.serviceOptions.useServiceWorker && !ngDevMode }),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: environment.serviceOptions.useServiceWorker && !isDevMode(),
+    }),
   ],
 }).catch((err) => console.error(err));
