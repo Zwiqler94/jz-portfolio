@@ -1,35 +1,26 @@
 import { defineSecret } from 'firebase-functions/params';
 import { SecretController } from './controllers/secrets.controller';
-import {  Router } from 'express';
+import { Router } from 'express';
 
 export const getSecrets = (env: string) => {
   const secrets = {
-    common: [
-      defineSecret('CLIENT_CERT'),
-      defineSecret('CLIENT_KEY'),
-      defineSecret('SERVER_CA'),
-    ],
     production: [
-      defineSecret('DB_PASS_PROD'),
-      defineSecret('ADMIN_USER_PROD'),
-      defineSecret('ADMIN_PASS_PROD'),
-      defineSecret('DB_HOST_PROD'),
+      defineSecret('NEON_HOST_PROD'),
+      defineSecret('NEON_PASS_PROD'),
+      defineSecret('NEON_USER_PROD'),
+      defineSecret('JLZ_APP_SERVER_CA'),
       defineSecret('LINK_PREVIEW_PROD'),
     ],
     development: [
-      defineSecret('DB_PASS_DEV'),
-      defineSecret('ADMIN_USER_DEV'),
-      defineSecret('ADMIN_PASS_DEV'),
-      defineSecret('DB_HOST_DEV'),
+      defineSecret('NEON_HOST_DEV'),
+      defineSecret('NEON_PASS_DEV'),
+      defineSecret('NEON_USER_DEV'),
+      defineSecret('JLZ_APP_SERVER_CA'),
       defineSecret('LINK_PREVIEW_DEV'),
     ],
   };
 
-  // Combine common and environment-specific secrets
-  return [
-    ...secrets.common,
-    ...(env === 'production' ? secrets.production : secrets.development),
-  ];
+  return [...(env === 'production' ? secrets.production : secrets.development)];
 };
 
 export const getLinkPreviewSecretSetup = (env: string) => {

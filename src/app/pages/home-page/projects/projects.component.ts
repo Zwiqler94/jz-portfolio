@@ -12,6 +12,7 @@ import {
   UsernameGeneratorComponent,
 } from '@zwiqler94/everything-lib';
 import { TabComponent } from 'src/app/components/tab/tab.component';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 @Component({
   selector: 'jzp-projects',
@@ -32,6 +33,7 @@ import { TabComponent } from 'src/app/components/tab/tab.component';
 export class ProjectsComponent extends TabComponent {
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
+  private auth = inject(AuthService);
 
   screenWidth: number = window.innerWidth;
   screenHeight: number = window.innerHeight;
@@ -41,9 +43,8 @@ export class ProjectsComponent extends TabComponent {
   private _maxHeight: number = (this.screenHeight - 25) / 8;
 
   // @ViewChild('tab', { read: ViewContainerRef }) tabTemplate: ViewContainerRef;
-
   @HostListener('window:resize', ['$event'])
-  onResize(_event: any) {
+  onResize() {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
     this.maxWidth = this.screenWidth - 25 - 45;
@@ -52,9 +53,11 @@ export class ProjectsComponent extends TabComponent {
 
   result = signal(['']);
 
-  private usernameForm: FormGroup<any> = this.fb.group({
+  private usernameForm: FormGroup = this.fb.group({
     words: [''],
     specialCharacters: [''],
+    appCheckToken:
+      this.auth.appCheckToken ?? this.auth.getAppCheckToken('projects'),
   });
 
   usernameFormInApp = signal(this.usernameForm);
