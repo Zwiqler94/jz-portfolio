@@ -53,8 +53,10 @@
                 "input": "src/index.html",
                 "output": "index.html"
               },
-              "optimization": false,
-              "outputHashing": "none"
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true
             },
             "dev-local": {
               "outputPath": {

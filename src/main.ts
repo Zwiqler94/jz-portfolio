@@ -8,7 +8,7 @@ import { NgxColorsModule } from 'ngx-colors';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxEditorModule } from 'ngx-editor';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { provideServiceWorker } from '@angular/service-worker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
@@ -24,7 +24,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app/app.routes';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAuth, getAuth, connectAuthEmulator } from '@angular/fire/auth';
@@ -49,7 +48,6 @@ import {
   LightboxModule,
 } from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -94,12 +92,6 @@ bootstrapApplication(AppComponent, {
       MatSelectModule,
       MatExpansionModule,
       MatIconModule,
-      ServiceWorkerModule.register('ngsw-worker.js', {
-        enabled: environment.serviceOptions.useServiceWorker,
-        // Register the ServiceWorker as soon as the application is stable
-        // or after 30 seconds (whichever comes first).
-        registrationStrategy: 'registerWhenStable:20000',
-      }),
       CdkDrag,
       CdkDragHandle,
       NgxEditorModule,
@@ -119,20 +111,19 @@ bootstrapApplication(AppComponent, {
     provideAnalytics(() => initializeAnalytics(getApp())),
     provideAuth(() => {
       const auth = getAuth();
-      if (environment.local) {
+      if (environment.local && ngDevMode) {
         connectAuthEmulator(auth, 'http://localhost:9099', {
           disableWarnings: true,
         });
       }
       return auth;
     }),
-    provideAnimations(),
     provideRouter(
       routes,
       withComponentInputBinding(),
       withPreloading(PreloadAllModules),
     ),
     provideHttpClient(),
-    provideAnimationsAsync(),
+    provideServiceWorker('ngsw-worker.js', { enabled: environment.serviceOptions.useServiceWorker && !ngDevMode }),
   ],
 }).catch((err) => console.error(err));
