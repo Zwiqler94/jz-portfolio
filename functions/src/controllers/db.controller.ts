@@ -167,7 +167,7 @@ export class DBController {
         user: DBController.username,
         password: DBController.password,
         database: process.env.DB_NAME,
-        ssl: toSslConfig(resolveFirstValue('JLZ_APP_SERVER_CA')) ?? true,
+        ssl: true,
       })
         .on('connect', () => {
           debug('connected to remote DB');
