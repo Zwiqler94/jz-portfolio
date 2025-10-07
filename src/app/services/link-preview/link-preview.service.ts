@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable no-underscore-dangle */
 import { Injectable, inject } from '@angular/core';
 import {
   HttpClient,
@@ -47,7 +45,6 @@ export class LinkPreviewService {
 
   // ‰
 
-  // eslint-disable-next-line @typescript-eslint/member-ordering
   // get apiKey() {
   //   if (!this._apiKey) {
   //     this.getAPIKey()

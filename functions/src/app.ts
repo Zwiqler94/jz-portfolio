@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import express from 'express';
 
 import { setupMiddleware } from './middleware/general.middleware';
 import { devApp } from './routes/dev.routes';
 import { prodApp } from './routes/prod.routes';
 import { setupSecretRoutes } from './secret-config';
-
-
 
 // Create Express app for v3
 export const createAppV3 = (): express.Express => {

@@ -33,8 +33,6 @@ export class TabItemComponent implements OnChanges {
 
   readonly tabComponentList = input<TabNavModel[]>([]);
 
-
-
   getComponentFromTabList(): any {
     const tabItem = this.tabComponentList().filter(
       (x) => x.link === this.tab(),

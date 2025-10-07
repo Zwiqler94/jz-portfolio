@@ -6,7 +6,6 @@ import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app/app.routes';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAuth, getAuth, connectAuthEmulator } from '@angular/fire/auth';
@@ -31,10 +30,17 @@ import {
   LightboxModule,
 } from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { setLogLevel, LogLevel } from '@angular/fire';
 
 setLogLevel(LogLevel.VERBOSE);
+
+declare global {
+  var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
+}
+
+self.FIREBASE_APPCHECK_DEBUG_TOKEN = isDevMode()
+  ? environment.appCheckDebug
+  : false;
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -63,10 +69,7 @@ bootstrapApplication(AppComponent, {
       } as GalleryConfig,
     },
     provideCloudinaryLoader('https://res.cloudinary.com/dhdioy0wn'),
-    importProvidersFrom(
-      GalleryModule,
-      LightboxModule,
-    ),
+    importProvidersFrom(GalleryModule, LightboxModule),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAppCheck(() =>
       initializeAppCheck(getApp(), {
@@ -78,25 +81,26 @@ bootstrapApplication(AppComponent, {
     provideAnalytics(() => initializeAnalytics(getApp())),
     provideAuth(() => {
       const auth = getAuth();
-      console.log(`Running in live site: ${!environment.local}`)
-      if (environment.local) {
+      console.log(`Running in live site: ${!environment.local}`);
+      if (environment.local && isDevMode()) {
         connectAuthEmulator(auth, 'http://localhost:9099', {
           disableWarnings: true,
         });
       }
       return auth;
     }),
-    provideAnimations(),
     provideRouter(
       routes,
       withComponentInputBinding(),
       withPreloading(PreloadAllModules),
     ),
     provideHttpClient(),
-    provideAnimationsAsync(),
     provideServiceWorker('ngsw-worker.js', {
-      enabled: environment.serviceOptions.useServiceWorker && !environment.local && !isDevMode(),
+      enabled:
+        environment.serviceOptions.useServiceWorker &&
+        !environment.local &&
+        !isDevMode(),
       registrationStrategy: 'registerWhenStable:20000',
-    })
+    }),
   ],
 }).catch((err) => console.error(err));

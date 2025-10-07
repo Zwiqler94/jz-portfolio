@@ -65,13 +65,10 @@ export class DatabaseService {
         console.debug(this.headers); // Optionally remove in production
 
         // Make HTTP request
-        return this.httpClient.get<AnyPostResponse[]>(
-          `${this.postUrl}/main`,
-          {
-            headers: this.headers,
-            // params: { local: true },
-          },
-        );
+        return this.httpClient.get<AnyPostResponse[]>(`${this.postUrl}/main`, {
+          headers: this.headers,
+          // params: { local: true },
+        });
       }),
       retry(3),
       repeat({ delay: 12000 }),
@@ -132,13 +129,16 @@ export class DatabaseService {
     );
   }
 
-  getPreviewData(id: number) {
+  getPreviewData(id: number): Observable<{ title: string; uri: string }> {
     this.headers = this.headers
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json');
-    return this.httpClient.get<any>(`${this.previewUrl}/${id}`, {
-      headers: this.headers,
-    });
+    return this.httpClient.get<{ title: string; uri: string }>(
+      `${this.previewUrl}/${id}`,
+      {
+        headers: this.headers,
+      },
+    );
   }
 
   private nextFn(posts: PostBase[]): PostBase[] {

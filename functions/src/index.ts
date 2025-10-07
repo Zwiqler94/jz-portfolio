@@ -4,8 +4,7 @@ import { createAppV3, createAppV4 } from './app';
 import { cert, initializeApp } from 'firebase-admin/app';
 import * as creds from '../credentials.json';
 
-
-const env = process.env.NODE_ENV ?? 'development'; // Default to development
+const env = process.env.NODE_ENV ?? 'dev'; // Default to development
 const secrets = getSecrets(env);
 
 export const fbAdminApp = initializeApp({
@@ -28,7 +27,7 @@ export const jzPortfolioApp = onRequest(
   createAppV3(),
 );
 
-const finalSecrets = ["NEON_ADMIN_PASS",...secrets]
+const finalSecrets = ['NEON_ADMIN_PASS', ...secrets];
 // Deploy dev version with `/api/v4`
 export const jzPortfolioAppDev = onRequest(
   {
@@ -40,4 +39,3 @@ export const jzPortfolioAppDev = onRequest(
   },
   createAppV4(),
 );
-

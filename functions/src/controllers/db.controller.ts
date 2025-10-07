@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable max-len */
-/* eslint-disable new-cap */
-/* eslint-disable no-extra-boolean-cast */
+
 import { Pool, PoolClient, QueryResult } from 'pg';
 import { error, debug, info } from 'firebase-functions/logger';
-// import { getSecretValue } from '../utils';
-
 export class DBController {
   private static username: string;
   private static password: string;
@@ -15,23 +11,33 @@ export class DBController {
   startUpDBService = async () => {
     try {
       debug('constructing');
-      if (process.env.DB_ENV && process.env.DB_ENV === 'Neon') {
-        this.pool = await this.connectDB(false);
-        this.client = await this.pool.connect();
-      } else {
-        this.pool = await this.connectDB(true);
-        this.client = await this.pool.connect();
-      }
+      const dbEnv = process.env.DB_ENV?.toLowerCase() ?? 'local';
+      const useLocalDb = ['local', 'localhost'].includes(dbEnv);
+
+      this.pool = await this.connectDB(useLocalDb);
+      this.client = await this.pool.connect();
       debug('done constructing');
       return this.client;
     } catch (err) {
       error(err);
-      this.client?.release();
-      this.pool?.on('error', (err, client) => {
-        error('Unexpected error on idle client', err);
-        process.exit(-1);
-      });
-      throw new Error(JSON.stringify({ connectionError: err }));
+      if (this.client) {
+        this.client.release();
+        this.client = undefined;
+      }
+
+      if (this.pool) {
+        try {
+          await this.pool.end();
+        } catch (poolErr) {
+          error('Failed to close connection pool after error', poolErr);
+        } finally {
+          this.pool = undefined;
+        }
+      }
+
+      throw err instanceof Error
+        ? err
+        : new Error(JSON.stringify({ connectionError: err }));
     }
   };
 
@@ -102,46 +108,101 @@ export class DBController {
   };
 
   connectDB = async (useLocal: boolean) => {
-    const application_name = `jlzp_${process.env.DB_ENV}_${process.env.DB_USER}`;
+    const runtimeEnv = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV';
+    const keyFor = (base: string) => `${base}_${runtimeEnv}`;
+
+    const resolveOptionalValue = (baseKey: string): string | undefined => {
+      const envSpecificKey = keyFor(baseKey);
+      return (
+        process.env[envSpecificKey] ??
+        process.env[baseKey] ??
+        process.env[baseKey.toLowerCase()]
+      );
+    };
+
+    const resolveFirstValue = (...baseKeys: string[]): string | undefined => {
+      for (const key of baseKeys) {
+        const value = resolveOptionalValue(key);
+        if (value) {
+          return value;
+        }
+      }
+      return undefined;
+    };
+
+    const requireValue = (...baseKeys: string[]): string => {
+      const value = resolveFirstValue(...baseKeys);
+      if (!value) {
+        const attempted = baseKeys.map((key) => keyFor(key)).join(', ');
+        throw new Error(
+          `Missing environment variable for one of: ${attempted}`,
+        );
+      }
+      return value;
+    };
+
+    const toSslConfig = (value?: string) => {
+      if (!value) return undefined;
+      const normalized = value.includes('BEGIN CERTIFICATE')
+        ? value
+        : Buffer.from(value, 'base64').toString('utf8');
+      return { ca: normalized } as const;
+    };
 
     if (!useLocal) {
+      const dbUser = resolveFirstValue('NEON_USER');
 
+      if (!dbUser) {
+        throw new Error('Missing database user environment variable');
+      }
 
-      DBController.password = process.env.NEON_ADMIN_PASS!;
-      DBController.username = process.env.DB_USER!;
+      const application_name = `jlz_portfolio_${process.env.DB_ENV ?? 'remote'}_${dbUser}`;
+
+      DBController.password = requireValue('NEON_PASS');
+      DBController.username = dbUser;
 
       // const caCert = Buffer.from(await getSecretValue('caSSLCert'));
 
-      const connectionString =
-        `postgresql://${DBController.username}:${DBController.password}@${process.env.DB_HOST}.c-2.us-east-2.aws.neon.tech/jz-local?sslmode=require&channel_binding=require`; //`postgres://${DBController.username}:${DBController.password}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=require&channel_binding=require`;
+      const connectionString = `postgresql://${DBController.username}:${DBController.password}@${process.env.DB_HOST}.c-2.us-east-2.aws.neon.tech/jz-local?sslmode=require&channel_binding=require`; //`postgres://${DBController.username}:${DBController.password}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=require&channel_binding=require`;
       this.pool = new Pool({
         connectionString,
         application_name,
+        host: requireValue('NEON_HOST'),
+        user: DBController.username,
+        password: DBController.password,
+        database: process.env.DB_NAME,
+        ssl: true,
       })
         .on('connect', () => {
-          debug('connected to prod DB');
+          debug('connected to remote DB');
         })
         .on('release', () => {
           debug('bye bye');
-        }).on('error', (err: Error) => {
-          error('Unexpected error on idle client', err.cause);
-          throw err;
+        })
+        .on('error', (poolErr: Error) => {
+          error('Unexpected error on idle client', poolErr);
         });
     } else {
+      const dbUser = requireValue('LOCAL_DB_USER');
+      const application_name = `jlz_portfolio_${process.env.DB_ENV ?? 'local'}_${dbUser}`;
+
       this.pool = new Pool({
         application_name,
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
+        host: requireValue('LOCAL_DB_HOST'),
+        user: dbUser,
+        password: requireValue('LOCAL_DB_PASS'),
         database: process.env.DB_NAME,
-        port: 5433,
-        ssl: false,
+        port: Number(process.env.DB_PORT ?? 5433),
+        ssl: process.env.DB_SSL === 'true' ? true : false,
       })
         .on('connect', () => {
           debug('connected to local DB');
         })
         .on('release', () => {
           debug('bye bye');
+        })
+        .on('error', (poolErr: Error) => {
+          error('Unexpected error on idle client', poolErr);
         });
     }
     return this.pool;

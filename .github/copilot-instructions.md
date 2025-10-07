@@ -54,3 +54,20 @@ The backend is a set of Firebase Functions written in TypeScript, using Express.
 -   `firebase.json`: Configuration for Firebase hosting and functions.
 -   `functions/src/app.ts`: The main Express application for the backend.
 -   `functions/src/index.ts`: The entry point for the Firebase Functions.
+
+### References
+
+For quick, authoritative examples and API details, consult Angular's LLM-friendly index:
+
+- https://angular.dev/llms.txt  — a compact table-of-contents for the Angular docs.
+
+Recommended sections for this repository (use these when the instruction requires concrete API usage or examples):
+
+- Signals & reactivity: `guide/signals` (use `signal`, `computed`, `resource`, avoid `mutate`, prefer `update`/`set`).
+- Dependency injection: `guide/di` (use `inject()`; understand provider scopes and `providedIn`).
+- Templates & control flow: `guide/templates` (expression syntax, `@if/@for/@switch` patterns used in this repo).
+- Image optimization: `guide/image-optimization` (prefer `NgOptimizedImage` for static assets).
+- Forms: `guide/forms` and `guide/forms/typed-forms` (prefer Reactive/typed forms for strict typing).
+- Testing & debugging: `guide/testing` (component harnesses, service testing, and test debugging tips).
+
+AI agents: prefer the above links when generating code snippets or looking up exact option names and signatures. Cite the Angular docs when necessary.
