@@ -1,5 +1,3 @@
- 
- 
 import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';

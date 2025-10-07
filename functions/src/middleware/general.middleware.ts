@@ -74,7 +74,7 @@ export const appCheckGaurd = async (
     // if (appCheckDebugToken && !appCheckToken) {
     //   debug('DEBUG TOKEN USED');
     // }
-    next();
+    return next();
   } catch (err: any) {
     // error(err);
     res.status(401);

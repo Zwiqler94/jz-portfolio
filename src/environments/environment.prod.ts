@@ -19,9 +19,9 @@ export const environment = {
     useServiceWorker: true,
     url: 'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp',
     secretService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/secrets',
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v4/secrets',
     postService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts',
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v4/posts',
     previewService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v4/previews',
   },

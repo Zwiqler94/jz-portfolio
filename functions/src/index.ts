@@ -27,6 +27,7 @@ export const jzPortfolioApp = onRequest(
   createAppV3(),
 );
 
+const finalSecrets = ['NEON_ADMIN_PASS', ...secrets];
 // Deploy dev version with `/api/v4`
 export const jzPortfolioAppDev = onRequest(
   {
@@ -34,7 +35,7 @@ export const jzPortfolioAppDev = onRequest(
     timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
-    secrets,
+    secrets: finalSecrets,
   },
   createAppV4(),
 );

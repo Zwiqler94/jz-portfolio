@@ -1,5 +1,3 @@
- 
- 
 import { Injectable, inject } from '@angular/core';
 import {
   HttpClient,
@@ -47,7 +45,6 @@ export class LinkPreviewService {
 
   // ‰
 
-   
   // get apiKey() {
   //   if (!this._apiKey) {
   //     this.getAPIKey()

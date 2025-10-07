@@ -1,5 +1,3 @@
- 
- 
 import { Component, inject } from '@angular/core';
 import { Storage } from '@angular/fire/storage';
 import { Router } from '@angular/router';

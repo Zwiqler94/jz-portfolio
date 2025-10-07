@@ -4,26 +4,8 @@ import { importProvidersFrom, isDevMode } from '@angular/core';
 
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
-import { NgxColorsModule } from 'ngx-colors';
-import { MatDialogModule } from '@angular/material/dialog';
-import { NgxEditorModule } from 'ngx-editor';
-import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { provideServiceWorker } from '@angular/service-worker';
-import { MatIconModule } from '@angular/material/icon';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatListModule } from '@angular/material/list';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatInputModule } from '@angular/material/input';
 import { provideHttpClient } from '@angular/common/http';
-import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatButtonModule } from '@angular/material/button';
 import { routes } from './app/app.routes';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAuth, getAuth, connectAuthEmulator } from '@angular/fire/auth';
@@ -48,6 +30,9 @@ import {
   LightboxModule,
 } from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
+import { setLogLevel, LogLevel } from '@angular/fire';
+
+setLogLevel(LogLevel.VERBOSE);
 
 declare global {
   var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
@@ -84,30 +69,7 @@ bootstrapApplication(AppComponent, {
       } as GalleryConfig,
     },
     provideCloudinaryLoader('https://res.cloudinary.com/dhdioy0wn'),
-    importProvidersFrom(
-      MatButtonModule,
-      MatSnackBarModule,
-      MatFormFieldModule,
-      MatToolbarModule,
-      MatCardModule,
-      MatInputModule,
-      MatTabsModule,
-      MatListModule,
-      MatChipsModule,
-      FormsModule,
-      ReactiveFormsModule,
-      MatSidenavModule,
-      MatSelectModule,
-      MatExpansionModule,
-      MatIconModule,
-      CdkDrag,
-      CdkDragHandle,
-      NgxEditorModule,
-      MatDialogModule,
-      NgxColorsModule,
-      GalleryModule,
-      LightboxModule,
-    ),
+    importProvidersFrom(GalleryModule, LightboxModule),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAppCheck(() =>
       initializeAppCheck(getApp(), {
@@ -119,6 +81,7 @@ bootstrapApplication(AppComponent, {
     provideAnalytics(() => initializeAnalytics(getApp())),
     provideAuth(() => {
       const auth = getAuth();
+      console.log(`Running in live site: ${!environment.local}`);
       if (environment.local && isDevMode()) {
         connectAuthEmulator(auth, 'http://localhost:9099', {
           disableWarnings: true,
@@ -133,7 +96,11 @@ bootstrapApplication(AppComponent, {
     ),
     provideHttpClient(),
     provideServiceWorker('ngsw-worker.js', {
-      enabled: environment.serviceOptions.useServiceWorker && !isDevMode(),
+      enabled:
+        environment.serviceOptions.useServiceWorker &&
+        !environment.local &&
+        !isDevMode(),
+      registrationStrategy: 'registerWhenStable:20000',
     }),
   ],
 }).catch((err) => console.error(err));

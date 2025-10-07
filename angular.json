@@ -30,9 +30,6 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
               "extractLicenses": true,
               "budgets": [
                 {
@@ -54,9 +51,7 @@
                 "output": "index.html"
               },
               "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": true
+              "statsJson": false
             },
             "dev-local": {
               "outputPath": {
@@ -73,7 +68,6 @@
                   "with": "src/environments/environment.dev-local.ts"
                 }
               ],
-              "optimization": true,
               "verbose": true
             },
             "local": {
@@ -147,10 +141,11 @@
             "tsConfig": "tsconfig.app.json",
             "browser": "src/main.ts",
             "preserveSymlinks": true,
-            "outputHashing": "bundles",
+            "outputHashing": "all",
             "subresourceIntegrity": false,
             "statsJson": true
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "deploy": {
           "builder": "@angular/fire:deploy",

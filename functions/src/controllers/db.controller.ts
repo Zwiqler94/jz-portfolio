@@ -161,7 +161,11 @@ export class DBController {
       DBController.password = requireValue('NEON_PASS');
       DBController.username = dbUser;
 
+      // const caCert = Buffer.from(await getSecretValue('caSSLCert'));
+
+      const connectionString = `postgresql://${DBController.username}:${DBController.password}@${process.env.DB_HOST}.c-2.us-east-2.aws.neon.tech/jz-local?sslmode=require&channel_binding=require`; //`postgres://${DBController.username}:${DBController.password}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=require&channel_binding=require`;
       this.pool = new Pool({
+        connectionString,
         application_name,
         host: requireValue('NEON_HOST'),
         user: DBController.username,

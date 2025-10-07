@@ -1,5 +1,3 @@
- 
- 
 import { Component, OnInit, inject, input, model } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PostType, TextPost } from 'src/app/components/models/post.model';
