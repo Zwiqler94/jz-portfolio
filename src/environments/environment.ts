@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  appCheckDebug: false,
   appUrl: 'jlz-portfolio-dev.web.app',
   deployable: true,
   firebaseConfig: {
@@ -23,9 +24,9 @@ export const environment = {
 
     url: 'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev',
     secretService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v3/secrets',
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/secrets',
     postService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApDev/api/v3/posts',
+      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/posts',
     previewService:
       'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/previews',
   },
