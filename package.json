@@ -29,7 +29,7 @@
     "start:local": "npx --yes http-server --gzip --brotli --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local",
     "start:prod": "npx --yes http-server --cors  -p 8087 -c-1 dist/jz-portfolio",
     "test": "ng test",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "private": true,
   "dependencies": {
