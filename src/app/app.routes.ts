@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { inject } from '@angular/core';
 import { CanActivateFn, Routes } from '@angular/router';
 
@@ -49,6 +48,7 @@ export const routes: Routes = [
         (m) => m.AboutMeComponent,
       ),
     canActivate: envAuthGaurd,
+    data: { preload: true, reuse: true },
     children: [
       {
         path: 'main',

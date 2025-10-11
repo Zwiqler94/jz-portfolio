@@ -1,8 +1,6 @@
 import { LearningCredential } from 'src/app/interfaces/credentials/credential.interface';
 
-interface AchievementCategory {
-  [key: string]: number;
-}
+type AchievementCategory = Record<string, number>;
 
 export interface Achievement {
   category: string;

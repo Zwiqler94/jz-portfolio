@@ -39,14 +39,14 @@ export class AboutMeMainComponent extends TabComponent {
               harder.';
 
   _profileImage = './assets/about-me/me.avif';
-  _sideImageA: string = './assets/about-me/side-image-18.avif';
-  _sideImageB: string = './assets/about-me/side-image-2.avif';
-  _sideImageC: string = './assets/about-me/side-image-3.avif';
-  _sideImageD: string = './assets/about-me/side-image-4.avif';
-  _sideImageE: string = './assets/about-me/side-image-5.avif';
-  _sideImageF: string = './assets/about-me/side-image-6.avif';
-  _sideImageG: string = './assets/about-me/side-image-11.avif';
-  _sideImageH: string = './assets/about-me/side-image-14.avif';
-  _sideImageI: string = './assets/about-me/side-image-16.avif';
-  _sideImageJ: string = './assets/about-me/side-image-19.avif';
+  _sideImageA = './assets/about-me/side-image-18.avif';
+  _sideImageB = './assets/about-me/side-image-2.avif';
+  _sideImageC = './assets/about-me/side-image-3.avif';
+  _sideImageD = './assets/about-me/side-image-4.avif';
+  _sideImageE = './assets/about-me/side-image-5.avif';
+  _sideImageF = './assets/about-me/side-image-6.avif';
+  _sideImageG = './assets/about-me/side-image-11.avif';
+  _sideImageH = './assets/about-me/side-image-14.avif';
+  _sideImageI = './assets/about-me/side-image-16.avif';
+  _sideImageJ = './assets/about-me/side-image-19.avif';
 }

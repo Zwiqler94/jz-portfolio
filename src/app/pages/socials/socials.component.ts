@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+ 
 
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
@@ -7,17 +7,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
   templateUrl: './socials.component.html',
   styleUrls: ['./socials.component.scss'],
 })
-export class SocialsComponent implements OnInit, AfterViewInit {
+export class SocialsComponent implements AfterViewInit {
   instagramScript: unknown;
   twitterScript: unknown;
-
-  constructor() {
-    // if (this.router.navigated === true) {
-    //   location.reload();
-    // }
-  }
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     try {

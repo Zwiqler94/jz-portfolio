@@ -43,7 +43,7 @@ export class ProjectsComponent extends TabComponent {
   private _maxHeight: number = (this.screenHeight - 25) / 8;
 
   // @ViewChild('tab', { read: ViewContainerRef }) tabTemplate: ViewContainerRef;
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onResize() {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;

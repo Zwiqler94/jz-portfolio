@@ -125,7 +125,7 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     '#d4c5f9',
   ];
 
-  selectedColor: string = '';
+  selectedColor = '';
 
   form = new FormGroup({
     title: new FormControl(null, [Validators.required()]),
@@ -141,8 +141,6 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     feedLocation: new FormControl(null),
     postType: new FormControl(null),
   });
-
-  constructor() {}
 
   pNode: NodeSpec = {
     content: 'inline*',
@@ -253,10 +251,10 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     console.log(schema);
 
     if (this.isTextColorActive) {
-      return toggleMark(schema.marks.text_color)(state, dispatch);
+      return toggleMark(schema.marks['text_color'])(state, dispatch);
     }
 
-    return toggleMark(schema.marks.text_color)(state, dispatch);
+    return toggleMark(schema.marks['text_color'])(state, dispatch);
   }
 
   executeBgColor(
@@ -268,10 +266,10 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     console.log(schema);
 
     if (this.isTextColorActive) {
-      return toggleMark(schema.marks.text_background_color)(state, dispatch);
+      return toggleMark(schema.marks['text_background_color'])(state, dispatch);
     }
 
-    return toggleMark(schema.marks.text_background_color)(state, dispatch);
+    return toggleMark(schema.marks['text_background_color'])(state, dispatch);
   }
 
   updateTextColor: (view: EditorView, prevState: EditorState) => void = (

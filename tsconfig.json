@@ -7,20 +7,21 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,
+    "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "isolatedModules": true,
     "importHelpers": true,
+    "skipLibCheck": true,
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "preserve",
     "lib": ["ESNext", "dom"],
-    "paths": {
-      "@angular/*": ["./node_modules/@angular/*"]
-    },
     "strictPropertyInitialization": false,
     "useDefineForClassFields": false
   },
@@ -28,6 +29,16 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
     "strictTemplates": true
-  }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

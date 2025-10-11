@@ -52,8 +52,6 @@ export class PhotographyTabComponent implements OnInit {
 
   readonly paginator = viewChild(MatPaginator);
 
-  constructor() {}
-
   ngOnInit() {
     this.setUpPhotographyImagesCloudinary();
 

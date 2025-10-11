@@ -15,8 +15,6 @@ export class ImageService {
 
   CLOUDINARY_URL = 'https://res.cloudinary.com/dhdioy0wn/search';
 
-  constructor() {}
-
   getHuxleyImageInfo(nextCursorKey?: string) {
     const imgUrl = nextCursorKey
       ? `${this.CLOUDINARY_URL}/81ee7fd17ffd0c1e5aa8db7f47c88ec9a519613cab618f1a4ffaa98026dba020/300/eyJleHByZXNzaW9uIjoicmVzb3VyY2VfdHlwZTppbWFnZSBBTkQgYXNzZXRfZm9sZGVyOkpMWi1Qb3J0Zm9saW8vSHV4bGV5IiwibWF4X3Jlc3VsdHMiOjQwfQ==/${nextCursorKey}`

@@ -126,11 +126,11 @@
                 "maximumError": "15mb"
               }
             ],
+            "polyfills": ["zone.js"],
             "extractLicenses": false,
             "index": "src/index.html",
             "namedChunks": true,
             "optimization": false,
-            "polyfills": ["src/polyfills.ts", "@angular/localize/init"],
             "scripts": [],
             "serviceWorker": "ngsw-config.json",
             "sourceMap": true,
@@ -214,13 +214,10 @@
               }
             ],
             "codeCoverage": true,
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing",
-              "@angular/localize/init"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets",
