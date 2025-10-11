@@ -61,7 +61,6 @@ jobs:
           git checkout -b "${{ github.head_ref }}"
           npm ci
           npm version patch
-          echo "version=$(node -p \"require('./package.json').version\")"
           git push
           git push --tags
       - name: set PULL_URL
