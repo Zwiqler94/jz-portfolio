@@ -7,15 +7,25 @@
           class="nav-arrows"
           src="../../../assets/icons/noun_previous arrow_1407190.png"
           (click)="onPreviousClick()"
+          (keydown.enter)="onPreviousClick()"
+          (keyup.space)="onPreviousClick()"
+          tabindex="0"
+          role="button"
+          aria-label="Previous slide"
         />
         <div id="img-div">
-          <img src="{{ currentSlide }}" />
+          <img src="{{ currentSlide }}" [alt]="" />
         </div>
         <img
           alt="next arrow"
           class="nav-arrows"
           src="../../../assets/icons/noun_next arrow_3318610.png"
           (click)="onNextClick()"
+          (keydown.enter)="onNextClick()"
+          (keyup.space)="onNextClick()"
+          tabindex="0"
+          role="button"
+          aria-label="Next slide"
         />
       </ng-container>
     </div>

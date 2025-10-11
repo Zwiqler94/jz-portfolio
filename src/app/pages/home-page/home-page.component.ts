@@ -28,7 +28,7 @@ export class AboutMeComponent extends TabComponent {
     // { component: SkillsComponent, title: 'Skills', link: 'skills' },
     { component: ProjectsComponent, title: 'Projects', link: 'projects' },
   ];
-  currentPagePath: string = '';
+  currentPagePath = '';
 
   constructor() {
     super();

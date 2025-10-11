@@ -19,7 +19,7 @@ import { LearningCredential } from 'src/app/interfaces/credentials/credential.in
 })
 export class CredentialsComponent extends TabComponent implements OnInit {
   private renderer2 = inject(Renderer2);
-  readonly tabTitle = input<string>();
+  override readonly tabTitle = input<string>();
 
   MICROSOFT_LEARN_URL = 'https://learn.microsoft.com/en-us';
   CREDLY_URL: any;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { inject } from '@angular/core';
 import { CanActivateFn, Routes } from '@angular/router';
 

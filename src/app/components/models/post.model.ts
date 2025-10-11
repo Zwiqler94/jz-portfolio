@@ -42,10 +42,10 @@ export interface TextPost extends PostBase {
 // Union type for all posts
 export type AnyPost = TextPost | LinkPost | ImagePost | VideoPost;
 
-export type PostResponse = {
+export interface PostResponse {
   title: string;
   uri: string;
-};
+}
 
 export type AnyPostResponse = PostResponse & AnyPost;
 

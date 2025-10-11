@@ -18,7 +18,7 @@ export class AuthService {
   private _uid: string | undefined;
   private _appCheckToken: string | undefined;
   static called = 0;
-  private _isLoggedIn: boolean = false;
+  private _isLoggedIn = false;
 
   constructor() {
     if (!this.appCheckToken)
