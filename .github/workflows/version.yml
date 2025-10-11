@@ -144,7 +144,7 @@ jobs:
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
           git config --local push.autoSetupRemote true
-          git checkout -b "$HEAD_REF"
+          git checkout -b "${{ github.head_ref }}"
           npm ci
           npm version minor --force
           echo "version=$(node -p \"require('./package.json').version\")"
