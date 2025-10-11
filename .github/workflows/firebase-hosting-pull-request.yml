@@ -28,12 +28,12 @@ jobs:
             gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
             npx google-artifactregistry-auth
       - uses: actions/setup-node@v5
-        env:
-          HUSKY: 0
         with:
           node-version: 22
           cache: "npm"
       - run: "npm ci"
+        env:
+          HUSKY: 0
       - run: "npm run lint:fix"
       - run: "npm run build:prod"
       - uses: FirebaseExtended/action-hosting-deploy@v0.10.0
