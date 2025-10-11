@@ -29,6 +29,8 @@ jobs:
             gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
             npx google-artifactregistry-auth
       - uses: actions/setup-node@v5
+        env:
+          HUSKY: 0
         with:
           node-version: 22
           cache: "npm"
