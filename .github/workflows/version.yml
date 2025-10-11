@@ -8,6 +8,7 @@ env:
   test: ""
   commitMsg: ""
   REPO_URL: "https://api.github.com/repos/${{ github.repository }}"
+  HUSKY: 0
 jobs:
   check-tokens:
     runs-on: ubuntu-latest
