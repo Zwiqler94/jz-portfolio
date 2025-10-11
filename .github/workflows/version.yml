@@ -40,7 +40,7 @@ jobs:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 22.0
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: "npm"
@@ -127,7 +127,7 @@ jobs:
             npx google-artifactregistry-auth
       - name: Use Node.js 22
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: "npm"
@@ -146,7 +146,7 @@ jobs:
           git config --local push.autoSetupRemote true
           git checkout -b "${{ github.head_ref }}"
           npm ci
-          npm version minor
+          npm version minor --force
           echo "version=$(node -p \"require('./package.json').version\")"
           git push
           git push --tags
@@ -192,7 +192,7 @@ jobs:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 22
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: "npm"
