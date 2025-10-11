@@ -8,6 +8,7 @@ env:
   test: ""
   commitMsg: ""
   REPO_URL: "https://api.github.com/repos/${{ github.repository }}"
+  HUSKY: 0
 jobs:
   check-tokens:
     runs-on: ubuntu-latest
@@ -35,12 +36,12 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 22.0
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: "npm"
@@ -60,7 +61,6 @@ jobs:
           git checkout -b "${{ github.head_ref }}"
           npm ci
           npm version patch
-          echo "version=$(node -p \"require('./package.json').version\")"
           git push
           git push --tags
       - name: set PULL_URL
@@ -107,15 +107,15 @@ jobs:
     steps:
       - name: checkout
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2.1.12
+        uses: google-github-actions/auth@v3
         with:
           credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_NPM_PKG }}"
       - name: Set up gcloud Cloud SDK environment
-        uses: google-github-actions/setup-gcloud@v2.1.5
+        uses: google-github-actions/setup-gcloud@v3
       - env:
           HEAD_REF: ${{ github.head_ref }}
         run: echo "HEAD_REF=$HEAD_REF" >> "$GITHUB_ENV"
@@ -127,7 +127,7 @@ jobs:
             npx google-artifactregistry-auth
       - name: Use Node.js 22
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: "npm"
@@ -144,9 +144,9 @@ jobs:
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
           git config --local push.autoSetupRemote true
-          git checkout -b "${{ github.head_ref }}"
+          git checkout -b "$HEAD_REF"
           npm ci
-          npm version minor
+          npm version minor --force
           echo "version=$(node -p \"require('./package.json').version\")"
           git push
           git push --tags
@@ -192,7 +192,7 @@ jobs:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Use Node.js 22
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: "npm"
