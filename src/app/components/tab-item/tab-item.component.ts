@@ -18,11 +18,11 @@ import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 //   | SkillsComponent;
 
 @Component({
-  selector: 'jzp-jz-tab-item',
-  templateUrl: './jz-tab-item.component.html',
-  styleUrls: ['./jz-tab-item.component.scss'],
+  selector: 'jzp-tab-item',
+  templateUrl: './tab-item.component.html',
+  styleUrls: ['./tab-item.component.scss'],
 })
-export class JzTabItemComponent implements OnChanges {
+export class TabItemComponent implements OnChanges {
   private changeDetector = inject(ChangeDetectorRef);
   private router = inject(Router);
 
@@ -32,19 +32,6 @@ export class JzTabItemComponent implements OnChanges {
   });
 
   readonly tabComponentList = input<TabNavModel[]>([]);
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
-
-  // ngAfterViewInit(): void {
-  //   const component = this.getComponentFromTabList();
-  //   const componentRef =
-  //     this.tabTemplate().createComponent<typeof component>(component);
-  //   componentRef.instance.tabTitle = this.tab().title;
-  //   this.changeDetector.detectChanges();
-  // }
 
   getComponentFromTabList(): any {
     const tabItem = this.tabComponentList().filter(

@@ -1,0 +1,396 @@
+.
+├── angular.json
+├── browserslist-stats.json
+├── CHANGELOG.md
+├── commitlint.config.js
+├── e2e
+│   ├── tests
+│   │   ├── app.e2e.ts
+│   │   └── utils.ts
+│   └── tsconfig.json
+├── firebase.json
+├── functions
+│   ├── JAZWICKLER-JLZ-5.1.6-resolved.json
+│   ├── JAZWICKLER-JLZ-5.1.7-swagger.json
+│   ├── lib
+│   │   ├── JAZWICKLER-JLZ-5.1.7-swagger.json
+│   │   └── src
+│   │       ├── controllers
+│   │       ├── middleware
+│   │       ├── models
+│   │       ├── routes
+│   │       └── validators
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── src
+│   │   ├── app.ts
+│   │   ├── controllers
+│   │   │   ├── db.controller.ts
+│   │   │   ├── link-preview.controller.ts
+│   │   │   ├── post.controller.ts
+│   │   │   └── secrets.controller.ts
+│   │   ├── index.ts
+│   │   ├── middleware
+│   │   │   ├── auth.middleware.ts
+│   │   │   └── general.middleware.ts
+│   │   ├── models
+│   │   │   └── post-response.model.ts
+│   │   ├── routes
+│   │   │   ├── dev.routes.ts
+│   │   │   └── prod.routes.ts
+│   │   ├── secret-config.ts
+│   │   ├── utils.ts
+│   │   └── validators
+│   │       ├── auth.validator.ts
+│   │       └── post.validator.ts
+│   ├── tsconfig.dev.json
+│   └── tsconfig.json
+├── karma.conf.js
+├── misc
+│   ├── diagrams
+│   │   ├── ERD.pgerd
+│   │   └── Untitled.drawio
+│   ├── issues
+│   │   ├── list.csv
+│   │   ├── list.json
+│   │   └── list.txt
+│   └── sql
+│       ├── alter_for_cascade.sql
+│       ├── base64_conversions.sql
+│       ├── create_post.sql
+│       ├── create_trigger.sql
+│       ├── single_feeds_migration_p2.sql
+│       └── single_feeds_migration.sql
+├── ngsw-config.json
+├── package-lock.json
+├── package.json
+├── README.md
+├── src
+│   ├── app
+│   │   ├── app.component.html
+│   │   ├── app.component.scss
+│   │   ├── app.component.spec.ts
+│   │   ├── app.component.ts
+│   │   ├── app.routes.ts
+│   │   ├── components
+│   │   │   ├── carousel
+│   │   │   │   ├── carousel.component.html
+│   │   │   │   ├── carousel.component.scss
+│   │   │   │   ├── carousel.component.spec.ts
+│   │   │   │   └── carousel.component.ts
+│   │   │   ├── feed
+│   │   │   │   ├── feed.component.html
+│   │   │   │   ├── feed.component.scss
+│   │   │   │   ├── feed.component.spec.ts
+│   │   │   │   └── feed.component.ts
+│   │   │   ├── footer
+│   │   │   │   ├── footer.component.html
+│   │   │   │   ├── footer.component.scss
+│   │   │   │   ├── footer.component.spec.ts
+│   │   │   │   └── footer.component.ts
+│   │   │   ├── link-post
+│   │   │   │   ├── link-post.component.html
+│   │   │   │   ├── link-post.component.scss
+│   │   │   │   ├── link-post.component.spec.ts
+│   │   │   │   └── link-post.component.ts
+│   │   │   ├── loading-overlay
+│   │   │   │   ├── loading-overlay.component.html
+│   │   │   │   ├── loading-overlay.component.scss
+│   │   │   │   ├── loading-overlay.component.spec.ts
+│   │   │   │   └── loading-overlay.component.ts
+│   │   │   ├── models
+│   │   │   │   ├── color-picker-menu-item.model.ts
+│   │   │   │   ├── post.factory.ts
+│   │   │   │   ├── post.model.ts
+│   │   │   │   └── tab-nav.model.ts
+│   │   │   ├── nav-bar
+│   │   │   │   ├── nav-bar.component.html
+│   │   │   │   ├── nav-bar.component.scss
+│   │   │   │   ├── nav-bar.component.spec.ts
+│   │   │   │   └── nav-bar.component.ts
+│   │   │   ├── new-post-dialog
+│   │   │   │   ├── new-post-dialog.component.html
+│   │   │   │   ├── new-post-dialog.component.scss
+│   │   │   │   ├── new-post-dialog.component.spec.ts
+│   │   │   │   └── new-post-dialog.component.ts
+│   │   │   ├── photo-gallery
+│   │   │   │   ├── photo-gallery.component.html
+│   │   │   │   ├── photo-gallery.component.scss
+│   │   │   │   ├── photo-gallery.component.spec.ts
+│   │   │   │   └── photo-gallery.component.ts
+│   │   │   ├── post-base
+│   │   │   │   ├── post-base.component.html
+│   │   │   │   ├── post-base.component.scss
+│   │   │   │   ├── post-base.component.spec.ts
+│   │   │   │   └── post-base.component.ts
+│   │   │   ├── tab
+│   │   │   │   ├── tab.component.html
+│   │   │   │   ├── tab.component.scss
+│   │   │   │   ├── tab.component.spec.ts
+│   │   │   │   └── tab.component.ts
+│   │   │   ├── tab-group
+│   │   │   │   ├── tab-group.component.html
+│   │   │   │   ├── tab-group.component.scss
+│   │   │   │   ├── tab-group.component.spec.ts
+│   │   │   │   └── tab-group.component.ts
+│   │   │   ├── tab-item
+│   │   │   │   ├── tab-item.component.html
+│   │   │   │   ├── tab-item.component.scss
+│   │   │   │   ├── tab-item.component.spec.ts
+│   │   │   │   └── tab-item.component.ts
+│   │   │   └── text-post
+│   │   │       ├── text-post.component.html
+│   │   │       ├── text-post.component.scss
+│   │   │       ├── text-post.component.spec.ts
+│   │   │       └── text-post.component.ts
+│   │   ├── interfaces
+│   │   │   ├── cloudinary-search.interface.ts
+│   │   │   └── credentials
+│   │   │       ├── credential.interface.ts
+│   │   │       ├── credly
+│   │   │       │   └── credly.interface.ts
+│   │   │       └── microsoft
+│   │   │           └── microsoft.interface.ts
+│   │   ├── pages
+│   │   │   ├── blog-page
+│   │   │   │   ├── blog-page.component.html
+│   │   │   │   ├── blog-page.component.scss
+│   │   │   │   ├── blog-page.component.spec.ts
+│   │   │   │   └── blog-page.component.ts
+│   │   │   ├── contact-me
+│   │   │   │   └── contact-me
+│   │   │   │       ├── contact-me.component.html
+│   │   │   │       ├── contact-me.component.scss
+│   │   │   │       ├── contact-me.component.spec.ts
+│   │   │   │       └── contact-me.component.ts
+│   │   │   ├── editor-page
+│   │   │   │   ├── editor-page.component.html
+│   │   │   │   ├── editor-page.component.scss
+│   │   │   │   ├── editor-page.component.spec.ts
+│   │   │   │   └── editor-page.component.ts
+│   │   │   ├── error-page
+│   │   │   │   ├── error-page.component.html
+│   │   │   │   ├── error-page.component.scss
+│   │   │   │   ├── error-page.component.spec.ts
+│   │   │   │   └── error-page.component.ts
+│   │   │   ├── hobbies
+│   │   │   │   ├── fitness-tab
+│   │   │   │   │   ├── fitness-tab.component.html
+│   │   │   │   │   ├── fitness-tab.component.scss
+│   │   │   │   │   ├── fitness-tab.component.spec.ts
+│   │   │   │   │   └── fitness-tab.component.ts
+│   │   │   │   ├── hobbies.component.html
+│   │   │   │   ├── hobbies.component.scss
+│   │   │   │   ├── hobbies.component.spec.ts
+│   │   │   │   ├── hobbies.component.ts
+│   │   │   │   ├── japanese-tab
+│   │   │   │   │   ├── japanese-tab.component.html
+│   │   │   │   │   ├── japanese-tab.component.scss
+│   │   │   │   │   ├── japanese-tab.component.spec.ts
+│   │   │   │   │   └── japanese-tab.component.ts
+│   │   │   │   └── photography-tab
+│   │   │   │       ├── photography-tab.component.html
+│   │   │   │       ├── photography-tab.component.scss
+│   │   │   │       ├── photography-tab.component.spec.ts
+│   │   │   │       └── photography-tab.component.ts
+│   │   │   ├── home-page
+│   │   │   │   ├── about-me
+│   │   │   │   │   ├── about-me.component.html
+│   │   │   │   │   ├── about-me.component.scss
+│   │   │   │   │   ├── about-me.component.spec.ts
+│   │   │   │   │   └── about-me.component.ts
+│   │   │   │   ├── credentials
+│   │   │   │   │   ├── credentials.component.html
+│   │   │   │   │   ├── credentials.component.scss
+│   │   │   │   │   ├── credentials.component.spec.ts
+│   │   │   │   │   └── credentials.component.ts
+│   │   │   │   ├── home-page.component.html
+│   │   │   │   ├── home-page.component.scss
+│   │   │   │   ├── home-page.component.spec.ts
+│   │   │   │   ├── home-page.component.ts
+│   │   │   │   ├── projects
+│   │   │   │   │   ├── projects.component.html
+│   │   │   │   │   ├── projects.component.scss
+│   │   │   │   │   ├── projects.component.spec.ts
+│   │   │   │   │   └── projects.component.ts
+│   │   │   │   └── skills
+│   │   │   │       ├── skills.component.html
+│   │   │   │       ├── skills.component.scss
+│   │   │   │       ├── skills.component.spec.ts
+│   │   │   │       └── skills.component.ts
+│   │   │   ├── login-page
+│   │   │   │   ├── login-page.component.html
+│   │   │   │   ├── login-page.component.scss
+│   │   │   │   ├── login-page.component.spec.ts
+│   │   │   │   └── login-page.component.ts
+│   │   │   ├── news
+│   │   │   │   ├── news.component.html
+│   │   │   │   ├── news.component.scss
+│   │   │   │   ├── news.component.spec.ts
+│   │   │   │   └── news.component.ts
+│   │   │   └── socials
+│   │   │       ├── socials.component.html
+│   │   │       ├── socials.component.scss
+│   │   │       ├── socials.component.spec.ts
+│   │   │       └── socials.component.ts
+│   │   └── services
+│   │       ├── auth-service
+│   │       │   ├── auth.service.spec.ts
+│   │       │   └── auth.service.ts
+│   │       ├── database
+│   │       │   ├── database.service.spec.ts
+│   │       │   ├── database.service.ts
+│   │       │   └── posts.ts
+│   │       ├── image
+│   │       │   ├── image.service.spec.ts
+│   │       │   └── image.service.ts
+│   │       ├── link-preview
+│   │       │   ├── link-preview.service.spec.ts
+│   │       │   └── link-preview.service.ts
+│   │       └── service-worker
+│   │           ├── service-worker.service.spec.ts
+│   │           └── service-worker.service.ts
+│   ├── assets
+│   │   ├── about-me
+│   │   │   ├── me.avif
+│   │   │   ├── side-image-1.avif
+│   │   │   ├── side-image-10.avif
+│   │   │   ├── side-image-11.avif
+│   │   │   ├── side-image-12.avif
+│   │   │   ├── side-image-13.avif
+│   │   │   ├── side-image-14.avif
+│   │   │   ├── side-image-15.avif
+│   │   │   ├── side-image-16.avif
+│   │   │   ├── side-image-17.avif
+│   │   │   ├── side-image-18.avif
+│   │   │   ├── side-image-19.avif
+│   │   │   ├── side-image-2.avif
+│   │   │   ├── side-image-20.avif
+│   │   │   ├── side-image-3.avif
+│   │   │   ├── side-image-4.avif
+│   │   │   ├── side-image-5.avif
+│   │   │   ├── side-image-6.avif
+│   │   │   ├── side-image-7.avif
+│   │   │   ├── side-image-8.avif
+│   │   │   └── side-image-9.avif
+│   │   ├── credentials
+│   │   │   ├── credly_credentials.ts
+│   │   │   ├── credly-embed.js
+│   │   │   └── msft_credentials.json
+│   │   ├── icons
+│   │   │   ├── android-chrome-192x192.avif
+│   │   │   ├── android-chrome-192x192.png
+│   │   │   ├── android-chrome-512x512.avif
+│   │   │   ├── android-chrome-512x512.png
+│   │   │   ├── apple-touch-icon-114x114-precomposed.avif
+│   │   │   ├── apple-touch-icon-114x114-precomposed.png
+│   │   │   ├── apple-touch-icon-114x114.avif
+│   │   │   ├── apple-touch-icon-114x114.png
+│   │   │   ├── apple-touch-icon-120x120-precomposed.avif
+│   │   │   ├── apple-touch-icon-120x120-precomposed.png
+│   │   │   ├── apple-touch-icon-120x120.avif
+│   │   │   ├── apple-touch-icon-120x120.png
+│   │   │   ├── apple-touch-icon-144x144-precomposed.avif
+│   │   │   ├── apple-touch-icon-144x144-precomposed.png
+│   │   │   ├── apple-touch-icon-144x144.avif
+│   │   │   ├── apple-touch-icon-144x144.png
+│   │   │   ├── apple-touch-icon-152x152-precomposed.avif
+│   │   │   ├── apple-touch-icon-152x152-precomposed.png
+│   │   │   ├── apple-touch-icon-152x152.avif
+│   │   │   ├── apple-touch-icon-152x152.png
+│   │   │   ├── apple-touch-icon-180x180-precomposed.avif
+│   │   │   ├── apple-touch-icon-180x180-precomposed.png
+│   │   │   ├── apple-touch-icon-180x180.avif
+│   │   │   ├── apple-touch-icon-180x180.png
+│   │   │   ├── apple-touch-icon-57x57-precomposed.avif
+│   │   │   ├── apple-touch-icon-57x57-precomposed.png
+│   │   │   ├── apple-touch-icon-57x57.avif
+│   │   │   ├── apple-touch-icon-57x57.png
+│   │   │   ├── apple-touch-icon-60x60-precomposed.avif
+│   │   │   ├── apple-touch-icon-60x60-precomposed.png
+│   │   │   ├── apple-touch-icon-60x60.avif
+│   │   │   ├── apple-touch-icon-60x60.png
+│   │   │   ├── apple-touch-icon-72x72-precomposed.avif
+│   │   │   ├── apple-touch-icon-72x72-precomposed.png
+│   │   │   ├── apple-touch-icon-72x72.avif
+│   │   │   ├── apple-touch-icon-72x72.png
+│   │   │   ├── apple-touch-icon-76x76-precomposed.avif
+│   │   │   ├── apple-touch-icon-76x76-precomposed.png
+│   │   │   ├── apple-touch-icon-76x76.avif
+│   │   │   ├── apple-touch-icon-76x76.png
+│   │   │   ├── apple-touch-icon-precomposed.avif
+│   │   │   ├── apple-touch-icon-precomposed.png
+│   │   │   ├── apple-touch-icon.avif
+│   │   │   ├── apple-touch-icon.png
+│   │   │   ├── favicon-16x16.avif
+│   │   │   ├── favicon-16x16.png
+│   │   │   ├── favicon-32x32.avif
+│   │   │   ├── favicon-32x32.png
+│   │   │   ├── favicon-96x96.avif
+│   │   │   ├── favicon-96x96.png
+│   │   │   ├── favicon.ico
+│   │   │   ├── icon-128x128.avif
+│   │   │   ├── icon-128x128.png
+│   │   │   ├── icon-144x144.avif
+│   │   │   ├── icon-144x144.png
+│   │   │   ├── icon-152x152.avif
+│   │   │   ├── icon-152x152.png
+│   │   │   ├── icon-192x192.avif
+│   │   │   ├── icon-192x192.png
+│   │   │   ├── icon-384x384.avif
+│   │   │   ├── icon-384x384.png
+│   │   │   ├── icon-512x512.avif
+│   │   │   ├── icon-512x512.png
+│   │   │   ├── icon-72x72.avif
+│   │   │   ├── icon-72x72.png
+│   │   │   ├── icon-96x96.avif
+│   │   │   ├── icon-96x96.png
+│   │   │   ├── JLZ (1).avif
+│   │   │   ├── JLZ (1).png
+│   │   │   ├── JLZ (2).avif
+│   │   │   ├── JLZ (2).png
+│   │   │   ├── JLZ.avif
+│   │   │   ├── JLZ.png
+│   │   │   ├── noun_next arrow_3318610.avif
+│   │   │   ├── noun_next arrow_3318610.png
+│   │   │   ├── noun_previous arrow_1407190.avif
+│   │   │   └── noun_previous arrow_1407190.png
+│   │   ├── JLZ-banner.avif
+│   │   ├── misc.ts
+│   │   ├── social-media
+│   │   │   ├── facebook_logo.avif
+│   │   │   ├── instagram_logo.avif
+│   │   │   └── twitter_logo.avif
+│   │   └── toolbar-logo.avif
+│   ├── environments
+│   │   ├── environment.dev-local.ts
+│   │   ├── environment.prod.ts
+│   │   ├── environment.test.ts
+│   │   └── environment.ts
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── index.prod.html
+│   ├── main.ts
+│   ├── manifest.webmanifest
+│   ├── polyfills.ts
+│   ├── style_vars
+│   │   ├── _gradients.scss
+│   │   ├── _styles.scss
+│   │   ├── _theme-colors.scss
+│   │   ├── _themes.scss
+│   │   ├── 74_theme-colors.scss
+│   │   ├── 75_theme-colors.scss
+│   │   ├── m3-theme.scss
+│   │   ├── style_vars_theme-colors.scss
+│   │   ├── v2_m3-theme.scss
+│   │   ├── v3_m3-theme.scss
+│   │   ├── v4_m3-theme.scss
+│   │   ├── v5_m3-theme.scss
+│   │   └── v6_m3-theme.scss
+│   ├── styles.scss
+│   └── test.ts
+├── tsconfig.app.json
+├── tsconfig.json
+└── tsconfig.spec.json
+
+73 directories, 322 files

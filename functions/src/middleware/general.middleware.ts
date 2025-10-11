@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import { getAppCheck } from 'firebase-admin/app-check';
 
 import {
@@ -62,7 +63,6 @@ export const appCheckGaurd = async (
   // debug({ tokenToCheck });
 
   try {
-    /* eslint-disable-next-line */
     // if (appCheckToken) {
 
     await getAppCheck().verifyToken(tokenToCheck);
@@ -74,7 +74,7 @@ export const appCheckGaurd = async (
     // if (appCheckDebugToken && !appCheckToken) {
     //   debug('DEBUG TOKEN USED');
     // }
-    next();
+    return next();
   } catch (err: any) {
     // error(err);
     res.status(401);
@@ -83,7 +83,7 @@ export const appCheckGaurd = async (
   // next();
 };
 
-const allowList = ['127.0.0.1', '0.0.0.0'];
+// const allowList = ['127.0.0.1', '0.0.0.0'];
 
 export const limiter = rateLimit({
   max: 100,
@@ -161,7 +161,11 @@ export const setupMiddleware = (app: Express): void => {
   app.use('/api-docs', serve, setup(swaggerDoc)); // Mount Swagger UI
 
   // App Check Guard Middleware
-  app.use(appCheckGaurd);
+  if (process.env.NODE_ENV === 'production') {
+    app.use(appCheckGaurd);
+  } else {
+    debug('App Check guard bypassed for non-production environment');
+  }
 
   // Error Handler Middleware
   app.use(errorHandler);

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 (function () {
   var e, t, a, d, r, l, i, m, n, u, o;
   for (
@@ -27,7 +28,7 @@
     l < i;
     l++
   )
-    (a = (d = m[l]).attributes.getNamedItem("data-share-badge-id").value),
+    ((a = (d = m[l]).attributes.getNamedItem("data-share-badge-id").value),
       (o = d.attributes.getNamedItem("data-iframe-width").value),
       (r = d.attributes.getNamedItem("data-iframe-height").value),
       (t = u(
@@ -38,13 +39,13 @@
       (d.outerHTML =
         '<iframe name="acclaim-badge" allowTransparency="true" frameborder="0" id="embedded-badge-' +
         a +
-        '" scrolling="no" src="//' +
+        '"src="//' +
         t +
         "/embedded_badge/" +
         a +
-        '" style="width: ' +
+        '" onload="try { this.contentDocument.body.style.padding = \'0\'; } catch(e) {}" style="width: ' +
         o +
         "px; height: " +
         r +
-        'px;" title="View my verified achievement on Credly." ></iframe>');
+        'px;" title="View my verified achievement on Credly." ></iframe>'));
 }).call(this);

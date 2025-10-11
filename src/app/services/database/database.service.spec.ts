@@ -5,6 +5,8 @@ import {
 } from '@angular/common/http/testing';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import {
+  AppCheck,
+  AppCheckTokenResult,
   ReCaptchaV3Provider,
   initializeAppCheck,
   provideAppCheck,
@@ -15,22 +17,19 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { provideAuth } from '@angular/fire/auth';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 describe('DatabaseService', () => {
   let service: DatabaseService;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
+  let appCheck: AppCheck;
+  let authService: AuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideAppCheck(() =>
-          initializeAppCheck(getApp(), {
-            provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
-            isTokenAutoRefreshEnabled: true,
-          }),
-        ),
         provideAuth(() => {
           const auth = getAuth();
           if (environment.local) {
@@ -40,6 +39,12 @@ describe('DatabaseService', () => {
           }
           return auth;
         }),
+        provideAppCheck(() =>
+          initializeAppCheck(getApp(), {
+            provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
+            isTokenAutoRefreshEnabled: true,
+          }),
+        ),
         provideHttpClient(),
         provideHttpClientTesting(),
       ],
@@ -48,9 +53,15 @@ describe('DatabaseService', () => {
     service = TestBed.inject(DatabaseService);
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
+    appCheck = TestBed.inject(AppCheck);
+    authService = TestBed.inject(AuthService);
   });
 
   it('should be created', () => {
+    const testToken: AppCheckTokenResult = { token: 'test' };
+    spyOn(authService, 'getAppCheckToken')
+      .withArgs('test')
+      .and.resolveTo(testToken);
     expect(service).toBeTruthy();
   });
 });

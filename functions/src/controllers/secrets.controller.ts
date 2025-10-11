@@ -1,5 +1,3 @@
-/* eslint-disable new-cap */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { error } from 'firebase-functions/logger';
 import { NextFunction, Request, Response } from 'express';
 import { getLinkPreviewSecretSetup, getSecrets } from '../secret-config';

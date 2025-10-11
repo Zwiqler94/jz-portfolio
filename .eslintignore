@@ -1,7 +1,0 @@
-dist/*
-.angular/**/*
-.firebase/**/*
-.github/**/*
-.vscode/**/*
-e2e/**/*
-functions/lib/*

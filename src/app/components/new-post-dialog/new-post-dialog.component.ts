@@ -142,9 +142,6 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
     postType: new FormControl(null),
   });
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
   constructor() {}
 
   pNode: NodeSpec = {
@@ -301,7 +298,9 @@ export class NewPostDialogComponent implements OnInit, OnDestroy {
 
     // Safely extract form values with fallbacks
     const title = this.form.get('title')?.value ?? '';
-    const location = this.form.get('feedLocation')?.value ?? 'Main';
+    const location = (
+      this.form.get('feedLocation')?.value ?? 'Main'
+    ).toLowerCase();
     const editorContent = this.form.get('editorContent')?.value ?? '';
     const postType = this.form.get('postType')?.value ?? 'text';
 

@@ -21,7 +21,6 @@ describe('ContactMeComponent', () => {
       imports: [ContactMeComponent],
       providers: [
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideAnimations(),
         provideHttpClient(),
         provideHttpClientTesting(),
         provideAuth(() => {

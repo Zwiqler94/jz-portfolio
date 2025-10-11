@@ -7,8 +7,6 @@ import { LightboxModule } from 'ng-gallery/lightbox';
 import { ImageService } from 'src/app/services/image/image.service';
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
 
-
-
 @Component({
   selector: 'jzp-photo-gallery',
   imports: [
@@ -18,7 +16,6 @@ import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.comp
     MatCardModule,
     LoadingOverlayComponent,
     MatPaginatorModule,
-
   ],
   templateUrl: './photo-gallery.component.html',
   styleUrl: './photo-gallery.component.scss',
@@ -34,11 +31,6 @@ export class PhotoGalleryComponent implements OnInit {
   readonly galleryType = input<'LB' | 'GAL'>('LB');
   readonly pageSize = model<number>(10);
   pageIndex: number;
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
 
   ngOnInit() {
     this.displayGrids = this.photoGrids().map((grid) =>

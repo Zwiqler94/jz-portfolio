@@ -87,3 +87,5 @@ src/environments/environment.local.ts
 sonar-project.properties
 **/tsconfig.tsbuildinfo
 google-cloud-sdk/
+
+creds.json

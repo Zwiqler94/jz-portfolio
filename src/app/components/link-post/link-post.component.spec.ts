@@ -1,46 +1,39 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// link-post.component.spec.ts
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
+import { of, throwError } from 'rxjs';
 
 import { LinkPostComponent } from './link-post.component';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
-import { environment } from 'src/environments/environment';
-import {
-  ReCaptchaV3Provider,
-  initializeAppCheck,
-  provideAppCheck,
-} from '@angular/fire/app-check';
+import { LinkPreview } from 'src/app/components/models/post.model';
 import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
-import { throwError } from 'rxjs';
+import { DatabaseService } from 'src/app/services/database/database.service';
 import { MissingLinkPreviewData } from 'src/app/components/models/post.model';
 
-xdescribe('LinkPostComponent', () => {
-  let component: LinkPostComponent;
+class MockLinkPreviewService {
+  getLinkPreview = jasmine.createSpy('getLinkPreview');
+}
+
+class MockDatabaseService {
+  savePreviewData = jasmine.createSpy('savePreviewData');
+  getPreviewData = jasmine.createSpy('getPreviewData');
+}
+
+describe('LinkPostComponent (signal inputs)', () => {
   let fixture: ComponentFixture<LinkPostComponent>;
+  let component: LinkPostComponent;
+  let linkPreview: MockLinkPreviewService;
+  let db: MockDatabaseService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LinkPostComponent],
+      imports: [LinkPostComponent], // standalone component
       providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideAuth(() => {
-          const auth = getAuth();
-          if (environment.local) {
-            connectAuthEmulator(auth, 'http://localhost:9099', {
-              disableWarnings: true,
-            });
-          }
-          return auth;
-        }),
-        provideAppCheck(() =>
-          initializeAppCheck(getApp(), {
-            provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
-            isTokenAutoRefreshEnabled: true,
-          }),
-        ),
+        { provide: LinkPreviewService, useClass: MockLinkPreviewService },
+        { provide: DatabaseService, useClass: MockDatabaseService },
       ],
     }).compileComponents();
   });
@@ -48,41 +41,74 @@ xdescribe('LinkPostComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LinkPostComponent);
     component = fixture.componentInstance;
+    linkPreview = TestBed.inject(
+      LinkPreviewService,
+    ) as unknown as MockLinkPreviewService;
+    db = TestBed.inject(DatabaseService) as unknown as MockDatabaseService;
+  });
+
+  it('should create', () => {
+    // required input
+    fixture.componentRef.setInput('content', 'hello');
     fixture.detectChanges();
-  });
-
-  xit('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.type()).toBe('LinkPost');
   });
 
-  xit('should return a link preview obj', async () => {
-    //   component.content =
-    //     'https://www.googletagmanager.com/ns.html?id=GTM-KWH754TK';
-    //   const spy = spyOn(
-    //     LinkPreviewService.prototype,
-    //     'getLinkPreview',
-    //   ).and.resolveTo(of({ title: 'c', description: 'd', image: 'fm', url: '' }));
-    //   await component.getLinkPreview();
-    //   expect(component.linkPreviewData).toEqual({
-    //     title: 'c',
-    //     description: 'd',
-    //     image: 'fm',
-    //     url: '',
-    //   });
-  });
+  it('fetches and stores preview when image_uri is missing', fakeAsync(() => {
+    const data: LinkPreview = {
+      title: 'Title',
+      description: 'Desc',
+      image: 'img.png',
+      url: 'https://ex.com',
+    };
+    linkPreview.getLinkPreview.and.returnValue(of(data));
+    db.savePreviewData.and.returnValue(of({ ok: true } as any));
 
-  xit('should throw error if something bad happens with link preview service', async () => {
-    component.content =
-      'https://www.googletagmanager.com/ns.html?id=GTM-KWH754TK';
-    const spy = spyOn(
-      LinkPreviewService.prototype,
-      'getLinkPreview',
-    ).and.resolveTo(throwError(() => 'Meep'));
+    fixture.componentRef.setInput('id', 7);
+    fixture.componentRef.setInput('content', 'Look: https://ex.com');
+    fixture.componentRef.setInput('title_or_uri', 'https://ex.com');
+    // no image_uri set
+    fixture.detectChanges();
+    tick(); // flush observable callbacks
 
-    await component.getLinkPreview();
+    expect(linkPreview.getLinkPreview).toHaveBeenCalledWith('https://ex.com');
+    expect(component.previewData).toEqual(data);
+    expect(db.savePreviewData).toHaveBeenCalledWith(7, data);
+  }));
 
-    expect(component.title()).toBe(MissingLinkPreviewData.title);
-    expect(component.content()).toBe(MissingLinkPreviewData.description);
-  });
+  it('uses cached preview when image_uri is present', fakeAsync(() => {
+    db.getPreviewData.and.returnValue(
+      of({ title: 'Cached', uri: 'https://ex.com' }),
+    );
+
+    fixture.componentRef.setInput('id', 9);
+    fixture.componentRef.setInput('content', 'whatever');
+    fixture.componentRef.setInput('title_or_uri', 'https://ex.com');
+    fixture.componentRef.setInput('image_uri', 'https://img/cached.png');
+    fixture.detectChanges();
+    tick();
+
+    expect(db.getPreviewData).toHaveBeenCalledWith(9);
+    expect(component.previewData).toEqual({
+      title: 'Cached',
+      description: '',
+      image: 'https://img/cached.png',
+      url: 'https://ex.com',
+    });
+    expect(linkPreview.getLinkPreview).not.toHaveBeenCalled();
+  }));
+
+  it('falls back to MissingLinkPreviewData on service error', fakeAsync(() => {
+    linkPreview.getLinkPreview.and.returnValue(
+      throwError(() => new Error('boom')),
+    );
+
+    fixture.componentRef.setInput('id', 3);
+    fixture.componentRef.setInput('content', 'x');
+    fixture.componentRef.setInput('title_or_uri', 'https://bad.example');
+    fixture.detectChanges();
+    tick();
+
+    expect(component.previewData).toEqual(MissingLinkPreviewData);
+  }));
 });

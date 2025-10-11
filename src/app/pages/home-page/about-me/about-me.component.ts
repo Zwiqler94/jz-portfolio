@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { TabComponent } from 'src/app/components/tab/tab.component';
+import { CredentialsComponent } from '../credentials/credentials.component';
+import { SkillsComponent } from '../skills/skills.component';
 
 @Component({
   selector: 'jzp-about-me',
   templateUrl: './about-me.component.html',
   styleUrls: ['./about-me.component.scss'],
-  imports: [MatCardModule],
+  imports: [MatCardModule, CredentialsComponent, SkillsComponent],
 })
 export class AboutMeMainComponent extends TabComponent {
   cardTitle1 = 'About Me 👋';

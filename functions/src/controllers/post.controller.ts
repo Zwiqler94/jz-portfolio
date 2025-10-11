@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response, NextFunction } from 'express';
 import { PoolClient } from 'pg';
 import { error, debug, info, warn } from 'firebase-functions/logger';
@@ -18,8 +19,11 @@ export class PostController {
     next: NextFunction,
   ): Promise<void> => {
     try {
-      const queryText =
-        'SELECT post_list.id, post_list.type FROM post_list INNER JOIN puppy_feed ON puppy_feed.post_id = post_list.id';
+      const queryText = `
+  SELECT post_list.id, post_list.type
+  FROM post_list
+  INNER JOIN feeds ON feeds.post_id = post_list.id
+  WHERE feeds.feed_type = 'puppy'`;
 
       this.client = await this.dbController.startUpDBService();
       if (!this.client) {
@@ -55,8 +59,11 @@ export class PostController {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
-      const queryText =
-        'select post_list.id, post_list.type from post_list inner join articles_feed on articles_feed.post_id=post_list.id';
+      const queryText = `
+  SELECT post_list.id, post_list.type
+  FROM post_list
+  INNER JOIN feeds ON feeds.post_id = post_list.id
+  WHERE feeds.feed_type = 'article'`;
 
       this.client = await this.dbController.startUpDBService();
       if (this.client) {
@@ -102,8 +109,11 @@ export class PostController {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
-      const queryText =
-        'select post_list.id, post_list.type from post_list inner join apple_feed on apple_feed.post_id=post_list.id';
+      const queryText = `
+  SELECT post_list.id, post_list.type
+  FROM post_list
+  INNER JOIN feeds ON feeds.post_id = post_list.id
+  WHERE feeds.feed_type = 'apple'`;
 
       this.client = await this.dbController.startUpDBService();
       if (this.client) {
@@ -153,8 +163,11 @@ export class PostController {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
-      const queryText =
-        'select post_list.id, post_list.type from post_list inner join blockchain_feed on blockchain_feed.post_id=post_list.id';
+      const queryText = `
+  SELECT post_list.id, post_list.type
+  FROM post_list
+  INNER JOIN feeds ON feeds.post_id = post_list.id
+  WHERE feeds.feed_type = 'blockchain'`;
 
       this.client = await this.dbController.startUpDBService();
       if (this.client) {
@@ -203,8 +216,11 @@ export class PostController {
     try {
       let mainPosts = new PostDBResponse().createBlankResponse();
 
-      const queryText =
-        'select post_list.id, post_list.type from post_list inner join anime_feed on anime_feed.post_id=post_list.id';
+      const queryText = `
+  SELECT post_list.id, post_list.type
+  FROM post_list
+  INNER JOIN feeds ON feeds.post_id = post_list.id
+  WHERE feeds.feed_type = 'anime'`;
 
       // await this.dbController.connectDB(useLocalDb);
       this.client = await this.dbController.startUpDBService();
@@ -257,14 +273,15 @@ export class PostController {
       }
 
       const queryText = `
-      SELECT post_list.id, post_list.type,
-             COALESCE(text_post.title, link_post.uri) AS title_or_uri,
-             post_list.content, post_list.created_at, post_list.updated_at
-      FROM post_list
-      INNER JOIN main_feed ON main_feed.post_id = post_list.id
-      LEFT JOIN text_post ON post_list.id = text_post.post_list_id
-      LEFT JOIN link_post ON post_list.id = link_post.post_list_id;
-    `;
+        SELECT post_list.id, post_list.type,
+              COALESCE(text_post.title, link_post.uri) AS title_or_uri,
+              post_list.content, post_list.created_at, post_list.updated_at
+        FROM post_list
+        INNER JOIN feeds ON feeds.post_id = post_list.id
+        LEFT JOIN text_post ON post_list.id = text_post.post_list_id
+        LEFT JOIN link_post ON post_list.id = link_post.post_list_id
+        WHERE feeds.feed_type = 'main';
+      `;
 
       const result = await this.dbController.query(queryText);
 
@@ -290,15 +307,17 @@ export class PostController {
     try {
       const { feedType } = req.params; // Expect feedType from the route parameter
       const validFeeds = [
-        'puppy_feed',
-        'anime_feed',
-        'apple_feed',
-        'blockchain_feed',
-        'main_feed',
+        'anime',
+        'articles',
+        'apple',
+        'blockchain',
+        'puppy',
+        'main',
       ];
 
       if (!validFeeds.includes(feedType)) {
         res.status(400).json({ error: `Invalid feed type: ${feedType}` });
+        return;
       }
 
       this.client = await this.dbController.startUpDBService();
@@ -338,7 +357,7 @@ export class PostController {
    */
   createPost = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { type: rawType, location, status, content, title } = req.body;
+      const { type: rawType, location, status, content, title } = req.body; // Location is feedType
 
       // Normalize post type
       const type = ['link', 'LinkPost'].includes(rawType) ? 'link' : 'text';
@@ -348,7 +367,7 @@ export class PostController {
         throw new Error('Database connection not established');
       }
 
-      // Generate sanitized content
+      // Sanitize content to prevent escaping issues
       const sanitizedContent = content.replace('\\', '');
 
       // Generate a unique hash for the post
@@ -358,7 +377,6 @@ export class PostController {
       );
 
       const postHash = hashResult?.rows[0]?.post_hash;
-
       if (!postHash) {
         throw new Error('Failed to generate post hash');
       }
@@ -382,16 +400,29 @@ export class PostController {
         return;
       }
 
-      // Update specific post type table
+      // Ensure location (feedType) is valid before inserting
+      const validFeeds = [
+        'anime',
+        'articles',
+        'apple',
+        'blockchain',
+        'puppy',
+        'main',
+      ];
+      if (!validFeeds.includes(location)) {
+        throw new Error(`Invalid feed type: ${location}`);
+      }
+
+      // Insert post into the unified feeds table
       await this.dbController.query(
-        `UPDATE public.${type}_post SET title = $1 WHERE post_hash = $2`,
-        [title, postHash],
+        `INSERT INTO public.feeds (post_id, feed_type) VALUES ($1, $2)`,
+        [postId, location], // Location is now feedType
       );
 
       debug({ resultPostList: insertResult.rows });
 
       res.status(201).json({
-        list: location,
+        list: location, // Returns the feed type
         post: postId,
       });
     } catch (err: any) {
@@ -446,23 +477,20 @@ export class PostController {
   }
 
   private async fetchPostsByFeed(feedType: string): Promise<any[]> {
-    const validFeeds = [
-      'puppy_feed',
-      'anime_feed',
-      'apple_feed',
-      'blockchain_feed',
-      'main_feed',
-    ];
+    const validFeeds = ['puppy', 'anime', 'apple', 'blockchain', 'main'];
 
     if (!validFeeds.includes(feedType)) {
       throw new Error(`Invalid feed type: ${feedType}`);
     }
 
-    const queryText = `SELECT post_list.id, post_list.type
-                     FROM post_list
-                     INNER JOIN ${feedType} ON ${feedType}.post_id = post_list.id`;
+    const queryText = `
+  SELECT post_list.id, post_list.type
+  FROM post_list
+  INNER JOIN feeds ON feeds.post_id = post_list.id
+  WHERE feeds.feed_type = $1
+`;
+    const mainPosts = await this.dbController.query(queryText, [feedType]);
 
-    const mainPosts = await this.dbController.query(queryText);
     return mainPosts?.rows || [];
   }
 }

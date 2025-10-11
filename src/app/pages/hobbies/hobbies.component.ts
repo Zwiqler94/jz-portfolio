@@ -1,19 +1,17 @@
-/* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no-underscore-dangle */
 import { Component, inject } from '@angular/core';
 import { Storage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
+import { TabGroupComponent } from 'src/app/components/tab-group/tab-group.component';
 import { JapaneseTabComponent } from 'src/app/pages/hobbies/japanese-tab/japanese-tab.component';
 import { PhotographyTabComponent } from 'src/app/pages/hobbies/photography-tab/photography-tab.component';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
-import { JzTabGroupComponent } from '../../components/jz-tab/jz-tab-group.component';
 
 @Component({
   selector: 'jzp-hobbies',
   templateUrl: './hobbies.component.html',
   styleUrls: ['./hobbies.component.scss'],
-  imports: [JzTabGroupComponent],
+  imports: [TabGroupComponent],
 })
 export class HobbiesComponent {
   private storage = inject(Storage);
@@ -33,9 +31,6 @@ export class HobbiesComponent {
     },
     // { component: FitnessTabComponent, title: 'Fitness', link: 'fitness' },
   ];
-
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
 
   constructor() {
     const currentPagePath = location.pathname.split('/').pop();

@@ -19,6 +19,7 @@ describe('TextPostComponent', () => {
   });
 
   it('should create', () => {
+    fixture.componentRef.setInput('content', 'hello');
     expect(component).toBeTruthy();
   });
 });

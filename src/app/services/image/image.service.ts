@@ -15,8 +15,6 @@ export class ImageService {
 
   CLOUDINARY_URL = 'https://res.cloudinary.com/dhdioy0wn/search';
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
   constructor() {}
 
   getHuxleyImageInfo(nextCursorKey?: string) {

@@ -1,9 +1,9 @@
-import { Credly } from 'src/app/interfaces/credentials/credly/credly.interface';
+import { CredlyCredential } from 'src/app/interfaces/credentials/credly/credly.interface';
 
-export const credentials: Credly[] = [
+export const credentials: CredlyCredential[] = [
   {
-    height: 0,
-    width: 0,
+    height: 290,
+    width: 290,
     badgeId: '8764a866-3c71-42ee-a250-c8c534f11c1c',
     host: '',
   },

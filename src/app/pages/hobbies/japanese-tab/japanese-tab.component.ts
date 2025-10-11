@@ -32,11 +32,6 @@ export class JapaneseTabComponent implements OnInit {
   galleryRefs: GalleryRef[] = [];
   photoGrids: GalleryItem[][] = [];
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
-
-  constructor() {}
-
   ngOnInit() {
     this.setUpPhotographyImagesCloudinary();
   }

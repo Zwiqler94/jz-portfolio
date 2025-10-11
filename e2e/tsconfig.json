@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "esnext",
     "rootDir": "tests/",
     "outDir": "build/",
     "types": ["mocha"]

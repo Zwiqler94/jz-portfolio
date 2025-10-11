@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable max-len */
-/* eslint-disable new-cap */
-/* eslint-disable no-extra-boolean-cast */
 import { Request, Response, NextFunction } from 'express';
 import { PoolClient } from 'pg';
 import { error, debug } from 'firebase-functions/logger';
