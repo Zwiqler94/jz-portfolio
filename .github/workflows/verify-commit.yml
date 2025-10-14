@@ -45,7 +45,7 @@ jobs:
       - name: check commit
         id: verifyCommit
         run: |
-          if [[ $commitMsg =~ ^chore(release):(.|\s)+$ ]]; then
+          if [[ $commitMsg =~ ^chore(\(release\)):(\s)+([a-z]|[0-9])+$ ]]; then
               echo "versionType=stop" >> "$GITHUB_OUTPUT"
               echo "already versioned"
               exit 0
