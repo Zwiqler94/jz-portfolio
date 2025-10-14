@@ -71,7 +71,7 @@ jobs:
         run: echo "-URL-> ${{ env.PULL_URL }}"
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: echo "JSON="{\"title\":\"chore:\ amazing new patch\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.head_ref }}"\",\"base\":\"development\"}"" >> "$GITHUB_ENV"
+        run: echo "JSON="{\"title\":\"chore(release):\ amazing new patch\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.head_ref }}"\",\"base\":\"development\"}"" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
         run: echo "-JSON-> ${{ env.JSON }}"
@@ -158,7 +158,7 @@ jobs:
         run: echo "-URL-> ${{ env.PULL_URL }}"
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        run: echo "JSON="{\"title\":\" feat:\ amazing new minor update\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.head_ref }}"\",\"base\":\"development\"}"" >> "$GITHUB_ENV"
+        run: echo "JSON="{\"title\":\" chore(release):\ amazing new minor update\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.head_ref }}"\",\"base\":\"development\"}"" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         run: echo "-JSON-> ${{ env.JSON }}"
@@ -223,7 +223,7 @@ jobs:
         run: echo "-URL-> ${{ env.PULL_URL }}"
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: echo "JSON="{\"title\":\"feat!:\ amazing new major update\",\"body\":\"Please pull these awesome changes in!\",\"head\":\"Zwiqler94:"${{ github.head_ref }}"\",\"base\":\"development\"}"" >> "$GITHUB_ENV"
+        run: echo "JSON="{\"title\":\"chore(release):\ amazing new major update\",\"body\":\"Please pull these awesome changes in! BREAKING CHANGE:\ MAJOR UPDATE\",\"head\":\"Zwiqler94:"${{ github.head_ref }}"\",\"base\":\"development\"}"" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
         run: echo "-JSON-> ${{ env.JSON }}"
