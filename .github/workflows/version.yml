@@ -255,6 +255,7 @@ jobs:
   skip-already-versioned:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.merged == true }}
+    needs: [verify-commit]
     steps:
       - if: ${{ needs.verify-commit.outputs.versionType == 'stop' }}
         run: |
