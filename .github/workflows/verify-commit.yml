@@ -46,20 +46,22 @@ jobs:
         id: verifyCommit
         run: |
           headline="$(printf '%s' "$commitMsg" | head -n1 | tr -d '\r')"
-
+          major_regex='^[a-z]+([a-z0-9-]*)?(\([^)]+\))?!:.*'
+          feat_regex='^feat(\([^)]+\))?:.*'
+          patch_regex='^(fix(\([^)]+\))?|perf(\([^)]+\))?|revert(\([^)]+\))?|docs(\([^)]+\))?|style(\([^)]+\))?|chore(\([^)]+\))?|refactor(\([^)]+\))?|test(\([^)]+\))?|build(\([^)]+\))?|ci(\([^)]+\))?):.*'
           if [[ $headline =~ ^chore\(release\):.* ]]; then
               echo "versionType=stop" >> "$GITHUB_OUTPUT"
               echo "already versioned"
               exit 0
-          elif [[ $commitMsg == *"BREAKING CHANGE:"* || $headline =~ ^[a-z]+([a-z0-9-]*)?(\([^)]+\))?!:.* ]]; then
+          elif [[ $commitMsg == *"BREAKING CHANGE:"* || $headline =~ $major_regex ]]; then
               echo "versionType=major" >> "$GITHUB_OUTPUT"
               echo "versionType=major"
               exit 0
-          elif [[ $headline =~ ^feat(\([^)]+\))?:.* ]]; then
+          elif [[ $headline =~ $feat_regex ]]; then
               echo "versionType=minor" >> "$GITHUB_OUTPUT"
               echo "versionType=minor"
               exit 0
-          elif [[ $headline =~ ^(fix(\([^)]+\))?|perf(\([^)]+\))?|revert(\([^)]+\))?|docs(\([^)]+\))?|style(\([^)]+\))?|chore(\([^)]+\))?|refactor(\([^)]+\))?|test(\([^)]+\))?|build(\([^)]+\))?|ci(\([^)]+\))?):.* ]]; then
+          elif [[ $headline =~ $patch_regex ]]; then
               echo "versionType=patch" >> "$GITHUB_OUTPUT"
               echo "versionType=patch"
               exit 0
