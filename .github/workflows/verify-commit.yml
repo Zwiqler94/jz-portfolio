@@ -49,7 +49,6 @@ jobs:
           major_regex='^[a-z]+([a-z0-9-]*)?(\([^)]+\))?!:.*'
           feat_regex='^feat(\([^)]+\))?:.*'
           patch_regex='^(fix(\([^)]+\))?|perf(\([^)]+\))?|revert(\([^)]+\))?|docs(\([^)]+\))?|style(\([^)]+\))?|chore(\([^)]+\))?|refactor(\([^)]+\))?|test(\([^)]+\))?|build(\([^)]+\))?|ci(\([^)]+\))?):.*'
-
           if [[ $headline =~ ^chore\(release\):.* ]]; then
               echo "versionType=stop" >> "$GITHUB_OUTPUT"
               echo "already versioned"
