@@ -1,5 +1,3 @@
- 
-
 import { Component, OnInit } from '@angular/core';
 import { FeedComponent } from '../../components/feed/feed.component';
 
