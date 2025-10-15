@@ -45,19 +45,21 @@ jobs:
       - name: check commit
         id: verifyCommit
         run: |
-          if [[ $commitMsg =~ ^chore(\(release\)):(.|\s)+$ ]]; then
+          headline="$(printf '%s' "$commitMsg" | head -n1 | tr -d '\r')"
+
+          if [[ $headline =~ ^chore\(release\):.* ]]; then
               echo "versionType=stop" >> "$GITHUB_OUTPUT"
               echo "already versioned"
               exit 0
-          elif [[ $commitMsg =~ (BREAKING CHANGE|^(.|\s)+(\(.|\s\))?!:(.|\s)+$) ]]; then
+          elif [[ $commitMsg == *"BREAKING CHANGE:"* || $headline =~ ^[a-z]+([a-z0-9-]*)?(\([^)]+\))?!:.* ]]; then
+              echo "versionType=major" >> "$GITHUB_OUTPUT"
+              echo "versionType=major"
+              exit 0
+          elif [[ $headline =~ ^feat(\([^)]+\))?:.* ]]; then
               echo "versionType=minor" >> "$GITHUB_OUTPUT"
               echo "versionType=minor"
               exit 0
-          elif [[ $commitMsg =~ ^feat(\(.+\))?:(.|\s)+$ ]]; then
-              echo "versionType=patch" >> "$GITHUB_OUTPUT"
-              echo "versionType=patch"
-              exit 0
-          elif [[ $commitMsg =~ ^(fix(\(.+\))?|perf(\(.+\))?|revert(\(.+\))?|docs(\(.+\))?|style(\(.+\))?|chore(\(.+\))?|refactor(\(.+\))?|test(\(.+\))?|build(\(.+\))?|ci(\(.+\))?):(.|\s)+$ ]]; then
+          elif [[ $headline =~ ^(fix(\([^)]+\))?|perf(\([^)]+\))?|revert(\([^)]+\))?|docs(\([^)]+\))?|style(\([^)]+\))?|chore(\([^)]+\))?|refactor(\([^)]+\))?|test(\([^)]+\))?|build(\([^)]+\))?|ci(\([^)]+\))?):.* ]]; then
               echo "versionType=patch" >> "$GITHUB_OUTPUT"
               echo "versionType=patch"
               exit 0
