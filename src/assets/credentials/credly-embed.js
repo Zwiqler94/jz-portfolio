@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 (function () {
   var e, t, a, d, r, l, i, m, n, u, o;
   for (

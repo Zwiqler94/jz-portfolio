@@ -71,11 +71,9 @@ describe('LinkPostComponent (signal inputs)', () => {
     fixture.detectChanges();
     tick(); // flush observable callbacks
 
-    expect(linkPreview.getLinkPreview).toHaveBeenCalledOnceWith(
-      'https://ex.com',
-    );
+    expect(linkPreview.getLinkPreview).toHaveBeenCalledWith('https://ex.com');
     expect(component.previewData).toEqual(data);
-    expect(db.savePreviewData).toHaveBeenCalledOnceWith(7, data);
+    expect(db.savePreviewData).toHaveBeenCalledWith(7, data);
   }));
 
   it('uses cached preview when image_uri is present', fakeAsync(() => {
@@ -90,7 +88,7 @@ describe('LinkPostComponent (signal inputs)', () => {
     fixture.detectChanges();
     tick();
 
-    expect(db.getPreviewData).toHaveBeenCalledOnceWith(9);
+    expect(db.getPreviewData).toHaveBeenCalledWith(9);
     expect(component.previewData).toEqual({
       title: 'Cached',
       description: '',

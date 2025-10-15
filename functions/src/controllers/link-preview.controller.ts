@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Request, Response, NextFunction } from 'express';
 import { PoolClient } from 'pg';
 import { error, debug } from 'firebase-functions/logger';

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import express from 'express';
 
 import { setupMiddleware } from './middleware/general.middleware';
@@ -15,7 +14,6 @@ export const createAppV3 = (): express.Express => {
   appV3.use((req, res, next) => {
     res.status(404).send("404: Sorry can't find that!");
   });
-
   return appV3;
 };
 
@@ -28,6 +26,5 @@ export const createAppV4 = (): express.Express => {
   appV4.use((req, res, next) => {
     res.status(404).send("404: Sorry can't find that!");
   });
-
   return appV4;
 };

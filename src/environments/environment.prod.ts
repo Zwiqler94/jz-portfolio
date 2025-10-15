@@ -1,5 +1,4 @@
 export const environment = {
-  appCheckDebug: false,
   appUrl: 'jlz-portfolio.web.app',
   deployable: true,
   firebaseConfig: {
