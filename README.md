@@ -4,7 +4,7 @@
 
 # JzPortfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11 (updated to v20.x.x).
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11 (updated to v20).
 
 ## Development server
 
