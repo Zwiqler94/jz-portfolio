@@ -83,10 +83,20 @@ jobs:
           printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: echo "-JSON-> ${{ env.JSON }}"
+        run: |
+          echo "-JSON->"
+          printf '%s\n' "$JSON"
       - name: get PR Number
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: echo "PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" -H "Accept:application/vnd.github+json" -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}"  -H "X-GitHub-Api-Version:2022-11-28"  -d ${{ toJson(env.JSON) }} | jq -r '.number')" >> "$GITHUB_ENV"
+        env:
+          JSON_PAYLOAD: ${{ env.JSON }}
+        run: |
+          PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" \
+            -H "Accept:application/vnd.github+json" \
+            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
+            -H "X-GitHub-Api-Version:2022-11-28" \
+            -d "$JSON_PAYLOAD" | jq -r '.number')
+          printf 'PR_NUM=%s\n' "$PR_NUM" >> "$GITHUB_ENV"
       - name: check PR NUM
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
         run: echo "-Curl-> ${{ env.PR_NUM }}"
@@ -99,7 +109,9 @@ jobs:
         run: curl --request POST "${{ env.APPROVAL_URL }}"  -H "content-type:application/json" -H 'Authorization:Bearer ${{ secrets.USER_ACCESS_TOKEN }}' -d '{"event":"APPROVE"}'
       - name: check commit JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: echo "-COMMIT-JSON-> ${{ env.JSON }}"
+        run: |
+          echo "-COMMIT-JSON->"
+          printf '%s\n' "$JSON"
       - name: request Merge
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
         env:
@@ -184,10 +196,20 @@ jobs:
           printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        run: echo "-JSON-> ${{ env.JSON }}"
+        run: |
+          echo "-JSON->"
+          printf '%s\n' "$JSON"
       - name: get PR Number
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        run: echo "PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" -H "Accept:application/vnd.github+json" -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}"  -H "X-GitHub-Api-Version:2022-11-28"  -d ${{ toJson(env.JSON) }} | jq -r '.number')" >> "$GITHUB_ENV"
+        env:
+          JSON_PAYLOAD: ${{ env.JSON }}
+        run: |
+          PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" \
+            -H "Accept:application/vnd.github+json" \
+            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
+            -H "X-GitHub-Api-Version:2022-11-28" \
+            -d "$JSON_PAYLOAD" | jq -r '.number')
+          printf 'PR_NUM=%s\n' "$PR_NUM" >> "$GITHUB_ENV"
       - name: check PR NUM
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         run: echo "-Curl-> ${{ env.PR_NUM }}"
@@ -267,10 +289,20 @@ jobs:
           printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: echo "-JSON-> ${{ env.JSON }}"
+        run: |
+          echo "-JSON->"
+          printf '%s\n' "$JSON"
       - name: get PR Number
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: echo "PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" -H "Accept:application/vnd.github+json" -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}"  -H "X-GitHub-Api-Version:2022-11-28"  -d ${{ toJson(env.JSON) }} | jq -r '.number')" >> "$GITHUB_ENV"
+        env:
+          JSON_PAYLOAD: ${{ env.JSON }}
+        run: |
+          PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" \
+            -H "Accept:application/vnd.github+json" \
+            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
+            -H "X-GitHub-Api-Version:2022-11-28" \
+            -d "$JSON_PAYLOAD" | jq -r '.number')
+          printf 'PR_NUM=%s\n' "$PR_NUM" >> "$GITHUB_ENV"
       - name: check PR NUM
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
         run: echo "-Curl-> ${{ env.PR_NUM }}"
