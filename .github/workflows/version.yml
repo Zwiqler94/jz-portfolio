@@ -73,7 +73,7 @@ jobs:
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
         run: |
-          JSON=$(jq -n \
+          JSON=$(jq -cn \
             --arg head "Zwiqler94:${{ github.head_ref }}" \
             '{
               title: "chore(release): amazing new patch",
@@ -81,7 +81,7 @@ jobs:
               head: $head,
               base: "development"
             }')
-          echo "JSON=$JSON" >> "$GITHUB_ENV"
+          printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
         run: echo "-JSON-> ${{ env.JSON }}"
@@ -175,7 +175,7 @@ jobs:
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         run: |
-          JSON=$(jq -n \
+          JSON=$(jq -cn \
             --arg head "Zwiqler94:${{ github.head_ref }}" \
             '{
               title: "chore(release): amazing new minor update",
@@ -183,7 +183,7 @@ jobs:
               head: $head,
               base: "development"
             }')
-          echo "JSON=$JSON" >> "$GITHUB_ENV"
+          printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         run: echo "-JSON-> ${{ env.JSON }}"
@@ -259,7 +259,7 @@ jobs:
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
         run: |
-          JSON=$(jq -n \
+          JSON=$(jq -cn \
             --arg head "Zwiqler94:${{ github.head_ref }}" \
             '{
               title: "chore(release): amazing new major update",
@@ -267,7 +267,7 @@ jobs:
               head: $head,
               base: "development"
             }')
-          echo "JSON=$JSON" >> "$GITHUB_ENV"
+          printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
         run: echo "-JSON-> ${{ env.JSON }}"
