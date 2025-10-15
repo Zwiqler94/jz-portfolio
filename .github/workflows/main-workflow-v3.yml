@@ -16,7 +16,7 @@ jobs:
     secrets: inherit
   deployDev:
     needs: [versionDev]
-    if: ${{ needs.versionDev.versionType == 'stop' }}
+    if: ${{ needs.versionDev.outputs.versionType == 'stop' }}
     uses: ./.github/workflows/main-deploy-workflow.yml
     secrets: inherit
   deployProd:
