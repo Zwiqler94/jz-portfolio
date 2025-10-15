@@ -73,14 +73,13 @@ jobs:
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
         run: |
-          JSON=$(jq -cn \
-            --arg head "Zwiqler94:${{ github.head_ref }}" \
-            '{
-              title: "chore(release): amazing new patch",
-              body: "Please pull these awesome changes in!",
-              head: $head,
-              base: "development"
-            }')
+          JSON=$(jq -cn --arg head "Zwiqler94:${{ github.head_ref }}" '
+          {
+            title: "chore(release): amazing new patch",
+            body: "Please pull these awesome changes in!",
+            head: $head,
+            base: "development"
+          }')
           printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
@@ -175,14 +174,13 @@ jobs:
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         run: |
-          JSON=$(jq -cn \
-            --arg head "Zwiqler94:${{ github.head_ref }}" \
-            '{
-              title: "chore(release): amazing new minor update",
-              body: "Please pull these awesome changes in!",
-              head: $head,
-              base: "development"
-            }')
+          JSON=$(jq -cn --arg head "Zwiqler94:${{ github.head_ref }}" '
+          {
+            title: "chore(release): amazing new minor update",
+            body: "Please pull these awesome changes in!",
+            head: $head,
+            base: "development"
+          }')
           printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
@@ -259,14 +257,13 @@ jobs:
       - name: set PULL REQ JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
         run: |
-          JSON=$(jq -cn \
-            --arg head "Zwiqler94:${{ github.head_ref }}" \
-            '{
-              title: "chore(release): amazing new major update",
-              body: "Please pull these awesome changes in! BREAKING CHANGE: MAJOR UPDATE",
-              head: $head,
-              base: "development"
-            }')
+          JSON=$(jq -cn --arg head "Zwiqler94:${{ github.head_ref }}" '
+          {
+            title: "chore(release): amazing new major update",
+            body: "Please pull these awesome changes in! BREAKING CHANGE: MAJOR UPDATE",
+            head: $head,
+            base: "development"
+          }')
           printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
       - name: check JSON
         if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
