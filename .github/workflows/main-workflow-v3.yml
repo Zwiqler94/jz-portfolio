@@ -1,6 +1,6 @@
 name: Workflow Orchestrator v3
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-orchestrator-v2
+  group: ${{ github.workflow }}-${{ github.ref }}-orchestrator-v3
 on:
   pull_request_target:
     branches: ["*", "development", "main"]
@@ -16,10 +16,11 @@ jobs:
     secrets: inherit
   deployDev:
     needs: [versionDev]
+    if: ${{ needs.versionDev.versionType == 'stop' }}
     uses: ./.github/workflows/main-deploy-workflow.yml
     secrets: inherit
   deployProd:
     if: ${{ github.base_ref == 'main' }}
     uses: ./.github/workflows/main-deploy-workflow.yml
     secrets: inherit
-  
+

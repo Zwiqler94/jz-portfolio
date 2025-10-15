@@ -3,6 +3,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-versioning
 on:
   workflow_call:
+    outputs:
+      versionType:
+        description: "the version increment type (major, minor, or patch)"
+        value: ${{ jobs.verify-commit.outputs.versionType }}
 permissions: write-all
 env:
   test: ""
