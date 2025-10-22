@@ -15,6 +15,8 @@ export const fbAdminApp = initializeApp({
   }),
 });
 
+const finalSecrets = ['NEON_ADMIN_PASS', ...secrets];
+
 // Deploy prod version (backward compatible with `/api/v3`)
 export const jzPortfolioApp = onRequest(
   {
@@ -22,12 +24,11 @@ export const jzPortfolioApp = onRequest(
     timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
-    secrets,
+    secrets: finalSecrets,
   },
-  createAppV3(),
+  createAppV4(),
 );
 
-const finalSecrets = ['NEON_ADMIN_PASS', ...secrets];
 // Deploy dev version with `/api/v4`
 export const jzPortfolioAppDev = onRequest(
   {
