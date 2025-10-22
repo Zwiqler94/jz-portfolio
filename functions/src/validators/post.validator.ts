@@ -2,7 +2,7 @@ import { body } from 'express-validator';
 
 export const postValidator = [
   body('location')
-    .isIn(['Main', 'Puppy', 'Anime'])
+    .isIn(['main', 'puppy', 'anime'])
     .withMessage('Unknown location')
     .notEmpty()
     .withMessage('missing value'),

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Pool, PoolClient, QueryResult } from 'pg';
 import { error, debug, info } from 'firebase-functions/logger';
 export class DBController {
@@ -141,13 +139,13 @@ export class DBController {
       return value;
     };
 
-    const toSslConfig = (value?: string) => {
-      if (!value) return undefined;
-      const normalized = value.includes('BEGIN CERTIFICATE')
-        ? value
-        : Buffer.from(value, 'base64').toString('utf8');
-      return { ca: normalized } as const;
-    };
+    // const toSslConfig = (value?: string) => {
+    //   if (!value) return undefined;
+    //   const normalized = value.includes('BEGIN CERTIFICATE')
+    //     ? value
+    //     : Buffer.from(value, 'base64').toString('utf8');
+    //   return { ca: normalized } as const;
+    // };
 
     if (!useLocal) {
       const dbUser = resolveFirstValue('NEON_USER');
@@ -163,7 +161,7 @@ export class DBController {
 
       // const caCert = Buffer.from(await getSecretValue('caSSLCert'));
 
-      const connectionString = `postgresql://${DBController.username}:${DBController.password}@${process.env.DB_HOST}.c-2.us-east-2.aws.neon.tech/jz-local?sslmode=require&channel_binding=require`; //`postgres://${DBController.username}:${DBController.password}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=require&channel_binding=require`;
+      const connectionString = `postgresql://${DBController.username}:${DBController.password}@${process.env.DB_HOST}/jz-local?sslmode=require&channel_binding=require`; //`postgres://${DBController.username}:${DBController.password}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=require&channel_binding=require`;
       this.pool = new Pool({
         connectionString,
         application_name,

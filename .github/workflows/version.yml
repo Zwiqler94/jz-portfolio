@@ -361,30 +361,31 @@ jobs:
       ]
     if: ${{ always() }}
     steps:
-      - run: |
-          merged='${{ github.event.pull_request.merged }}'
-          action='${{ github.event.action }}'
+      - name: determine version status
+        run: |
+            merged='${{ github.event.pull_request.merged }}'
+            action='${{ github.event.action }}'
 
-          if [[ "$merged" != 'true' ]]; then
-            if [[ "$action" == 'closed' ]]; then
-              echo "Version Skipped - PR closed without merge"
-            else
-              echo "Version Skipped"
+            if [[ "$merged" != 'true' ]]; then
+              if [[ "$action" == 'closed' ]]; then
+                echo "Version Skipped - PR closed without merge"
+              else
+                echo "Version Skipped"
+              fi
+              exit 0
             fi
-            exit 0
-          fi
 
-          if [[ '${{ needs.check-tokens.result }}' == 'failure' && '${{ needs.verify-commit.result }}' == 'failure' && '${{ needs.version-patch.result }}' == 'failure' && '${{ needs.version-minor.result }}' == 'failure' && '${{ needs.version-major.result }}' == 'failure' && '${{ needs.skip-no-deploy.result }}' == 'failure' && '${{ needs.skip-already-versioned.result }}' == 'failure' ]]; then
-            echo "::error:: check-tokens=${{ needs.check-tokens.result }}, verify-commit=${{ needs.verify-commit.result }}, version-patch=${{ needs.version-patch.result }}, version-minor=${{ needs.version-minor.result }}, version-major=${{ needs.version-major.result }}, skip-no-deploy=${{ needs.skip-no-deploy.result }}, skip-already-versioned=${{ needs.skip-already-versioned.result }}"
-            echo "Version Failed"
-            exit 1
-          elif [[ '${{ needs.version-patch.result }}' == 'success' || '${{ needs.version-minor.result }}' == 'success' || '${{ needs.version-major.result }}' == 'success' ]]; then
-            echo "::notice:: Version workflow completed successfully"
-            echo "Version Succeeded"
-            exit 0
-          elif [[ '${{ needs.skip-no-deploy.result }}' == 'success' || '${{ needs.skip-already-versioned.result }}' == 'success' ]]; then
-            echo "Version Skipped"
-            exit 0
-          else
-            exit 1
-          fi
+            if [[ '${{ needs.check-tokens.result }}' == 'failure' && '${{ needs.verify-commit.result }}' == 'failure' && '${{ needs.version-patch.result }}' == 'failure' && '${{ needs.version-minor.result }}' == 'failure' && '${{ needs.version-major.result }}' == 'failure' && '${{ needs.skip-no-deploy.result }}' == 'failure' && '${{ needs.skip-already-versioned.result }}' == 'failure' ]]; then
+              echo "::error:: check-tokens=${{ needs.check-tokens.result }}, verify-commit=${{ needs.verify-commit.result }}, version-patch=${{ needs.version-patch.result }}, version-minor=${{ needs.version-minor.result }}, version-major=${{ needs.version-major.result }}, skip-no-deploy=${{ needs.skip-no-deploy.result }}, skip-already-versioned=${{ needs.skip-already-versioned.result }}"
+              echo "Version Failed"
+              exit 1
+            elif [[ '${{ needs.version-patch.result }}' == 'success' || '${{ needs.version-minor.result }}' == 'success' || '${{ needs.version-major.result }}' == 'success' ]]; then
+              echo "::notice:: Version workflow completed successfully"
+              echo "Version Succeeded"
+              exit 0
+            elif [[ '${{ needs.skip-no-deploy.result }}' == 'success' || '${{ needs.skip-already-versioned.result }}' == 'success' ]]; then
+              echo "Version Skipped"
+              exit 0
+            else
+              exit 1
+            fi
