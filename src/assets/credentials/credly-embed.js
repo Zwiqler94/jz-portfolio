@@ -1,50 +1,49 @@
 (function () {
-  var e, t, a, d, r, l, i, m, n, u, o;
+  var e, t, a, r, d, l, i, m, n, o, u, c, s;
   for (
     window.CREDLY_EMBED_JS_LOADER_VERSION = "20210331",
       e = "www.credly.com",
-      u = function (e) {
-        if (null != e)
-          return /(.*\.credly.com$|(acclaim\.local|localhost|web):500[0-1]$)/.test(
-            e,
-          )
-            ? e
-            : void 0;
+      t =
+        /(.*\.credly.com$|(credly\.local|acclaim\.local|localhost|web):500[0-2]$)/,
+      c = function (e) {
+        if (null != e) return t.test(e) ? e : void 0;
       },
-      l = 0,
-      i = (m = (function (e) {
-        var t, a, d, r, l;
+      l = function (e) {
+        var t, a, r, d, l;
         if (null != document.querySelectorAll)
           return document.querySelectorAll("[data-" + e + "]");
         for (
-          l = [], d = 0, r = (t = document.getElementsByTagName("*")).length;
-          d < r;
-          d++
+          l = [], r = 0, d = (t = document.getElementsByTagName("*")).length;
+          r < d;
+          r++
         )
-          (a = t[d]).getAttribute("data-" + e) && l.push(a);
+          (a = t[r]).getAttribute("data-" + e) && l.push(a);
         return l;
-      })("share-badge-id")).length;
-    l < i;
-    l++
+      },
+      m = 0,
+      n = (o = l("share-badge-id")).length;
+    m < n;
+    m++
   )
-    ((a = (d = m[l]).attributes.getNamedItem("data-share-badge-id").value),
-      (o = d.attributes.getNamedItem("data-iframe-width").value),
-      (r = d.attributes.getNamedItem("data-iframe-height").value),
-      (t = u(
-        null != (n = d.attributes.getNamedItem("data-badge-host"))
-          ? n.value
+    ((r = (d = o[m]).attributes.getNamedItem("data-share-badge-id").value),
+      (s = d.attributes.getNamedItem("data-iframe-width").value),
+      (i = d.attributes.getNamedItem("data-iframe-height").value),
+      (a = c(
+        null != (u = d.attributes.getNamedItem("data-share-badge-host"))
+          ? u.value
           : void 0,
-      )) || (t = e),
+      )) || (a = e),
+      /^https?:\/\//.test(a) || (a = "//" + a),
       (d.outerHTML =
         '<iframe name="acclaim-badge" allowTransparency="true" frameborder="0" id="embedded-badge-' +
-        a +
-        '"src="//' +
-        t +
-        "/embedded_badge/" +
-        a +
-        '" onload="try { this.contentDocument.body.style.padding = \'0\'; } catch(e) {}" style="width: ' +
-        o +
-        "px; height: " +
         r +
+        '" scrolling="no" src="' +
+        a +
+        "/embedded_badge/" +
+        r +
+        '" style="width: ' +
+        s +
+        "px; height: " +
+        i +
         'px;" title="View my verified achievement on Credly." ></iframe>'));
 }).call(this);

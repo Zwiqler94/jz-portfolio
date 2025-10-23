@@ -37,8 +37,8 @@ export class CredentialsComponent extends TabComponent implements OnInit {
 
   ngOnInit(): void {
     credentials.forEach((val) => {
-      val.height = 100;
-      val.width = 100;
+      val.height = 300;
+      val.width = 300;
       val.host = 'https://www.credly.com';
       this.creds.push({
         credentialMsft: undefined,
