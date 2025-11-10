@@ -127,7 +127,6 @@
     "eslint-plugin-import": "latest",
     "eslint-plugin-jsdoc": "latest",
     "eslint-plugin-prefer-arrow": "latest",
-    "firebase-tools": "^14.24.1",
     "husky": "^9.1.7",
     "inquirer": "^12.11.0",
     "jasmine-core": "~5.12.1",
