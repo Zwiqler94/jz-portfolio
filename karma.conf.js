@@ -8,6 +8,7 @@ module.exports = function (config) {
     plugins: [
       require("karma-jasmine"),
       require("karma-chrome-launcher"),
+      require("karma-firefox-launcher"),
       require("karma-jasmine-html-reporter"),
       require("karma-coverage"),
     ],
@@ -20,7 +21,6 @@ module.exports = function (config) {
         random: false,
         stopOnSpecFailure: true,
       },
-      clearContext: false, // leave Jasmine Spec Runner output visible in browser
     },
     jasmineHtmlReporter: {
       suppressAll: true, // removes the duplicated traces
@@ -28,7 +28,7 @@ module.exports = function (config) {
     coverageReporter: {
       dir: require("path").join(__dirname, "./coverage/jz-portfolio"),
       subdir: ".",
-      reporters: [{ type: "html" }, { type: "text" }],
+      reporters: [{ type: "lcov" }, { type: "text" }, { type: "cobertura" }],
     },
     reporters: ["progress", "coverage", "kjhtml"],
     browsers: ["Chrome"],

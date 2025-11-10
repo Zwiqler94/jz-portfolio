@@ -26,34 +26,43 @@ export class TabItemComponent implements OnChanges {
   private changeDetector = inject(ChangeDetectorRef);
   private router = inject(Router);
 
-  readonly tab = input<any>();
+  readonly tab = input<TabNavModel | null>();
   readonly tabTemplate = viewChild.required('tabTemplate', {
     read: ViewContainerRef,
   });
 
   readonly tabComponentList = input<TabNavModel[]>([]);
 
-  getComponentFromTabList(): any {
+  getComponentFromTabList(): TabNavModel | undefined {
+    const current = this.tab();
+    if (!current) {
+      return undefined;
+    }
     const tabItem = this.tabComponentList().filter(
-      (x) => x.link === this.tab(),
+      (x) => x.link === current.link,
     )[0];
     return tabItem ? tabItem.component : undefined;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tab']) {
-      const component = this.tabComponentList().filter(
-        (x) => x.link === this.tab(),
-      )[0].component;
-
+      const activeTab = this.tab();
+      const matched = this.tabComponentList().find(
+        (x) => x.link === activeTab?.link,
+      );
       const tabTemplate = this.tabTemplate();
-      if (tabTemplate) {
-        tabTemplate.clear();
+      if (!matched || !tabTemplate) {
+        return;
+      }
 
-        const componentRef =
-          tabTemplate.createComponent<typeof component>(component);
-
-        componentRef.instance.tabTitle = this.tab().title;
+      tabTemplate.clear();
+      const componentRef = tabTemplate.createComponent(matched.component);
+      if (
+        componentRef.instance &&
+        Object.prototype.hasOwnProperty.call(componentRef.instance, 'tabTitle')
+      ) {
+        (componentRef.instance as { tabTitle?: string }).tabTitle =
+          activeTab?.title;
       }
     }
   }

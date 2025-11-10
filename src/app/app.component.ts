@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, InjectionToken, OnInit, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
@@ -12,6 +12,14 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 import { AppCheck } from '@angular/fire/app-check';
 import { Auth } from '@angular/fire/auth';
 import { NavBarComponent } from 'src/app/components/nav-bar/nav-bar.component';
+
+export const RELOAD_DOCUMENT = new InjectionToken<() => void>(
+  'RELOAD_DOCUMENT',
+  {
+    providedIn: 'root',
+    factory: () => () => document.location.reload(),
+  },
+);
 
 @Component({
   selector: 'jzp-root',
@@ -35,6 +43,7 @@ export class AppComponent implements OnInit {
   private appCheck = inject(AppCheck);
   private dbService = inject(DatabaseService);
   private snack = inject(MatSnackBar);
+  private reloadDocument = inject(RELOAD_DOCUMENT);
 
   title = 'jlz-portfolio';
 
@@ -49,25 +58,33 @@ export class AppComponent implements OnInit {
       await this.authService.getAppCheckToken('app:oninit')
     )?.token;
 
-    // (await this.lp.getAPIKey())?.subscribe((apiKey) => (this.lp.apiKey = apiKey.k));
-
     if (this.swUpdate.isEnabled) {
       console.debug('Service Worker Enabled');
 
-      this.swUpdate.unrecoverable.subscribe((event) => {
-        const swUpdateSnack = this.snack.open(
-          `An error occurred that we cannot recover from: ${event.reason}. Please reload the page.`,
-        );
-        swUpdateSnack
-          .afterDismissed()
-          .subscribe((dismiss: MatSnackBarDismiss) => {
-            if (dismiss.dismissedByAction) {
-              document.location.reload();
-            }
-          });
+      const subscription = this.swUpdate.unrecoverable.subscribe({
+        next: (event) => {
+          const swUpdateSnack = this.snack.open(
+            `An error occurred that we cannot recover from: ${event.reason}. Please reload the page.`,
+          );
+          swUpdateSnack
+            .afterDismissed()
+            .subscribe((dismiss: MatSnackBarDismiss) => {
+              if (dismiss.dismissedByAction) {
+                this.reloadDocument();
+              }
+            });
+        },
+        error: (err) => {
+          console.error('Unrecoverable error in Service Worker:', err);
+          subscription.unsubscribe();
+        },
+        complete: () => {
+          console.debug('Unrecoverable error subscription completed');
+          subscription.unsubscribe();
+        },
       });
 
-      this.swUpdate.versionUpdates
+      const versionSubscription = this.swUpdate.versionUpdates
         .pipe(
           filter(
             (evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY',
@@ -80,16 +97,35 @@ export class AppComponent implements OnInit {
                 'New App Version Detected, Update?',
                 'Yup!',
               );
-              swUpdateSnack
+              const snackBarSubscription = swUpdateSnack
                 .afterDismissed()
-                .subscribe((dismiss: MatSnackBarDismiss) => {
-                  if (dismiss.dismissedByAction) {
-                    document.location.reload();
-                  }
+                .subscribe({
+                  next: (dismiss: MatSnackBarDismiss) => {
+                    if (dismiss.dismissedByAction) {
+                      this.reloadDocument();
+                    }
+                  },
+                  error: (err) => {
+                    console.error('Error handling version update:', err);
+                    snackBarSubscription.unsubscribe();
+                  },
+                  complete: () => {
+                    console.debug(
+                      'Version update snack bar subscription completed',
+                    );
+                    snackBarSubscription.unsubscribe();
+                  },
                 });
             }
           },
-          error: (err) => console.error(err),
+          error: (err) => {
+            console.error(err);
+            versionSubscription.unsubscribe();
+          },
+          complete: () => {
+            console.debug('Version update subscription completed');
+            versionSubscription.unsubscribe();
+          },
         });
     }
   }

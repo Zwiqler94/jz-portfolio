@@ -1,76 +1,115 @@
-import { TestBed } from '@angular/core/testing';
-
-import { LinkPreviewService } from './link-preview.service';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { TestBed, fakeAsync, flushMicrotasks, tick } from '@angular/core/testing';
 import {
-  ReCaptchaV3Provider,
-  initializeAppCheck,
-  provideAppCheck,
-} from '@angular/fire/app-check';
-import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
-import { environment } from 'src/environments/environment';
-import sinon from 'sinon';
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { LinkPreviewService } from './link-preview.service';
+import { AppCheck } from '@angular/fire/app-check';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
-// const quibble = require('quibble');
+import { MockAuthService } from 'src/app/testing/mocks';
+import { environment } from 'src/environments/environment';
+import { LinkPreview } from 'src/app/components/models/post.model';
+import { Observable } from 'rxjs';
 
 describe('LinkPreviewService', () => {
   let service: LinkPreviewService;
-  let authService: AuthService;
+  let httpMock: HttpTestingController;
+  let authService: MockAuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideAuth(() => {
-          const auth = getAuth();
-          if (environment.local) {
-            connectAuthEmulator(auth, 'http://localhost:9099', {
-              disableWarnings: true,
-            });
-          }
-          return auth;
-        }),
-        provideAppCheck(() =>
-          initializeAppCheck(getApp(), {
-            provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
-            isTokenAutoRefreshEnabled: true,
-          }),
-        ),
+        LinkPreviewService,
         provideHttpClient(),
         provideHttpClientTesting(),
+        { provide: AuthService, useClass: MockAuthService },
+        { provide: AppCheck, useValue: {} as AppCheck },
       ],
     });
+
     service = TestBed.inject(LinkPreviewService);
-    authService = TestBed.inject(AuthService);
+    httpMock = TestBed.inject(HttpTestingController);
+    authService = TestBed.inject(AuthService) as MockAuthService;
   });
 
   afterEach(() => {
-    sinon.restore();
-    // quibble.reset();
+    httpMock.verify();
   });
 
-  it('should be created with appCheck service', () => {
-    expect(service).toBeTruthy();
-    // expect(service.appCheck).toBeDefined();
+  it('getAPIKey makes authenticated request when token present', fakeAsync(() => {
+    authService.appCheckToken = 'token';
+    let response: { k: string } | undefined;
+    let stream: Observable<{ k: string }> | undefined;
+
+    service.getAPIKey()?.then((observable) => {
+      stream = observable;
+    });
+
+    flushMicrotasks();
+    stream?.subscribe((res) => (response = res));
+
+    const req = httpMock.expectOne(
+      (request) =>
+        request.url ===
+        `${environment.serviceOptions.secretService}/link-previews`,
+    );
+    expect(req.request.headers.get('X-Firebase-AppCheck')).toBe('token');
+    expect(req.request.params.get('prod')).toBe(
+      String(environment.production),
+    );
+    req.flush({ k: 'secret' });
+    tick(2500);
+    expect(response).toEqual({ k: 'secret' });
+  }));
+
+  it('getAPIKey resolves undefined when no AppCheck token exists', fakeAsync(() => {
+    authService.appCheckToken = undefined;
+    let result: unknown = 'pending';
+
+    service.getAPIKey()?.then((value) => (result = value));
+    flushMicrotasks();
+
+    expect(result).toBeUndefined();
+  }));
+
+  it('getLinkPreview requests preview when apiKey and token exist', fakeAsync(() => {
+    authService.appCheckToken = 'token';
+    service.apiKey = 'preview-key';
+    const previewUrl = 'https://example.com';
+    let preview: LinkPreview | undefined;
+
+    service
+      .getLinkPreview(previewUrl)
+      ?.subscribe((result) => (preview = result));
+
+    const req = httpMock.expectOne(
+      (request) => request.url === 'https://api.linkpreview.net/',
+    );
+    expect(req.request.params.get('key')).toBe('preview-key');
+    expect(req.request.params.get('q')).toBe(previewUrl);
+    expect(req.request.headers.get('X-Firebase-AppCheck')).toBe('token');
+
+    const payload: LinkPreview = {
+      title: 'Title',
+      description: 'Desc',
+      image: 'img.png',
+      url: previewUrl,
+    };
+    req.flush(payload);
+    tick(15000);
+
+    expect(preview).toEqual(payload);
+  }));
+
+  it('getLinkPreview throws when API key is missing', () => {
+    authService.appCheckToken = 'token';
+    expect(() => service.getLinkPreview('https://example.com')).toThrow();
   });
 
-  // it('should get an app check token', async () => {
-  //   let stub: sinon.SinonSpy<any[], any>, getToken;
-  //   beforeEach(() => {
-  //      stub = sinon.fake.resolves({ token: 'DODODOD' });
-  //      quibble.esm(
-  //       '@angular/fire/app-check',
-  //       { getToken: () => stub },
-  //       'getToken'
-  //     );
-  //   });
-
-  //   const spy = sinon.spy(service, 'getAppCheckToken');
-  //   const res: AppCheckToken =
-  //     (await service.getAppCheckToken()) as AppCheckToken;
-  //   expect(spy).toHaveBeenCalled();
-  //   expect(res.token).toBe('DODODOD');
-  // });
+  it('getLinkPreview throws when AppCheck token missing', () => {
+    service.apiKey = 'preview-key';
+    authService.appCheckToken = undefined;
+    expect(() => service.getLinkPreview('https://example.com')).toThrow();
+  });
 });

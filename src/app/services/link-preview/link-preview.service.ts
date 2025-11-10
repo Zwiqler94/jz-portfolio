@@ -5,7 +5,7 @@ import {
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { catchError, delay, throwError } from 'rxjs';
+import { catchError, delay, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LinkPreview } from 'src/app/components/models/post.model';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
@@ -34,79 +34,23 @@ export class LinkPreviewService {
     this._apiKey = value;
   }
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  // constructor(...args: unknown[]){}
-  // private params: HttpParams = new HttpParams().set('key', this.apiKey);
-  // headers: HttpHeaders = new HttpHeaders();
-
-  // constructor() {
-  //   this.getAPIKey().then(ob=>ob?.subscribe(key=>this._apiKey = key.k))
-  // }
-
-  // ‰
-
-  // get apiKey() {
-  //   if (!this._apiKey) {
-  //     this.getAPIKey()
-  //       .then(async (res) => {
-  //         try {
-  //           if (res) this._apiKey = (await lastValueFrom(res)).k;
-  //         } catch (err) {
-  //           console.error(err);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //       });
-  //   }
-  //   return this._apiKey;
-  // }
-
-  // set apiKey(value) {
-  //   this._apiKey = value;
-  // }
-
-  // async hasAppCheckToken() {
-  //   if (this.authService.appCheckToken) return true;
-  //   else if (!this.authService.appCheckToken) {
-  //     try {
-  //       this.authService.appCheckToken = (
-  //         await this.authService.getAppCheckToken('linkprev:getTok')
-  //       )?.token;
-  //       return true;
-  //     } catch (err) {
-  //       console.error(err);
-  //       throw new Error(JSON.stringify(err));
-  //     }
-  //   } else return false;
-  // }
-
-  async getAPIKey() {
-    try {
-      if (this.authService.appCheckToken) {
-        const headers = new HttpHeaders().append(
-          'X-Firebase-AppCheck',
-          this.authService.appCheckToken,
-        );
-        const params = new HttpParams().append(
-          'prod',
-          String(environment.production),
-        );
-        let secretsUrl = environment.serviceOptions.secretService;
-        secretsUrl += '/link-previews';
-        return this.httpClient
-          .get<SecretResponse>(secretsUrl, {
-            params,
-            headers,
-          })
-          .pipe(delay(2500), catchError(this.handleError));
-      }
-      console.error('meep');
-      throw Error('meep');
-    } catch (err) {
-      console.debug(err);
-      return;
-    }
+  getAPIKey(): Observable<SecretResponse> {
+    const headers = new HttpHeaders().append(
+      'X-Firebase-AppCheck',
+      this.authService.appCheckToken,
+    );
+    const params = new HttpParams().append(
+      'prod',
+      String(environment.production),
+    );
+    let secretsUrl = environment.serviceOptions.secretService;
+    secretsUrl += '/link-previews';
+    return this.httpClient
+      .get<SecretResponse>(secretsUrl, {
+        params,
+        headers,
+      })
+      .pipe(delay(2500), catchError(this.handleError));
   }
 
   getLinkPreview(url: string) {

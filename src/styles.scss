@@ -2,7 +2,6 @@
 @use "./style_vars/75_theme-colors" as themes;
 
 @include mat.elevation-classes();
-@include mat.app-background();
 @include mat.elevation-classes();
 @include mat.app-background();
 @import "@angular/cdk/overlay-prebuilt.css";

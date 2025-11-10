@@ -64,11 +64,31 @@ export class ImageService {
   // }
 
   formatForCloudinaryProvider(imageUrl: string) {
-    console.log(imageUrl);
-    return imageUrl.replace(
-      /https:\/\/res\.cloudinary\.com\/dhdioy0wn\/image\/upload/,
-      '',
-    );
+    if (!imageUrl) {
+      return imageUrl;
+    }
+
+    const cloudinaryPrefix =
+      /https:\/\/res\.cloudinary\.com\/dhdioy0wn\/image\/upload/i;
+    if (cloudinaryPrefix.test(imageUrl)) {
+      return imageUrl.replace(cloudinaryPrefix, '');
+    }
+
+    const pickLastSegment = (value: string) => {
+      const segments = value.split('/').filter(Boolean);
+      if (!segments.length) {
+        return '/';
+      }
+      const last = segments.pop() ?? '';
+      return last.startsWith('/') ? last : `/${last}`;
+    };
+
+    try {
+      const url = new URL(imageUrl);
+      return pickLastSegment(url.pathname);
+    } catch {
+      return pickLastSegment(imageUrl);
+    }
   }
 
   zipImageResults(arr: Resource[][]) {

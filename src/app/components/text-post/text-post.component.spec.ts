@@ -15,6 +15,7 @@ describe('TextPostComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TextPostComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('content', '<p>Test content</p>');
     fixture.detectChanges();
   });
 

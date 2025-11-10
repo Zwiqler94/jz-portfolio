@@ -19,9 +19,8 @@
     "isolatedModules": true,
     "importHelpers": true,
     "skipLibCheck": true,
-    "target": "ESNext",
     "module": "preserve",
-    "lib": ["ESNext", "dom"],
+    "target": "es2024",
     "strictPropertyInitialization": false,
     "useDefineForClassFields": false
   },

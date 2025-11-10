@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 import { TabGroupComponent } from '../../components/tab-group/tab-group.component';
@@ -14,7 +14,7 @@ import { SkillsComponent } from 'src/app/pages/home-page/skills/skills.component
   styleUrls: ['./home-page.component.scss'],
   imports: [TabGroupComponent],
 })
-export class AboutMeComponent extends TabComponent {
+export class AboutMeComponent extends TabComponent implements OnInit{
   protected router = inject(Router);
   private auth = inject(AuthService);
 
@@ -32,6 +32,11 @@ export class AboutMeComponent extends TabComponent {
 
   constructor() {
     super();
+    this.currentPagePath = '/home/main';
+    this.router.navigateByUrl('/home/main', { skipLocationChange: true });
+  }
+
+  ngOnInit(): void {
     this.currentPagePath = location.pathname.split('/').pop() ?? '';
     console.log({ page: this.currentPagePath });
     const result = this.tabComponentList.filter(
