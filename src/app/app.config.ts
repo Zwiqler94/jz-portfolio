@@ -28,6 +28,10 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
+import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
+import {
+  provideAnimationsAsync
+} from '@angular/platform-browser/animations/async';
 import { environment } from '../environments/environment';
 import { routes } from 'src/app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
@@ -69,8 +73,12 @@ export const appConfig: ApplicationConfig = {
         // imageSize: 'contain',
       } as GalleryConfig,
     },
+
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
+        provideAnimations(),
+    provideAnimationsAsync(),
+    provideNoopAnimations(),
     provideCloudinaryLoader('https://res.cloudinary.com/dhdioy0wn'),
     importProvidersFrom(GalleryModule, LightboxModule),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),

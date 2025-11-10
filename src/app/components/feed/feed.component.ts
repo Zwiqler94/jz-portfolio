@@ -32,7 +32,7 @@ export class FeedComponent {
   lp: any;
 
   constructor() {
-    this.databaseService.getMainPosts().subscribe({
+    const subscription = this.databaseService.getMainPosts().subscribe({
       next: (data) => {
         const sortedData = data.toSorted(this.sortPosts);
         const mappedData = sortedData.map((post) => {
@@ -43,7 +43,14 @@ export class FeedComponent {
         });
         this.posts.set(mappedData);
       },
-      error: (err) => console.error('Failed to fetch posts:', err),
+      error: (err) => {
+        console.error('Failed to fetch posts:', err);
+        subscription.unsubscribe();
+      },
+      complete: () => {
+        console.debug('Posts fetched successfully');
+        subscription.unsubscribe();
+      },
     });
   }
 

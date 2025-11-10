@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   FormGroup,

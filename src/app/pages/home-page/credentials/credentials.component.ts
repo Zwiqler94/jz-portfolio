@@ -47,7 +47,7 @@ export class CredentialsComponent extends TabComponent implements OnInit {
       });
     });
 
-    // console.debug(this.credlyCreds)
+    console.debug(this.credlyCreds);
     const scriptEl = this.renderer2.createElement('script');
     scriptEl.src = 'assets/credentials/credly-embed.js';
     scriptEl.async = true;

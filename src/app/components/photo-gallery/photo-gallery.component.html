@@ -2,7 +2,7 @@
   <mat-paginator
     [pageIndex]="pageIndex"
     [pageSize]="pageSize()"
-    [length]="photoGrids()[0].length"
+    [length]="photoGrids()[0]?.length ?? 0"
     (page)="onPageChange($event, 0)"
     [showFirstLastButtons]="true"
   />
@@ -93,7 +93,7 @@
   <mat-paginator
     [pageIndex]="pageIndex"
     [pageSize]="pageSize()"
-    [length]="photoGrids()[0].length"
+    [length]="photoGrids()[0]?.length ?? 0"
     (page)="onPageChange($event, 0)"
     [showFirstLastButtons]="true"
   />

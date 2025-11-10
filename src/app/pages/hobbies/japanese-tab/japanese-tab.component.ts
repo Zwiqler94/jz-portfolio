@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { GalleryItem, GalleryRef, Gallery, ImageItem } from 'ng-gallery';

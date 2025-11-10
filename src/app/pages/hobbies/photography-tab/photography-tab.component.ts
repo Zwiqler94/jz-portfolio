@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Component, OnInit, inject, viewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {

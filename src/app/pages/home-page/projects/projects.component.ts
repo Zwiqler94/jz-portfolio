@@ -1,4 +1,11 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  inject,
+  signal,
+  OnInit,
+  model,
+} from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { MatCardModule } from '@angular/material/card';
@@ -30,7 +37,7 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
     AgeByNameComponent,
   ],
 })
-export class ProjectsComponent extends TabComponent {
+export class ProjectsComponent extends TabComponent implements OnInit {
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
   private auth = inject(AuthService);
@@ -42,7 +49,16 @@ export class ProjectsComponent extends TabComponent {
   private _maxWidth: number = this.screenWidth - 25 - 45;
   private _maxHeight: number = (this.screenHeight - 25) / 8;
 
-  // @ViewChild('tab', { read: ViewContainerRef }) tabTemplate: ViewContainerRef;
+  public result = signal(['']);
+
+  private usernameForm: FormGroup = this.fb.group({
+    words: [''],
+    specialCharacters: [''],
+    appCheckToken: '',
+  });
+
+  public usernameFormInApp = model(this.usernameForm);
+
   @HostListener('window:resize')
   onResize() {
     this.screenWidth = window.innerWidth;
@@ -51,20 +67,26 @@ export class ProjectsComponent extends TabComponent {
     this.maxHeight = (this.screenHeight - 25) / 8;
   }
 
-  result = signal(['']);
-
-  private usernameForm: FormGroup = this.fb.group({
-    words: [''],
-    specialCharacters: [''],
-    appCheckToken:
-      this.auth.appCheckToken ?? this.auth.getAppCheckToken('projects'),
-  });
-
-  usernameFormInApp = signal(this.usernameForm);
-
   constructor() {
     super();
     this.result.set(['']);
+  }
+
+  async ngOnInit(): Promise<void> {
+    try {
+      let appCheckToken = ''; //this.auth.appCheckToken ?? this.auth.getAppCheckToken('projects');
+      if (this.auth.appCheckToken) appCheckToken = this.auth.appCheckToken;
+      else {
+        const tokenResult = await this.auth.getAppCheckToken('projects');
+        if (tokenResult?.token) appCheckToken = tokenResult.token;
+      }
+
+      this.usernameForm.patchValue({ appCheckToken });
+
+      this.usernameFormInApp.set(this.usernameForm);
+    } catch (error) {
+      console.error('Error initializing component:', error);
+    }
   }
 
   get nasaApiKey() {
@@ -97,7 +119,7 @@ export class ProjectsComponent extends TabComponent {
 
   onCompletionMsgChange($event: string) {
     if ($event !== 'Success') {
-      this.snackBar.open($event, 'X', { panelClass: '.error' });
+      this.snackBar.open($event, 'X', { panelClass: 'error' });
     }
   }
 }

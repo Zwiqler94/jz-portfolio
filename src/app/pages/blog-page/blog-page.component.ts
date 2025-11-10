@@ -17,7 +17,7 @@ export class HomePageComponent implements OnInit {
   private dialog = inject(MatDialog);
   private auth = inject(AuthService);
   private cd = inject(ChangeDetectorRef);
-  private lp = inject(LinkPreviewService);
+  private linkPreviewService = inject(LinkPreviewService);
   triggerFetch: boolean;
 
   async ngOnInit(): Promise<void> {
@@ -26,9 +26,17 @@ export class HomePageComponent implements OnInit {
     )?.token;
 
     if (this.auth.appCheckToken) {
-      this.lp
-        .getAPIKey()
-        .then((ob) => ob?.subscribe((key) => (this.lp.apiKey = key.k)));
+      const subscription = this.linkPreviewService.getAPIKey().subscribe({
+        next: (key) => (this.linkPreviewService.apiKey = key.k),
+        error: (err) => {
+          console.error('Failed to fetch API key:', err);
+          subscription.unsubscribe();
+        },
+        complete: () => {
+          console.debug('API key fetched successfully');
+          subscription.unsubscribe();
+        },
+      });
     }
   }
 

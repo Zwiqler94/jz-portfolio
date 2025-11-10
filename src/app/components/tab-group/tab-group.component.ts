@@ -2,10 +2,9 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  OnChanges,
   OnInit,
-  SimpleChanges,
   ViewContainerRef,
+  computed,
   inject,
   input,
   model,
@@ -32,7 +31,7 @@ import { TabComponent } from 'src/app/components/tab/tab.component';
 })
 export class TabGroupComponent
   extends TabComponent
-  implements OnInit, AfterViewInit, OnChanges
+  implements OnInit, AfterViewInit
 {
   private changeDetector = inject(ChangeDetectorRef);
   route = inject(ActivatedRoute);
@@ -43,26 +42,45 @@ export class TabGroupComponent
   currentPage = '';
 
   readonly tabComponentList = input<TabNavModel[]>([]);
+  readonly selectedTab = computed(
+    () =>
+      this.tabComponentList().find((tab) => tab.link === this.currentTab()) ??
+      this.tabComponentList()[0] ??
+      null,
+  );
+  routeSubscription: any;
 
   constructor() {
     super();
   }
 
   ngOnInit(): void {
-    this.route.children[0].url.subscribe((x) => this.currentTab.set(x[0].path));
+    const routeChild = this.route.children[0];
+    this.routeSubscription = routeChild?.url.subscribe({
+      next: (segments) => {
+        const nextLink = segments[0]?.path;
+        if (nextLink) {
+          this.currentTab.set(nextLink);
+        } else if (this.tabComponentList().length) {
+          this.currentTab.set(this.tabComponentList()[0].link);
+        }
+      },
+      error: (err) => {
+        console.error('Failed to subscribe to route changes:', err);
+        this.routeSubscription.unsubscribe();
+      },
+      complete: () => {
+        console.debug('Route subscription completed');
+        this.routeSubscription.unsubscribe();
+      },
+    });
+
+    if (!this.currentTab() && this.tabComponentList().length) {
+      this.currentTab.set(this.tabComponentList()[0].link);
+    }
   }
 
   ngAfterViewInit() {
     this.changeDetector.detectChanges();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['currentTab']) {
-      this.component = this.tabComponentList().filter(
-        (x) => x.link === this.currentTab(),
-      )[0].component;
-
-      console.debug(this.currentTab);
-    }
   }
 }

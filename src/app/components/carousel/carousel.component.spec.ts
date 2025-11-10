@@ -7,18 +7,27 @@ describe('CarouselComponent', () => {
   let fixture: ComponentFixture<CarouselComponent>;
 
   beforeEach(async () => {
+    spyOn(window, 'setInterval').and.returnValue(0 as unknown as number);
+
     await TestBed.configureTestingModule({
       imports: [CarouselComponent],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(CarouselComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('advances to the next slide', () => {
+    fixture.componentRef.setInput('slides', ['first', 'second']);
+    component.onNextClick();
+    expect(component.currentSlideIndex).toBe(1);
+  });
+
+  it('moves backwards through slides', () => {
+    fixture.componentRef.setInput('slides', ['first', 'second']);
+    component.currentSlideIndex = 1;
+    component.onPreviousClick();
+    expect(component.currentSlideIndex).toBe(0);
   });
 });

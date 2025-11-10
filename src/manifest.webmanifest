@@ -4,6 +4,7 @@
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
+  "display_override": ["fullscreen", "minimal-ui"],
   "scope": "./",
   "start_url": "./",
   "icons": [
@@ -23,14 +24,14 @@
       "type": "image/avif"
     },
     {
-      "src": "assets/icons/apple-touch-icon-120x120-precomposed.avif",
+      "src": "assets/icons/apple-touch-icon-120x120-precomposed.png",
       "sizes": "120x120",
-      "type": "image/avif"
+      "type": "image/png"
     },
     {
-      "src": "assets/icons/apple-touch-icon-144x144-precomposed.avif",
+      "src": "assets/icons/apple-touch-icon-144x144-precomposed.png",
       "sizes": "144x144",
-      "type": "image/avif"
+      "type": "image/png"
     },
     {
       "src": "assets/icons/apple-touch-icon-152x152-precomposed.avif",
