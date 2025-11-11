@@ -147,7 +147,7 @@
     "semantic-release-npm-github-publish": "^1.5.5",
     "ts-node": "~10.9.2",
     "typescript": "^5.9",
-    "typescript-eslint": "^8.46.3",
+    "typescript-eslint": "^8.46.4",
     "wdio-chromedriver-service": "^8.1.1"
   },
   "lint-staged": {

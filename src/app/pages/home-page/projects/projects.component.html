@@ -18,15 +18,33 @@
           <small>Remix keywords into brand-ready aliases in seconds.</small>
         </div>
         <div class="dashboard-card__actions">
-          <button
-            mat-icon-button
-            type="button"
-            class="drag-handle"
-            cdkDragHandle
-            aria-label="Drag username generator widget"
-          >
-            <mat-icon>drag_indicator</mat-icon>
-          </button>
+          <div class="drag-handle-wrapper">
+            <button
+              mat-icon-button
+              type="button"
+              class="drag-handle"
+              cdkDragHandle
+              aria-label="Drag username generator widget"
+              #dragHandle
+            >
+              <mat-icon>drag_indicator</mat-icon>
+            </button>
+            <svg
+              class="drag-halo"
+              viewBox="0 0 44 44"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle
+                #dragHalo
+                cx="22"
+                cy="22"
+                r="18"
+                stroke-dasharray="113"
+                stroke-dashoffset="113"
+              ></circle>
+            </svg>
+          </div>
           <button
             mat-stroked-button
             color="primary"
@@ -39,10 +57,12 @@
         </div>
       </header>
       <section class="stat-strip">
-        <div class="stat-chip" *ngFor="let stat of usernameStats">
-          <span>{{ stat.label }}</span>
-          <strong>{{ stat.value }}</strong>
-        </div>
+        @for (stat of usernameStats; track stat.label) {
+          <div class="stat-chip">
+            <span>{{ stat.label }}</span>
+            <strong>{{ stat.value }}</strong>
+          </div>
+        }
       </section>
       <section class="dashboard-card__body">
         <lib-username-generator
@@ -89,15 +109,33 @@
           <small>Daily APOD imagery for presentation-ready inspiration.</small>
         </div>
         <div class="dashboard-card__actions">
-          <button
-            mat-icon-button
-            type="button"
-            class="drag-handle"
-            cdkDragHandle
-            aria-label="Drag NASA widget"
-          >
-            <mat-icon>drag_indicator</mat-icon>
-          </button>
+          <div class="drag-handle-wrapper">
+            <button
+              mat-icon-button
+              type="button"
+              class="drag-handle"
+              cdkDragHandle
+              aria-label="Drag NASA widget"
+              #dragHandle
+            >
+              <mat-icon>drag_indicator</mat-icon>
+            </button>
+            <svg
+              class="drag-halo"
+              viewBox="0 0 44 44"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle
+                #dragHalo
+                cx="22"
+                cy="22"
+                r="18"
+                stroke-dasharray="113"
+                stroke-dashoffset="113"
+              ></circle>
+            </svg>
+          </div>
           <button
             mat-stroked-button
             type="button"
@@ -109,10 +147,12 @@
         </div>
       </header>
       <section class="stat-strip">
-        <div class="stat-chip" *ngFor="let stat of nasaStats">
-          <span>{{ stat.label }}</span>
-          <strong>{{ stat.value }}</strong>
-        </div>
+        @for (stat of nasaStats; track stat.label) {
+          <div class="stat-chip">
+            <span>{{ stat.label }}</span>
+            <strong>{{ stat.value }}</strong>
+          </div>
+        }
       </section>
       <section class="dashboard-card__body">
         <lib-nasa
@@ -155,15 +195,33 @@
           <small>Randomized sprites and trivia for quick delight.</small>
         </div>
         <div class="dashboard-card__actions">
-          <button
-            mat-icon-button
-            type="button"
-            class="drag-handle"
-            cdkDragHandle
-            aria-label="Drag Pokémon widget"
-          >
-            <mat-icon>drag_indicator</mat-icon>
-          </button>
+          <div class="drag-handle-wrapper">
+            <button
+              mat-icon-button
+              type="button"
+              class="drag-handle"
+              cdkDragHandle
+              aria-label="Drag Pokémon widget"
+              #dragHandle
+            >
+              <mat-icon>drag_indicator</mat-icon>
+            </button>
+            <svg
+              class="drag-halo"
+              viewBox="0 0 44 44"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle
+                #dragHalo
+                cx="22"
+                cy="22"
+                r="18"
+                stroke-dasharray="113"
+                stroke-dashoffset="113"
+              ></circle>
+            </svg>
+          </div>
           <button
             mat-stroked-button
             type="button"
@@ -175,10 +233,12 @@
         </div>
       </header>
       <section class="stat-strip">
-        <div class="stat-chip" *ngFor="let stat of pokemonStats">
-          <span>{{ stat.label }}</span>
-          <strong>{{ stat.value }}</strong>
-        </div>
+        @for (stat of pokemonStats; track stat.label) {
+          <div class="stat-chip">
+            <span>{{ stat.label }}</span>
+            <strong>{{ stat.value }}</strong>
+          </div>
+        }
       </section>
       <section class="dashboard-card__body">
         <lib-pokemon
@@ -222,15 +282,33 @@
           <small>Use predictive demographics to guide personas.</small>
         </div>
         <div class="dashboard-card__actions">
-          <button
-            mat-icon-button
-            type="button"
-            class="drag-handle"
-            cdkDragHandle
-            aria-label="Drag age by name widget"
-          >
-            <mat-icon>drag_indicator</mat-icon>
-          </button>
+          <div class="drag-handle-wrapper">
+            <button
+              mat-icon-button
+              type="button"
+              class="drag-handle"
+              cdkDragHandle
+              aria-label="Drag age by name widget"
+              #dragHandle
+            >
+              <mat-icon>drag_indicator</mat-icon>
+            </button>
+            <svg
+              class="drag-halo"
+              viewBox="0 0 44 44"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle
+                #dragHalo
+                cx="22"
+                cy="22"
+                r="18"
+                stroke-dasharray="113"
+                stroke-dashoffset="113"
+              ></circle>
+            </svg>
+          </div>
           <button
             mat-stroked-button
             type="button"
@@ -242,10 +320,12 @@
         </div>
       </header>
       <section class="stat-strip">
-        <div class="stat-chip" *ngFor="let stat of ageStats">
-          <span>{{ stat.label }}</span>
-          <strong>{{ stat.value }}</strong>
-        </div>
+        @for (stat of ageStats; track stat.label) {
+          <div class="stat-chip">
+            <span>{{ stat.label }}</span>
+            <strong>{{ stat.value }}</strong>
+          </div>
+        }
       </section>
       <section class="dashboard-card__body">
         <lib-age-by-name
@@ -291,30 +371,42 @@
           >
         </div>
         <div class="dashboard-card__actions">
-          <button
-            mat-icon-button
-            type="button"
-            class="drag-handle"
-            cdkDragHandle
-            aria-label="Drag roadmap card"
-          >
-            <mat-icon>drag_indicator</mat-icon>
-          </button>
+          <div class="drag-handle-wrapper">
+            <button
+              mat-icon-button
+              type="button"
+              class="drag-handle"
+              cdkDragHandle
+              aria-label="Drag roadmap card"
+              #dragHandle
+            >
+              <mat-icon>drag_indicator</mat-icon>
+            </button>
+            <svg
+              class="drag-halo"
+              viewBox="0 0 44 44"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle
+                #dragHalo
+                cx="22"
+                cy="22"
+                r="18"
+                stroke-dasharray="113"
+                stroke-dashoffset="113"
+              ></circle>
+            </svg>
+          </div>
         </div>
       </header>
       <section class="stat-strip">
-        <div class="stat-chip">
-          <span>Slots</span>
-          <strong>+2</strong>
-        </div>
-        <div class="stat-chip">
-          <span>Ideas</span>
-          <strong>Open</strong>
-        </div>
-        <div class="stat-chip">
-          <span>Status</span>
-          <strong>Ideating</strong>
-        </div>
+        @for (stat of roadmapStats; track stat.label) {
+          <div class="stat-chip">
+            <span>{{ stat.label }}</span>
+            <strong>{{ stat.value }}</strong>
+          </div>
+        }
       </section>
       <section class="dashboard-card__body">
         <p>
@@ -344,15 +436,33 @@
           <small>Real-world project surfaced inline for context.</small>
         </div>
         <div class="dashboard-card__actions">
-          <button
-            mat-icon-button
-            type="button"
-            class="drag-handle"
-            cdkDragHandle
-            aria-label="Drag SmartPick widget"
-          >
-            <mat-icon>drag_indicator</mat-icon>
-          </button>
+          <div class="drag-handle-wrapper">
+            <button
+              mat-icon-button
+              type="button"
+              class="drag-handle"
+              cdkDragHandle
+              aria-label="Drag SmartPick widget"
+              #dragHandle
+            >
+              <mat-icon>drag_indicator</mat-icon>
+            </button>
+            <svg
+              class="drag-halo"
+              viewBox="0 0 44 44"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle
+                #dragHalo
+                cx="22"
+                cy="22"
+                r="18"
+                stroke-dasharray="113"
+                stroke-dashoffset="113"
+              ></circle>
+            </svg>
+          </div>
           <button
             mat-stroked-button
             type="button"
@@ -364,10 +474,12 @@
         </div>
       </header>
       <section class="stat-strip">
-        <div class="stat-chip" *ngFor="let stat of iframeStats">
-          <span>{{ stat.label }}</span>
-          <strong>{{ stat.value }}</strong>
-        </div>
+        @for (stat of iframeStats; track stat.label) {
+          <div class="stat-chip">
+            <span>{{ stat.label }}</span>
+            <strong>{{ stat.value }}</strong>
+          </div>
+        }
       </section>
       <section class="dashboard-card__body">
         <iframe

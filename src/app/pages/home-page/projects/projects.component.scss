@@ -3,6 +3,11 @@
 
 :host {
   display: block;
+  --app-vh: 100dvh;
+  --app-vw: 100vw;
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  min-height: var(--app-vh, 100dvh);
 }
 
 mat-form-field {
@@ -16,27 +21,39 @@ mat-form-field {
 
 .project-content {
   position: relative;
-  margin: 2rem;
+  margin: clamp(1rem, 3vw, 2.5rem);
+  padding: calc(1rem + var(--safe-top, 0px)) clamp(1rem, 4vw, 3rem)
+    calc(2rem + var(--safe-bottom, 0px));
+  min-height: min(100dvh, var(--app-vh, 100vh));
+  width: min(100%, var(--app-vw, 100vw));
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  align-items: center;
 }
 
 .drag {
-  width: fit-content;
+  width: min(100%, 65rem);
   position: relative;
   z-index: 1;
 }
 
 .dashboard-card {
-  width: min(64rem, 92vw);
+  width: min(64rem, calc(var(--app-vw, 100vw) - clamp(1.5rem, 4vw, 4rem)));
   padding: 1.25rem 1.5rem 1.5rem;
   border-radius: 1.25rem;
   background: rgba(19, 22, 27, 0.65);
-  color: white;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 1.25rem 2.5rem rgba(15, 23, 42, 0.35);
   backdrop-filter: blur(14px);
+}
+
+:host([data-cards-motion="running"]) .dashboard-card {
+  will-change: transform, opacity;
+}
+
+:host([data-cards-motion="finished"]) .dashboard-card {
+  will-change: auto;
 }
 
 .announcement {
@@ -59,9 +76,9 @@ mat-form-field {
     font-size: clamp(1.45rem, 3vw, 2rem);
   }
 
-  small {
-    color: rgba(255, 255, 255, 0.7);
-  }
+  // small {
+  //   color: rgba(255, 255, 255, 0.7);
+  // }
 }
 
 .eyebrow {
@@ -83,9 +100,46 @@ mat-form-field {
   color: rgba(255, 255, 255, 0.9);
 }
 
+:host(.motion-enhanced) .drag-handle {
+  animation: none;
+}
+
+.drag-handle-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drag-halo {
+  position: absolute;
+  width: 2.75rem;
+  height: 2.75rem;
+  inset: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  circle {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.45);
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-dashoffset: 113;
+  }
+}
+
+:host(.motion-enhanced) .drag-halo {
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .drag-handle {
     animation: none;
+  }
+  .drag-halo {
+    display: none;
   }
 }
 
@@ -176,6 +230,9 @@ mat-form-field {
 @media (max-width: 768px) {
   .project-content {
     margin: 1.25rem;
+    padding: calc(1rem + var(--safe-top, 0px)) 1rem
+      calc(1.5rem + var(--safe-bottom, 0px));
+    align-items: stretch;
   }
 
   .dashboard-card__header {
@@ -196,5 +253,72 @@ mat-form-field {
 
   .stat-strip {
     flex-direction: column;
+  }
+
+  .dashboard-card {
+    width: 100%;
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .drag {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .project-content {
+    margin: 0.5rem;
+    padding: calc(0.75rem + var(--safe-top, 0px)) 0.75rem
+      calc(1.25rem + var(--safe-bottom, 0px));
+    gap: 1rem;
+  }
+
+  .dashboard-card {
+    padding: 0.9rem 1rem 1.1rem;
+  }
+
+  .dashboard-card__titles h2 {
+    font-size: clamp(1.3rem, 5vw, 1.6rem);
+  }
+
+  .dashboard-card__actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 375px) {
+  .dashboard-card__actions {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .drag-handle-wrapper {
+    order: 2;
+  }
+
+  .dashboard-card__actions button[mat-stroked-button] {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .project-content {
+    margin: 3rem auto;
+    max-width: 96rem;
+  }
+
+  .dashboard-card {
+    padding: 1.5rem 2rem 2rem;
+  }
+}
+
+@media (display-mode: standalone) {
+  :host {
+    min-height: var(--app-vh, 100vh);
+  }
+
+  .project-content {
+    padding-bottom: calc(2.25rem + var(--safe-bottom, 0px));
   }
 }
