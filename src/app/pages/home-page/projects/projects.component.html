@@ -1,133 +1,375 @@
 <div class="project-content">
   <div
-    class="dragA drag"
+    class="drag"
     cdkDrag
     cdkDragBoundary=".project-content"
     [cdkDragFreeDragPosition]="{ x: 0, y: 0 }"
   >
-    <div class="handleA" cdkDragHandle>
-      <mat-icon>drag_indicator</mat-icon>
-    </div>
-    <lib-username-generator
-      class="project-content-item"
-      [(usernameForm)]="usernameFormInApp"
-      [(result)]="result"
-      (completionMsgChange)="onCompletionMsgChange($event)"
-    />
+    <mat-card
+      #dashboardCard
+      data-card-id="username"
+      appearance="outlined"
+      class="dashboard-card"
+    >
+      <header class="dashboard-card__header">
+        <div class="dashboard-card__titles">
+          <p class="eyebrow">Creative Sandbox</p>
+          <h2>Username Generator</h2>
+          <small>Remix keywords into brand-ready aliases in seconds.</small>
+        </div>
+        <div class="dashboard-card__actions">
+          <button
+            mat-icon-button
+            type="button"
+            class="drag-handle"
+            cdkDragHandle
+            aria-label="Drag username generator widget"
+          >
+            <mat-icon>drag_indicator</mat-icon>
+          </button>
+          <button
+            mat-stroked-button
+            color="primary"
+            type="button"
+            (click)="toggleDetails('username')"
+            [attr.aria-expanded]="isExpanded('username')"
+          >
+            {{ isExpanded("username") ? "Hide story" : "How it works" }}
+          </button>
+        </div>
+      </header>
+      <section class="stat-strip">
+        <div class="stat-chip" *ngFor="let stat of usernameStats">
+          <span>{{ stat.label }}</span>
+          <strong>{{ stat.value }}</strong>
+        </div>
+      </section>
+      <section class="dashboard-card__body">
+        <lib-username-generator
+          class="project-content-item"
+          [(usernameForm)]="usernameFormInApp"
+          [(result)]="result"
+          (completionMsgChange)="onCompletionMsgChange($event)"
+        />
+      </section>
+      <section
+        class="dashboard-card__details"
+        [class.is-expanded]="isExpanded('username')"
+        role="region"
+        aria-label="Username generator details"
+        [attr.aria-hidden]="!isExpanded('username')"
+      >
+        <p>
+          This widget pulls live synonyms, filters out unsafe words, and streams
+          ready-to-use handles straight from the Username Generator API.
+        </p>
+        <button mat-button color="primary" type="button">
+          Launch Cloud Run endpoint
+        </button>
+      </section>
+    </mat-card>
   </div>
 
   <div
-    class="dragB drag"
+    class="drag"
     cdkDrag
     cdkDragBoundary=".project-content"
     [cdkDragFreeDragPosition]="{ x: 0, y: 50 }"
   >
-    <div class="handleB" cdkDragHandle>
-      <mat-icon>drag_indicator</mat-icon>
-    </div>
-    <lib-nasa
-      id=""
-      [apiKey]="nasaApiKey"
-      (completionMsgChange)="onCompletionMsgChange($event)"
-    />
+    <mat-card
+      #dashboardCard
+      data-card-id="nasa"
+      appearance="outlined"
+      class="dashboard-card"
+    >
+      <header class="dashboard-card__header">
+        <div class="dashboard-card__titles">
+          <p class="eyebrow">Space Moodboard</p>
+          <h2>NASA Spotlight</h2>
+          <small>Daily APOD imagery for presentation-ready inspiration.</small>
+        </div>
+        <div class="dashboard-card__actions">
+          <button
+            mat-icon-button
+            type="button"
+            class="drag-handle"
+            cdkDragHandle
+            aria-label="Drag NASA widget"
+          >
+            <mat-icon>drag_indicator</mat-icon>
+          </button>
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="toggleDetails('nasa')"
+            [attr.aria-expanded]="isExpanded('nasa')"
+          >
+            {{ isExpanded("nasa") ? "Hide story" : "Mission brief" }}
+          </button>
+        </div>
+      </header>
+      <section class="stat-strip">
+        <div class="stat-chip" *ngFor="let stat of nasaStats">
+          <span>{{ stat.label }}</span>
+          <strong>{{ stat.value }}</strong>
+        </div>
+      </section>
+      <section class="dashboard-card__body">
+        <lib-nasa
+          [apiKey]="nasaApiKey"
+          (completionMsgChange)="onCompletionMsgChange($event)"
+        />
+      </section>
+      <section
+        class="dashboard-card__details"
+        [class.is-expanded]="isExpanded('nasa')"
+        role="region"
+        aria-label="NASA widget details"
+        [attr.aria-hidden]="!isExpanded('nasa')"
+      >
+        <p>
+          Powered by NASA&apos;s APOD feed with App Check enforced, so you can
+          drag this tile anywhere without rate-limit surprises.
+        </p>
+        <button mat-button type="button">Open NASA docs</button>
+      </section>
+    </mat-card>
   </div>
+
   <div
-    class="dragC drag"
+    class="drag"
     cdkDrag
     cdkDragBoundary=".project-content"
     [cdkDragFreeDragPosition]="{ x: 0, y: 150 }"
   >
-    <div class="handleC" cdkDragHandle>
-      <mat-icon>drag_indicator</mat-icon>
-    </div>
-    <lib-pokemon
-      [heightInput]="'35'"
-      [widthInput]="'35'"
-      class="project-content-item"
-      (completionMsgChange)="onCompletionMsgChange($event)"
-    />
+    <mat-card
+      #dashboardCard
+      data-card-id="pokemon"
+      appearance="outlined"
+      class="dashboard-card"
+    >
+      <header class="dashboard-card__header">
+        <div class="dashboard-card__titles">
+          <p class="eyebrow">Pixel Buddy</p>
+          <h2>Pokédex Peek</h2>
+          <small>Randomized sprites and trivia for quick delight.</small>
+        </div>
+        <div class="dashboard-card__actions">
+          <button
+            mat-icon-button
+            type="button"
+            class="drag-handle"
+            cdkDragHandle
+            aria-label="Drag Pokémon widget"
+          >
+            <mat-icon>drag_indicator</mat-icon>
+          </button>
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="toggleDetails('pokemon')"
+            [attr.aria-expanded]="isExpanded('pokemon')"
+          >
+            {{ isExpanded("pokemon") ? "Hide story" : "Show lore" }}
+          </button>
+        </div>
+      </header>
+      <section class="stat-strip">
+        <div class="stat-chip" *ngFor="let stat of pokemonStats">
+          <span>{{ stat.label }}</span>
+          <strong>{{ stat.value }}</strong>
+        </div>
+      </section>
+      <section class="dashboard-card__body">
+        <lib-pokemon
+          [heightInput]="'35'"
+          [widthInput]="'35'"
+          class="project-content-item"
+          (completionMsgChange)="onCompletionMsgChange($event)"
+        />
+      </section>
+      <section
+        class="dashboard-card__details"
+        [class.is-expanded]="isExpanded('pokemon')"
+        role="region"
+        aria-label="Pokémon widget details"
+        [attr.aria-hidden]="!isExpanded('pokemon')"
+      >
+        <p>
+          Backed by PokéAPI with sprite caching. Try pairing it with the
+          username generator for themed handles.
+        </p>
+      </section>
+    </mat-card>
   </div>
-  <!-- <div
-    class="dragD drag"
+
+  <div
+    class="drag"
     cdkDrag
     cdkDragBoundary=".project-content"
     [cdkDragFreeDragPosition]="{ x: 0, y: 200 }"
   >
-    <div class="handleD" cdkDragHandle>
-      <mat-icon>drag_indicator</mat-icon>
-    </div>
-    <lib-boredom-solver
-      [height]="'15'"
-      [width]="maxWidth"
-      class="project-content-item"
-      (completionMsgChange)="onCompletionMsgChange($event)"
-    ></lib-boredom-solver>
-  </div> -->
-  <div
-    class="dragE drag"
-    cdkDrag
-    cdkDragBoundary=".project-content"
-    [cdkDragFreeDragPosition]="{ x: 0, y: 200 }"
-  >
-    <div class="handleE" cdkDragHandle>
-      <mat-icon>drag_indicator</mat-icon>
-    </div>
-    <lib-age-by-name
-      [heightInput]="'15'"
-      [widthInput]="maxWidth"
-      class="project-content-item"
-      (completionMsgChange)="onCompletionMsgChange($event)"
-    />
+    <mat-card
+      #dashboardCard
+      data-card-id="age"
+      appearance="outlined"
+      class="dashboard-card"
+    >
+      <header class="dashboard-card__header">
+        <div class="dashboard-card__titles">
+          <p class="eyebrow">Data Whispers</p>
+          <h2>Age By Name</h2>
+          <small>Use predictive demographics to guide personas.</small>
+        </div>
+        <div class="dashboard-card__actions">
+          <button
+            mat-icon-button
+            type="button"
+            class="drag-handle"
+            cdkDragHandle
+            aria-label="Drag age by name widget"
+          >
+            <mat-icon>drag_indicator</mat-icon>
+          </button>
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="toggleDetails('age')"
+            [attr.aria-expanded]="isExpanded('age')"
+          >
+            {{ isExpanded("age") ? "Hide story" : "Insight" }}
+          </button>
+        </div>
+      </header>
+      <section class="stat-strip">
+        <div class="stat-chip" *ngFor="let stat of ageStats">
+          <span>{{ stat.label }}</span>
+          <strong>{{ stat.value }}</strong>
+        </div>
+      </section>
+      <section class="dashboard-card__body">
+        <lib-age-by-name
+          [heightInput]="'15'"
+          [widthInput]="maxWidth"
+          class="project-content-item"
+          (completionMsgChange)="onCompletionMsgChange($event)"
+        />
+      </section>
+      <section
+        class="dashboard-card__details"
+        [class.is-expanded]="isExpanded('age')"
+        role="region"
+        aria-label="Age by name widget details"
+        [attr.aria-hidden]="!isExpanded('age')"
+      >
+        <p>
+          Estimate an age range off the cuff and cross-check personas without
+          opening your analytics stack.
+        </p>
+      </section>
+    </mat-card>
   </div>
+
   <div
-    class="dragE drag"
+    class="drag"
     cdkDrag
     cdkDragBoundary=".project-content"
     [cdkDragFreeDragPosition]="{ x: 0, y: 250 }"
   >
-    <div class="handleE" cdkDragHandle>
-      <mat-icon>drag_indicator</mat-icon>
-    </div>
-    <mat-card appearance="outlined">
-      <mat-card-header>
-        <h1>More Widgets Coming Soon!</h1>
-      </mat-card-header>
+    <mat-card
+      #dashboardCard
+      data-card-id="roadmap"
+      appearance="outlined"
+      class="dashboard-card announcement"
+    >
+      <header class="dashboard-card__header">
+        <div class="dashboard-card__titles">
+          <p class="eyebrow">Roadmap Ping</p>
+          <h2>More Widgets on Deck</h2>
+          <small
+            >Got an API you love? Drop it in and I&apos;ll wire it up.</small
+          >
+        </div>
+        <div class="dashboard-card__actions">
+          <button
+            mat-icon-button
+            type="button"
+            class="drag-handle"
+            cdkDragHandle
+            aria-label="Drag roadmap card"
+          >
+            <mat-icon>drag_indicator</mat-icon>
+          </button>
+        </div>
+      </header>
+      <section class="stat-strip">
+        <div class="stat-chip">
+          <span>Slots</span>
+          <strong>+2</strong>
+        </div>
+        <div class="stat-chip">
+          <span>Ideas</span>
+          <strong>Open</strong>
+        </div>
+        <div class="stat-chip">
+          <span>Status</span>
+          <strong>Ideating</strong>
+        </div>
+      </section>
+      <section class="dashboard-card__body">
+        <p>
+          I&apos;m sketching the next embed—think live stock tiles, AI
+          summaries, or anything your project brief needs.
+        </p>
+      </section>
     </mat-card>
   </div>
-  <!-- <div
-    class="dragF drag"
-    cdkDrag
-    cdkDragBoundary=".project-content"
-    [cdkDragFreeDragPosition]="{ x: 0, y: 300 }"
-  >
-    <div class="handleF" cdkDragHandle>
-      <mat-icon>drag_indicator</mat-icon>
-    </div>
-    <mat-card appearance="outlined">
-      <mat-card-content>
-        <iframe
-          title="IIPA"
-          class="project-content-item"
-          style="background-color: aliceblue"
-          [height]="maxHeight"
-          [width]="maxWidth"
-          src="https://iipa-32fdd.web.app"
-        >
-        </iframe>
-      </mat-card-content>
-    </mat-card>
-  </div> -->
+
   <div
-    class="dragF drag"
+    class="drag"
     cdkDrag
     cdkDragBoundary=".project-content"
     [cdkDragFreeDragPosition]="{ x: 0, y: 350 }"
   >
-    <div class="handleF" cdkDragHandle>
-      <mat-icon>drag_indicator</mat-icon>
-    </div>
-    <mat-card appearance="outlined">
-      <mat-card-content>
+    <mat-card
+      #dashboardCard
+      data-card-id="smartpick"
+      appearance="outlined"
+      class="dashboard-card"
+    >
+      <header class="dashboard-card__header">
+        <div class="dashboard-card__titles">
+          <p class="eyebrow">Live Demo</p>
+          <h2>SmartPick Embed</h2>
+          <small>Real-world project surfaced inline for context.</small>
+        </div>
+        <div class="dashboard-card__actions">
+          <button
+            mat-icon-button
+            type="button"
+            class="drag-handle"
+            cdkDragHandle
+            aria-label="Drag SmartPick widget"
+          >
+            <mat-icon>drag_indicator</mat-icon>
+          </button>
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="toggleDetails('smartpick')"
+            [attr.aria-expanded]="isExpanded('smartpick')"
+          >
+            {{ isExpanded("smartpick") ? "Hide story" : "Project notes" }}
+          </button>
+        </div>
+      </header>
+      <section class="stat-strip">
+        <div class="stat-chip" *ngFor="let stat of iframeStats">
+          <span>{{ stat.label }}</span>
+          <strong>{{ stat.value }}</strong>
+        </div>
+      </section>
+      <section class="dashboard-card__body">
         <iframe
           title="SmartPick"
           class="project-content-item"
@@ -137,7 +379,20 @@
           src="https://lotto-beast-new.web.app"
         >
         </iframe>
-      </mat-card-content>
+      </section>
+      <section
+        class="dashboard-card__details"
+        [class.is-expanded]="isExpanded('smartpick')"
+        role="region"
+        aria-label="SmartPick details"
+        [attr.aria-hidden]="!isExpanded('smartpick')"
+      >
+        <p>
+          This embed pulls the live production build, so you can audit real UX
+          while staying on the portfolio page.
+        </p>
+        <button mat-button type="button">Open project repo</button>
+      </section>
     </mat-card>
   </div>
 </div>
