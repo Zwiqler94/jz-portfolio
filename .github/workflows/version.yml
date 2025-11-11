@@ -13,6 +13,9 @@ env:
   commitMsg: ""
   REPO_URL: "https://api.github.com/repos/${{ github.repository }}"
   HUSKY: 0
+  GITHUB_APP_TOKEN: ${{ secrets.APP_ACCESS_TOKEN }}
+  GITHUB_USER_TOKEN: ${{ secrets.USER_ACCESS_TOKEN }}
+  useTokens: true
 jobs:
   check-tokens:
     runs-on: ubuntu-latest
@@ -20,8 +23,9 @@ jobs:
       appToken: ${{ steps.checkToken.outputs.appToken }}
       userToken: ${{ steps.checkToken.outputs.userToken }}
     steps:
-      - id: checkToken
-        uses: Zwiqler94/GH-Actions@v1.0.0
+      - name: Check Tokens
+        id: checkToken
+        uses: Zwiqler94/GH-Actions@v1.0.1
         with:
           token: ${{ secrets.USER_ACCESS_TOKEN }}
           appId: ${{ secrets.APP_ID }}
@@ -29,6 +33,7 @@ jobs:
           clientId: ${{ secrets.APP_CLIENT_ID }}
           clientSecret: ${{ secrets.APP_CLIENT_SECRET }}
           userRefreshToken: ${{ secrets.USER_REFRESH_TOKEN }}
+          exposeTokens: true
   verify-commit:
     if: ${{ github.event.pull_request.merged == true }}
     needs: [check-tokens]
