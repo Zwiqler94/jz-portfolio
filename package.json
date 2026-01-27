@@ -57,7 +57,7 @@
     "firebase": "^12.5.0",
     "firebase-admin": "^13.6.0",
     "jose": "^6.1.1",
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.17.23",
     "luxon": "^3.7.2",
     "ng-gallery": "^12.0.0",
     "ngx-colors": "^3.6.0",
@@ -73,7 +73,7 @@
     "prosemirror-state": "^1.4.4",
     "quibble": "^0.9.2",
     "rxjs": "^7.8.2",
-    "sinon": "^21.0.0",
+    "sinon": "^21.0.1",
     "tslib": "^2.8.1",
     "uuid": "^13.0.0",
     "zone.js": "^0.15.1"
