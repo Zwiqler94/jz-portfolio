@@ -9,8 +9,6 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 import { environment } from 'src/environments/environment';
 
-import { FitnessTabComponent } from 'src/app/pages/hobbies/fitness-tab/fitness-tab.component';
-
 const AuthGuard: CanActivateFn = (_route, _state) => {
   return inject(AuthService).canActivate();
 };
@@ -97,18 +95,18 @@ export const routes: Routes = [
         path: 'photos',
         title: 'Photos to Pass The Time',
         loadComponent: () =>
-          import(
-            'src/app/pages/hobbies/photography-tab/photography-tab.component'
-          ).then((m) => m.PhotographyTabComponent),
+          import('src/app/pages/hobbies/photography-tab/photography-tab.component').then(
+            (m) => m.PhotographyTabComponent,
+          ),
       },
       // { path: 'fitness', component: FitnessTabComponent },
       {
         path: 'japanese',
         title: 'ようこそ！',
         loadComponent: () =>
-          import(
-            'src/app/pages/hobbies/japanese-tab/japanese-tab.component'
-          ).then((m) => m.JapaneseTabComponent),
+          import('src/app/pages/hobbies/japanese-tab/japanese-tab.component').then(
+            (m) => m.JapaneseTabComponent,
+          ),
       },
     ],
   },
@@ -137,15 +135,15 @@ export const routes: Routes = [
     title: 'Contact Me',
     canActivate: envAuthGaurd,
   },
-  {
-    path: 'editor',
-    loadComponent: () =>
-      import('src/app/pages/editor-page/editor-page.component').then(
-        (m) => m.EditorPageComponent,
-      ),
-    title: 'Manage The Blog!',
-    canActivate: envAuthGaurd,
-  },
+  // {
+  //   path: 'editor',
+  //   loadComponent: () =>
+  //     import('src/app/pages/editor-page/editor-page.component').then(
+  //       (m) => m.EditorPageComponent,
+  //     ),
+  //   title: 'Manage The Blog!',
+  //   canActivate: envAuthGaurd,
+  // },
   {
     path: 'error',
     title: "You've Discovered A Problem",

@@ -30,6 +30,7 @@ import {
   remove as animeRemove,
   stagger,
   waapi,
+  cubicBezier,
 } from 'animejs';
 import {
   AgeByNameComponent,
@@ -73,7 +74,7 @@ export class ProjectsComponent
   private animationScope = createScope({
     root: this.host,
     defaults: {
-      ease: 'cubicBezier(0.33, 1, 0.68, 1)',
+      ease: cubicBezier(0.33, 1, 0.68, 1),
       duration: 640,
     },
   });
@@ -278,7 +279,7 @@ export class ProjectsComponent
         const timeline = createTimeline({
           defaults: {
             duration: 640,
-            ease: 'cubicBezier(0.35, 0.7, 0, 1)',
+            ease: cubicBezier(0.35, 0.7, 0, 1),
           },
           onBegin: () => this.setCardsMotionState('running'),
           onComplete: () => this.setCardsMotionState('finished'),

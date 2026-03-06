@@ -7,6 +7,6 @@
     "outDir": "./out-tsc/app",
     "types": []
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/assets/credentials/credly-embed.js"],
   "exclude": ["src/**/*.spec.ts"]
 }
