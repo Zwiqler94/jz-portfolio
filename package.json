@@ -128,7 +128,7 @@
     "eslint-plugin-jsdoc": "latest",
     "eslint-plugin-prefer-arrow": "latest",
     "husky": "^9.1.7",
-    "inquirer": "^12.11.0",
+    "inquirer": "^13.3.2",
     "jasmine-core": "~5.12.1",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "~6.4.4",
