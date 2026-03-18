@@ -1,4 +1,11 @@
-import { Component, OnInit, Renderer2, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  Renderer2,
+  inject,
+  input,
+} from '@angular/core';
 import {
   Achievement,
   MicrosoftLearnUserProfile,
@@ -16,6 +23,7 @@ import { LearningCredential } from 'src/app/interfaces/credentials/credential.in
   templateUrl: './credentials.component.html',
   styleUrls: ['./credentials.component.scss'],
   imports: [MatCardModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CredentialsComponent extends TabComponent implements OnInit {
   private renderer2 = inject(Renderer2);

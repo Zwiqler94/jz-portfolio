@@ -5,89 +5,16 @@
     cdkDragBoundary=".project-content"
     [cdkDragFreeDragPosition]="{ x: 0, y: 0 }"
   >
-    <mat-card
-      #dashboardCard
-      data-card-id="username"
-      appearance="outlined"
-      class="dashboard-card"
-    >
-      <header class="dashboard-card__header">
-        <div class="dashboard-card__titles">
-          <p class="eyebrow">Creative Sandbox</p>
-          <h2>Username Generator</h2>
-          <small>Remix keywords into brand-ready aliases in seconds.</small>
-        </div>
-        <div class="dashboard-card__actions">
-          <div class="drag-handle-wrapper">
-            <button
-              mat-icon-button
-              type="button"
-              class="drag-handle"
-              cdkDragHandle
-              aria-label="Drag username generator widget"
-              #dragHandle
-            >
-              <mat-icon>drag_indicator</mat-icon>
-            </button>
-            <svg
-              class="drag-halo"
-              viewBox="0 0 44 44"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <circle
-                #dragHalo
-                cx="22"
-                cy="22"
-                r="18"
-                stroke-dasharray="113"
-                stroke-dashoffset="113"
-              ></circle>
-            </svg>
-          </div>
-          <button
-            mat-stroked-button
-            color="primary"
-            type="button"
-            (click)="toggleDetails('username')"
-            [attr.aria-expanded]="isExpanded('username')"
-          >
-            {{ isExpanded("username") ? "Hide story" : "How it works" }}
-          </button>
-        </div>
-      </header>
-      <section class="stat-strip">
-        @for (stat of usernameStats; track stat.label) {
-          <div class="stat-chip">
-            <span>{{ stat.label }}</span>
-            <strong>{{ stat.value }}</strong>
-          </div>
-        }
-      </section>
-      <section class="dashboard-card__body">
-        <lib-username-generator
-          class="project-content-item"
-          [(usernameForm)]="usernameFormInApp"
-          [(result)]="result"
-          (completionMsgChange)="onCompletionMsgChange($event)"
-        />
-      </section>
-      <section
-        class="dashboard-card__details"
-        [class.is-expanded]="isExpanded('username')"
-        role="region"
-        aria-label="Username generator details"
-        [attr.aria-hidden]="!isExpanded('username')"
-      >
-        <p>
-          This widget pulls live synonyms, filters out unsafe words, and streams
-          ready-to-use handles straight from the Username Generator API.
-        </p>
-        <button mat-button color="primary" type="button">
-          Launch Cloud Run endpoint
-        </button>
-      </section>
-    </mat-card>
+    <div class="handleA" cdkDragHandle>
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <lib-username-generator
+      [httpCall]="callable"
+      class="project-content-item"
+      [(usernameForm)]="usernameFormInApp"
+      [(result)]="result"
+      (completionMsgChange)="onCompletionMsgChange($event)"
+    />
   </div>
 
   <div
@@ -491,20 +418,12 @@
           src="https://lotto-beast-new.web.app"
         >
         </iframe>
-      </section>
-      <section
-        class="dashboard-card__details"
-        [class.is-expanded]="isExpanded('smartpick')"
-        role="region"
-        aria-label="SmartPick details"
-        [attr.aria-hidden]="!isExpanded('smartpick')"
-      >
-        <p>
-          This embed pulls the live production build, so you can audit real UX
-          while staying on the portfolio page.
-        </p>
-        <button mat-button type="button">Open project repo</button>
-      </section>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="openSmartPick()">
+          Open in New Tab
+        </button>
+      </mat-card-actions>
     </mat-card>
   </div>
 </div>

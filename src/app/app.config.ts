@@ -21,12 +21,16 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideGalleryOptions } from 'ngx-gallery-jz';
-import { provideLightboxOptions } from 'ngx-gallery-jz/lightbox';
+import {
+  provideAnimations,
+  provideNoopAnimations,
+} from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { environment } from '../environments/environment';
 import { routes } from 'src/app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideServiceWorker } from '@angular/service-worker';
+import { getFunctions, provideFunctions } from '@angular/fire/functions';
 
 setLogLevel(LogLevel.VERBOSE);
 
@@ -52,27 +56,46 @@ export const appConfig: ApplicationConfig = {
         ],
       },
     },
-    provideLightboxOptions({
-      exitAnimationTime: 1000,
-      keyboardShortcuts: true,
-    }),
-    provideGalleryOptions({
-      imageSize: 'contain',
-      resizeDebounceTime: 30,
-      centralized: true,
-      debug: true,
-    }),
+    {
+      provide: LIGHTBOX_CONFIG,
+      useValue: {
+        keyboardShortcuts: true,
+        exitAnimationTime: 1000,
+      } as LightboxConfig,
+    },
+    {
+      provide: GALLERY_CONFIG,
+      useValue: {
+        // autoHeight: true,
+        // itemAutosize: true,
+        // imageSize: 'contain',
+      } as GalleryConfig,
+    },
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-
+    provideAnimations(),
     provideCloudinaryLoader('https://res.cloudinary.com/dhdioy0wn'),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirebaseApp(() =>
+      initializeApp(
+        {
+          apiKey: 'AIzaSyDz1gmfYWryGMken3i1bVfNQP2tha3vIi8',
+          authDomain: 'usernamegenerator.firebaseapp.com',
+          projectId: 'usernamegenerator',
+          storageBucket: 'usernamegenerator.firebasestorage.app',
+          messagingSenderId: '853416854561',
+          appId: '1:853416854561:web:ce4ad92e0ba115925e8f60',
+        },
+        'usernamegenerator',
+      ),
+    ),
     provideAppCheck(() =>
       initializeAppCheck(getApp(), {
         provider: new ReCaptchaEnterpriseProvider(environment.recaptchaSiteKey),
         isTokenAutoRefreshEnabled: true,
       }),
     ),
+    provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage()),
     provideAnalytics(() => initializeAnalytics(getApp())),
     provideAuth(() => {

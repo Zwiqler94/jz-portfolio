@@ -10,6 +10,9 @@ import {
   OnInit,
   OnDestroy,
   model,
+  ChangeDetectionStrategy,
+  EnvironmentInjector,
+  InjectionToken,
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment';
@@ -40,6 +43,42 @@ import {
 } from '@zwiqler94/everything-lib';
 import { TabComponent } from 'src/app/components/tab/tab.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
+import {
+  Functions,
+  getFunctions,
+  httpsCallable,
+  provideFunctions,
+} from '@angular/fire/functions';
+import {
+  AppCheck,
+  AppCheckTokenResult,
+  initializeAppCheck,
+  ReCaptchaEnterpriseProvider,
+} from '@angular/fire/app-check';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { MatButtonModule } from '@angular/material/button';
+
+const USERNAME_GENERATOR_FUNCTION = new InjectionToken<Functions>(
+  'USERNAME_GENERATOR_FUNCTION',
+  {
+    providedIn: 'root',
+    factory: () => getFunctions(getApp('usernamegenerator')),
+  },
+);
+
+const USERNAME_GENERATOR_APPCHECK = new InjectionToken<AppCheck>(
+  'USERNAME_GENERATOR_FUNCTION',
+  {
+    providedIn: 'root',
+    factory: () =>
+      initializeAppCheck(getApp('usernamegenerator'), {
+        provider: new ReCaptchaEnterpriseProvider(
+          '6LfmZfkrAAAAAMikpjz1sRW1AYE6I7j8XuTA1m8o',
+        ),
+        isTokenAutoRefreshEnabled: true,
+      }),
+  },
+);
 
 @Component({
   selector: 'jzp-projects',
@@ -60,24 +99,20 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
     PokemonComponent,
     NasaComponent,
     AgeByNameComponent,
+    MatButtonModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectsComponent
-  extends TabComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class ProjectsComponent extends TabComponent implements OnInit {
+  openSmartPick() {
+    window.open('https://lotto-beast-new.web.app', '_blank');
+  }
+
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
   private auth = inject(AuthService);
-  private zone = inject(NgZone);
-  private host = inject(ElementRef<HTMLElement>);
-  private animationScope = createScope({
-    root: this.host,
-    defaults: {
-      ease: cubicBezier(0.33, 1, 0.68, 1),
-      duration: 640,
-    },
-  });
+  private functions = inject(USERNAME_GENERATOR_FUNCTION);
+  private appCheck = inject(USERNAME_GENERATOR_APPCHECK);
 
   screenWidth: number = window.innerWidth;
   screenHeight: number = window.innerHeight;
@@ -85,7 +120,7 @@ export class ProjectsComponent
   expandedCard = signal<string | null>(null);
 
   private _maxWidth: number = this.screenWidth - 25 - 45;
-  private _maxHeight: number = (this.screenHeight - 25) / 8;
+  private _maxHeight: number = this.screenHeight - 25;
 
   public result = signal(['']);
 
@@ -140,6 +175,12 @@ export class ProjectsComponent
     { label: 'Status', value: 'Ideating' },
   ];
 
+  callable = httpsCallable<unknown, AppCheckTokenResult>(
+    this.functions,
+    'unGenCallable',
+  );
+
+  @HostListener('window:resize')
   onResize() {
     if (typeof window === 'undefined') return;
     const viewport = window.visualViewport;
