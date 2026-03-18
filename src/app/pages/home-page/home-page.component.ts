@@ -1,4 +1,10 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
 import { TabGroupComponent } from '../../components/tab-group/tab-group.component';
@@ -13,8 +19,9 @@ import { SkillsComponent } from 'src/app/pages/home-page/skills/skills.component
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   imports: [TabGroupComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AboutMeComponent extends TabComponent implements OnInit{
+export class AboutMeComponent extends TabComponent implements OnInit {
   protected router = inject(Router);
   private auth = inject(AuthService);
 

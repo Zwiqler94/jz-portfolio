@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -32,6 +32,7 @@ import { DatabaseService } from 'src/app/services/database/database.service';
     MatButtonModule,
     MatIcon,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactMeComponent {
   private http = inject(HttpClient);
