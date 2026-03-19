@@ -16,7 +16,7 @@ jobs:
       PR_TITLE: "${{ github.event.pull_request.title }}"
     steps:
       - name: Use Node.js 22
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22
       - name: Lint PR title

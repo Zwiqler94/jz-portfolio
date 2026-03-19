@@ -39,7 +39,7 @@ jobs:
       HEAD_REF: ${{ github.head_ref }}
     steps:
       - name: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.APP_ACCESS_TOKEN }}
       - name: Authenticate to Google Cloud
@@ -55,7 +55,7 @@ jobs:
           gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
           npx google-artifactregistry-auth
       - name: Use Node.js 22
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: "npm"
