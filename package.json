@@ -14,7 +14,8 @@
     "build:local": "ng build -c local",
     "build:prod:watch": "npm run build:prod -- --watch",
     "build:prod": "ng build -c production",
-    "changelog:update": "conventional-changelog -i CHANGELOG.md -s  -r 1 -n ./.changelog-config.js && git add CHANGELOG.md",
+    "changelog:rebuild": "conventional-changelog -i CHANGELOG.md -s -r 0 -n ./.changelog-config.js",
+    "changelog:update": "conventional-changelog -i CHANGELOG.md -s -r 1 -n ./.changelog-config.js",
     "e2e": "ng e2e",
     "format": "prettier --write ./ --cache",
     "lint:fix": "npm run lint:format",
@@ -23,7 +24,6 @@
     "ng": "ng",
     "postbuild:local:watch": "for i in $(find dist/jz-portfolio-local -type f -print); do brotli -q 6 -f -s -v $i; done",
     "seed": "node dist/db-config/scripts/seed.ts",
-    "semantic-release": "semantic-release",
     "start:dev-local": "http-server --gzip --brotli --proxy http://localhost:8083? --cors -p 8083  dist/jz-portfolio-dev-local",
     "start:dev": "npx --yes http-server --gzip --brotli --proxy http://localhost:8085? --cors -p 8085  dist/jz-portfolio-dev",
     "start:local": "npx --yes http-server --gzip --brotli --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local",
@@ -50,7 +50,6 @@
     "@cloudinary/url-gen": "^1.22.0",
     "@firebase/util": "^1.14.0",
     "@google-cloud/secret-manager": "^6.1.1",
-    "@semantic-release/changelog": "^6.0.3",
     "@yusifaliyevpro/countries": "^2.3.0",
     "@zwiqler94/everything-lib": "^0.16.0",
     "cloudinary": "^2.9.0",
@@ -144,9 +143,6 @@
     "mocha": "11.7.5",
     "prettier": "^3.8.1",
     "puppeteer": "24.39.1",
-    "semantic-release": "^25.0.3",
-    "semantic-release-npm-github-publish": "^1.5.5",
-    "svgo": "^4.0.0",
     "ts-node": "~10.9.2",
     "typescript": "^5.9",
     "typescript-eslint": "^8.57.1",
@@ -165,23 +161,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "release": {
-    "branches": [
-      "5.1.x",
-      "5.2.x",
-      "5.x",
-      "development",
-      "next"
-    ],
-    "dryRun": true,
-    "ci": false,
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      "@semantic-release/github"
-    ]
   }
 }
