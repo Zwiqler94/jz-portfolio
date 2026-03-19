@@ -25,7 +25,7 @@ jobs:
             gcloud config set artifacts/location us-central1
             gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
             npx google-artifactregistry-auth
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: "npm"
