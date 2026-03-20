@@ -1,6 +1,15 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { AppCheck, AppCheckTokenResult, getToken } from '@angular/fire/app-check';
+import {
+  EnvironmentInjector,
+  Injectable,
+  inject,
+  runInInjectionContext,
+} from '@angular/core';
+import {
+  AppCheck,
+  AppCheckTokenResult,
+  getToken,
+} from '@angular/fire/app-check';
 import { Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
@@ -10,7 +19,8 @@ import { throwError } from 'rxjs';
 })
 export class AuthService {
   private router = inject(Router);
-  private httpClient = inject(HttpClient);
+  // private httpClient = inject(HttpClient);
+  private environmentInjector = inject(EnvironmentInjector);
 
   private _appCheck: AppCheck = inject(AppCheck);
   private fbAuth: Auth = inject(Auth);
@@ -53,7 +63,9 @@ export class AuthService {
   }
 
   async getAppCheckToken(from: string): Promise<AppCheckTokenResult> {
-    return getToken(this.appCheck);
+    return await runInInjectionContext(this.environmentInjector, () =>
+      getToken(this.appCheck),
+    );
   }
 
   logout() {

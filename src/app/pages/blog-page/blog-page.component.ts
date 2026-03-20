@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewPostDialogComponent } from 'src/app/components/new-post-dialog/new-post-dialog.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
@@ -12,6 +18,7 @@ import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.s
   templateUrl: './blog-page.component.html',
   styleUrls: ['./blog-page.component.scss'],
   imports: [MatButton, FeedComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePageComponent implements OnInit {
   private dialog = inject(MatDialog);

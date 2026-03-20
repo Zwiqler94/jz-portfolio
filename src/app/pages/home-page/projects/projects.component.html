@@ -9,6 +9,7 @@
       <mat-icon>drag_indicator</mat-icon>
     </div>
     <lib-username-generator
+      [httpCall]="callable"
       class="project-content-item"
       [(usernameForm)]="usernameFormInApp"
       [(result)]="result"
@@ -138,6 +139,11 @@
         >
         </iframe>
       </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="openSmartPick()">
+          Open in New Tab
+        </button>
+      </mat-card-actions>
     </mat-card>
   </div>
 </div>

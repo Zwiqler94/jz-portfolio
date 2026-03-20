@@ -8,7 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files. test
 
 ## Code scaffolding
 
@@ -39,7 +39,7 @@ Jacob Zwickler
 next arrow by Graphik Designz from the Noun Project
 previous arrow by Mohamad Arif Prasetyo from the Noun Project
 
-## Branch Organization Using Semantic Release
+## Branch Organization For Releases
 
 1. Production -> main
 2. Development -> development / QA / branch off for maintenance branches (release branch, v5 )
