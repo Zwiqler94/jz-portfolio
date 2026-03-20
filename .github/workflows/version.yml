@@ -7,7 +7,8 @@ on:
       versionType:
         description: "the version increment type (major, minor, or patch)"
         value: ${{ jobs.verify-commit.outputs.versionType }}
-permissions: write-all
+permissions:
+  contents: read
 env:
   REPO_URL: "https://api.github.com/repos/${{ github.repository }}"
   HUSKY: 0
