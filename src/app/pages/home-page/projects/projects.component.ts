@@ -184,6 +184,11 @@ export class ProjectsComponent
     'unGenCallable',
   );
 
+  callable = httpsCallable<unknown, AppCheckTokenResult>(
+    this.functions,
+    'unGenCallable',
+  );
+
   @HostListener('window:resize')
   onResize() {
     if (typeof window === 'undefined') return;
