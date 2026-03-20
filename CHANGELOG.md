@@ -427,7 +427,7 @@ Migrate application projects to the new build system. Application projects that 
 
 ## [5.0.11](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.10...v5.0.11) (2024-03-22)
 
-## [5.0.10](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.9...v5.0.10) (2024-03-22)
+- 19 to 20
 
 ## [5.0.9](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.8...v5.0.9) (2024-03-22)
 
@@ -467,7 +467,7 @@ JZP-58 JZP-37
 
 - refactor(lint): add more lint fixes
 
-## [5.0.8](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.7...v5.0.8) (2024-03-21)
+- ci(ghc): ghc update
 
 ## [5.0.7](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.6...v5.0.7) (2024-03-21)
 
