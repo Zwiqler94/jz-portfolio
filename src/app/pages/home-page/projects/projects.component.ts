@@ -99,6 +99,7 @@ const USERNAME_GENERATOR_APPCHECK = new InjectionToken<AppCheck>(
     AgeByNameComponent,
     MatButtonModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsComponent
   extends TabComponent
