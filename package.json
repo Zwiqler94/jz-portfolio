@@ -80,7 +80,7 @@
     "@angular-devkit/architect": "^0.2003.9",
     "@angular/build": "^20.3.20",
     "@angular/cli": "^20.3.20",
-    "@angular/compiler-cli": "^20.3.18",
+    "@angular/compiler-cli": "^21.2.5",
     "@babel/core": "^7.29.0",
     "@babel/node": "^7.29.0",
     "@commitlint/cli": "^20.5.0",
