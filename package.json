@@ -46,7 +46,7 @@
     "@angular/service-worker": "^20.3.18",
     "@cloudinary/ng": "^2.1.6",
     "@cloudinary/url-gen": "^1.22.0",
-    "@firebase/util": "^1.14.0",
+    "@firebase/util": "^1.15.0",
     "@google-cloud/secret-manager": "^6.1.1",
     "@yusifaliyevpro/countries": "^2.3.0",
     "@zwiqler94/everything-lib": "^0.16.0",
