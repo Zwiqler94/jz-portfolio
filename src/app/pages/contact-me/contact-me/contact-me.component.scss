@@ -3,12 +3,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80vw;
+  width: 80dvw;
 }
 
 /*  The following rule targets internal classes of card that may no longer apply for the MDC version. */
 .mat-mdc-card {
-  width: 90vw;
+  width: 90dvw;
 }
 
 /*  The following rule targets internal classes of card that may no longer apply for the MDC version. */
@@ -27,6 +27,6 @@ mat-form-field {
   display: flex;
   align-items: center;
   height: 72dvh;
-  width: 100vw;
+  width: 100dvw;
   justify-content: center;
 }
