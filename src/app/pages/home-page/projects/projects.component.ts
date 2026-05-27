@@ -3,25 +3,34 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  InjectionToken,
+  NgZone,
+  OnDestroy,
+  OnInit,
   QueryList,
   ViewChildren,
   inject,
-  signal,
-  OnInit,
-  OnDestroy,
   model,
-  ChangeDetectionStrategy,
-  EnvironmentInjector,
-  InjectionToken,
+  signal,
 } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { environment } from 'src/environments/environment';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { getApp } from '@angular/fire/app';
+import {
+  AppCheck,
+  AppCheckTokenResult,
+  ReCaptchaEnterpriseProvider,
+  initializeAppCheck,
+} from '@angular/fire/app-check';
+import {
+  Functions,
+  getFunctions,
+  httpsCallable,
+} from '@angular/fire/functions';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatButtonModule } from '@angular/material/button';
-import { NgZone } from '@angular/core';
 import {
   JSAnimation,
   Timeline,
@@ -29,11 +38,11 @@ import {
   animate,
   createScope,
   createTimeline,
+  cubicBezier,
   random,
   remove as animeRemove,
   stagger,
   waapi,
-  cubicBezier,
 } from 'animejs';
 import {
   AgeByNameComponent,
@@ -43,20 +52,7 @@ import {
 } from '@zwiqler94/everything-lib';
 import { TabComponent } from 'src/app/components/tab/tab.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
-import {
-  Functions,
-  getFunctions,
-  httpsCallable,
-  provideFunctions,
-} from '@angular/fire/functions';
-import {
-  AppCheck,
-  AppCheckTokenResult,
-  initializeAppCheck,
-  ReCaptchaEnterpriseProvider,
-} from '@angular/fire/app-check';
-import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { MatButtonModule } from '@angular/material/button';
+import { environment } from 'src/environments/environment';
 
 const USERNAME_GENERATOR_FUNCTION = new InjectionToken<Functions>(
   'USERNAME_GENERATOR_FUNCTION',
@@ -67,7 +63,7 @@ const USERNAME_GENERATOR_FUNCTION = new InjectionToken<Functions>(
 );
 
 const USERNAME_GENERATOR_APPCHECK = new InjectionToken<AppCheck>(
-  'USERNAME_GENERATOR_FUNCTION',
+  'USERNAME_GENERATOR_APPCHECK',
   {
     providedIn: 'root',
     factory: () =>
@@ -99,56 +95,53 @@ const USERNAME_GENERATOR_APPCHECK = new InjectionToken<AppCheck>(
     PokemonComponent,
     NasaComponent,
     AgeByNameComponent,
-    MatButtonModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectsComponent extends TabComponent implements OnInit {
-  openSmartPick() {
-    window.open('https://lotto-beast-new.web.app', '_blank');
-  }
+export class ProjectsComponent
+  extends TabComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
+  private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
+  private readonly zone = inject(NgZone);
+  private readonly fb = inject(FormBuilder);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly auth = inject(AuthService);
+  private readonly functions = inject(USERNAME_GENERATOR_FUNCTION);
+  private readonly usernameGeneratorAppCheck = inject(
+    USERNAME_GENERATOR_APPCHECK,
+  );
+  private readonly animationScope = createScope({ root: this.host });
+  private readonly haloCircumference = 113;
 
-  private fb = inject(FormBuilder);
-  private snackBar = inject(MatSnackBar);
-  private auth = inject(AuthService);
-  private functions = inject(USERNAME_GENERATOR_FUNCTION);
-  private appCheck = inject(USERNAME_GENERATOR_APPCHECK);
-
-  screenWidth: number = window.innerWidth;
-  screenHeight: number = window.innerHeight;
-  widgetCount = 8;
+  screenWidth = typeof window === 'undefined' ? 0 : window.innerWidth;
+  screenHeight = typeof window === 'undefined' ? 0 : window.innerHeight;
   expandedCard = signal<string | null>(null);
+  result = signal<string[]>(['']);
 
-  private _maxWidth: number = this.screenWidth - 25 - 45;
-  private _maxHeight: number = this.screenHeight - 25;
-
-  public result = signal(['']);
-
-  private usernameForm: FormGroup = this.fb.group({
+  private _maxWidth = Math.max(this.screenWidth - 70, 280);
+  private _maxHeight = Math.max(this.screenHeight - 25, 260);
+  private readonly usernameForm: FormGroup = this.fb.group({
     words: [''],
     specialCharacters: [''],
     appCheckToken: '',
   });
 
-  public usernameFormInApp = model(this.usernameForm);
+  readonly usernameFormInApp = model(this.usernameForm);
+
   @ViewChildren('dashboardCard')
   dashboardCards!: QueryList<ElementRef<HTMLElement>>;
+
   @ViewChildren('dragHandle', { read: ElementRef })
   dragHandles!: QueryList<ElementRef<HTMLButtonElement>>;
+
   @ViewChildren('dragHalo', { read: ElementRef })
   dragHalos!: QueryList<ElementRef<SVGCircleElement>>;
 
   private cardsTimeline?: Timeline;
   private haloAnimation?: JSAnimation;
   private handleFloatAnimation?: WAAPIAnimation;
-  private readonly haloCircumference = 113;
   private viewportCleanup?: () => void;
 
-  readonly usernameStats = [
-    { label: 'Ideas Saved', value: '24' },
-    { label: 'Avg. Length', value: '12 chars' },
-    { label: 'App Check', value: 'Verified' },
-  ];
   readonly nasaStats = [
     { label: 'Photos Cached', value: '5' },
     { label: 'API Mode', value: 'Demo' },
@@ -167,7 +160,7 @@ export class ProjectsComponent extends TabComponent implements OnInit {
   readonly iframeStats = [
     { label: 'Surface', value: 'SmartPick' },
     { label: 'Mode', value: 'Live Demo' },
-    { label: 'Stack', value: 'Firebase' },
+    { label: 'Stack', value: 'Firebase, Angular' },
   ];
   readonly roadmapStats = [
     { label: 'Slots', value: '+2' },
@@ -175,14 +168,22 @@ export class ProjectsComponent extends TabComponent implements OnInit {
     { label: 'Status', value: 'Ideating' },
   ];
 
-  callable = httpsCallable<unknown, AppCheckTokenResult>(
+  readonly callable = httpsCallable<unknown, AppCheckTokenResult>(
     this.functions,
     'unGenCallable',
   );
 
-  @HostListener('window:resize')
-  onResize() {
+  openSmartPick(): void {
+    window.open(
+      'https://lotto-beast-new.web.app',
+      '_blank',
+      'noopener,noreferrer',
+    );
+  }
+
+  onResize(): void {
     if (typeof window === 'undefined') return;
+
     const viewport = window.visualViewport;
     const width = viewport?.width ?? window.innerWidth;
     const height = viewport?.height ?? window.innerHeight;
@@ -212,70 +213,34 @@ export class ProjectsComponent extends TabComponent implements OnInit {
     this.setViewportVars(this.screenWidth, this.screenHeight);
   }
 
-  constructor() {
-    super();
-    this.result.set(['']);
-    this.setCardsMotionState('idle');
-  }
-
   async ngOnInit(): Promise<void> {
     try {
-      let appCheckToken = ''; //this.auth.appCheckToken ?? this.auth.getAppCheckToken('projects');
-      if (this.auth.appCheckToken) appCheckToken = this.auth.appCheckToken;
-      else {
+      void this.usernameGeneratorAppCheck;
+
+      let appCheckToken = '';
+      if (this.auth.appCheckToken) {
+        appCheckToken = this.auth.appCheckToken;
+      } else {
         const tokenResult = await this.auth.getAppCheckToken('projects');
-        if (tokenResult?.token) appCheckToken = tokenResult.token;
+        if (tokenResult?.token) {
+          appCheckToken = tokenResult.token;
+        }
       }
 
       this.usernameForm.patchValue({ appCheckToken });
-
       this.usernameFormInApp.set(this.usernameForm);
     } catch (error) {
       console.error('Error initializing component:', error);
     }
   }
 
-  get nasaApiKey() {
-    return environment.nasaAPIKey;
-  }
-
-  // get results() {
-  //   return this._result();
-  // }
-
-  // set results(result: string[]) {
-  //   this._result.set(result);
-  // }
-
-  public set maxWidth(value: number) {
-    this._maxWidth = value;
-  }
-
-  public get maxWidth(): string {
-    return `${this._maxWidth}px`;
-  }
-
-  public set maxHeight(value: number) {
-    this._maxHeight = value;
-  }
-
-  public get maxHeight(): string {
-    return `${this._maxHeight}px`;
-  }
-
-  toggleDetails(cardId: string) {
-    this.expandedCard.set(this.expandedCard() === cardId ? null : cardId);
-  }
-
-  isExpanded(cardId: string) {
-    return this.expandedCard() === cardId;
-  }
-
   ngAfterViewInit(): void {
+    this.setCardsMotionState('idle');
     this.onResize();
     this.attachViewportListeners();
     this.animateCards();
     this.animateDragHandles();
+
     if (this.dashboardCards) {
       this.dashboardCards.changes.subscribe(() => this.animateCards());
     }
@@ -300,7 +265,35 @@ export class ProjectsComponent extends TabComponent implements OnInit {
     this.disableEnhancedMotion();
   }
 
-  private animateCards() {
+  get nasaApiKey(): string {
+    return environment.nasaAPIKey;
+  }
+
+  set maxWidth(value: number) {
+    this._maxWidth = value;
+  }
+
+  get maxWidth(): string {
+    return `${this._maxWidth}px`;
+  }
+
+  set maxHeight(value: number) {
+    this._maxHeight = value;
+  }
+
+  get maxHeight(): string {
+    return `${this._maxHeight}px`;
+  }
+
+  toggleDetails(cardId: string): void {
+    this.expandedCard.set(this.expandedCard() === cardId ? null : cardId);
+  }
+
+  isExpanded(cardId: string): boolean {
+    return this.expandedCard() === cardId;
+  }
+
+  private animateCards(): void {
     const cards =
       this.dashboardCards?.toArray().map((card) => card.nativeElement) ?? [];
     if (!cards.length) return;
@@ -329,7 +322,7 @@ export class ProjectsComponent extends TabComponent implements OnInit {
         timeline
           .add(cards, {
             opacity: [0, 1],
-            translateY: (_: any, index: number) => [32 + index * 3, 0],
+            translateY: [36, 0],
             rotate: () => [random(-1.5, 1.5), 0],
             scale: [0.95, 1],
             delay: entryStagger,
@@ -351,7 +344,7 @@ export class ProjectsComponent extends TabComponent implements OnInit {
     });
   }
 
-  private animateDragHandles() {
+  private animateDragHandles(): void {
     const handles =
       this.dragHandles?.toArray().map((handle) => handle.nativeElement) ?? [];
     if (!handles.length) return;
@@ -398,7 +391,7 @@ export class ProjectsComponent extends TabComponent implements OnInit {
     });
   }
 
-  private resetCards(cards: HTMLElement[]) {
+  private resetCards(cards: HTMLElement[]): void {
     this.cardsTimeline?.revert();
     this.cardsTimeline = undefined;
     animeRemove(cards);
@@ -409,11 +402,15 @@ export class ProjectsComponent extends TabComponent implements OnInit {
     this.setCardsMotionState('idle');
   }
 
-  private resetHandles(handles: HTMLElement[], halos: SVGCircleElement[]) {
+  private resetHandles(
+    handles: HTMLElement[],
+    halos: SVGCircleElement[],
+  ): void {
     this.handleFloatAnimation?.cancel();
     this.handleFloatAnimation = undefined;
     this.haloAnimation?.revert();
     this.haloAnimation = undefined;
+
     handles.forEach((handle) => {
       handle.style.removeProperty('transform');
     });
@@ -421,58 +418,62 @@ export class ProjectsComponent extends TabComponent implements OnInit {
       halo.style.opacity = '0';
       halo.style.strokeDashoffset = `${this.haloCircumference}`;
     });
+
     this.disableEnhancedMotion();
   }
 
-  private enableEnhancedMotion() {
+  private enableEnhancedMotion(): void {
     this.host.nativeElement.classList.add('motion-enhanced');
   }
 
-  private disableEnhancedMotion() {
+  private disableEnhancedMotion(): void {
     this.host.nativeElement.classList.remove('motion-enhanced');
   }
 
-  private setCardsMotionState(state: 'idle' | 'running' | 'finished') {
-    this.host.nativeElement.dataset.cardsMotion = state;
+  private setCardsMotionState(state: 'idle' | 'running' | 'finished'): void {
+    this.host.nativeElement.dataset['cardsMotion'] = state;
   }
 
-  private shouldReduceMotion() {
+  private shouldReduceMotion(): boolean {
     return (
       typeof window !== 'undefined' &&
       window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     );
   }
 
-  private supportsWAAPI() {
+  private supportsWAAPI(): boolean {
     return (
       typeof Element !== 'undefined' &&
       typeof Element.prototype.animate === 'function'
     );
   }
 
-  private attachViewportListeners() {
+  private attachViewportListeners(): void {
     if (typeof window === 'undefined' || !window.visualViewport) {
       return;
     }
+
     const viewport = window.visualViewport;
     const handler = () => this.onResize();
+
     viewport.addEventListener('resize', handler);
     viewport.addEventListener('scroll', handler);
+
     this.viewportCleanup = () => {
       viewport.removeEventListener('resize', handler);
       viewport.removeEventListener('scroll', handler);
     };
   }
 
-  private setViewportVars(width: number, height: number) {
+  private setViewportVars(width: number, height: number): void {
     const host = this.host.nativeElement;
     host.style.setProperty('--app-vw', `${width}px`);
     host.style.setProperty('--app-vh', `${height}px`);
   }
 
-  onCompletionMsgChange($event: string) {
-    if ($event !== 'Success') {
-      this.snackBar.open($event, 'X', { panelClass: 'error' });
+  onCompletionMsgChange(message: string): void {
+    if (message !== 'Success') {
+      this.snackBar.open(message, 'X', { panelClass: 'error' });
     }
   }
 }
