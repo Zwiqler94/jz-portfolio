@@ -1,25 +1,20 @@
-@use "themes";
-@use "sass:map";
+@use "../../../style_vars/breakpoints" as bp;
 
-#post-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+:host,
+jzp-post-base {
+  display: block;
+  width: 100%;
 }
 
-.mat-mdc-card {
-  margin: 0.938rem;
-  max-width: 42.5rem;
-}
-
-#link-description,
-.mat-mdc-card-content {
-  word-wrap: break-word;
+#link-info,
+a {
+  overflow-wrap: anywhere;
 }
 
 img {
+  display: block;
+  width: min(100%, 40rem);
   height: auto;
-  width: 40rem;
   margin-bottom: 0.8rem;
   margin-left: 0.3rem;
 }
@@ -28,54 +23,37 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  // background-color: map.get(themes.$md-A-1-complementary, 700);
-  margin-left: -16px;
-  margin-right: -16px;
+  margin-inline: -1rem;
 }
 
-#link-title,
-#link-description {
-  margin-left: 2rem;
-  margin-right: 2rem;
+#link-info > h2,
+#link-info > p {
+  margin-inline: 2rem;
 }
 
-#link-title {
-  word-break: break-all;
+#link-info > h2 {
+  word-break: break-word;
 }
 
 a {
-  margin-top: 1.5rem;
-  text-decoration: none;
-  color: inherit;
   display: block;
-  justify-self: auto;
-  overflow: auto;
+  margin-top: 1.5rem;
+  color: inherit;
+  text-decoration: none;
 }
 
-img {
-  width: 100%;
-}
-
-@media (max-width: 430px) {
-  .mat-mdc-card {
-    max-width: 24.5rem;
+@include bp.down(mobile) {
+  img {
+    width: 100%;
+    margin-left: 0;
   }
-}
 
-@media (max-width: 390px) {
-  .mat-mdc-card {
-    max-width: 21.25rem;
+  #link-info {
+    margin-inline: -0.5rem;
   }
-}
 
-@media (max-width: 375px) {
-  .mat-mdc-card {
-    max-width: 22rem;
-  }
-}
-
-@media (max-width: 320px) {
-  .mat-mdc-card {
-    max-width: 19rem;
+  #link-info > h2,
+  #link-info > p {
+    margin-inline: 1rem;
   }
 }
