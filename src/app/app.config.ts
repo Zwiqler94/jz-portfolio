@@ -21,11 +21,9 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
-import {
-  provideAnimations,
-  provideNoopAnimations,
-} from '@angular/platform-browser/animations';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideGalleryOptions } from 'ngx-gallery-jz';
+import { provideLightboxOptions } from 'ngx-gallery-jz/lightbox';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
 import { routes } from 'src/app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
@@ -56,21 +54,11 @@ export const appConfig: ApplicationConfig = {
         ],
       },
     },
-    {
-      provide: LIGHTBOX_CONFIG,
-      useValue: {
-        keyboardShortcuts: true,
-        exitAnimationTime: 1000,
-      } as LightboxConfig,
-    },
-    {
-      provide: GALLERY_CONFIG,
-      useValue: {
-        // autoHeight: true,
-        // itemAutosize: true,
-        // imageSize: 'contain',
-      } as GalleryConfig,
-    },
+    provideLightboxOptions({
+      keyboardShortcuts: true,
+      exitAnimationTime: 1000,
+    }),
+    provideGalleryOptions({}),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideAnimations(),
