@@ -3,7 +3,9 @@ import {
   Component,
   inject,
   input,
+  NgZone,
   OnInit,
+  AfterViewInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
@@ -23,7 +25,10 @@ import { animate, stagger, svg } from 'animejs';
   imports: [TabGroupComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AboutMeComponent extends TabComponent implements OnInit {
+export class AboutMeComponent
+  extends TabComponent
+  implements OnInit, AfterViewInit
+{
   protected router = inject(Router);
   private auth = inject(AuthService);
   private zone = inject(NgZone);
