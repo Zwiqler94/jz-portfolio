@@ -2,8 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  input,
+  NgZone,
   OnInit,
+  AfterViewInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
@@ -11,10 +12,7 @@ import { TabGroupComponent } from '../../components/tab-group/tab-group.componen
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { TabComponent } from 'src/app/components/tab/tab.component';
 import { AboutMeMainComponent } from 'src/app/pages/home-page/about-me/about-me.component';
-import { CredentialsComponent } from 'src/app/pages/home-page/credentials/credentials.component';
 import { ProjectsComponent } from 'src/app/pages/home-page/projects/projects.component';
-import { SkillsComponent } from 'src/app/pages/home-page/skills/skills.component';
-import { NgOptimizedImage } from '@angular/common';
 import { animate, stagger, svg } from 'animejs';
 @Component({
   selector: 'jzp-home-page',
@@ -23,7 +21,10 @@ import { animate, stagger, svg } from 'animejs';
   imports: [TabGroupComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AboutMeComponent extends TabComponent implements OnInit {
+export class AboutMeComponent
+  extends TabComponent
+  implements OnInit, AfterViewInit
+{
   protected router = inject(Router);
   private auth = inject(AuthService);
   private zone = inject(NgZone);
