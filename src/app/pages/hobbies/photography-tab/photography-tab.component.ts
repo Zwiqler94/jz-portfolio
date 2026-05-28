@@ -1,14 +1,6 @@
 /* istanbul ignore file */
 import { Component, OnInit, inject, viewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-// import {
-//   // Gallery,
-//   GalleryConfig,
-//   // GalleryItem,
-//   // GalleryModule,
-//   GalleryRef,
-//   ImageItem,
-// } from 'ngx-gallery-jz';
 import { concatMap, delay, forkJoin, retry } from 'rxjs';
 import {
   CloudinaryApiResponse,
@@ -18,7 +10,7 @@ import { ImageService } from 'src/app/services/image/image.service';
 import { LoadingOverlayComponent } from '../../../components/loading-overlay/loading-overlay.component';
 import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-gallery.component';
 import { MatPaginator } from '@angular/material/paginator';
-import { GalleryItemData } from 'ngx-gallery-jz';
+import { GalleryItemData } from 'ng-gallery';
 
 @Component({
   selector: 'jzp-photography-tab',
