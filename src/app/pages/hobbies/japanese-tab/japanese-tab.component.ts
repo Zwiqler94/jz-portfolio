@@ -1,7 +1,6 @@
 /* istanbul ignore file */
 import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { GalleryItemData } from 'ngx-gallery-jz';
 import { forkJoin, delay, retry } from 'rxjs';
 import {
   CloudinaryApiResponse,
@@ -11,6 +10,7 @@ import { ImageService } from 'src/app/services/image/image.service';
 import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 import { LoadingOverlayComponent } from '../../../components/loading-overlay/loading-overlay.component';
 import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-gallery.component';
+import { GalleryItemData } from 'ng-gallery';
 
 @Component({
   selector: 'jzp-japanese-tab',
