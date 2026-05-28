@@ -76,7 +76,8 @@ img#profile-image {
 }
 
 .tertiary-container {
-  min-width: 14vw;
+  width: 28rem;
+  height: 12rem;
 }
 
 // Row styles
@@ -90,7 +91,7 @@ img#profile-image {
 
 // Image styling
 .about-img {
-  max-height: 10rem;
+  max-height: 23dvh;
   margin-inline-end: 0.5rem;
 }
 

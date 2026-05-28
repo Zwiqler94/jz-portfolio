@@ -849,27 +849,35 @@ chore(angular): migrate to v16
 - fix(security): add origin header to linkpreview api call ([c33f133](https://github.com/Zwiqler94/jz-portfolio/commit/c33f133))
 - fix(security): update origin with full url ([04fd55a](https://github.com/Zwiqler94/jz-portfolio/commit/04fd55a))
 
-### BREAKING CHANGE
+### BREAKING CHANGES
 
-- change secret routes for v3
+- 19 to 20
 
-- chore(release): 2.0.5 :tada:
+- ci: npm ci fix
 
-fix(secrets): fix secrets service rate limiter
+- chore(update): mep empe
 
-- chore(release): 2.0.6 :tada:
+- ci(ghc): ghc update
 
-Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular-eslint/schematics@_, @angular/material@_, @angular/cdk@\*
+- fix: lkmkmklm
 
-@angular-eslint/schematics migration - update-16-0-0
+- chore(rebase): eacknj
 
-Updates @angular-eslint to v16
+- chore: fjfjf
 
-chore(angular): migrate to v16
+fjfj
 
-- Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular/material@_, @angular/cdk@_
+- feat(dnj): jndn
 
-- build(deps): update deps
+nj
+
+- style(linty): lint lint lint
+
+- fix(dedupe!): dedupe deps
+
+- build(deps): update
+
+update deps
 
 - feat(posts): switch from using static posts file to use pg db
 
@@ -1391,7 +1399,7 @@ Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 
 - chore(release): 1.11.0 :tada: ([32eb8aa](https://github.com/Zwiqler94/jz-portfolio/commit/32eb8aa))
 
-## 1.10.0 (2023-03-19)
+### Reverts
 
 - chore(release): 1.10.0 :tada: ([eba5fe1](https://github.com/Zwiqler94/jz-portfolio/commit/eba5fe1))
 
@@ -1868,33 +1876,10 @@ Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 - remove iframe articles from news page ([3811089](https://github.com/Zwiqler94/jz-portfolio/commit/3811089))
 - remove iframe articles from news page ([6185a93](https://github.com/Zwiqler94/jz-portfolio/commit/6185a93))
 
-## <small>0.1.5 (2021-05-15)</small>
+## [0.1.5](https://github.com/Zwiqler94/jz-portfolio/compare/v0.1.4...v0.1.5) (2021-05-15)
 
-- set package to version and push correctly with tags ([e6df979](https://github.com/Zwiqler94/jz-portfolio/commit/e6df979))
-- set package to version and push correctly with tags ([d65aa9f](https://github.com/Zwiqler94/jz-portfolio/commit/d65aa9f))
+## [0.1.4](https://github.com/Zwiqler94/jz-portfolio/compare/v0.0.2...v0.1.4) (2021-05-15)
 
-## <small>0.1.4 (2021-05-15)</small>
+## [0.0.2](https://github.com/Zwiqler94/jz-portfolio/compare/v0.0.1...v0.0.2) (2021-05-15)
 
-- package script tests ([dba1016](https://github.com/Zwiqler94/jz-portfolio/commit/dba1016))
-- package script tests ([35913d6](https://github.com/Zwiqler94/jz-portfolio/commit/35913d6))
-- set package to version and push correctly ([cac202b](https://github.com/Zwiqler94/jz-portfolio/commit/cac202b))
-
-## <small>0.0.2 (2021-05-15)</small>
-
-- 0.0.1 ([2c31da3](https://github.com/Zwiqler94/jz-portfolio/commit/2c31da3))
-- 0.0.2 ([a5189d6](https://github.com/Zwiqler94/jz-portfolio/commit/a5189d6))
-- add news content test ([c0b99cd](https://github.com/Zwiqler94/jz-portfolio/commit/c0b99cd))
-
-## <small>0.0.1 (2021-05-15)</small>
-
-- 0.0.1 ([59c1bdb](https://github.com/Zwiqler94/jz-portfolio/commit/59c1bdb))
-- add firebase config ([c289631](https://github.com/Zwiqler94/jz-portfolio/commit/c289631))
-- add news content test ([5226453](https://github.com/Zwiqler94/jz-portfolio/commit/5226453))
-- Create main.yml ([23b6dbf](https://github.com/Zwiqler94/jz-portfolio/commit/23b6dbf))
-- Create README.md ([0b3cea6](https://github.com/Zwiqler94/jz-portfolio/commit/0b3cea6))
-- First commit with socials and about me page ([a477c3f](https://github.com/Zwiqler94/jz-portfolio/commit/a477c3f))
-- initial commit ([3e3823a](https://github.com/Zwiqler94/jz-portfolio/commit/3e3823a))
-- Initial commit ([dcdcca1](https://github.com/Zwiqler94/jz-portfolio/commit/dcdcca1))
-- Update main.yml ([df570dc](https://github.com/Zwiqler94/jz-portfolio/commit/df570dc))
-- Update main.yml ([13431b9](https://github.com/Zwiqler94/jz-portfolio/commit/13431b9))
-- Update main.yml ([80d0499](https://github.com/Zwiqler94/jz-portfolio/commit/80d0499))
+## 0.0.1 (2021-05-15)

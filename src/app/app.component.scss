@@ -4,7 +4,7 @@ $main-view-height: 85dvh;
 $sidenav-height: calc($main-view-height - styles.$toolbar-height);
 
 #main-view {
-  height: $main-view-height;
+  height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -22,18 +22,16 @@ $sidenav-height: calc($main-view-height - styles.$toolbar-height);
 //   height: $sidenav-height;
 // }
 
-.mat-drawer-container {
-  margin-bottom: -0.8125rem;
-  // height: 95vh;
-}
+// .mat-drawer-container {
+//   margin-bottom: -0.8125rem;
+//   // height: 95vh;
+// }
 
 .vert-spacer {
   height: 0.25rem;
 }
 
-mat-sidenav#side-nav {
-  width: 12rem;
-}
+//
 
 #button-container-column > button {
   display: inline-flex;

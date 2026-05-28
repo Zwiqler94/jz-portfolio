@@ -2,8 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  input,
+  NgZone,
   OnInit,
+  AfterViewInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TabNavModel } from 'src/app/components/models/tab-nav.model';
@@ -11,9 +12,8 @@ import { TabGroupComponent } from '../../components/tab-group/tab-group.componen
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { TabComponent } from 'src/app/components/tab/tab.component';
 import { AboutMeMainComponent } from 'src/app/pages/home-page/about-me/about-me.component';
-import { CredentialsComponent } from 'src/app/pages/home-page/credentials/credentials.component';
 import { ProjectsComponent } from 'src/app/pages/home-page/projects/projects.component';
-import { SkillsComponent } from 'src/app/pages/home-page/skills/skills.component';
+import { animate, stagger, svg } from 'animejs';
 @Component({
   selector: 'jzp-home-page',
   templateUrl: './home-page.component.html',
@@ -21,9 +21,13 @@ import { SkillsComponent } from 'src/app/pages/home-page/skills/skills.component
   imports: [TabGroupComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AboutMeComponent extends TabComponent implements OnInit {
+export class AboutMeComponent
+  extends TabComponent
+  implements OnInit, AfterViewInit
+{
   protected router = inject(Router);
   private auth = inject(AuthService);
+  private zone = inject(NgZone);
 
   private _tabComponentList: TabNavModel[] = [
     { component: AboutMeMainComponent, title: 'About Me', link: 'main' },
@@ -53,6 +57,21 @@ export class AboutMeComponent extends TabComponent implements OnInit {
       this.router.navigateByUrl('/home/main', { skipLocationChange: true });
       this.currentPagePath = '/home/main';
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.zone.runOutsideAngular(() => {
+      animate(svg.createDrawable('.line'), {
+        draw: ['0 0', '0 1', '1 1', '1 0'],
+        ease: 'inOutQuad',
+        fill: 'none',
+        color: 'black',
+        stroke: 'black',
+        delay: stagger(100),
+        loop: true,
+        duration: 9000,
+      });
+    });
   }
 
   // public get badgeHeight() {
