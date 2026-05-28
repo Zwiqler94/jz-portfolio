@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  input,
   NgZone,
   OnInit,
   AfterViewInit,
@@ -13,10 +12,7 @@ import { TabGroupComponent } from '../../components/tab-group/tab-group.componen
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { TabComponent } from 'src/app/components/tab/tab.component';
 import { AboutMeMainComponent } from 'src/app/pages/home-page/about-me/about-me.component';
-import { CredentialsComponent } from 'src/app/pages/home-page/credentials/credentials.component';
 import { ProjectsComponent } from 'src/app/pages/home-page/projects/projects.component';
-import { SkillsComponent } from 'src/app/pages/home-page/skills/skills.component';
-import { NgOptimizedImage } from '@angular/common';
 import { animate, stagger, svg } from 'animejs';
 @Component({
   selector: 'jzp-home-page',
