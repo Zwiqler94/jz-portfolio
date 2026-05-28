@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PageEvent } from '@angular/material/paginator';
-import { GalleryItemData } from 'ngx-gallery-jz';
 
 import { PhotoGalleryComponent } from './photo-gallery.component';
 import { ImageService } from 'src/app/services/image/image.service';

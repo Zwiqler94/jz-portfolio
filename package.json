@@ -61,7 +61,6 @@
     "ng-gallery": "^12.0.0-beta.4",
     "ngx-colors": "^3.6.0",
     "ngx-editor": "^18.0.0",
-    "ngx-gallery-jz": "file:../ngx-gallery-jz/dist/ngx-gallery-jz",
     "node-forge": "^1.4.0",
     "nodemon": "^3.1.14",
     "object-hash": "^3.0.0",
