@@ -99,7 +99,6 @@ const USERNAME_GENERATOR_APPCHECK = new InjectionToken<AppCheck>(
     AgeByNameComponent,
     MatButtonModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsComponent
   extends TabComponent
@@ -178,11 +177,6 @@ export class ProjectsComponent
     { label: 'Ideas', value: 'Open' },
     { label: 'Status', value: 'Ideating' },
   ];
-
-  callable = httpsCallable<unknown, AppCheckTokenResult>(
-    this.functions,
-    'unGenCallable',
-  );
 
   callable = httpsCallable<unknown, AppCheckTokenResult>(
     this.functions,
