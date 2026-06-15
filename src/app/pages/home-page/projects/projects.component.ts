@@ -103,7 +103,10 @@ const USERNAME_GENERATOR_APPCHECK = new InjectionToken<AppCheck>(
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectsComponent extends TabComponent implements OnInit {
+export class ProjectsComponent
+  extends TabComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   openSmartPick() {
     window.open('https://lotto-beast-new.web.app', '_blank');
   }
@@ -174,6 +177,11 @@ export class ProjectsComponent extends TabComponent implements OnInit {
     { label: 'Ideas', value: 'Open' },
     { label: 'Status', value: 'Ideating' },
   ];
+
+  callable = httpsCallable<unknown, AppCheckTokenResult>(
+    this.functions,
+    'unGenCallable',
+  );
 
   callable = httpsCallable<unknown, AppCheckTokenResult>(
     this.functions,
