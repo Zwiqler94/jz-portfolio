@@ -1,4 +1,15 @@
+@use "../../../style_vars/breakpoints" as bp;
+
 #menu {
-  margin-left: 4rem;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: clamp(1rem, 4dvw, 4rem);
   flex-shrink: 3;
+  min-width: 0;
+}
+
+@include bp.down(tablet) {
+  #menu {
+    margin-left: 0;
+  }
 }

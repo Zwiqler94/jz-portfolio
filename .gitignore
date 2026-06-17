@@ -94,3 +94,4 @@ creds.json
 .github/instructions/snyk_rules.instructions.md
 scripts/trace-banner.js
 src/assets/spghti/
+.codex/

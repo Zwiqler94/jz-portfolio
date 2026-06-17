@@ -89,7 +89,6 @@ const USERNAME_GENERATOR_APPCHECK = new InjectionToken<AppCheck>(
     CdkDragHandle,
     MatIconModule,
     MatCardModule,
-    MatButtonModule,
     MatSnackBarModule,
     UsernameGeneratorComponent,
     PokemonComponent,

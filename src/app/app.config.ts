@@ -21,11 +21,9 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
-import {
-  provideAnimations,
-  provideNoopAnimations,
-} from '@angular/platform-browser/animations';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { GALLERY_CONFIG, GalleryConfig } from 'ng-gallery';
+import { LIGHTBOX_CONFIG, LightboxConfig } from 'ng-gallery/lightbox';
 import { environment } from '../environments/environment';
 import { routes } from 'src/app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
