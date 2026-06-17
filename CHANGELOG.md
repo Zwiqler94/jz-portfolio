@@ -1149,6 +1149,7 @@ fix(secrets): fix secrets service rate limiter
 
 - feat(auth): add foundation for auth service
 - users will only be able to use certain features when authenticated
+- users will only be able to use certain features when authenticated
 
 ## [1.13.5](https://github.com/Zwiqler94/jz-portfolio/compare/v1.13.4...v1.13.5) (2023-05-26)
 
