@@ -652,18 +652,12 @@ JZP-58 JZP-37
 - release(version): Release 5.0.8 [skip ci] ([4643c6d](https://github.com/Zwiqler94/jz-portfolio/commit/4643c6d))
 - build(versioning): switch to semantic-release from conventional-changelog ([5a4ff70](https://github.com/Zwiqler94/jz-portfolio/commit/5a4ff70))
 
-- Revert "release(version): Release 6.0.0 [skip ci]" ([7079e6e](https://github.com/Zwiqler94/jz-portfolio/commit/7079e6e73ac7a0938fe26f77905cebd0dd329c59))
-- revert ([be10381](https://github.com/Zwiqler94/jz-portfolio/commit/be10381d9bcad1767dbfaba780348c5a222780d6))
-- revert ([cdb4140](https://github.com/Zwiqler94/jz-portfolio/commit/cdb4140451f3cecb9c8ee43fa9c4f55c0d2fd273))
-- revert v6 release ([58cc2ac](https://github.com/Zwiqler94/jz-portfolio/commit/58cc2acfa4829f317ddd718ccb96542f66b58750))
-- undo release 6 ([1987f7b](https://github.com/Zwiqler94/jz-portfolio/commit/1987f7b68ebc1744fb2b84be5f8cb26fb90fecd1))
-- undo release 6 ([af058d2](https://github.com/Zwiqler94/jz-portfolio/commit/af058d2bd77d6262c9dcbef04aa78afe66c2cd1a))
-- undo v6 release ([3b947ca](https://github.com/Zwiqler94/jz-portfolio/commit/3b947cafd740257987327a09776100c44cd4b512))
+## <small>5.0.7 (2024-03-21)</small>
 
 - chore(release): 5.0.7 :tada: ([62bb6bf](https://github.com/Zwiqler94/jz-portfolio/commit/62bb6bf))
 - Revert "Revert "feat (creds): add new badges to credentials page"" ([df31842](https://github.com/Zwiqler94/jz-portfolio/commit/df31842))
 
-- validation require certain parameters in api calls or it will fail
+## <small>5.0.6 (2024-03-21)</small>
 
 - chore(deps): update to latest deps ([3357544](https://github.com/Zwiqler94/jz-portfolio/commit/3357544))
 - chore(release): 5.0.6 :tada: ([5c5e0f2](https://github.com/Zwiqler94/jz-portfolio/commit/5c5e0f2))
@@ -682,12 +676,12 @@ JZP-58 JZP-37
 - fix(designs): update small screen breakpoints for about me tabs ([b01d1f5](https://github.com/Zwiqler94/jz-portfolio/commit/b01d1f5))
 - fix(skills): adjust breakpoints for small screens ([09265e5](https://github.com/Zwiqler94/jz-portfolio/commit/09265e5))
 
-- build(lint): ignore image files in linting and other ignore linting
+## <small>5.0.5 (2024-03-20)</small>
 
 - chore(release): 5.0.5 :tada: ([fcb3694](https://github.com/Zwiqler94/jz-portfolio/commit/fcb3694))
 - fix(skills): adjust breakpoints for small screens (#401) ([c376ac5](https://github.com/Zwiqler94/jz-portfolio/commit/c376ac5)), closes [#401](https://github.com/Zwiqler94/jz-portfolio/issues/401)
 
-- refactor(lint): add more lint fixes
+## <small>5.0.4 (2024-01-22)</small>
 
 - chore: sxz ([8cf2304](https://github.com/Zwiqler94/jz-portfolio/commit/8cf2304))
 - chore(ads): add adsense ([88e67d9](https://github.com/Zwiqler94/jz-portfolio/commit/88e67d9))
@@ -727,7 +721,7 @@ JZP-58 JZP-37
 
 - refactor(lint): add more lint fixes
 
-## [5.0.7](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.6...v5.0.7) (2024-03-21)
+## <small>5.0.3 (2024-01-06)</small>
 
 - chore(release): 5.0.3 :tada: ([d03bf80](https://github.com/Zwiqler94/jz-portfolio/commit/d03bf80))
 - fix: merge errors ([3033a49](https://github.com/Zwiqler94/jz-portfolio/commit/3033a49))
@@ -782,48 +776,7 @@ chore(angular): migrate to v16
 - Prod Push 7/30 (#311) ([c6f72c8](https://github.com/Zwiqler94/jz-portfolio/commit/c6f72c8)), closes [#311](https://github.com/Zwiqler94/jz-portfolio/issues/311) [#273](https://github.com/Zwiqler94/jz-portfolio/issues/273)
 - Prod Push!! (#320) ([1f3beaf](https://github.com/Zwiqler94/jz-portfolio/commit/1f3beaf)), closes [#320](https://github.com/Zwiqler94/jz-portfolio/issues/320) [#299](https://github.com/Zwiqler94/jz-portfolio/issues/299) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#265](https://github.com/Zwiqler94/jz-portfolio/issues/265) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#73](https://github.com/Zwiqler94/jz-portfolio/issues/73) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#JLZP-51](https://github.com/Zwiqler94/jz-portfolio/issues/JLZP-51) [#72](https://github.com/Zwiqler94/jz-portfolio/issues/72) [#101](https://github.com/Zwiqler94/jz-portfolio/issues/101) [#102](https://github.com/Zwiqler94/jz-portfolio/issues/102)
 
-### Bug Fixes
-
-- **db:** update cloud functions to better handle missing db info ([e704496](https://github.com/Zwiqler94/jz-portfolio/commit/e7044967168792fc244f0e596237a1ae43156fff))
-- **deps:** fix dep issues ([ca0a8c8](https://github.com/Zwiqler94/jz-portfolio/commit/ca0a8c8942b4ad73539018586f49385765072c8e))
-- **deps:** fix dep issues ([dda3130](https://github.com/Zwiqler94/jz-portfolio/commit/dda31305db725a283c81fdceda02ccc636178fca))
-- **designs:** make content editor appear nicer on various screen sizes ([f06e9b5](https://github.com/Zwiqler94/jz-portfolio/commit/f06e9b538b3d352401be8a3e0bcd212e28e0a6f4))
-- **designs:** make footer appear, nicer and various screen sizes ([35814a9](https://github.com/Zwiqler94/jz-portfolio/commit/35814a9fde2e6ca294f383a1198e8cc3d05f73e0))
-- fix scss ([6e7f09d](https://github.com/Zwiqler94/jz-portfolio/commit/6e7f09d8c3e09f25701dff0e1184ee3cace8991d))
-- **functions:** finish JZ-113 fix ([8facee9](https://github.com/Zwiqler94/jz-portfolio/commit/8facee93366d3c7f2d48dd9c44dba473983fc30c))
-- **functions:** fix FE for BE changes ([91b5fad](https://github.com/Zwiqler94/jz-portfolio/commit/91b5fad582bfb867d582ecdbbebc840c04fe54f0))
-- move static posts into repo ([041707a](https://github.com/Zwiqler94/jz-portfolio/commit/041707aca4315f1655c49e4c9cf7b2043c44dc77))
-- **posts:** pause create post endpoint in functions ([bc68d3f](https://github.com/Zwiqler94/jz-portfolio/commit/bc68d3ffd8ae20ac959d18127a68f93336ecb764))
-- **tsconfig:** change target, module, lib to ES2022 ([#399](https://github.com/Zwiqler94/jz-portfolio/issues/399)) ([14e91bb](https://github.com/Zwiqler94/jz-portfolio/commit/14e91bb6eb74a4eac158cda1d346e0ba43fed892))
-
-### Features
-
-- **auth:** add persistence to auth ([2195ab8](https://github.com/Zwiqler94/jz-portfolio/commit/2195ab831d36ae2beefbd43fb5532e7cc5c96c47))
-- **posts:** add latest editor updates for creating posts ([10ea01d](https://github.com/Zwiqler94/jz-portfolio/commit/10ea01d23b5ca241cd3bd96071256e9bc749b1fe))
-- update functions deps and add validator, create post apis ([#375](https://github.com/Zwiqler94/jz-portfolio/issues/375)) ([d8f073e](https://github.com/Zwiqler94/jz-portfolio/commit/d8f073ebb5dee81bc91b4e947a9219c714c60d71))
-
-### BREAKING CHANGES
-
-- validation require certain parameters in api calls or it will fail
-
-JZP-58 JZP-37
-
-- build(lint): ignore image files in linting and other ignore linting
-
-- refactor(lint): lint code
-
-- refactor(lint): add more lint fixes
-
-## [5.0.3](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.2...v5.0.3) (2024-01-06)
-
-- Release v4.0.0 (#342) ([02098ed](https://github.com/Zwiqler94/jz-portfolio/commit/02098ede1526978d0a6c0afcf947bf4005929135)), closes [#342](https://github.com/Zwiqler94/jz-portfolio/issues/342) [#299](https://github.com/Zwiqler94/jz-portfolio/issues/299) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#265](https://github.com/Zwiqler94/jz-portfolio/issues/265) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#73](https://github.com/Zwiqler94/jz-portfolio/issues/73) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#JLZP-51](https://github.com/Zwiqler94/jz-portfolio/issues/JLZP-51) [#72](https://github.com/Zwiqler94/jz-portfolio/issues/72) [#101](https://github.com/Zwiqler94/jz-portfolio/issues/101) [#102](https://github.com/Zwiqler94/jz-portfolio/issues/102)
-
-### Bug Fixes
-
-- merge errors ([3033a49](https://github.com/Zwiqler94/jz-portfolio/commit/3033a4908aa7249e7b672e30c199043877730899))
-- **projects:** update links to live projects ([#386](https://github.com/Zwiqler94/jz-portfolio/issues/386)) ([70492b4](https://github.com/Zwiqler94/jz-portfolio/commit/70492b4d7ef1fe659099302bec10ec12e30c2f99))
-
-### BREAKING CHANGES
+### BREAKING CHANGE
 
 - change secret routes for v3
 
@@ -851,9 +804,8 @@ chore(angular): migrate to v16
 
 - new routes and auth reqs
 - no longer uses staticTextpost file
-- new routes and auth reqs
 
-## [5.0.2](https://github.com/Zwiqler94/jz-portfolio/compare/v5.0.1...v5.0.2) (2023-11-23)
+## 4.0.0 (2023-09-09)
 
 - chore: Dep Updates (#329) ([b8a5459](https://github.com/Zwiqler94/jz-portfolio/commit/b8a5459)), closes [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
 - chore: update README.md prod status badge ([3005ab9](https://github.com/Zwiqler94/jz-portfolio/commit/3005ab9))
@@ -863,13 +815,13 @@ chore(angular): migrate to v16
 - feat: custom tabs (#330) ([37aa64e](https://github.com/Zwiqler94/jz-portfolio/commit/37aa64e)), closes [#330](https://github.com/Zwiqler94/jz-portfolio/issues/330) [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
 - Trigger deploy (#321) ([5480a24](https://github.com/Zwiqler94/jz-portfolio/commit/5480a24)), closes [#321](https://github.com/Zwiqler94/jz-portfolio/issues/321)
 
-- **appcheck:** fix appcheck once more ([#363](https://github.com/Zwiqler94/jz-portfolio/issues/363)) ([07f49dc](https://github.com/Zwiqler94/jz-portfolio/commit/07f49dc51dbca269077ddd3e8e664515a12ff213)), closes [#87](https://github.com/Zwiqler94/jz-portfolio/issues/87)
+## <small>3.0.1 (2023-07-30)</small>
 
 - chore(release): 3.0.1 :tada: ([7af0af6](https://github.com/Zwiqler94/jz-portfolio/commit/7af0af6))
 - ci: fix firebase deploy workflow ([7f941ad](https://github.com/Zwiqler94/jz-portfolio/commit/7f941ad))
 - ci: fix more workflow issues (#318) ([eefcee2](https://github.com/Zwiqler94/jz-portfolio/commit/eefcee2)), closes [#318](https://github.com/Zwiqler94/jz-portfolio/issues/318)
 
-### Reverts
+## 3.0.0 (2023-07-30)
 
 - chore: delete custom webpack ([d96ead7](https://github.com/Zwiqler94/jz-portfolio/commit/d96ead7))
 - chore: remove custom webpack builder settings ([b425762](https://github.com/Zwiqler94/jz-portfolio/commit/b425762))
@@ -897,40 +849,44 @@ chore(angular): migrate to v16
 - fix(security): add origin header to linkpreview api call ([c33f133](https://github.com/Zwiqler94/jz-portfolio/commit/c33f133))
 - fix(security): update origin with full url ([04fd55a](https://github.com/Zwiqler94/jz-portfolio/commit/04fd55a))
 
-# [5.0.0](https://github.com/Zwiqler94/jz-portfolio/compare/v4.0.0...v5.0.0) (2023-11-19)
-
-- Prod Push!! (#320) ([1f3beaf](https://github.com/Zwiqler94/jz-portfolio/commit/1f3beaf86dce1989285ac770b125a75405f42e50)), closes [#320](https://github.com/Zwiqler94/jz-portfolio/issues/320) [#299](https://github.com/Zwiqler94/jz-portfolio/issues/299) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#123](https://github.com/Zwiqler94/jz-portfolio/issues/123) [#265](https://github.com/Zwiqler94/jz-portfolio/issues/265) [#269](https://github.com/Zwiqler94/jz-portfolio/issues/269) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#135](https://github.com/Zwiqler94/jz-portfolio/issues/135) [#73](https://github.com/Zwiqler94/jz-portfolio/issues/73) [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51) [#JLZP-51](https://github.com/Zwiqler94/jz-portfolio/issues/JLZP-51) [#72](https://github.com/Zwiqler94/jz-portfolio/issues/72) [#101](https://github.com/Zwiqler94/jz-portfolio/issues/101) [#102](https://github.com/Zwiqler94/jz-portfolio/issues/102)
-
 ### BREAKING CHANGES
 
-- change secret routes for v3
+- 19 to 20
 
-- chore(release): 2.0.5 :tada:
+- ci: npm ci fix
 
-fix(secrets): fix secrets service rate limiter
+- chore(update): mep empe
 
-- chore(release): 2.0.6 :tada:
+- ci(ghc): ghc update
 
-Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular-eslint/schematics@_, @angular/material@_, @angular/cdk@\*
+- fix: lkmkmklm
 
-@angular-eslint/schematics migration - update-16-0-0
+- chore(rebase): eacknj
 
-Updates @angular-eslint to v16
+- chore: fjfjf
 
-chore(angular): migrate to v16
+fjfj
 
-- Angular CLI update for packages - @angular/cli@_, @angular/core@_, @angular/material@_, @angular/cdk@_
+- feat(dnj): jndn
 
-- build(deps): update deps
+nj
+
+- style(linty): lint lint lint
+
+- fix(dedupe!): dedupe deps
+
+- build(deps): update
+
+update deps
 
 - feat(posts): switch from using static posts file to use pg db
 
 * switched main and puppy feed
 
-- no longer uses staticTextpost file
 - new routes and auth reqs
+- no longer uses staticTextpost file
 
-# [4.0.0](https://github.com/Zwiqler94/jz-portfolio/compare/v3.0.1...v4.0.0) (2023-09-09)
+## <small>2.0.8 (2023-07-18)</small>
 
 - chore: revert "revert: undo gh action update" ([06018f1](https://github.com/Zwiqler94/jz-portfolio/commit/06018f1))
 - chore: revert: undo the undo ([83bcab0](https://github.com/Zwiqler94/jz-portfolio/commit/83bcab0))
@@ -938,7 +894,7 @@ chore(angular): migrate to v16
 - ci(github actions): update deps for ci (#286) ([dc9c9a1](https://github.com/Zwiqler94/jz-portfolio/commit/dc9c9a1)), closes [#286](https://github.com/Zwiqler94/jz-portfolio/issues/286)
 - fix: remove service in app component ([824097f](https://github.com/Zwiqler94/jz-portfolio/commit/824097f))
 
-- custom tabs ([#330](https://github.com/Zwiqler94/jz-portfolio/issues/330)) ([37aa64e](https://github.com/Zwiqler94/jz-portfolio/commit/37aa64efef9704dabb79c81edc243cc2dd87fbc0)), closes [#329](https://github.com/Zwiqler94/jz-portfolio/issues/329)
+## <small>2.0.7 (2023-07-15)</small>
 
 - chore: updates check (#283) ([1027673](https://github.com/Zwiqler94/jz-portfolio/commit/1027673)), closes [#283](https://github.com/Zwiqler94/jz-portfolio/issues/283)
 - chore(angular): migrate to v16 ([f455007](https://github.com/Zwiqler94/jz-portfolio/commit/f455007))
@@ -962,25 +918,29 @@ chore(angular): migrate to v16
 - build(deps): update deps ([2946a4d](https://github.com/Zwiqler94/jz-portfolio/commit/2946a4d))
 - build(gitignore): update gitignore ([81be494](https://github.com/Zwiqler94/jz-portfolio/commit/81be494))
 
-# [3.0.0](https://github.com/Zwiqler94/jz-portfolio/compare/v2.0.8...v3.0.0) (2023-07-30)
+## <small>2.0.6 (2023-06-23)</small>
 
 - chore(release): 2.0.6 :tada: ([8e9037d](https://github.com/Zwiqler94/jz-portfolio/commit/8e9037d))
 - fix(secrets): fix secrets service rate limiter ([2d5d305](https://github.com/Zwiqler94/jz-portfolio/commit/2d5d305))
 
-### Bug Fixes
+## <small>2.0.5 (2023-06-23)</small>
 
 - chore: ughhghg (#255) ([25ec2cd](https://github.com/Zwiqler94/jz-portfolio/commit/25ec2cd)), closes [#255](https://github.com/Zwiqler94/jz-portfolio/issues/255) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249) [#252](https://github.com/Zwiqler94/jz-portfolio/issues/252)
 - chore(release): 2.0.5 :tada: ([21b4a17](https://github.com/Zwiqler94/jz-portfolio/commit/21b4a17))
 
-### BREAKING CHANGES
+## <small>2.0.4 (2023-06-23)</small>
 
-- change secret routes for v3
+- chore(release): 2.0.4 :tada: ([0abeafa](https://github.com/Zwiqler94/jz-portfolio/commit/0abeafa))
+- ci: update main-workflow-v2.yml ([7ce8d54](https://github.com/Zwiqler94/jz-portfolio/commit/7ce8d54))
 
-- chore(release): 2.0.5 :tada:
+## <small>2.0.3 (2023-06-23)</small>
 
-fix(secrets): fix secrets service rate limiter
+- chore: last test hopefully (#252) ([52899ec](https://github.com/Zwiqler94/jz-portfolio/commit/52899ec)), closes [#252](https://github.com/Zwiqler94/jz-portfolio/issues/252) [#249](https://github.com/Zwiqler94/jz-portfolio/issues/249)
+- chore(release): 2.0.3 :tada: ([727330a](https://github.com/Zwiqler94/jz-portfolio/commit/727330a))
+- ci: last test hopefully (#251) ([6b01436](https://github.com/Zwiqler94/jz-portfolio/commit/6b01436)), closes [#251](https://github.com/Zwiqler94/jz-portfolio/issues/251)
+- ci: mehhshshsh ([e7b0c52](https://github.com/Zwiqler94/jz-portfolio/commit/e7b0c52))
 
-- chore(release): 2.0.6 :tada:
+## <small>2.0.2 (2023-06-23)</small>
 
 - chore: merge main ([e4ef7f2](https://github.com/Zwiqler94/jz-portfolio/commit/e4ef7f2))
 - chore: test 4 million (#210) ([a323eb9](https://github.com/Zwiqler94/jz-portfolio/commit/a323eb9)), closes [#210](https://github.com/Zwiqler94/jz-portfolio/issues/210)
@@ -1057,65 +1017,7 @@ fix(secrets): fix secrets service rate limiter
 - docs: update README.md (#204) ([e3cd080](https://github.com/Zwiqler94/jz-portfolio/commit/e3cd080)), closes [#204](https://github.com/Zwiqler94/jz-portfolio/issues/204)
 - docs: update README.md (#204) ([e1c52ca](https://github.com/Zwiqler94/jz-portfolio/commit/e1c52ca)), closes [#204](https://github.com/Zwiqler94/jz-portfolio/issues/204)
 
-- build(deps): update deps
-
-- feat(posts): switch from using static posts file to use pg db
-
-* switched main and puppy feed
-
-- no longer uses staticTextpost file
-- new routes and auth reqs
-
-## [2.0.8](https://github.com/Zwiqler94/jz-portfolio/compare/v2.0.7...v2.0.8) (2023-07-18)
-
-### Bug Fixes
-
-- remove service in app component ([824097f](https://github.com/Zwiqler94/jz-portfolio/commit/824097f32a4825903972644987c6a2673fca9bee))
-
-## [2.0.7](https://github.com/Zwiqler94/jz-portfolio/compare/v2.0.6...v2.0.7) (2023-07-15)
-
-### Bug Fixes
-
-- **service-worker:** update sw to work only in prod ([585592e](https://github.com/Zwiqler94/jz-portfolio/commit/585592ea9188049bf32d0d85a56515126a496e9f))
-
-### Reverts
-
-- undo gh action update ([5e30380](https://github.com/Zwiqler94/jz-portfolio/commit/5e30380bfd380924d3f0cfcc4c02136a9b455b7e))
-
-## [2.0.6](https://github.com/Zwiqler94/jz-portfolio/compare/v2.0.5...v2.0.6) (2023-06-23)
-
-### Bug Fixes
-
-- **secrets:** fix secrets service rate limiter ([2d5d305](https://github.com/Zwiqler94/jz-portfolio/commit/2d5d3052cae5e88cbe83e064b2ccc18b36bc1d43))
-
-## [2.0.5](https://github.com/Zwiqler94/jz-portfolio/compare/v2.0.4...v2.0.5) (2023-06-23)
-
-## [2.0.4](https://github.com/Zwiqler94/jz-portfolio/compare/v2.0.3...v2.0.4) (2023-06-23)
-
-## [2.0.3](https://github.com/Zwiqler94/jz-portfolio/compare/v2.0.2...v2.0.3) (2023-06-23)
-
-## [2.0.2](https://github.com/Zwiqler94/jz-portfolio/compare/v1.13.5...v2.0.2) (2023-06-23)
-
-- Token Action (#224) ([5e53f79](https://github.com/Zwiqler94/jz-portfolio/commit/5e53f79a1730535c222af0f0f4434006115d26b4)), closes [#224](https://github.com/Zwiqler94/jz-portfolio/issues/224) [#114](https://github.com/Zwiqler94/jz-portfolio/issues/114) [#111](https://github.com/Zwiqler94/jz-portfolio/issues/111)
-- Auth service new (#218) ([50569c6](https://github.com/Zwiqler94/jz-portfolio/commit/50569c6ee0acfaf8bee5042bd579ac9e8c6d8dfa)), closes [#218](https://github.com/Zwiqler94/jz-portfolio/issues/218) [#114](https://github.com/Zwiqler94/jz-portfolio/issues/114)
-
-### Bug Fixes
-
-- **github actions:** switch to codeql to default mode ([aa00fe1](https://github.com/Zwiqler94/jz-portfolio/commit/aa00fe125b07be06e8386448a8bdc7ecd6da079b))
-
-### Features
-
-- fr ([95b1304](https://github.com/Zwiqler94/jz-portfolio/commit/95b1304fc43e1e4ddbee971391425629f0737468))
-
-### Reverts
-
-- Revert "ci: test new workflow (#243)" ([5ec70e1](https://github.com/Zwiqler94/jz-portfolio/commit/5ec70e1eb62f4d73ed3fd650686e71706a0d5f2e)), closes [#243](https://github.com/Zwiqler94/jz-portfolio/issues/243)
-- "chore(release): 2.1.0 :tada:" ([7c1c76a](https://github.com/Zwiqler94/jz-portfolio/commit/7c1c76a28e42dfa0b1ce4f0f29a8888bd615abc6))
-- "New Workflow Test 2 ([#230](https://github.com/Zwiqler94/jz-portfolio/issues/230))" ([#231](https://github.com/Zwiqler94/jz-portfolio/issues/231)) ([904938f](https://github.com/Zwiqler94/jz-portfolio/commit/904938f802b9c389aca2848c73694f2465bd3ad3))
-- "Test new workflow ([#235](https://github.com/Zwiqler94/jz-portfolio/issues/235))" ([#236](https://github.com/Zwiqler94/jz-portfolio/issues/236)) ([1bde5ed](https://github.com/Zwiqler94/jz-portfolio/commit/1bde5edb8d7d607ac2fe9ec1a4630f4aef23cbaf))
-- "Test new workflow ([#238](https://github.com/Zwiqler94/jz-portfolio/issues/238))" ([#239](https://github.com/Zwiqler94/jz-portfolio/issues/239)) ([c9f5f9b](https://github.com/Zwiqler94/jz-portfolio/commit/c9f5f9b6948b864111059b6669df63983492f961))
-
-### BREAKING CHANGES
+### BREAKING CHANGE
 
 - refer to
   https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
@@ -1138,41 +1040,96 @@ fix(secrets): fix secrets service rate limiter
 
 - feat(auth): add foundation for auth service
 - users will only be able to use certain features when authenticated
-- refer to
-  https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
-
-- fix(cloud functions): add .value to secret params
-
-- refactor(cloud functions): update code to match secret service changes
-
-- style(lint): add lint fixes
-
-- feat(auth): add foundation for auth service
-- users will only be able to use certain features when authenticated
 - users will only be able to use certain features when authenticated
 
-## [1.13.5](https://github.com/Zwiqler94/jz-portfolio/compare/v1.13.4...v1.13.5) (2023-05-26)
+## <small>1.13.5 (2023-05-26)</small>
 
-- Zwiqler94 version test 2 (#160) ([1d98d3d](https://github.com/Zwiqler94/jz-portfolio/commit/1d98d3df5e930aa6929e8b9cac666e530f542164)), closes [#160](https://github.com/Zwiqler94/jz-portfolio/issues/160) [#108](https://github.com/Zwiqler94/jz-portfolio/issues/108) [#107](https://github.com/Zwiqler94/jz-portfolio/issues/107)
-- Zwiqler94 version test 2 (#160) ([879015b](https://github.com/Zwiqler94/jz-portfolio/commit/879015b549b1f320627ce4898d585cbd48f165d5)), closes [#160](https://github.com/Zwiqler94/jz-portfolio/issues/160) [#108](https://github.com/Zwiqler94/jz-portfolio/issues/108) [#107](https://github.com/Zwiqler94/jz-portfolio/issues/107)
+- chore(delete): remove junk files ([ccf4dd0](https://github.com/Zwiqler94/jz-portfolio/commit/ccf4dd0))
+- chore(merge): merge stuff againnnnn ([2dd0f42](https://github.com/Zwiqler94/jz-portfolio/commit/2dd0f42))
+- chore(release): 1.13.4 :tada: ([720add1](https://github.com/Zwiqler94/jz-portfolio/commit/720add1))
+- chore(release): 1.13.5 :tada: ([e966a5d](https://github.com/Zwiqler94/jz-portfolio/commit/e966a5d))
+- ci: 🤪🤪🤪🤪 ([1ec7a99](https://github.com/Zwiqler94/jz-portfolio/commit/1ec7a99))
+- ci: 🤪🤪🤪🤪 ([c1f88e0](https://github.com/Zwiqler94/jz-portfolio/commit/c1f88e0))
+- ci: jdjjd (#170) ([9f911b3](https://github.com/Zwiqler94/jz-portfolio/commit/9f911b3)), closes [#170](https://github.com/Zwiqler94/jz-portfolio/issues/170) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- ci: jdjjd (#170) ([4d0939a](https://github.com/Zwiqler94/jz-portfolio/commit/4d0939a)), closes [#170](https://github.com/Zwiqler94/jz-portfolio/issues/170) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- ci: Macaroni (#181) ([d66609f](https://github.com/Zwiqler94/jz-portfolio/commit/d66609f)), closes [#181](https://github.com/Zwiqler94/jz-portfolio/issues/181) [#176](https://github.com/Zwiqler94/jz-portfolio/issues/176)
+- ci: Macaroni (#181) ([898e4b5](https://github.com/Zwiqler94/jz-portfolio/commit/898e4b5)), closes [#181](https://github.com/Zwiqler94/jz-portfolio/issues/181) [#176](https://github.com/Zwiqler94/jz-portfolio/issues/176)
+- ci: Mehehehehehe (#180) ([253a730](https://github.com/Zwiqler94/jz-portfolio/commit/253a730)), closes [#180](https://github.com/Zwiqler94/jz-portfolio/issues/180) [#165](https://github.com/Zwiqler94/jz-portfolio/issues/165) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- ci: Mud (#186) ([8249c84](https://github.com/Zwiqler94/jz-portfolio/commit/8249c84)), closes [#186](https://github.com/Zwiqler94/jz-portfolio/issues/186) [#184](https://github.com/Zwiqler94/jz-portfolio/issues/184)
+- ci: test (#194) ([929bfb3](https://github.com/Zwiqler94/jz-portfolio/commit/929bfb3)), closes [#194](https://github.com/Zwiqler94/jz-portfolio/issues/194)
+- ci: Update verify-commit.yml (#144) ([58c6178](https://github.com/Zwiqler94/jz-portfolio/commit/58c6178)), closes [#144](https://github.com/Zwiqler94/jz-portfolio/issues/144)
+- ci: update verify-commit.yml (#145) ([c36d045](https://github.com/Zwiqler94/jz-portfolio/commit/c36d045)), closes [#145](https://github.com/Zwiqler94/jz-portfolio/issues/145)
+- ci: update verify-commit.yml (#146) ([f9e68cd](https://github.com/Zwiqler94/jz-portfolio/commit/f9e68cd)), closes [#146](https://github.com/Zwiqler94/jz-portfolio/issues/146)
+- ci( test. version changes ): majsmj ([8b82d92](https://github.com/Zwiqler94/jz-portfolio/commit/8b82d92))
+- ci(codeql): fix codeql ([dba7a44](https://github.com/Zwiqler94/jz-portfolio/commit/dba7a44))
+- ci(codeql): update scan settings ([3c97e7d](https://github.com/Zwiqler94/jz-portfolio/commit/3c97e7d))
+- ci(github actions): add quotes ([6aadfab](https://github.com/Zwiqler94/jz-portfolio/commit/6aadfab))
+- ci(github actions): fibmovd ([d33f3d6](https://github.com/Zwiqler94/jz-portfolio/commit/d33f3d6))
+- ci(github actions): fix multiline json response handling ([ebec64d](https://github.com/Zwiqler94/jz-portfolio/commit/ebec64d))
+- ci(github actions): fix multiline json response handling (#184) ([480630f](https://github.com/Zwiqler94/jz-portfolio/commit/480630f)), closes [#184](https://github.com/Zwiqler94/jz-portfolio/issues/184)
+- ci(github actions): fix quote issues ([8461424](https://github.com/Zwiqler94/jz-portfolio/commit/8461424))
+- ci(github actions): fix quote issues (#178) ([34cc6bb](https://github.com/Zwiqler94/jz-portfolio/commit/34cc6bb)), closes [#178](https://github.com/Zwiqler94/jz-portfolio/issues/178) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- ci(github actions): no more please (#182) ([e0a98ee](https://github.com/Zwiqler94/jz-portfolio/commit/e0a98ee)), closes [#182](https://github.com/Zwiqler94/jz-portfolio/issues/182)
+- ci(github actions): no more please (#183) ([ec739b5](https://github.com/Zwiqler94/jz-portfolio/commit/ec739b5)), closes [#183](https://github.com/Zwiqler94/jz-portfolio/issues/183)
+- ci(github actions): rename env vars ([ebdbaf2](https://github.com/Zwiqler94/jz-portfolio/commit/ebdbaf2))
+- ci(github actions): rename env vars ([4f37c7e](https://github.com/Zwiqler94/jz-portfolio/commit/4f37c7e))
+- ci(github actions): switch from using github cli to github rest api for commit msg ([a9d3f29](https://github.com/Zwiqler94/jz-portfolio/commit/a9d3f29))
+- ci(github actions): switch from using github cli to github rest api for commit msg ([082b7ea](https://github.com/Zwiqler94/jz-portfolio/commit/082b7ea)), closes [#111](https://github.com/Zwiqler94/jz-portfolio/issues/111)
+- ci(github actions): testing actions orchestrator ([0deae10](https://github.com/Zwiqler94/jz-portfolio/commit/0deae10))
+- ci(github actions): update script for multiline responses (#179) ([81e5dc9](https://github.com/Zwiqler94/jz-portfolio/commit/81e5dc9)), closes [#179](https://github.com/Zwiqler94/jz-portfolio/issues/179)
+- ci(github actions): update script for multiline responses (#179) ([7402ed0](https://github.com/Zwiqler94/jz-portfolio/commit/7402ed0)), closes [#179](https://github.com/Zwiqler94/jz-portfolio/issues/179)
+- ci(github actions): zwiqler94 patch 1 (#151) ([ebb1469](https://github.com/Zwiqler94/jz-portfolio/commit/ebb1469)), closes [#151](https://github.com/Zwiqler94/jz-portfolio/issues/151)
+- ci(meh): pdate verify-commit.yml (#150) ([8ba151e](https://github.com/Zwiqler94/jz-portfolio/commit/8ba151e)), closes [#150](https://github.com/Zwiqler94/jz-portfolio/issues/150)
+- ci(name): Rename main.yml to test.yml ([fd77bfb](https://github.com/Zwiqler94/jz-portfolio/commit/fd77bfb))
+- ci(test): testy 2 ([cb0cc3e](https://github.com/Zwiqler94/jz-portfolio/commit/cb0cc3e))
+- ci() : (#141) ([c352ff9](https://github.com/Zwiqler94/jz-portfolio/commit/c352ff9)), closes [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- delete junk ([f7049d0](https://github.com/Zwiqler94/jz-portfolio/commit/f7049d0))
+- Dev prev gha test (#191) ([582ddfb](https://github.com/Zwiqler94/jz-portfolio/commit/582ddfb)), closes [#191](https://github.com/Zwiqler94/jz-portfolio/issues/191) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Dev prev gha test 3 (#192) ([52e9523](https://github.com/Zwiqler94/jz-portfolio/commit/52e9523)), closes [#192](https://github.com/Zwiqler94/jz-portfolio/issues/192) [#189](https://github.com/Zwiqler94/jz-portfolio/issues/189) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Dkkddk (#159) ([79c3e41](https://github.com/Zwiqler94/jz-portfolio/commit/79c3e41)), closes [#159](https://github.com/Zwiqler94/jz-portfolio/issues/159)
+- Meh (#157) ([f9a007a](https://github.com/Zwiqler94/jz-portfolio/commit/f9a007a)), closes [#157](https://github.com/Zwiqler94/jz-portfolio/issues/157)
+- Meh (#158) ([ffeeec7](https://github.com/Zwiqler94/jz-portfolio/commit/ffeeec7)), closes [#158](https://github.com/Zwiqler94/jz-portfolio/issues/158)
+- Moose (#165) ([0c42f1d](https://github.com/Zwiqler94/jz-portfolio/commit/0c42f1d)), closes [#165](https://github.com/Zwiqler94/jz-portfolio/issues/165) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Moose (#166) ([034037a](https://github.com/Zwiqler94/jz-portfolio/commit/034037a)), closes [#166](https://github.com/Zwiqler94/jz-portfolio/issues/166) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Moose (#167) ([e87e1cd](https://github.com/Zwiqler94/jz-portfolio/commit/e87e1cd)), closes [#167](https://github.com/Zwiqler94/jz-portfolio/issues/167) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Moose (#168) ([a633843](https://github.com/Zwiqler94/jz-portfolio/commit/a633843)), closes [#168](https://github.com/Zwiqler94/jz-portfolio/issues/168) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Moose (#169) ([988f098](https://github.com/Zwiqler94/jz-portfolio/commit/988f098)), closes [#169](https://github.com/Zwiqler94/jz-portfolio/issues/169) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Update verify-commit.yml ([6f38921](https://github.com/Zwiqler94/jz-portfolio/commit/6f38921))
+- Update verify-commit.yml (#147) ([ac1d7ea](https://github.com/Zwiqler94/jz-portfolio/commit/ac1d7ea)), closes [#147](https://github.com/Zwiqler94/jz-portfolio/issues/147)
+- Update verify-commit.yml (#148) ([e489adb](https://github.com/Zwiqler94/jz-portfolio/commit/e489adb)), closes [#148](https://github.com/Zwiqler94/jz-portfolio/issues/148)
+- Update verify-commit.yml (#149) ([15c140f](https://github.com/Zwiqler94/jz-portfolio/commit/15c140f)), closes [#149](https://github.com/Zwiqler94/jz-portfolio/issues/149)
+- Wke (#172) ([994335f](https://github.com/Zwiqler94/jz-portfolio/commit/994335f)), closes [#172](https://github.com/Zwiqler94/jz-portfolio/issues/172)
+- Wke (#173) ([81cfbe4](https://github.com/Zwiqler94/jz-portfolio/commit/81cfbe4)), closes [#173](https://github.com/Zwiqler94/jz-portfolio/issues/173)
+- Wke (#174) ([2d59de9](https://github.com/Zwiqler94/jz-portfolio/commit/2d59de9)), closes [#174](https://github.com/Zwiqler94/jz-portfolio/issues/174)
+- Zwiqler94 patch 1 (#152) ([a505b5b](https://github.com/Zwiqler94/jz-portfolio/commit/a505b5b)), closes [#152](https://github.com/Zwiqler94/jz-portfolio/issues/152)
+- Zwiqler94 version test 2 (#160) ([1d98d3d](https://github.com/Zwiqler94/jz-portfolio/commit/1d98d3d)), closes [#160](https://github.com/Zwiqler94/jz-portfolio/issues/160) [#108](https://github.com/Zwiqler94/jz-portfolio/issues/108) [#107](https://github.com/Zwiqler94/jz-portfolio/issues/107)
+- Zwiqler94 version test 2 (#160) ([879015b](https://github.com/Zwiqler94/jz-portfolio/commit/879015b)), closes [#160](https://github.com/Zwiqler94/jz-portfolio/issues/160) [#108](https://github.com/Zwiqler94/jz-portfolio/issues/108) [#107](https://github.com/Zwiqler94/jz-portfolio/issues/107)
+- Zwiqler94-patch-1 (#153) ([7abea01](https://github.com/Zwiqler94/jz-portfolio/commit/7abea01)), closes [#153](https://github.com/Zwiqler94/jz-portfolio/issues/153)
+- Zwiqler94-patch-1 (#154) ([edc4bce](https://github.com/Zwiqler94/jz-portfolio/commit/edc4bce)), closes [#154](https://github.com/Zwiqler94/jz-portfolio/issues/154)
+- Zwiqler94-patch-1 (#155) ([96af309](https://github.com/Zwiqler94/jz-portfolio/commit/96af309)), closes [#155](https://github.com/Zwiqler94/jz-portfolio/issues/155)
+- Zwiqler94-patch-1 (#156) ([b28e19b](https://github.com/Zwiqler94/jz-portfolio/commit/b28e19b)), closes [#156](https://github.com/Zwiqler94/jz-portfolio/issues/156)
+- build(deps): bump socket.io-parser from 4.2.2 to 4.2.3 ([4a5b645](https://github.com/Zwiqler94/jz-portfolio/commit/4a5b645))
+- build(deps): bump socket.io-parser from 4.2.2 to 4.2.3 (#176) ([63f4385](https://github.com/Zwiqler94/jz-portfolio/commit/63f4385)), closes [#176](https://github.com/Zwiqler94/jz-portfolio/issues/176)
+- build(deps): update deps ([5739e1d](https://github.com/Zwiqler94/jz-portfolio/commit/5739e1d))
+- build(deps): update deps ([3007f7d](https://github.com/Zwiqler94/jz-portfolio/commit/3007f7d))
+- docs: ,okmop\ ([01bf52d](https://github.com/Zwiqler94/jz-portfolio/commit/01bf52d))
+- docs(changelog): rebase commit ([938be32](https://github.com/Zwiqler94/jz-portfolio/commit/938be32))
+- docs(changelog): rebase commit ([cf2088a](https://github.com/Zwiqler94/jz-portfolio/commit/cf2088a))
+- feat: c ([d0ff331](https://github.com/Zwiqler94/jz-portfolio/commit/d0ff331))
+- feat: ddldlsomc ([c55108c](https://github.com/Zwiqler94/jz-portfolio/commit/c55108c))
+- feat: dsc ([12cf439](https://github.com/Zwiqler94/jz-portfolio/commit/12cf439))
+- feat: dsc (#171) ([9d89966](https://github.com/Zwiqler94/jz-portfolio/commit/9d89966)), closes [#171](https://github.com/Zwiqler94/jz-portfolio/issues/171)
+- feat: dscdwefqcxs ([fc2e39c](https://github.com/Zwiqler94/jz-portfolio/commit/fc2e39c))
+- feat: ffdvsbfrw ([9dacd92](https://github.com/Zwiqler94/jz-portfolio/commit/9dacd92))
+- feat: kd ([a7d28c8](https://github.com/Zwiqler94/jz-portfolio/commit/a7d28c8))
+- feat: kf ([77dfffa](https://github.com/Zwiqler94/jz-portfolio/commit/77dfffa))
+- feat: lksls ([518afcd](https://github.com/Zwiqler94/jz-portfolio/commit/518afcd))
+- feat: s ([350754f](https://github.com/Zwiqler94/jz-portfolio/commit/350754f))
+- feat: scv qev ([de5ca83](https://github.com/Zwiqler94/jz-portfolio/commit/de5ca83))
+- feat: sdvcwevmomc ([ace4a58](https://github.com/Zwiqler94/jz-portfolio/commit/ace4a58))
+- feat: svwe ([a8a6c82](https://github.com/Zwiqler94/jz-portfolio/commit/a8a6c82))
 
-### Features
-
-- c ([d0ff331](https://github.com/Zwiqler94/jz-portfolio/commit/d0ff331e730883f2e92020bbe02883bc49499084))
-- ddldlsomc ([c55108c](https://github.com/Zwiqler94/jz-portfolio/commit/c55108c91f412a4dd4ede199d932bf2ac8ce25b7))
-- dsc ([12cf439](https://github.com/Zwiqler94/jz-portfolio/commit/12cf439a578a5d3b03558a4fe02ad8edc6c38774))
-- dsc ([#171](https://github.com/Zwiqler94/jz-portfolio/issues/171)) ([9d89966](https://github.com/Zwiqler94/jz-portfolio/commit/9d899663cebf8c5cc3ca3632cbc0fc59acdd670d))
-- dscdwefqcxs ([fc2e39c](https://github.com/Zwiqler94/jz-portfolio/commit/fc2e39c774db83ea82fe7c123b2d284527f446dd))
-- ffdvsbfrw ([9dacd92](https://github.com/Zwiqler94/jz-portfolio/commit/9dacd92716d0032f92a9b8d0a9d7d7ed85220548))
-- kd ([a7d28c8](https://github.com/Zwiqler94/jz-portfolio/commit/a7d28c8d7d37a4c86ab956e9d4f19b22ffcf14ab))
-- kf ([77dfffa](https://github.com/Zwiqler94/jz-portfolio/commit/77dfffac0588cefd7c96c3ba05dd1a3bcb356266))
-- lksls ([518afcd](https://github.com/Zwiqler94/jz-portfolio/commit/518afcd271c9fe2aed7cf4a82fa31720982cd7d3))
-- s ([350754f](https://github.com/Zwiqler94/jz-portfolio/commit/350754fbd4de1f45153626ac2df3aa1cc7a29513))
-- scv qev ([de5ca83](https://github.com/Zwiqler94/jz-portfolio/commit/de5ca839f985905a2a9ca04de9bd3a1a4daa82d1))
-- sdvcwevmomc ([ace4a58](https://github.com/Zwiqler94/jz-portfolio/commit/ace4a58413071c0e99252ef1d77dfb4242b2abaf))
-- svwe ([a8a6c82](https://github.com/Zwiqler94/jz-portfolio/commit/a8a6c8201f30a321dfe0592ffcf00d112b4818ea))
-
-### BREAKING CHANGES
+### BREAKING CHANGE
 
 - versioning changes
 
@@ -1266,15 +1223,48 @@ fix vars again
 
 Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 
-## [1.13.4](https://github.com/Zwiqler94/jz-portfolio/compare/v1.13.0...v1.13.4) (2023-05-24)
+## <small>1.13.4 (2023-05-24)</small>
 
-- Zwiqler94 version test 2 (#160) ([e9bea9f](https://github.com/Zwiqler94/jz-portfolio/commit/e9bea9f84c2a4ea097d6e598f6b03a9bc9b99555)), closes [#160](https://github.com/Zwiqler94/jz-portfolio/issues/160) [#108](https://github.com/Zwiqler94/jz-portfolio/issues/108) [#107](https://github.com/Zwiqler94/jz-portfolio/issues/107)
+- chore(delete): remove junk files ([cc2aa05](https://github.com/Zwiqler94/jz-portfolio/commit/cc2aa05))
+- chore(release): 1.13.4 :tada: ([3d9d862](https://github.com/Zwiqler94/jz-portfolio/commit/3d9d862))
+- ci: 🤪🤪🤪🤪 ([e3fadfb](https://github.com/Zwiqler94/jz-portfolio/commit/e3fadfb))
+- ci: 🤪🤪🤪🤪 ([1c023e3](https://github.com/Zwiqler94/jz-portfolio/commit/1c023e3))
+- ci: 🥲🥲🥲🥲🥲 ([5dbd731](https://github.com/Zwiqler94/jz-portfolio/commit/5dbd731))
+- ci: Mud (#186) ([0dfb997](https://github.com/Zwiqler94/jz-portfolio/commit/0dfb997)), closes [#186](https://github.com/Zwiqler94/jz-portfolio/issues/186) [#184](https://github.com/Zwiqler94/jz-portfolio/issues/184)
+- ci(github actions): add better versioning workflow (#142) ([9c3abf5](https://github.com/Zwiqler94/jz-portfolio/commit/9c3abf5)), closes [#142](https://github.com/Zwiqler94/jz-portfolio/issues/142)
+- ci(github actions): add quotes ([2694116](https://github.com/Zwiqler94/jz-portfolio/commit/2694116))
+- ci(github actions): fibmovd ([6377695](https://github.com/Zwiqler94/jz-portfolio/commit/6377695))
+- ci(github actions): fix multiline json response handling ([ad6fad0](https://github.com/Zwiqler94/jz-portfolio/commit/ad6fad0))
+- ci(github actions): fix multiline json response handling (#184) ([a48db7d](https://github.com/Zwiqler94/jz-portfolio/commit/a48db7d)), closes [#184](https://github.com/Zwiqler94/jz-portfolio/issues/184)
+- ci(github actions): fix permissions for versioning action ([6620ae9](https://github.com/Zwiqler94/jz-portfolio/commit/6620ae9))
+- ci(github actions): fix quote issues (#178) ([49222e4](https://github.com/Zwiqler94/jz-portfolio/commit/49222e4)), closes [#178](https://github.com/Zwiqler94/jz-portfolio/issues/178) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- ci(github actions): no more please ([df3c985](https://github.com/Zwiqler94/jz-portfolio/commit/df3c985))
+- ci(github actions): no more please (#183) ([52350cb](https://github.com/Zwiqler94/jz-portfolio/commit/52350cb)), closes [#183](https://github.com/Zwiqler94/jz-portfolio/issues/183)
+- ci(github actions): rebase stuff ([3134ed2](https://github.com/Zwiqler94/jz-portfolio/commit/3134ed2))
+- ci(github actions): remove bad character ([662f8bb](https://github.com/Zwiqler94/jz-portfolio/commit/662f8bb))
+- ci(github actions): remove the evil known as parenthesis ([10a4c59](https://github.com/Zwiqler94/jz-portfolio/commit/10a4c59))
+- ci(github actions): rename env vars ([fb9c6a1](https://github.com/Zwiqler94/jz-portfolio/commit/fb9c6a1))
+- ci(github actions): separate out versioning steps ([cca9ca0](https://github.com/Zwiqler94/jz-portfolio/commit/cca9ca0))
+- ci(github actions): switch from using github cli to github rest api for commit msg ([d5747fb](https://github.com/Zwiqler94/jz-portfolio/commit/d5747fb)), closes [#111](https://github.com/Zwiqler94/jz-portfolio/issues/111)
+- ci(github actions): update script for multiline responses ([5f0a3ad](https://github.com/Zwiqler94/jz-portfolio/commit/5f0a3ad))
+- ci(github actions): update version-on-merge.yml ([e90f49b](https://github.com/Zwiqler94/jz-portfolio/commit/e90f49b))
+- Create test.yml (#139) ([be7d93d](https://github.com/Zwiqler94/jz-portfolio/commit/be7d93d)), closes [#139](https://github.com/Zwiqler94/jz-portfolio/issues/139)
+- delete junk ([d947269](https://github.com/Zwiqler94/jz-portfolio/commit/d947269))
+- Moose (#164) ([b41585f](https://github.com/Zwiqler94/jz-portfolio/commit/b41585f)), closes [#164](https://github.com/Zwiqler94/jz-portfolio/issues/164) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Moose (#165) ([21f85de](https://github.com/Zwiqler94/jz-portfolio/commit/21f85de)), closes [#165](https://github.com/Zwiqler94/jz-portfolio/issues/165) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Moose (#166) ([2a870b8](https://github.com/Zwiqler94/jz-portfolio/commit/2a870b8)), closes [#166](https://github.com/Zwiqler94/jz-portfolio/issues/166) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Moose (#167) ([b674724](https://github.com/Zwiqler94/jz-portfolio/commit/b674724)), closes [#167](https://github.com/Zwiqler94/jz-portfolio/issues/167) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Moose (#168) ([59903cf](https://github.com/Zwiqler94/jz-portfolio/commit/59903cf)), closes [#168](https://github.com/Zwiqler94/jz-portfolio/issues/168) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Moose (#169) ([d58bf77](https://github.com/Zwiqler94/jz-portfolio/commit/d58bf77)), closes [#169](https://github.com/Zwiqler94/jz-portfolio/issues/169) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Update version-on-merge.yml ([60ac957](https://github.com/Zwiqler94/jz-portfolio/commit/60ac957))
+- Update version-on-merge.yml ([8814801](https://github.com/Zwiqler94/jz-portfolio/commit/8814801))
+- Wke (#177) ([9d38a5c](https://github.com/Zwiqler94/jz-portfolio/commit/9d38a5c)), closes [#177](https://github.com/Zwiqler94/jz-portfolio/issues/177) [#141](https://github.com/Zwiqler94/jz-portfolio/issues/141)
+- Zwiqler94 version test 2 (#160) ([e9bea9f](https://github.com/Zwiqler94/jz-portfolio/commit/e9bea9f)), closes [#160](https://github.com/Zwiqler94/jz-portfolio/issues/160) [#108](https://github.com/Zwiqler94/jz-portfolio/issues/108) [#107](https://github.com/Zwiqler94/jz-portfolio/issues/107)
+- feat: svwe ([cbfaa5d](https://github.com/Zwiqler94/jz-portfolio/commit/cbfaa5d))
+- build(deps): bump socket.io-parser from 4.2.2 to 4.2.3 (#176) ([671e793](https://github.com/Zwiqler94/jz-portfolio/commit/671e793)), closes [#176](https://github.com/Zwiqler94/jz-portfolio/issues/176)
+- docs(test): meh ([64ac565](https://github.com/Zwiqler94/jz-portfolio/commit/64ac565))
 
-### Features
-
-- svwe ([cbfaa5d](https://github.com/Zwiqler94/jz-portfolio/commit/cbfaa5d746d11a0e22231e1ccd4c27038c000533))
-
-### BREAKING CHANGES
+### BREAKING CHANGE
 
 - versioning changes
 
@@ -1322,11 +1312,12 @@ fix vars again
 
 Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 
-# [1.13.0](https://github.com/Zwiqler94/jz-portfolio/compare/v1.12.0...v1.13.0) (2023-05-17)
+## 1.13.0 (2023-05-17)
 
-# [1.12.0](https://github.com/Zwiqler94/jz-portfolio/compare/v1.11.7...v1.12.0) (2023-05-17)
+- chore(release): 1.13.0 :tada: ([f79bb59](https://github.com/Zwiqler94/jz-portfolio/commit/f79bb59))
+- build(versioning): update versioning script ([220489a](https://github.com/Zwiqler94/jz-portfolio/commit/220489a))
 
-- Secret Service v2 (#116) ([f656121](https://github.com/Zwiqler94/jz-portfolio/commit/f656121547d61eda007a50b7d6eac13cfa46d4ad)), closes [#116](https://github.com/Zwiqler94/jz-portfolio/issues/116) [#114](https://github.com/Zwiqler94/jz-portfolio/issues/114)
+## 1.12.0 (2023-05-17)
 
 - chore(release): 1.12.0 :tada: ([975203b](https://github.com/Zwiqler94/jz-portfolio/commit/975203b))
 - ci(github actions): make sure to use `npm ci` in workflows for cache ([b0e9bcc](https://github.com/Zwiqler94/jz-portfolio/commit/b0e9bcc))
@@ -1343,10 +1334,9 @@ Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 - Secret Service v2 (#116) ([f656121](https://github.com/Zwiqler94/jz-portfolio/commit/f656121)), closes [#116](https://github.com/Zwiqler94/jz-portfolio/issues/116) [#114](https://github.com/Zwiqler94/jz-portfolio/issues/114)
 - feat(app check): add firebase app check to properly protect resources ([d86d4cf](https://github.com/Zwiqler94/jz-portfolio/commit/d86d4cf)), closes [#110](https://github.com/Zwiqler94/jz-portfolio/issues/110)
 
-- **app check:** add firebase app check to properly protect resources ([d86d4cf](https://github.com/Zwiqler94/jz-portfolio/commit/d86d4cf776aaa67811bb83b67e26548b8e1590c2)), closes [#110](https://github.com/Zwiqler94/jz-portfolio/issues/110)
+### BREAKING CHANGE
 
-### BREAKING CHANGES
-
+- Previous app versions won't work, due to app check enforcement
 - refer to
   https://firebase.google.com/docs/functions/2nd-gen-upgrade?hl=en&authuser=0
 
@@ -1358,109 +1348,141 @@ Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 
 - feat(auth): add foundation for auth service
 - users will only be able to use certain features when authenticated
-- **app check:** Previous app versions won't work, due to app check enforcement
 
-## [1.11.7](https://github.com/Zwiqler94/jz-portfolio/compare/v1.11.5...v1.11.7) (2023-04-07)
+## <small>1.11.7 (2023-04-07)</small>
 
-## [1.11.5](https://github.com/Zwiqler94/jz-portfolio/compare/v1.11.3...v1.11.5) (2023-04-07)
+- chore(release): 1.11.6 :tada: ([ce98dd0](https://github.com/Zwiqler94/jz-portfolio/commit/ce98dd0))
+- chore(release): 1.11.7 :tada: ([9bd4337](https://github.com/Zwiqler94/jz-portfolio/commit/9bd4337))
+- ci(github): update permissions ([357dae5](https://github.com/Zwiqler94/jz-portfolio/commit/357dae5))
+- ci(github): update to use checkout v3 ([2f7a304](https://github.com/Zwiqler94/jz-portfolio/commit/2f7a304))
+- ci(versioning): update version-on-merge.yml ([79f0cce](https://github.com/Zwiqler94/jz-portfolio/commit/79f0cce))
+- Update codeql-analysis2.yml ([8b749df](https://github.com/Zwiqler94/jz-portfolio/commit/8b749df))
+- Update firebase-hosting-merge-development.yml ([b4484ea](https://github.com/Zwiqler94/jz-portfolio/commit/b4484ea))
+- Update firebase-hosting-merge.yml ([ccd73a2](https://github.com/Zwiqler94/jz-portfolio/commit/ccd73a2))
+- Update firebase-hosting-pull-request-development.yml ([aa3be7e](https://github.com/Zwiqler94/jz-portfolio/commit/aa3be7e))
+- Update firebase-hosting-pull-request.yml ([cc105bc](https://github.com/Zwiqler94/jz-portfolio/commit/cc105bc))
 
-### Maintenance
+## <small>1.11.5 (2023-04-07)</small>
 
-- **versioning:** update versioning script to start from current commit ([43dc598](https://github.com/Zwiqler94/jz-portfolio/commit/43dc598922018272f74036914e60c3258e79b860))
+- chore(release): 1.11.5 :tada: ([8ac0652](https://github.com/Zwiqler94/jz-portfolio/commit/8ac0652))
+- ci(versioning): finalize versioning through GH Actions (#108) ([04af1f2](https://github.com/Zwiqler94/jz-portfolio/commit/04af1f2)), closes [#108](https://github.com/Zwiqler94/jz-portfolio/issues/108) [#107](https://github.com/Zwiqler94/jz-portfolio/issues/107)
+- Create version-on-merge.yml ([b19fcd1](https://github.com/Zwiqler94/jz-portfolio/commit/b19fcd1))
+- Update version-on-merge.yml ([0db36da](https://github.com/Zwiqler94/jz-portfolio/commit/0db36da))
+- Update version-on-merge.yml ([8d9be71](https://github.com/Zwiqler94/jz-portfolio/commit/8d9be71))
+- Update version-on-merge.yml ([5a75735](https://github.com/Zwiqler94/jz-portfolio/commit/5a75735))
+- Update version-on-merge.yml ([4527018](https://github.com/Zwiqler94/jz-portfolio/commit/4527018))
+- Update version-on-merge.yml ([f075028](https://github.com/Zwiqler94/jz-portfolio/commit/f075028))
+- Update version-on-merge.yml ([5bd3b02](https://github.com/Zwiqler94/jz-portfolio/commit/5bd3b02))
+- Update version-on-merge.yml ([2f87f14](https://github.com/Zwiqler94/jz-portfolio/commit/2f87f14))
+- build(versioning): update versioning script to start from current commit ([43dc598](https://github.com/Zwiqler94/jz-portfolio/commit/43dc598))
 
-### BREAKING CHANGES
+### BREAKING CHANGE
 
-- **versioning:** versioning changes
+- versioning changes
 
-## [1.11.3](https://github.com/Zwiqler94/jz-portfolio/compare/v1.11.2...v1.11.3) (2023-04-06)
+## <small>1.11.3 (2023-04-06)</small>
 
-## [1.11.2](https://github.com/Zwiqler94/jz-portfolio/compare/v1.11.1...v1.11.2) (2023-04-06)
+- chore(release): 1.11.3 :tada: ([7cdabeb](https://github.com/Zwiqler94/jz-portfolio/commit/7cdabeb))
+- build(versioning): update versioning scripts ([4d546aa](https://github.com/Zwiqler94/jz-portfolio/commit/4d546aa))
 
-## [1.11.1](https://github.com/Zwiqler94/jz-portfolio/compare/v1.11.0...v1.11.1) (2023-04-06)
+## <small>1.11.2 (2023-04-06)</small>
 
-# [1.11.0](https://github.com/Zwiqler94/jz-portfolio/compare/v1.10.0...v1.11.0) (2023-03-19)
+- chore(release): 1.11.2 :tada: ([25363df](https://github.com/Zwiqler94/jz-portfolio/commit/25363df))
 
-# [1.10.0](https://github.com/Zwiqler94/jz-portfolio/compare/v1.9.0...v1.10.0) (2023-03-19)
+## <small>1.11.1 (2023-04-06)</small>
 
-# [1.9.0](https://github.com/Zwiqler94/jz-portfolio/compare/v1.8.0...v1.9.0) (2023-03-19)
+- chore(release): 1.11.1 :tada: ([fb59c2d](https://github.com/Zwiqler94/jz-portfolio/commit/fb59c2d))
+- ci(github): fix github actions to work on their specified branches ([c6dd15a](https://github.com/Zwiqler94/jz-portfolio/commit/c6dd15a))
+- build(deps): update deps ([aaa87a8](https://github.com/Zwiqler94/jz-portfolio/commit/aaa87a8))
 
-# [1.8.0](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.16...v1.8.0) (2023-03-19)
+## 1.11.0 (2023-03-19)
 
-## [1.7.16](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.15...v1.7.16) (2023-03-19)
-
-## [1.7.15](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.14...v1.7.15) (2023-03-19)
-
-## [1.7.14](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.13...v1.7.14) (2023-03-19)
-
-## [1.7.13](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.12...v1.7.13) (2023-03-19)
-
-## [1.7.12](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.11...v1.7.12) (2023-03-19)
-
-## [1.7.11](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.10...v1.7.11) (2023-03-19)
-
-## [1.7.10](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.9...v1.7.10) (2023-03-19)
-
-## [1.7.9](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.7...v1.7.9) (2023-03-19)
-
-## [1.7.7](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.6...v1.7.7) (2023-03-19)
-
-## [1.7.6](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.5...v1.7.6) (2023-03-19)
-
-### Bug Fixes
-
-- **ngsw:** enable service worker in all envs ([9c1774d](https://github.com/Zwiqler94/jz-portfolio/commit/9c1774d4eb5891d8cb86c8d7be96534220fb7b28))
-
-## [1.7.5](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.4...v1.7.5) (2023-03-19)
-
-## [1.7.4](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.2...v1.7.4) (2023-03-19)
-
-## [1.7.2](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.1...v1.7.2) (2023-03-19)
-
-## [1.7.1](https://github.com/Zwiqler94/jz-portfolio/compare/v1.7.0...v1.7.1) (2023-03-19)
-
-# [1.7.0](https://github.com/Zwiqler94/jz-portfolio/compare/v1.6.0...v1.7.0) (2023-03-19)
-
-# [1.6.0](https://github.com/Zwiqler94/jz-portfolio/compare/v1.3.3...v1.6.0) (2023-03-19)
-
-## [1.3.3](https://github.com/Zwiqler94/jz-portfolio/compare/v1.3.2...v1.3.3) (2023-03-18)
-
-### Bug Fixes
-
-- **security:** update origin with full url ([d9eeeef](https://github.com/Zwiqler94/jz-portfolio/commit/d9eeeef8a4ca8b45782568c2f281fba9010b35d6))
-
-## [1.3.2](https://github.com/Zwiqler94/jz-portfolio/compare/v0.4.0...v1.3.2) (2023-03-18)
-
-### Bug Fixes
-
-- manifest file fix ([71f1b38](https://github.com/Zwiqler94/jz-portfolio/commit/71f1b38c9518b350efc24d16cea24f5062e6c1f8))
-- **security:** add origin header to linkpreview api call ([3bd8f2e](https://github.com/Zwiqler94/jz-portfolio/commit/3bd8f2e0035d7d3b4902388f5cb5c151fdec9f1c))
-- **security:** fix overly permissive regular expression range ([3abb7e0](https://github.com/Zwiqler94/jz-portfolio/commit/3abb7e08c221b0c4bebdf63bda659344526391be))
+- chore(release): 1.11.0 :tada: ([32eb8aa](https://github.com/Zwiqler94/jz-portfolio/commit/32eb8aa))
 
 ### Reverts
 
-- "style: test" ([66c7909](https://github.com/Zwiqler94/jz-portfolio/commit/66c790903a9d323fe02d81c0f4992bb9947a7887))
+- chore(release): 1.10.0 :tada: ([eba5fe1](https://github.com/Zwiqler94/jz-portfolio/commit/eba5fe1))
 
-# [0.4.0](https://github.com/Zwiqler94/jz-portfolio/compare/v0.2.0...v0.4.0) (2022-10-11)
+## 1.9.0 (2023-03-19)
 
-### Bug Fixes
+- chore(release): 1.9.0 :tada: ([b5f0d63](https://github.com/Zwiqler94/jz-portfolio/commit/b5f0d63))
 
-- **hobbies:** make mat-tab-group view width 100vw ([3534652](https://github.com/Zwiqler94/jz-portfolio/commit/35346525aafa0beb6e2c41ceb86b9eefdd5bfb28)), closes [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51)
-- **link post:** update link preview api to use https ([c4be8bb](https://github.com/Zwiqler94/jz-portfolio/commit/c4be8bb33050dedd66d40e1e4d9bb1fa2fc07198)), closes [#10](https://github.com/Zwiqler94/jz-portfolio/issues/10)
+## 1.8.0 (2023-03-19)
 
-### Features
+- chore(release): 1.8.0 :tada: ([811476e](https://github.com/Zwiqler94/jz-portfolio/commit/811476e))
+- chore(versioning): delete excessive tags ([dce697a](https://github.com/Zwiqler94/jz-portfolio/commit/dce697a))
 
-- **commits:** add commitizen to project ([dfbb35b](https://github.com/Zwiqler94/jz-portfolio/commit/dfbb35b2681d6399c6cca0419edd587c0ac1ae63))
-- finish adding link preview to link posts ([3efffe1](https://github.com/Zwiqler94/jz-portfolio/commit/3efffe1687b2225cdcb3665f0f891dbabf96323c))
-- **firebase:** update tsconfig to not import tslib helpers ([0cc116e](https://github.com/Zwiqler94/jz-portfolio/commit/0cc116ea128420953bb25fd5595559eead497b24))
-- **hobbies:** add carousels to photography page ([b218a3a](https://github.com/Zwiqler94/jz-portfolio/commit/b218a3aa7cf5e4f10fe141c6c7a2a1a3323467b9)), closes [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51)
-- **hobbies:** add japanese and fitness tab content ([ca8fc94](https://github.com/Zwiqler94/jz-portfolio/commit/ca8fc94e1b12721488938821a9e826fe07aa7d7f)), closes [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51)
-- **hobbies:** add tabs to hobbies page ([c01c6dc](https://github.com/Zwiqler94/jz-portfolio/commit/c01c6dc3fe79de943d99f2c3f19430c96c1a8adc)), closes [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51)
-- **hobbies:** change how photos are displayed ([45acf5e](https://github.com/Zwiqler94/jz-portfolio/commit/45acf5ec6ede9ba5ed8e1203ed76d4a47d5dc664)), closes [#JLZP-51](https://github.com/Zwiqler94/jz-portfolio/issues/JLZP-51)
-- **hobbies:** create image carousel component ([b543e09](https://github.com/Zwiqler94/jz-portfolio/commit/b543e0955731417e8cbf944314a016eb72f30bf9)), closes [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51)
-- **hobbies:** retrieve images from firebase storage ([e7279ae](https://github.com/Zwiqler94/jz-portfolio/commit/e7279aee99db34c41755ea7d10440b4b783ae304))
-- **hobbies:** switch starbucks cards to display using ngFor ([accedde](https://github.com/Zwiqler94/jz-portfolio/commit/acceddeb8d6633deb32591e941722a01e39d018c)), closes [#51](https://github.com/Zwiqler94/jz-portfolio/issues/51)
+## <small>1.7.16 (2023-03-19)</small>
 
-### Performance Improvements
+- chore(release): 1.7.16 :tada: ([34d608e](https://github.com/Zwiqler94/jz-portfolio/commit/34d608e))
+- build(configs): meh meh meh ([23ca616](https://github.com/Zwiqler94/jz-portfolio/commit/23ca616))
+
+## <small>1.7.15 (2023-03-19)</small>
+
+- chore(release): 1.7.14 :tada: ([2426792](https://github.com/Zwiqler94/jz-portfolio/commit/2426792))
+- chore(release): 1.7.15 :tada: ([083f0e4](https://github.com/Zwiqler94/jz-portfolio/commit/083f0e4))
+- build(config): meh ([3f90561](https://github.com/Zwiqler94/jz-portfolio/commit/3f90561))
+- build(configs): meh meh ([a9de3f8](https://github.com/Zwiqler94/jz-portfolio/commit/a9de3f8))
+
+## <small>1.7.14 (2023-03-19)</small>
+
+- chore(release): 1.7.14 :tada: ([bb5eaeb](https://github.com/Zwiqler94/jz-portfolio/commit/bb5eaeb))
+
+## <small>1.7.13 (2023-03-19)</small>
+
+- chore(release): 1.7.13 :tada: ([1e529c2](https://github.com/Zwiqler94/jz-portfolio/commit/1e529c2))
+- build(configs): check changelog again ([8c39640](https://github.com/Zwiqler94/jz-portfolio/commit/8c39640))
+
+## <small>1.7.12 (2023-03-19)</small>
+
+- chore(release): 1.7.12 :tada: ([9f81ee7](https://github.com/Zwiqler94/jz-portfolio/commit/9f81ee7))
+
+## <small>1.7.11 (2023-03-19)</small>
+
+- chore(release): 1.7.11 :tada: ([4a89c9f](https://github.com/Zwiqler94/jz-portfolio/commit/4a89c9f))
+- build(configs): figure out how to skip husky prepare-commit-msg ([fd363d7](https://github.com/Zwiqler94/jz-portfolio/commit/fd363d7))
+- --no-verify ([dbef92d](https://github.com/Zwiqler94/jz-portfolio/commit/dbef92d))
+- --no-verify ([f02c65c](https://github.com/Zwiqler94/jz-portfolio/commit/f02c65c))
+
+## <small>1.7.10 (2023-03-19)</small>
+
+- chore(release): 1.7.10 :tada: ([c01d3d6](https://github.com/Zwiqler94/jz-portfolio/commit/c01d3d6))
+- build(configs): add no-verify to .npmrc ([0214d62](https://github.com/Zwiqler94/jz-portfolio/commit/0214d62))
+
+## <small>1.7.9 (2023-03-19)</small>
+
+- chore(release): 1.7.9 :tada: ([3acf9b6](https://github.com/Zwiqler94/jz-portfolio/commit/3acf9b6))
+- build(configs): add no-verify to .npmrc ([ced8db8](https://github.com/Zwiqler94/jz-portfolio/commit/ced8db8))
+- build(scripts): add --no-verify to version commit ([715c61f](https://github.com/Zwiqler94/jz-portfolio/commit/715c61f))
+
+## <small>1.7.7 (2023-03-19)</small>
+
+- chore(release): 1.7.7 :tada: ([17c6c03](https://github.com/Zwiqler94/jz-portfolio/commit/17c6c03))
+
+## <small>1.7.6 (2023-03-19)</small>
+
+- chore(merge): merge changes ([e23e951](https://github.com/Zwiqler94/jz-portfolio/commit/e23e951))
+- chore(release): 1.7.6 :tada: ([8437b68](https://github.com/Zwiqler94/jz-portfolio/commit/8437b68))
+- style(linting): fix lint issues ([777613a](https://github.com/Zwiqler94/jz-portfolio/commit/777613a))
+- fix(ngsw): enable service worker in all envs ([9c1774d](https://github.com/Zwiqler94/jz-portfolio/commit/9c1774d))
+- build(enviornments): add local environment build ([df44ee3](https://github.com/Zwiqler94/jz-portfolio/commit/df44ee3))
+- build(scripts): add package script for building secret service ([97c6ded](https://github.com/Zwiqler94/jz-portfolio/commit/97c6ded))
+- docs(changelog): delete test changelog ([2fc3afe](https://github.com/Zwiqler94/jz-portfolio/commit/2fc3afe))
+- ci(github): update workflow actions to install npm packages ([4d83ee4](https://github.com/Zwiqler94/jz-portfolio/commit/4d83ee4))
+- Update firebase-hosting-merge-development.yml ([908b0dc](https://github.com/Zwiqler94/jz-portfolio/commit/908b0dc))
+- Update firebase-hosting-merge.yml ([bf26c4c](https://github.com/Zwiqler94/jz-portfolio/commit/bf26c4c))
+
+## <small>1.7.5 (2023-03-19)</small>
+
+- chore(release): 1.7.5 :tada: ([2cc395d](https://github.com/Zwiqler94/jz-portfolio/commit/2cc395d))
+
+## <small>1.7.4 (2023-03-19)</small>
+
+- chore(release): 1.7.4 :tada: ([227310a](https://github.com/Zwiqler94/jz-portfolio/commit/227310a))
+- build(commits): figure out conventional changelog cli pt.2 ([2696f9a](https://github.com/Zwiqler94/jz-portfolio/commit/2696f9a))
+- build(commits): figure out conventional changelog cli pt.3 ([0ddd7f6](https://github.com/Zwiqler94/jz-portfolio/commit/0ddd7f6))
+
+## <small>1.7.2 (2023-03-19)</small>
 
 - chore(release): 1.7.2 :tada: ([249a1cf](https://github.com/Zwiqler94/jz-portfolio/commit/249a1cf))
 - build(commits): figure out conventional changelog cli pt.1 ([228b8f2](https://github.com/Zwiqler94/jz-portfolio/commit/228b8f2))
@@ -1854,33 +1876,10 @@ Signed-off-by: Jake Z <Zwiqler94@users.noreply.github.com>
 - remove iframe articles from news page ([3811089](https://github.com/Zwiqler94/jz-portfolio/commit/3811089))
 - remove iframe articles from news page ([6185a93](https://github.com/Zwiqler94/jz-portfolio/commit/6185a93))
 
-## <small>0.1.5 (2021-05-15)</small>
+## [0.1.5](https://github.com/Zwiqler94/jz-portfolio/compare/v0.1.4...v0.1.5) (2021-05-15)
 
-- set package to version and push correctly with tags ([e6df979](https://github.com/Zwiqler94/jz-portfolio/commit/e6df979))
-- set package to version and push correctly with tags ([d65aa9f](https://github.com/Zwiqler94/jz-portfolio/commit/d65aa9f))
+## [0.1.4](https://github.com/Zwiqler94/jz-portfolio/compare/v0.0.2...v0.1.4) (2021-05-15)
 
-## <small>0.1.4 (2021-05-15)</small>
+## [0.0.2](https://github.com/Zwiqler94/jz-portfolio/compare/v0.0.1...v0.0.2) (2021-05-15)
 
-- package script tests ([dba1016](https://github.com/Zwiqler94/jz-portfolio/commit/dba1016))
-- package script tests ([35913d6](https://github.com/Zwiqler94/jz-portfolio/commit/35913d6))
-- set package to version and push correctly ([cac202b](https://github.com/Zwiqler94/jz-portfolio/commit/cac202b))
-
-## <small>0.0.2 (2021-05-15)</small>
-
-- 0.0.1 ([2c31da3](https://github.com/Zwiqler94/jz-portfolio/commit/2c31da3))
-- 0.0.2 ([a5189d6](https://github.com/Zwiqler94/jz-portfolio/commit/a5189d6))
-- add news content test ([c0b99cd](https://github.com/Zwiqler94/jz-portfolio/commit/c0b99cd))
-
-## <small>0.0.1 (2021-05-15)</small>
-
-- 0.0.1 ([59c1bdb](https://github.com/Zwiqler94/jz-portfolio/commit/59c1bdb))
-- add firebase config ([c289631](https://github.com/Zwiqler94/jz-portfolio/commit/c289631))
-- add news content test ([5226453](https://github.com/Zwiqler94/jz-portfolio/commit/5226453))
-- Create main.yml ([23b6dbf](https://github.com/Zwiqler94/jz-portfolio/commit/23b6dbf))
-- Create README.md ([0b3cea6](https://github.com/Zwiqler94/jz-portfolio/commit/0b3cea6))
-- First commit with socials and about me page ([a477c3f](https://github.com/Zwiqler94/jz-portfolio/commit/a477c3f))
-- initial commit ([3e3823a](https://github.com/Zwiqler94/jz-portfolio/commit/3e3823a))
-- Initial commit ([dcdcca1](https://github.com/Zwiqler94/jz-portfolio/commit/dcdcca1))
-- Update main.yml ([df570dc](https://github.com/Zwiqler94/jz-portfolio/commit/df570dc))
-- Update main.yml ([13431b9](https://github.com/Zwiqler94/jz-portfolio/commit/13431b9))
-- Update main.yml ([80d0499](https://github.com/Zwiqler94/jz-portfolio/commit/80d0499))
+## 0.0.1 (2021-05-15)

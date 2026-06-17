@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  HostListener,
   QueryList,
   ViewChildren,
   inject,
@@ -10,9 +11,9 @@ import {
   OnInit,
   OnDestroy,
   model,
-  ChangeDetectionStrategy,
   EnvironmentInjector,
   InjectionToken,
+  NgZone,
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment';
@@ -21,7 +22,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
-import { NgZone } from '@angular/core';
 import {
   JSAnimation,
   Timeline,
@@ -56,7 +56,6 @@ import {
   ReCaptchaEnterpriseProvider,
 } from '@angular/fire/app-check';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { MatButtonModule } from '@angular/material/button';
 
 const USERNAME_GENERATOR_FUNCTION = new InjectionToken<Functions>(
   'USERNAME_GENERATOR_FUNCTION',
@@ -93,7 +92,6 @@ const USERNAME_GENERATOR_APPCHECK = new InjectionToken<AppCheck>(
     CdkDragHandle,
     MatIconModule,
     MatCardModule,
-    MatButtonModule,
     MatSnackBarModule,
     UsernameGeneratorComponent,
     PokemonComponent,
@@ -101,7 +99,6 @@ const USERNAME_GENERATOR_APPCHECK = new InjectionToken<AppCheck>(
     AgeByNameComponent,
     MatButtonModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsComponent
   extends TabComponent
@@ -116,6 +113,9 @@ export class ProjectsComponent
   private auth = inject(AuthService);
   private functions = inject(USERNAME_GENERATOR_FUNCTION);
   private appCheck = inject(USERNAME_GENERATOR_APPCHECK);
+  private host = inject(ElementRef<HTMLElement>);
+  private zone = inject(NgZone);
+  private readonly animationScope = createScope({ root: this.host });
 
   screenWidth: number = window.innerWidth;
   screenHeight: number = window.innerHeight;
@@ -177,11 +177,6 @@ export class ProjectsComponent
     { label: 'Ideas', value: 'Open' },
     { label: 'Status', value: 'Ideating' },
   ];
-
-  callable = httpsCallable<unknown, AppCheckTokenResult>(
-    this.functions,
-    'unGenCallable',
-  );
 
   callable = httpsCallable<unknown, AppCheckTokenResult>(
     this.functions,
