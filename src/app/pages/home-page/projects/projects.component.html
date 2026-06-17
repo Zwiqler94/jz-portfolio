@@ -356,69 +356,71 @@
       appearance="outlined"
       class="dashboard-card"
     >
-      <header class="dashboard-card__header">
-        <div class="dashboard-card__titles">
-          <p class="eyebrow">Live Demo</p>
-          <h2>SmartPick Embed</h2>
-          <small>Real-world project surfaced inline for context.</small>
-        </div>
-        <div class="dashboard-card__actions">
-          <div class="drag-handle-wrapper">
+      <mat-card-content>
+        <header class="dashboard-card__header">
+          <div class="dashboard-card__titles">
+            <p class="eyebrow">Live Demo</p>
+            <h2>SmartPick Embed</h2>
+            <small>Real-world project surfaced inline for context.</small>
+          </div>
+          <div class="dashboard-card__actions">
+            <div class="drag-handle-wrapper">
+              <button
+                mat-icon-button
+                type="button"
+                class="drag-handle"
+                cdkDragHandle
+                aria-label="Drag SmartPick widget"
+                #dragHandle
+              >
+                <mat-icon>drag_indicator</mat-icon>
+              </button>
+              <svg
+                class="drag-halo"
+                viewBox="0 0 44 44"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle
+                  #dragHalo
+                  cx="22"
+                  cy="22"
+                  r="18"
+                  stroke-dasharray="113"
+                  stroke-dashoffset="113"
+                ></circle>
+              </svg>
+            </div>
             <button
-              mat-icon-button
+              mat-stroked-button
               type="button"
-              class="drag-handle"
-              cdkDragHandle
-              aria-label="Drag SmartPick widget"
-              #dragHandle
+              (click)="toggleDetails('smartpick')"
+              [attr.aria-expanded]="isExpanded('smartpick')"
             >
-              <mat-icon>drag_indicator</mat-icon>
+              {{ isExpanded("smartpick") ? "Hide story" : "Project notes" }}
             </button>
-            <svg
-              class="drag-halo"
-              viewBox="0 0 44 44"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <circle
-                #dragHalo
-                cx="22"
-                cy="22"
-                r="18"
-                stroke-dasharray="113"
-                stroke-dashoffset="113"
-              ></circle>
-            </svg>
           </div>
-          <button
-            mat-stroked-button
-            type="button"
-            (click)="toggleDetails('smartpick')"
-            [attr.aria-expanded]="isExpanded('smartpick')"
+        </header>
+        <section class="stat-strip">
+          @for (stat of iframeStats; track stat.label) {
+            <div class="stat-chip">
+              <span>{{ stat.label }}</span>
+              <strong>{{ stat.value }}</strong>
+            </div>
+          }
+        </section>
+        <section class="dashboard-card__body">
+          <iframe
+            title="SmartPick"
+            class="project-content-item"
+            style="background-color: aliceblue"
+            [height]="maxHeight"
+            [width]="maxWidth"
+            src="https://lotto-beast-new.web.app"
           >
-            {{ isExpanded("smartpick") ? "Hide story" : "Project notes" }}
-          </button>
-        </div>
-      </header>
-      <section class="stat-strip">
-        @for (stat of iframeStats; track stat.label) {
-          <div class="stat-chip">
-            <span>{{ stat.label }}</span>
-            <strong>{{ stat.value }}</strong>
-          </div>
-        }
-      </section>
-      <section class="dashboard-card__body">
-        <iframe
-          title="SmartPick"
-          class="project-content-item"
-          style="background-color: aliceblue"
-          [height]="maxHeight"
-          [width]="maxWidth"
-          src="https://lotto-beast-new.web.app"
-        >
-        </iframe>
-      </section>
+          </iframe>
+        </section>
+      </mat-card-content>
       <mat-card-actions>
         <button mat-flat-button color="primary" (click)="openSmartPick()">
           Open in New Tab

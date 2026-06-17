@@ -4,7 +4,7 @@
 :host {
   display: block;
   --app-vh: 100dvh;
-  --app-vw: 100vw;
+  --app-vw: 100dvw;
   --safe-top: env(safe-area-inset-top);
   --safe-bottom: env(safe-area-inset-bottom);
   min-height: var(--app-vh, 100dvh);
@@ -21,11 +21,11 @@ mat-form-field {
 
 .project-content {
   position: relative;
-  margin: clamp(1rem, 3vw, 2.5rem);
-  padding: calc(1rem + var(--safe-top, 0px)) clamp(1rem, 4vw, 3rem)
+  margin: clamp(1rem, 3dvw, 2.5rem);
+  padding: calc(1rem + var(--safe-top, 0px)) clamp(1rem, 4dvw, 3rem)
     calc(2rem + var(--safe-bottom, 0px));
-  min-height: min(100dvh, var(--app-vh, 100vh));
-  width: min(100%, var(--app-vw, 100vw));
+  min-height: min(100dvh, var(--app-vh, 100dvh));
+  width: min(100%, var(--app-vw, 100dvw));
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -39,7 +39,7 @@ mat-form-field {
 }
 
 .dashboard-card {
-  width: min(64rem, calc(var(--app-vw, 100vw) - clamp(1.5rem, 4vw, 4rem)));
+  width: min(64rem, calc(var(--app-vw, 100dvw) - clamp(1.5rem, 4dvw, 4rem)));
   padding: 1.25rem 1.5rem 1.5rem;
   border-radius: 1.25rem;
   background: rgba(19, 22, 27, 0.65);
@@ -315,7 +315,7 @@ mat-form-field {
 
 @media (display-mode: standalone) {
   :host {
-    min-height: var(--app-vh, 100vh);
+    min-height: var(--app-vh, 100dvh);
   }
 
   .project-content {
