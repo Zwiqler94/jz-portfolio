@@ -93,6 +93,7 @@ const USERNAME_GENERATOR_APPCHECK = new InjectionToken<AppCheck>(
     UsernameGeneratorComponent,
     PokemonComponent,
     NasaComponent,
+    MatButtonModule,
     AgeByNameComponent,
   ],
 })
