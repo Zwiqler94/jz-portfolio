@@ -166,7 +166,6 @@
     "@firebase/util@1.12.1": true,
     "@firebase/util@1.15.1": true,
     "@parcel/watcher@2.5.6": true,
-    "chromedriver@149.0.3": true,
     "core-js@3.49.0": true,
     "edgedriver@5.6.1": true,
     "esbuild@0.28.0": true,
@@ -175,6 +174,7 @@
     "msgpackr-extract@3.0.4": true,
     "protobufjs@7.6.4": true,
     "puppeteer@25.1.0": true,
-    "fsevents@2.3.3": true
+    "fsevents@2.3.3": true,
+    "chromedriver@149.0.4": true
   }
 }
