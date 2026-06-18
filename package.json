@@ -15,7 +15,7 @@
     "build:prod:watch": "npm run build:prod -- --watch",
     "build:prod": "ng build -c production",
     "changelog:rebuild": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 -n ./.changelog-config.mjs",
-    "changelog:update": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1 -n ./.changelog-config.mjs",
+    "changelog:update": "tmp=$(mktemp) && conventional-changelog -p angular -r 1 -n ./.changelog-config.mjs > \"$tmp\" && cat CHANGELOG.md >> \"$tmp\" && mv \"$tmp\" CHANGELOG.md",
     "e2e": "ng e2e",
     "format": "prettier --write ./ --cache",
     "lint:fix": "npm run lint:format",
