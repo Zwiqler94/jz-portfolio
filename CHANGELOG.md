@@ -1,3 +1,9 @@
+# 5.4.0 (2026-06-18)
+
+
+### Features
+
+* changelog generation ([#867](https://github.com/Zwiqler94/jz-portfolio/issues/867)) ([6be7cda](https://github.com/Zwiqler94/jz-portfolio/commit/6be7cdabeb3e5295aabae4fd4121133b450c333b))
 ## [5.3.29](https://github.com/Zwiqler94/jz-portfolio/compare/v5.3.3...v5.3.29) (2026-06-18)
 
 - Updates (#738) ([fd608c3](https://github.com/Zwiqler94/jz-portfolio/commit/fd608c30675ec188adac750e2686bff4d12c7702)), closes [#738](https://github.com/Zwiqler94/jz-portfolio/issues/738)
