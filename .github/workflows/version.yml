@@ -85,7 +85,7 @@ jobs:
             exit 1
           fi
 
-          CHANGELOG_VERSION="$(sed -nE 's/^## \[([^]]+)\].*/\1/p' CHANGELOG.md | head -n1)"
+          CHANGELOG_VERSION="$(sed -nE -e 's/^## <small>([^ ]+) .*/\1/p' -e 's/^## \[([^]]+)\].*/\1/p' CHANGELOG.md | head -n1)"
           if [ "$CHANGELOG_VERSION" != "$NEXT_VERSION" ]; then
             echo "::error::CHANGELOG.md top entry ($CHANGELOG_VERSION) does not match version ($NEXT_VERSION)"
             exit 1
