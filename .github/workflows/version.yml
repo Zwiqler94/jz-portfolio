@@ -72,20 +72,65 @@ jobs:
           git config --local push.autoSetupRemote true
           git checkout -B "$HEAD_REF"
 
+          echo "::group::Release context"
+          printf 'event=%s\n' "${GITHUB_EVENT_NAME:-}"
+          printf 'base ref=%s\n' "$BASE_REF"
+          printf 'head ref=%s\n' "$HEAD_REF"
+          printf 'bump type=%s\n' "$BUMP_TYPE"
+          printf 'github ref=%s\n' "${GITHUB_REF:-}"
+          printf 'github sha=%s\n' "${GITHUB_SHA:-}"
+          printf 'checked out branch=%s\n' "$(git branch --show-current)"
+          printf 'checked out sha=%s\n' "$(git rev-parse --short HEAD)"
+          printf 'latest version tags:\n'
+          git tag --sort=-version:refname | sed -n '1,10p'
+          echo "::endgroup::"
+
           npm ci
+          CURRENT_VERSION="$(node -p "require('./package.json').version")"
+          printf 'package version before bump=%s\n' "$CURRENT_VERSION"
+
           npm version "$BUMP_TYPE" --no-git-tag-version
 
           NEXT_VERSION="$(node -p "require('./package.json').version")"
+          printf 'package version after bump=%s\n' "$NEXT_VERSION"
           printf 'VERSION=%s\n' "$NEXT_VERSION" >> "$GITHUB_ENV"
 
           npm run changelog:update
+
+          echo "::group::Changelog after update"
+          git diff --stat -- CHANGELOG.md package.json package-lock.json
+          printf 'top changelog headings:\n'
+          awk '
+            /^# / || /^## / {
+              print
+              count++
+              if (count == 5) {
+                exit
+              }
+            }
+          ' CHANGELOG.md
+          echo "::endgroup::"
 
           if git diff --quiet -- CHANGELOG.md; then
             echo "::error::CHANGELOG.md did not change"
             exit 1
           fi
 
-          CHANGELOG_VERSION="$(sed -nE -e 's/^## <small>([^ ]+) .*/\1/p' -e 's/^## \[([^]]+)\].*/\1/p' CHANGELOG.md | head -n1)"
+          CHANGELOG_VERSION="$(
+            awk '
+              /^# / || /^## / {
+                heading = $0
+                sub(/^##? /, "", heading)
+                sub(/^<small>/, "", heading)
+                sub(/^\[/, "", heading)
+                sub(/[\] ].*$/, "", heading)
+                print heading
+                exit
+              }
+            ' CHANGELOG.md
+          )"
+          printf 'parsed changelog version=%s\n' "$CHANGELOG_VERSION"
+          printf 'expected package version=%s\n' "$NEXT_VERSION"
           if [ "$CHANGELOG_VERSION" != "$NEXT_VERSION" ]; then
             echo "::error::CHANGELOG.md top entry ($CHANGELOG_VERSION) does not match version ($NEXT_VERSION)"
             exit 1
