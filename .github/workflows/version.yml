@@ -25,7 +25,6 @@ jobs:
           clientId: ${{ secrets.APP_CLIENT_ID }}
           clientSecret: ${{ secrets.APP_CLIENT_SECRET }}
           userRefreshToken: ${{ secrets.USER_REFRESH_TOKEN }}
-          exposeTokens: true
   verify-commit:
     if: ${{ github.event.pull_request.merged == true }}
     uses: ./.github/workflows/verify-commit.yml
