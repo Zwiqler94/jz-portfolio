@@ -48,8 +48,8 @@
     "@cloudinary/url-gen": "^1.22.0",
     "@firebase/util": "^1.15.1",
     "@google-cloud/secret-manager": "^6.2.0",
-    "@yusifaliyevpro/countries": "^2.3.2",
-    "@zwiqler94/everything-lib": "^0.17.3",
+    "@yusifaliyevpro/countries": "^5.1.5",
+    "@zwiqler94/everything-lib": "^0.19.0",
     "cloudinary": "^2.10.0",
     "compression": "^1.8.1",
     "firebase": "^12.15.0",
@@ -99,6 +99,7 @@
     "@types/karma": "~6.3.9",
     "@types/karma-chrome-launcher": "~3.1.4",
     "@types/karma-coverage": "~2.0.3",
+    "@types/karma-firefox-launcher": "~2.1.4",
     "@types/karma-jasmine": "~4.0.5",
     "@types/karma-jasmine-html-reporter": "^1.7.3",
     "@types/lodash-es": "~4.17.12",
@@ -172,6 +173,7 @@
     "lmdb@3.4.2": true,
     "msgpackr-extract@3.0.4": true,
     "protobufjs@7.6.4": true,
-    "puppeteer@24.43.1": true
+    "puppeteer@24.43.1": true,
+    "core-js@3.49.0": true
   }
 }
