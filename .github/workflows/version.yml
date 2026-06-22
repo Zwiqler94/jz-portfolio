@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Get release token
         id: releaseTokens
-        uses: Zwiqler94/GH-Actions@v4
+        uses: Zwiqler94/GH-Actions@v5
         with:
           mode: app-token
           appId: ${{ secrets.APP_ID }}
