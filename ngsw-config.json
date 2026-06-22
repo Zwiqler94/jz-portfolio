@@ -47,7 +47,7 @@
       "name": "linkpreview",
       "urls": [
         "https://api.linkpreview.net/**/*",
-        "https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v3/posts/*"
+        "https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioApp/api/v4/posts/*"
       ]
     },
     {

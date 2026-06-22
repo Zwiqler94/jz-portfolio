@@ -2,17 +2,18 @@ import { body } from 'express-validator';
 
 export const postValidator = [
   body('location')
-    .isIn(['main', 'puppy', 'anime'])
+    .isString()
     .withMessage('Unknown location')
+    .trim()
     .notEmpty()
     .withMessage('missing value'),
   body('type')
-    .isIn(['link', 'text', 'image', 'TextPost', 'LinkPost'])
+    .isIn(['link', 'text', 'TextPost', 'LinkPost'])
     .withMessage('Unknown type')
     .notEmpty()
     .withMessage('missing value'),
   body('status')
-    .isIn(['pending'])
+    .isIn(['pending', 'posted', 'editing', 'draft', 'deleted', 'archived'])
     .withMessage('Unknown status')
     .notEmpty()
     .withMessage('missing value'),

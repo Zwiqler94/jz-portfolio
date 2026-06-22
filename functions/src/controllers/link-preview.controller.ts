@@ -1,12 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Request, Response, NextFunction } from 'express';
-import { PoolClient } from 'pg';
 import { error, debug } from 'firebase-functions/logger';
 import { DBController } from './db.controller';
 
 export class LinkPreviewController {
-  private client: PoolClient | undefined;
   private dbController: DBController;
 
   constructor(dbController: DBController) {
@@ -22,32 +18,6 @@ export class LinkPreviewController {
       const { id, data } = req.body;
       const { title, image } = data;
 
-      // Normalize post type
-      // const type = ['link', 'LinkPost'].includes(rawType) ? 'link' : 'text';
-
-      this.client = await this.dbController.startUpDBService();
-      if (!this.client) {
-        throw new Error('Database connection not established');
-      }
-
-      // Generate sanitized content
-      // const sanitizedContent = content.replace('\\', '');
-
-      // Generate a unique hash for the post
-      // const hashResult = await this.dbController.query(
-      //   `SELECT hash_post($1, $2, $3, $4) AS post_hash`,
-      //   [location, type, status, sanitizedContent],
-      // );
-
-      // const postHash = hashResult?.rows[0]?.post_hash;
-
-      // if (!postHash) {
-      //   throw new Error('Failed to generate post hash');
-      // }
-
-      // debug({ postHash });
-
-      // Insert post into post_list if it doesn't already exist
       const insertResult = await this.dbController.query(
         `UPDATE public.link_post
         SET title = $2, image_uri = $3
@@ -77,12 +47,6 @@ export class LinkPreviewController {
 
       res.status(statusCode).json({ error: err.message });
       next(err); // Pass error to global error handler if needed
-    } finally {
-      try {
-        this.client?.release();
-      } catch (releaseErr: any) {
-        error(`Failed to release database client: ${releaseErr.message}`);
-      }
     }
   };
 
@@ -90,32 +54,6 @@ export class LinkPreviewController {
     try {
       const { id } = req.params;
 
-      // Normalize post type
-      // const type = ['link', 'LinkPost'].includes(rawType) ? 'link' : 'text';
-
-      this.client = await this.dbController.startUpDBService();
-      if (!this.client) {
-        throw new Error('Database connection not established');
-      }
-
-      // Generate sanitized content
-      // const sanitizedContent = content.replace('\\', '');
-
-      // Generate a unique hash for the post
-      // const hashResult = await this.dbController.query(
-      //   `SELECT hash_post($1, $2, $3, $4) AS post_hash`,
-      //   [location, type, status, sanitizedContent],
-      // );
-
-      // const postHash = hashResult?.rows[0]?.post_hash;
-
-      // if (!postHash) {
-      //   throw new Error('Failed to generate post hash');
-      // }
-
-      // debug({ postHash });
-
-      // Insert post into post_list if it doesn't already exist
       const insertResult = await this.dbController.query(
         `SELECT title, uri FROM public.link_post WHERE post_list_id = $1`,
         [id],
@@ -134,12 +72,6 @@ export class LinkPreviewController {
 
       res.status(statusCode).json({ error: err.message });
       next(err); // Pass error to global error handler if needed
-    } finally {
-      try {
-        this.client?.release();
-      } catch (releaseErr: any) {
-        error(`Failed to release database client: ${releaseErr.message}`);
-      }
     }
   };
 }

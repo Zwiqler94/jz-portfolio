@@ -11,7 +11,7 @@
       "description": "Development Function",
       "variables": {
         "basePath": {
-          "default": "api/v3"
+          "default": "api/v4"
         }
       }
     },
@@ -20,7 +20,7 @@
       "description": "Local Function",
       "variables": {
         "basePath": {
-          "default": "api/v3"
+          "default": "api/v4"
         }
       }
     },
@@ -29,7 +29,7 @@
       "description": "Production Function",
       "variables": {
         "basePath": {
-          "default": "api/v3"
+          "default": "api/v4"
         }
       }
     }
@@ -58,31 +58,6 @@
           {
             "name": "prod",
             "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/SecretResponse"
-          },
-          "500": {
-            "500": null,
-            "$ref": "#/components/responses/GeneralServerError"
-          }
-        }
-      }
-    },
-    "/secrets/{secretName}": {
-      "get": {
-        "operationId": "secretsName",
-        "tags": ["Secrets"],
-        "parameters": [
-          {
-            "name": "secretName",
-            "required": true,
-            "in": "path",
             "schema": {
               "type": "string"
             }

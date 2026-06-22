@@ -36,6 +36,5 @@ export const setupSecretRoutes = (app: Router, env: string): void => {
   const secretManager = new SecretController(env);
   const secretRouter = Router();
   secretRouter.get('/link-previews', secretManager.getLinkPreviewSecret);
-  secretRouter.get('/:name', secretManager.getSecret);
   app.use('/secrets', secretRouter);
 };
