@@ -8,7 +8,10 @@ on:
       - opened
       - closed
       - synchronize
-permissions: write-all
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
 jobs:
   versionDev:
     if: ${{ github.base_ref != 'main' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
