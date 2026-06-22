@@ -154,7 +154,7 @@ export const setupMiddleware = (app: Express): void => {
   app.use(compression());
 
   // Rate Limiting
-  // app.use(limiter);
+  app.use(limiter);
 
   // Trust Proxy
   app.set('trust proxy', 1);
