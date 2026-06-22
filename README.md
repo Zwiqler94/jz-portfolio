@@ -33,14 +33,3 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Author
 
 Jacob Zwickler
-
-## Image Citation
-
-next arrow by Graphik Designz from the Noun Project
-previous arrow by Mohamad Arif Prasetyo from the Noun Project
-
-## Branch Organization For Releases
-
-1. Production -> main
-2. Development -> development / QA / branch off for maintenance branches (release branch, v5 )
-3. Next -> use to make sure that dev never goes above a certain version (major version ahead, ex. v6) typically only for big breaking changes
