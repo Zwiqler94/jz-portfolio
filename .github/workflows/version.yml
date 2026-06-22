@@ -37,7 +37,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v6
         with:
+<<<<<<< codex/review-repo-p2
           token: ${{ steps.releaseTokens.outputs.token }}
+=======
+          token: ${{ secrets.APP_ACCESS_TOKEN }}
+>>>>>>> development
           fetch-depth: 0
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v3
