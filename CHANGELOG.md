@@ -1,3 +1,270 @@
+## [5.4.1](https://github.com/Zwiqler94/jz-portfolio/compare/v5.3.3...v5.4.1) (2026-06-22)
+
+
+* Updates (#738) ([fd608c3](https://github.com/Zwiqler94/jz-portfolio/commit/fd608c30675ec188adac750e2686bff4d12c7702)), closes [#738](https://github.com/Zwiqler94/jz-portfolio/issues/738)
+
+
+### Bug Fixes
+
+* action version ([#881](https://github.com/Zwiqler94/jz-portfolio/issues/881)) ([e7e490a](https://github.com/Zwiqler94/jz-portfolio/commit/e7e490af0e18152f2ffa7c2de16b5cb3d1817601)), closes [#Actions](https://github.com/Zwiqler94/jz-portfolio/issues/Actions)
+* fix elib dep ([d60896f](https://github.com/Zwiqler94/jz-portfolio/commit/d60896f6cd25551f967722a6464ed1ceab081a15))
+* gh action preview deploy ([#804](https://github.com/Zwiqler94/jz-portfolio/issues/804)) ([cfb0eac](https://github.com/Zwiqler94/jz-portfolio/commit/cfb0eac8d0daf6759029c56be9c3047d6cfe9692))
+* harden Firebase release workflow authentication ([#874](https://github.com/Zwiqler94/jz-portfolio/issues/874)) ([1f2efab](https://github.com/Zwiqler94/jz-portfolio/commit/1f2efabc7b41ff0f9f1835d14443bb9fc8876aff))
+* potential fix for code scanning alert no. 113: Code injection ([#670](https://github.com/Zwiqler94/jz-portfolio/issues/670)) ([d69f881](https://github.com/Zwiqler94/jz-portfolio/commit/d69f881888956154923eb1d48f40049a0f571004))
+* scripts ([#778](https://github.com/Zwiqler94/jz-portfolio/issues/778)) ([ebc2df7](https://github.com/Zwiqler94/jz-portfolio/commit/ebc2df7554703c3aa5f5df44d8ac4fc8d7eb3900))
+* update eslint to accept component html prefix ([50dfafe](https://github.com/Zwiqler94/jz-portfolio/commit/50dfafecb205173ab078f15a49d08b07b71c084b))
+* update version to 5.3.9 ([#759](https://github.com/Zwiqler94/jz-portfolio/issues/759)) ([2bb6011](https://github.com/Zwiqler94/jz-portfolio/commit/2bb6011eccb8302a4175ed8d353356818b613872))
+* xnine ([#783](https://github.com/Zwiqler94/jz-portfolio/issues/783)) ([72790aa](https://github.com/Zwiqler94/jz-portfolio/commit/72790aac9fcf3df5f2974ef5c4e39c36e3c0e3ec))
+
+
+### Features
+
+* **angular19:** update angular to version 19 ([cdd7ca9](https://github.com/Zwiqler94/jz-portfolio/commit/cdd7ca94a93e3d94611fa6c84e0d352abf797d8b))
+* **angular19:** update to angular v19 part 10000000 ([e4608ce](https://github.com/Zwiqler94/jz-portfolio/commit/e4608cebc51689e43fff471d7ca2ef55f6b06bd4))
+* **api:** locate single feeds migration ([#878](https://github.com/Zwiqler94/jz-portfolio/issues/878)) ([9c3cacc](https://github.com/Zwiqler94/jz-portfolio/commit/9c3cacc721993f507def46effdf9e205b8b33f75))
+* changelog generation ([#867](https://github.com/Zwiqler94/jz-portfolio/issues/867)) ([6be7cda](https://github.com/Zwiqler94/jz-portfolio/commit/6be7cdabeb3e5295aabae4fd4121133b450c333b))
+* **material-3:** update to m3 designs ([eb9ae95](https://github.com/Zwiqler94/jz-portfolio/commit/eb9ae9566b8f3893c4da586de3a58396a29d3b09))
+* **styles:** update styles ([c80e922](https://github.com/Zwiqler94/jz-portfolio/commit/c80e92260de0cb0da47a22bd6e5c32aa4c0ca513))
+* update home page and photos page ([d53373d](https://github.com/Zwiqler94/jz-portfolio/commit/d53373dc4e66372caf443d7187a0241ea1db8551))
+* update home page and photos page ([40111d3](https://github.com/Zwiqler94/jz-portfolio/commit/40111d33dc3f460b9f048da83002a82f5345e5c9))
+
+
+### Maintenance
+
+* **deps:** updates 2 ([6a49512](https://github.com/Zwiqler94/jz-portfolio/commit/6a49512ea5297b4f73348b98272c933cd737c05a))
+* updates ([#739](https://github.com/Zwiqler94/jz-portfolio/issues/739)) ([76c65c0](https://github.com/Zwiqler94/jz-portfolio/commit/76c65c0a0f66c1bc293207b4977d9595a764f6fe))
+
+
+### Reverts
+
+* Revert "Upgrade GH-Actions to version 1.1.0 (#830)" (#833) ([9b43665](https://github.com/Zwiqler94/jz-portfolio/commit/9b4366564d39aaba3d3628fae002183b729cb0c3)), closes [#Actions](https://github.com/Zwiqler94/jz-portfolio/issues/Actions) [#830](https://github.com/Zwiqler94/jz-portfolio/issues/830) [#833](https://github.com/Zwiqler94/jz-portfolio/issues/833)
+* Revert "Husky (#748)" (#749) ([2ca57ba](https://github.com/Zwiqler94/jz-portfolio/commit/2ca57ba4275401e4ed8ae07dec24a28ab2f0c9d7)), closes [#748](https://github.com/Zwiqler94/jz-portfolio/issues/748) [#749](https://github.com/Zwiqler94/jz-portfolio/issues/749)
+*  "update version.yml ([#875](https://github.com/Zwiqler94/jz-portfolio/issues/875))" ([#876](https://github.com/Zwiqler94/jz-portfolio/issues/876)) ([82cae86](https://github.com/Zwiqler94/jz-portfolio/commit/82cae86041a0f0ca87d454bab6505fe01e276450))
+* "Revert "Upgrade GH-Actions to version 1.1.0 ([#830](https://github.com/Zwiqler94/jz-portfolio/issues/830))" ([#833](https://github.com/Zwiqler94/jz-portfolio/issues/833))" ([#834](https://github.com/Zwiqler94/jz-portfolio/issues/834)) ([f2a44a2](https://github.com/Zwiqler94/jz-portfolio/commit/f2a44a245b00f522117611a59a46d94e21998797)), closes [#Actions](https://github.com/Zwiqler94/jz-portfolio/issues/Actions)
+* "revert: "chore: update version.yml"" ([8a9f985](https://github.com/Zwiqler94/jz-portfolio/commit/8a9f985c342b30db922f5a79e7c9207f676a8c33))
+
+
+### BREAKING CHANGES
+
+* 19 to 20
+
+* ci: npm ci fix
+
+* chore(update): mep empe
+
+* ci(ghc): ghc update
+
+* fix: lkmkmklm
+
+* chore(rebase): eacknj
+
+* chore: fjfjf
+
+fjfj
+
+* feat(dnj): jndn
+
+nj
+
+* style(linty): lint lint lint
+
+* fix(dedupe!): dedupe deps
+
+* build(deps): update
+
+update deps
+
+* refactor: meep
+
+* test(angular20): fix tests for signals
+
+* chore: hidvosd
+
+* docs(ai): agent docs
+
+add md files for agent bots
+
+* fix: dep issues
+
+* fix: dep issues
+
+* chore(deps): updates 2
+
+* chore(release): 5.3.4 :tada:
+
+* chore: merge update
+
+* build(angular): upgrade to v20
+
+upgrade angular and angular fire
+* 19 to 20
+
+* ci: npm ci fix
+
+* chore(update): mep empe
+
+* ci(ghc): ghc update
+
+* fix: lkmkmklm
+
+* chore(rebase): eacknj
+
+* chore: fjfjf
+
+fjfj
+
+* feat(dnj): jndn
+
+nj
+
+* style(linty): lint lint lint
+
+* fix(dedupe!): dedupe deps
+
+* build(deps): update
+
+update deps
+
+* refactor: meep
+
+* test(angular20): fix tests for signals
+
+* chore: hidvosd
+
+* docs(ai): agent docs
+
+add md files for agent bots
+
+* fix: dep issues
+* 19 to 20
+
+* ci: npm ci fix
+
+* chore(update): mep empe
+
+* ci(ghc): ghc update
+
+* fix: lkmkmklm
+
+* chore(rebase): eacknj
+
+* chore: fjfjf
+
+fjfj
+
+* feat(dnj): jndn
+
+nj
+
+* style(linty): lint lint lint
+
+* fix(dedupe!): dedupe deps
+
+* build(deps): update
+
+update deps
+
+* refactor: meep
+
+* test(angular20): fix tests for signals
+
+* chore: hidvosd
+
+* docs(ai): agent docs
+
+add md files for agent bots
+
+* fix: dep issues
+
+* fix: dep issues
+
+* chore(deps): updates 2
+
+* chore(release): 5.3.4 :tada:
+
+* chore: merge update
+
+* build(angular): upgrade to v20
+
+upgrade angular and angular fire
+* 19 to 20
+
+* ci: npm ci fix
+
+* chore(update): mep empe
+
+* ci(ghc): ghc update
+
+* fix: lkmkmklm
+
+* chore(rebase): eacknj
+
+* chore: fjfjf
+
+fjfj
+
+* feat(dnj): jndn
+
+nj
+
+* style(linty): lint lint lint
+
+* fix(dedupe!): dedupe deps
+
+* build(deps): update
+
+update deps
+
+* refactor: meep
+
+* test(angular20): fix tests for signals
+
+* chore: hidvosd
+
+* docs(ai): agent docs
+
+add md files for agent bots
+
+* fix: dep issues
+* **deps:** 19 to 20
+
+* ci: npm ci fix
+
+* chore(update): mep empe
+
+* ci(ghc): ghc update
+
+* fix: lkmkmklm
+
+* chore(rebase): eacknj
+
+* chore: fjfjf
+
+fjfj
+
+* feat(dnj): jndn
+
+nj
+
+* style(linty): lint lint lint
+
+* fix(dedupe!): dedupe deps
+
+* build(deps): update
+
+update deps
+
+* refactor: meep
+
+* test(angular20): fix tests for signals
+
+* chore: hidvosd
+
+* docs(ai): agent docs
+
+add md files for agent bots
+
+* fix: dep issues
 # 5.4.0 (2026-06-18)
 
 
