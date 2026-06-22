@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import { getAppCheck } from 'firebase-admin/app-check';
 
 import {
@@ -112,15 +111,20 @@ export const errorHandler: ErrorRequestHandler = (
   err: Error,
   req: Request,
   res: Response,
-  next: NextFunction,
+  _next: NextFunction,
 ) => {
   error(err.stack);
-  res.status(res.statusCode !== 200 ? res.statusCode : 500).json({
+  const body: Record<string, unknown> = {
     name: err.name,
     code: res.statusCode,
     description: err.message ? err.message : err,
-    stack: err.stack,
-  });
+  };
+
+  if (process.env.NODE_ENV !== 'production') {
+    body.stack = err.stack;
+  }
+
+  res.status(res.statusCode !== 200 ? res.statusCode : 500).json(body);
 };
 
 const corsOpts: CorsOptions = {
@@ -134,6 +138,7 @@ const corsOpts: CorsOptions = {
     'Content-Type',
     'Accept',
     'Authorization',
+    'X-Firebase-AppCheck',
   ],
   credentials: true,
 };
@@ -149,7 +154,7 @@ export const setupMiddleware = (app: Express): void => {
   app.use(compression());
 
   // Rate Limiting
-  // app.use(limiter);
+  app.use(limiter);
 
   // Trust Proxy
   app.set('trust proxy', 1);
@@ -160,13 +165,11 @@ export const setupMiddleware = (app: Express): void => {
   // Swagger Documentation
   app.use('/api-docs', serve, setup(swaggerDoc)); // Mount Swagger UI
 
-  // App Check Guard Middleware
-  if (process.env.NODE_ENV === 'production') {
-    app.use(appCheckGaurd);
-  } else {
-    debug('App Check guard bypassed for non-production environment');
+  if (process.env.NODE_ENV !== 'production') {
+    debug('App Check guard is route-scoped and bypassed for non-production');
   }
+};
 
-  // Error Handler Middleware
+export const setupErrorHandling = (app: Express): void => {
   app.use(errorHandler);
 };

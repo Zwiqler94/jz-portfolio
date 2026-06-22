@@ -1,30 +1,23 @@
 import { onRequest } from 'firebase-functions/v2/https';
 import { getSecrets } from './secret-config';
-import { createAppV3, createAppV4 } from './app';
-import { cert, initializeApp } from 'firebase-admin/app';
-import * as creds from '../credentials.json';
+import { createAppV4 } from './app';
+import { initializeApp } from 'firebase-admin/app';
 
-const env = process.env.NODE_ENV ?? 'dev'; // Default to development
+const dbEnv = process.env.DB_ENV?.toLowerCase();
+const env =
+  dbEnv === 'prod' || dbEnv === 'production' ? 'production' : 'development';
 const secrets = getSecrets(env);
 
-export const fbAdminApp = initializeApp({
-  credential: cert({
-    clientEmail: creds.client_email,
-    privateKey: creds.private_key,
-    projectId: creds.project_id,
-  }),
-});
+export const fbAdminApp = initializeApp();
 
-const finalSecrets = ['NEON_ADMIN_PASS', ...secrets];
-
-// Deploy prod version (backward compatible with `/api/v3`)
+// Deploy prod version with `/api/v4`
 export const jzPortfolioApp = onRequest(
   {
     maxInstances: 5,
     timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
-    secrets: finalSecrets,
+    secrets,
   },
   createAppV4(),
 );
@@ -36,7 +29,7 @@ export const jzPortfolioAppDev = onRequest(
     timeoutSeconds: 3600,
     serviceAccount: 'jzportfolioapp@jlz-portfolio.iam.gserviceaccount.com',
     cors: true,
-    secrets: finalSecrets,
+    secrets,
   },
   createAppV4(),
 );

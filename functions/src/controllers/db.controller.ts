@@ -1,112 +1,62 @@
-import { Pool, PoolClient, QueryResult } from 'pg';
-import { error, debug, info } from 'firebase-functions/logger';
+import { Pool, QueryResult, QueryResultRow } from 'pg';
+import { debug, error, info } from 'firebase-functions/logger';
+
+type RuntimeEnv = 'DEV' | 'PROD';
+type DbEnv = 'local' | 'localhost' | 'dev' | 'development' | 'prod' | 'production';
+
 export class DBController {
-  private static username: string;
-  private static password: string;
   private pool: Pool | undefined;
-  private client: PoolClient | undefined;
 
-  startUpDBService = async () => {
+  startUpDBService = async (): Promise<Pool> => this.getPool();
+
+  querySingle = async <T extends QueryResultRow = QueryResultRow>(
+    text: string,
+    params?: unknown[],
+  ): Promise<QueryResult<T>> => this.query<T>(text, params);
+
+  query = async <T extends QueryResultRow = QueryResultRow>(
+    text: string,
+    params: unknown[] = [],
+  ): Promise<QueryResult<T>> => {
+    const start = Date.now();
     try {
-      debug('constructing');
-      const dbEnv = process.env.DB_ENV?.toLowerCase() ?? 'local';
-      const useLocalDb = ['local', 'localhost'].includes(dbEnv);
-
-      this.pool = await this.connectDB(useLocalDb);
-      this.client = await this.pool.connect();
-      debug('done constructing');
-      return this.client;
+      const pool = this.getPool();
+      info('executing query...', { text, paramCount: params.length });
+      const res = await pool.query<T>(text, params);
+      info('query executed', {
+        text,
+        duration: Date.now() - start,
+        rows: res.rowCount,
+      });
+      return res;
     } catch (err) {
       error(err);
-      if (this.client) {
-        this.client.release();
-        this.client = undefined;
-      }
-
-      if (this.pool) {
-        try {
-          await this.pool.end();
-        } catch (poolErr) {
-          error('Failed to close connection pool after error', poolErr);
-        } finally {
-          this.pool = undefined;
-        }
-      }
-
       throw err instanceof Error
         ? err
-        : new Error(JSON.stringify({ connectionError: err }));
+        : new Error(JSON.stringify({ queryError: err }));
     }
   };
 
-  querySingle = async (
-    text: string,
-    params?: any,
-  ): Promise<QueryResult<any>> => {
-    try {
-      const start = Date.now();
-      if (this.client) {
-        info('executing query...', { text, params });
-        const res = await this.client.query(text, params);
-        const duration = Date.now() - start;
-        info('query executed', { text, duration, rows: res.rowCount });
-        this.client.release();
-        return (
-          res || {
-            rows: [],
-            command: '',
-            rowCount: null,
-            oid: 0,
-            fields: [],
-          }
-        );
-      } else {
-        throw new Error('no pool established');
-      }
-    } catch (err) {
-      error(err);
-      throw new Error(JSON.stringify(err));
+  closeDB = async (): Promise<void> => {
+    if (!this.pool) {
+      return;
     }
+
+    await this.pool.end();
+    this.pool = undefined;
   };
 
-  query = async (text: string, params?: any): Promise<QueryResult<any>> => {
-    try {
-      const start = Date.now();
-      if (this.client) {
-        info('executing query...', { text, params });
-        const res = await this.client.query(text, params);
-        const duration = Date.now() - start;
-        info('query executed', { text, duration, rows: res.rowCount });
-        return (
-          res || {
-            rows: [],
-            command: '',
-            rowCount: null,
-            oid: 0,
-            fields: [],
-          }
-        );
-      } else {
-        throw new Error('no pool established');
-      }
-    } catch (err) {
-      error(err);
-      throw new Error(JSON.stringify(err));
+  private getPool(): Pool {
+    if (!this.pool) {
+      const dbEnv = this.resolveDbEnv();
+      this.pool = this.connectDB(dbEnv === 'local' || dbEnv === 'localhost');
     }
-  };
 
-  closeDB = async () => {
-    try {
-      if (this.pool) await this.pool.end();
-      else throw new Error('no pool established');
-    } catch (err) {
-      error(err);
-      throw new Error(JSON.stringify(err));
-    }
-  };
+    return this.pool;
+  }
 
-  connectDB = async (useLocal: boolean) => {
-    const runtimeEnv = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV';
+  private connectDB(useLocal: boolean): Pool {
+    const runtimeEnv = this.resolveRuntimeEnv();
     const keyFor = (base: string) => `${base}_${runtimeEnv}`;
 
     const resolveOptionalValue = (baseKey: string): string | undefined => {
@@ -131,78 +81,81 @@ export class DBController {
     const requireValue = (...baseKeys: string[]): string => {
       const value = resolveFirstValue(...baseKeys);
       if (!value) {
-        const attempted = baseKeys.map((key) => keyFor(key)).join(', ');
-        throw new Error(
-          `Missing environment variable for one of: ${attempted}`,
-        );
+        const attempted = baseKeys
+          .flatMap((key) => [keyFor(key), key])
+          .join(', ');
+        throw new Error(`Missing environment variable for one of: ${attempted}`);
       }
       return value;
     };
 
-    // const toSslConfig = (value?: string) => {
-    //   if (!value) return undefined;
-    //   const normalized = value.includes('BEGIN CERTIFICATE')
-    //     ? value
-    //     : Buffer.from(value, 'base64').toString('utf8');
-    //   return { ca: normalized } as const;
-    // };
-
-    if (!useLocal) {
-      const dbUser = resolveFirstValue('NEON_USER');
-
-      if (!dbUser) {
-        throw new Error('Missing database user environment variable');
-      }
-
-      const application_name = `jlz_portfolio_${process.env.DB_ENV ?? 'remote'}_${dbUser}`;
-
-      DBController.password = requireValue('NEON_PASS');
-      DBController.username = dbUser;
-
-      // const caCert = Buffer.from(await getSecretValue('caSSLCert'));
-
-      const connectionString = `postgresql://${DBController.username}:${DBController.password}@${process.env.DB_HOST}/jz-local?sslmode=require&channel_binding=require`; //`postgres://${DBController.username}:${DBController.password}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=require&channel_binding=require`;
-      this.pool = new Pool({
-        connectionString,
-        application_name,
-        host: requireValue('NEON_HOST'),
-        user: DBController.username,
-        password: DBController.password,
-        database: process.env.DB_NAME,
-        ssl: true,
-      })
-        .on('connect', () => {
-          debug('connected to remote DB');
-        })
-        .on('release', () => {
-          debug('bye bye');
-        })
-        .on('error', (poolErr: Error) => {
-          error('Unexpected error on idle client', poolErr);
-        });
-    } else {
+    if (useLocal) {
       const dbUser = requireValue('LOCAL_DB_USER');
-      const application_name = `jlz_portfolio_${process.env.DB_ENV ?? 'local'}_${dbUser}`;
-
-      this.pool = new Pool({
-        application_name,
+      const pool = new Pool({
+        application_name: `jlz_portfolio_${process.env.DB_ENV ?? 'local'}_${dbUser}`,
         host: requireValue('LOCAL_DB_HOST'),
         user: dbUser,
         password: requireValue('LOCAL_DB_PASS'),
-        database: process.env.DB_NAME,
-        port: Number(process.env.DB_PORT ?? 5433),
-        ssl: process.env.DB_SSL === 'true' ? true : false,
-      })
-        .on('connect', () => {
-          debug('connected to local DB');
-        })
-        .on('release', () => {
-          debug('bye bye');
-        })
-        .on('error', (poolErr: Error) => {
-          error('Unexpected error on idle client', poolErr);
-        });
+        database: requireValue('DB_NAME'),
+        port: Number(resolveFirstValue('DB_PORT') ?? 5433),
+        ssl: process.env.DB_SSL === 'true',
+      });
+
+      return this.attachPoolLogging(pool, 'local');
     }
-    return this.pool;
-  };
+
+    const dbUser = requireValue('NEON_USER');
+    const password = requireValue('NEON_PASS');
+    const host = requireValue('NEON_HOST');
+    const database = requireValue('DB_NAME');
+    const connectionString =
+      `postgresql://${encodeURIComponent(dbUser)}:` +
+      `${encodeURIComponent(password)}@${host}/${database}` +
+      '?sslmode=require&channel_binding=require';
+
+    const pool = new Pool({
+      application_name: `jlz_portfolio_${process.env.DB_ENV ?? 'remote'}_${dbUser}`,
+      connectionString,
+    });
+
+    return this.attachPoolLogging(pool, 'remote');
+  }
+
+  private attachPoolLogging(pool: Pool, label: string): Pool {
+    return pool
+      .on('connect', () => {
+        debug(`connected to ${label} DB`);
+      })
+      .on('release', () => {
+        debug(`released ${label} DB client`);
+      })
+      .on('error', (poolErr: Error) => {
+        error('Unexpected error on idle client', poolErr);
+      });
+  }
+
+  private resolveDbEnv(): DbEnv {
+    const dbEnv = (process.env.DB_ENV ?? 'local').toLowerCase();
+    if (
+      [
+        'local',
+        'localhost',
+        'dev',
+        'development',
+        'prod',
+        'production',
+      ].includes(dbEnv)
+    ) {
+      return dbEnv as DbEnv;
+    }
+
+    throw new Error(
+      `Unsupported DB_ENV "${dbEnv}". Expected local, dev, or prod.`,
+    );
+  }
+
+  private resolveRuntimeEnv(): RuntimeEnv {
+    const dbEnv = this.resolveDbEnv();
+    return dbEnv === 'prod' || dbEnv === 'production' ? 'PROD' : 'DEV';
+  }
 }
