@@ -5,7 +5,7 @@ on:
       versionType:
         description: "the version increment type (major, minor, patch, or stop)"
         value: ${{ jobs.verify.outputs.versionType }}
-permissions: read-all
+permissions: {}
 jobs:
   verify:
     runs-on: ubuntu-latest
