@@ -13,12 +13,21 @@ env:
   REPO_URL: "https://api.github.com/repos/${{ github.repository }}"
   HUSKY: 0
 jobs:
-  check-tokens:
+  verify-commit:
+    if: ${{ github.event.pull_request.merged == true }}
+    uses: ./.github/workflows/verify-commit.yml
+  version-release:
+    if: ${{ github.event.pull_request.merged == true && github.event.action == 'closed' && needs.verify-commit.outputs.versionType != 'stop' }}
+    needs: [verify-commit]
     runs-on: ubuntu-latest
+    env:
+      BASE_REF: ${{ github.base_ref }}
+      BUMP_TYPE: ${{ needs.verify-commit.outputs.versionType }}
+      HEAD_REF: ${{ github.head_ref }}
     steps:
-      - name: Check Tokens
-        id: checkToken
-        uses: Zwiqler94/GH-Actions@v3
+      - name: Get release tokens
+        id: releaseTokens
+        uses: Zwiqler94/GH-Actions@v2
         with:
           token: ${{ secrets.USER_ACCESS_TOKEN }}
           appId: ${{ secrets.APP_ID }}
@@ -26,22 +35,11 @@ jobs:
           clientId: ${{ secrets.APP_CLIENT_ID }}
           clientSecret: ${{ secrets.APP_CLIENT_SECRET }}
           userRefreshToken: ${{ secrets.USER_REFRESH_TOKEN }}
-  verify-commit:
-    if: ${{ github.event.pull_request.merged == true }}
-    uses: ./.github/workflows/verify-commit.yml
-  version-release:
-    if: ${{ github.event.pull_request.merged == true && github.event.action == 'closed' && needs.verify-commit.outputs.versionType != 'stop' }}
-    needs: [check-tokens, verify-commit]
-    runs-on: ubuntu-latest
-    env:
-      BASE_REF: ${{ github.base_ref }}
-      BUMP_TYPE: ${{ needs.verify-commit.outputs.versionType }}
-      HEAD_REF: ${{ github.head_ref }}
-    steps:
+          exposeTokens: true
       - name: checkout
         uses: actions/checkout@v6
         with:
-          token: ${{ secrets.APP_ACCESS_TOKEN }}
+          token: ${{ steps.releaseTokens.outputs.appToken }}
           fetch-depth: 0
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v3
@@ -162,7 +160,7 @@ jobs:
         run: |
           PR_NUM=$(curl -L -X POST "$PULL_URL" \
             -H "Accept:application/vnd.github+json" \
-            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
+            -H "Authorization:Bearer ${{ steps.releaseTokens.outputs.appToken }}" \
             -H "X-GitHub-Api-Version:2022-11-28" \
             -d "$JSON_PAYLOAD" | jq -r '.number')
           printf 'PR_NUM=%s\n' "$PR_NUM" >> "$GITHUB_ENV"
@@ -170,7 +168,7 @@ jobs:
         run: |
           printf 'APPROVAL_URL=%s/%s/reviews\n' "$PULL_URL" "$PR_NUM" >> "$GITHUB_ENV"
       - name: request APPROVAL
-        run: curl --request POST "$APPROVAL_URL" -H "content-type:application/json" -H 'Authorization:Bearer ${{ secrets.USER_ACCESS_TOKEN }}' -d '{"event":"APPROVE"}'
+        run: curl --request POST "$APPROVAL_URL" -H "content-type:application/json" -H 'Authorization:Bearer ${{ steps.releaseTokens.outputs.userToken }}' -d '{"event":"APPROVE"}'
       - name: request Merge
         env:
           MERGE_URL: ${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge
@@ -180,7 +178,7 @@ jobs:
             '{commit_title: ("chore(release): " + $version + " [skip ci]"), commit_message: ""}')
           curl --request PUT "$MERGE_URL" \
             -H "Accept:application/vnd.github+json" \
-            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
+            -H "Authorization:Bearer ${{ steps.releaseTokens.outputs.appToken }}" \
             -H "X-GitHub-Api-Version:2022-11-28" \
             -d "$PAYLOAD"
   skip-already-versioned:
@@ -196,7 +194,6 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       [
-        check-tokens,
         verify-commit,
         version-release,
         skip-already-versioned,
@@ -224,8 +221,8 @@ jobs:
             echo "::notice:: Version workflow completed successfully"
             echo "Version Succeeded"
             exit 0
-          elif [[ '${{ needs.check-tokens.result }}' == 'failure' || '${{ needs.verify-commit.result }}' == 'failure' || '${{ needs.version-release.result }}' == 'failure' ]]; then
-            echo "::error:: check-tokens=${{ needs.check-tokens.result }}, verify-commit=${{ needs.verify-commit.result }}, version-release=${{ needs.version-release.result }}"
+          elif [[ '${{ needs.verify-commit.result }}' == 'failure' || '${{ needs.version-release.result }}' == 'failure' ]]; then
+            echo "::error:: verify-commit=${{ needs.verify-commit.result }}, version-release=${{ needs.version-release.result }}"
             echo "Version Failed"
             exit 1
           else
