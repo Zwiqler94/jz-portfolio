@@ -1,8 +1,7 @@
 @use "@angular/material" as mat;
+@use "./style_vars/breakpoints" as bp;
 @use "./style_vars/75_theme-colors" as themes;
 
-@include mat.elevation-classes();
-@include mat.app-background();
 @include mat.elevation-classes();
 @include mat.app-background();
 @import "@angular/cdk/overlay-prebuilt.css";
@@ -13,6 +12,11 @@ $my-typ: (
 );
 
 $toolbar-height: 8rem;
+
+:root {
+  --app-vh: 100dvh;
+  --app-vw: 100dvw;
+}
 
 $themey-light: mat.define-theme(
   (
@@ -67,6 +71,7 @@ html {
 }
 
 body {
+  margin: 0;
   background: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
 }
@@ -100,9 +105,9 @@ div.NgxEditor.NgxEditor {
 }
 
 .mat-mdc-card.base {
-  max-width: 80vw;
+  max-width: 80dvw;
   width: 10rem;
-  min-width: 45vw;
+  min-width: 45dvw;
   height: 28rem;
 }
 
@@ -124,8 +129,19 @@ div.NgxEditor.NgxEditor {
   box-shadow: none;
 }
 
-div#post-content#post-content#post-content p img {
-  width: 85vw;
+.rich-content {
+  inline-size: 100%;
+  min-width: 0;
+}
+
+.rich-content img {
+  display: block;
+  inline-size: min(100%, clamp(18rem, 72dvw, 52rem));
+  margin-inline: auto;
+}
+
+.rich-content a {
+  overflow-wrap: anywhere;
 }
 
 #badge-name {
@@ -156,57 +172,23 @@ div#post-content#post-content#post-content p img {
   }
 }
 
-@media (max-width: 1400px) {
-  div#post-content#post-content#post-content p img {
-    width: 55vw;
-  }
-}
-
-@media (max-width: 1080px) {
-  div#post-content#post-content#post-content p img {
-    width: 72vw;
-  }
-}
-
-@media (max-width: 430px) {
-  div#post-content#post-content#post-content p img {
-    width: 82vw;
-  }
-
+@include bp.down(mobile) {
   #location-type-selection-div {
     display: flex;
     flex-direction: column;
   }
+}
 
+@include bp.down(mobile) {
   app-new-post-dialog {
-    // __<<ngM2ThemingMigrationEscapedComment0>>__
     --mat-option-label-text-line-height: 0.25rem;
-    // __<<ngM2ThemingMigrationEscapedComment1>>__
     --mat-form-field-outlined-label-text-size: 0.5rem;
-    // __<<ngM2ThemingMigrationEscapedComment2>>__
     --mat-form-field-outlined-container-shape: 18px;
-    // __<<ngM2ThemingMigrationEscapedComment3>>__
-    // __<<ngM2ThemingMigrationEscapedComment4>>__
     --mat-form-field-container-text-line-height: 0.5rem;
     --mat-form-field-container-text-size: 0.5rem;
-    // __<<ngM2ThemingMigrationEscapedComment5>>__
     --mat-form-field-container-height: 17px;
-    // __<<ngM2ThemingMigrationEscapedComment6>>__
-    // __<<ngM2ThemingMigrationEscapedComment7>>__
     --mat-form-field-container-vertical-padding: 7px;
     --mat-form-field-filled-with-label-container-padding-top: 8px;
-  }
-}
-
-@media (max-width: 390px) {
-  div#post-content#post-content#post-content p img {
-    width: 76vw;
-  }
-}
-
-@media (max-width: 375px) {
-  div#post-content#post-content#post-content p img {
-    width: 81vw;
   }
 }
 
@@ -250,6 +232,7 @@ div#post-content#post-content#post-content p img {
   background-color: var(--mat-sys-tertiary-container);
   border-radius: var(--mat-sys-corner-large);
   padding: 1rem;
+  box-sizing: border-box;
 }
 
 #dividy {
@@ -260,19 +243,20 @@ div#post-content#post-content#post-content p img {
 #nav-button-container {
   display: flex;
   flex-direction: row;
-  width: 44vw;
+  width: min(44dvw, 100%);
   justify-content: flex-end;
   flex-shrink: 1;
+  min-width: 0;
 }
 
 #toolbar-logo,
 #toolbar-logo > img {
   max-inline-size: 100%;
-  margin-inline-start: 0.1vw;
+  margin-inline-start: 0.1dvw;
   margin-block-start: 0.1dvh;
   block-size: auto;
   border-radius: 10px;
-  width: 6vw;
+  width: 6dvw;
 }
 
 mat-toolbar {
@@ -280,7 +264,8 @@ mat-toolbar {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  width: 100vw;
+  width: min(100%, var(--app-vw, 100dvw));
+  max-width: 100%;
   height: $toolbar-height;
   flex-basis: auto;
 
@@ -290,7 +275,7 @@ mat-toolbar {
 }
 
 #logo {
-  width: 40vw;
+  width: min(40dvw, 100%);
   display: flex;
   justify-content: flex-start;
   flex-shrink: 2;
@@ -300,16 +285,16 @@ mat-toolbar {
   width: 0.25rem;
 }
 
-@media (max-width: 90rem) {
+@include bp.down(desktop-xl) {
   #toolbar-logo,
   #toolbar-logo > img {
-    width: 8vw;
+    width: 8dvw;
   }
 }
 
-@media (max-width: 67.5rem) {
+@include bp.down(tablet) {
   #logo {
-    width: 30vw;
+    width: 30dvw;
   }
 
   #nav-button-container {
@@ -318,11 +303,11 @@ mat-toolbar {
 
   #toolbar-logo,
   #toolbar-logo > img {
-    width: 10.5vw;
+    width: 10.5dvw;
   }
 
   #menu {
-    width: 58vw;
+    width: 58dvw;
     display: flex;
     justify-content: flex-end;
     margin-left: 0;
@@ -330,7 +315,6 @@ mat-toolbar {
   }
 
   mat-toolbar {
-    width: 100vw;
     height: 5rem;
     flex-basis: auto;
   }
@@ -340,39 +324,29 @@ mat-toolbar {
   }
 }
 
-@media (max-width: 50rem) {
+@include bp.down(tablet-sm) {
   #logo {
-    width: 20vw;
-  }
-
-  #menu {
-    width: 55vw;
-  }
-}
-
-@media (max-width: 44.0625rem) {
-  #logo {
-    width: 25vw;
+    width: 25dvw;
   }
 
   #toolbar-logo,
   #toolbar-logo > img {
-    width: 18vw;
+    width: 18dvw;
   }
 
   #menu {
-    width: 45vw;
-  }
-}
-
-@media (max-width: 33.125rem) {
-  #menu {
-    width: 43vw;
+    width: 45dvw;
   }
 }
 
-@media (max-width: 23.75rem) {
+@include bp.down(mobile) {
   #menu {
-    width: 40vw;
+    width: 43dvw;
+  }
+}
+
+@include bp.down(mobile-xs) {
+  #menu {
+    width: 40dvw;
   }
 }

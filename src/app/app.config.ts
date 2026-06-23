@@ -13,35 +13,35 @@ import {
   withComponentInputBinding,
   withPreloading,
 } from '@angular/router';
-import { GALLERY_CONFIG, GalleryConfig, GalleryModule } from 'ng-gallery';
-import {
-  LIGHTBOX_CONFIG,
-  LightboxConfig,
-  LightboxModule,
-} from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
 import { setLogLevel, LogLevel } from '@angular/fire';
 import {
   ApplicationConfig,
-  importProvidersFrom,
   isDevMode,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { GALLERY_CONFIG, GalleryConfig } from 'ng-gallery';
+import { LIGHTBOX_CONFIG, LightboxConfig } from 'ng-gallery/lightbox';
 import { environment } from '../environments/environment';
 import { routes } from 'src/app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideServiceWorker } from '@angular/service-worker';
+import { getFunctions, provideFunctions } from '@angular/fire/functions';
 
 setLogLevel(LogLevel.VERBOSE);
 
 declare global {
   var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
+  var __NG_GALLERY_DEBUG: boolean;
 }
 
 self.FIREBASE_APPCHECK_DEBUG_TOKEN = isDevMode()
   ? environment.appCheckDebug
   : false;
+
+self.__NG_GALLERY_DEBUG = true;
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -71,15 +71,29 @@ export const appConfig: ApplicationConfig = {
     },
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
+    provideAnimations(),
     provideCloudinaryLoader('https://res.cloudinary.com/dhdioy0wn'),
-    importProvidersFrom(GalleryModule, LightboxModule),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirebaseApp(() =>
+      initializeApp(
+        {
+          apiKey: 'AIzaSyDz1gmfYWryGMken3i1bVfNQP2tha3vIi8',
+          authDomain: 'usernamegenerator.firebaseapp.com',
+          projectId: 'usernamegenerator',
+          storageBucket: 'usernamegenerator.firebasestorage.app',
+          messagingSenderId: '853416854561',
+          appId: '1:853416854561:web:ce4ad92e0ba115925e8f60',
+        },
+        'usernamegenerator',
+      ),
+    ),
     provideAppCheck(() =>
       initializeAppCheck(getApp(), {
         provider: new ReCaptchaEnterpriseProvider(environment.recaptchaSiteKey),
         isTokenAutoRefreshEnabled: true,
       }),
     ),
+    provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage()),
     provideAnalytics(() => initializeAnalytics(getApp())),
     provideAuth(() => {

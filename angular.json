@@ -97,12 +97,15 @@
                   "maximumError": "15mb"
                 }
               ],
-
+              "outputHashing": "none",
               "serviceWorker": false,
               "verbose": true
             }
           },
           "options": {
+            "security": {
+              "autoCsp": true
+            },
             "allowedCommonJsDependencies": [
               "firebase",
               "@angular/fire",
@@ -131,7 +134,7 @@
             "index": "src/index.html",
             "namedChunks": true,
             "optimization": false,
-            "scripts": [],
+            "scripts": ["src/assets/credentials/credly-embed.js"],
             "serviceWorker": "ngsw-config.json",
             "sourceMap": true,
             "styles": ["src/styles.scss"],

@@ -55,4 +55,10 @@ export const credentials: CredlyCredential[] = [
     badgeId: '364dcf91-dbbc-45fc-8d32-ac87ab0b6ff3',
     host: '',
   },
+  {
+    height: 0,
+    width: 0,
+    badgeId: 'ecece23c-0f0f-4885-b89e-8b48752a1435',
+    host: '',
+  },
 ];
