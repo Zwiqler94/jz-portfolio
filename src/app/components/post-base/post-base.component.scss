@@ -1,59 +1,88 @@
-#post-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/*  The following rule targets internal classes of card that may no longer apply for the MDC version. */
-.mat-mdc-card {
-  margin: 0.938rem;
-  min-width: 40vw;
-  max-width: 42.5rem;
-}
-
-img {
-  height: auto;
-  width: 40rem;
-  margin-bottom: 0.8rem;
-  margin-left: 0.3rem;
-}
-
-#link-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: gray;
-  margin-left: -16px;
-  margin-right: -16px;
-}
-
-#link-title,
-#link-description {
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
-a {
-  margin-top: 1.5rem;
-  text-decoration: none;
-  color: inherit;
+:host {
   display: block;
-  justify-self: auto;
+  inline-size: 100%;
+  min-width: 0;
 }
 
-.mat-mdc-card-footer {
-  display: inline-flex;
+.post-base {
+  display: flex;
   justify-content: center;
+  inline-size: 100%;
+  min-width: 0;
+}
+
+.post-card {
+  box-sizing: border-box;
+  inline-size: min(42.5rem, calc(100dvw - 2rem));
+  min-width: 0;
+  margin: 0.938rem;
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--mat-sys-outline) 70%, transparent);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.post-card:hover,
+.post-card:focus-within {
+  transform: translateY(-0.125rem);
+  box-shadow: var(--mat-sys-level2);
+  border-color: var(--mat-sys-primary);
+}
+
+.post-heading,
+mat-card-content {
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+mat-card-title {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.post-type-chip {
+  display: inline-flex;
+  align-items: center;
+  max-inline-size: 100%;
+  min-height: 1.5rem;
+  padding-inline: 0.625rem;
+  border-radius: 999px;
+  background: color-mix(
+    in srgb,
+    var(--mat-sys-tertiary-container) 80%,
+    transparent
+  );
+  color: var(--mat-sys-on-tertiary-container);
+  font: var(--mat-sys-label-small);
+  overflow-wrap: anywhere;
+}
+
+.post-card-footer {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
   margin-inline: 0.2rem;
   margin-block: 0.2rem;
+  text-align: center;
 }
 
-@media (max-width: 430px) {
-  .mat-mdc-card {
-    margin: 0.938rem;
-    max-width: 24.5rem;
+#card-footer {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-card {
+    transition: none;
   }
-  img {
-    min-width: 100%;
+
+  .post-card:hover,
+  .post-card:focus-within {
+    transform: none;
   }
 }

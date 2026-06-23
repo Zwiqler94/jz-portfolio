@@ -308,7 +308,7 @@ export class ProjectsComponent
       this.cardsTimeline?.revert();
       this.cardsTimeline = undefined;
 
-      this.animationScope.execute(() => {
+      this.animationScope.add(() => {
         const entryStagger = stagger(110, { ease: 'linear', from: 'first' });
         const timeline = createTimeline({
           defaults: {
@@ -363,7 +363,7 @@ export class ProjectsComponent
       this.haloAnimation?.revert();
       this.haloAnimation = undefined;
 
-      this.animationScope.execute(() => {
+      this.animationScope.add(() => {
         this.handleFloatAnimation = waapi.animate(handles, {
           translateY: [-4, 4],
           rotate: [-3, 3],

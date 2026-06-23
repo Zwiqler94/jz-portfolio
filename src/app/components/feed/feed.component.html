@@ -1,49 +1,64 @@
 <div [ngClass]="{ 'feed-div-v': true }">
-  @if (posts().length > 0) {
-    @for (post of posts(); track post.id) {
-      @switch (post.type) {
-        @case ("TextPost") {
-          <jzp-text-post
-            [title_or_uri]="post.title_or_uri"
-            [content]="post.content"
-            [created_at]="post.created_at"
-            [updated_at]="post.updated_at"
-          />
-        }
-        @case ("LinkPost") {
-          <jzp-link-post
-            [id]="post.id"
-            [title_or_uri]="post.title_or_uri"
-            [image_uri]="post.image_uri"
-            [content]="post.content"
-          />
-        }
-        @case ("text") {
-          <jzp-text-post
-            [title_or_uri]="post.title_or_uri"
-            [content]="post.content"
-            [created_at]="post.created_at"
-            [updated_at]="post.updated_at"
-          />
-        }
-        @case ("link") {
-          <jzp-link-post
-            [id]="post.id"
-            [title_or_uri]="post.title_or_uri"
-            [image_uri]="post.image_uri"
-            [content]="post.content"
-          />
-        }
-        @default {
-          <p>Unsupported post type: {{ post.type }}</p>
+  @switch (feedState()) {
+    @case ("loading") {
+      <mat-card class="feed-status-card loading-card" appearance="outlined">
+        <mat-card-content>
+          <span class="loading-dot"></span>
+        </mat-card-content>
+      </mat-card>
+    }
+    @case ("ready") {
+      @for (post of posts(); track post.id) {
+        @switch (post.type) {
+          @case ("TextPost") {
+            <jzp-text-post
+              [title_or_uri]="post.title_or_uri"
+              [content]="post.content"
+              [created_at]="post.created_at"
+              [updated_at]="post.updated_at"
+            />
+          }
+          @case ("LinkPost") {
+            <jzp-link-post
+              [id]="post.id"
+              [title_or_uri]="post.title_or_uri"
+              [image_uri]="post.image_uri"
+              [content]="post.content"
+            />
+          }
+          @case ("text") {
+            <jzp-text-post
+              [title_or_uri]="post.title_or_uri"
+              [content]="post.content"
+              [created_at]="post.created_at"
+              [updated_at]="post.updated_at"
+            />
+          }
+          @case ("link") {
+            <jzp-link-post
+              [id]="post.id"
+              [title_or_uri]="post.title_or_uri"
+              [image_uri]="post.image_uri"
+              [content]="post.content"
+            />
+          }
+          @default {
+            <p>Unsupported post type: {{ post.type }}</p>
+          }
         }
       }
     }
-  } @else {
-    <mat-card class="display" id="under-construction">
-      <mat-card-header>
-        <h1>UNDER CONSTRUCTION</h1>
-      </mat-card-header>
-    </mat-card>
+    @case ("empty") {
+      <mat-card class="display" id="under-construction">
+        <mat-card-header>
+          <h1>UNDER CONSTRUCTION</h1>
+        </mat-card-header>
+      </mat-card>
+    }
+    @case ("error") {
+      <mat-card class="feed-status-card feed-error-card" appearance="outlined">
+        <mat-card-content>Unable to load posts.</mat-card-content>
+      </mat-card>
+    }
   }
 </div>

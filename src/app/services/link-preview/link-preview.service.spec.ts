@@ -1,16 +1,19 @@
-import { TestBed, fakeAsync, flushMicrotasks, tick } from '@angular/core/testing';
+import {
+  TestBed,
+  fakeAsync,
+  flushMicrotasks,
+  tick,
+} from '@angular/core/testing';
 import {
   HttpTestingController,
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { LinkPreviewService } from './link-preview.service';
-import { AppCheck } from '@angular/fire/app-check';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { MockAuthService } from 'src/app/testing/mocks';
 import { environment } from 'src/environments/environment';
 import { LinkPreview } from 'src/app/components/models/post.model';
-import { Observable } from 'rxjs';
 
 describe('LinkPreviewService', () => {
   let service: LinkPreviewService;
@@ -24,7 +27,6 @@ describe('LinkPreviewService', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: AuthService, useClass: MockAuthService },
-        { provide: AppCheck, useValue: {} as AppCheck },
       ],
     });
 
@@ -40,14 +42,7 @@ describe('LinkPreviewService', () => {
   it('getAPIKey makes authenticated request when token present', fakeAsync(() => {
     authService.appCheckToken = 'token';
     let response: { k: string } | undefined;
-    let stream: Observable<{ k: string }> | undefined;
-
-    service.getAPIKey()?.then((observable) => {
-      stream = observable;
-    });
-
-    flushMicrotasks();
-    stream?.subscribe((res) => (response = res));
+    service.getAPIKey().subscribe((res) => (response = res));
 
     const req = httpMock.expectOne(
       (request) =>
@@ -55,22 +50,32 @@ describe('LinkPreviewService', () => {
         `${environment.serviceOptions.secretService}/link-previews`,
     );
     expect(req.request.headers.get('X-Firebase-AppCheck')).toBe('token');
-    expect(req.request.params.get('prod')).toBe(
-      String(environment.production),
-    );
+    expect(req.request.params.get('prod')).toBe(String(environment.production));
     req.flush({ k: 'secret' });
     tick(2500);
     expect(response).toEqual({ k: 'secret' });
   }));
 
-  it('getAPIKey resolves undefined when no AppCheck token exists', fakeAsync(() => {
+  it('getAPIKey fetches AppCheck token when none is cached', fakeAsync(() => {
     authService.appCheckToken = undefined;
-    let result: unknown = 'pending';
+    spyOn(authService, 'getAppCheckToken').and.resolveTo({
+      token: 'fresh-token',
+    });
+    let response: { k: string } | undefined;
 
-    service.getAPIKey()?.then((value) => (result = value));
+    service.getAPIKey().subscribe((res) => (response = res));
     flushMicrotasks();
 
-    expect(result).toBeUndefined();
+    const req = httpMock.expectOne(
+      (request) =>
+        request.url ===
+        `${environment.serviceOptions.secretService}/link-previews`,
+    );
+    expect(req.request.headers.get('X-Firebase-AppCheck')).toBe('fresh-token');
+    expect(authService.appCheckToken as string | undefined).toBe('fresh-token');
+    req.flush({ k: 'secret' });
+    tick(2500);
+    expect(response).toEqual({ k: 'secret' });
   }));
 
   it('getLinkPreview requests preview when apiKey and token exist', fakeAsync(() => {
@@ -81,7 +86,7 @@ describe('LinkPreviewService', () => {
 
     service
       .getLinkPreview(previewUrl)
-      ?.subscribe((result) => (preview = result));
+      .subscribe((result) => (preview = result));
 
     const req = httpMock.expectOne(
       (request) => request.url === 'https://api.linkpreview.net/',
@@ -102,14 +107,56 @@ describe('LinkPreviewService', () => {
     expect(preview).toEqual(payload);
   }));
 
-  it('getLinkPreview throws when API key is missing', () => {
+  it('getLinkPreview fetches and caches API key when missing', fakeAsync(() => {
     authService.appCheckToken = 'token';
-    expect(() => service.getLinkPreview('https://example.com')).toThrow();
-  });
+    const previewUrl = 'https://example.com';
+    let preview: LinkPreview | undefined;
 
-  it('getLinkPreview throws when AppCheck token missing', () => {
+    service
+      .getLinkPreview(previewUrl)
+      .subscribe((result) => (preview = result));
+
+    const keyReq = httpMock.expectOne(
+      (request) =>
+        request.url ===
+        `${environment.serviceOptions.secretService}/link-previews`,
+    );
+    expect(keyReq.request.headers.get('X-Firebase-AppCheck')).toBe('token');
+    keyReq.flush({ k: 'fetched-key' });
+    tick(2500);
+
+    const previewReq = httpMock.expectOne(
+      (request) => request.url === 'https://api.linkpreview.net/',
+    );
+    expect(previewReq.request.params.get('key')).toBe('fetched-key');
+    expect(previewReq.request.params.get('q')).toBe(previewUrl);
+
+    const payload: LinkPreview = {
+      title: 'Title',
+      description: 'Desc',
+      image: 'img.png',
+      url: previewUrl,
+    };
+    previewReq.flush(payload);
+    tick(15000);
+
+    expect(preview).toEqual(payload);
+    expect(service.apiKey).toBe('fetched-key');
+  }));
+
+  it('getLinkPreview returns observable error when AppCheck token is missing', fakeAsync(() => {
     service.apiKey = 'preview-key';
     authService.appCheckToken = undefined;
-    expect(() => service.getLinkPreview('https://example.com')).toThrow();
-  });
+    spyOn(authService, 'getAppCheckToken').and.resolveTo({
+      token: undefined,
+    } as any);
+    let error: Error | undefined;
+
+    service.getLinkPreview('https://example.com').subscribe({
+      error: (err) => (error = err),
+    });
+    flushMicrotasks();
+
+    expect(error?.message).toContain('AppCheck token is missing');
+  }));
 });

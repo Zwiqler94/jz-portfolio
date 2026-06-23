@@ -6,21 +6,22 @@
   [created_at]="null"
   [updated_at]="null"
 >
-  <div>
+  <div class="link-post">
     @if (previewData.url) {
-      <a [href]="title_or_uri()" target="_blank">
-        <img
-          mat-card-image
-          [src]="previewData.image"
-          [alt]="previewData.description"
-        />
-        <div id="link-info">
+      <a class="link-preview" [href]="title_or_uri()" target="_blank">
+        @if (previewData.image) {
+          <span class="link-preview-media">
+            <img [src]="previewData.image" [alt]="previewData.description" />
+          </span>
+        }
+        <div class="link-preview-info">
           <h2>{{ previewData.title }}</h2>
           <p>{{ previewData.description }}</p>
         </div>
       </a>
     } @else {
       <a
+        class="link-preview-fallback rich-content"
         [href]="title_or_uri()"
         target="_blank"
         [innerHTML]="sanitizedBackupContent"

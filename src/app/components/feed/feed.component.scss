@@ -6,6 +6,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  inline-size: 100%;
+  min-width: 0;
 }
 
 .feed-div-h {
@@ -17,4 +19,63 @@
 
 #under-construction {
   background-color: map.get(map.get(themes.$primary-palette, error), 35);
+}
+
+.feed-status-card {
+  box-sizing: border-box;
+  inline-size: min(42.5rem, calc(100dvw - 2rem));
+  min-width: 0;
+  margin: 0.938rem;
+}
+
+.loading-card mat-card-content {
+  display: flex;
+  align-items: center;
+  min-block-size: 1.75rem;
+}
+
+.loading-dot {
+  inline-size: 1rem;
+  block-size: 1rem;
+  border-radius: 50%;
+  background: var(--mat-sys-primary);
+  opacity: 0.55;
+}
+
+.feed-error-card {
+  color: var(--mat-sys-error);
+}
+
+jzp-text-post,
+jzp-link-post {
+  animation: post-enter 360ms ease both;
+}
+
+jzp-text-post:nth-child(2n),
+jzp-link-post:nth-child(2n) {
+  animation-delay: 40ms;
+}
+
+jzp-text-post:nth-child(3n),
+jzp-link-post:nth-child(3n) {
+  animation-delay: 80ms;
+}
+
+@keyframes post-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  jzp-text-post,
+  jzp-link-post {
+    animation: none;
+  }
 }
