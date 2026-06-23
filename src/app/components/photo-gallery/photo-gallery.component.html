@@ -2,13 +2,14 @@
   <mat-paginator
     [pageIndex]="pageIndex"
     [pageSize]="pageSize()"
-    [length]="photoGrids()[0].length"
+    [length]="photoGrids()[0]?.length ?? 0"
     (page)="onPageChange($event, 0)"
     [showFirstLastButtons]="true"
   />
   <div class="outter-grid">
     @for (grid of displayGrids; track grid; let outterIndex = $index) {
       @if (grid.length >= 1) {
+        {{ galleryIds()[outterIndex] }}
         <div
           class="grid"
           [gallerize]="galleryIds()[outterIndex]"
@@ -16,14 +17,14 @@
         >
           @for (item of grid; track $index) {
             <div class="grid-item">
-              @if (item.data && item.data.thumb) {
+              @if (item && item.thumb) {
                 <!-- @if ($index *  % 3 === 0) { -->
                 <mat-card appearance="outlined" class="primary-1">
                   <mat-card-content>
                     <img
                       [class]="galleryIds()[outterIndex] + '-img'"
-                      [ngSrc]="formatForCloudinaryProvider(item.data.thumb)"
-                      [attr.imageSrc]="item.data.src"
+                      [ngSrc]="formatForCloudinaryProvider(item.thumb)"
+                      [attr.imageSrc]="item.src"
                       decoding="async"
                       height="350"
                       width="236"
@@ -93,12 +94,12 @@
   <mat-paginator
     [pageIndex]="pageIndex"
     [pageSize]="pageSize()"
-    [length]="photoGrids()[0].length"
+    [length]="photoGrids()[0]?.length ?? 0"
     (page)="onPageChange($event, 0)"
     [showFirstLastButtons]="true"
   />
 } @else {
   @for (grid of photoGrids(); track grid; let outerIndex = $index) {
-    <gallery [items]="grid" [autoplay]="true" />
+    <gallery [id]="galleryIds()[outerIndex]" [items]="grid" [autoplay]="true" />
   }
 }
