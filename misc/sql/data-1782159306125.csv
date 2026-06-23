@@ -1,0 +1,17 @@
+"constraint_table","conname","contype","convalidated"
+"feeds","feeds_feed_type_post_id_unique","u",True
+"feeds","feeds_pkey","p",True
+"feeds","feeds_post_id_fkey","f",True
+"link_post","link_post_list_id_fkey","f",True
+"link_post","link_post_location_id_fkey","f",True
+"link_post","link_post_pkey","p",True
+"link_post","link_post_post_list_id_unique","u",True
+"link_post","unique_link_post_id","u",True
+"post_list","post_list_location_fkey","f",True
+"post_list","post_list_pkey","p",True
+"post_list","unique_post_list_hash","u",True
+"text_post","text_post_list_id_fkey","f",True
+"text_post","text_post_location_id_fkey","f",True
+"text_post","text_post_pkey","p",True
+"text_post","text_post_post_list_id_unique","u",True
+"text_post","unique_text_post_id","u",True
