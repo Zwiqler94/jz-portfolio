@@ -1,43 +1,52 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
 
 import { HobbiesComponent } from './hobbies.component';
-import { getStorage, provideStorage } from '@angular/fire/storage';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from 'src/environments/environment';
-import { importProvidersFrom } from '@angular/core';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { provideRouter } from '@angular/router';
+import { Storage } from '@angular/fire/storage';
+import { ServiceWorkerService } from 'src/app/services/service-worker/service-worker.service';
 
-xdescribe('HobbiesComponent', () => {
-  let component: HobbiesComponent;
+class MockRouter {
+  navigateByUrl = jasmine.createSpy('navigateByUrl');
+}
+
+describe('HobbiesComponent', () => {
   let fixture: ComponentFixture<HobbiesComponent>;
+  let router: MockRouter;
 
   beforeEach(async () => {
+    router = new MockRouter();
     await TestBed.configureTestingModule({
       imports: [HobbiesComponent],
       providers: [
-        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideStorage(() => getStorage()),
-        importProvidersFrom(
-          ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: false,
-            // Register the ServiceWorker as soon as the application is stable
-            // or after 30 seconds (whichever comes first).
-            registrationStrategy: 'registerWhenStable:20000',
-          }),
-        ),
-        provideRouter([{ path: '**', component: HobbiesComponent }]),
+        { provide: Router, useValue: router },
+        { provide: Storage, useValue: {} },
+        { provide: ServiceWorkerService, useValue: {} },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            children: [{ url: of([]) }],
+          },
+        },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(HobbiesComponent, { set: { template: '' } })
+      .compileComponents();
   });
 
-  beforeEach(() => {
+  it('redirects to photos when the current path is invalid', () => {
+    window.history.replaceState({}, '', '/hobbies/invalid');
     fixture = TestBed.createComponent(HobbiesComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/hobbies/photos', {
+      skipLocationChange: true,
+    });
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('keeps existing route when it matches a tab', () => {
+    window.history.replaceState({}, '', '/hobbies/japanese');
+    fixture = TestBed.createComponent(HobbiesComponent);
+    fixture.detectChanges();
+    expect(router.navigateByUrl).not.toHaveBeenCalled();
   });
 });
