@@ -1,24 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
 import { FeedComponent } from './feed.component';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import {
-  ReCaptchaV3Provider,
-  initializeAppCheck,
-  provideAppCheck,
-} from '@angular/fire/app-check';
-import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from 'src/environments/environment';
-import { inject } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database/database.service';
-import { AuthService } from 'src/app/services/auth-service/auth.service';
-import {
-  Auth,
-  connectAuthEmulator,
-  getAuth,
-  provideAuth,
-} from '@angular/fire/auth';
+import { AnyPostResponse, PostType } from '../models/post.model';
+
+class MockDatabaseService {
+  getMainPosts() {
+    const posts: AnyPostResponse[] = [
+      {
+        id: 2,
+        title: 'Link Title',
+        uri: 'https://example.com',
+        type: PostType.LinkPost,
+        content: '',
+        location: '',
+        title_or_uri: '',
+      },
+      {
+        id: 3,
+        title: 'Text Title',
+        uri: '',
+        type: PostType.TextPost,
+        content: 'Body',
+        location: '',
+        title_or_uri: '',
+      },
+    ];
+    return of(posts);
+  }
+}
 
 describe('FeedComponent', () => {
   let component: FeedComponent;
@@ -27,36 +38,50 @@ describe('FeedComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FeedComponent],
-      providers: [
-        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideAuth(() => {
-          const auth = getAuth();
-          if (environment.local) {
-            connectAuthEmulator(auth, 'http://localhost:9099', {
-              disableWarnings: true,
-            });
-          }
-          return auth;
-        }),
-        provideAppCheck(() =>
-          initializeAppCheck(getApp(), {
-            provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
-            isTokenAutoRefreshEnabled: true,
-          }),
-        ),
-      ],
-    }).compileComponents();
-  });
+      providers: [{ provide: DatabaseService, useClass: MockDatabaseService }],
+    })
+      .overrideComponent(FeedComponent, {
+        set: { template: '<div></div>', imports: [] },
+      })
+      .compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(FeedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('loads posts and sorts them by id descending', () => {
+    const posts = component.posts();
+    expect(posts.length).toBe(2);
+    expect(posts[0].id).toBe(3);
+    expect(posts[0].title_or_uri).toBe('Text Title');
+    expect(posts[1].title_or_uri).toBe('https://example.com');
+  });
+
+  it('identifies text and link posts correctly', () => {
+    const textPost = component.posts()[0];
+    const linkPost = component.posts()[1];
+    expect(component.isTextPost(textPost)).toBeTrue();
+    expect(component.isLinkPost(linkPost)).toBeTrue();
+    expect(component.isTextPost(linkPost)).toBeFalse();
+    expect(component.isLinkPost(textPost)).toBeFalse();
+  });
+
+  it('tracks posts by id', () => {
+    const post = component.posts()[0];
+    expect(component.trackByPostId(0, post)).toBe(post.id);
+  });
+
+  it('returns 0 from sortPosts when ids are equal', () => {
+    const post: AnyPostResponse = {
+      id: 1,
+      title: 'Equal',
+      uri: '',
+      type: PostType.TextPost,
+      content: '',
+      location: '',
+      title_or_uri: '',
+    };
+    expect(component.sortPosts(post, { ...post })).toBe(0);
   });
 });

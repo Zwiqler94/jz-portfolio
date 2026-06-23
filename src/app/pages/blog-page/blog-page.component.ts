@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewPostDialogComponent } from 'src/app/components/new-post-dialog/new-post-dialog.component';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
@@ -12,12 +18,13 @@ import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.s
   templateUrl: './blog-page.component.html',
   styleUrls: ['./blog-page.component.scss'],
   imports: [MatButton, FeedComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePageComponent implements OnInit {
   private dialog = inject(MatDialog);
   private auth = inject(AuthService);
   private cd = inject(ChangeDetectorRef);
-  private lp = inject(LinkPreviewService);
+  private linkPreviewService = inject(LinkPreviewService);
   triggerFetch: boolean;
 
   async ngOnInit(): Promise<void> {
@@ -26,9 +33,17 @@ export class HomePageComponent implements OnInit {
     )?.token;
 
     if (this.auth.appCheckToken) {
-      this.lp
-        .getAPIKey()
-        .then((ob) => ob?.subscribe((key) => (this.lp.apiKey = key.k)));
+      const subscription = this.linkPreviewService.getAPIKey().subscribe({
+        next: (key) => (this.linkPreviewService.apiKey = key.k),
+        error: (err) => {
+          console.error('Failed to fetch API key:', err);
+          subscription.unsubscribe();
+        },
+        complete: () => {
+          console.debug('API key fetched successfully');
+          subscription.unsubscribe();
+        },
+      });
     }
   }
 

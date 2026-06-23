@@ -5,6 +5,7 @@ import {
   SimpleChanges,
   inject,
   input,
+  OnDestroy,
 } from '@angular/core';
 import {
   LinkPreview,
@@ -16,6 +17,7 @@ import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.s
 
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { DatabaseService } from 'src/app/services/database/database.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'jzp-link-post',
@@ -23,7 +25,7 @@ import { DatabaseService } from 'src/app/services/database/database.service';
   styleUrls: ['./link-post.component.scss'],
   imports: [PostBaseComponent],
 })
-export class LinkPostComponent implements OnInit, OnChanges {
+export class LinkPostComponent implements OnInit, OnChanges, OnDestroy {
   private sanitizer = inject(DomSanitizer);
   // Inputs for LinkPost
   readonly id = input<number>();
@@ -34,11 +36,14 @@ export class LinkPostComponent implements OnInit, OnChanges {
 
   // Link preview metadata
   previewData: LinkPreview = MissingLinkPreviewData;
+  private lastPreviewKey: string | undefined;
 
   private linkPreviewService = inject(LinkPreviewService);
   private databaseService = inject(DatabaseService);
 
   sanitizedBackupContent: SafeHtml;
+  private previewSubscription: Subscription;
+  private previewDataSubscription: Subscription;
 
   ngOnInit() {
     this.getPreview();
@@ -50,133 +55,85 @@ export class LinkPostComponent implements OnInit, OnChanges {
     }
   }
 
+  ngOnDestroy() {
+    if (this.previewSubscription) {
+      this.previewSubscription.unsubscribe();
+    }
+    if (this.previewDataSubscription) {
+      this.previewDataSubscription.unsubscribe();
+    }
+  }
+
   getPreview() {
     const id = this.id();
-    const type = this.type();
     this.sanitizedBackupContent = this.sanitizer.bypassSecurityTrustHtml(
       this.content(),
     );
     const linkUri = this.title_or_uri();
-    if (linkUri) {
-      const image_uri = this.image_uri();
-      if (!image_uri) {
-        this.linkPreviewService.getLinkPreview(linkUri).subscribe({
+    const imageUri = this.image_uri();
+
+    if (!linkUri) {
+      this.previewData = MissingLinkPreviewData;
+      this.lastPreviewKey = undefined;
+      return;
+    }
+
+    const previewKey = `${linkUri}|${imageUri ?? ''}`;
+    if (this.lastPreviewKey === previewKey) {
+      return;
+    }
+    this.lastPreviewKey = previewKey;
+
+    if (!imageUri) {
+      this.previewSubscription = this.linkPreviewService
+        .getLinkPreview(linkUri)
+        .subscribe({
           next: (data) => {
             this.previewData = data;
-            console.log(id);
-            if (id)
-              this.databaseService
+            if (id) {
+              const subscription2 = this.databaseService
                 .savePreviewData(id, data)
-                .subscribe((res) => console.log('stored lp', res));
+                .subscribe({
+                  next: (res) => console.log('stored lp', res),
+                  error: (err) => {
+                    console.error('Failed to store link preview:', err);
+                    subscription2.unsubscribe();
+                  },
+                  complete: () => subscription2.unsubscribe(),
+                });
+            }
           },
           error: (err) => {
             console.error('Failed to fetch link preview:', err);
             this.previewData = MissingLinkPreviewData;
+            this.previewSubscription.unsubscribe();
           },
+          complete: () => this.previewSubscription.unsubscribe(),
         });
-      } else {
-        if (id) {
-          this.databaseService.getPreviewData(id).subscribe((res) => {
-            this.previewData = {
-              title: res.title,
-              image: image_uri,
-              description: '',
-              url: res.uri,
-            };
-            // console.log('had it', id);
-          });
-        }
-      }
+      return;
     }
+
+    if (!id) {
+      return;
+    }
+
+    this.previewDataSubscription = this.databaseService
+      .getPreviewData(id)
+      .subscribe({
+        next: (res) => {
+          this.previewData = {
+            title: res.title,
+            image: imageUri,
+            description: '',
+            url: res.uri,
+          };
+        },
+        error: (err) => {
+          console.error('Failed to fetch stored link preview:', err);
+
+          this.previewDataSubscription.unsubscribe();
+        },
+        complete: () => this.previewDataSubscription.unsubscribe(),
+      });
   }
 }
-
-// @Component({
-//   selector: 'jzp-link-post',
-//   templateUrl: './link-post.component.html',
-//   styleUrls: ['./link-post.component.scss'],
-//   imports: [MatCardModule],
-// })
-// export class LinkPostComponent
-//   extends PostBaseComponent
-//   implements OnInit, LinkPost, OnChanges, AfterViewInit
-// {
-//   private linkPreviewService = inject(LinkPreviewService);
-//   private authService = inject(AuthService);
-
-//   linkPreviewData: LinkPreview;
-//   uri: string;
-//   image?: string;
-//   updated_at?: string | undefined;
-//   status?: string | undefined;
-
-//   /** Inserted by Angular inject() migration for backwards compatibility */
-//   constructor(...args: unknown[]);
-//   constructor() {
-//     super();
-//     this.type = 'LinkPost';
-//   }
-
-//   ngOnChanges(changes: SimpleChanges): void {
-//     if (changes['uriInput']) {
-//       this.getLinkPreview();
-//     }
-//   }
-
-//   get getLinkPreviewData() {
-//     return this.linkPreviewData;
-//   }
-
-//   get hasLinkPreviewData() {
-//     return this.getLinkPreviewData !== undefined;
-//   }
-
-//   async ngAfterViewInit() {
-//     try {
-//       (await this.linkPreviewService.getAPIKey())?.subscribe(async (val) => {
-//         this.linkPreviewService.apiKey = '1ba8305b83fd8470be4e9069b513094e';
-//         await this.getLinkPreview();
-//       });
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }
-
-//   async getLinkPreview() {
-//     // const headers = new HttpHeaders({
-//     //   'X-Firebase-AppCheck': this.authService.appCheckToken!,
-//     // });
-
-//     const linkArray = this.content.match(
-//       /(http|https):\/\/(www\.)?[a-zA-Z0-9]+\.[a-zA-Z0-9]+[a-zA-Z0-9+/\-.,&?=%#(_);:~]*/,
-//     );
-//     if (linkArray !== null) {
-//       this.uri = linkArray[0];
-//       try {
-//         this.linkPreviewService
-//           .getLinkPreview(String(this.uri))
-//           // .pipe(delay(15000))
-//           .subscribe({
-//             next: (data: unknown) => {
-//               // {
-//               this.linkPreviewData = data as LinkPreview;
-//               this.title = this.linkPreviewData.title
-//                 ? this.linkPreviewData.title
-//                 : this.title;
-
-//               this.content = this.linkPreviewData.description;
-//               this.image = this.linkPreviewData.image;
-//               // }
-//             },
-//             error: (err) => {
-//               this.title = MissingLinkPreviewData.title;
-//               this.content = MissingLinkPreviewData.description;
-//               console.error(err);
-//             },
-//           });
-//       } catch (err: any) {
-//         throw new Error(err);
-//       }
-//     }
-//   }
-// }
