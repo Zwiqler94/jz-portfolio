@@ -1,12 +1,13 @@
 import { NgClass } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   model,
   inject,
   input,
-  OnChanges,
-  SimpleChanges,
+  signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
 import { LinkPostComponent } from 'src/app/components/link-post/link-post.component';
 import {
@@ -17,6 +18,8 @@ import {
 import { TextPostComponent } from 'src/app/components/text-post/text-post.component';
 import { DatabaseService } from 'src/app/services/database/database.service';
 
+export type FeedState = 'loading' | 'ready' | 'empty' | 'error';
+
 @Component({
   selector: 'jzp-feed',
   templateUrl: './feed.component.html',
@@ -25,33 +28,36 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 })
 export class FeedComponent {
   readonly posts = model<AnyPost[]>([]);
+  readonly feedState = signal<FeedState>('loading');
   readonly triggerFetch = input<boolean>();
 
   private databaseService = inject(DatabaseService);
+  private destroyRef = inject(DestroyRef);
   authService: any;
   lp: any;
 
   constructor() {
-    const subscription = this.databaseService.getMainPosts().subscribe({
-      next: (data) => {
-        const sortedData = data.toSorted(this.sortPosts);
-        const mappedData = sortedData.map((post) => {
-          post.title_or_uri = ['TextPost', 'text'].includes(post.type)
-            ? post.title
-            : post.uri;
-          return post;
-        });
-        this.posts.set(mappedData);
-      },
-      error: (err) => {
-        console.error('Failed to fetch posts:', err);
-        subscription.unsubscribe();
-      },
-      complete: () => {
-        console.debug('Posts fetched successfully');
-        subscription.unsubscribe();
-      },
-    });
+    this.databaseService
+      .getMainPosts()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => {
+          const sortedData = data.toSorted(this.sortPosts);
+          const mappedData = sortedData.map((post) => {
+            post.title_or_uri = ['TextPost', 'text'].includes(post.type)
+              ? post.title
+              : post.uri;
+            return post;
+          });
+          this.posts.set(mappedData);
+          this.feedState.set(mappedData.length > 0 ? 'ready' : 'empty');
+        },
+        error: (err) => {
+          console.error('Failed to fetch posts:', err);
+          this.feedState.set('error');
+        },
+        complete: () => console.debug('Posts fetched successfully'),
+      });
   }
 
   // ngOnChanges(changes: SimpleChanges): void {

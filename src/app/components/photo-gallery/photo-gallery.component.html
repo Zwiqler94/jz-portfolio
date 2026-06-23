@@ -9,7 +9,6 @@
   <div class="outter-grid">
     @for (grid of displayGrids; track grid; let outterIndex = $index) {
       @if (grid.length >= 1) {
-        {{ galleryIds()[outterIndex] }}
         <div
           class="grid"
           [gallerize]="galleryIds()[outterIndex]"
