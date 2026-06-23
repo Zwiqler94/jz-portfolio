@@ -1,6 +1,15 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { AppCheck, getToken } from '@angular/fire/app-check';
+import {
+  EnvironmentInjector,
+  Injectable,
+  inject,
+  runInInjectionContext,
+} from '@angular/core';
+import {
+  AppCheck,
+  AppCheckTokenResult,
+  getToken,
+} from '@angular/fire/app-check';
 import { Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
@@ -10,24 +19,22 @@ import { throwError } from 'rxjs';
 })
 export class AuthService {
   private router = inject(Router);
-  private httpClient = inject(HttpClient);
+  // private httpClient = inject(HttpClient);
+  private environmentInjector = inject(EnvironmentInjector);
 
   private _appCheck: AppCheck = inject(AppCheck);
   private fbAuth: Auth = inject(Auth);
   private _userToken: string | undefined;
   private _uid: string | undefined;
-  private _appCheckToken: string | undefined;
+  private _appCheckToken: string;
   static called = 0;
   private _isLoggedIn = false;
 
   constructor() {
     if (!this.appCheckToken)
       this.getAppCheckToken('auth:constructor')
-        .then((val) =>
-          val
-            ? (this._appCheckToken = val.token)
-            : (this._appCheckToken = undefined),
-        )
+        .then((val) => (this._appCheckToken = val.token))
+        .catch((err) => console.error('Failed to get AppCheck token:', err))
         .finally(() => console.debug('tokened!'));
   }
 
@@ -55,47 +62,17 @@ export class AuthService {
     }
   }
 
-  async getAppCheckToken(from: string) {
-    console.debug({ cal: AuthService.called++, from });
-
-    if (this.fbAuth.currentUser) {
-      // if (!environment.local && this.appCheck) {
-      return getToken(this.appCheck);
-      // } else {
-
-      //   try {
-      //     const bearerToken =
-
-      //     const headers = new HttpHeaders().set(
-      //       'Authorization',
-      //       `Bearer ${bearerToken}`,
-      //     );
-
-      //     const token = await lastValueFrom(
-      //       this.httpClient
-      //         .get<{
-      //           token: string;
-      //         }>(`${environment.serviceOptions.url}/api/v3/auth/token`, {
-      //           headers,
-      //         })
-      //         .pipe(catchError(this.handleError)),
-      //     );
-
-      //     return token;
-      //   } catch (err) {
-      //     console.error(err);
-      //     return;
-      //   }
-      // }
-    } else return;
-    // return;
+  async getAppCheckToken(from: string): Promise<AppCheckTokenResult> {
+    return await runInInjectionContext(this.environmentInjector, () =>
+      getToken(this.appCheck),
+    );
   }
 
   logout() {
     this.fbAuth.signOut();
     this.uid = undefined;
     this.userToken = undefined;
-    this.appCheckToken = undefined;
+    this.appCheckToken = '';
     this.isLoggedIn = false;
     this.router.navigateByUrl('/login');
   }
@@ -128,10 +105,10 @@ export class AuthService {
     this._appCheck = value;
   }
 
-  public get appCheckToken(): string | undefined {
+  public get appCheckToken(): string {
     return this._appCheckToken;
   }
-  public set appCheckToken(value: string | undefined) {
+  public set appCheckToken(value: string) {
     this._appCheckToken = value;
   }
 

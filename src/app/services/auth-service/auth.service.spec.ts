@@ -1,210 +1,134 @@
 import { TestBed } from '@angular/core/testing';
-
+import { Router } from '@angular/router';
+import { Auth } from '@angular/fire/auth';
+import { AppCheck } from '@angular/fire/app-check';
 import { AuthService } from './auth.service';
-import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
-
-import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
-import { environment } from 'src/environments/environment';
-import { RouterTestingHarness } from '@angular/router/testing';
-import { HomePageComponent } from 'src/app/pages/blog-page/blog-page.component';
-import { Router, RouterStateSnapshot, provideRouter } from '@angular/router';
-import { importProvidersFrom } from '@angular/core';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { provideHttpClient } from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
-import {
-  AppCheck,
-  ReCaptchaV3Provider,
-  initializeAppCheck,
-  provideAppCheck,
-} from '@angular/fire/app-check';
-import * as appCheck from '@angular/fire/app-check';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpErrorResponse } from '@angular/common/http';
+import * as appCheckModule from '@angular/fire/app-check';
 
-import { LoginPageComponent } from 'src/app/pages/login-page/login-page.component';
-import Sinon, { stub } from 'sinon';
+class RouterStub {
+  navigateByUrl = jasmine.createSpy('navigateByUrl');
+}
 
-function fakeRouterState(url: string): RouterStateSnapshot {
-  return {
-    url,
-  } as RouterStateSnapshot;
+class AuthStub {
+  currentUser: { uid: string } | null = null;
+  signOut = jasmine.createSpy('signOut').and.returnValue(Promise.resolve());
 }
 
 describe('AuthService', () => {
   let service: AuthService;
-  let appCheckService: AppCheck;
+  let router: RouterStub;
+  let auth: AuthStub;
+  let appCheck: AppCheck;
 
   beforeEach(() => {
+    router = new RouterStub();
+    auth = new AuthStub();
+    appCheck = {} as AppCheck;
+
     TestBed.configureTestingModule({
       providers: [
-        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideAuth(() => {
-          const auth = getAuth();
-          if (environment.local) {
-            connectAuthEmulator(auth, 'http://localhost:9099', {
-              disableWarnings: true,
-            });
-          }
-          return auth;
-        }),
-        provideAppCheck(() =>
-          initializeAppCheck(getApp(), {
-            provider: new ReCaptchaV3Provider(environment.recaptchaSiteKey),
-            isTokenAutoRefreshEnabled: true,
-          }),
-        ),
-        importProvidersFrom(
-          ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: false,
-            // Register the ServiceWorker as soon as the application is stable
-            // or after 30 seconds (whichever comes first).
-            registrationStrategy: 'registerWhenStable:20000',
-          }),
-        ),
-        provideRouter([
-          {
-            path: 'home',
-            component: HomePageComponent,
-          },
-          { path: 'login', component: LoginPageComponent },
-          { path: '', component: LoginPageComponent },
-        ]),
         provideHttpClient(),
         provideHttpClientTesting(),
+        { provide: Router, useValue: router },
+        { provide: Auth, useValue: auth },
+        { provide: AppCheck, useValue: appCheck },
       ],
     });
+
     service = TestBed.inject(AuthService);
-    appCheckService = TestBed.inject(AppCheck);
-    const httpTesting = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    Sinon.restore();
+    router.navigateByUrl.calls.reset();
+    auth.signOut.calls.reset();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('allows route activation when a uid is present', () => {
+    service.uid = 'uid-123';
+
+    expect(service.canActivate()).toBeTrue();
+    expect(router.navigateByUrl).not.toHaveBeenCalled();
   });
 
-  it('should not be allowed route access if a user is not logged in and there is no uid for them', async () => {
-    const harness = await RouterTestingHarness.create();
-    const comp = await harness.navigateByUrl('/home', HomePageComponent);
-    const spy = spyOn(service, 'canActivate').and.callThrough();
-
-    const spy1 = spyOn(
-      TestBed.inject(Router),
-      'navigateByUrl',
-    ).and.callThrough();
+  it('redirects to login when no uid is available', () => {
     service.uid = undefined;
-    const x = service.canActivate(); //AuthGuard({} as ActivatedRouteSnapshot, fakeRouterState('home'));
-    // await harness.navigateByUrl('/error', ErrorPageComponent);
-    // await harness.navigateByUrl('/home', HomePageComponent);
 
-    expect(spy).toHaveBeenCalled();
-    expect(x).toBe(false);
-
-    expect(spy1)
-      .withContext('should go to login')
-      .toHaveBeenCalledWith('/login');
-  });
-  it('should  be allowed route access if a user is  logged in and there is a uid for them', async () => {
-    const harness = await RouterTestingHarness.create();
-    const comp = await harness.navigateByUrl('/home', HomePageComponent);
-    const spy = spyOn(service, 'canActivate').and.callThrough();
-
-    const spy1 = spyOn(
-      TestBed.inject(Router),
-      'navigateByUrl',
-    ).and.callThrough();
-    service.uid = 'mooie';
-    const x = service.canActivate(); //AuthGuard({} as ActivatedRouteSnapshot, fakeRouterState('home'));
-    // await harness.navigateByUrl('/error', ErrorPageComponent);
-    // await harness.navigateByUrl('/home', HomePageComponent);
-
-    expect(spy).toHaveBeenCalled();
-    expect(x).toBeTrue();
-
-    expect(spy1).withContext('should go to login').toHaveBeenCalledTimes(0);
+    expect(service.canActivate()).toBeFalse();
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/login');
   });
 
-  it('should clear uid and user token on logout and go to login page', async () => {
-    const harness = await RouterTestingHarness.create();
-    const comp = await harness.navigateByUrl('/home', HomePageComponent);
-    const spy = spyOn(service, 'logout').and.callThrough();
-
-    const spy1 = spyOn(
-      TestBed.inject(Router),
-      'navigateByUrl',
-    ).and.callThrough();
-    service.uid = 'mooie';
-    service.userToken = 'eynsDNFigfnovnosdinvoisnv9024ur98ghn39io';
-    service.logout();
-
-    expect(spy).toHaveBeenCalled();
-    expect(service.uid).toBeUndefined();
-    expect(service.userToken).toBeUndefined();
-    expect(spy1)
-      .withContext('should go to login')
-      .toHaveBeenCalledWith('/login');
-  });
-
-  xit('should call app-check getToken', async () => {
-    // const harness = await RouterTestingHarness.create();
-    // const comp = await harness.navigateByUrl('/home', HomePageComponent);
-    environment.local = false;
-
+  it('clears auth state and navigates on logout', () => {
+    service.uid = 'uid-123';
+    service.userToken = 'token';
+    service.appCheckToken = 'check';
     service.isLoggedIn = true;
 
-    // const spy2 = spyOnProperty(appCheckService, 'app').and.returnValue({
-    //   name: '',
-    //   options: {},
-    //   automaticDataCollectionEnabled: false
-    // });
+    service.logout();
 
-    console.log({
-      env: environment.local,
-      ac: service.appCheck ? 'defined' : undefined,
-    });
-
-    const fakeAppCheck = {
-      getToken: async () => {
-        return { token: '' };
-      },
-    };
-
-    const fakeSpy = stub(appCheck, 'getToken'); //.resolves({ token:''});
-    // service.uid = 'mooie';
-    // service.userToken = 'eynsDNFigfnovnosdinvoisnv9024ur98ghn39io';
-    // service.logout();
-    try {
-      await service.getAppCheckToken('moose');
-      expect(fakeSpy).toBe(1);
-    } catch (err) {
-      console.error(err);
-    }
-    // expect(spy2).toBeDefined()
+    expect(auth.signOut).toHaveBeenCalled();
+    expect(service.uid).toBeUndefined();
+    expect(service.userToken).toBeUndefined();
+    expect(service.appCheckToken).toBeUndefined();
+    expect(service.isLoggedIn).toBeFalse();
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/login');
   });
 
-  xit('should trigger error Handler', async () => {
-    // const harness = await RouterTestingHarness.create();
-    // const comp = await harness.navigateByUrl('/home', HomePageComponent);
-    // environment.local = false;
+  it('fetches an App Check token when the Firebase user exists', async () => {
+    auth.currentUser = { uid: 'uid-123' };
+    const tokenSpy = spyOn(appCheckModule, 'getToken').and.returnValue(
+      Promise.resolve({ token: 'app-check-token' } as any),
+    );
 
-    const spy = spyOn(service, 'getAppCheckToken').and.rejectWith(undefined);
+    const token = await service.getAppCheckToken('spec');
 
-    // const fakeAppCheck = {
-    //   getToken: appCheck.getToken,
-    // };
+    expect(tokenSpy).toHaveBeenCalledWith(appCheck);
+    expect(token?.token).toBe('app-check-token');
+  });
 
-    await service.getAppCheckToken('moose');
+  it('skips App Check token retrieval when there is no Firebase user', async () => {
+    auth.currentUser = null;
+    const tokenSpy = spyOn(appCheckModule, 'getToken').and.returnValue(
+      Promise.resolve({ token: 'unused' } as any),
+    );
 
-    // const spy1 = spyOn(fakeAppCheck, 'getToken').and.resolveTo();
-    // service.uid = 'mooie';
-    // service.userToken = 'eynsDNFigfnovnosdinvoisnv9024ur98ghn39io';
-    // service.logout();
+    const token = await service.getAppCheckToken('spec');
 
-    expect(spy).toThrowError();
+    expect(token).toBeUndefined();
+    expect(tokenSpy).not.toHaveBeenCalled();
+  });
+
+  it('handleError surfaces client-side failures', (done) => {
+    const error = new HttpErrorResponse({
+      status: 0,
+      statusText: 'CLIENT',
+      error: 'offline',
+      url: '/test',
+    });
+
+    service.handleError(error).subscribe({
+      error: (err) => {
+        expect(err.message).toContain('Something bad happened');
+        done();
+      },
+    });
+  });
+
+  it('handleError surfaces server-side failures', (done) => {
+    const error = new HttpErrorResponse({
+      status: 500,
+      statusText: 'SERVER',
+      error: { message: 'broken' },
+      url: '/test',
+    });
+
+    service.handleError(error).subscribe({
+      error: (err) => {
+        expect(err.message).toContain('Something bad happened');
+        done();
+      },
+    });
   });
 });
