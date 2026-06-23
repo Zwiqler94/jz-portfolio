@@ -8,9 +8,9 @@ import { MatCardModule } from '@angular/material/card';
   imports: [MatCardModule],
 })
 export class CarouselComponent {
-  readonly slides = input<string[]>();
-  currentSlideIndex = 0;
-  currentSlide: string;
+  protected readonly slides = input<string[]>();
+  protected currentSlideIndex = 0;
+  protected currentSlide: string;
 
   constructor() {
     this.loop();

@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { AppCheck } from '@angular/fire/app-check';
@@ -28,12 +28,13 @@ export const RELOAD_DOCUMENT = new InjectionToken<() => void>(
   imports: [
     RouterLink,
     RouterLinkActive,
-    MatButton,
+    MatButtonModule,
     MatIcon,
     MatSidenavModule,
     RouterOutlet,
-    FooterComponent,
+    // FooterComponent,
     NavBarComponent,
+    FooterComponent,
   ],
 })
 export class AppComponent implements OnInit {

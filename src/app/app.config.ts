@@ -13,26 +13,17 @@ import {
   withComponentInputBinding,
   withPreloading,
 } from '@angular/router';
-import { GALLERY_CONFIG, GalleryConfig, GalleryModule } from 'ng-gallery';
-import {
-  LIGHTBOX_CONFIG,
-  LightboxConfig,
-  LightboxModule,
-} from 'ng-gallery/lightbox';
 import { IMAGE_CONFIG, provideCloudinaryLoader } from '@angular/common';
 import { setLogLevel, LogLevel } from '@angular/fire';
 import {
   ApplicationConfig,
-  importProvidersFrom,
   isDevMode,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
-import {
-  provideAnimations,
-  provideNoopAnimations,
-} from '@angular/platform-browser/animations';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { GALLERY_CONFIG, GalleryConfig } from 'ng-gallery';
+import { LIGHTBOX_CONFIG, LightboxConfig } from 'ng-gallery/lightbox';
 import { environment } from '../environments/environment';
 import { routes } from 'src/app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
@@ -43,11 +34,14 @@ setLogLevel(LogLevel.VERBOSE);
 
 declare global {
   var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
+  var __NG_GALLERY_DEBUG: boolean;
 }
 
 self.FIREBASE_APPCHECK_DEBUG_TOKEN = isDevMode()
   ? environment.appCheckDebug
   : false;
+
+self.__NG_GALLERY_DEBUG = true;
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -79,7 +73,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideAnimations(),
     provideCloudinaryLoader('https://res.cloudinary.com/dhdioy0wn'),
-    importProvidersFrom(GalleryModule, LightboxModule),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirebaseApp(() =>
       initializeApp(

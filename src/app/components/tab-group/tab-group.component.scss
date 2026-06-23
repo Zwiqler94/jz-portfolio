@@ -1,3 +1,20 @@
+@use "../../../style_vars/breakpoints" as bp;
+
+:host {
+  display: block;
+  width: 100%;
+  max-width: min(100%, var(--app-vw, 100dvw));
+}
+
 #about-tabs {
-  width: 100dvw;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+mat-tab-nav-panel {
+  display: block;
+  width: 100%;
+  max-width: 100%;
 }
