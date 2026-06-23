@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { ApplicationRef, Injectable, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { SwPush, SwUpdate } from '@angular/service-worker';
@@ -81,16 +82,6 @@ export class ServiceWorkerService {
           });
       });
     }
-
-    // updates.versionUpdates
-    //   .pipe(
-    //     filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')
-    //   )
-    //   .subscribe((evt) => {
-    //     // Reload the page to update to the latest version.
-    //     document.location.reload();
-    //     // this.openSnackbar('Update App?', 'Ok!');
-    //   });
   }
 
   get swUpdates() {
