@@ -1,20 +1,22 @@
-import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
 import eslint from "@eslint/js";
 import angular from "angular-eslint";
 
-export default defineConfig([
+export default defineConfig(
   {
     files: ["**/*.{js,ts}"],
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
-      ...angular.configs.tsRecommended,
+      tseslint.configs.recommended,
+      tseslint.configs.stylistic,
+      angular.configs.tsRecommended,
     ],
-    languageOptions: { globals: globals.browser },
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { tsconfigRootDir: __dirname, projectServices: true },
+    },
     processor: angular.processInlineTemplates,
     rules: {
       "@angular-eslint/directive-selector": [
@@ -34,9 +36,11 @@ export default defineConfig([
         },
       ],
       "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-require-imports": "off",
       "no-undef": "off",
+      "@typescript-eslint/await-thenable": "off",
     },
   },
   {
@@ -47,4 +51,4 @@ export default defineConfig([
     ],
     rules: {},
   },
-]);
+);

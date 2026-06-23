@@ -1,7 +1,7 @@
 dist/*
 .angular/**/*
 .firebase/**/*
-.github/**/*
+.github/**/*.yml
 .vscode/**/*
 e2e/**/*
 *.jpeg
