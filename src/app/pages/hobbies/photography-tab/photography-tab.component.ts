@@ -1,25 +1,7 @@
 /* istanbul ignore file */
 import { Component, OnInit, inject, viewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import {
-  Gallery,
-  GalleryConfig,
-  GalleryItem,
-  GalleryModule,
-  GalleryRef,
-  ImageItem,
-} from 'ng-gallery';
-import { LightboxModule } from 'ng-gallery/lightbox';
-import {
-  combineLatestAll,
-  concatMap,
-  delay,
-  forkJoin,
-  map,
-  mergeAll,
-  mergeMap,
-  retry,
-} from 'rxjs';
+import { concatMap, delay, forkJoin, retry } from 'rxjs';
 import {
   CloudinaryApiResponse,
   Resource,
@@ -28,28 +10,21 @@ import { ImageService } from 'src/app/services/image/image.service';
 import { LoadingOverlayComponent } from '../../../components/loading-overlay/loading-overlay.component';
 import { PhotoGalleryComponent } from '../../../components/photo-gallery/photo-gallery.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { GalleryItemData } from 'ng-gallery';
 
 @Component({
   selector: 'jzp-photography-tab',
   templateUrl: './photography-tab.component.html',
   styleUrls: ['./photography-tab.component.scss'],
-  imports: [
-    GalleryModule,
-    LightboxModule,
-    MatCardModule,
-    LoadingOverlayComponent,
-    PhotoGalleryComponent,
-  ],
+  imports: [MatCardModule, LoadingOverlayComponent, PhotoGalleryComponent],
 })
 export class PhotographyTabComponent implements OnInit {
   private imageService = inject(ImageService);
-  gallery = inject(Gallery);
 
   // private storage = inject(Storage);
 
   galleryIds = ['MIIIII', 'YUUUUUU'];
-  galleryRefs: GalleryRef[] = [];
-  photoGrids: GalleryItem[][] = [];
+  photoGrids: GalleryItemData[][] = [];
 
   readonly paginator = viewChild(MatPaginator);
 
@@ -134,13 +109,6 @@ export class PhotographyTabComponent implements OnInit {
   // }
 
   private setUpPhotographyImagesCloudinary() {
-    const config: GalleryConfig = {
-      // thumbAutosize: true,
-      // itemAutosize: true,
-      thumbPosition: 'left',
-      scrollBehavior: 'smooth',
-      // imageSize: 'contain',
-    };
     try {
       forkJoin([
         this.imageService.getHuxleyImageInfo(),
@@ -170,11 +138,8 @@ export class PhotographyTabComponent implements OnInit {
         )
         .subscribe((imageResults) => {
           console.log(imageResults);
-          const galleryRef1 = this.gallery.ref(this.galleryIds[0], config);
-          // const galleryRef2 = this.gallery.ref(this.galleryIds[1], config);
-          galleryRef1.load(this.setImageArr(imageResults, []));
-          // galleryRef2.load(this.setImageArr(imageResults.slice(3), []));
-          this.galleryRefs = [galleryRef1];
+
+          this.setImageArr(imageResults, []);
         });
     } catch (error) {
       console.debug('Photography Tab Images Cannot Be Displayed');
@@ -184,26 +149,24 @@ export class PhotographyTabComponent implements OnInit {
 
   private setImageArr(
     imageResults: CloudinaryApiResponse[],
-    arr: GalleryItem[],
-  ): GalleryItem[] {
+    arr: GalleryItemData[],
+  ): GalleryItemData[] {
     this.zipImageResults([
       imageResults[0].resources,
       imageResults[1].resources,
       imageResults[2].resources,
     ]).forEach((imageResult) => {
       if (imageResult) {
-        arr.push(
-          new ImageItem({
-            src: imageResult.secure_url.replace(
-              /v[\d]*/,
-              'r_40/w_auto,q_auto,f_auto',
-            ),
-            thumb: imageResult.secure_url.replace(
-              /v[\d]*/,
-              'r_40/c_auto,g_auto,q_auto,f_auto',
-            ),
-          }),
-        );
+        arr.push({
+          src: imageResult.secure_url.replace(
+            /v[\d]*/,
+            'r_40/w_auto,q_auto,f_auto',
+          ),
+          thumb: imageResult.secure_url.replace(
+            /v[\d]*/,
+            'r_40/c_auto,g_auto,q_auto,f_auto',
+          ),
+        });
       }
     });
     if (arr.length > 0) this.photoGrids.push(arr);
