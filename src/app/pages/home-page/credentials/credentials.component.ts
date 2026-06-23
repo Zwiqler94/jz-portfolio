@@ -1,4 +1,11 @@
-import { Component, OnInit, Renderer2, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  Renderer2,
+  inject,
+  input,
+} from '@angular/core';
 import {
   Achievement,
   MicrosoftLearnUserProfile,
@@ -16,6 +23,7 @@ import { LearningCredential } from 'src/app/interfaces/credentials/credential.in
   templateUrl: './credentials.component.html',
   styleUrls: ['./credentials.component.scss'],
   imports: [MatCardModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CredentialsComponent extends TabComponent implements OnInit {
   private renderer2 = inject(Renderer2);
@@ -37,8 +45,8 @@ export class CredentialsComponent extends TabComponent implements OnInit {
 
   ngOnInit(): void {
     credentials.forEach((val) => {
-      val.height = 100;
-      val.width = 100;
+      val.height = 300;
+      val.width = 300;
       val.host = 'https://www.credly.com';
       this.creds.push({
         credentialMsft: undefined,
@@ -47,7 +55,7 @@ export class CredentialsComponent extends TabComponent implements OnInit {
       });
     });
 
-    // console.debug(this.credlyCreds)
+    console.debug(this.credlyCreds);
     const scriptEl = this.renderer2.createElement('script');
     scriptEl.src = 'assets/credentials/credly-embed.js';
     scriptEl.async = true;

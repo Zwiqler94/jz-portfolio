@@ -1,46 +1,41 @@
-/*  The following rule targets internal classes of chips that may no longer apply for the MDC version. */
+@use "../../../../style_vars/breakpoints" as bp;
+
 mat-chip {
   height: 2rem;
 }
 
 .skills-content {
   position: relative;
-  margin: 1rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: clamp(1rem, 2.5dvw, 2rem);
   color: var(--mat-sys-on-secondary-container);
 }
 
 #skills-title {
-  margin-block-start: 1rem;
-  margin-inline-start: 1rem;
+  flex: 1 0 100%;
+  margin: 0 0 1rem 1rem;
 }
 
-/*  The following rule targets internal classes of card that may no longer apply for the MDC version. */
 .mat-mdc-card {
-  padding: 0.25rem;
+  width: min(100%, 48rem);
   max-width: 100%;
-  min-width: 45%;
+  padding: 0.25rem;
+  box-sizing: border-box;
 }
 
-@media (max-width: 390px) {
-  .mat-mdc-card {
-    min-width: 21.25%;
-    max-width: 21.25%;
+mat-accordion {
+  display: block;
+  width: 100%;
+}
+
+@include bp.down(mobile) {
+  .skills-content {
+    margin-inline: 0.75rem;
   }
-}
 
-@media (max-width: 375px) {
-  .mat-mdc-card {
-    min-width: 22%;
-    max-width: 22%;
-  }
-}
-
-@media (max-width: 320px) {
-  .mat-mdc-card {
-    min-width: 19%;
-    max-width: 19%;
+  #skills-title {
+    margin-inline-start: 0.5rem;
   }
 }
