@@ -8,19 +8,25 @@ on:
       - opened
       - closed
       - synchronize
-permissions: write-all
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
 jobs:
   versionDev:
-    if: ${{ github.base_ref != 'main' }}
+    if: ${{ github.base_ref != 'main' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
     uses: ./.github/workflows/version.yml
     secrets: inherit
-  deployDev:
+  deployDevPreview:
+    if: ${{ github.base_ref != 'main' && github.event.pull_request.head.repo.full_name == github.repository && (github.event.action == 'opened' || github.event.action == 'synchronize') }}
+    uses: ./.github/workflows/main-deploy-workflow.yml
+    secrets: inherit
+  deployDevRelease:
     needs: [versionDev]
-    if: ${{ needs.versionDev.outputs.versionType == 'stop' }}
+    if: ${{ github.base_ref != 'main' && github.event.action == 'closed' && github.event.pull_request.merged == true && needs.versionDev.outputs.versionType == 'stop' }}
     uses: ./.github/workflows/main-deploy-workflow.yml
     secrets: inherit
   deployProd:
     if: ${{ github.base_ref == 'main' }}
     uses: ./.github/workflows/main-deploy-workflow.yml
     secrets: inherit
-

@@ -7,337 +7,173 @@ on:
       versionType:
         description: "the version increment type (major, minor, or patch)"
         value: ${{ jobs.verify-commit.outputs.versionType }}
-permissions: write-all
+permissions:
+  contents: read
 env:
-  test: ""
-  commitMsg: ""
   REPO_URL: "https://api.github.com/repos/${{ github.repository }}"
   HUSKY: 0
 jobs:
-  check-tokens:
-    runs-on: ubuntu-latest
-    outputs:
-      appToken: ${{ steps.checkToken.outputs.appToken }}
-      userToken: ${{ steps.checkToken.outputs.userToken }}
-    steps:
-      - id: checkToken
-        uses: Zwiqler94/GH-Actions@v0.8.0
-        with:
-          token: ${{ secrets.USER_ACCESS_TOKEN }}
-          appId: ${{ secrets.APP_ID }}
-          privateKey: ${{ secrets.APP_PRIVATE_KEY }}
-          clientId: ${{ secrets.APP_CLIENT_ID }}
-          clientSecret: ${{ secrets.APP_CLIENT_SECRET }}
-          userRefreshToken: ${{ secrets.USER_REFRESH_TOKEN }}
   verify-commit:
     if: ${{ github.event.pull_request.merged == true }}
-    needs: [check-tokens]
     uses: ./.github/workflows/verify-commit.yml
-  version-patch:
-    if: ${{ github.event.pull_request.merged == true }}
-    needs: [verify-commit, check-tokens]
+  version-release:
+    if: ${{ github.event.pull_request.merged == true && github.event.action == 'closed' && needs.verify-commit.outputs.versionType != 'stop' }}
+    needs: [verify-commit]
     runs-on: ubuntu-latest
+    env:
+      BASE_REF: ${{ github.base_ref }}
+      BUMP_TYPE: ${{ needs.verify-commit.outputs.versionType }}
+      HEAD_REF: ${{ github.head_ref }}
     steps:
+      - name: Get release token
+        id: releaseTokens
+        uses: Zwiqler94/GH-Actions@v5
+        with:
+          mode: app-token
+          appId: ${{ secrets.APP_ID }}
+          privateKey: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
       - name: checkout
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
-          token: ${{ secrets.APP_ACCESS_TOKEN }}
-      - name: Use Node.js 22.0
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: "npm"
-      - name: log versions
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: |
-          node --version
-          npm --version
-      - name: version
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: |
-          git remote set-url origin https://github-actions[bot]:${{ secrets.APP_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git
-          git pull --tags
-          git config --local user.name 'github-actions[bot]'
-          git config --local user.email 'github-actions[bot]@github.com'
-          git config --local push.autoSetupRemote true
-          git checkout -b "${{ github.head_ref }}"
-          npm ci
-          npm version patch
-          git push
-          git push --tags
-      - name: set PULL_URL
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: |
-          printf 'PULL_URL=%s/pulls\n' "${{ env.REPO_URL }}" >> "$GITHUB_ENV"
-      - name: check URL
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: echo "-URL-> ${{ env.PULL_URL }}"
-      - name: set PULL REQ JSON
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: |
-          JSON=$(jq -cn --arg head "Zwiqler94:${{ github.head_ref }}" '
-          {
-            title: "chore(release): amazing new patch",
-            body: "Please pull these awesome changes in!",
-            head: $head,
-            base: "development"
-          }')
-          printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
-      - name: check JSON
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: |
-          echo "-JSON->"
-          printf '%s\n' "$JSON"
-      - name: get PR Number
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        env:
-          JSON_PAYLOAD: ${{ env.JSON }}
-        run: |
-          PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" \
-            -H "Accept:application/vnd.github+json" \
-            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
-            -H "X-GitHub-Api-Version:2022-11-28" \
-            -d "$JSON_PAYLOAD" | jq -r '.number')
-          printf 'PR_NUM=%s\n' "$PR_NUM" >> "$GITHUB_ENV"
-      - name: check PR NUM
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: echo "-Curl-> ${{ env.PR_NUM }}"
-      - name: set APPROVAL_URL
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: |
-          printf 'APPROVAL_URL=%s/%s/reviews\n' "${{ env.PULL_URL }}" "${{ env.PR_NUM }}" >> "$GITHUB_ENV"
-      - name: request APPROVAL
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: curl --request POST "${{ env.APPROVAL_URL }}"  -H "content-type:application/json" -H 'Authorization:Bearer ${{ secrets.USER_ACCESS_TOKEN }}' -d '{"event":"APPROVE"}'
-      - name: check commit JSON
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        run: |
-          echo "-COMMIT-JSON->"
-          printf '%s\n' "$JSON"
-      - name: request Merge
-        if: ${{ needs.verify-commit.outputs.versionType == 'patch' }}
-        env:
-          MERGE_URL: ${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge
-          COMMIT_MSG: ${{ needs.verify-commit.outputs.commitMsg }}
-        run: |
-          PAYLOAD=$(jq -n \
-            --arg msg "$COMMIT_MSG" \
-            '{commit_title:"version", commit_message: (if $msg == "" then "[skip ci]" else ($msg + " [skip ci]") end)}')
-          curl --request PUT "$MERGE_URL" \
-            -H "Accept:application/vnd.github+json" \
-            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
-            -H "X-GitHub-Api-Version:2022-11-28" \
-            -d "$PAYLOAD"
-  version-minor:
-    if: ${{ github.event.pull_request.merged == true }}
-    needs: [verify-commit, check-tokens]
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        uses: actions/checkout@v5
-        with:
-          token: ${{ secrets.APP_ACCESS_TOKEN }}
+          token: ${{ steps.releaseTokens.outputs.token }}
+          fetch-depth: 0
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v3
         with:
           credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_NPM_PKG }}"
       - name: Set up gcloud Cloud SDK environment
         uses: google-github-actions/setup-gcloud@v3
-      - env:
-          HEAD_REF: ${{ github.head_ref }}
-        run: echo "HEAD_REF=$HEAD_REF" >> "$GITHUB_ENV"
-      - run: echo " $HEAD_REF "
-      - run: |
-            gcloud config set artifacts/repository everything-lib
-            gcloud config set artifacts/location us-central1
-            gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
-            npx google-artifactregistry-auth
+      - name: Authenticate to Artifact Registry
+        run: |
+          gcloud config set artifacts/repository everything-lib
+          gcloud config set artifacts/location us-central1
+          gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
+          npx google-artifactregistry-auth
       - name: Use Node.js 22
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: "npm"
       - name: log versions
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         run: |
           node --version
           npm --version
       - name: version
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         run: |
-          git remote set-url origin https://github-actions[bot]:${{ secrets.APP_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git
-          git pull --tags
+          set -euo pipefail
+
+          git fetch --tags origin
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
           git config --local push.autoSetupRemote true
-          git checkout -b "$HEAD_REF"
+          git checkout -B "$HEAD_REF"
+
+          echo "::group::Release context"
+          printf 'event=%s\n' "${GITHUB_EVENT_NAME:-}"
+          printf 'base ref=%s\n' "$BASE_REF"
+          printf 'head ref=%s\n' "$HEAD_REF"
+          printf 'bump type=%s\n' "$BUMP_TYPE"
+          printf 'github ref=%s\n' "${GITHUB_REF:-}"
+          printf 'github sha=%s\n' "${GITHUB_SHA:-}"
+          printf 'checked out branch=%s\n' "$(git branch --show-current)"
+          printf 'checked out sha=%s\n' "$(git rev-parse --short HEAD)"
+          printf 'latest version tags:\n'
+          git tag --sort=-version:refname | sed -n '1,10p'
+          echo "::endgroup::"
+
           npm ci
-          npm version minor --force
-          echo "version=$(node -p \"require('./package.json').version\")"
-          git push
-          git push --tags
+          CURRENT_VERSION="$(node -p "require('./package.json').version")"
+          printf 'package version before bump=%s\n' "$CURRENT_VERSION"
+
+          npm version "$BUMP_TYPE" --no-git-tag-version
+
+          NEXT_VERSION="$(node -p "require('./package.json').version")"
+          printf 'package version after bump=%s\n' "$NEXT_VERSION"
+          printf 'VERSION=%s\n' "$NEXT_VERSION" >> "$GITHUB_ENV"
+
+          npm run changelog:update
+
+          echo "::group::Changelog after update"
+          git diff --stat -- CHANGELOG.md package.json package-lock.json
+          printf 'top changelog headings:\n'
+          awk '
+            /^# / || /^## / {
+              print
+              count++
+              if (count == 5) {
+                exit
+              }
+            }
+          ' CHANGELOG.md
+          echo "::endgroup::"
+
+          if git diff --quiet -- CHANGELOG.md; then
+            echo "::error::CHANGELOG.md did not change"
+            exit 1
+          fi
+
+          CHANGELOG_VERSION="$(
+            awk '
+              /^# / || /^## / {
+                heading = $0
+                sub(/^##? /, "", heading)
+                sub(/^<small>/, "", heading)
+                sub(/^\[/, "", heading)
+                sub(/[\] ].*$/, "", heading)
+                print heading
+                exit
+              }
+            ' CHANGELOG.md
+          )"
+          printf 'parsed changelog version=%s\n' "$CHANGELOG_VERSION"
+          printf 'expected package version=%s\n' "$NEXT_VERSION"
+          if [ "$CHANGELOG_VERSION" != "$NEXT_VERSION" ]; then
+            echo "::error::CHANGELOG.md top entry ($CHANGELOG_VERSION) does not match version ($NEXT_VERSION)"
+            exit 1
+          fi
+
+          git add package.json package-lock.json CHANGELOG.md
+          git commit -m "chore(release): ${NEXT_VERSION}"
+          git tag "v${NEXT_VERSION}"
+          git push origin "HEAD:${HEAD_REF}"
+          git push origin "refs/tags/v${NEXT_VERSION}"
       - name: set PULL_URL
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         run: |
-          printf 'PULL_URL=%s/pulls\n' "${{ env.REPO_URL }}" >> "$GITHUB_ENV"
-      - name: check URL
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        run: echo "-URL-> ${{ env.PULL_URL }}"
+          printf 'PULL_URL=%s/pulls\n' "$REPO_URL" >> "$GITHUB_ENV"
       - name: set PULL REQ JSON
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         run: |
-          JSON=$(jq -cn --arg head "Zwiqler94:${{ github.head_ref }}" '
+          JSON=$(jq -cn --arg head "Zwiqler94:${HEAD_REF}" --arg base "$BASE_REF" --arg version "$VERSION" '
           {
-            title: "chore(release): amazing new minor update",
-            body: "Please pull these awesome changes in!",
+            title: ("chore(release): " + $version),
+            body: ("Automated release PR for " + $version + "."),
             head: $head,
-            base: "development"
+            base: $base
           }')
           printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
-      - name: check JSON
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        run: |
-          echo "-JSON->"
-          printf '%s\n' "$JSON"
       - name: get PR Number
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         env:
           JSON_PAYLOAD: ${{ env.JSON }}
         run: |
-          PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" \
+          PR_NUM=$(curl -L -X POST "$PULL_URL" \
             -H "Accept:application/vnd.github+json" \
-            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
+            -H "Authorization:Bearer ${{ steps.releaseTokens.outputs.token }}" \
             -H "X-GitHub-Api-Version:2022-11-28" \
             -d "$JSON_PAYLOAD" | jq -r '.number')
           printf 'PR_NUM=%s\n' "$PR_NUM" >> "$GITHUB_ENV"
-      - name: check PR NUM
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        run: echo "-Curl-> ${{ env.PR_NUM }}"
-      - name: set APPROVAL_URL
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        run: |
-          printf 'APPROVAL_URL=%s/%s/reviews\n' "${{ env.PULL_URL }}" "${{ env.PR_NUM }}" >> "$GITHUB_ENV"
-      - name: request APPROVAL
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
-        run: curl --request POST "${{ env.APPROVAL_URL }}"  -H "content-type:application/json" -H 'Authorization:Bearer ${{ secrets.USER_ACCESS_TOKEN }}' -d '{"event":"APPROVE"}'
       - name: request Merge
-        if: ${{ needs.verify-commit.outputs.versionType == 'minor' }}
         env:
           MERGE_URL: ${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge
-          COMMIT_MSG: ${{ needs.verify-commit.outputs.commitMsg }}
         run: |
           PAYLOAD=$(jq -n \
-            --arg msg "$COMMIT_MSG" \
-            '{commit_title:"version", commit_message: (if $msg == "" then "[skip ci]" else ($msg + " [skip ci]") end)}')
+            --arg version "$VERSION" \
+            '{commit_title: ("chore(release): " + $version + " [skip ci]"), commit_message: ""}')
           curl --request PUT "$MERGE_URL" \
             -H "Accept:application/vnd.github+json" \
-            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
+            -H "Authorization:Bearer ${{ steps.releaseTokens.outputs.token }}" \
             -H "X-GitHub-Api-Version:2022-11-28" \
             -d "$PAYLOAD"
-  version-major:
-    if: ${{ github.event.pull_request.merged == true }}
-    needs: [verify-commit, check-tokens]
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        uses: actions/checkout@v4.2.2
-        with:
-          token: ${{ secrets.APP_ACCESS_TOKEN }}
-      - name: Use Node.js 22
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: "npm"
-      - name: log versions
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: |
-          node --version
-          npm --version
-      - name: version
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: |
-          git remote set-url origin https://github-actions[bot]:${{ secrets.APP_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git
-          git pull --tags
-          git config --local user.name 'github-actions[bot]'
-          git config --local user.email 'github-actions[bot]@github.com'
-          git config --local push.autoSetupRemote true
-          git checkout -b "${{ github.head_ref }}"
-          npm ci
-          npm version major
-          echo "version=$(node -p \"require('./package.json').version\")"
-          git push
-          git push --tags
-      - name: set PULL_URL
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: |
-          printf 'PULL_URL=%s/pulls\n' "${{ env.REPO_URL }}" >> "$GITHUB_ENV"
-      - name: check URL
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: echo "-URL-> ${{ env.PULL_URL }}"
-      - name: set PULL REQ JSON
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: |
-          JSON=$(jq -cn --arg head "Zwiqler94:${{ github.head_ref }}" '
-          {
-            title: "chore(release): amazing new major update",
-            body: "Please pull these awesome changes in! BREAKING CHANGE: MAJOR UPDATE",
-            head: $head,
-            base: "development"
-          }')
-          printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
-      - name: check JSON
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: |
-          echo "-JSON->"
-          printf '%s\n' "$JSON"
-      - name: get PR Number
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        env:
-          JSON_PAYLOAD: ${{ env.JSON }}
-        run: |
-          PR_NUM=$(curl -L -X POST "${{ env.PULL_URL }}" \
-            -H "Accept:application/vnd.github+json" \
-            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
-            -H "X-GitHub-Api-Version:2022-11-28" \
-            -d "$JSON_PAYLOAD" | jq -r '.number')
-          printf 'PR_NUM=%s\n' "$PR_NUM" >> "$GITHUB_ENV"
-      - name: check PR NUM
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: echo "-Curl-> ${{ env.PR_NUM }}"
-      - name: set APPROVAL_URL
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: |
-          printf 'APPROVAL_URL=%s/%s/reviews\n' "${{ env.PULL_URL }}" "${{ env.PR_NUM }}" >> "$GITHUB_ENV"
-      - name: request APPROVAL
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        run: curl --request POST "${{ env.APPROVAL_URL }}"  -H "content-type:application/json" -H 'Authorization:Bearer ${{ secrets.USER_ACCESS_TOKEN }}' -d '{"event":"APPROVE"}'
-      - name: request Merge
-        if: ${{ needs.verify-commit.outputs.versionType == 'major' }}
-        env:
-          MERGE_URL: ${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge
-          COMMIT_MSG: ${{ needs.verify-commit.outputs.commitMsg }}
-        run: |
-          PAYLOAD=$(jq -n \
-            --arg msg "$COMMIT_MSG" \
-            '{commit_title:"version", commit_message: (if $msg == "" then "[skip ci]" else ($msg + " [skip ci]") end)}')
-          curl --request PUT "$MERGE_URL" \
-            -H "Accept:application/vnd.github+json" \
-            -H "Authorization:Bearer ${{ secrets.APP_ACCESS_TOKEN }}" \
-            -H "X-GitHub-Api-Version:2022-11-28" \
-            -d "$PAYLOAD"
-  skip-no-deploy:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.action == 'opened' || github.event.action == 'synchronize'}}
-    steps:
-      - run: |
-          echo "::notice:: skip versioning because we are not deploying"
-          exit 0
   skip-already-versioned:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.merged == true && github.event.action == 'closed' }}
@@ -345,23 +181,20 @@ jobs:
     steps:
       - if: ${{ needs.verify-commit.outputs.versionType == 'stop' }}
         run: |
-            echo "::notice:: skip versioning because been there done that"
-            exit 0
+          echo "::notice:: skip versioning because been there done that"
+          exit 0
   check-version-job:
     runs-on: ubuntu-latest
     needs:
       [
-        check-tokens,
         verify-commit,
-        version-patch,
-        version-minor,
-        version-major,
-        skip-no-deploy,
+        version-release,
         skip-already-versioned,
       ]
     if: ${{ always() }}
     steps:
-      - run: |
+      - name: determine version status
+        run: |
           merged='${{ github.event.pull_request.merged }}'
           action='${{ github.event.action }}'
 
@@ -374,17 +207,17 @@ jobs:
             exit 0
           fi
 
-          if [[ '${{ needs.check-tokens.result }}' == 'failure' && '${{ needs.verify-commit.result }}' == 'failure' && '${{ needs.version-patch.result }}' == 'failure' && '${{ needs.version-minor.result }}' == 'failure' && '${{ needs.version-major.result }}' == 'failure' && '${{ needs.skip-no-deploy.result }}' == 'failure' && '${{ needs.skip-already-versioned.result }}' == 'failure' ]]; then
-            echo "::error:: check-tokens=${{ needs.check-tokens.result }}, verify-commit=${{ needs.verify-commit.result }}, version-patch=${{ needs.version-patch.result }}, version-minor=${{ needs.version-minor.result }}, version-major=${{ needs.version-major.result }}, skip-no-deploy=${{ needs.skip-no-deploy.result }}, skip-already-versioned=${{ needs.skip-already-versioned.result }}"
-            echo "Version Failed"
-            exit 1
-          elif [[ '${{ needs.version-patch.result }}' == 'success' || '${{ needs.version-minor.result }}' == 'success' || '${{ needs.version-major.result }}' == 'success' ]]; then
+          if [[ '${{ needs.skip-already-versioned.result }}' == 'success' ]]; then
+            echo "Version Skipped"
+            exit 0
+          elif [[ '${{ needs.version-release.result }}' == 'success' ]]; then
             echo "::notice:: Version workflow completed successfully"
             echo "Version Succeeded"
             exit 0
-          elif [[ '${{ needs.skip-no-deploy.result }}' == 'success' || '${{ needs.skip-already-versioned.result }}' == 'success' ]]; then
-            echo "Version Skipped"
-            exit 0
+          elif [[ '${{ needs.verify-commit.result }}' == 'failure' || '${{ needs.version-release.result }}' == 'failure' ]]; then
+            echo "::error:: verify-commit=${{ needs.verify-commit.result }}, version-release=${{ needs.version-release.result }}"
+            echo "Version Failed"
+            exit 1
           else
             exit 1
           fi

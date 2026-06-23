@@ -13,7 +13,10 @@ jobs:
     if: ${{ (github.event.action == 'closed' && github.event.pull_request.merged == true) }}
     steps:
       - name: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
+        with:
+          token: ${{ github.token }}
+          fetch-depth: 0
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v3
         with:
@@ -25,7 +28,7 @@ jobs:
             gcloud config set artifacts/location us-central1
             gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
             npx google-artifactregistry-auth
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: "npm"

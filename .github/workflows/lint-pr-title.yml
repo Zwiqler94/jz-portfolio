@@ -1,0 +1,29 @@
+name: Lint PR Title
+on:
+  pull_request:
+    branches-ignore:
+      - main
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+permissions: read-all
+jobs:
+  commitlint-pr-title:
+    runs-on: ubuntu-latest
+    env:
+      PR_TITLE: "${{ github.event.pull_request.title }}"
+    steps:
+      - name: Use Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Lint PR title
+        shell: bash
+        run: |
+          printf '%s\n' "$PR_TITLE" | \
+            npx --yes \
+              --package @commitlint/cli@20.5.0 \
+              --package @commitlint/config-conventional@20.5.0 \
+              commitlint --extends @commitlint/config-conventional
