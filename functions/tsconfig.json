@@ -13,6 +13,7 @@
     "esModuleInterop": true,
     "types": ["node"]
   },
+
   "compileOnSave": true,
-  "include": ["src", "../pg-test.js", "pg-test.js"]
+  "include": ["src"]
 }
