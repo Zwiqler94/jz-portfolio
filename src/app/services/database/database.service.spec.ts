@@ -103,30 +103,38 @@ describe('DatabaseService', () => {
     expect(capturedError?.message).toContain('AppCheck token is missing');
   }));
 
-  it('createPost sends converted payload to API', () => {
-    const post = {
-      id: 42,
-      title_or_uri: 'Original Title',
-      type: PostType.TextPost,
-      content: 'text',
-      location: 'remote',
-    };
+  it(
+    'createPost sends converted payload with AppCheck header to API',
+    fakeAsync(() => {
+      const post = {
+        id: 42,
+        title_or_uri: 'Original Title',
+        type: PostType.TextPost,
+        content: 'text',
+        location: 'remote',
+      };
 
-    service.createPost(post as any).subscribe();
+      service.createPost(post as any).subscribe();
+      flushMicrotasks();
 
-    const req = httpTestingController.expectOne(
-      (request) => request.url === environment.serviceOptions.postService,
-    );
-    expect(req.request.method).toBe('POST');
-    expect(req.request.params.get('local')).toBe('true');
-    expect(req.request.body).toEqual({
-      title: 'Original Title',
-      ...post,
-    });
-    req.flush({ ok: true });
-  });
+      const req = httpTestingController.expectOne(
+        (request) => request.url === environment.serviceOptions.postService,
+      );
+      expect(req.request.method).toBe('POST');
+      expect(req.request.params.get('local')).toBe('true');
+      expect(req.request.headers.get('X-Firebase-AppCheck')).toBe(
+        'mock-app-check-token',
+      );
+      expect(req.request.headers.get('Content-Type')).toBe('application/json');
+      expect(req.request.body).toEqual({
+        title: 'Original Title',
+        ...post,
+      });
+      req.flush({ ok: true });
+    }),
+  );
 
-  it('savePreviewData posts preview payload with headers', () => {
+  it('savePreviewData posts preview payload with AppCheck header', fakeAsync(() => {
     const preview = {
       title: 'Preview',
       description: 'Desc',
@@ -135,29 +143,40 @@ describe('DatabaseService', () => {
     };
 
     service.savePreviewData(7, preview).subscribe();
+    flushMicrotasks();
 
     const req = httpTestingController.expectOne(
       (request) => request.url === environment.serviceOptions.previewService,
     );
     expect(req.request.method).toBe('POST');
+    expect(req.request.headers.get('X-Firebase-AppCheck')).toBe(
+      'mock-app-check-token',
+    );
     expect(req.request.headers.get('Content-Type')).toBe('application/json');
     expect(req.request.body).toEqual({ id: 7, data: preview });
     req.flush({ ok: true });
-  });
+  }));
 
-  it('getPreviewData fetches preview by id', () => {
-    const response = { title: 'Cached', uri: 'https://example.com' };
+  it(
+    'getPreviewData fetches preview by id with AppCheck header',
+    fakeAsync(() => {
+      const response = { title: 'Cached', uri: 'https://example.com' };
 
-    service.getPreviewData(9).subscribe((res) => {
-      expect(res).toEqual(response);
-    });
+      service.getPreviewData(9).subscribe((res) => {
+        expect(res).toEqual(response);
+      });
+      flushMicrotasks();
 
-    const req = httpTestingController.expectOne(
-      `${environment.serviceOptions.previewService}/9`,
-    );
-    expect(req.request.method).toBe('GET');
-    req.flush(response);
-  });
+      const req = httpTestingController.expectOne(
+        `${environment.serviceOptions.previewService}/9`,
+      );
+      expect(req.request.method).toBe('GET');
+      expect(req.request.headers.get('X-Firebase-AppCheck')).toBe(
+        'mock-app-check-token',
+      );
+      req.flush(response);
+    }),
+  );
 
   it('handleError wraps HttpErrorResponse into user-facing error', (done) => {
     service

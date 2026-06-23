@@ -14,6 +14,7 @@ import {
   switchMap,
   retry,
   repeat,
+  map,
 } from 'rxjs';
 import {
   AnyPost,
@@ -47,26 +48,10 @@ export class DatabaseService {
   headers: HttpHeaders = new HttpHeaders();
 
   getMainPosts(): Observable<AnyPostResponse[]> {
-    return from(this.authService.getAppCheckToken('db:urls')).pipe(
-      switchMap((appCheckResponse) => {
-        const appCheckToken = appCheckResponse?.token;
-
-        if (!appCheckToken) {
-          throw new Error('AppCheck token is missing.');
-        }
-
-        // Set headers
-        this.headers = new HttpHeaders({
-          'X-Firebase-AppCheck': appCheckToken,
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        });
-
-        console.debug(this.headers); // Optionally remove in production
-
-        // Make HTTP request
+    return this.getAppCheckHeaders('db:urls').pipe(
+      switchMap((headers) => {
         return this.httpClient.get<AnyPostResponse[]>(`${this.postUrl}/main`, {
-          headers: this.headers,
+          headers,
           // params: { local: true },
         });
       }),
@@ -106,38 +91,61 @@ export class DatabaseService {
       title: post.title_or_uri,
       ...post,
     };
-    this.headers = this.headers
-      .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json');
-    return this.httpClient.post(`${this.postUrl}`, convertForBe, {
-      headers: this.headers,
-      params: { local: true },
-    });
+    return this.getAppCheckHeaders('db:create-post').pipe(
+      switchMap((headers) =>
+        this.httpClient.post(`${this.postUrl}`, convertForBe, {
+          headers,
+          params: { local: true },
+        }),
+      ),
+    );
   }
 
   savePreviewData(id: number, data: LinkPreview) {
-    this.headers = this.headers
-      .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json');
-    return this.httpClient.post(
-      `${this.previewUrl}`,
-      { id, data },
-      {
-        headers: this.headers,
-        params: { local: true },
-      },
+    return this.getAppCheckHeaders('db:save-preview').pipe(
+      switchMap((headers) =>
+        this.httpClient.post(
+          `${this.previewUrl}`,
+          { id, data },
+          {
+            headers,
+            params: { local: true },
+          },
+        ),
+      ),
     );
   }
 
   getPreviewData(id: number): Observable<{ title: string; uri: string }> {
-    this.headers = this.headers
-      .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json');
-    return this.httpClient.get<{ title: string; uri: string }>(
-      `${this.previewUrl}/${id}`,
-      {
-        headers: this.headers,
-      },
+    return this.getAppCheckHeaders('db:get-preview').pipe(
+      switchMap((headers) =>
+        this.httpClient.get<{ title: string; uri: string }>(
+          `${this.previewUrl}/${id}`,
+          {
+            headers,
+          },
+        ),
+      ),
+    );
+  }
+
+  private getAppCheckHeaders(source: string): Observable<HttpHeaders> {
+    return from(this.authService.getAppCheckToken(source)).pipe(
+      map((appCheckResponse) => {
+        const appCheckToken = appCheckResponse?.token;
+
+        if (!appCheckToken) {
+          throw new Error('AppCheck token is missing.');
+        }
+
+        this.headers = new HttpHeaders({
+          'X-Firebase-AppCheck': appCheckToken,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        });
+
+        return this.headers;
+      }),
     );
   }
 
