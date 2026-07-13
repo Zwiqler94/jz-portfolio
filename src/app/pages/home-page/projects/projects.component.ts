@@ -172,6 +172,7 @@ export class ProjectsComponent
     this.functions,
     'unGenCallable',
   );
+  appCheckToken = '';
 
   openSmartPick(): void {
     window.open(
@@ -216,6 +217,7 @@ export class ProjectsComponent
   async ngOnInit(): Promise<void> {
     try {
       void this.usernameGeneratorAppCheck;
+      this.appCheckToken = (await this.callable()).data.token;
 
       let appCheckToken = '';
       if (this.auth.appCheckToken) {

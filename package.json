@@ -50,7 +50,7 @@
     "@firebase/util": "^1.15.1",
     "@google-cloud/secret-manager": "^6.2.0",
     "@yusifaliyevpro/countries": "^5.1.5",
-    "@zwiqler94/everything-lib": "^0.19.2",
+    "@zwiqler94/everything-lib": "^0.19.3-alpha.0",
     "animejs": "^4.5.0",
     "cloudinary": "^2.10.0",
     "compression": "^1.8.1",
