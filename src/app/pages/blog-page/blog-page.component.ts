@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  OnInit,
   inject,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,7 +10,6 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { environment } from 'src/environments/environment';
 import { FeedComponent } from '../../components/feed/feed.component';
 import { MatButton } from '@angular/material/button';
-import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.service';
 
 @Component({
   selector: 'jzp-blog-page',
@@ -20,32 +18,11 @@ import { LinkPreviewService } from 'src/app/services/link-preview/link-preview.s
   imports: [MatButton, FeedComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent {
   private dialog = inject(MatDialog);
   private auth = inject(AuthService);
   private cd = inject(ChangeDetectorRef);
-  private linkPreviewService = inject(LinkPreviewService);
   triggerFetch: boolean;
-
-  async ngOnInit(): Promise<void> {
-    this.auth.appCheckToken = (
-      await this.auth.getAppCheckToken('app:oninit')
-    )?.token;
-
-    if (this.auth.appCheckToken) {
-      const subscription = this.linkPreviewService.getAPIKey().subscribe({
-        next: (key) => (this.linkPreviewService.apiKey = key.k),
-        error: (err) => {
-          console.error('Failed to fetch API key:', err);
-          subscription.unsubscribe();
-        },
-        complete: () => {
-          console.debug('API key fetched successfully');
-          subscription.unsubscribe();
-        },
-      });
-    }
-  }
 
   openNewPostDialog() {
     const dialogRef = this.dialog.open(NewPostDialogComponent);

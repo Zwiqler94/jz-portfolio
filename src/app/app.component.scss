@@ -1,44 +1,45 @@
-@use "../styles.scss" as styles;
+@use "../style_vars/breakpoints" as bp;
 
-$main-view-height: 85dvh;
-$sidenav-height: calc($main-view-height - styles.$toolbar-height);
+:host {
+  display: block;
+  width: min(100%, var(--app-vw, 100dvw));
+}
+
+mat-sidenav-container,
+mat-sidenav-content {
+  width: 100%;
+  max-width: min(100%, var(--app-vw, 100dvw));
+}
 
 #main-view {
-  height: $main-view-height;
-  width: 100vw;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: min(100%, var(--app-vw, 100dvw));
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-inline: clamp(0.75rem, 2dvw, 1.5rem);
+  box-sizing: border-box;
 }
 
 #button-container-column {
   display: flex;
   flex-direction: column;
-  margin-block-start: 1rem;
   justify-content: center;
-}
-
-// mat-sidenav-content {
-//   height: $sidenav-height;
-// }
-
-.mat-drawer-container {
-  margin-bottom: -0.8125rem;
-  // height: 95vh;
+  width: min(100%, 14rem);
+  margin-block-start: 1rem;
+  padding: 0 1rem 1rem;
+  box-sizing: border-box;
 }
 
 .vert-spacer {
   height: 0.25rem;
 }
 
-mat-sidenav#side-nav {
-  width: 12rem;
-}
-
 #button-container-column > button {
   display: inline-flex;
   flex-direction: row-reverse;
-  width: 11rem;
+  width: 100%;
   justify-content: flex-start;
 
   mat-icon {
@@ -47,9 +48,20 @@ mat-sidenav#side-nav {
 }
 
 #footer-sidenav {
-  width: 100vw;
-  display: inline-flex;
+  width: 100%;
+  max-width: min(100%, var(--app-vw, 100dvw));
+  display: flex;
   justify-content: center;
   align-items: center;
-  // height: 3.5rem;
+}
+
+@include bp.down(mobile) {
+  #main-view {
+    padding-inline: 0.5rem;
+  }
+
+  #button-container-column {
+    width: min(100%, var(--app-vw, 100dvw));
+    padding-inline: 0.75rem;
+  }
 }

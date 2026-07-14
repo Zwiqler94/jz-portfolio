@@ -1,17 +1,17 @@
 <div class="post-base">
-  <mat-card appearance="outlined">
+  <mat-card class="post-card" appearance="outlined">
     <mat-card-header>
-      <mat-card-title>{{ displayTitle() }}</mat-card-title>
-      <mat-card-subtitle>{{ displayLocation() }}</mat-card-subtitle>
+      <div class="post-heading">
+        <mat-card-title>{{ displayTitle() }}</mat-card-title>
+        <mat-card-subtitle>
+          <span class="post-type-chip">{{ displayLocation() }}</span>
+        </mat-card-subtitle>
+      </div>
     </mat-card-header>
     <mat-card-content>
-      <mat-card>
-        <mat-card-content>
-          <ng-content />
-        </mat-card-content>
-      </mat-card>
+      <ng-content />
     </mat-card-content>
-    <mat-card-footer>
+    <mat-card-footer class="post-card-footer">
       <div id="card-footer">
         <small
           >Created:

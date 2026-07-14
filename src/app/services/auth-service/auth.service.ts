@@ -5,6 +5,7 @@ import {
   inject,
   runInInjectionContext,
 } from '@angular/core';
+import { FirebaseApp } from '@angular/fire/app';
 import {
   AppCheck,
   AppCheckTokenResult,
@@ -62,10 +63,13 @@ export class AuthService {
     }
   }
 
-  async getAppCheckToken(from: string): Promise<AppCheckTokenResult> {
-    return await runInInjectionContext(this.environmentInjector, () =>
-      getToken(this.appCheck),
-    );
+  async getAppCheckToken(
+    from: string,
+    appCheckInstance?: AppCheck,
+  ): Promise<AppCheckTokenResult> {
+    return await runInInjectionContext(this.environmentInjector, () => {
+      return getToken(appCheckInstance || this.appCheck);
+    });
   }
 
   logout() {

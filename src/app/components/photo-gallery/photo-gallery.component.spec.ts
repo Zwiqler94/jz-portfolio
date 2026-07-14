@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Gallery } from 'ng-gallery';
-import { ImageItem } from 'ng-gallery';
 import { PageEvent } from '@angular/material/paginator';
 
 import { PhotoGalleryComponent } from './photo-gallery.component';
@@ -12,40 +10,27 @@ class MockImageService {
   }
 }
 
-class MockGalleryRef {
-  load = jasmine.createSpy('load');
-  items = { complete: () => { /* empty */ } };
-}
-
-class MockGallery {
-  ref() {
-    return new MockGalleryRef();
-  }
-}
-
 describe('PhotoGalleryComponent', () => {
   let component: PhotoGalleryComponent;
   let fixture: ComponentFixture<PhotoGalleryComponent>;
 
-beforeEach(async () => {
-  await TestBed.configureTestingModule({
-    imports: [PhotoGalleryComponent],
-    providers: [
-      { provide: ImageService, useClass: MockImageService },
-      { provide: Gallery, useClass: MockGallery },
-    ],
-  })
-    .overrideComponent(PhotoGalleryComponent, { set: { template: '' } })
-    .compileComponents();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [PhotoGalleryComponent],
+      providers: [{ provide: ImageService, useClass: MockImageService }],
+    })
+      .overrideComponent(PhotoGalleryComponent, { set: { template: '' } })
+      .compileComponents();
 
-  fixture = TestBed.createComponent(PhotoGalleryComponent);
-  component = fixture.componentInstance;
-});
+    fixture = TestBed.createComponent(PhotoGalleryComponent);
+    component = fixture.componentInstance;
+  });
 
-  function createGrid(size: number) {
-    return Array.from({ length: size }, (_, i) =>
-      new ImageItem({ src: `src-${i}`, thumb: `thumb-${i}` }),
-    );
+  function createGrid(size: number): GalleryItemData[] {
+    return Array.from({ length: size }, (_, i) => ({
+      src: `src-${i}`,
+      thumb: `thumb-${i}`,
+    }));
   }
 
   it('initialises display grids according to page size', () => {
