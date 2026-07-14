@@ -19,6 +19,7 @@ import {
   AppCheck,
   AppCheckTokenResult,
   ReCaptchaEnterpriseProvider,
+  getToken,
   initializeAppCheck,
 } from '@angular/fire/app-check';
 import {
@@ -226,13 +227,11 @@ export class ProjectsComponent
         }
       }
 
-      const tokenResult = await this.auth.getAppCheckToken(
-        'projects',
-        this.usernameGeneratorAppCheck,
-      );
-      if (tokenResult?.token) {
-        this.appCheckToken = tokenResult.token;
-      }
+      getToken(this.usernameGeneratorAppCheck).then((tokenResult) => {
+        if (tokenResult?.token) {
+          this.appCheckToken = tokenResult.token;
+        }
+      });
 
       this.usernameForm.patchValue({ appCheckToken });
       this.usernameFormInApp.set(this.usernameForm);
