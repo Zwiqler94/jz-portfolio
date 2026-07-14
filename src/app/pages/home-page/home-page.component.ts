@@ -68,7 +68,6 @@ export class AboutMeComponent
         color: 'black',
         stroke: 'black',
         delay: stagger(100),
-        loop: true,
         duration: 9000,
       });
     });

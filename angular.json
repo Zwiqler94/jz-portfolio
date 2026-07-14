@@ -103,9 +103,6 @@
             }
           },
           "options": {
-            "security": {
-              "autoCsp": true
-            },
             "allowedCommonJsDependencies": [
               "firebase",
               "@angular/fire",
