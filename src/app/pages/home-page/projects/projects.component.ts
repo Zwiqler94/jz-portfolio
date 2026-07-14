@@ -215,15 +215,6 @@ export class ProjectsComponent
     this.setViewportVars(this.screenWidth, this.screenHeight);
   }
 
-  constructor() {
-    super();
-    getToken(this.usernameGeneratorAppCheck).then((tokenResult) => {
-      if (tokenResult?.token) {
-        this.appCheckToken = tokenResult.token;
-      }
-    });
-  }
-
   async ngOnInit(): Promise<void> {
     try {
       let appCheckToken = '';
