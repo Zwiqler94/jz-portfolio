@@ -216,9 +216,6 @@ export class ProjectsComponent
 
   async ngOnInit(): Promise<void> {
     try {
-      void this.usernameGeneratorAppCheck;
-      this.appCheckToken = (await this.callable()).data.token;
-
       let appCheckToken = '';
       if (this.auth.appCheckToken) {
         appCheckToken = this.auth.appCheckToken;
@@ -227,6 +224,14 @@ export class ProjectsComponent
         if (tokenResult?.token) {
           appCheckToken = tokenResult.token;
         }
+      }
+
+      const tokenResult = await this.auth.getAppCheckToken(
+        'projects',
+        this.usernameGeneratorAppCheck,
+      );
+      if (tokenResult?.token) {
+        this.appCheckToken = tokenResult.token;
       }
 
       this.usernameForm.patchValue({ appCheckToken });
