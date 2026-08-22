@@ -1,4 +1,4 @@
-import { TestBed, fakeAsync, flushMicrotasks, tick } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import {
   HttpTestingController,
   provideHttpClientTesting,
@@ -10,7 +10,6 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { MockAuthService } from 'src/app/testing/mocks';
 import { environment } from 'src/environments/environment';
 import { LinkPreview } from 'src/app/components/models/post.model';
-import { Observable } from 'rxjs';
 
 describe('LinkPreviewService', () => {
   let service: LinkPreviewService;
@@ -40,14 +39,7 @@ describe('LinkPreviewService', () => {
   it('getAPIKey makes authenticated request when token present', fakeAsync(() => {
     authService.appCheckToken = 'token';
     let response: { k: string } | undefined;
-    let stream: Observable<{ k: string }> | undefined;
-
-    service.getAPIKey()?.then((observable) => {
-      stream = observable;
-    });
-
-    flushMicrotasks();
-    stream?.subscribe((res) => (response = res));
+    service.getAPIKey()?.subscribe((res) => (response = res));
 
     const req = httpMock.expectOne(
       (request) =>
@@ -63,15 +55,11 @@ describe('LinkPreviewService', () => {
     expect(response).toEqual({ k: 'secret' });
   }));
 
-  it('getAPIKey resolves undefined when no AppCheck token exists', fakeAsync(() => {
+  it('getAPIKey returns undefined when no AppCheck token exists', () => {
     authService.appCheckToken = undefined;
-    let result: unknown = 'pending';
 
-    service.getAPIKey()?.then((value) => (result = value));
-    flushMicrotasks();
-
-    expect(result).toBeUndefined();
-  }));
+    expect(service.getAPIKey()).toBeUndefined();
+  });
 
   it('getLinkPreview requests preview when apiKey and token exist', fakeAsync(() => {
     authService.appCheckToken = 'token';

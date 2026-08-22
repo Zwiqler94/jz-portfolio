@@ -45,9 +45,7 @@ declare global {
   var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
 }
 
-self.FIREBASE_APPCHECK_DEBUG_TOKEN = isDevMode()
-  ? environment.appCheckDebug
-  : false;
+self.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.appCheckDebug;
 
 export const appConfig: ApplicationConfig = {
   providers: [
