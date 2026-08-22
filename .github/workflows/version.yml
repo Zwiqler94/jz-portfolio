@@ -80,6 +80,7 @@ jobs:
           echo "::endgroup::"
 
           npm ci
+          BASE_SHA="$(git rev-parse HEAD)"
           CURRENT_VERSION="$(node -p "require('./package.json').version")"
           printf 'package version before bump=%s\n' "$CURRENT_VERSION"
 
@@ -90,64 +91,89 @@ jobs:
           printf 'VERSION=%s\n' "$NEXT_VERSION" >> "$GITHUB_ENV"
 
           RELEASE_BRANCH="release/v${NEXT_VERSION}"
-          if git ls-remote --exit-code --heads origin "$RELEASE_BRANCH" >/dev/null 2>&1; then
-            echo "::error::Release branch $RELEASE_BRANCH already exists on origin"
-            exit 1
-          fi
-          if git rev-parse --verify --quiet "refs/tags/v${NEXT_VERSION}" >/dev/null; then
-            echo "::error::Release tag v${NEXT_VERSION} already exists"
-            exit 1
-          fi
-          git switch -c "$RELEASE_BRANCH"
           printf 'RELEASE_BRANCH=%s\n' "$RELEASE_BRANCH" >> "$GITHUB_ENV"
           printf 'release branch=%s\n' "$RELEASE_BRANCH"
 
-          npm run changelog:update
+          # A retry may reuse only the release commit created from this exact base and version.
+          REMOTE_RELEASE_SHA="$(git ls-remote --heads origin "refs/heads/${RELEASE_BRANCH}" | awk '{print $1}')"
+          if [ -n "$REMOTE_RELEASE_SHA" ]; then
+            git fetch origin "refs/heads/${RELEASE_BRANCH}:refs/remotes/origin/${RELEASE_BRANCH}"
+            REMOTE_PARENT_SHA="$(git rev-parse "origin/${RELEASE_BRANCH}^")"
+            REMOTE_VERSION="$(
+              git show "origin/${RELEASE_BRANCH}:package.json" |
+                node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version"
+            )"
+            REMOTE_SUBJECT="$(git log -1 --format=%s "origin/${RELEASE_BRANCH}")"
+            if [ "$REMOTE_PARENT_SHA" != "$BASE_SHA" ] ||
+              [ "$REMOTE_VERSION" != "$NEXT_VERSION" ] ||
+              [ "$REMOTE_SUBJECT" != "chore(release): ${NEXT_VERSION}" ]; then
+              echo "::error::Existing release branch does not match this release attempt"
+              exit 1
+            fi
 
-          echo "::group::Changelog after update"
-          git diff --stat -- CHANGELOG.md package.json package-lock.json
-          printf 'top changelog headings:\n'
-          awk '
-            /^# / || /^## / {
-              print
-              count++
-              if (count == 5) {
-                exit
-              }
-            }
-          ' CHANGELOG.md
-          echo "::endgroup::"
+            git reset --hard "$BASE_SHA"
+            git switch --detach "origin/${RELEASE_BRANCH}"
+            printf 'resuming release commit=%s\n' "$(git rev-parse --short HEAD)"
+          else
+            git switch -c "$RELEASE_BRANCH"
+            npm run changelog:update
 
-          if git diff --quiet -- CHANGELOG.md; then
-            echo "::error::CHANGELOG.md did not change"
-            exit 1
-          fi
-
-          CHANGELOG_VERSION="$(
+            echo "::group::Changelog after update"
+            git diff --stat -- CHANGELOG.md package.json package-lock.json
+            printf 'top changelog headings:\n'
             awk '
               /^# / || /^## / {
-                heading = $0
-                sub(/^##? /, "", heading)
-                sub(/^<small>/, "", heading)
-                sub(/^\[/, "", heading)
-                sub(/[\] ].*$/, "", heading)
-                print heading
-                exit
+                print
+                count++
+                if (count == 5) {
+                  exit
+                }
               }
             ' CHANGELOG.md
-          )"
-          printf 'parsed changelog version=%s\n' "$CHANGELOG_VERSION"
-          printf 'expected package version=%s\n' "$NEXT_VERSION"
-          if [ "$CHANGELOG_VERSION" != "$NEXT_VERSION" ]; then
-            echo "::error::CHANGELOG.md top entry ($CHANGELOG_VERSION) does not match version ($NEXT_VERSION)"
-            exit 1
+            echo "::endgroup::"
+
+            if git diff --quiet -- CHANGELOG.md; then
+              echo "::error::CHANGELOG.md did not change"
+              exit 1
+            fi
+
+            CHANGELOG_VERSION="$(
+              awk '
+                /^# / || /^## / {
+                  heading = $0
+                  sub(/^##? /, "", heading)
+                  sub(/^<small>/, "", heading)
+                  sub(/^\[/, "", heading)
+                  sub(/[\] ].*$/, "", heading)
+                  print heading
+                  exit
+                }
+              ' CHANGELOG.md
+            )"
+            printf 'parsed changelog version=%s\n' "$CHANGELOG_VERSION"
+            printf 'expected package version=%s\n' "$NEXT_VERSION"
+            if [ "$CHANGELOG_VERSION" != "$NEXT_VERSION" ]; then
+              echo "::error::CHANGELOG.md top entry ($CHANGELOG_VERSION) does not match version ($NEXT_VERSION)"
+              exit 1
+            fi
+
+            git add package.json package-lock.json CHANGELOG.md
+            git commit -m "chore(release): ${NEXT_VERSION}"
+            git push origin "HEAD:${RELEASE_BRANCH}"
           fi
 
-          git add package.json package-lock.json CHANGELOG.md
-          git commit -m "chore(release): ${NEXT_VERSION}"
-          git tag "v${NEXT_VERSION}"
-          git push origin "HEAD:${RELEASE_BRANCH}"
-          git push origin "refs/tags/v${NEXT_VERSION}"
+          RELEASE_COMMIT="$(git rev-parse HEAD)"
+          if git rev-parse --verify --quiet "refs/tags/v${NEXT_VERSION}" >/dev/null; then
+            TAG_COMMIT="$(git rev-list -n 1 "v${NEXT_VERSION}")"
+            if [ "$TAG_COMMIT" != "$RELEASE_COMMIT" ]; then
+              echo "::error::Existing release tag v${NEXT_VERSION} points to a different commit"
+              exit 1
+            fi
+            printf 'resuming release tag=%s\n' "v${NEXT_VERSION}"
+          else
+            git tag "v${NEXT_VERSION}"
+            git push origin "refs/tags/v${NEXT_VERSION}"
+          fi
       - name: set PULL_URL
         run: |
           printf 'PULL_URL=%s/pulls\n' "$REPO_URL" >> "$GITHUB_ENV"
@@ -165,24 +191,57 @@ jobs:
         env:
           JSON_PAYLOAD: ${{ env.JSON }}
         run: |
-          PR_NUM=$(curl -L -X POST "$PULL_URL" \
+          set -euo pipefail
+          HEAD_OWNER="${GITHUB_REPOSITORY_OWNER}:${RELEASE_BRANCH}"
+          # Resume an open or already-merged PR before attempting to create another one.
+          EXISTING_PULLS="$(curl --fail-with-body --silent --show-error --get "$PULL_URL" \
             -H "Accept:application/vnd.github+json" \
             -H "Authorization:Bearer ${{ steps.releaseTokens.outputs.token }}" \
             -H "X-GitHub-Api-Version:2022-11-28" \
-            -d "$JSON_PAYLOAD" | jq -r '.number')
+            --data-urlencode "state=all" \
+            --data-urlencode "head=${HEAD_OWNER}" \
+            --data-urlencode "base=${BASE_REF}")"
+          MERGED_PR_NUM="$(jq -r '[.[] | select(.merged_at != null)][0].number // empty' <<< "$EXISTING_PULLS")"
+          if [ -n "$MERGED_PR_NUM" ]; then
+            PR_NUM="$MERGED_PR_NUM"
+            printf 'PR_ALREADY_MERGED=true\n' >> "$GITHUB_ENV"
+            printf 'release PR already merged: #%s\n' "$PR_NUM"
+          else
+            PR_NUM="$(jq -r '[.[] | select(.state == "open")][0].number // empty' <<< "$EXISTING_PULLS")"
+            if [ -n "$PR_NUM" ]; then
+              printf 'resuming open release PR: #%s\n' "$PR_NUM"
+            else
+              CREATE_RESPONSE="$(curl --fail-with-body --silent --show-error -L -X POST "$PULL_URL" \
+                -H "Accept:application/vnd.github+json" \
+                -H "Authorization:Bearer ${{ steps.releaseTokens.outputs.token }}" \
+                -H "X-GitHub-Api-Version:2022-11-28" \
+                -d "$JSON_PAYLOAD")"
+              PR_NUM="$(jq -r '.number // empty' <<< "$CREATE_RESPONSE")"
+              if [ -z "$PR_NUM" ]; then
+                echo "::error::GitHub did not return a release PR number"
+                exit 1
+              fi
+            fi
+          fi
           printf 'PR_NUM=%s\n' "$PR_NUM" >> "$GITHUB_ENV"
       - name: request Merge
+        if: ${{ env.PR_ALREADY_MERGED != 'true' }}
         env:
           MERGE_URL: ${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge
         run: |
+          set -euo pipefail
           PAYLOAD=$(jq -n \
             --arg version "$VERSION" \
             '{commit_title: ("chore(release): " + $version + " [skip ci]"), commit_message: ""}')
-          curl --request PUT "$MERGE_URL" \
+          MERGE_RESPONSE="$(curl --fail-with-body --silent --show-error --request PUT "$MERGE_URL" \
             -H "Accept:application/vnd.github+json" \
             -H "Authorization:Bearer ${{ steps.releaseTokens.outputs.token }}" \
             -H "X-GitHub-Api-Version:2022-11-28" \
-            -d "$PAYLOAD"
+            -d "$PAYLOAD")"
+          if [ "$(jq -r '.merged // false' <<< "$MERGE_RESPONSE")" != "true" ]; then
+            echo "::error::GitHub did not merge release PR $PR_NUM"
+            exit 1
+          fi
   skip-already-versioned:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.merged == true && github.event.action == 'closed' }}
