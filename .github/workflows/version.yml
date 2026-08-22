@@ -23,7 +23,6 @@ jobs:
     env:
       BASE_REF: ${{ github.base_ref }}
       BUMP_TYPE: ${{ needs.verify-commit.outputs.versionType }}
-      HEAD_REF: ${{ github.head_ref }}
     steps:
       - name: Get release token
         id: releaseTokens
@@ -51,10 +50,10 @@ jobs:
           gcloud config set artifacts/location us-central1
           gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
           npx google-artifactregistry-auth
-      - name: Use Node.js 22
+      - name: Use pinned Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version-file: ".nvmrc"
           cache: "npm"
       - name: log versions
         run: |
@@ -68,16 +67,13 @@ jobs:
           git config --local user.name 'github-actions[bot]'
           git config --local user.email 'github-actions[bot]@github.com'
           git config --local push.autoSetupRemote true
-          git checkout -B "$HEAD_REF"
 
           echo "::group::Release context"
           printf 'event=%s\n' "${GITHUB_EVENT_NAME:-}"
           printf 'base ref=%s\n' "$BASE_REF"
-          printf 'head ref=%s\n' "$HEAD_REF"
           printf 'bump type=%s\n' "$BUMP_TYPE"
           printf 'github ref=%s\n' "${GITHUB_REF:-}"
           printf 'github sha=%s\n' "${GITHUB_SHA:-}"
-          printf 'checked out branch=%s\n' "$(git branch --show-current)"
           printf 'checked out sha=%s\n' "$(git rev-parse --short HEAD)"
           printf 'latest version tags:\n'
           git tag --sort=-version:refname | sed -n '1,10p'
@@ -92,6 +88,19 @@ jobs:
           NEXT_VERSION="$(node -p "require('./package.json').version")"
           printf 'package version after bump=%s\n' "$NEXT_VERSION"
           printf 'VERSION=%s\n' "$NEXT_VERSION" >> "$GITHUB_ENV"
+
+          RELEASE_BRANCH="release/v${NEXT_VERSION}"
+          if git ls-remote --exit-code --heads origin "$RELEASE_BRANCH" >/dev/null 2>&1; then
+            echo "::error::Release branch $RELEASE_BRANCH already exists on origin"
+            exit 1
+          fi
+          if git rev-parse --verify --quiet "refs/tags/v${NEXT_VERSION}" >/dev/null; then
+            echo "::error::Release tag v${NEXT_VERSION} already exists"
+            exit 1
+          fi
+          git switch -c "$RELEASE_BRANCH"
+          printf 'RELEASE_BRANCH=%s\n' "$RELEASE_BRANCH" >> "$GITHUB_ENV"
+          printf 'release branch=%s\n' "$RELEASE_BRANCH"
 
           npm run changelog:update
 
@@ -137,14 +146,14 @@ jobs:
           git add package.json package-lock.json CHANGELOG.md
           git commit -m "chore(release): ${NEXT_VERSION}"
           git tag "v${NEXT_VERSION}"
-          git push origin "HEAD:${HEAD_REF}"
+          git push origin "HEAD:${RELEASE_BRANCH}"
           git push origin "refs/tags/v${NEXT_VERSION}"
       - name: set PULL_URL
         run: |
           printf 'PULL_URL=%s/pulls\n' "$REPO_URL" >> "$GITHUB_ENV"
       - name: set PULL REQ JSON
         run: |
-          JSON=$(jq -cn --arg head "Zwiqler94:${HEAD_REF}" --arg base "$BASE_REF" --arg version "$VERSION" '
+          JSON=$(jq -cn --arg head "Zwiqler94:${RELEASE_BRANCH}" --arg base "$BASE_REF" --arg version "$VERSION" '
           {
             title: ("chore(release): " + $version),
             body: ("Automated release PR for " + $version + "."),
