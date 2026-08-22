@@ -8,7 +8,8 @@ const { Client } = require("pg");
 // Connection config (replace with your actual credentials)
 const client = new Client({
   connectionString:
-    "postgresql://jake:en-3m8yyx_carYc7XaihjpMVCJFat8WFq6NHN_E8xmyzwtBAybwEuUT%40k%21hhpCbiXnpkeEUCLYkV8@ep-late-bush-aeo42bfj-pooler.c-2.us-east-2.aws.neon.tech/jz-local?sslmode=require&channel_binding=require",
+    process.env.DATABASE_URL ||
+    "postgresql://username:password@localhost:5432/mydatabase",
 });
 
 async function main() {
