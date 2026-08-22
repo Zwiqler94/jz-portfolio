@@ -68,6 +68,9 @@
                   "with": "src/environments/environment.dev-local.ts"
                 }
               ],
+              "optimization": true,
+              "outputHashing": "all",
+              "serviceWorker": "ngsw-config.json",
               "verbose": true
             },
             "local": {

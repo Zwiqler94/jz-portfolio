@@ -1,7 +1,7 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-// This optimized local build tests the service worker against deployed dev services.
+// This fully local build uses Firebase emulators and does not register a service worker.
 
 export const environment = {
   appCheckDebug: true,
@@ -16,19 +16,19 @@ export const environment = {
     appId: '1:518070660509:web:9d2511d1a027342457d374',
     measurementId: 'G-CNT03XSD81',
   },
-  local: false,
+  local: true,
   nasaAPIKey: 'vnfZmI8NbIb44DmpbbSAvlMhFz7Ipnyc1tq6xNLb',
   production: false,
   recaptchaSiteKey: '6LecuRElAAAAANlCdpdXoztAYRV48C8wEQPu-Ool',
   serviceOptions: {
-    useServiceWorker: true,
-    url: 'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev',
+    useServiceWorker: false,
+    url: 'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev',
     postService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/posts',
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/posts',
     secretService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/secrets',
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/secrets',
     previewService:
-      'https://us-central1-jlz-portfolio.cloudfunctions.net/jzPortfolioAppDev/api/v4/previews',
+      'http://127.0.0.1:5001/jlz-portfolio/us-central1/jzPortfolioAppDev/api/v4/previews',
   },
 };
 

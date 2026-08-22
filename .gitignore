@@ -82,7 +82,6 @@ cli-envs
 .aws
 
 *.log
-src/environments/environment.local.ts
 .scannerwork/
 sonar-project.properties
 **/tsconfig.tsbuildinfo

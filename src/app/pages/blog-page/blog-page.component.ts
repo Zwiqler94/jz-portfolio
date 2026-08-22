@@ -33,7 +33,7 @@ export class HomePageComponent implements OnInit {
     )?.token;
 
     if (this.auth.appCheckToken) {
-      const subscription = this.linkPreviewService.getAPIKey().subscribe({
+      const subscription = this.linkPreviewService.getAPIKey()!.subscribe({
         next: (key) => (this.linkPreviewService.apiKey = key.k),
         error: (err) => {
           console.error('Failed to fetch API key:', err);
