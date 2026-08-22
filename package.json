@@ -32,6 +32,7 @@
     "start:local": "npx --yes http-server@14.1.1 --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local",
     "start:prod": "npx --yes http-server@14.1.1 --cors -p 8087 -c-1 dist/jz-portfolio",
     "test": "ng test",
+    "test:release": "node --test scripts/release.test.mjs",
     "prepare": "husky || true"
   },
   "private": true,

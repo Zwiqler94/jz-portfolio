@@ -1,28 +1,29 @@
 name: Version
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-versioning
 on:
   workflow_call:
     outputs:
       versionType:
-        description: "the version increment type (major, minor, or patch)"
+        description: "the version increment type (major, minor, patch, or stop)"
         value: ${{ jobs.verify-commit.outputs.versionType }}
 permissions:
   contents: read
 env:
-  REPO_URL: "https://api.github.com/repos/${{ github.repository }}"
   HUSKY: 0
 jobs:
   verify-commit:
-    if: ${{ github.event.pull_request.merged == true }}
+    if: ${{ github.event.pull_request.merged == true && github.base_ref == 'development' }}
     uses: ./.github/workflows/verify-commit.yml
+
   version-release:
-    if: ${{ github.event.pull_request.merged == true && github.event.action == 'closed' && needs.verify-commit.outputs.versionType != 'stop' }}
+    if: ${{ github.event.pull_request.merged == true && github.event.action == 'closed' && github.base_ref == 'development' && needs.verify-commit.outputs.versionType != 'stop' }}
     needs: [verify-commit]
     runs-on: ubuntu-latest
+    concurrency:
+      group: version-release-${{ github.repository }}-${{ github.base_ref }}
+      queue: max
     env:
       BASE_REF: ${{ github.base_ref }}
-      BUMP_TYPE: ${{ needs.verify-commit.outputs.versionType }}
+      SOURCE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
     steps:
       - name: Get release token
         id: releaseTokens
@@ -33,259 +34,564 @@ jobs:
           privateKey: ${{ secrets.APP_PRIVATE_KEY }}
           permission-contents: write
           permission-pull-requests: write
-      - name: checkout
+
+      - name: Checkout trusted base
         uses: actions/checkout@v6
         with:
           token: ${{ steps.releaseTokens.outputs.token }}
           fetch-depth: 0
+
+      - name: Use pinned Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Detect an in-progress release
+        id: open-release
+        env:
+          GH_TOKEN: ${{ steps.releaseTokens.outputs.token }}
+        run: |
+          set -euo pipefail
+
+          OPEN_RELEASES="$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --base "$BASE_REF" \
+            --state open \
+            --limit 100 \
+            --json number,headRefName,isCrossRepository,title \
+            --jq '[.[] | select(.isCrossRepository == false) | select(.headRefName | startswith("release/v")) | select(.title | startswith("chore(release): "))]')"
+          RELEASE_COUNT="$(jq 'length' <<< "$OPEN_RELEASES")"
+          if [ "$RELEASE_COUNT" -gt 1 ]; then
+            echo "::error::Multiple generated release PRs are open for $BASE_REF"
+            exit 1
+          fi
+          OPEN_BRANCH="$(jq -r '.[0].headRefName // empty' <<< "$OPEN_RELEASES")"
+
+          REMOTE_RELEASES="$(git ls-remote --heads origin 'refs/heads/release/v*')"
+          REMOTE_COUNT="$(awk 'NF { count++ } END { print count + 0 }' <<< "$REMOTE_RELEASES")"
+          if [ "$REMOTE_COUNT" -gt 1 ]; then
+            echo "::error::Multiple remote release branches exist for $BASE_REF"
+            exit 1
+          fi
+          REMOTE_BRANCH="$(awk 'NF { sub("refs/heads/", "", $2); print $2 }' <<< "$REMOTE_RELEASES")"
+          if [ -n "$OPEN_BRANCH" ] && [ -n "$REMOTE_BRANCH" ] &&
+            [ "$OPEN_BRANCH" != "$REMOTE_BRANCH" ]; then
+            echo "::error::Open release $OPEN_BRANCH conflicts with remote release $REMOTE_BRANCH"
+            exit 1
+          fi
+
+          printf 'pr_number=%s\n' "$(jq -r '.[0].number // empty' <<< "$OPEN_RELEASES")" >> "$GITHUB_OUTPUT"
+          printf 'branch=%s\n' "${OPEN_BRANCH:-$REMOTE_BRANCH}" >> "$GITHUB_OUTPUT"
+
+      - name: Plan release from the serialized base
+        id: plan
+        run: |
+          set -euo pipefail
+
+          git fetch --force origin \
+            "+refs/heads/${BASE_REF}:refs/remotes/origin/${BASE_REF}" \
+            --tags
+          BASE_SHA="$(git rev-parse "origin/${BASE_REF}")"
+          node scripts/release.mjs plan \
+            --base "$BASE_SHA" \
+            --source "$SOURCE_SHA" \
+            --output "$GITHUB_OUTPUT"
+
+      - name: Report an already covered merge
+        if: ${{ steps.plan.outputs.mode == 'skip' && steps.open-release.outputs.branch == '' }}
+        run: echo "::notice::${SOURCE_SHA} is already covered by the current release"
+
+      - name: Reject stale release state
+        if: ${{ steps.plan.outputs.mode == 'skip' && steps.open-release.outputs.branch != '' }}
+        env:
+          EXISTING_BRANCH: ${{ steps.open-release.outputs.branch }}
+        run: |
+          echo "::error::$SOURCE_SHA is covered, but stale release branch $EXISTING_BRANCH still exists"
+          exit 1
+
+      - name: Authenticate to Google Cloud
+        if: ${{ steps.plan.outputs.mode == 'release' }}
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_NPM_PKG }}"
+
+      - name: Set up gcloud Cloud SDK environment
+        if: ${{ steps.plan.outputs.mode == 'release' }}
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Authenticate to Artifact Registry
+        if: ${{ steps.plan.outputs.mode == 'release' }}
+        run: |
+          gcloud config set artifacts/repository everything-lib
+          gcloud config set artifacts/location us-central1
+          gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
+          npx google-artifactregistry-auth
+
+      - name: Install dependencies
+        if: ${{ steps.plan.outputs.mode == 'release' }}
+        run: npm ci
+
+      - name: Create or resume the release commit
+        if: ${{ steps.plan.outputs.mode == 'release' }}
+        id: prepare
+        env:
+          EXISTING_BRANCH: ${{ steps.open-release.outputs.branch }}
+          PLANNED_BRANCH: ${{ steps.plan.outputs.release_branch }}
+          PLANNED_FROM_SHA: ${{ steps.plan.outputs.release_from_sha }}
+          PLANNED_THROUGH_SHA: ${{ steps.plan.outputs.release_through_sha }}
+          PLANNED_VERSION: ${{ steps.plan.outputs.next_version }}
+        run: |
+          set -euo pipefail
+
+          git config --local user.name 'github-actions[bot]'
+          git config --local user.email 'github-actions[bot]@github.com'
+
+          RELEASE_BRANCH="${EXISTING_BRANCH:-$PLANNED_BRANCH}"
+          RELEASE_FROM_SHA="$PLANNED_FROM_SHA"
+          RELEASE_THROUGH_SHA="$PLANNED_THROUGH_SHA"
+          VERSION="$PLANNED_VERSION"
+          if [[ ! "$RELEASE_BRANCH" =~ ^release/v([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+            echo "::error::Invalid release branch: $RELEASE_BRANCH"
+            exit 1
+          fi
+          BRANCH_VERSION="${BASH_REMATCH[1]}"
+          REMOTE_RELEASE_SHA="$(git ls-remote --heads origin "refs/heads/${RELEASE_BRANCH}" | awk '{print $1}')"
+
+          if [ -n "$REMOTE_RELEASE_SHA" ]; then
+            git fetch --force origin \
+              "refs/heads/${RELEASE_BRANCH}:refs/remotes/origin/${RELEASE_BRANCH}"
+            REMOTE_INFO="$(node scripts/release.mjs inspect --commit "$REMOTE_RELEASE_SHA")"
+            REMOTE_VERSION="$(jq -r '.version' <<< "$REMOTE_INFO")"
+            if [ "$REMOTE_VERSION" != "$BRANCH_VERSION" ]; then
+              echo "::error::Remote release branch contains version $REMOTE_VERSION, expected $BRANCH_VERSION"
+              exit 1
+            fi
+
+            REMOTE_THROUGH_SHA="$(jq -r '.release_through_sha' <<< "$REMOTE_INFO")"
+            RESUME_PLAN="$(node scripts/release.mjs plan \
+              --base "$REMOTE_THROUGH_SHA" \
+              --source "$REMOTE_THROUGH_SHA")"
+            if [ "$(jq -r '.mode' <<< "$RESUME_PLAN")" != 'release' ] ||
+              [ "$(jq -r '.next_version' <<< "$RESUME_PLAN")" != "$BRANCH_VERSION" ]; then
+              echo "::error::Remote release metadata cannot be reproduced"
+              exit 1
+            fi
+            VERSION="$BRANCH_VERSION"
+            RELEASE_FROM_SHA="$(jq -r '.release_from_sha' <<< "$RESUME_PLAN")"
+            RELEASE_THROUGH_SHA="$REMOTE_THROUGH_SHA"
+          elif [ -n "$EXISTING_BRANCH" ]; then
+            echo "::error::In-progress release branch $EXISTING_BRANCH is missing remotely"
+            exit 1
+          fi
+
+          git switch --detach "$RELEASE_THROUGH_SHA"
+          npm version "$VERSION" --no-git-tag-version
+          CHANGELOG_FROM="$RELEASE_FROM_SHA" npm run changelog:update
+
+          if [ "$(node -p "require('./package.json').version")" != "$VERSION" ]; then
+            echo "::error::package.json does not contain release version $VERSION"
+            exit 1
+          fi
+          CHANGELOG_VERSION="$(awk '
+            /^# / || /^## / {
+              heading = $0
+              sub(/^##? /, "", heading)
+              sub(/^<small>/, "", heading)
+              sub(/^\[/, "", heading)
+              sub(/[\] ].*$/, "", heading)
+              print heading
+              exit
+            }
+          ' CHANGELOG.md)"
+          if [ "$CHANGELOG_VERSION" != "$VERSION" ]; then
+            echo "::error::CHANGELOG.md starts with $CHANGELOG_VERSION, expected $VERSION"
+            exit 1
+          fi
+
+          git add CHANGELOG.md package-lock.json package.json
+          EXPECTED_TREE_SHA="$(git write-tree)"
+          git fetch --force origin \
+            "+refs/heads/${BASE_REF}:refs/remotes/origin/${BASE_REF}"
+          CURRENT_BASE_SHA="$(git rev-parse "origin/${BASE_REF}")"
+
+          if [ -n "$REMOTE_RELEASE_SHA" ]; then
+            node scripts/release.mjs validate-commit \
+              --base "$CURRENT_BASE_SHA" \
+              --commit "$REMOTE_RELEASE_SHA" \
+              --expected-tree "$EXPECTED_TREE_SHA" \
+              --release-through "$RELEASE_THROUGH_SHA" \
+              --version "$VERSION"
+            git reset --hard "$RELEASE_THROUGH_SHA"
+            git switch --detach "$REMOTE_RELEASE_SHA"
+            RELEASE_COMMIT="$REMOTE_RELEASE_SHA"
+          else
+            git switch -c "$RELEASE_BRANCH"
+            git commit \
+              -m "chore(release): ${VERSION}" \
+              -m "Release-Through: ${RELEASE_THROUGH_SHA}"
+            RELEASE_COMMIT="$(git rev-parse HEAD)"
+            node scripts/release.mjs validate-commit \
+              --base "$CURRENT_BASE_SHA" \
+              --commit "$RELEASE_COMMIT" \
+              --expected-tree "$EXPECTED_TREE_SHA" \
+              --release-through "$RELEASE_THROUGH_SHA" \
+              --version "$VERSION"
+            git push origin "HEAD:${RELEASE_BRANCH}"
+          fi
+
+          if git merge-base --is-ancestor "$SOURCE_SHA" "$RELEASE_THROUGH_SHA"; then
+            COVERS_SOURCE=true
+          else
+            COVERS_SOURCE=false
+          fi
+          {
+            printf 'release_branch=%s\n' "$RELEASE_BRANCH"
+            printf 'release_commit=%s\n' "$RELEASE_COMMIT"
+            printf 'release_from=%s\n' "$RELEASE_FROM_SHA"
+            printf 'release_through=%s\n' "$RELEASE_THROUGH_SHA"
+            printf 'expected_tree=%s\n' "$EXPECTED_TREE_SHA"
+            printf 'version=%s\n' "$VERSION"
+            printf 'covers_source=%s\n' "$COVERS_SOURCE"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create or resume release PR
+        if: ${{ steps.plan.outputs.mode == 'release' }}
+        id: release-pr
+        env:
+          GH_TOKEN: ${{ steps.releaseTokens.outputs.token }}
+          RELEASE_BRANCH: ${{ steps.prepare.outputs.release_branch }}
+          RELEASE_THROUGH_SHA: ${{ steps.prepare.outputs.release_through }}
+          VERSION: ${{ steps.prepare.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          EXISTING_PRS="$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --base "$BASE_REF" \
+            --head "$RELEASE_BRANCH" \
+            --state all \
+            --limit 20 \
+            --json number,state,mergedAt,headRefOid,isCrossRepository \
+            --jq '[.[] | select(.isCrossRepository == false)]')"
+          PR_NUMBER="$(jq -r '[.[] | select(.mergedAt != null)][0].number // [.[] | select(.state == "OPEN")][0].number // empty' <<< "$EXISTING_PRS")"
+          if [ -z "$PR_NUMBER" ]; then
+            CLOSED_PR="$(jq -r '[.[] | select(.state == "CLOSED")][0].number // empty' <<< "$EXISTING_PRS")"
+            if [ -n "$CLOSED_PR" ]; then
+              echo "::error::Release PR #$CLOSED_PR was closed without merging"
+              exit 1
+            fi
+            PR_BODY="$(printf 'Automated release PR for %s.\n\nRelease-Through: %s' \
+              "$VERSION" \
+              "$RELEASE_THROUGH_SHA")"
+            PR_URL="$(gh pr create \
+              --repo "$GITHUB_REPOSITORY" \
+              --base "$BASE_REF" \
+              --head "$RELEASE_BRANCH" \
+              --title "chore(release): ${VERSION}" \
+              --body "$PR_BODY")"
+            PR_NUMBER="${PR_URL##*/}"
+          fi
+          printf 'number=%s\n' "$PR_NUMBER" >> "$GITHUB_OUTPUT"
+
+      - name: Enable squash auto-merge
+        if: ${{ steps.plan.outputs.mode == 'release' }}
+        env:
+          GH_TOKEN: ${{ steps.releaseTokens.outputs.token }}
+          PR_NUMBER: ${{ steps.release-pr.outputs.number }}
+          RELEASE_COMMIT: ${{ steps.prepare.outputs.release_commit }}
+          RELEASE_THROUGH_SHA: ${{ steps.prepare.outputs.release_through }}
+          VERSION: ${{ steps.prepare.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          PR_STATE="$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json state --jq '.state')"
+          if [ "$PR_STATE" = 'OPEN' ]; then
+            gh pr merge "$PR_NUMBER" \
+              --repo "$GITHUB_REPOSITORY" \
+              --auto \
+              --squash \
+              --match-head-commit "$RELEASE_COMMIT" \
+              --subject "chore(release): ${VERSION}" \
+              --body "Release-Through: ${RELEASE_THROUGH_SHA}"
+          elif [ "$PR_STATE" != 'MERGED' ]; then
+            echo "::error::Release PR #$PR_NUMBER is $PR_STATE"
+            exit 1
+          fi
+
+      - name: Wait for merge and post-merge tag
+        if: ${{ steps.plan.outputs.mode == 'release' }}
+        env:
+          COVERS_SOURCE: ${{ steps.prepare.outputs.covers_source }}
+          EXPECTED_TREE_SHA: ${{ steps.prepare.outputs.expected_tree }}
+          GH_TOKEN: ${{ steps.releaseTokens.outputs.token }}
+          PR_NUMBER: ${{ steps.release-pr.outputs.number }}
+          RELEASE_THROUGH_SHA: ${{ steps.prepare.outputs.release_through }}
+          VERSION: ${{ steps.prepare.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          MERGE_COMMIT=''
+          DEADLINE=$((SECONDS + 2700))
+          while [ "$SECONDS" -lt "$DEADLINE" ]; do
+            PR_JSON="$(gh pr view "$PR_NUMBER" \
+              --repo "$GITHUB_REPOSITORY" \
+              --json state,mergeCommit,mergeStateStatus,headRefOid,autoMergeRequest)"
+            PR_STATE="$(jq -r '.state' <<< "$PR_JSON")"
+            if [ "$PR_STATE" = 'MERGED' ]; then
+              MERGE_COMMIT="$(jq -r '.mergeCommit.oid // empty' <<< "$PR_JSON")"
+              [ -n "$MERGE_COMMIT" ] || { echo '::error::Merged PR has no merge commit'; exit 1; }
+              break
+            fi
+            if [ "$PR_STATE" != 'OPEN' ]; then
+              echo "::error::Release PR #$PR_NUMBER is $PR_STATE"
+              exit 1
+            fi
+
+            HEAD_SHA="$(jq -r '.headRefOid' <<< "$PR_JSON")"
+            git fetch --force origin \
+              "refs/pull/${PR_NUMBER}/head:refs/remotes/pull/${PR_NUMBER}/head" \
+              "+refs/heads/${BASE_REF}:refs/remotes/origin/${BASE_REF}"
+            FETCHED_HEAD="$(git rev-parse "refs/remotes/pull/${PR_NUMBER}/head")"
+            CURRENT_BASE_SHA="$(git rev-parse "origin/${BASE_REF}")"
+            if [ "$FETCHED_HEAD" != "$HEAD_SHA" ]; then
+              echo "::error::Release PR head changed while it was being validated"
+              exit 1
+            fi
+            node scripts/release.mjs validate-commit \
+              --base "$CURRENT_BASE_SHA" \
+              --commit "$HEAD_SHA" \
+              --expected-tree "$EXPECTED_TREE_SHA" \
+              --release-through "$RELEASE_THROUGH_SHA" \
+              --version "$VERSION"
+
+            MERGE_STATE="$(jq -r '.mergeStateStatus' <<< "$PR_JSON")"
+            if [ "$MERGE_STATE" = 'BEHIND' ]; then
+              node scripts/release.mjs validate-rebase \
+                --base "$CURRENT_BASE_SHA" \
+                --commit "$HEAD_SHA"
+              gh pr update-branch "$PR_NUMBER" \
+                --repo "$GITHUB_REPOSITORY" \
+                --rebase
+              sleep 5
+              continue
+            fi
+            if [ "$MERGE_STATE" = 'DIRTY' ]; then
+              echo "::error::Release PR #$PR_NUMBER has merge conflicts"
+              exit 1
+            fi
+            if [ "$(jq -r '.autoMergeRequest == null' <<< "$PR_JSON")" = 'true' ]; then
+              gh pr merge "$PR_NUMBER" \
+                --repo "$GITHUB_REPOSITORY" \
+                --auto \
+                --squash \
+                --match-head-commit "$HEAD_SHA" \
+                --subject "chore(release): ${VERSION}" \
+                --body "Release-Through: ${RELEASE_THROUGH_SHA}"
+            fi
+            sleep 15
+          done
+          if [ -z "$MERGE_COMMIT" ]; then
+            echo "::error::Timed out waiting for release PR #$PR_NUMBER to merge"
+            exit 1
+          fi
+
+          TAG="v${VERSION}"
+          for _ in $(seq 1 80); do
+            REMOTE_TAG_SHA="$(git ls-remote --tags origin "refs/tags/${TAG}" | awk '{print $1}')"
+            if [ -n "$REMOTE_TAG_SHA" ]; then
+              git fetch --force origin "refs/tags/${TAG}:refs/tags/${TAG}"
+              node scripts/release.mjs validate-tag \
+                --tag "$TAG" \
+                --commit "$MERGE_COMMIT"
+              if [ "$COVERS_SOURCE" != 'true' ]; then
+                echo "::error::Resumed release completed, but it did not cover source $SOURCE_SHA; rerun this workflow"
+                exit 1
+              fi
+              echo "::notice::$TAG finalized at $MERGE_COMMIT"
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error::Timed out waiting for $TAG to be finalized"
+          exit 1
+
+  finalize-release:
+    if: ${{ github.event.pull_request.merged == true && github.event.action == 'closed' && github.base_ref == 'development' && needs.verify-commit.outputs.versionType == 'stop' }}
+    needs: [verify-commit]
+    runs-on: ubuntu-latest
+    concurrency:
+      group: version-tag-${{ github.event.pull_request.head.ref }}
+      queue: max
+    env:
+      BASE_REF: ${{ github.base_ref }}
+      HEAD_REF: ${{ github.event.pull_request.head.ref }}
+      HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_TITLE: ${{ github.event.pull_request.title }}
+    steps:
+      - name: Get release token
+        id: releaseTokens
+        uses: Zwiqler94/GH-Actions@v5
+        with:
+          mode: app-token
+          appId: ${{ secrets.APP_ID }}
+          privateKey: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: read
+
+      - name: Checkout trusted base
+        uses: actions/checkout@v6
+        with:
+          token: ${{ steps.releaseTokens.outputs.token }}
+          fetch-depth: 0
+
+      - name: Use pinned Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Validate release event metadata
+        id: metadata
+        run: |
+          set -euo pipefail
+
+          if [[ ! "$PR_TITLE" =~ ^chore\(release\):\ ([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+            echo "::error::Release PR title is invalid: $PR_TITLE"
+            exit 1
+          fi
+          VERSION="${BASH_REMATCH[1]}"
+          if [ "$HEAD_REF" != "release/v${VERSION}" ]; then
+            echo "::error::Release head $HEAD_REF does not match version $VERSION"
+            exit 1
+          fi
+          if [ "$HEAD_REPOSITORY" != "$GITHUB_REPOSITORY" ]; then
+            echo "::error::Release PR must originate in $GITHUB_REPOSITORY"
+            exit 1
+          fi
+
+          git fetch --force origin \
+            "+refs/heads/${BASE_REF}:refs/remotes/origin/${BASE_REF}" \
+            "refs/pull/${PR_NUMBER}/head:refs/remotes/pull/${PR_NUMBER}/head" \
+            --tags
+          FETCHED_HEAD="$(git rev-parse "refs/remotes/pull/${PR_NUMBER}/head")"
+          if [ "$FETCHED_HEAD" != "$HEAD_SHA" ]; then
+            echo "::error::Release PR head does not match the merged event"
+            exit 1
+          fi
+          git cat-file -e "${MERGE_SHA}^{commit}"
+          if ! git merge-base --is-ancestor "$MERGE_SHA" "origin/${BASE_REF}"; then
+            echo "::error::Release merge $MERGE_SHA is not contained in $BASE_REF"
+            exit 1
+          fi
+
+          RELEASE_INFO="$(node scripts/release.mjs inspect --commit "$HEAD_SHA")"
+          RELEASE_THROUGH_SHA="$(jq -r '.release_through_sha' <<< "$RELEASE_INFO")"
+          RELEASE_PLAN="$(node scripts/release.mjs plan \
+            --base "$RELEASE_THROUGH_SHA" \
+            --source "$RELEASE_THROUGH_SHA")"
+          if [ "$(jq -r '.mode' <<< "$RELEASE_PLAN")" != 'release' ] ||
+            [ "$(jq -r '.next_version' <<< "$RELEASE_PLAN")" != "$VERSION" ]; then
+            echo "::error::Merged release cannot be reproduced from its coverage metadata"
+            exit 1
+          fi
+          {
+            printf 'version=%s\n' "$VERSION"
+            printf 'release_from=%s\n' "$(jq -r '.release_from_sha' <<< "$RELEASE_PLAN")"
+            printf 'release_through=%s\n' "$RELEASE_THROUGH_SHA"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v3
         with:
           credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_NPM_PKG }}"
+
       - name: Set up gcloud Cloud SDK environment
         uses: google-github-actions/setup-gcloud@v3
+
       - name: Authenticate to Artifact Registry
         run: |
           gcloud config set artifacts/repository everything-lib
           gcloud config set artifacts/location us-central1
           gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
           npx google-artifactregistry-auth
+
+      - name: Recompute and validate the merged release
+        env:
+          RELEASE_FROM_SHA: ${{ steps.metadata.outputs.release_from }}
+          RELEASE_THROUGH_SHA: ${{ steps.metadata.outputs.release_through }}
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          git switch --detach "$RELEASE_THROUGH_SHA"
+          npm ci
+          npm version "$VERSION" --no-git-tag-version
+          CHANGELOG_FROM="$RELEASE_FROM_SHA" npm run changelog:update
+          git add CHANGELOG.md package-lock.json package.json
+          EXPECTED_TREE_SHA="$(git write-tree)"
+          MERGE_PARENT_SHA="$(git rev-parse "${MERGE_SHA}^")"
+
+          node scripts/release.mjs validate-commit \
+            --base "$MERGE_PARENT_SHA" \
+            --commit "$HEAD_SHA" \
+            --expected-tree "$EXPECTED_TREE_SHA" \
+            --release-through "$RELEASE_THROUGH_SHA" \
+            --version "$VERSION"
+          node scripts/release.mjs validate-commit \
+            --base "$MERGE_PARENT_SHA" \
+            --commit "$MERGE_SHA" \
+            --expected-tree "$EXPECTED_TREE_SHA" \
+            --release-through "$RELEASE_THROUGH_SHA" \
+            --version "$VERSION"
+
+      - name: Create or resume the post-merge tag
+        env:
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          git config --local user.name 'github-actions[bot]'
+          git config --local user.email 'github-actions[bot]@github.com'
+          TAG="v${VERSION}"
+          git fetch --force origin --tags
+          if git rev-parse --verify --quiet "refs/tags/${TAG}" >/dev/null; then
+            node scripts/release.mjs validate-tag \
+              --tag "$TAG" \
+              --commit "$MERGE_SHA"
+            echo "::notice::Resuming $TAG at $MERGE_SHA"
+            exit 0
+          fi
+
+          git tag "$TAG" "$MERGE_SHA"
+          if ! git push origin "refs/tags/${TAG}"; then
+            git fetch --force origin "refs/tags/${TAG}:refs/tags/${TAG}"
+            node scripts/release.mjs validate-tag \
+              --tag "$TAG" \
+              --commit "$MERGE_SHA"
+          fi
+
+  check-version-job:
+    runs-on: ubuntu-latest
+    needs: [verify-commit, version-release, finalize-release]
+    if: ${{ always() }}
+    steps:
+      - name: Checkout trusted base
+        uses: actions/checkout@v6
+
       - name: Use pinned Node.js
         uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
-          cache: "npm"
-      - name: log versions
+
+      - name: Determine version status
         run: |
-          node --version
-          npm --version
-      - name: version
-        run: |
-          set -euo pipefail
-
-          git fetch --tags origin
-          git config --local user.name 'github-actions[bot]'
-          git config --local user.email 'github-actions[bot]@github.com'
-          git config --local push.autoSetupRemote true
-
-          echo "::group::Release context"
-          printf 'event=%s\n' "${GITHUB_EVENT_NAME:-}"
-          printf 'base ref=%s\n' "$BASE_REF"
-          printf 'bump type=%s\n' "$BUMP_TYPE"
-          printf 'github ref=%s\n' "${GITHUB_REF:-}"
-          printf 'github sha=%s\n' "${GITHUB_SHA:-}"
-          printf 'checked out sha=%s\n' "$(git rev-parse --short HEAD)"
-          printf 'latest version tags:\n'
-          git tag --sort=-version:refname | sed -n '1,10p'
-          echo "::endgroup::"
-
-          npm ci
-          BASE_SHA="$(git rev-parse HEAD)"
-          CURRENT_VERSION="$(node -p "require('./package.json').version")"
-          printf 'package version before bump=%s\n' "$CURRENT_VERSION"
-
-          npm version "$BUMP_TYPE" --no-git-tag-version
-
-          NEXT_VERSION="$(node -p "require('./package.json').version")"
-          printf 'package version after bump=%s\n' "$NEXT_VERSION"
-          printf 'VERSION=%s\n' "$NEXT_VERSION" >> "$GITHUB_ENV"
-
-          RELEASE_BRANCH="release/v${NEXT_VERSION}"
-          printf 'RELEASE_BRANCH=%s\n' "$RELEASE_BRANCH" >> "$GITHUB_ENV"
-          printf 'release branch=%s\n' "$RELEASE_BRANCH"
-
-          # A retry may reuse only the release commit created from this exact base and version.
-          REMOTE_RELEASE_SHA="$(git ls-remote --heads origin "refs/heads/${RELEASE_BRANCH}" | awk '{print $1}')"
-          if [ -n "$REMOTE_RELEASE_SHA" ]; then
-            git fetch origin "refs/heads/${RELEASE_BRANCH}:refs/remotes/origin/${RELEASE_BRANCH}"
-            REMOTE_PARENT_SHA="$(git rev-parse "origin/${RELEASE_BRANCH}^")"
-            REMOTE_VERSION="$(
-              git show "origin/${RELEASE_BRANCH}:package.json" |
-                node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version"
-            )"
-            REMOTE_SUBJECT="$(git log -1 --format=%s "origin/${RELEASE_BRANCH}")"
-            if [ "$REMOTE_PARENT_SHA" != "$BASE_SHA" ] ||
-              [ "$REMOTE_VERSION" != "$NEXT_VERSION" ] ||
-              [ "$REMOTE_SUBJECT" != "chore(release): ${NEXT_VERSION}" ]; then
-              echo "::error::Existing release branch does not match this release attempt"
-              exit 1
-            fi
-
-            git reset --hard "$BASE_SHA"
-            git switch --detach "origin/${RELEASE_BRANCH}"
-            printf 'resuming release commit=%s\n' "$(git rev-parse --short HEAD)"
-          else
-            git switch -c "$RELEASE_BRANCH"
-            npm run changelog:update
-
-            echo "::group::Changelog after update"
-            git diff --stat -- CHANGELOG.md package.json package-lock.json
-            printf 'top changelog headings:\n'
-            awk '
-              /^# / || /^## / {
-                print
-                count++
-                if (count == 5) {
-                  exit
-                }
-              }
-            ' CHANGELOG.md
-            echo "::endgroup::"
-
-            if git diff --quiet -- CHANGELOG.md; then
-              echo "::error::CHANGELOG.md did not change"
-              exit 1
-            fi
-
-            CHANGELOG_VERSION="$(
-              awk '
-                /^# / || /^## / {
-                  heading = $0
-                  sub(/^##? /, "", heading)
-                  sub(/^<small>/, "", heading)
-                  sub(/^\[/, "", heading)
-                  sub(/[\] ].*$/, "", heading)
-                  print heading
-                  exit
-                }
-              ' CHANGELOG.md
-            )"
-            printf 'parsed changelog version=%s\n' "$CHANGELOG_VERSION"
-            printf 'expected package version=%s\n' "$NEXT_VERSION"
-            if [ "$CHANGELOG_VERSION" != "$NEXT_VERSION" ]; then
-              echo "::error::CHANGELOG.md top entry ($CHANGELOG_VERSION) does not match version ($NEXT_VERSION)"
-              exit 1
-            fi
-
-            git add package.json package-lock.json CHANGELOG.md
-            git commit -m "chore(release): ${NEXT_VERSION}"
-            git push origin "HEAD:${RELEASE_BRANCH}"
-          fi
-
-          RELEASE_COMMIT="$(git rev-parse HEAD)"
-          if git rev-parse --verify --quiet "refs/tags/v${NEXT_VERSION}" >/dev/null; then
-            TAG_COMMIT="$(git rev-list -n 1 "v${NEXT_VERSION}")"
-            if [ "$TAG_COMMIT" != "$RELEASE_COMMIT" ]; then
-              echo "::error::Existing release tag v${NEXT_VERSION} points to a different commit"
-              exit 1
-            fi
-            printf 'resuming release tag=%s\n' "v${NEXT_VERSION}"
-          else
-            git tag "v${NEXT_VERSION}"
-            git push origin "refs/tags/v${NEXT_VERSION}"
-          fi
-      - name: set PULL_URL
-        run: |
-          printf 'PULL_URL=%s/pulls\n' "$REPO_URL" >> "$GITHUB_ENV"
-      - name: set PULL REQ JSON
-        run: |
-          JSON=$(jq -cn --arg head "Zwiqler94:${RELEASE_BRANCH}" --arg base "$BASE_REF" --arg version "$VERSION" '
-          {
-            title: ("chore(release): " + $version),
-            body: ("Automated release PR for " + $version + "."),
-            head: $head,
-            base: $base
-          }')
-          printf 'JSON=%s\n' "$JSON" >> "$GITHUB_ENV"
-      - name: get PR Number
-        env:
-          JSON_PAYLOAD: ${{ env.JSON }}
-        run: |
-          set -euo pipefail
-          HEAD_OWNER="${GITHUB_REPOSITORY_OWNER}:${RELEASE_BRANCH}"
-          # Resume an open or already-merged PR before attempting to create another one.
-          EXISTING_PULLS="$(curl --fail-with-body --silent --show-error --get "$PULL_URL" \
-            -H "Accept:application/vnd.github+json" \
-            -H "Authorization:Bearer ${{ steps.releaseTokens.outputs.token }}" \
-            -H "X-GitHub-Api-Version:2022-11-28" \
-            --data-urlencode "state=all" \
-            --data-urlencode "head=${HEAD_OWNER}" \
-            --data-urlencode "base=${BASE_REF}")"
-          MERGED_PR_NUM="$(jq -r '[.[] | select(.merged_at != null)][0].number // empty' <<< "$EXISTING_PULLS")"
-          if [ -n "$MERGED_PR_NUM" ]; then
-            PR_NUM="$MERGED_PR_NUM"
-            printf 'PR_ALREADY_MERGED=true\n' >> "$GITHUB_ENV"
-            printf 'release PR already merged: #%s\n' "$PR_NUM"
-          else
-            PR_NUM="$(jq -r '[.[] | select(.state == "open")][0].number // empty' <<< "$EXISTING_PULLS")"
-            if [ -n "$PR_NUM" ]; then
-              printf 'resuming open release PR: #%s\n' "$PR_NUM"
-            else
-              CREATE_RESPONSE="$(curl --fail-with-body --silent --show-error -L -X POST "$PULL_URL" \
-                -H "Accept:application/vnd.github+json" \
-                -H "Authorization:Bearer ${{ steps.releaseTokens.outputs.token }}" \
-                -H "X-GitHub-Api-Version:2022-11-28" \
-                -d "$JSON_PAYLOAD")"
-              PR_NUM="$(jq -r '.number // empty' <<< "$CREATE_RESPONSE")"
-              if [ -z "$PR_NUM" ]; then
-                echo "::error::GitHub did not return a release PR number"
-                exit 1
-              fi
-            fi
-          fi
-          printf 'PR_NUM=%s\n' "$PR_NUM" >> "$GITHUB_ENV"
-      - name: request Merge
-        if: ${{ env.PR_ALREADY_MERGED != 'true' }}
-        env:
-          MERGE_URL: ${{ env.PULL_URL }}/${{ env.PR_NUM }}/merge
-        run: |
-          set -euo pipefail
-          PAYLOAD=$(jq -n \
-            --arg version "$VERSION" \
-            '{commit_title: ("chore(release): " + $version + " [skip ci]"), commit_message: ""}')
-          MERGE_RESPONSE="$(curl --fail-with-body --silent --show-error --request PUT "$MERGE_URL" \
-            -H "Accept:application/vnd.github+json" \
-            -H "Authorization:Bearer ${{ steps.releaseTokens.outputs.token }}" \
-            -H "X-GitHub-Api-Version:2022-11-28" \
-            -d "$PAYLOAD")"
-          if [ "$(jq -r '.merged // false' <<< "$MERGE_RESPONSE")" != "true" ]; then
-            echo "::error::GitHub did not merge release PR $PR_NUM"
-            exit 1
-          fi
-  skip-already-versioned:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.merged == true && github.event.action == 'closed' }}
-    needs: [verify-commit]
-    steps:
-      - if: ${{ needs.verify-commit.outputs.versionType == 'stop' }}
-        run: |
-          echo "::notice:: skip versioning because been there done that"
-          exit 0
-  check-version-job:
-    runs-on: ubuntu-latest
-    needs:
-      [
-        verify-commit,
-        version-release,
-        skip-already-versioned,
-      ]
-    if: ${{ always() }}
-    steps:
-      - name: determine version status
-        run: |
-          merged='${{ github.event.pull_request.merged }}'
-          action='${{ github.event.action }}'
-
-          if [[ "$merged" != 'true' ]]; then
-            if [[ "$action" == 'closed' ]]; then
-              echo "Version Skipped - PR closed without merge"
-            else
-              echo "Version Skipped"
-            fi
-            exit 0
-          fi
-
-          if [[ '${{ needs.skip-already-versioned.result }}' == 'success' ]]; then
-            echo "Version Skipped"
-            exit 0
-          elif [[ '${{ needs.version-release.result }}' == 'success' ]]; then
-            echo "::notice:: Version workflow completed successfully"
-            echo "Version Succeeded"
-            exit 0
-          elif [[ '${{ needs.verify-commit.result }}' == 'failure' || '${{ needs.version-release.result }}' == 'failure' ]]; then
-            echo "::error:: verify-commit=${{ needs.verify-commit.result }}, version-release=${{ needs.version-release.result }}"
-            echo "Version Failed"
-            exit 1
-          else
-            exit 1
-          fi
+          node scripts/release.mjs status \
+            --merged "${{ github.event.pull_request.merged }}" \
+            --verify-result "${{ needs.verify-commit.result }}" \
+            --version-type "${{ needs.verify-commit.outputs.versionType || 'none' }}" \
+            --release-result "${{ needs.version-release.result }}" \
+            --finalize-result "${{ needs.finalize-release.result }}"
