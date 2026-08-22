@@ -1,0 +1,148 @@
+name: Finalize Release
+on:
+  push:
+    branches: [development]
+permissions:
+  contents: read
+env:
+  HUSKY: 0
+jobs:
+  finalize-release:
+    if: "${{ startsWith(github.event.head_commit.message, 'chore(release): ') }}"
+    runs-on: ubuntu-latest
+    concurrency:
+      group: finalize-release-${{ github.repository }}-${{ github.ref }}
+      queue: max
+    steps:
+      - name: Checkout trusted development
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Use pinned Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Validate trusted release metadata
+        id: metadata
+        run: |
+          set -euo pipefail
+
+          CHECKED_OUT_SHA="$(git rev-parse HEAD)"
+          if [ "$CHECKED_OUT_SHA" != "$GITHUB_SHA" ]; then
+            echo "::error::Checked out $CHECKED_OUT_SHA instead of push commit $GITHUB_SHA"
+            exit 1
+          fi
+          git fetch --force origin \
+            "+refs/heads/development:refs/remotes/origin/development" \
+            --tags
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/development; then
+            echo "::error::Release commit $GITHUB_SHA is not contained in development"
+            exit 1
+          fi
+
+          RELEASE_INFO="$(node scripts/release.mjs inspect --commit "$GITHUB_SHA")"
+          VERSION="$(jq -r '.version' <<< "$RELEASE_INFO")"
+          RELEASE_THROUGH_SHA="$(jq -r '.release_through_sha' <<< "$RELEASE_INFO")"
+          MERGE_PARENT_SHA="$(jq -r '.parent_sha' <<< "$RELEASE_INFO")"
+          if ! git merge-base --is-ancestor "$RELEASE_THROUGH_SHA" "$MERGE_PARENT_SHA"; then
+            echo "::error::Release coverage is not contained in the merge parent"
+            exit 1
+          fi
+
+          RELEASE_PLAN="$(node scripts/release.mjs plan \
+            --base "$RELEASE_THROUGH_SHA" \
+            --source "$RELEASE_THROUGH_SHA")"
+          if [ "$(jq -r '.mode' <<< "$RELEASE_PLAN")" != 'release' ] ||
+            [ "$(jq -r '.next_version' <<< "$RELEASE_PLAN")" != "$VERSION" ]; then
+            echo "::error::Release cannot be reproduced from its coverage metadata"
+            exit 1
+          fi
+          {
+            printf 'version=%s\n' "$VERSION"
+            printf 'release_from=%s\n' "$(jq -r '.release_from_sha' <<< "$RELEASE_PLAN")"
+            printf 'release_through=%s\n' "$RELEASE_THROUGH_SHA"
+            printf 'merge_parent=%s\n' "$MERGE_PARENT_SHA"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_NPM_PKG }}"
+
+      - name: Set up gcloud Cloud SDK environment
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Authenticate to Artifact Registry
+        run: |
+          gcloud config set artifacts/repository everything-lib
+          gcloud config set artifacts/location us-central1
+          gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
+          npx google-artifactregistry-auth
+
+      - name: Recompute and validate the merged release
+        env:
+          MERGE_PARENT_SHA: ${{ steps.metadata.outputs.merge_parent }}
+          RELEASE_FROM_SHA: ${{ steps.metadata.outputs.release_from }}
+          RELEASE_THROUGH_SHA: ${{ steps.metadata.outputs.release_through }}
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          git switch --detach "$RELEASE_THROUGH_SHA"
+          npm ci
+          npm version "$VERSION" --no-git-tag-version
+          CHANGELOG_FROM="$RELEASE_FROM_SHA" npm run changelog:update
+          git add CHANGELOG.md package-lock.json package.json
+          EXPECTED_TREE_SHA="$(git write-tree)"
+
+          node scripts/release.mjs validate-commit \
+            --base "$MERGE_PARENT_SHA" \
+            --commit "$GITHUB_SHA" \
+            --expected-tree "$EXPECTED_TREE_SHA" \
+            --release-through "$RELEASE_THROUGH_SHA" \
+            --version "$VERSION"
+
+      - name: Get release token
+        id: releaseTokens
+        uses: Zwiqler94/GH-Actions@v5
+        with:
+          mode: app-token
+          appId: ${{ secrets.APP_ID }}
+          privateKey: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+
+      - name: Create or resume the post-merge tag
+        env:
+          GH_TOKEN: ${{ steps.releaseTokens.outputs.token }}
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          TAG="v${VERSION}"
+          git fetch --force origin --tags
+          if git rev-parse --verify --quiet "refs/tags/${TAG}" >/dev/null; then
+            node scripts/release.mjs validate-tag \
+              --tag "$TAG" \
+              --commit "$GITHUB_SHA"
+            echo "::notice::Resuming $TAG at $GITHUB_SHA"
+            exit 0
+          fi
+
+          if ! gh api --method POST \
+            "repos/${GITHUB_REPOSITORY}/git/refs" \
+            -f ref="refs/tags/${TAG}" \
+            -f sha="$GITHUB_SHA"; then
+            git fetch --force origin "refs/tags/${TAG}:refs/tags/${TAG}"
+            node scripts/release.mjs validate-tag \
+              --tag "$TAG" \
+              --commit "$GITHUB_SHA"
+            exit 0
+          fi
+
+          git fetch --force origin "refs/tags/${TAG}:refs/tags/${TAG}"
+          node scripts/release.mjs validate-tag \
+            --tag "$TAG" \
+            --commit "$GITHUB_SHA"

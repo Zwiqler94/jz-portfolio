@@ -381,6 +381,45 @@ test("does not allow skipped jobs to mask release failures", () => {
   );
 });
 
+test("keeps privileged release finalization on trusted development pushes", () => {
+  const versionWorkflow = readFileSync(
+    join(projectRoot, ".github", "workflows", "version.yml"),
+    "utf8",
+  );
+  const finalizationWorkflow = readFileSync(
+    join(projectRoot, ".github", "workflows", "finalize-release.yml"),
+    "utf8",
+  );
+  const releaseWaiter = versionWorkflow.slice(
+    versionWorkflow.indexOf("  wait-release-finalization:"),
+    versionWorkflow.indexOf("  check-version-job:"),
+  );
+
+  assert.ok(releaseWaiter.length > 0);
+  assert.doesNotMatch(releaseWaiter, /refs\/pull\//);
+  assert.doesNotMatch(releaseWaiter, /pull_request\.head\.sha/);
+  assert.doesNotMatch(releaseWaiter, /pull_request\.number/);
+  assert.match(releaseWaiter, /Wait for trusted push finalization/);
+  assert.doesNotMatch(finalizationWorkflow, /pull_request_target/);
+  assert.doesNotMatch(finalizationWorkflow, /refs\/pull\//);
+  assert.match(finalizationWorkflow, /push:\n\s+branches: \[development\]/);
+
+  const metadataIndex = finalizationWorkflow.indexOf(
+    "Validate trusted release metadata",
+  );
+  const authenticationIndex = finalizationWorkflow.indexOf(
+    "Authenticate to Google Cloud",
+  );
+  const validationIndex = finalizationWorkflow.indexOf(
+    "Recompute and validate the merged release",
+  );
+  const writeTokenIndex = finalizationWorkflow.indexOf("Get release token");
+  assert.ok(metadataIndex >= 0);
+  assert.ok(authenticationIndex > metadataIndex);
+  assert.ok(validationIndex > authenticationIndex);
+  assert.ok(writeTokenIndex > validationIndex);
+});
+
 test("fixture package files remain valid JSON", () =>
   withRepository(({ repo }) => {
     assert.equal(

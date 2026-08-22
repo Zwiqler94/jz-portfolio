@@ -416,36 +416,20 @@ jobs:
           echo "::error::Timed out waiting for $TAG to be finalized"
           exit 1
 
-  finalize-release:
+  wait-release-finalization:
     if: ${{ github.event.pull_request.merged == true && github.event.action == 'closed' && github.base_ref == 'development' && needs.verify-commit.outputs.versionType == 'stop' }}
     needs: [verify-commit]
     runs-on: ubuntu-latest
-    concurrency:
-      group: version-tag-${{ github.event.pull_request.head.ref }}
-      queue: max
     env:
       BASE_REF: ${{ github.base_ref }}
       HEAD_REF: ${{ github.event.pull_request.head.ref }}
       HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
-      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
       MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
-      PR_NUMBER: ${{ github.event.pull_request.number }}
       PR_TITLE: ${{ github.event.pull_request.title }}
     steps:
-      - name: Get release token
-        id: releaseTokens
-        uses: Zwiqler94/GH-Actions@v5
-        with:
-          mode: app-token
-          appId: ${{ secrets.APP_ID }}
-          privateKey: ${{ secrets.APP_PRIVATE_KEY }}
-          permission-contents: write
-          permission-pull-requests: read
-
       - name: Checkout trusted base
         uses: actions/checkout@v6
         with:
-          token: ${{ steps.releaseTokens.outputs.token }}
           fetch-depth: 0
 
       - name: Use pinned Node.js
@@ -454,7 +438,7 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "npm"
 
-      - name: Validate release event metadata
+      - name: Validate trusted release merge
         id: metadata
         run: |
           set -euo pipefail
@@ -475,108 +459,44 @@ jobs:
 
           git fetch --force origin \
             "+refs/heads/${BASE_REF}:refs/remotes/origin/${BASE_REF}" \
-            "refs/pull/${PR_NUMBER}/head:refs/remotes/pull/${PR_NUMBER}/head" \
             --tags
-          FETCHED_HEAD="$(git rev-parse "refs/remotes/pull/${PR_NUMBER}/head")"
-          if [ "$FETCHED_HEAD" != "$HEAD_SHA" ]; then
-            echo "::error::Release PR head does not match the merged event"
-            exit 1
-          fi
           git cat-file -e "${MERGE_SHA}^{commit}"
           if ! git merge-base --is-ancestor "$MERGE_SHA" "origin/${BASE_REF}"; then
             echo "::error::Release merge $MERGE_SHA is not contained in $BASE_REF"
             exit 1
           fi
 
-          RELEASE_INFO="$(node scripts/release.mjs inspect --commit "$HEAD_SHA")"
-          RELEASE_THROUGH_SHA="$(jq -r '.release_through_sha' <<< "$RELEASE_INFO")"
-          RELEASE_PLAN="$(node scripts/release.mjs plan \
-            --base "$RELEASE_THROUGH_SHA" \
-            --source "$RELEASE_THROUGH_SHA")"
-          if [ "$(jq -r '.mode' <<< "$RELEASE_PLAN")" != 'release' ] ||
-            [ "$(jq -r '.next_version' <<< "$RELEASE_PLAN")" != "$VERSION" ]; then
-            echo "::error::Merged release cannot be reproduced from its coverage metadata"
+          RELEASE_INFO="$(node scripts/release.mjs inspect --commit "$MERGE_SHA")"
+          if [ "$(jq -r '.version' <<< "$RELEASE_INFO")" != "$VERSION" ]; then
+            echo "::error::Release merge version does not match PR title"
             exit 1
           fi
-          {
-            printf 'version=%s\n' "$VERSION"
-            printf 'release_from=%s\n' "$(jq -r '.release_from_sha' <<< "$RELEASE_PLAN")"
-            printf 'release_through=%s\n' "$RELEASE_THROUGH_SHA"
-          } >> "$GITHUB_OUTPUT"
+          printf 'version=%s\n' "$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v3
-        with:
-          credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_NPM_PKG }}"
-
-      - name: Set up gcloud Cloud SDK environment
-        uses: google-github-actions/setup-gcloud@v3
-
-      - name: Authenticate to Artifact Registry
-        run: |
-          gcloud config set artifacts/repository everything-lib
-          gcloud config set artifacts/location us-central1
-          gcloud artifacts print-settings npm --scope=@zwiqler94 >> .npmrc
-          npx google-artifactregistry-auth
-
-      - name: Recompute and validate the merged release
-        env:
-          RELEASE_FROM_SHA: ${{ steps.metadata.outputs.release_from }}
-          RELEASE_THROUGH_SHA: ${{ steps.metadata.outputs.release_through }}
-          VERSION: ${{ steps.metadata.outputs.version }}
-        run: |
-          set -euo pipefail
-
-          git switch --detach "$RELEASE_THROUGH_SHA"
-          npm ci
-          npm version "$VERSION" --no-git-tag-version
-          CHANGELOG_FROM="$RELEASE_FROM_SHA" npm run changelog:update
-          git add CHANGELOG.md package-lock.json package.json
-          EXPECTED_TREE_SHA="$(git write-tree)"
-          MERGE_PARENT_SHA="$(git rev-parse "${MERGE_SHA}^")"
-
-          node scripts/release.mjs validate-commit \
-            --base "$MERGE_PARENT_SHA" \
-            --commit "$HEAD_SHA" \
-            --expected-tree "$EXPECTED_TREE_SHA" \
-            --release-through "$RELEASE_THROUGH_SHA" \
-            --version "$VERSION"
-          node scripts/release.mjs validate-commit \
-            --base "$MERGE_PARENT_SHA" \
-            --commit "$MERGE_SHA" \
-            --expected-tree "$EXPECTED_TREE_SHA" \
-            --release-through "$RELEASE_THROUGH_SHA" \
-            --version "$VERSION"
-
-      - name: Create or resume the post-merge tag
+      - name: Wait for trusted push finalization
         env:
           VERSION: ${{ steps.metadata.outputs.version }}
         run: |
           set -euo pipefail
 
-          git config --local user.name 'github-actions[bot]'
-          git config --local user.email 'github-actions[bot]@github.com'
           TAG="v${VERSION}"
-          git fetch --force origin --tags
-          if git rev-parse --verify --quiet "refs/tags/${TAG}" >/dev/null; then
-            node scripts/release.mjs validate-tag \
-              --tag "$TAG" \
-              --commit "$MERGE_SHA"
-            echo "::notice::Resuming $TAG at $MERGE_SHA"
-            exit 0
-          fi
-
-          git tag "$TAG" "$MERGE_SHA"
-          if ! git push origin "refs/tags/${TAG}"; then
-            git fetch --force origin "refs/tags/${TAG}:refs/tags/${TAG}"
-            node scripts/release.mjs validate-tag \
-              --tag "$TAG" \
-              --commit "$MERGE_SHA"
-          fi
+          for _ in $(seq 1 80); do
+            if git ls-remote --exit-code --tags origin "refs/tags/${TAG}" >/dev/null 2>&1; then
+              git fetch --force origin "refs/tags/${TAG}:refs/tags/${TAG}"
+              node scripts/release.mjs validate-tag \
+                --tag "$TAG" \
+                --commit "$MERGE_SHA"
+              echo "::notice::$TAG finalized at $MERGE_SHA"
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error::Timed out waiting for $TAG to be finalized"
+          exit 1
 
   check-version-job:
     runs-on: ubuntu-latest
-    needs: [verify-commit, version-release, finalize-release]
+    needs: [verify-commit, version-release, wait-release-finalization]
     if: ${{ always() }}
     steps:
       - name: Checkout trusted base
@@ -594,4 +514,4 @@ jobs:
             --verify-result "${{ needs.verify-commit.result }}" \
             --version-type "${{ needs.verify-commit.outputs.versionType || 'none' }}" \
             --release-result "${{ needs.version-release.result }}" \
-            --finalize-result "${{ needs.finalize-release.result }}"
+            --finalize-result "${{ needs.wait-release-finalization.result }}"
