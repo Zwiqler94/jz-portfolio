@@ -15,6 +15,7 @@ if (changelogDate && !/^\d{4}-\d{2}-\d{2}$/.test(changelogDate)) {
   throw new Error("CHANGELOG_DATE must use YYYY-MM-DD format");
 }
 
+
 export default {
   gitRawCommitsOpts: {
     ...(changelogFrom ? { from: changelogFrom } : {}),
