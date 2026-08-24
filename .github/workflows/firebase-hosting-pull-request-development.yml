@@ -34,7 +34,7 @@ jobs:
         env:
           HUSKY: 0
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
           cache: "npm"
       - run: "npm ci"
         env:

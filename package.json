@@ -2,6 +2,10 @@
   "name": "jz-portfolio",
   "version": "5.4.1",
   "repository": "https://github.com/Zwiqler94/jz-portfolio.git",
+  "packageManager": "npm@11.17.0",
+  "engines": {
+    "node": ">=24.19.0 <25"
+  },
   "scripts": {
     "artifactregistry-login": "npx google-artifactregistry-auth",
     "build": "npm run build:prod",
@@ -28,6 +32,7 @@
     "start:local": "npx --yes http-server@14.1.1 --proxy http://localhost:8081? --cors -p 8081 dist/jz-portfolio-local",
     "start:prod": "npx --yes http-server@14.1.1 --cors -p 8087 -c-1 dist/jz-portfolio",
     "test": "ng test",
+    "test:release": "node --test scripts/release.test.mjs",
     "prepare": "husky || true"
   },
   "private": true,
