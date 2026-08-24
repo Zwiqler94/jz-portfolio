@@ -25,6 +25,16 @@ import {
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const releaseDate = "2026-08-21";
+const recoveredRelease = Object.freeze({
+  changedFiles: ["CHANGELOG.md", "package-lock.json", "package.json"],
+  mode: "full-compatibility",
+  parentSha: "4d32df1f40344e90882af64bb4db3b5810259b99",
+  releaseCommitSha: "e1a7583eb414fbd68e4d5ba40d6b1046a256d03a",
+  releaseDate: "2026-08-24",
+  releaseThroughSha: "3b153db24be67c033b8a865ffc9578f859c1b358",
+  treeSha: "7254f3df63a2f5c5dd77af6f8503184d7813830c",
+  version: "5.4.2",
+});
 
 function releaseMetadata(releaseThroughSha) {
   return `Release-Through: ${releaseThroughSha}\n\nRelease-Date: ${releaseDate}`;
@@ -79,6 +89,41 @@ function withRepository(run) {
   } finally {
     rmSync(fixture.repo, { force: true, recursive: true });
   }
+}
+
+function withRepositoryClone(run) {
+  const repo = mkdtempSync(join(tmpdir(), "jz-release-clone-test-"));
+  try {
+    rmSync(repo, { force: true, recursive: true });
+    execFileSync("git", ["clone", "--no-local", projectRoot, repo], {
+      stdio: "ignore",
+    });
+    git(repo, "config", "user.name", "Release Test");
+    git(repo, "config", "user.email", "release-test@example.invalid");
+    git(repo, "config", "commit.gpgsign", "false");
+    git(repo, "config", "tag.gpgsign", "false");
+    return run({ repo });
+  } finally {
+    rmSync(repo, { force: true, recursive: true });
+  }
+}
+
+function commitEmpty(repo, subject) {
+  git(repo, "commit", "--allow-empty", "-m", subject);
+  return git(repo, "rev-parse", "HEAD");
+}
+
+function createTaggedRelease(repo, version = "1.0.1") {
+  writeFileSync(join(repo, "app.txt"), "released source\n");
+  const releaseThroughSha = commitAll(repo, "fix: release source");
+  writeReleaseFiles(repo, version, `# ${version}\n`);
+  const releaseCommitSha = commitAll(
+    repo,
+    `chore(release): ${version}`,
+    releaseMetadata(releaseThroughSha),
+  );
+  git(repo, "tag", `v${version}`, releaseCommitSha);
+  return { releaseCommitSha, releaseThroughSha };
 }
 
 test("classifies the existing conventional version policy", () => {
@@ -165,6 +210,265 @@ test("uses a legacy release parent as the initial coverage point", () =>
         releaseThroughSha: baseSha,
         sourceSha: docsSha,
       },
+    );
+  }));
+
+test("recovers the exact 5.4.2 metadata before its tag exists and requires a lightweight tag for coverage", () =>
+  withRepositoryClone(({ repo }) => {
+    const {
+      parentSha,
+      releaseCommitSha,
+      releaseDate: expectedReleaseDate,
+      releaseThroughSha,
+      version,
+    } = recoveredRelease;
+    try {
+      git(repo, "tag", "-d", `v${version}`);
+    } catch {
+      // Keep the pre-tag case deterministic after the recovered tag exists upstream.
+    }
+
+    assert.deepEqual(inspectReleaseCommit(repo, releaseCommitSha), {
+      parentSha,
+      releaseDate: expectedReleaseDate,
+      releaseThroughSha,
+      version,
+    });
+    assert.throws(
+      () => findReleaseCoverage(repo, releaseCommitSha, version),
+      /not finalized|tag/i,
+    );
+
+    git(repo, "tag", `v${version}`, parentSha);
+    assert.throws(
+      () => findReleaseCoverage(repo, releaseCommitSha, version),
+      /not finalized|points to/i,
+    );
+
+    git(repo, "tag", "-d", `v${version}`);
+    git(repo, "tag", "-a", `v${version}`, releaseCommitSha, "-m", "annotated");
+    assert.throws(
+      () => findReleaseCoverage(repo, releaseCommitSha, version),
+      /lightweight|annotated/i,
+    );
+
+    git(repo, "tag", "-d", `v${version}`);
+    git(repo, "tag", `v${version}`, releaseCommitSha);
+    assert.deepEqual(findReleaseCoverage(repo, releaseCommitSha, version), {
+      releaseCommitSha,
+      releaseThroughSha,
+    });
+  }));
+
+test("accepts only an exact full-compatibility known-release record", () =>
+  withRepository(({ repo }) => {
+    writeFileSync(join(repo, "app.txt"), "release source\n");
+    const releaseThroughSha = commitAll(repo, "fix: release source");
+    writeReleaseFiles(repo, "1.0.1", "# 1.0.1\n");
+    const releaseCommitSha = commitAll(
+      repo,
+      "chore(release): 1.0.1",
+      `Release-Through: ${releaseThroughSha}`,
+    );
+    const fullRecord = {
+      changedFiles: ["CHANGELOG.md", "package-lock.json", "package.json"],
+      mode: "full-compatibility",
+      parentSha: releaseThroughSha,
+      releaseCommitSha,
+      releaseDate,
+      releaseThroughSha,
+      treeSha: git(repo, "rev-parse", `${releaseCommitSha}^{tree}`),
+      version: "1.0.1",
+    };
+
+    assert.deepEqual(
+      inspectReleaseCommit(repo, releaseCommitSha, [fullRecord]),
+      {
+        parentSha: releaseThroughSha,
+        releaseDate,
+        releaseThroughSha,
+        version: "1.0.1",
+      },
+    );
+    assert.doesNotThrow(() =>
+      validateReleaseCommit(repo, {
+        baseSha: releaseCommitSha,
+        commitSha: releaseCommitSha,
+        expectedTreeSha: fullRecord.treeSha,
+        knownReleases: [fullRecord],
+        releaseDate,
+        releaseThroughSha,
+        version: "1.0.1",
+      }),
+    );
+    assert.throws(() =>
+      validateReleaseCommit(repo, {
+        baseSha: releaseCommitSha,
+        commitSha: releaseCommitSha,
+        expectedTreeSha: fullRecord.treeSha,
+        knownReleases: [fullRecord],
+        releaseDate: "2026-08-22",
+        releaseThroughSha,
+        version: "1.0.1",
+      }),
+    );
+    git(repo, "tag", "v1.0.1", releaseCommitSha);
+    assert.equal(
+      createReleasePlan(repo, {
+        baseSha: releaseCommitSha,
+        knownReleases: [fullRecord],
+        sourceSha: releaseThroughSha,
+      }).mode,
+      "skip",
+    );
+
+    for (const [name, value] of [
+      ["releaseCommitSha", "a".repeat(40)],
+      ["parentSha", "b".repeat(40)],
+      ["releaseThroughSha", "c".repeat(40)],
+      ["treeSha", "d".repeat(40)],
+      ["version", "1.0.2"],
+      ["changedFiles", ["CHANGELOG.md", "package.json"]],
+    ]) {
+      const tamperedRecord = { ...fullRecord, [name]: value };
+      assert.throws(() =>
+        inspectReleaseCommit(repo, releaseCommitSha, [tamperedRecord]),
+      );
+    }
+  }));
+
+test("rejects release metadata without a date unless it is an exact compatibility record", () =>
+  withRepository(({ repo }) => {
+    writeFileSync(join(repo, "app.txt"), "release source\n");
+    const releaseThroughSha = commitAll(repo, "fix: release source");
+    writeReleaseFiles(repo, "1.0.1", "# 1.0.1\n");
+    const releaseCommitSha = commitAll(
+      repo,
+      "chore(release): 1.0.1",
+      `Release-Through: ${releaseThroughSha}`,
+    );
+
+    assert.throws(
+      () => inspectReleaseCommit(repo, releaseCommitSha, []),
+      /not a generated release commit|release date/i,
+    );
+    assert.throws(
+      () => findReleaseCoverage(repo, releaseCommitSha, "1.0.1", []),
+      /no release date metadata/i,
+    );
+  }));
+
+test("preserves the built-in 5.4.1 coverage-only tag bypass", () =>
+  withRepositoryClone(({ repo }) => {
+    const legacyReleaseCommitSha = "b91685a0429a1efaf92d052b1af0ec7a12fb1127";
+    const legacyReleaseThroughSha = "e7e490af0e18152f2ffa7c2de16b5cb3d1817601";
+    try {
+      git(repo, "tag", "-d", "v5.4.1");
+    } catch {
+      // The test must cover the no-tag compatibility path whether or not a clone has the tag.
+    }
+
+    assert.deepEqual(
+      findReleaseCoverage(repo, legacyReleaseCommitSha, "5.4.1"),
+      {
+        releaseCommitSha: legacyReleaseCommitSha,
+        releaseThroughSha: legacyReleaseThroughSha,
+      },
+    );
+  }));
+
+test("rejects all first-parent merge commits with the offending SHA and squash-only history guidance", () =>
+  withRepository(({ repo }) => {
+    const { releaseCommitSha } = createTaggedRelease(repo);
+    git(repo, "switch", "-c", "feature", releaseCommitSha);
+    writeFileSync(join(repo, "feature.txt"), "feature\n");
+    commitAll(repo, "feat: merged feature");
+    git(repo, "switch", "development");
+    writeFileSync(join(repo, "app.txt"), "development\n");
+    commitAll(repo, "fix: development change");
+    git(repo, "merge", "--no-ff", "feature", "-m", "Merge feature branch");
+    const mergeSha = git(repo, "rev-parse", "HEAD");
+
+    assert.throws(
+      () => createReleasePlan(repo, { baseSha: mergeSha, sourceSha: mergeSha }),
+      (error) =>
+        error instanceof Error &&
+        error.message.includes(mergeSha) &&
+        /squash-only history/i.test(error.message),
+    );
+  }));
+
+test("rejects nonconventional first-parent subjects with their SHA and squash-only history guidance", () =>
+  withRepository(({ repo }) => {
+    const { releaseCommitSha } = createTaggedRelease(repo);
+    writeFileSync(join(repo, "app.txt"), "unconventional\n");
+    const invalidSha = commitAll(repo, "Update release workflow");
+
+    assert.throws(
+      () =>
+        createReleasePlan(repo, { baseSha: invalidSha, sourceSha: invalidSha }),
+      (error) =>
+        error instanceof Error &&
+        error.message.includes(invalidSha) &&
+        /squash-only history/i.test(error.message),
+    );
+    assert.equal(releaseCommitSha.length, 40);
+  }));
+
+test("skips only one-parent generated release commits and retains conventional bump precedence", () =>
+  withRepository(({ repo }) => {
+    const { releaseCommitSha } = createTaggedRelease(repo);
+    writeFileSync(join(repo, "app.txt"), "patch\n");
+    commitAll(repo, "fix: patch");
+    writeFileSync(join(repo, "app.txt"), "minor\n");
+    commitAll(repo, "feat: minor");
+    writeFileSync(join(repo, "app.txt"), "major\n");
+    const baseSha = commitAll(repo, "refactor!: major");
+
+    const plan = createReleasePlan(repo, { baseSha, sourceSha: baseSha });
+    assert.equal(plan.bumpType, "major");
+    assert.equal(plan.nextVersion, "2.0.0");
+    assert.equal(plan.releaseCommitSha, releaseCommitSha);
+  }));
+
+test("rejects release-looking commits that are not the validated coverage release", () =>
+  withRepository(({ repo }) => {
+    createTaggedRelease(repo);
+    const invalidSha = commitEmpty(repo, "chore(release): 1.0.2");
+
+    assert.throws(
+      () =>
+        createReleasePlan(repo, { baseSha: invalidSha, sourceSha: invalidSha }),
+      (error) =>
+        error instanceof Error &&
+        error.message.includes(invalidSha) &&
+        /validated release commit/i.test(error.message) &&
+        /squash-only history/i.test(error.message),
+    );
+  }));
+
+test("does not skip a generated release subject until after confirming it has one parent", () =>
+  withRepository(({ repo }) => {
+    const { releaseCommitSha } = createTaggedRelease(repo);
+    git(repo, "switch", "-c", "generated-release", releaseCommitSha);
+    commitEmpty(repo, "chore(release): 1.0.2");
+    git(repo, "switch", "development");
+    git(
+      repo,
+      "merge",
+      "--no-ff",
+      "generated-release",
+      "-m",
+      "chore(release): 1.0.2",
+    );
+    const mergeSha = git(repo, "rev-parse", "HEAD");
+
+    assert.throws(
+      () => createReleasePlan(repo, { baseSha: mergeSha, sourceSha: mergeSha }),
+      (error) =>
+        error instanceof Error &&
+        error.message.includes(mergeSha) &&
+        /squash-only history/i.test(error.message),
     );
   }));
 
