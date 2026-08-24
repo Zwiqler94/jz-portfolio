@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: finalize-release-${{ github.repository }}-${{ github.ref }}
-      queue: max
     steps:
       - name: Checkout trusted development
         uses: actions/checkout@v6
