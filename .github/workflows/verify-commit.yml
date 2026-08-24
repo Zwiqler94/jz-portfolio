@@ -5,37 +5,27 @@ on:
       versionType:
         description: "the version increment type (major, minor, patch, or stop)"
         value: ${{ jobs.verify.outputs.versionType }}
-permissions: {}
+permissions:
+  contents: read
 jobs:
   verify:
     runs-on: ubuntu-latest
     outputs:
       versionType: ${{ steps.classify.outputs.versionType }}
     env:
-      PR_TITLE: "${{ github.event.pull_request.title }}"
+      PR_TITLE: ${{ github.event.pull_request.title }}
     steps:
-      - name: classify PR title
-        id: classify
-        shell: bash
-        run: |
-          headline="$(printf '%s' "$PR_TITLE" | head -n1 | tr -d '\r')"
-          major_regex='^[a-z]+([a-z0-9-]*)?(\([^)]+\))?!:.*'
-          feat_regex='^feat(\([^)]+\))?:.*'
-          patch_regex='^(fix(\([^)]+\))?|perf(\([^)]+\))?|revert(\([^)]+\))?|docs(\([^)]+\))?|style(\([^)]+\))?|chore(\([^)]+\))?|refactor(\([^)]+\))?|test(\([^)]+\))?|build(\([^)]+\))?|ci(\([^)]+\))?):.*'
+      - name: Checkout trusted base
+        uses: actions/checkout@v6
 
-          if [[ $headline =~ ^chore\(release\):.* ]]; then
-            echo "versionType=stop" >> "$GITHUB_OUTPUT"
-            exit 0
-          elif [[ $headline == *"BREAKING CHANGE:"* || $headline =~ $major_regex ]]; then
-            echo "versionType=major" >> "$GITHUB_OUTPUT"
-            exit 0
-          elif [[ $headline =~ $feat_regex ]]; then
-            echo "versionType=minor" >> "$GITHUB_OUTPUT"
-            exit 0
-          elif [[ $headline =~ $patch_regex ]]; then
-            echo "versionType=patch" >> "$GITHUB_OUTPUT"
-            exit 0
-          else
-            echo "Can't determine version from PR title: $headline"
-            exit 1
-          fi
+      - name: Use pinned Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Classify PR title
+        id: classify
+        run: |
+          node scripts/release.mjs classify \
+            --title "$PR_TITLE" \
+            --output "$GITHUB_OUTPUT"

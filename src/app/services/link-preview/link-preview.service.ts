@@ -34,7 +34,11 @@ export class LinkPreviewService {
     this._apiKey = value;
   }
 
-  getAPIKey(): Observable<SecretResponse> {
+  getAPIKey(): Observable<SecretResponse> | undefined {
+    if (!this.authService.appCheckToken) {
+      return undefined;
+    }
+
     const headers = new HttpHeaders().append(
       'X-Firebase-AppCheck',
       this.authService.appCheckToken,

@@ -4,11 +4,11 @@ This is a full-stack monorepo containing an Angular frontend and a Firebase Func
 
 The frontend is a standard Angular application.
 
--   **Build & Serve:** Use the provided npm scripts for different environments. For local development, use `npm run build:local` and `npm run start:local`. The `angular.json` file contains all build configurations.
+-   **Build & Serve:** Use `npm run build:local` with `npm run start:local` for the Firebase emulators. Use `npm run build:dev-local` with `npm run start:dev-local` to test the service worker locally against deployed development services. The `angular.json` file contains all build configurations.
 -   **Components:** Components are located in `src/app/components`.
 -   **Services:** Services are in `src/app/services`.
 -   **Styling:** Global styles are in `src/styles.scss`. Component-specific styles are co-located with the components. The project uses SCSS and has a theme system in `src/style_vars`.
--   **Environments:** Configuration for different environments (local, dev, prod) is managed in the `src/environments` directory.
+-   **Environments:** Configuration is managed in `src/environments`: `local` uses Firebase emulators without a service worker, `dev-local` tests the service worker locally against deployed development services, `development` targets the deployed development site, and `production` targets the live site.
 
 
 #### TypeScript & Angular Best Practices

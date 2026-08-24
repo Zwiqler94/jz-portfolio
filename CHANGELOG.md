@@ -1,3 +1,10 @@
+## [5.4.2](https://github.com/Zwiqler94/jz-portfolio/compare/e7e490af0e18152f2ffa7c2de16b5cb3d1817601...v5.4.2) (2026-08-24)
+
+
+### Bug Fixes
+
+* improve link previews and local development configuration ([#886](https://github.com/Zwiqler94/jz-portfolio/issues/886)) ([be89835](https://github.com/Zwiqler94/jz-portfolio/commit/be8983500420d2ed9f412f28c5524643056198d8))
+* potential fix for code scanning alert no. 118: Information exposure through a stack trace ([#890](https://github.com/Zwiqler94/jz-portfolio/issues/890)) ([9454675](https://github.com/Zwiqler94/jz-portfolio/commit/9454675288ce1863c0a837e344e369fd4fbebd5e))
 ## [5.4.1](https://github.com/Zwiqler94/jz-portfolio/compare/v5.3.3...v5.4.1) (2026-06-22)
 
 

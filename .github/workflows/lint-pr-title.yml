@@ -15,10 +15,12 @@ jobs:
     env:
       PR_TITLE: "${{ github.event.pull_request.title }}"
     steps:
-      - name: Use Node.js 22
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Use pinned Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version-file: ".nvmrc"
       - name: Lint PR title
         shell: bash
         run: |
