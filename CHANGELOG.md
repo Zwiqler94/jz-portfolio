@@ -1,3 +1,16 @@
+## [5.4.3](https://github.com/Zwiqler94/jz-portfolio/compare/3b153db24be67c033b8a865ffc9578f859c1b358...v5.4.3) (2026-08-24)
+
+
+### Bug Fixes
+
+* **release:** recover 5.4.2 and reject invalid history ([#893](https://github.com/Zwiqler94/jz-portfolio/issues/893)) ([4ecf713](https://github.com/Zwiqler94/jz-portfolio/commit/4ecf713ef752da0d00d2e9f7f87518bfee419dff))
+
+## [5.4.2](https://github.com/Zwiqler94/jz-portfolio/compare/3b153db24be67c033b8a865ffc9578f859c1b358...v5.4.2) (2026-08-24)
+
+
+### Bug Fixes
+
+* **release:** preserve release dates and delete merged branches ([#892](https://github.com/Zwiqler94/jz-portfolio/issues/892)) ([4d32df1](https://github.com/Zwiqler94/jz-portfolio/commit/4d32df1f40344e90882af64bb4db3b5810259b99))
 ## [5.4.2](https://github.com/Zwiqler94/jz-portfolio/compare/e7e490af0e18152f2ffa7c2de16b5cb3d1817601...v5.4.2) (2026-08-24)
 
 
