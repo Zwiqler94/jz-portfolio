@@ -21,24 +21,11 @@ const BUMP_PRIORITY = new Map([
   ["minor", 2],
   ["major", 3],
 ]);
-const KNOWN_RELEASES = Object.freeze([
-  Object.freeze({
-    mode: "coverage-only",
-    releaseCommitSha: "b91685a0429a1efaf92d052b1af0ec7a12fb1127",
-    releaseThroughSha: "e7e490af0e18152f2ffa7c2de16b5cb3d1817601",
-    version: "5.4.1",
-  }),
-  Object.freeze({
-    changedFiles: Object.freeze([...RELEASE_FILES]),
-    mode: "full-compatibility",
-    parentSha: "4d32df1f40344e90882af64bb4db3b5810259b99",
-    releaseCommitSha: "e1a7583eb414fbd68e4d5ba40d6b1046a256d03a",
-    releaseDate: "2026-08-24",
-    releaseThroughSha: "3b153db24be67c033b8a865ffc9578f859c1b358",
-    treeSha: "7254f3df63a2f5c5dd77af6f8503184d7813830c",
-    version: "5.4.2",
-  }),
-]);
+const LEGACY_RELEASE = Object.freeze({
+  releaseCommitSha: "b91685a0429a1efaf92d052b1af0ec7a12fb1127",
+  releaseThroughSha: "e7e490af0e18152f2ffa7c2de16b5cb3d1817601",
+  version: "5.4.1",
+});
 
 function git(repo, args, options = {}) {
   return execFileSync("git", ["-C", repo, ...args], {
@@ -137,157 +124,6 @@ function sameFiles(left, right) {
   );
 }
 
-function normalizeKnownReleases(knownReleases = KNOWN_RELEASES) {
-  if (Array.isArray(knownReleases)) {
-    return knownReleases;
-  }
-  if (knownReleases?.releaseCommitSha) {
-    return [{ ...knownReleases, mode: "coverage-only" }];
-  }
-  throw new Error("knownReleases must be an array of known release records");
-}
-
-function findKnownRelease(knownReleases, commitSha) {
-  return normalizeKnownReleases(knownReleases).find(
-    (release) => release.releaseCommitSha === commitSha,
-  );
-}
-
-function getTreeSha(repo, treeish) {
-  return git(repo, ["rev-parse", `${treeish}^{tree}`]);
-}
-
-function assertFullCompatibilityRecord(repo, commitSha, commit, release) {
-  if (release.mode !== "full-compatibility") {
-    throw new Error(`Unknown compatibility mode for release ${commitSha}`);
-  }
-  assertCommitSha(release.releaseCommitSha, "known release commit");
-  assertCommitSha(release.parentSha, "known release parent");
-  assertCommitSha(release.releaseThroughSha, "known release coverage");
-  assertCommitSha(release.treeSha, "known release tree");
-  assertReleaseDate(release.releaseDate, "known release date");
-  assertVersion(release.version, "known release version");
-  if (!Array.isArray(release.changedFiles)) {
-    throw new Error(`Known release ${commitSha} must list its changed files`);
-  }
-  if (release.releaseCommitSha !== commitSha) {
-    throw new Error(`Known release record does not match ${commitSha}`);
-  }
-  if (commit.parents.length !== 1 || commit.parents[0] !== release.parentSha) {
-    throw new Error(`Known release ${commitSha} has an unexpected parent`);
-  }
-  if (!commitExists(repo, release.releaseThroughSha)) {
-    throw new Error(`Known release ${commitSha} has a missing coverage commit`);
-  }
-  if (!isAncestor(repo, release.releaseThroughSha, release.parentSha)) {
-    throw new Error(
-      `Known release ${commitSha} has coverage outside its parent history`,
-    );
-  }
-  if (parseReleaseVersion(commit.subject) !== release.version) {
-    throw new Error(`Known release ${commitSha} has an unexpected subject`);
-  }
-  if (getPackageVersion(repo, commitSha) !== release.version) {
-    throw new Error(
-      `Known release ${commitSha} has an unexpected package version`,
-    );
-  }
-  if (parseReleaseThrough(commit.body) !== release.releaseThroughSha) {
-    throw new Error(`Known release ${commitSha} has invalid coverage metadata`);
-  }
-  if (parseReleaseDate(commit.body)) {
-    throw new Error(
-      `Known release ${commitSha} must not contain a release date trailer`,
-    );
-  }
-  if (getTreeSha(repo, commitSha) !== release.treeSha) {
-    throw new Error(`Known release ${commitSha} has an unexpected tree`);
-  }
-  if (
-    !sameFiles(
-      getChangedFiles(repo, release.parentSha, commitSha),
-      [...release.changedFiles].sort(),
-    ) ||
-    !sameFiles([...release.changedFiles].sort(), [...RELEASE_FILES].sort())
-  ) {
-    throw new Error(`Known release ${commitSha} changed unexpected files`);
-  }
-}
-
-function resolveReleaseMetadata(
-  repo,
-  commitSha,
-  knownReleases = KNOWN_RELEASES,
-) {
-  const commit = getCommit(repo, commitSha);
-  const version = parseReleaseVersion(commit.subject);
-  const knownRelease = findKnownRelease(knownReleases, commitSha);
-
-  if (knownRelease?.mode === "full-compatibility") {
-    assertFullCompatibilityRecord(repo, commitSha, commit, knownRelease);
-    return {
-      kind: "full-compatibility",
-      parentSha: knownRelease.parentSha,
-      releaseDate: knownRelease.releaseDate,
-      releaseThroughSha: knownRelease.releaseThroughSha,
-      version: knownRelease.version,
-    };
-  }
-
-  const releaseThroughSha = parseReleaseThrough(commit.body);
-  const releaseDate = parseReleaseDate(commit.body);
-  if (
-    version &&
-    releaseThroughSha &&
-    releaseDate &&
-    commit.parents.length === 1
-  ) {
-    return {
-      kind: "recorded",
-      parentSha: commit.parents[0],
-      releaseDate,
-      releaseThroughSha,
-      version,
-    };
-  }
-
-  if (
-    knownRelease?.mode === "coverage-only" &&
-    version === knownRelease.version &&
-    commit.parents.length === 1 &&
-    commit.parents[0] === knownRelease.releaseThroughSha
-  ) {
-    return {
-      kind: "coverage-only",
-      parentSha: commit.parents[0],
-      releaseThroughSha: knownRelease.releaseThroughSha,
-      version,
-    };
-  }
-
-  throw new Error(`Commit ${commitSha} is not a generated release commit`);
-}
-
-function validateLightweightTagTarget(repo, tag, expectedCommitSha) {
-  assertCommitSha(expectedCommitSha, "expectedCommitSha");
-  const tagRef = `refs/tags/${tag}`;
-  let tagType;
-  try {
-    tagType = git(repo, ["cat-file", "-t", tagRef]);
-  } catch {
-    throw new Error(`${tag} does not exist`);
-  }
-  if (tagType !== "commit") {
-    throw new Error(`${tag} must be a lightweight tag, not ${tagType}`);
-  }
-  const actualCommitSha = git(repo, ["rev-parse", tagRef]);
-  if (actualCommitSha !== expectedCommitSha) {
-    throw new Error(
-      `${tag} points to ${actualCommitSha}, expected ${expectedCommitSha}`,
-    );
-  }
-}
-
 export function parseReleaseVersion(subject) {
   return RELEASE_SUBJECT_PATTERN.exec(subject)?.[1];
 }
@@ -363,7 +199,7 @@ export function findReleaseCoverage(
   repo,
   baseSha,
   currentVersion,
-  knownReleases = KNOWN_RELEASES,
+  legacyRelease = LEGACY_RELEASE,
 ) {
   assertCommitSha(baseSha, "baseSha");
   assertVersion(currentVersion, "currentVersion");
@@ -379,23 +215,19 @@ export function findReleaseCoverage(
     if (getPackageVersion(repo, commitSha) !== currentVersion) {
       continue;
     }
-    const knownRelease = findKnownRelease(knownReleases, commitSha);
-    if (
-      knownRelease?.mode !== "full-compatibility" &&
-      parseReleaseThrough(commit.body) &&
-      !parseReleaseDate(commit.body)
-    ) {
-      throw new Error(
-        `Release commit ${commitSha} has no release date metadata`,
-      );
+    if (commit.parents.length !== 1) {
+      throw new Error(`Release commit ${commitSha} must have one parent`);
     }
 
-    const metadata = resolveReleaseMetadata(repo, commitSha, knownReleases);
-    if (metadata.version !== currentVersion) {
-      continue;
-    }
-    const { releaseThroughSha } = metadata;
-    if (metadata.kind === "recorded") {
+    const recordedReleaseThroughSha = parseReleaseThrough(commit.body);
+    const recordedReleaseDate = parseReleaseDate(commit.body);
+    let releaseThroughSha = recordedReleaseThroughSha;
+    if (recordedReleaseThroughSha) {
+      if (!recordedReleaseDate) {
+        throw new Error(
+          `Release commit ${commitSha} has no release date metadata`,
+        );
+      }
       try {
         validateTagTarget(repo, `v${currentVersion}`, commitSha);
       } catch (error) {
@@ -404,15 +236,14 @@ export function findReleaseCoverage(
           `Release ${currentVersion} is not finalized: ${message}`,
         );
       }
-    } else if (metadata.kind === "full-compatibility") {
-      try {
-        validateLightweightTagTarget(repo, `v${currentVersion}`, commitSha);
-      } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        throw new Error(
-          `Release ${currentVersion} is not finalized: ${message}`,
-        );
-      }
+    } else if (
+      legacyRelease.version === currentVersion &&
+      legacyRelease.releaseCommitSha === commitSha &&
+      legacyRelease.releaseThroughSha === commit.parents[0]
+    ) {
+      releaseThroughSha = legacyRelease.releaseThroughSha;
+    } else {
+      throw new Error(`Release commit ${commitSha} has no coverage metadata`);
     }
     assertCommitSha(releaseThroughSha, "Release-Through");
     if (!commitExists(repo, releaseThroughSha)) {
@@ -420,7 +251,7 @@ export function findReleaseCoverage(
         `Release coverage commit ${releaseThroughSha} is missing`,
       );
     }
-    if (!isAncestor(repo, releaseThroughSha, metadata.parentSha)) {
+    if (!isAncestor(repo, releaseThroughSha, commit.parents[0])) {
       throw new Error(
         `Release coverage ${releaseThroughSha} is not an ancestor of ${commitSha}`,
       );
@@ -438,7 +269,7 @@ export function findReleaseCoverage(
 
 export function createReleasePlan(
   repo,
-  { baseSha, knownReleases, legacyRelease, sourceSha },
+  { baseSha, legacyRelease = LEGACY_RELEASE, sourceSha },
 ) {
   assertCommitSha(baseSha, "baseSha");
   assertCommitSha(sourceSha, "sourceSha");
@@ -456,7 +287,7 @@ export function createReleasePlan(
     repo,
     baseSha,
     currentVersion,
-    knownReleases ?? legacyRelease ?? KNOWN_RELEASES,
+    legacyRelease,
   );
   if (isAncestor(repo, sourceSha, coverage.releaseThroughSha)) {
     return {
@@ -475,32 +306,9 @@ export function createReleasePlan(
     "--reverse",
     `${coverage.releaseThroughSha}..${baseSha}`,
   ]).split("\n");
-  const subjects = [];
-  for (const commitSha of commitShas) {
-    const commit = getCommit(repo, commitSha);
-    if (commit.parents.length !== 1) {
-      throw new Error(
-        `Commit ${commitSha} has ${commit.parents.length} parents; squash-only history is required`,
-      );
-    }
-    if (commitSha === coverage.releaseCommitSha) {
-      continue;
-    }
-    if (parseReleaseVersion(commit.subject)) {
-      throw new Error(
-        `Commit ${commitSha} is not the validated release commit; squash-only history is required`,
-      );
-    }
-    try {
-      classifyCommitSubject(commit.subject);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      throw new Error(
-        `Commit ${commitSha} is not conventional; squash-only history is required: ${message}`,
-      );
-    }
-    subjects.push(commit.subject);
-  }
+  const subjects = commitShas.map(
+    (commitSha) => getCommit(repo, commitSha).subject,
+  );
   const bumpType = highestVersionBump(subjects);
   const nextVersion = incrementVersion(currentVersion, bumpType);
 
@@ -518,19 +326,22 @@ export function createReleasePlan(
   };
 }
 
-export function inspectReleaseCommit(
-  repo,
-  commitSha,
-  knownReleases = KNOWN_RELEASES,
-) {
+export function inspectReleaseCommit(repo, commitSha) {
   assertCommitSha(commitSha, "commitSha");
-  const { parentSha, releaseDate, releaseThroughSha, version } =
-    resolveReleaseMetadata(repo, commitSha, knownReleases);
-  if (!releaseDate) {
+  const commit = getCommit(repo, commitSha);
+  const version = parseReleaseVersion(commit.subject);
+  const releaseThroughSha = parseReleaseThrough(commit.body);
+  const releaseDate = parseReleaseDate(commit.body);
+  if (
+    !version ||
+    !releaseThroughSha ||
+    !releaseDate ||
+    commit.parents.length !== 1
+  ) {
     throw new Error(`Commit ${commitSha} is not a generated release commit`);
   }
   return {
-    parentSha,
+    parentSha: commit.parents[0],
     releaseDate,
     releaseThroughSha,
     version,
@@ -543,7 +354,6 @@ export function validateReleaseCommit(
     baseSha,
     commitSha,
     expectedTreeSha,
-    knownReleases = KNOWN_RELEASES,
     releaseDate,
     releaseThroughSha,
     version,
@@ -555,18 +365,23 @@ export function validateReleaseCommit(
   assertCommitSha(releaseThroughSha, "releaseThroughSha");
   assertReleaseDate(releaseDate);
   assertVersion(version);
-  const metadata = resolveReleaseMetadata(repo, commitSha, knownReleases);
-  if (
-    metadata.version !== version ||
-    metadata.releaseThroughSha !== releaseThroughSha
-  ) {
-    throw new Error(`Release commit ${commitSha} has invalid release metadata`);
+  const commit = getCommit(repo, commitSha);
+  if (commit.parents.length !== 1) {
+    throw new Error(`Release commit ${commitSha} must have one parent`);
   }
-  if (metadata.releaseDate !== releaseDate) {
+  if (parseReleaseVersion(commit.subject) !== version) {
+    throw new Error(`Release commit ${commitSha} has an unexpected subject`);
+  }
+  if (parseReleaseThrough(commit.body) !== releaseThroughSha) {
+    throw new Error(
+      `Release commit ${commitSha} has invalid coverage metadata`,
+    );
+  }
+  if (parseReleaseDate(commit.body) !== releaseDate) {
     throw new Error(`Release commit ${commitSha} has invalid date metadata`);
   }
 
-  const parentSha = metadata.parentSha;
+  const parentSha = commit.parents[0];
   if (!isAncestor(repo, parentSha, baseSha)) {
     throw new Error(
       `Release parent ${parentSha} is not contained in development ${baseSha}`,

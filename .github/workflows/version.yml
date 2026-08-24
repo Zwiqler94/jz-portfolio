@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: version-release-${{ github.repository }}-${{ github.base_ref }}
+      queue: max
     env:
       BASE_REF: ${{ github.base_ref }}
       SOURCE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
