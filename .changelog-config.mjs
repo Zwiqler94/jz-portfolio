@@ -9,20 +9,31 @@ const LOW_SIGNAL_SECTION_MAP = new Map([
 const preset = createAngularPreset();
 const originalTransform = preset.writer.transform;
 const changelogFrom = process.env.CHANGELOG_FROM;
+const changelogDate = process.env.CHANGELOG_DATE;
+
+if (changelogDate && !/^\d{4}-\d{2}-\d{2}$/.test(changelogDate)) {
+  throw new Error("CHANGELOG_DATE must use YYYY-MM-DD format");
+}
+
 
 export default {
   gitRawCommitsOpts: {
     ...(changelogFrom ? { from: changelogFrom } : {}),
   },
   writerOpts: {
-    ...(changelogFrom
+    ...(changelogFrom || changelogDate
       ? {
           finalizeContext(context) {
             return {
               ...context,
-              currentTag: `v${context.version}`,
-              linkCompare: true,
-              previousTag: changelogFrom,
+              ...(changelogDate ? { date: changelogDate } : {}),
+              ...(changelogFrom
+                ? {
+                    currentTag: `v${context.version}`,
+                    linkCompare: true,
+                    previousTag: changelogFrom,
+                  }
+                : {}),
             };
           },
         }
