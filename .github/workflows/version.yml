@@ -148,6 +148,7 @@ jobs:
           git config --local user.email 'github-actions[bot]@github.com'
 
           RELEASE_BRANCH="${EXISTING_BRANCH:-$PLANNED_BRANCH}"
+          RELEASE_DATE="$(date -u +%Y-%m-%d)"
           RELEASE_FROM_SHA="$PLANNED_FROM_SHA"
           RELEASE_THROUGH_SHA="$PLANNED_THROUGH_SHA"
           VERSION="$PLANNED_VERSION"
@@ -169,6 +170,7 @@ jobs:
             fi
 
             REMOTE_THROUGH_SHA="$(jq -r '.release_through_sha' <<< "$REMOTE_INFO")"
+            RELEASE_DATE="$(jq -r '.release_date' <<< "$REMOTE_INFO")"
             RESUME_PLAN="$(node scripts/release.mjs plan \
               --base "$REMOTE_THROUGH_SHA" \
               --source "$REMOTE_THROUGH_SHA")"
@@ -187,7 +189,9 @@ jobs:
 
           git switch --detach "$RELEASE_THROUGH_SHA"
           npm version "$VERSION" --no-git-tag-version
-          CHANGELOG_FROM="$RELEASE_FROM_SHA" npm run changelog:update
+          CHANGELOG_DATE="$RELEASE_DATE" \
+            CHANGELOG_FROM="$RELEASE_FROM_SHA" \
+            npm run changelog:update
 
           if [ "$(node -p "require('./package.json').version")" != "$VERSION" ]; then
             echo "::error::package.json does not contain release version $VERSION"
@@ -220,6 +224,7 @@ jobs:
               --base "$CURRENT_BASE_SHA" \
               --commit "$REMOTE_RELEASE_SHA" \
               --expected-tree "$EXPECTED_TREE_SHA" \
+              --release-date "$RELEASE_DATE" \
               --release-through "$RELEASE_THROUGH_SHA" \
               --version "$VERSION"
             git reset --hard "$RELEASE_THROUGH_SHA"
@@ -229,12 +234,14 @@ jobs:
             git switch -c "$RELEASE_BRANCH"
             git commit \
               -m "chore(release): ${VERSION}" \
-              -m "Release-Through: ${RELEASE_THROUGH_SHA}"
+              -m "Release-Through: ${RELEASE_THROUGH_SHA}" \
+              -m "Release-Date: ${RELEASE_DATE}"
             RELEASE_COMMIT="$(git rev-parse HEAD)"
             node scripts/release.mjs validate-commit \
               --base "$CURRENT_BASE_SHA" \
               --commit "$RELEASE_COMMIT" \
               --expected-tree "$EXPECTED_TREE_SHA" \
+              --release-date "$RELEASE_DATE" \
               --release-through "$RELEASE_THROUGH_SHA" \
               --version "$VERSION"
             git push origin "HEAD:${RELEASE_BRANCH}"
@@ -248,6 +255,7 @@ jobs:
           {
             printf 'release_branch=%s\n' "$RELEASE_BRANCH"
             printf 'release_commit=%s\n' "$RELEASE_COMMIT"
+            printf 'release_date=%s\n' "$RELEASE_DATE"
             printf 'release_from=%s\n' "$RELEASE_FROM_SHA"
             printf 'release_through=%s\n' "$RELEASE_THROUGH_SHA"
             printf 'expected_tree=%s\n' "$EXPECTED_TREE_SHA"
@@ -261,6 +269,7 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.releaseTokens.outputs.token }}
           RELEASE_BRANCH: ${{ steps.prepare.outputs.release_branch }}
+          RELEASE_DATE: ${{ steps.prepare.outputs.release_date }}
           RELEASE_THROUGH_SHA: ${{ steps.prepare.outputs.release_through }}
           VERSION: ${{ steps.prepare.outputs.version }}
         run: |
@@ -281,9 +290,10 @@ jobs:
               echo "::error::Release PR #$CLOSED_PR was closed without merging"
               exit 1
             fi
-            PR_BODY="$(printf 'Automated release PR for %s.\n\nRelease-Through: %s' \
+            PR_BODY="$(printf 'Automated release PR for %s.\n\nRelease-Through: %s\n\nRelease-Date: %s' \
               "$VERSION" \
-              "$RELEASE_THROUGH_SHA")"
+              "$RELEASE_THROUGH_SHA" \
+              "$RELEASE_DATE")"
             PR_URL="$(gh pr create \
               --repo "$GITHUB_REPOSITORY" \
               --base "$BASE_REF" \
@@ -300,6 +310,7 @@ jobs:
           GH_TOKEN: ${{ steps.releaseTokens.outputs.token }}
           PR_NUMBER: ${{ steps.release-pr.outputs.number }}
           RELEASE_COMMIT: ${{ steps.prepare.outputs.release_commit }}
+          RELEASE_DATE: ${{ steps.prepare.outputs.release_date }}
           RELEASE_THROUGH_SHA: ${{ steps.prepare.outputs.release_through }}
           VERSION: ${{ steps.prepare.outputs.version }}
         run: |
@@ -307,13 +318,16 @@ jobs:
 
           PR_STATE="$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json state --jq '.state')"
           if [ "$PR_STATE" = 'OPEN' ]; then
+            MERGE_BODY="$(printf 'Release-Through: %s\n\nRelease-Date: %s' \
+              "$RELEASE_THROUGH_SHA" \
+              "$RELEASE_DATE")"
             gh pr merge "$PR_NUMBER" \
               --repo "$GITHUB_REPOSITORY" \
               --auto \
               --squash \
               --match-head-commit "$RELEASE_COMMIT" \
               --subject "chore(release): ${VERSION}" \
-              --body "Release-Through: ${RELEASE_THROUGH_SHA}"
+              --body "$MERGE_BODY"
           elif [ "$PR_STATE" != 'MERGED' ]; then
             echo "::error::Release PR #$PR_NUMBER is $PR_STATE"
             exit 1
@@ -326,6 +340,7 @@ jobs:
           EXPECTED_TREE_SHA: ${{ steps.prepare.outputs.expected_tree }}
           GH_TOKEN: ${{ steps.releaseTokens.outputs.token }}
           PR_NUMBER: ${{ steps.release-pr.outputs.number }}
+          RELEASE_DATE: ${{ steps.prepare.outputs.release_date }}
           RELEASE_THROUGH_SHA: ${{ steps.prepare.outputs.release_through }}
           VERSION: ${{ steps.prepare.outputs.version }}
         run: |
@@ -362,6 +377,7 @@ jobs:
               --base "$CURRENT_BASE_SHA" \
               --commit "$HEAD_SHA" \
               --expected-tree "$EXPECTED_TREE_SHA" \
+              --release-date "$RELEASE_DATE" \
               --release-through "$RELEASE_THROUGH_SHA" \
               --version "$VERSION"
 
@@ -381,13 +397,16 @@ jobs:
               exit 1
             fi
             if [ "$(jq -r '.autoMergeRequest == null' <<< "$PR_JSON")" = 'true' ]; then
+              MERGE_BODY="$(printf 'Release-Through: %s\n\nRelease-Date: %s' \
+                "$RELEASE_THROUGH_SHA" \
+                "$RELEASE_DATE")"
               gh pr merge "$PR_NUMBER" \
                 --repo "$GITHUB_REPOSITORY" \
                 --auto \
                 --squash \
                 --match-head-commit "$HEAD_SHA" \
                 --subject "chore(release): ${VERSION}" \
-                --body "Release-Through: ${RELEASE_THROUGH_SHA}"
+                --body "$MERGE_BODY"
             fi
             sleep 15
           done

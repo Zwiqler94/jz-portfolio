@@ -45,6 +45,7 @@ jobs:
 
           RELEASE_INFO="$(node scripts/release.mjs inspect --commit "$GITHUB_SHA")"
           VERSION="$(jq -r '.version' <<< "$RELEASE_INFO")"
+          RELEASE_DATE="$(jq -r '.release_date' <<< "$RELEASE_INFO")"
           RELEASE_THROUGH_SHA="$(jq -r '.release_through_sha' <<< "$RELEASE_INFO")"
           MERGE_PARENT_SHA="$(jq -r '.parent_sha' <<< "$RELEASE_INFO")"
           if ! git merge-base --is-ancestor "$RELEASE_THROUGH_SHA" "$MERGE_PARENT_SHA"; then
@@ -62,6 +63,7 @@ jobs:
           fi
           {
             printf 'version=%s\n' "$VERSION"
+            printf 'release_date=%s\n' "$RELEASE_DATE"
             printf 'release_from=%s\n' "$(jq -r '.release_from_sha' <<< "$RELEASE_PLAN")"
             printf 'release_through=%s\n' "$RELEASE_THROUGH_SHA"
             printf 'merge_parent=%s\n' "$MERGE_PARENT_SHA"
@@ -83,8 +85,10 @@ jobs:
           npx google-artifactregistry-auth
 
       - name: Recompute and validate the merged release
+        id: validation
         env:
           MERGE_PARENT_SHA: ${{ steps.metadata.outputs.merge_parent }}
+          RELEASE_DATE: ${{ steps.metadata.outputs.release_date }}
           RELEASE_FROM_SHA: ${{ steps.metadata.outputs.release_from }}
           RELEASE_THROUGH_SHA: ${{ steps.metadata.outputs.release_through }}
           VERSION: ${{ steps.metadata.outputs.version }}
@@ -94,7 +98,9 @@ jobs:
           git switch --detach "$RELEASE_THROUGH_SHA"
           npm ci
           npm version "$VERSION" --no-git-tag-version
-          CHANGELOG_FROM="$RELEASE_FROM_SHA" npm run changelog:update
+          CHANGELOG_DATE="$RELEASE_DATE" \
+            CHANGELOG_FROM="$RELEASE_FROM_SHA" \
+            npm run changelog:update
           git add CHANGELOG.md package-lock.json package.json
           EXPECTED_TREE_SHA="$(git write-tree)"
 
@@ -102,8 +108,10 @@ jobs:
             --base "$MERGE_PARENT_SHA" \
             --commit "$GITHUB_SHA" \
             --expected-tree "$EXPECTED_TREE_SHA" \
+            --release-date "$RELEASE_DATE" \
             --release-through "$RELEASE_THROUGH_SHA" \
             --version "$VERSION"
+          printf 'expected_tree=%s\n' "$EXPECTED_TREE_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Get release token
         id: releaseTokens
@@ -113,6 +121,66 @@ jobs:
           appId: ${{ secrets.APP_ID }}
           privateKey: ${{ secrets.APP_PRIVATE_KEY }}
           permission-contents: write
+
+      - name: Delete the merged release branch
+        env:
+          EXPECTED_TREE_SHA: ${{ steps.validation.outputs.expected_tree }}
+          GH_TOKEN: ${{ steps.releaseTokens.outputs.token }}
+          MERGE_PARENT_SHA: ${{ steps.metadata.outputs.merge_parent }}
+          RELEASE_DATE: ${{ steps.metadata.outputs.release_date }}
+          RELEASE_THROUGH_SHA: ${{ steps.metadata.outputs.release_through }}
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          RELEASE_BRANCH="release/v${VERSION}"
+          REMOTE_RELEASE_SHA="$(git ls-remote --heads origin "refs/heads/${RELEASE_BRANCH}" | awk '{print $1}')"
+          if [ -z "$REMOTE_RELEASE_SHA" ]; then
+            echo "::notice::$RELEASE_BRANCH was already deleted"
+            exit 0
+          fi
+
+          if ! git fetch --force origin \
+            "refs/heads/${RELEASE_BRANCH}:refs/remotes/origin/${RELEASE_BRANCH}"; then
+            if ! git ls-remote --exit-code --heads origin \
+              "refs/heads/${RELEASE_BRANCH}" >/dev/null 2>&1; then
+              echo "::notice::$RELEASE_BRANCH was deleted during finalization"
+              exit 0
+            fi
+            exit 1
+          fi
+          FETCHED_RELEASE_SHA="$(git rev-parse "refs/remotes/origin/${RELEASE_BRANCH}")"
+          if [ "$FETCHED_RELEASE_SHA" != "$REMOTE_RELEASE_SHA" ]; then
+            echo "::error::$RELEASE_BRANCH changed while it was being fetched"
+            exit 1
+          fi
+
+          node scripts/release.mjs validate-commit \
+            --base "$MERGE_PARENT_SHA" \
+            --commit "$REMOTE_RELEASE_SHA" \
+            --expected-tree "$EXPECTED_TREE_SHA" \
+            --release-date "$RELEASE_DATE" \
+            --release-through "$RELEASE_THROUGH_SHA" \
+            --version "$VERSION"
+
+          LATEST_RELEASE_SHA="$(git ls-remote --heads origin "refs/heads/${RELEASE_BRANCH}" | awk '{print $1}')"
+          if [ -z "$LATEST_RELEASE_SHA" ]; then
+            echo "::notice::$RELEASE_BRANCH was already deleted"
+            exit 0
+          fi
+          if [ "$LATEST_RELEASE_SHA" != "$REMOTE_RELEASE_SHA" ]; then
+            echo "::error::$RELEASE_BRANCH changed after validation"
+            exit 1
+          fi
+
+          gh api --method DELETE \
+            "repos/${GITHUB_REPOSITORY}/git/refs/heads/${RELEASE_BRANCH}"
+          if git ls-remote --exit-code --heads origin \
+            "refs/heads/${RELEASE_BRANCH}" >/dev/null 2>&1; then
+            echo "::error::$RELEASE_BRANCH still exists after deletion"
+            exit 1
+          fi
+          echo "::notice::Deleted merged branch $RELEASE_BRANCH"
 
       - name: Create or resume the post-merge tag
         env:

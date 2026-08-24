@@ -11,6 +11,7 @@ export const RELEASE_FILES = [
 
 const RELEASE_SUBJECT_PATTERN = /^chore\(release\):\s+(\d+\.\d+\.\d+)(?:\s|$)/;
 const RELEASE_THROUGH_PATTERN = /^Release-Through:\s*([0-9a-f]{40})\s*$/im;
+const RELEASE_DATE_PATTERN = /^Release-Date:\s*(\d{4}-\d{2}-\d{2})\s*$/im;
 const MAJOR_PATTERN = /^[a-z]+(?:[a-z0-9-]*)?(?:\([^)]+\))?!:/;
 const MINOR_PATTERN = /^feat(?:\([^)]+\))?:/;
 const PATCH_PATTERN =
@@ -44,6 +45,22 @@ function assertVersion(value, name = "version") {
   if (!/^\d+\.\d+\.\d+$/.test(value)) {
     throw new Error(`${name} must be a stable semantic version`);
   }
+}
+
+function assertReleaseDate(value, name = "releaseDate") {
+  if (!isValidReleaseDate(value)) {
+    throw new Error(`${name} must be a valid date in YYYY-MM-DD format`);
+  }
+}
+
+function isValidReleaseDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return false;
+  }
+  const date = new Date(`${value}T00:00:00Z`);
+  return (
+    !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value
+  );
 }
 
 function commitExists(repo, commitSha) {
@@ -113,6 +130,13 @@ export function parseReleaseVersion(subject) {
 
 export function parseReleaseThrough(message) {
   return RELEASE_THROUGH_PATTERN.exec(message)?.[1];
+}
+
+export function parseReleaseDate(message) {
+  const releaseDate = RELEASE_DATE_PATTERN.exec(message)?.[1];
+  return releaseDate && isValidReleaseDate(releaseDate)
+    ? releaseDate
+    : undefined;
 }
 
 export function classifyCommitSubject(subject) {
@@ -196,8 +220,14 @@ export function findReleaseCoverage(
     }
 
     const recordedReleaseThroughSha = parseReleaseThrough(commit.body);
+    const recordedReleaseDate = parseReleaseDate(commit.body);
     let releaseThroughSha = recordedReleaseThroughSha;
     if (recordedReleaseThroughSha) {
+      if (!recordedReleaseDate) {
+        throw new Error(
+          `Release commit ${commitSha} has no release date metadata`,
+        );
+      }
       try {
         validateTagTarget(repo, `v${currentVersion}`, commitSha);
       } catch (error) {
@@ -301,11 +331,18 @@ export function inspectReleaseCommit(repo, commitSha) {
   const commit = getCommit(repo, commitSha);
   const version = parseReleaseVersion(commit.subject);
   const releaseThroughSha = parseReleaseThrough(commit.body);
-  if (!version || !releaseThroughSha || commit.parents.length !== 1) {
+  const releaseDate = parseReleaseDate(commit.body);
+  if (
+    !version ||
+    !releaseThroughSha ||
+    !releaseDate ||
+    commit.parents.length !== 1
+  ) {
     throw new Error(`Commit ${commitSha} is not a generated release commit`);
   }
   return {
     parentSha: commit.parents[0],
+    releaseDate,
     releaseThroughSha,
     version,
   };
@@ -313,12 +350,20 @@ export function inspectReleaseCommit(repo, commitSha) {
 
 export function validateReleaseCommit(
   repo,
-  { baseSha, commitSha, expectedTreeSha, releaseThroughSha, version },
+  {
+    baseSha,
+    commitSha,
+    expectedTreeSha,
+    releaseDate,
+    releaseThroughSha,
+    version,
+  },
 ) {
   assertCommitSha(baseSha, "baseSha");
   assertCommitSha(commitSha, "commitSha");
   assertCommitSha(expectedTreeSha, "expectedTreeSha");
   assertCommitSha(releaseThroughSha, "releaseThroughSha");
+  assertReleaseDate(releaseDate);
   assertVersion(version);
   const commit = getCommit(repo, commitSha);
   if (commit.parents.length !== 1) {
@@ -331,6 +376,9 @@ export function validateReleaseCommit(
     throw new Error(
       `Release commit ${commitSha} has invalid coverage metadata`,
     );
+  }
+  if (parseReleaseDate(commit.body) !== releaseDate) {
+    throw new Error(`Release commit ${commitSha} has invalid date metadata`);
   }
 
   const parentSha = commit.parents[0];
@@ -506,6 +554,7 @@ function runValidation(options) {
     baseSha: requireOption(options, "base"),
     commitSha: requireOption(options, "commit"),
     expectedTreeSha: requireOption(options, "expected-tree"),
+    releaseDate: requireOption(options, "release-date"),
     releaseThroughSha: requireOption(options, "release-through"),
     version: requireOption(options, "version"),
   });
@@ -520,6 +569,7 @@ function runInspection(options) {
   console.log(
     JSON.stringify({
       parent_sha: values.parentSha,
+      release_date: values.releaseDate,
       release_through_sha: values.releaseThroughSha,
       version: values.version,
     }),

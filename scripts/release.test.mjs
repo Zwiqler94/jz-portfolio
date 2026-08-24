@@ -15,6 +15,7 @@ import {
   highestVersionBump,
   incrementVersion,
   inspectReleaseCommit,
+  parseReleaseDate,
   parseReleaseThrough,
   parseReleaseVersion,
   validateRebaseCandidate,
@@ -23,6 +24,11 @@ import {
 } from "./release.mjs";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const releaseDate = "2026-08-21";
+
+function releaseMetadata(releaseThroughSha) {
+  return `Release-Through: ${releaseThroughSha}\n\nRelease-Date: ${releaseDate}`;
+}
 
 function git(repo, ...args) {
   return execFileSync("git", ["-C", repo, ...args], {
@@ -107,6 +113,11 @@ test("parses release subjects and coverage trailers", () => {
   const sha = "a".repeat(40);
   assert.equal(parseReleaseVersion("chore(release): 5.4.1 (#882)"), "5.4.1");
   assert.equal(parseReleaseThrough(`body\n\nRelease-Through: ${sha}`), sha);
+  assert.equal(
+    parseReleaseDate(`body\n\nRelease-Date: ${releaseDate}`),
+    releaseDate,
+  );
+  assert.equal(parseReleaseDate("Release-Date: 2026-02-30"), undefined);
 });
 
 test("uses a legacy release parent as the initial coverage point", () =>
@@ -167,7 +178,7 @@ test("does not mark a later merge covered by an earlier release trailer", () =>
     const releaseSha = commitAll(
       repo,
       "chore(release): 1.0.1",
-      `Release-Through: ${throughSha}`,
+      releaseMetadata(throughSha),
     );
     const baseSha = git(repo, "rev-parse", "HEAD");
 
@@ -193,11 +204,12 @@ test("validates a rebased release delta and rejects application changes", () =>
     const generatedSha = commitAll(
       repo,
       "chore(release): 1.0.1",
-      `Release-Through: ${throughSha}`,
+      releaseMetadata(throughSha),
     );
     const expectedTreeSha = git(repo, "rev-parse", `${generatedSha}^{tree}`);
     assert.deepEqual(inspectReleaseCommit(repo, generatedSha), {
       parentSha: throughSha,
+      releaseDate,
       releaseThroughSha: throughSha,
       version: "1.0.1",
     });
@@ -209,7 +221,7 @@ test("validates a rebased release delta and rejects application changes", () =>
     const rebasedSha = commitAll(
       repo,
       "chore(release): 1.0.1",
-      `Release-Through: ${throughSha}`,
+      releaseMetadata(throughSha),
     );
 
     assert.doesNotThrow(() =>
@@ -217,9 +229,22 @@ test("validates a rebased release delta and rejects application changes", () =>
         baseSha: git(repo, "rev-parse", `${rebasedSha}^`),
         commitSha: rebasedSha,
         expectedTreeSha,
+        releaseDate,
         releaseThroughSha: throughSha,
         version: "1.0.1",
       }),
+    );
+    assert.throws(
+      () =>
+        validateReleaseCommit(repo, {
+          baseSha: git(repo, "rev-parse", `${rebasedSha}^`),
+          commitSha: rebasedSha,
+          expectedTreeSha,
+          releaseDate: "2026-08-22",
+          releaseThroughSha: throughSha,
+          version: "1.0.1",
+        }),
+      /invalid date metadata/,
     );
 
     git(repo, "switch", "-c", "untrusted-parent", throughSha);
@@ -229,7 +254,7 @@ test("validates a rebased release delta and rejects application changes", () =>
     const untrustedSha = commitAll(
       repo,
       "chore(release): 1.0.1",
-      `Release-Through: ${throughSha}`,
+      releaseMetadata(throughSha),
     );
     assert.throws(
       () =>
@@ -237,6 +262,7 @@ test("validates a rebased release delta and rejects application changes", () =>
           baseSha: rebasedSha,
           commitSha: untrustedSha,
           expectedTreeSha,
+          releaseDate,
           releaseThroughSha: throughSha,
           version: "1.0.1",
         }),
@@ -249,7 +275,7 @@ test("validates a rebased release delta and rejects application changes", () =>
     const tamperedSha = commitAll(
       repo,
       "chore(release): 1.0.2",
-      `Release-Through: ${rebasedSha}`,
+      releaseMetadata(rebasedSha),
     );
     assert.throws(
       () =>
@@ -257,6 +283,7 @@ test("validates a rebased release delta and rejects application changes", () =>
           baseSha: git(repo, "rev-parse", `${tamperedSha}^`),
           commitSha: tamperedSha,
           expectedTreeSha: git(repo, "rev-parse", `${tamperedSha}^{tree}`),
+          releaseDate,
           releaseThroughSha: rebasedSha,
           version: "1.0.2",
         }),
@@ -274,7 +301,7 @@ test("allows rebasing across application commits but not release-file changes", 
     const releaseSha = commitAll(
       repo,
       "chore(release): 1.0.1",
-      `Release-Through: ${throughSha}`,
+      releaseMetadata(throughSha),
     );
 
     git(repo, "switch", "development");
@@ -334,11 +361,16 @@ test("generates a changelog only from the recorded coverage point", () =>
       {
         cwd: repo,
         encoding: "utf8",
-        env: { ...process.env, CHANGELOG_FROM: releasedSourceSha },
+        env: {
+          ...process.env,
+          CHANGELOG_DATE: releaseDate,
+          CHANGELOG_FROM: releasedSourceSha,
+        },
       },
     );
 
     assert.match(changelog, /^## \[1\.0\.2\]/m);
+    assert.match(changelog, /\(2026-08-21\)/);
     assert.match(
       changelog,
       new RegExp(`/compare/${releasedSourceSha}\\.\\.\\.v1\\.0\\.2`),
@@ -403,6 +435,9 @@ test("keeps privileged release finalization on trusted development pushes", () =
   assert.doesNotMatch(finalizationWorkflow, /pull_request_target/);
   assert.doesNotMatch(finalizationWorkflow, /refs\/pull\//);
   assert.match(finalizationWorkflow, /push:\n\s+branches: \[development\]/);
+  assert.match(versionWorkflow, /Release-Date:/);
+  assert.match(versionWorkflow, /CHANGELOG_DATE=/);
+  assert.match(finalizationWorkflow, /CHANGELOG_DATE=/);
 
   const metadataIndex = finalizationWorkflow.indexOf(
     "Validate trusted release metadata",
@@ -414,10 +449,22 @@ test("keeps privileged release finalization on trusted development pushes", () =
     "Recompute and validate the merged release",
   );
   const writeTokenIndex = finalizationWorkflow.indexOf("Get release token");
+  const tagIndex = finalizationWorkflow.indexOf(
+    "Create or resume the post-merge tag",
+  );
+  const deleteBranchIndex = finalizationWorkflow.indexOf(
+    "Delete the merged release branch",
+  );
   assert.ok(metadataIndex >= 0);
   assert.ok(authenticationIndex > metadataIndex);
   assert.ok(validationIndex > authenticationIndex);
   assert.ok(writeTokenIndex > validationIndex);
+  assert.ok(deleteBranchIndex > writeTokenIndex);
+  assert.ok(tagIndex > deleteBranchIndex);
+  assert.match(
+    finalizationWorkflow.slice(deleteBranchIndex),
+    /validate-commit[\s\S]+gh api --method DELETE/,
+  );
 });
 
 test("fixture package files remain valid JSON", () =>
