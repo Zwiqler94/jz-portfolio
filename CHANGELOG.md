@@ -1,19 +1,21 @@
 ## [5.4.4](https://github.com/Zwiqler94/jz-portfolio/compare/dcadea51e11c9f5ead548d6fef20734e2a1ecf7a...v5.4.4) (2026-08-25)
 
-## [5.4.3](https://github.com/Zwiqler94/jz-portfolio/compare/dcadea51e11c9f5ead548d6fef20734e2a1ecf7a...v5.4.3) (2026-08-25)
+### Maintenance
+
+* **ci:** pin active GitHub Actions ([#903](https://github.com/Zwiqler94/jz-portfolio/issues/903)) ([7b549cc](https://github.com/Zwiqler94/jz-portfolio/commit/7b549cc7972d9744a93998e29e538232db7bb539))
+
 ## [5.4.3](https://github.com/Zwiqler94/jz-portfolio/compare/3b153db24be67c033b8a865ffc9578f859c1b358...v5.4.3) (2026-08-24)
 
 
 ### Bug Fixes
 
+* **release:** preserve release dates and delete merged branches ([#892](https://github.com/Zwiqler94/jz-portfolio/issues/892)) ([4d32df1](https://github.com/Zwiqler94/jz-portfolio/commit/4d32df1f40344e90882af64bb4db3b5810259b99))
 * **release:** recover 5.4.2 and reject invalid history ([#893](https://github.com/Zwiqler94/jz-portfolio/issues/893)) ([4ecf713](https://github.com/Zwiqler94/jz-portfolio/commit/4ecf713ef752da0d00d2e9f7f87518bfee419dff))
 
-## [5.4.2](https://github.com/Zwiqler94/jz-portfolio/compare/3b153db24be67c033b8a865ffc9578f859c1b358...v5.4.2) (2026-08-24)
+### Maintenance
 
+* **security:** review JZP board security items ([#896](https://github.com/Zwiqler94/jz-portfolio/issues/896)) ([dcadea5](https://github.com/Zwiqler94/jz-portfolio/commit/dcadea51e11c9f5ead548d6fef20734e2a1ecf7a))
 
-### Bug Fixes
-
-* **release:** preserve release dates and delete merged branches ([#892](https://github.com/Zwiqler94/jz-portfolio/issues/892)) ([4d32df1](https://github.com/Zwiqler94/jz-portfolio/commit/4d32df1f40344e90882af64bb4db3b5810259b99))
 ## [5.4.2](https://github.com/Zwiqler94/jz-portfolio/compare/e7e490af0e18152f2ffa7c2de16b5cb3d1817601...v5.4.2) (2026-08-24)
 
 

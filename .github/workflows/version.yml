@@ -190,6 +190,7 @@ jobs:
           npm version "$VERSION" --no-git-tag-version
           CHANGELOG_DATE="$RELEASE_DATE" \
             CHANGELOG_FROM="$RELEASE_FROM_SHA" \
+            CHANGELOG_TO="$RELEASE_THROUGH_SHA" \
             npm run changelog:update
 
           if [ "$(node -p "require('./package.json').version")" != "$VERSION" ]; then
