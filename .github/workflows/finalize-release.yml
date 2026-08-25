@@ -100,6 +100,7 @@ jobs:
           npm version "$VERSION" --no-git-tag-version
           CHANGELOG_DATE="$RELEASE_DATE" \
             CHANGELOG_FROM="$RELEASE_FROM_SHA" \
+            CHANGELOG_TO="$RELEASE_THROUGH_SHA" \
             npm run changelog:update
           git add CHANGELOG.md package-lock.json package.json
           EXPECTED_TREE_SHA="$(git write-tree)"
