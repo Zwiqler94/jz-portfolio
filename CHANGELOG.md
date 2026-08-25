@@ -1,3 +1,6 @@
+## [5.4.4](https://github.com/Zwiqler94/jz-portfolio/compare/dcadea51e11c9f5ead548d6fef20734e2a1ecf7a...v5.4.4) (2026-08-25)
+
+## [5.4.3](https://github.com/Zwiqler94/jz-portfolio/compare/dcadea51e11c9f5ead548d6fef20734e2a1ecf7a...v5.4.3) (2026-08-25)
 ## [5.4.3](https://github.com/Zwiqler94/jz-portfolio/compare/3b153db24be67c033b8a865ffc9578f859c1b358...v5.4.3) (2026-08-24)
 
 
