@@ -1,3 +1,9 @@
+## [5.4.5](https://github.com/Zwiqler94/jz-portfolio/compare/7b549cc7972d9744a93998e29e538232db7bb539...v5.4.5) (2026-08-25)
+
+
+### Bug Fixes
+
+* **release:** enforce bounded changelog generation ([#905](https://github.com/Zwiqler94/jz-portfolio/issues/905)) ([0023739](https://github.com/Zwiqler94/jz-portfolio/commit/002373930148068fb7549bf89bd0bc675bdc8c33))
 ## [5.4.4](https://github.com/Zwiqler94/jz-portfolio/compare/dcadea51e11c9f5ead548d6fef20734e2a1ecf7a...v5.4.4) (2026-08-25)
 
 ### Maintenance
