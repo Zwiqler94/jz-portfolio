@@ -64,7 +64,7 @@
     "lodash-es": "^4.18.1",
     "luxon": "^3.7.2",
     "ng-gallery": "^12.0.0",
-    "ngx-colors": "^3.6.0",
+    "ngx-colors": "^4.0.1",
     "ngx-editor": "^18.0.0",
     "node-forge": "^1.4.0",
     "nodemon": "^3.1.14",
