@@ -90,7 +90,7 @@
     "@babel/core": "^7.29.7",
     "@babel/node": "^7.29.7",
     "@commitlint/cli": "^20.5.3",
-    "@commitlint/config-conventional": "^20.5.3",
+    "@commitlint/config-conventional": "^21.2.2",
     "@puppeteer/ng-schematics": "^0.8.0",
     "@types/babel__core": "^7.20.5",
     "@types/chromedriver": "~81.0.5",
