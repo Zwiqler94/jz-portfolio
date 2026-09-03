@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: Get release token
         id: releaseTokens
-        uses: Zwiqler94/GH-Actions@v5
+        uses: Zwiqler94/gh-token-action@82f210fff47e871abb3fc2d9b120496902c45992 # v5.0.0
         with:
           mode: app-token
           appId: ${{ secrets.APP_ID }}
@@ -35,13 +35,13 @@ jobs:
           permission-pull-requests: write
 
       - name: Checkout trusted base
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ steps.releaseTokens.outputs.token }}
           fetch-depth: 0
 
       - name: Use pinned Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -111,13 +111,13 @@ jobs:
 
       - name: Authenticate to Google Cloud
         if: ${{ steps.plan.outputs.mode == 'release' }}
-        uses: google-github-actions/auth@v3
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
         with:
           credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_NPM_PKG }}"
 
       - name: Set up gcloud Cloud SDK environment
         if: ${{ steps.plan.outputs.mode == 'release' }}
-        uses: google-github-actions/setup-gcloud@v3
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
 
       - name: Authenticate to Artifact Registry
         if: ${{ steps.plan.outputs.mode == 'release' }}
@@ -190,6 +190,7 @@ jobs:
           npm version "$VERSION" --no-git-tag-version
           CHANGELOG_DATE="$RELEASE_DATE" \
             CHANGELOG_FROM="$RELEASE_FROM_SHA" \
+            CHANGELOG_TO="$RELEASE_THROUGH_SHA" \
             npm run changelog:update
 
           if [ "$(node -p "require('./package.json').version")" != "$VERSION" ]; then
@@ -446,15 +447,16 @@ jobs:
       PR_TITLE: ${{ github.event.pull_request.title }}
     steps:
       - name: Checkout trusted base
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Use pinned Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: ".nvmrc"
-          cache: "npm"
+          package-manager-cache: false
 
       - name: Validate trusted release merge
         id: metadata
@@ -518,12 +520,15 @@ jobs:
     if: ${{ always() }}
     steps:
       - name: Checkout trusted base
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Use pinned Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: ".nvmrc"
+          package-manager-cache: false
 
       - name: Determine version status
         run: |

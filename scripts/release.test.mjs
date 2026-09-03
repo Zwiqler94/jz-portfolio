@@ -113,6 +113,67 @@ function commitEmpty(repo, subject) {
   return git(repo, "rev-parse", "HEAD");
 }
 
+function generateChangelog(repo, { from, to, date = releaseDate } = {}) {
+  const env = {
+    ...process.env,
+    ...(date === undefined ? {} : { CHANGELOG_DATE: date }),
+    ...(from === undefined ? {} : { CHANGELOG_FROM: from }),
+    ...(to === undefined ? {} : { CHANGELOG_TO: to }),
+  };
+
+  return execFileSync(
+    join(projectRoot, "node_modules", ".bin", "conventional-changelog"),
+    [
+      "-p",
+      "angular",
+      "-r",
+      "1",
+      "-n",
+      join(projectRoot, ".changelog-config.mjs"),
+    ],
+    {
+      cwd: repo,
+      encoding: "utf8",
+      env,
+    },
+  );
+}
+
+function countChangelogHeadings(changelog, version) {
+  return [...changelog.matchAll(new RegExp(`^## \\[` + version + "\\]", "gm"))]
+    .length;
+}
+
+function changelogSectionContaining(changelog, text) {
+  const matchIndex = changelog.indexOf(text);
+  assert.notEqual(matchIndex, -1, `Expected changelog to contain ${text}`);
+  const headingBeforeMatch = [
+    ...changelog.slice(0, matchIndex).matchAll(/^## \[/gm),
+  ].at(-1);
+  assert.ok(headingBeforeMatch, `Expected a release heading before ${text}`);
+  const headingIndex = headingBeforeMatch.index;
+  const nextHeadingIndex = changelog.indexOf("\n## [", matchIndex);
+  return changelog.slice(
+    headingIndex,
+    nextHeadingIndex === -1 ? undefined : nextHeadingIndex,
+  );
+}
+
+function changelogSubsectionContaining(changelog, text) {
+  const releaseSection = changelogSectionContaining(changelog, text);
+  const matchIndex = releaseSection.indexOf(text);
+  const headingBeforeMatch = [
+    ...releaseSection.slice(0, matchIndex).matchAll(/^### .+$/gm),
+  ].at(-1);
+  assert.ok(headingBeforeMatch, `Expected a subsection heading before ${text}`);
+  const headingIndex = headingBeforeMatch.index;
+  const nextHeadingIndex = releaseSection.indexOf("\n### ", matchIndex);
+  return releaseSection.slice(
+    headingIndex,
+    nextHeadingIndex === -1 ? undefined : nextHeadingIndex,
+  );
+}
+
 function createTaggedRelease(repo, version = "1.0.1") {
   writeFileSync(join(repo, "app.txt"), "released source\n");
   const releaseThroughSha = commitAll(repo, "fix: release source");
@@ -649,29 +710,13 @@ test("generates a changelog only from the recorded coverage point", () =>
     writeReleaseFiles(repo, "1.0.1", "# 1.0.1\n");
     commitAll(repo, "chore(release): 1.0.1");
     writeFileSync(join(repo, "app.txt"), "unreleased fix\n");
-    commitAll(repo, "fix: unreleased fix");
+    const releaseThroughSha = commitAll(repo, "fix: unreleased fix");
     writeReleaseFiles(repo, "1.0.2", "# 1.0.1\n");
 
-    const changelog = execFileSync(
-      join(projectRoot, "node_modules", ".bin", "conventional-changelog"),
-      [
-        "-p",
-        "angular",
-        "-r",
-        "1",
-        "-n",
-        join(projectRoot, ".changelog-config.mjs"),
-      ],
-      {
-        cwd: repo,
-        encoding: "utf8",
-        env: {
-          ...process.env,
-          CHANGELOG_DATE: releaseDate,
-          CHANGELOG_FROM: releasedSourceSha,
-        },
-      },
-    );
+    const changelog = generateChangelog(repo, {
+      from: releasedSourceSha,
+      to: releaseThroughSha,
+    });
 
     assert.match(changelog, /^## \[1\.0\.2\]/m);
     assert.match(changelog, /\(2026-08-21\)/);
@@ -683,6 +728,175 @@ test("generates a changelog only from the recorded coverage point", () =>
     assert.doesNotMatch(changelog, /released source/);
     assert.doesNotMatch(changelog, /chore\(release\)/);
   }));
+
+test("renders one controlled range across an intermediate release tag and retains typed sections", () =>
+  withRepository(({ repo }) => {
+    const releaseFromSha = commitEmpty(repo, "fix: previous release boundary");
+    const intermediateReleaseSha = commitEmpty(repo, "chore(release): 1.0.1");
+    git(repo, "tag", "v1.0.1", intermediateReleaseSha);
+
+    commitEmpty(repo, "fix: repair in-range bug (#101)");
+    commitEmpty(repo, "feat: add in-range feature (#102)");
+    commitEmpty(repo, "feat!: break an in-range API (#103)");
+    commitEmpty(repo, "chore: maintain in-range tooling (#104)");
+    commitEmpty(repo, "ci: maintain in-range checks (#105)");
+    commitEmpty(repo, "revert: restore in-range behavior (#107)");
+    const releaseThroughSha = commitEmpty(
+      repo,
+      "build: maintain in-range build tooling (#106)",
+    );
+    writeReleaseFiles(repo, "1.0.2", "# 1.0.1\n");
+
+    const changelog = generateChangelog(repo, {
+      from: releaseFromSha,
+      to: releaseThroughSha,
+    });
+
+    assert.equal(countChangelogHeadings(changelog, "1.0.2"), 1);
+    assert.equal(countChangelogHeadings(changelog, "1.0.1"), 0);
+    assert.match(
+      changelogSubsectionContaining(changelog, "repair in-range bug"),
+      /^### Bug Fixes/m,
+    );
+    for (const subject of ["add in-range feature", "break an in-range API"]) {
+      assert.match(
+        changelogSubsectionContaining(changelog, subject),
+        /^### Features/m,
+      );
+    }
+    for (const subject of [
+      "maintain in-range tooling",
+      "maintain in-range checks",
+      "maintain in-range build tooling",
+    ]) {
+      assert.match(
+        changelogSubsectionContaining(changelog, subject),
+        /^### Maintenance/m,
+      );
+    }
+    assert.match(
+      changelogSubsectionContaining(changelog, "restore in-range behavior"),
+      /^### Reverts/m,
+    );
+    assert.match(changelog, /BREAKING CHANGES/);
+    assert.match(changelog, /break an in-range API/);
+    assert.doesNotMatch(changelog, /chore\(release\)/);
+  }));
+
+test("fails closed when CHANGELOG_TO is not the current HEAD", () =>
+  withRepository(({ repo }) => {
+    const releaseFromSha = commitEmpty(repo, "fix: coverage lower bound");
+    const releaseThroughSha = commitEmpty(repo, "fix: coverage upper bound");
+    commitEmpty(repo, "fix: sentinel after controlled range");
+    writeReleaseFiles(repo, "1.0.2", "# 1.0.1\n");
+
+    assert.throws(
+      () =>
+        generateChangelog(repo, {
+          from: releaseFromSha,
+          to: releaseThroughSha,
+        }),
+      (error) => {
+        assert.match(
+          `${error.message}\n${error.stderr ?? ""}`,
+          /CHANGELOG_TO.*HEAD|HEAD.*CHANGELOG_TO/,
+        );
+        return true;
+      },
+    );
+  }));
+
+test("requires CHANGELOG_FROM and CHANGELOG_TO together", () =>
+  withRepository(({ repo }) => {
+    const releaseFromSha = commitEmpty(repo, "fix: coverage lower bound");
+    const releaseThroughSha = commitEmpty(repo, "fix: coverage upper bound");
+
+    for (const inputs of [
+      { from: releaseFromSha, to: undefined },
+      { from: undefined, to: releaseThroughSha },
+    ]) {
+      assert.throws(
+        () => generateChangelog(repo, inputs),
+        (error) => {
+          assert.match(
+            `${error.message}\n${error.stderr ?? ""}`,
+            /CHANGELOG_FROM and CHANGELOG_TO must be set together/,
+          );
+          return true;
+        },
+      );
+    }
+  }));
+
+test("passes identical bounded changelog inputs from release creation and finalization", () => {
+  const expectedInvocation = [
+    'CHANGELOG_DATE="$RELEASE_DATE"',
+    'CHANGELOG_FROM="$RELEASE_FROM_SHA"',
+    'CHANGELOG_TO="$RELEASE_THROUGH_SHA"',
+    "npm run changelog:update",
+  ].join(" \\\n            ");
+  const versionWorkflow = readFileSync(
+    join(projectRoot, ".github", "workflows", "version.yml"),
+    "utf8",
+  );
+  const finalizationWorkflow = readFileSync(
+    join(projectRoot, ".github", "workflows", "finalize-release.yml"),
+    "utf8",
+  );
+
+  assert.ok(versionWorkflow.includes(expectedInvocation));
+  assert.ok(finalizationWorkflow.includes(expectedInvocation));
+});
+
+test("keeps one corrected release section per current range without replacing historical releases", () => {
+  const changelog = readFileSync(join(projectRoot, "CHANGELOG.md"), "utf8");
+
+  assert.equal(countChangelogHeadings(changelog, "5.4.4"), 1);
+  assert.equal(countChangelogHeadings(changelog, "5.4.3"), 1);
+  assert.equal(countChangelogHeadings(changelog, "5.4.2"), 1);
+  assert.match(
+    changelog,
+    /^## \[5\.4\.4\]\(https:\/\/github\.com\/Zwiqler94\/jz-portfolio\/compare\/dcadea51e11c9f5ead548d6fef20734e2a1ecf7a\.\.\.v5\.4\.4\)/m,
+  );
+  assert.match(
+    changelog,
+    /^## \[5\.4\.3\]\(https:\/\/github\.com\/Zwiqler94\/jz-portfolio\/compare\/3b153db24be67c033b8a865ffc9578f859c1b358\.\.\.v5\.4\.3\)/m,
+  );
+  assert.match(
+    changelog,
+    /^## \[5\.4\.2\]\(https:\/\/github\.com\/Zwiqler94\/jz-portfolio\/compare\/e7e490af0e18152f2ffa7c2de16b5cb3d1817601\.\.\.v5\.4\.2\)/m,
+  );
+
+  for (const issue of ["#892", "#893"]) {
+    const section = changelogSectionContaining(changelog, issue);
+    assert.match(section, /^## \[5\.4\.3\]/);
+    assert.match(
+      changelogSubsectionContaining(changelog, issue),
+      /^### Bug Fixes/m,
+    );
+  }
+  for (const issue of ["#896"]) {
+    const section = changelogSectionContaining(changelog, issue);
+    assert.match(section, /^## \[5\.4\.3\]/);
+    assert.match(
+      changelogSubsectionContaining(changelog, issue),
+      /^### Maintenance/m,
+    );
+  }
+  const pinnedActionsSection = changelogSectionContaining(changelog, "#903");
+  assert.match(pinnedActionsSection, /^## \[5\.4\.4\]/);
+  assert.match(
+    changelogSubsectionContaining(changelog, "#903"),
+    /^### Maintenance/m,
+  );
+
+  assert.doesNotMatch(
+    changelog,
+    /3b153db24be67c033b8a865ffc9578f859c1b358\.\.\.v5\.4\.2/,
+  );
+  assert.match(changelog, /^## \[5\.4\.1\]/m);
+  assert.match(changelog, /action version/);
+});
 
 test("does not allow skipped jobs to mask release failures", () => {
   assert.deepEqual(

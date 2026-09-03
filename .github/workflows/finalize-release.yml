@@ -14,12 +14,13 @@ jobs:
       group: finalize-release-${{ github.repository }}-${{ github.ref }}
     steps:
       - name: Checkout trusted development
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Use pinned Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -69,12 +70,12 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v3
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
         with:
           credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_NPM_PKG }}"
 
       - name: Set up gcloud Cloud SDK environment
-        uses: google-github-actions/setup-gcloud@v3
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
 
       - name: Authenticate to Artifact Registry
         run: |
@@ -99,6 +100,7 @@ jobs:
           npm version "$VERSION" --no-git-tag-version
           CHANGELOG_DATE="$RELEASE_DATE" \
             CHANGELOG_FROM="$RELEASE_FROM_SHA" \
+            CHANGELOG_TO="$RELEASE_THROUGH_SHA" \
             npm run changelog:update
           git add CHANGELOG.md package-lock.json package.json
           EXPECTED_TREE_SHA="$(git write-tree)"
@@ -114,7 +116,7 @@ jobs:
 
       - name: Get release token
         id: releaseTokens
-        uses: Zwiqler94/GH-Actions@v5
+        uses: Zwiqler94/gh-token-action@82f210fff47e871abb3fc2d9b120496902c45992 # v5.0.0
         with:
           mode: app-token
           appId: ${{ secrets.APP_ID }}
