@@ -1,6 +1,6 @@
 {
   "name": "jz-portfolio",
-  "version": "5.4.5",
+  "version": "5.4.6",
   "repository": "https://github.com/Zwiqler94/jz-portfolio.git",
   "packageManager": "npm@11.17.0",
   "engines": {

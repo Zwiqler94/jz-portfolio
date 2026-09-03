@@ -1,3 +1,9 @@
+## [5.4.6](https://github.com/Zwiqler94/jz-portfolio/compare/002373930148068fb7549bf89bd0bc675bdc8c33...v5.4.6) (2026-09-03)
+
+
+### Bug Fixes
+
+* **security:** address board security items ([#908](https://github.com/Zwiqler94/jz-portfolio/issues/908)) ([cf692b0](https://github.com/Zwiqler94/jz-portfolio/commit/cf692b0d4149b8e2c322e179ca79bb9153b9c144))
 ## [5.4.5](https://github.com/Zwiqler94/jz-portfolio/compare/7b549cc7972d9744a93998e29e538232db7bb539...v5.4.5) (2026-08-25)
 
 
