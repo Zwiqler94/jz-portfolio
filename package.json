@@ -178,8 +178,8 @@
     "@firebase/util@1.15.3": true,
     "esbuild@0.28.1": true,
     "core-js@3.50.0": true,
-    "protobufjs@7.6.5": true,
     "@parcel/watcher@2.6.0": true,
-    "geckodriver@4.2.1": true
+    "geckodriver@4.2.1": true,
+    "protobufjs@7.6.6": true
   }
 }
