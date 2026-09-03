@@ -50,7 +50,7 @@
   "private": true,
   "allowScripts": {
     "@scarf/scarf@1.4.0": true,
-    "protobufjs@7.6.5": true,
-    "@firebase/util@1.15.3": true
+    "@firebase/util@1.15.3": true,
+    "protobufjs@7.6.6": true
   }
 }
